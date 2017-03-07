@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
+
+import Ofici from '../SQL/Ofici'
+
+function paddingBar(){
+  if(Platform.OS === 'ios'){
+    return 1;
+  }
+  return 55;
+}
 
 export default class LiturgiaDisplayScreen extends Component {
+  componentWillMount(){
+    if(Platform.OS === 'ios'){
+      barPad = 0;
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.normalText}>{this.props.aha}</Text>
+        <ScrollView >
+          {this.props.aha === 'Ofici' ?
+            <Ofici />
+            :
+            <Text style={styles.normalText}>{this.props.aha}</Text>
+          }
+        </ScrollView>
       </View>
     )
   }
@@ -14,8 +34,8 @@ export default class LiturgiaDisplayScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: paddingBar(),
+    padding: 10,
     backgroundColor: '#E1F5FE',
   },
   normalText: {

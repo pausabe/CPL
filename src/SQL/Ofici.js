@@ -9,7 +9,7 @@ import {
 
 let SQLite = require('react-native-sqlite-storage')
 
-export default class TextVGdb extends Component {
+export default class Ofici extends Component {
   constructor(props) {
     super(props)
 
@@ -17,7 +17,7 @@ export default class TextVGdb extends Component {
       record: "empty"
     }
 
-     let nameDB = "vgDB.db";
+     let nameDB = "lh-v0.0.db";
      let createFrom;
      if (Platform.OS == "ios") { createFrom = "1"; } //ios platform
      else { createFrom = `~${nameDB}`} //android platform
@@ -32,12 +32,10 @@ export default class TextVGdb extends Component {
 
 
     db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM pvoc', [], (tx, results) => {
+      tx.executeSql('SELECT * FROM salteriComuCompletes', [], (tx, results) => {
         console.log("Query completed");
 
-        //console.log(`SIIIIIIIIII: ${results.rows.item(0).name}`);
-
-        this.setState({record: results.rows.item(0).pregaria});
+        this.setState({record: results.rows.item(1).salm1});
 
           /*var len = results.rows.length;
           for (let i = 0; i < len; i++) {
@@ -81,13 +79,13 @@ export default class TextVGdb extends Component {
 
 const styles = StyleSheet.create({
   blackColor: {
-    textAlign: 'center',
-    color: '#000000'
+    color: '#000000',
+    fontSize: 15,
   },
   redColor: {
-    textAlign: 'center',
-    color: '#FF0000'
+    color: '#FF0000',
+    fontSize: 14,
   }
 });
 
-AppRegistry.registerComponent('TextVGdb', () => TextVGdb);
+AppRegistry.registerComponent('Ofici', () => Ofici);

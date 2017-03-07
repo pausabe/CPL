@@ -54,7 +54,7 @@ export default class HomeScreen extends Component {
                 <Text style={{color: '#c0392b'}}> A</Text></Text>
           </View>
           <View style={styles.santContainer}>
-            <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
+            <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={{flex: 20, justifyContent: 'center'}}>
                   <Text style={styles.santText}>Santa Perpètua i Santa Felicitat</Text>

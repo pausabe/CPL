@@ -98,6 +98,9 @@ export default class NavigatorControllerIOS extends Component {
                                 color="#FFFFFF"
                               />
                             </View>
+                            <View >
+                                <Text style={styles.barTextBack}>{'  '}</Text>
+                            </View>
                           </View>
                         </TouchableOpacity>
                       );
