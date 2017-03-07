@@ -90,11 +90,15 @@ export default class NavigatorControllerIOS extends Component {
                       return (
                         <TouchableOpacity style={styles.barButton}
                                             onPress={this.backPress.bind(this, navigator)} >
-                          <Icon
-                            name="ios-arrow-back-outline"
-                            size={30}
-                            color="#FFFFFF"
-                          />
+                          <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
+                            <View >
+                              <Icon
+                                name="ios-arrow-back-outline"
+                                size={30}
+                                color="#FFFFFF"
+                              />
+                            </View>
+                          </View>
                         </TouchableOpacity>
                       );
                     }
@@ -175,8 +179,7 @@ const styles = StyleSheet.create({
   },
   barButton: {
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 20,
+    paddingLeft: 5,
     justifyContent: 'center'
   },
   barText: {
@@ -186,9 +189,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600'
   },
+  barTextBack: {
+    color: GLOBAL.itemsBarColor,
+    fontSize: 16,
+    fontWeight: '300'
+  },
   bar: {
     backgroundColor: GLOBAL.barColor
   }
 })
+
+/*<View >
+    <Text style={styles.barTextBack}>{' '}CPL</Text>
+  </View>*/
 
 AppRegistry.registerComponent('NavigatorControllerIOS', () => NavigatorControllerIOS);
