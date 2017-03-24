@@ -20,7 +20,7 @@ import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen'
 import GLOBAL from '../Globals/Globals'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default class NavigatorControllerIOS extends Component {
+export default class NavigatorController extends Component {
   componentWillMount() {
     Icon.getImageSource('ios-settings', 30).then((source) => this.setState({ gearIcon: source }));
   }
@@ -48,7 +48,8 @@ export default class NavigatorControllerIOS extends Component {
           <NavigatorIOS
             ref='navi'
             initialRoute={{
-              component: HomeScreen,
+              component: LiturgiaDisplayScreen,//HomeScreen,
+              passProps: {aha: 'Ofici'},
               title: 'CPL',
               rightButtonIcon: this.state.gearIcon,
               onRightButtonPress: () => this.setPress()
@@ -89,7 +90,7 @@ export default class NavigatorControllerIOS extends Component {
                     else {
                       return (
                         <TouchableOpacity style={styles.barButton}
-                                            onPress={this.backPress.bind(this, navigator)} >
+                                            onPress={this.backPress.bind(this, navigator)}>
                           <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
                             <View >
                               <Icon
@@ -113,7 +114,7 @@ export default class NavigatorControllerIOS extends Component {
                       }
                       else{
                         return (
-                          <TouchableOpacity style={{padding: 12}}>
+                          <TouchableOpacity >
                             <Icon
                               name="ios-settings"
                               size={30}
@@ -206,4 +207,4 @@ const styles = StyleSheet.create({
     <Text style={styles.barTextBack}>{' '}CPL</Text>
   </View>*/
 
-AppRegistry.registerComponent('NavigatorControllerIOS', () => NavigatorControllerIOS);
+AppRegistry.registerComponent('NavigatorController', () => NavigatorController);

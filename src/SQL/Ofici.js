@@ -9,41 +9,45 @@ import {
 
 let SQLite = require('react-native-sqlite-storage')
 
+/*
+  O-ordinari
+  Q-cendra
+  Q-setmanes
+  Q-setSanta
+  Q-tridu
+  Q-diumPasqua
+  P-abans
+  P-octava
+  P-despres
+  P-setmanes
+  A-setmanes
+  A-feries
+  N-octava
+  N-abans
+*/
+
+
 export default class Ofici extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      record: "empty"
+      row: ""
     }
 
-     let nameDB = "lh-v0.0.db";
-     let createFrom;
-     if (Platform.OS == "ios") { createFrom = "1"; } //ios platform
-     else { createFrom = `~${nameDB}`} //android platform
+    let nameDB = "lh_v3.db";
+    let createFrom;
+    if (Platform.OS == "ios") { createFrom = "1"; } //ios platform
+    else { createFrom = `~${nameDB}`} //android platform
 
-     //console.log(`name DB:  ${nameDB}`);
-     //console.log(`DB from:  ${createFrom}`);
-
-     let db = SQLite.openDatabase(
+    let db = SQLite.openDatabase(
        {name : nameDB, readOnly: true, createFromLocation : createFrom},
-      this.openCB,
-      this.errorCB);
-
+       this.openCB,
+       this.errorCB);
 
     db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM salteriComuCompletes', [], (tx, results) => {
-        console.log("Query completed");
-
-        this.setState({record: results.rows.item(1).salm1});
-
-          /*var len = results.rows.length;
-          for (let i = 0; i < len; i++) {
-            let row = results.rows.item(i);
-            console.log(`Record: ${row.name}`);
-            this.setState({record: row});
-          }*/
-
+      tx.executeSql('SELECT * FROM salteriComuOfici', [], (tx, results) => {
+        this.setState({row: results.rows.item(3)});
         });
     });
 
@@ -62,29 +66,113 @@ export default class Ofici extends Component {
   }
 
   render() {
+    const gloriaString = "Glòria al Pare i al Fill i a l'Esperit Sant. Com era al principi, ara i sempre i pels segles dels segles. Amén.";
     return (
       <View>
-        <Text style={styles.redColor}>Divendres 24</Text>
-        <Text style={styles.blackColor}>
-          {this.state.record !== null ?
-            this.state.record
+        <Text style={styles.red}>V.
+          <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
+        </Text>
+        <Text style={styles.red}>R.
+          <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
+        </Text>
+        <Text />
+        <Text style={styles.black}>{gloriaString}</Text>
+        {false === true ? //TODO: tenir en compte si és o no Quaresma
+          <Text style={styles.black}>Al·leluia</Text> : null
+        }
+        <Text />
+        <Text style={styles.red}>HIMNE</Text>
+        <Text />
+        {true === false ? //TODO: tenir en compte els ajustaments
+          <Text style={styles.black}>{this.state.row.himneNitLlati}</Text>
+          :
+          <Text style={styles.black}>{this.state.row.himneNitCat}</Text>
+        }
+        <Text style={styles.red}>SALMÒDIA</Text>
+        <Text />
+        <Text style={styles.red}>Ant. 1.
+          <Text style={styles.black}> {this.state.row.ant1}</Text>
+        </Text>
+        <Text />
+        <Text style={styles.red}>{this.state.row.titol1}</Text>
+        <Text style={styles.blackSmallItalic}>
+          {this.state.row.com1 !== '-' ?
+            this.state.row.com1
             :
-            'Hi ha hagut un error. Fes una pregàraria si-us-plau'
+            ''
           }
-      </Text>
+        </Text>
+        <Text style={styles.black}>{this.state.row.salm1}</Text>
+        <Text />
+        <Text style={styles.black}>
+          {true === false ?
+            "Glòria."
+            :
+            gloriaString
+          }
+        </Text>
+        <Text />
+        <Text style={styles.red}>Ant. 1.
+          <Text style={styles.black}> {this.state.row.ant1}</Text>
+        </Text>
+        <Text />
+        <Text style={styles.red}>Ant. 2.
+          <Text style={styles.black}> {this.state.row.ant2}</Text>
+        </Text>
+        <Text />
+        <Text style={styles.red}>{this.state.row.titol2}</Text>
+        <Text style={styles.blackSmallItalic}>
+          {this.state.row.com2 !== '-' ?
+            this.state.row.com2
+            :
+            ''
+          }
+        </Text>
+        <Text style={styles.black}>{this.state.row.salm2}</Text>
+        <Text />
+        <Text style={styles.black}>Glòria.</Text>
+        <Text />
+        <Text style={styles.red}>Ant. 2.
+          <Text style={styles.black}> {this.state.row.ant2}</Text>
+        </Text>
+        <Text />
+        <Text style={styles.red}>Ant. 3.
+          <Text style={styles.black}> {this.state.row.ant3}</Text>
+        </Text>
+        <Text />
+        <Text style={styles.red}>{this.state.row.titol3}</Text>
+        <Text style={styles.blackSmallItalic}>
+          {this.state.row.com3 !== '-' ?
+            this.state.row.com3
+            :
+            ''
+          }
+        </Text>
+        <Text style={styles.black}>{this.state.row.salm3}</Text>
+        <Text />
+        <Text style={styles.black}>Glòria.</Text>
+        <Text />
+        <Text style={styles.red}>Ant. 3.
+          <Text style={styles.black}> {this.state.row.ant3}</Text>
+        </Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  blackColor: {
+  black: {
     color: '#000000',
     fontSize: 15,
   },
-  redColor: {
+  blackSmallItalic:{
+    color: '#000000',
+    fontSize: 13,
+    fontStyle: 'italic'
+  },
+  red: {
     color: '#FF0000',
-    fontSize: 14,
+    fontSize: 15,
   }
 });
 
