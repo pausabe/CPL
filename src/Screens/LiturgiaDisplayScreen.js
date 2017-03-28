@@ -20,10 +20,10 @@ export default class LiturgiaDisplayScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView >
-          {this.props.aha === 'Ofici' ?
+          {this.props.type === 'Ofici' ?
             <Ofici />
             :
-            <Text style={styles.normalText}>{this.props.aha}</Text>
+            <Text style={styles.normalText}>{this.props.type}</Text>
           }
         </ScrollView>
       </View>

@@ -48,8 +48,7 @@ export default class NavigatorController extends Component {
           <NavigatorIOS
             ref='navi'
             initialRoute={{
-              component: LiturgiaDisplayScreen,//HomeScreen,
-              passProps: {aha: 'Ofici'},
+              component: HomeScreen,
               title: 'CPL',
               rightButtonIcon: this.state.gearIcon,
               onRightButtonPress: () => this.setPress()
@@ -169,7 +168,11 @@ export default class NavigatorController extends Component {
         return (<SettingsScreen navigator={nav} route={route} title="Settings"/>);
       case 'liturgia-display':
         return (<LiturgiaDisplayScreen navigator={nav} route={route} title="Liturgia"
-                          aha={route.hola}/>);
+                          type={route.type}
+                          hour={route.hour}
+                          day={route.day}
+                          month={route.month}
+                          year={route.year}/>);
     }
   }
 }

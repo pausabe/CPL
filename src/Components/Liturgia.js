@@ -12,19 +12,29 @@ import Hr from 'react-native-hr';
 import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen'
 
 export default class Liturgia extends Component {
-  onButtonPress(idPressed, title, component){
+  onButtonPress(idPressed, type, component){
     if(Platform.OS === 'ios'){
       this.props.navigator.push({
-        title: title,
-        passProps: {aha: title},
+        title: type,
+        passProps: {
+          type: type,
+          hour: this.props.hour,
+          day: this.props.day,
+          month: this.props.month,
+          year: this.props.year
+        },
         component: component
       });
     }
     else{
       this.props.navigator.push({
         id: idPressed,
-        hola: title,
-        index: 1
+        type: type,
+        index: 1,
+        hour: this.props.hour,
+        day: this.props.day,
+        month: this.props.month,
+        year: this.props.year
       });
     }
   }

@@ -24,8 +24,14 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
+    var today = new Date();
+
     this.state = {
-      santPressed: false
+      santPressed: false,
+      hour: today.getHours(),
+      day: today.getDay(),
+      month: today.getMonth(),
+      year: today.getFullYear(),
     }
   }
 
@@ -83,11 +89,19 @@ export default class HomeScreen extends Component {
             <View style={styles.liturgiaContainer}>
               <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
               <Text style={styles.santExText}/>
-              <Liturgia navigator={this.props.navigator}/>
+              <Liturgia navigator={this.props.navigator}
+                        hour={this.state.hour}
+                        day={this.state.day}
+                        month={this.state.month}
+                        year={this.state.year}/>
             </View>
             :
             <View style={styles.liturgiaContainer}>
-              <Liturgia navigator={this.props.navigator}/>
+              <Liturgia navigator={this.props.navigator}
+                        hour={this.state.hour}
+                        day={this.state.day}
+                        month={this.state.month}
+                        year={this.state.year}/>
             </View>
           }
         </Image>
