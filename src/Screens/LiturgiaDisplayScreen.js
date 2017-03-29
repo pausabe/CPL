@@ -21,7 +21,12 @@ export default class LiturgiaDisplayScreen extends Component {
       <View style={styles.container}>
         <ScrollView >
           {this.props.type === 'Ofici' ?
-            <Ofici />
+            <Ofici
+              hour = {this.props.hour}
+              day = {this.props.day}
+              month = {this.props.month}
+              year = {this.props.year}
+              cicle = {this.props.cicle}/>
             :
             <Text style={styles.normalText}>{this.props.type}</Text>
           }

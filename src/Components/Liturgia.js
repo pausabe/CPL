@@ -21,7 +21,8 @@ export default class Liturgia extends Component {
           hour: this.props.hour,
           day: this.props.day,
           month: this.props.month,
-          year: this.props.year
+          year: this.props.year,
+          cicle: this.props.cicle,
         },
         component: component
       });
@@ -34,7 +35,8 @@ export default class Liturgia extends Component {
         hour: this.props.hour,
         day: this.props.day,
         month: this.props.month,
-        year: this.props.year
+        year: this.props.year,
+        cicle: this.props.cicle,
       });
     }
   }

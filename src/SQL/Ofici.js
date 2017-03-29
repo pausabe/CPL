@@ -66,9 +66,10 @@ export default class Ofici extends Component {
        this.openCB,
        this.errorCB);
 
-    var id = props.day;
+    var id = props.day + 1;
+    console.log("---> " + this.props.day);
     db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM salteriComuOfici WHERE id = 3', [], (tx, results) => {
+      tx.executeSql(`SELECT * FROM salteriComuOfici WHERE id = ${id}`, [], (tx, results) => {
         this.setState({salteriComuOfici: results.rows.item(0)});
         });
     });
