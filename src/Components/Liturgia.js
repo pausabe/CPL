@@ -19,10 +19,12 @@ export default class Liturgia extends Component {
         passProps: {
           type: type,
           hour: this.props.hour,
-          day: this.props.day,
+          weekDay: this.props.weekDay,
+          monthDay: this.props.monthDay,
           month: this.props.month,
           year: this.props.year,
           cicle: this.props.cicle,
+          setmanaOrdinari: this.props.setmanaOrdinari,
         },
         component: component
       });
@@ -33,10 +35,12 @@ export default class Liturgia extends Component {
         type: type,
         index: 1,
         hour: this.props.hour,
-        day: this.props.day,
+        weekDay: this.props.weekDay,
+        monthDay: this.props.monthDay,
         month: this.props.month,
         year: this.props.year,
         cicle: this.props.cicle,
+        setmanaOrdinari: this.props.setmanaOrdinari,
       });
     }
   }

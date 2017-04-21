@@ -32,7 +32,7 @@ export default class Ofici extends Component {
     this.state = {
       diumenge: false, //TODO: HC
       nit: false, //TODO: HC
-      LT: 'N_ABANS', //TODO: HC
+      LT: 'O_ORDINARI', //TODO: HC
       setmana: 3, //TODO: HC
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
@@ -67,12 +67,8 @@ export default class Ofici extends Component {
        this.openCB,
        this.errorCB);
 
-    var id = props.day + 1;
-    //console.log("---> " + this.props.day);
-
-    id=1;
-
-
+    id=(props.cicle-1)*7 + (props.weekDay+1);
+    console.log("setmanaOrdinari: " + props.setmanaOrdinari + " cicle: " + props.cicle + " id: " + id);
     db.transaction((tx) => {
       tx.executeSql(`SELECT * FROM salteriComuOfici WHERE id = ${id}`, [], (tx, results) => {
         this.setState({salteriComuOfici: results.rows.item(0)});
@@ -413,10 +409,15 @@ export default class Ofici extends Component {
         }
         break;
       case Q_TRIDU:
-          //TODO: ??
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsQuaresmaTridu.himneDSOLLati;
+        }
+        else{
+          himne = this.state.tempsQuaresmaTridu.himneDSOLCat;
+        }
         break;
       case P_OCTAVA:
-        if(true){ //TODO: triar si fórmula 1 o 2
+        if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaAA.himneOficiLlati1;
           }

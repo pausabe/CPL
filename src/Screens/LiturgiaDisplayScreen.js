@@ -23,10 +23,12 @@ export default class LiturgiaDisplayScreen extends Component {
           {this.props.type === 'Ofici' ?
             <Ofici
               hour = {this.props.hour}
-              day = {this.props.day}
+              weekDay = {this.props.weekDay}
+              mothDay = {this.props.mothDay}
               month = {this.props.month}
               year = {this.props.year}
-              cicle = {this.props.cicle}/>
+              cicle = {this.props.cicle}
+              setmanaOrdinari = {this.props.setmanaOrdinari}/>
             :
             <Text style={styles.normalText}>{this.props.type}</Text>
           }

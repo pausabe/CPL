@@ -167,12 +167,18 @@ export default class NavigatorController extends Component {
       case 'settings':
         return (<SettingsScreen navigator={nav} route={route} title="Settings"/>);
       case 'liturgia-display':
-        return (<LiturgiaDisplayScreen navigator={nav} route={route} title="Liturgia"
+        return (<LiturgiaDisplayScreen
+                          navigator={nav}
+                          route={route}
+                          title="Liturgia"
                           type={route.type}
-                          hour={route.hour}
-                          day={route.day}
-                          month={route.month}
-                          year={route.year}/>);
+                          hour={this.state.hour}
+                          weekDay={this.state.weekDay}
+                          monthDay={this.state.monthDay}
+                          month={this.state.month}
+                          year={this.state.year}
+                          cicle={this.state.cicle}
+                          setmanaOrdinari={this.state.setmanaOrdinari}/>);
     }
   }
 }

@@ -12,6 +12,7 @@ import {
 
  import Liturgia from '../Components/Liturgia'
  import Icon from 'react-native-vector-icons/Ionicons'
+ import '../SQL/DBAdapter'
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -28,11 +29,13 @@ export default class HomeScreen extends Component {
 
     this.state = {
       santPressed: false,
-      hour: today.getHours(),
-      day: today.getDay(),
-      month: today.getMonth(),
-      year: today.getFullYear(),
-      cicle: '1',
+      hour: today.getHours(), //0-23
+      weekDay: today.getDay(), //0-6
+      monthDay: today.getDate(), //1-31
+      month: today.getMonth(), //0-11
+      year: today.getFullYear(), //xxxx
+      cicle: 1, //HC 1-4
+      setmanaOrdinari: 1, //HC 1-34
     }
   }
 
@@ -41,6 +44,11 @@ export default class HomeScreen extends Component {
       this.props.navigator.pop();
       return true;
     });
+    /*console.log(DBAdapter);
+    if(DBAdapter){
+      acceso = new DBAdapter();
+      acceso.executeQuery("SELECT * FROM salteriComuOfici WHERE id = 1",(result) => console.log("YEAH: " + result));
+    }*/
   }
 
   render() {
@@ -92,17 +100,23 @@ export default class HomeScreen extends Component {
               <Text style={styles.santExText}/>
               <Liturgia navigator={this.props.navigator}
                         hour={this.state.hour}
-                        day={this.state.day}
+                        weekDay={this.state.weekDay}
+                        monthDay={this.state.monthDay}
                         month={this.state.month}
-                        year={this.state.year}/>
+                        year={this.state.year}
+                        cicle={this.state.cicle}
+                        setmanaOrdinari={this.state.setmanaOrdinari}/>
             </View>
             :
             <View style={styles.liturgiaContainer}>
               <Liturgia navigator={this.props.navigator}
                         hour={this.state.hour}
-                        day={this.state.day}
+                        weekDay={this.state.weekDay}
+                        monthDay={this.state.monthDay}
                         month={this.state.month}
-                        year={this.state.year}/>
+                        year={this.state.year}
+                        cicle={this.state.cicle}
+                        setmanaOrdinari={this.state.setmanaOrdinari}/>
             </View>
           }
         </Image>
