@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import GLOBAL from '../Globals/Globals';
 
-class DBAdapter {
+export default class DBAdapter {
   constructor(){
     this.SQLite = require('react-native-sqlite-storage');
   }
@@ -18,9 +18,13 @@ class DBAdapter {
 
     db.transaction((tx) => {
       tx.executeSql(query, [], (tx, results) => {
-        callback(results.rows.item(0));
+        callback(results);
         });
     });
+  }
+
+  getLiturgia(table, id, callback){
+    this.executeQuery(`SELECT * FROM ${table} WHERE id = ${id}`, result => callback(result.rows.item(0)));
   }
 
   errorCB(err) {
