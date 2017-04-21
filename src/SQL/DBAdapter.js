@@ -18,9 +18,13 @@ export default class DBAdapter {
 
     db.transaction((tx) => {
       tx.executeSql(query, [], (tx, results) => {
-        callback(results.rows.item(0));
+        callback(results);
         });
     });
+  }
+
+  getLiturgia(table, id, callback){
+    this.executeQuery(`SELECT * FROM ${table} WHERE id = ${id}`, result => callback(result.rows.item(0)));
   }
 
   errorCB(err) {

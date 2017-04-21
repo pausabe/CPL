@@ -47,7 +47,7 @@ export default class HomeScreen extends Component {
     console.log(DBAdapter ? DBAdapter : "Not found: DBAdapter");
     if(DBAdapter){
       acceso = new DBAdapter();
-      acceso.executeQuery("SELECT * FROM salteriComuOfici WHERE id = 1",(result) => console.log("YEAH: " + result.get(0)));
+      acceso.getLiturgia("salteriComuOfici", 1, (result) => console.log("YEAH: " + result));
     }
   }
 
