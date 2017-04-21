@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import GLOBAL from '../Globals/Globals';
 
-class DBAdapter {
+export default class DBAdapter {
   constructor(){
     this.SQLite = require('react-native-sqlite-storage');
   }

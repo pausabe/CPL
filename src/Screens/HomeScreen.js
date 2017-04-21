@@ -10,9 +10,9 @@ import {
   TouchableOpacity
  } from 'react-native';
 
- import Liturgia from '../Components/Liturgia'
- import Icon from 'react-native-vector-icons/Ionicons'
- import '../SQL/DBAdapter'
+ import Liturgia from '../Components/Liturgia';
+ import Icon from 'react-native-vector-icons/Ionicons';
+ import DBAdapter from '../SQL/DBAdapter';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -44,11 +44,11 @@ export default class HomeScreen extends Component {
       this.props.navigator.pop();
       return true;
     });
-    /*console.log(DBAdapter);
+    console.log(DBAdapter ? DBAdapter : "Not found: DBAdapter");
     if(DBAdapter){
       acceso = new DBAdapter();
-      acceso.executeQuery("SELECT * FROM salteriComuOfici WHERE id = 1",(result) => console.log("YEAH: " + result));
-    }*/
+      acceso.executeQuery("SELECT * FROM salteriComuOfici WHERE id = 1",(result) => console.log("YEAH: " + result.get(0)));
+    }
   }
 
   render() {
