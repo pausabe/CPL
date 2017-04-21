@@ -32,7 +32,7 @@ export default class HomeScreen extends Component {
       day: today.getDay(),
       month: today.getMonth(),
       year: today.getFullYear(),
-      cicle: '1';
+      cicle: '1',
     }
   }
 
