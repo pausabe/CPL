@@ -7,6 +7,7 @@ import {
   Platform
 } from 'react-native';
 import Hr from 'react-native-hr';
+import GLOBAL from '../Globals/Globals';
 let SQLite = require('react-native-sqlite-storage')
 
 const O_ORDINARI = 'O_ORDINARI';
@@ -29,9 +30,9 @@ export default class Ofici extends Component {
     super(props)
 
     this.state = {
-      diumenge: true, //TODO: HC
+      diumenge: false, //TODO: HC
       nit: false, //TODO: HC
-      LT: 'Q_CENDRA', //TODO: HC
+      LT: 'N_ABANS', //TODO: HC
       setmana: 3, //TODO: HC
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
@@ -57,13 +58,12 @@ export default class Ofici extends Component {
       tempsAdventSetmanesDium: '',
     }
 
-    let nameDB = "lh_v3.db";
     let createFrom;
     if (Platform.OS == "ios") { createFrom = "1"; } //ios platform
-    else { createFrom = `~${nameDB}`} //android platform
+    else { createFrom = `~${GLOBAL.DBName}`} //android platform
 
     let db = SQLite.openDatabase(
-       {name : nameDB, readOnly: true, createFromLocation : createFrom},
+       {name : GLOBAL.DBName, readOnly: true, createFromLocation : createFrom},
        this.openCB,
        this.errorCB);
 
@@ -313,7 +313,7 @@ export default class Ofici extends Component {
           <Text />
           <Text style={styles.red}>SALMÒDIA</Text>
           <Text />
-          {this.salmodia(this.state.LT, this.state.setmana)}
+          {this.salmodia(this.state.LT, this.state.setmana, this.state.diumenge)}
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
@@ -386,7 +386,6 @@ export default class Ofici extends Component {
         break;
       case Q_CENDRA:
       case Q_SETMANES:
-      console.log("hola?");
         if(diumenge){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiDom;
@@ -458,7 +457,7 @@ export default class Ofici extends Component {
     return(<Text style={styles.black}>{himne}</Text>);
   }
 
-  salmodia(LT, setmana){
+  salmodia(LT, setmana, diumenge){
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
@@ -1050,6 +1049,9 @@ export default class Ofici extends Component {
         break;
       case P_SETMANES:
         oracio = this.state.tempsPasquaSetmanes.oraFiLaudes;
+        break;
+      case A_SETMANES:
+        oracio = this.state.tempsAdventSetmanes.oraFiLaudes;
         break;
       case A_FERIES:
         oracio = this.state.tempsAdventFeries.oraFiLaudes;
