@@ -24,7 +24,6 @@ const A_FERIES = 'A_FERIES';
 const N_OCTAVA = 'N_OCTAVA';
 const N_ABANS = 'N_ABANS';
 
-
 export default class Ofici extends Component {
   constructor(props) {
     super(props)
