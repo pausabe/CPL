@@ -24,6 +24,8 @@ const A_FERIES = 'A_FERIES';
 const N_OCTAVA = 'N_OCTAVA';
 const N_ABANS = 'N_ABANS';
 
+import DBAdapter from './DBAdapter';
+
 export default class Ofici extends Component {
   constructor(props) {
     super(props)
@@ -66,13 +68,19 @@ export default class Ofici extends Component {
        this.openCB,
        this.errorCB);
 
-    id=(props.cicle-1)*7 + (props.weekDay+1);
+
+   id = (props.cicle-1)*7 + (props.weekDay+1);
+   acceso = new DBAdapter();
+   acceso.getLiturgia("salteriComuOfici", id,
+                          (result) => this.setState({salteriComuOfici: result}));
+
+    /*id=(props.cicle-1)*7 + (props.weekDay+1);
     console.log("setmanaOrdinari: " + props.setmanaOrdinari + " cicle: " + props.cicle + " id: " + id);
     db.transaction((tx) => {
       tx.executeSql(`SELECT * FROM salteriComuOfici WHERE id = ${id}`, [], (tx, results) => {
         this.setState({salteriComuOfici: results.rows.item(0)});
         });
-    });
+    });*/
 
     db.transaction((tx) => {
       tx.executeSql(`SELECT * FROM tempsOrdinariOfici WHERE id = ${id}`, [], (tx, results) => {
