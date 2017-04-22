@@ -10,9 +10,8 @@ import {
   TouchableOpacity
  } from 'react-native';
 
- import Liturgia from '../Components/Liturgia';
- import Icon from 'react-native-vector-icons/Ionicons';
- import DBAdapter from '../SQL/DBAdapter';
+import Liturgia from '../Components/Liturgia';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -35,7 +34,8 @@ export default class HomeScreen extends Component {
       month: today.getMonth(), //0-11
       year: today.getFullYear(), //xxxx
       cicle: 1, //HC 1-4
-      setmanaOrdinari: 1, //HC 1-34
+      ordinariWeek: 1, //HC 1-34
+      pasquaWeek: 3, //HC 3-7
     }
   }
 
@@ -44,11 +44,6 @@ export default class HomeScreen extends Component {
       this.props.navigator.pop();
       return true;
     });
-    console.log(DBAdapter ? DBAdapter : "Not found: DBAdapter");
-    if(DBAdapter){
-      acceso = new DBAdapter();
-      acceso.getLiturgia("salteriComuOfici", 1, (result) => console.log("YEAH: " + result));
-    }
   }
 
   render() {
@@ -105,7 +100,8 @@ export default class HomeScreen extends Component {
                         month={this.state.month}
                         year={this.state.year}
                         cicle={this.state.cicle}
-                        setmanaOrdinari={this.state.setmanaOrdinari}/>
+                        ordinariWeek={this.state.ordinariWeek}
+                        pasquaWeek={this.state.pasquaWeek}/>
             </View>
             :
             <View style={styles.liturgiaContainer}>
@@ -116,7 +112,8 @@ export default class HomeScreen extends Component {
                         month={this.state.month}
                         year={this.state.year}
                         cicle={this.state.cicle}
-                        setmanaOrdinari={this.state.setmanaOrdinari}/>
+                        ordinariWeek={this.state.ordinariWeek}
+                        pasquaWeek={this.state.pasquaWeek}/>
             </View>
           }
         </Image>

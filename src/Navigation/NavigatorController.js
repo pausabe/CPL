@@ -178,7 +178,8 @@ export default class NavigatorController extends Component {
                           month= {route.month}
                           year= {route.year}
                           cicle= {route.cicle}
-                          setmanaOrdinari= {route.setmanaOrdinari}/>);
+                          ordinariWeek= {route.ordinariWeek}
+                          pasquaWeek= {route.pasquaWeek}/>);
     }
   }
 }

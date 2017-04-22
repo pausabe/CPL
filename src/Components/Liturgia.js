@@ -24,7 +24,8 @@ export default class Liturgia extends Component {
           month: this.props.month,
           year: this.props.year,
           cicle: this.props.cicle,
-          setmanaOrdinari: this.props.setmanaOrdinari,
+          ordinariWeek: this.props.ordinariWeek,
+          pasquaWeek: this.props.pasquaWeek,
         },
         component: component
       });
@@ -40,7 +41,8 @@ export default class Liturgia extends Component {
         month: this.props.month,
         year: this.props.year,
         cicle: this.props.cicle,
-        setmanaOrdinari: this.props.setmanaOrdinari,
+        ordinariWeek: this.props.ordinariWeek,
+        pasquaWeek: this.props.pasquaWeek,
       });
     }
   }

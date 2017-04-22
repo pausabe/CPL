@@ -33,8 +33,7 @@ export default class Ofici extends Component {
     this.state = {
       diumenge: false, //TODO: HC
       nit: false, //TODO: HC
-      LT: 'O_ORDINARI', //TODO: HC
-      setmana: 3, //TODO: HC
+      LT: 'N_OCTAVA', //TODO: HC
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
       salteriComuLaudes: '',
@@ -118,7 +117,7 @@ export default class Ofici extends Component {
     id=1;
     acceso.getLiturgia("tempsQuaresmaSetSanta", id, (result) => { this.queryRows.tempsQuaresmaSetSanta = result; this.dataReceived(); });
 
-    id=1;
+    id=2;
     acceso.getLiturgia("tempsQuaresmaTridu", id, (result) => { this.queryRows.tempsQuaresmaTridu = result; this.dataReceived(); });
 
     id=1;
@@ -157,7 +156,7 @@ export default class Ofici extends Component {
 
   dataReceived(){
     this.count -= 1;
-    console.log("Count: " + this.count);
+
     if(this.count === 0){
       this.setState({
         salteriComuOfici: this.queryRows.salteriComuOfici,
@@ -213,7 +212,7 @@ export default class Ofici extends Component {
         <Text />
         <Text style={styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.state.LT, this.state.setmana, this.state.diumenge)}
+        {this.salmodia(this.state.LT, this.props.pasquaWeek, this.state.diumenge)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -361,7 +360,7 @@ export default class Ofici extends Component {
     return(<Text style={styles.black}>{himne}</Text>);
   }
 
-  salmodia(LT, setmana, diumenge){
+  salmodia(LT, pasquaWeek, diumenge){
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
@@ -434,7 +433,7 @@ export default class Ofici extends Component {
         gloria3 = this.state.salteriComuOfici.gloria3;
 
         if(diumenge){
-          switch (setmana) {
+          switch (pasquaWeek) { //TODO: check this with mater table
             case 3:
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIII;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIII;
@@ -495,14 +494,17 @@ export default class Ofici extends Component {
         }
         break;
       case N_OCTAVA:
+        ant1 = this.state.tempsNadalOctava.ant1Ofici;
         titol1 = this.state.tempsNadalOctava.titolSalm1Ofici;
         com1 = "";
         salm1 = this.state.tempsNadalOctava.salm1Ofici;
         gloria1 = this.state.tempsNadalOctava.gloriaOfici1;
+        ant2 = this.state.tempsNadalOctava.ant2Ofici;
         titol2 = this.state.tempsNadalOctava.titolSalm2Ofici;
         com2 = "-";
         salm2 = this.state.tempsNadalOctava.salm2Ofici;
         gloria2 = this.state.tempsNadalOctava.gloriaOfici2;
+        ant3 = this.state.tempsNadalOctava.ant3Ofici;
         titol3 = this.state.tempsNadalOctava.titolSalm3Ofici;
         com3 = "-";
         salm3 = this.state.tempsNadalOctava.salm3Ofici;
@@ -606,7 +608,8 @@ export default class Ofici extends Component {
         respR = this.state.tempsAdventFeries.respROfici;
         break;
       case N_OCTAVA:
-        //TODO: a l'espera de l'estat actual de la Base de Dades
+        respV = this.state.tempsNadalOctava.respVOfici;
+        respR = this.state.tempsNadalOctava.respROfici;
         break;
       case N_ABANS:
         respV = this.state.tempsNadalAbansEpifania.respVOfici;
@@ -809,7 +812,22 @@ export default class Ofici extends Component {
         resp2Part3 = this.state.tempsAdventFeries.resp2Part3;
         break;
       case N_OCTAVA:
-        //TODO: pendent de la base de dades
+        referencia1 = this.state.tempsNadalOctava.referencia1; //TODO: canvair nom de la variable???
+        cita1 = this.state.tempsNadalOctava.citaLect1Ofici;
+        titol1 = this.state.tempsNadalOctava.titolLect1Ofici;
+        lectura1 = this.state.tempsNadalOctava.lectura1;
+        citaResp1 = this.state.tempsNadalOctava.citaResp1Ofici;
+        resp1Part1 = this.state.tempsNadalOctava.resp1Part1Ofici;
+        resp1Part2 = this.state.tempsNadalOctava.resp1Part2Ofici;
+        resp1Part3 = this.state.tempsNadalOctava.resp1Part3Ofici;
+        referencia2 = this.state.tempsNadalOctava.referencia2Ofici; //TODO: canvair nom de la variable???
+        cita2 = this.state.tempsNadalOctava.citaLect2Ofici;
+        titol2 = this.state.tempsNadalOctava.titolLect2Ofici;
+        lectura2 = this.state.tempsNadalOctava.lectura2;
+        versResp2 = this.state.tempsNadalOctava.citaResp2Ofici;
+        resp2Part1 = this.state.tempsNadalOctava.resp2Part1Ofici;
+        resp2Part2 = this.state.tempsNadalOctava.resp2Part2Ofici;
+        resp2Part3 = this.state.tempsNadalOctava.resp2Part3Ofici;
         break;
       case N_ABANS:
         referencia1 = this.state.tempsNadalAbansEpifania.referencia1;
@@ -903,6 +921,7 @@ export default class Ofici extends Component {
       case A_FERIES:
         break;
       case N_OCTAVA:
+        himne = true;
         break;
       case N_ABANS:
         if(diumenge) himne = true;
@@ -961,7 +980,7 @@ export default class Ofici extends Component {
         oracio = this.state.tempsAdventFeries.oraFiLaudes;
         break;
       case N_OCTAVA:
-        //TODO: en espera de la base de dades
+        oracio = this.state.tempsNadalOctava.oraFiLaudes;
         break;
       case N_ABANS:
         oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
