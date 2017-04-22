@@ -7,8 +7,8 @@ import {
   Platform
 } from 'react-native';
 import Hr from 'react-native-hr';
-import GLOBAL from '../Globals/Globals';
-let SQLite = require('react-native-sqlite-storage')
+//import GLOBAL from '../Globals/Globals';
+//let SQLite = require('react-native-sqlite-storage')
 
 const O_ORDINARI = 'O_ORDINARI';
 const Q_CENDRA = 'Q_CENDRA';
@@ -59,218 +59,173 @@ export default class Ofici extends Component {
       tempsAdventSetmanesDium: '',
     }
 
-    let createFrom;
-    if (Platform.OS == "ios") { createFrom = "1"; } //ios platform
-    else { createFrom = `~${GLOBAL.DBName}`} //android platform
+    this.queryRows = {
+      salteriComuOfici: '',
+      tempsOrdinariOfici: '',
+      salteriComuLaudes: '',
+      tempsOrdinariOracions: '',
+      tempsQuaresmaComuFV: '',
+      tempsQuaresmaCendra: '',
+      tempsQuaresmaVSetmanes: '',
+      tempsQuaresmaComuSS: '',
+      tempsQuaresmaRams: '',
+      tempsQuaresmaSetSanta: '',
+      tempsQuaresmaTridu: '',
+      tempsPasquaAA: '',
+      tempsPasquaOct: '',
+      tempsPasquaDA: '',
+      tempsPasquaSetmanes: '',
+      tempsAdventNadalComu: '',
+      tempsAdventSetmanes: '',
+      tempsAdventFeries: '',
+      tempsNadalOctava: '',
+      tempsNadalAbansEpifania: '',
+      salteriComuEspPasquaDium: '',
+      tempsAdventSetmanesDium: ''
+    }
 
-    let db = SQLite.openDatabase(
-       {name : GLOBAL.DBName, readOnly: true, createFromLocation : createFrom},
-       this.openCB,
-       this.errorCB);
+    this.count = 22; //number of queryies
 
+    acceso = new DBAdapter();
 
-   id = (props.cicle-1)*7 + (props.weekDay+1);
-   acceso = new DBAdapter();
-   acceso.getLiturgia("salteriComuOfici", id,
-                          (result) => this.setState({salteriComuOfici: result}));
+    id = (props.cicle-1)*7 + (props.weekDay+1);
+    acceso.getLiturgia("salteriComuOfici", id, (result) => { this.queryRows.salteriComuOfici = result; this.dataReceived(); });
 
-    /*id=(props.cicle-1)*7 + (props.weekDay+1);
-    console.log("setmanaOrdinari: " + props.setmanaOrdinari + " cicle: " + props.cicle + " id: " + id);
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM salteriComuOfici WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({salteriComuOfici: results.rows.item(0)});
-        });
-    });*/
+    id=2;
+    acceso.getLiturgia("tempsOrdinariOfici", id, (result) => { this.queryRows.tempsOrdinariOfici = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsOrdinariOfici WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsOrdinariOfici: results.rows.item(0)});
-        });
-    });
+    id=2;
+    acceso.getLiturgia("salteriComuLaudes", id, (result) => { this.queryRows.salteriComuLaudes = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM salteriComuLaudes WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({salteriComuLaudes: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsOrdinariOracions WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsOrdinariOracions: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsQuaresmaComuFV", id, (result) => { this.queryRows.tempsQuaresmaComuFV = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsQuaresmaComuFV WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsQuaresmaComuFV: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsQuaresmaCendra", id, (result) => { this.queryRows.tempsQuaresmaCendra = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsQuaresmaCendra WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsQuaresmaCendra: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => { this.queryRows.tempsQuaresmaVSetmanes = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsQuaresmaVSetmanes WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsQuaresmaVSetmanes: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsQuaresmaComuSS", id, (result) => { this.queryRows.tempsQuaresmaComuSS = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsQuaresmaComuSS WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsQuaresmaComuSS: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsQuaresmaRams", id, (result) => { this.queryRows.tempsQuaresmaRams = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsQuaresmaRams WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsQuaresmaRams: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsQuaresmaSetSanta", id, (result) => { this.queryRows.tempsQuaresmaSetSanta = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsQuaresmaSetSanta WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsQuaresmaSetSanta: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsQuaresmaTridu", id, (result) => { this.queryRows.tempsQuaresmaTridu = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsQuaresmaTridu WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsQuaresmaTridu: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsPasquaAA", id, (result) => { this.queryRows.tempsPasquaAA = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsPasquaAA WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsPasquaAA: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsPasquaOct", id, (result) => { this.queryRows.tempsPasquaOct = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsPasquaOct WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsPasquaOct: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsPasquaDA", id, (result) => { this.queryRows.tempsPasquaDA = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsPasquaDA WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsPasquaDA: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsPasquaSetmanes WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsPasquaSetmanes: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsAdventNadalComu", id, (result) => { this.queryRows.tempsAdventNadalComu = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsAdventNadalComu WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsAdventNadalComu: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsAdventSetmanes", id, (result) => { this.queryRows.tempsAdventSetmanes = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsAdventSetmanes WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsAdventSetmanes: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsAdventFeries", id, (result) => { this.queryRows.tempsAdventFeries = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsAdventFeries WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsAdventFeries: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsNadalOctava", id, (result) => { this.queryRows.tempsNadalOctava = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsNadalOctava WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsNadalOctava: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsNadalAbansEpifania WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsNadalAbansEpifania: results.rows.item(0)});
-        });
-    });
+    id=1;
+    acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM salteriComuEspPasquaDium WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({salteriComuEspPasquaDium: results.rows.item(0)});
-        });
-    });
-
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM tempsAdventSetmanesDium WHERE id = ${id}`, [], (tx, results) => {
-        this.setState({tempsAdventSetmanesDium: results.rows.item(0)});
-        });
-    });
-
+    id=1;
+    acceso.getLiturgia("tempsAdventSetmanesDium", id, (result) => { this.queryRows.tempsAdventSetmanesDium = result; this.dataReceived(); });
   }
 
-  errorCB(err) {
-    console.log("SQL Error: " + err);
-  }
-
-  successCB() {
-    console.log("SQL executed fine");
-  }
-
-  openCB() {
-    console.log("Database OPENED");
+  dataReceived(){
+    this.count -= 1;
+    console.log("Count: " + this.count);
+    if(this.count === 0){
+      this.setState({
+        salteriComuOfici: this.queryRows.salteriComuOfici,
+        tempsOrdinariOfici: this.queryRows.tempsOrdinariOfici,
+        salteriComuLaudes: this.queryRows.salteriComuLaudes,
+        tempsOrdinariOracions: this.queryRows.tempsOrdinariOracions,
+        tempsQuaresmaComuFV: this.queryRows.tempsQuaresmaComuFV,
+        tempsQuaresmaCendra: this.queryRows.tempsQuaresmaCendra,
+        tempsQuaresmaVSetmanes: this.queryRows.tempsQuaresmaVSetmanes,
+        tempsQuaresmaComuSS: this.queryRows.tempsQuaresmaComuSS,
+        tempsQuaresmaRams: this.queryRows.tempsQuaresmaRams,
+        tempsQuaresmaSetSanta: this.queryRows.tempsQuaresmaSetSanta,
+        tempsQuaresmaTridu: this.queryRows.tempsQuaresmaTridu,
+        tempsPasquaAA: this.queryRows.tempsPasquaAA,
+        tempsPasquaOct: this.queryRows.tempsPasquaOct,
+        tempsPasquaDA: this.queryRows.tempsPasquaDA,
+        tempsPasquaSetmanes: this.queryRows.tempsPasquaSetmanes,
+        tempsAdventNadalComu: this.queryRows.tempsAdventNadalComu,
+        tempsAdventSetmanes: this.queryRows.tempsAdventSetmanes,
+        tempsAdventFeries: this.queryRows.tempsAdventFeries,
+        tempsNadalOctava: this.queryRows.tempsNadalOctava,
+        tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
+        salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
+        tempsAdventSetmanesDium: this.queryRows.tempsAdventSetmanesDium
+      })
+    }
   }
 
   render() {
     const gloriaString = "Glòria al Pare i al Fill i a l'Esperit Sant. Com era al principi, ara i sempre i pels segles dels segles. Amén.";
-
-    /*if(this.state.LT === Q_DIUM_PASQUA){
+    return (
       <View>
-        <Text style={styles.red}>LECTURES</Text>
-        <Text />
-        <Text style={styles.red}>Primera lectura</Text>
-        <Text style={styles.black}>{this.state.tempsQuaresmaDiumPasq.referencia1}
-          <Text style={styles.red}> {this.state.tempsQuaresmaDiumPasq.citaLect1Ofici}</Text></Text>
-        <Text />
-        <Text style={styles.redCenterBold}>{this.state.tempsQuaresmaDiumPasq.titolLect1Ofici}</Text>
-        <Text />
-        <Text style={styles.black}>{this.state.tempsQuaresmaDiumPasq.lectura1}</Text>
-        <Text />
-        <Text style={styles.red}>Ant.
-          <Text style={styles.black}> {this.state.tempsQuaresmaDiumPasq.ant1Ofici}</Text>
-        </Text>
-        <Text />
-        <Text style={styles.redCenter}>{titol1}</Text>
-        {com1 !== '-' ?
-          <Text style={styles.blackSmallItalicRight}>{com1}</Text> : null}
-        <Text style={styles.black}>{salm1}</Text>
-        <Text />
-        {this.gloria('1')}
-        <Text />
-        <Text style={styles.red}>Ant.
-          <Text style={styles.black}> {ant1}</Text>
-        </Text>
-        <Text />
-        <Text style={styles.red}>Segona lectura</Text>
-        <Text style={styles.black}>{referencia2}
-          <Text style={styles.red}> {cita2}</Text></Text>
-        <Text />
-        <Text style={styles.redCenterBold}>{titol2}</Text>
-        <Text />
-        <Text style={styles.black}>{lectura2}</Text>
-        <Text />
-        <Text style={styles.red}>Responsori
-          <Text style={styles.redSmallItalicRight}>  {versResp2}</Text>
+        <Text style={styles.red}>V.
+          <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
         </Text>
         <Text style={styles.red}>R.
-          <Text style={styles.black}> {resp2Part1}
-            <Text style={styles.red}>*</Text> {resp2Part2}</Text>
+          <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
         </Text>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}>  {resp2Part3}
-            <Text style={styles.red}>*</Text> {resp2Part2}</Text>
+        <Text />
+        <Text style={styles.black}>{gloriaString}
+        {false === true ? //TODO: tenir en compte si és o no Quaresma
+          <Text style={styles.black}> Al·leluia</Text> : null
+        }
         </Text>
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.red}>HIMNE</Text>
+        <Text />
+        {this.himne(this.state.LT, this.state.diumenge, this.state.nit)}
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.red}>SALMÒDIA</Text>
+        <Text />
+        {this.salmodia(this.state.LT, this.state.setmana, this.state.diumenge)}
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.red}>VERS</Text>
+        <Text />
+        {this.vers(this.state.LT)}
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.red}>LECTURES</Text>
+        <Text />
+        {this.lectures(this.state.LT)}
         {this.himneOhDeu(this.state.LT, this.state.diumenge)}
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -289,66 +244,7 @@ export default class Ofici extends Component {
           <Text style={styles.black}> Donem gràcies a Déu.</Text>
         </Text>
       </View>
-    }
-    else{*/
-      return (
-        <View>
-          <Text style={styles.red}>V.
-            <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
-          </Text>
-          <Text style={styles.red}>R.
-            <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
-          </Text>
-          <Text />
-          <Text style={styles.black}>{gloriaString}
-          {false === true ? //TODO: tenir en compte si és o no Quaresma
-            <Text style={styles.black}> Al·leluia</Text> : null
-          }
-          </Text>
-          <Text />
-          <Hr lineColor='#CFD8DC' />
-          <Text />
-          <Text style={styles.red}>HIMNE</Text>
-          <Text />
-          {this.himne(this.state.LT, this.state.diumenge, this.state.nit)}
-          <Text />
-          <Hr lineColor='#CFD8DC' />
-          <Text />
-          <Text style={styles.red}>SALMÒDIA</Text>
-          <Text />
-          {this.salmodia(this.state.LT, this.state.setmana, this.state.diumenge)}
-          <Text />
-          <Hr lineColor='#CFD8DC' />
-          <Text />
-          <Text style={styles.red}>VERS</Text>
-          <Text />
-          {this.vers(this.state.LT)}
-          <Text />
-          <Hr lineColor='#CFD8DC' />
-          <Text />
-          <Text style={styles.red}>LECTURES</Text>
-          <Text />
-          {this.lectures(this.state.LT)}
-          {this.himneOhDeu(this.state.LT, this.state.diumenge)}
-          <Hr lineColor='#CFD8DC' />
-          <Text />
-          <Text style={styles.red}>ORACIÓ</Text>
-          <Text />
-          {this.oracio(this.state.LT, this.state.diumenge)}
-          <Text />
-          <Hr lineColor='#CFD8DC' />
-          <Text />
-          <Text style={styles.red}>CONCLUSIÓ</Text>
-          <Text />
-          <Text style={styles.red}>V.
-            <Text style={styles.black}> Beneïm al Senyor.</Text>
-          </Text>
-          <Text style={styles.red}>R.
-            <Text style={styles.black}> Donem gràcies a Déu.</Text>
-          </Text>
-        </View>
-      );
-    //}
+    );
   }
 
   gloria(g){
