@@ -24,24 +24,14 @@ export default class SettingsManager{
     * Returns an asynchronous Promise with the callback set when callback is a Function, if not, returns just the Promise.
     */
     static _getStorageValue(key, callback, defaultValue){
-        let promise = AsyncStorage.getItem(key);
+        let storagePromise = AsyncStorage.getItem(key);
+        let settingsPromise = new Promise((resolve, reject) => {
+            storagePromise.then(value => resolve(value == null ? defaultValue : value));
+        });
         if(callback instanceof Function){
-            promise.then(SettingsManager._createCallbackDefault(defaultValue, callback));
+            settingsPromise.then(callback);
         }
-        return promise;
-    }
-
-    //If value is null, defaultValue will be returned
-    static _returnDefault(defaultValue, value){
-        return value == null ? defaultValue : value;
-    }
-
-    //Returns a function that if you pass a null parameter, it returns defaultValue
-    static _createCallbackDefault(defaultValue, userCallback){
-        return function(result){
-            let finalResult = SettingsManager._returnDefault(defaultValue, result);
-            userCallback(finalResult);
-        }
+        return settingsPromise;
     }
 
     static getSettingShowGlories(callback){
