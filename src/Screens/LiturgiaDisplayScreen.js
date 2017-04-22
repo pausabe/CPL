@@ -29,7 +29,8 @@ export default class LiturgiaDisplayScreen extends Component {
               year = {this.props.year}
               cicle = {this.props.cicle}
               ordinariWeek = {this.props.ordinariWeek}
-              pasquaWeek = {this.props.pasquaWeek}/>
+              pasquaWeek = {this.props.pasquaWeek}
+              quaresmaWeek = {this.props.quaresmaWeek}/>
             :
             <Text style={styles.normalText}>{this.props.type}</Text>
           }

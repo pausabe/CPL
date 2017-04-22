@@ -7,8 +7,6 @@ import {
   Platform
 } from 'react-native';
 import Hr from 'react-native-hr';
-//import GLOBAL from '../Globals/Globals';
-//let SQLite = require('react-native-sqlite-storage')
 
 const O_ORDINARI = 'O_ORDINARI';
 const Q_CENDRA = 'Q_CENDRA';
@@ -31,12 +29,10 @@ export default class Ofici extends Component {
     super(props)
 
     this.state = {
-      diumenge: false, //TODO: HC
       nit: false, //TODO: HC
-      LT: 'N_OCTAVA', //TODO: HC
+      LT: 'Q_TRIDU', //TODO: HC
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
-      salteriComuLaudes: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
@@ -61,7 +57,6 @@ export default class Ofici extends Component {
     this.queryRows = {
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
-      salteriComuLaudes: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
@@ -83,41 +78,38 @@ export default class Ofici extends Component {
       tempsAdventSetmanesDium: ''
     }
 
-    this.count = 22; //number of queryies
+    this.count = 21; //number of queryies
 
     acceso = new DBAdapter();
 
     id = (props.cicle-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("salteriComuOfici", id, (result) => { this.queryRows.salteriComuOfici = result; this.dataReceived(); });
 
-    id=2;
+    id = (props.ordinariWeek-1)*7  + (props.weekDay+1);
     acceso.getLiturgia("tempsOrdinariOfici", id, (result) => { this.queryRows.tempsOrdinariOfici = result; this.dataReceived(); });
 
-    id=2;
-    acceso.getLiturgia("salteriComuLaudes", id, (result) => { this.queryRows.salteriComuLaudes = result; this.dataReceived(); });
-
-    id=1;
+    id = props.ordinariWeek;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
 
-    id=1;
+    id = 1;
     acceso.getLiturgia("tempsQuaresmaComuFV", id, (result) => { this.queryRows.tempsQuaresmaComuFV = result; this.dataReceived(); });
 
-    id=1;
+    id = props.weekDay-2; //dimecres = 1, dijous = 2, ...
     acceso.getLiturgia("tempsQuaresmaCendra", id, (result) => { this.queryRows.tempsQuaresmaCendra = result; this.dataReceived(); });
 
-    id=1;
+    id = (props.quaresmaWeek-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => { this.queryRows.tempsQuaresmaVSetmanes = result; this.dataReceived(); });
 
-    id=1;
+    id = 1;
     acceso.getLiturgia("tempsQuaresmaComuSS", id, (result) => { this.queryRows.tempsQuaresmaComuSS = result; this.dataReceived(); });
 
-    id=1;
+    id = 1;
     acceso.getLiturgia("tempsQuaresmaRams", id, (result) => { this.queryRows.tempsQuaresmaRams = result; this.dataReceived(); });
 
-    id=1;
+    id = props.weekDay; //dilluns = 1, dimarts = 2, dimecres = 3 i dijous = 4
     acceso.getLiturgia("tempsQuaresmaSetSanta", id, (result) => { this.queryRows.tempsQuaresmaSetSanta = result; this.dataReceived(); });
 
-    id=2;
+    id = props.weekDay-3; //dijous = 1, divendres = 2 i dissabte = 3
     acceso.getLiturgia("tempsQuaresmaTridu", id, (result) => { this.queryRows.tempsQuaresmaTridu = result; this.dataReceived(); });
 
     id=1;
@@ -161,7 +153,6 @@ export default class Ofici extends Component {
       this.setState({
         salteriComuOfici: this.queryRows.salteriComuOfici,
         tempsOrdinariOfici: this.queryRows.tempsOrdinariOfici,
-        salteriComuLaudes: this.queryRows.salteriComuLaudes,
         tempsOrdinariOracions: this.queryRows.tempsOrdinariOracions,
         tempsQuaresmaComuFV: this.queryRows.tempsQuaresmaComuFV,
         tempsQuaresmaCendra: this.queryRows.tempsQuaresmaCendra,
@@ -206,13 +197,13 @@ export default class Ofici extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.state.LT, this.state.diumenge, this.state.nit)}
+        {this.himne(this.state.LT, this.props.weekDay, this.state.nit)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.state.LT, this.props.pasquaWeek, this.state.diumenge)}
+        {this.salmodia(this.state.LT, this.props.pasquaWeek, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -225,12 +216,12 @@ export default class Ofici extends Component {
         <Text style={styles.red}>LECTURES</Text>
         <Text />
         {this.lectures(this.state.LT)}
-        {this.himneOhDeu(this.state.LT, this.state.diumenge)}
+        {this.himneOhDeu(this.state.LT, this.props.weekDay)}
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
         <Text />
-        {this.oracio(this.state.LT, this.state.diumenge)}
+        {this.oracio(this.state.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -262,7 +253,7 @@ export default class Ofici extends Component {
     }
   }
 
-  himne(LT, diumenge, nit){
+  himne(LT, weekDay, nit){
     switch(LT){
       case O_ORDINARI:
         if(nit){
@@ -284,7 +275,7 @@ export default class Ofici extends Component {
         break;
       case Q_CENDRA:
       case Q_SETMANES:
-        if(diumenge){
+        if(weekDay===0){ //diumenge
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiDom;
           }
@@ -360,7 +351,7 @@ export default class Ofici extends Component {
     return(<Text style={styles.black}>{himne}</Text>);
   }
 
-  salmodia(LT, pasquaWeek, diumenge){
+  salmodia(LT, pasquaWeek, weekDay){
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
@@ -432,8 +423,8 @@ export default class Ofici extends Component {
         salm3 = this.state.salteriComuOfici.salm3;
         gloria3 = this.state.salteriComuOfici.gloria3;
 
-        if(diumenge){
-          switch (pasquaWeek) { //TODO: check this with mater table
+        if(weekDay === 0){ //diumenge
+          switch (pasquaWeek) { //TODO: check this with master table
             case 3:
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIII;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIII;
@@ -482,7 +473,7 @@ export default class Ofici extends Component {
         salm3 = this.state.salteriComuOfici.salm3;
         gloria3 = this.state.salteriComuOfici.gloria3;
 
-        if(diumenge){
+        if(weekDay == 0){
             ant1 = this.state.tempsAdventSetmanesDium.ant1Ofici;
             ant2 = this.state.tempsAdventSetmanesDium.ant2Ofici;
             ant3 = this.state.tempsAdventSetmanesDium.ant3Ofici;
@@ -893,11 +884,11 @@ export default class Ofici extends Component {
     )
   }
 
-  himneOhDeu(LT, diumenge){
+  himneOhDeu(LT, weekDay){
     var himne = false;
     switch(LT){
       case O_ORDINARI:
-        if(diumenge) himne = true;
+        if(weekDay == 0) himne = true; //diumenge
         break;
       case Q_CENDRA:
         break;
@@ -913,10 +904,10 @@ export default class Ofici extends Component {
         himne = true;
         break;
       case P_SETMANES:
-        if(diumenge) himne = true;
+        if(weekDay == 0) himne = true; //diumenge
         break;
       case A_SETMANES:
-        if(diumenge) himne = true;
+        if(weekDay == 0) himne = true; //diumenge
         break;
       case A_FERIES:
         break;
@@ -924,7 +915,7 @@ export default class Ofici extends Component {
         himne = true;
         break;
       case N_ABANS:
-        if(diumenge) himne = true;
+        if(weekDay == 0) himne = true; //diumenge
         break;
     }
 
@@ -942,15 +933,10 @@ export default class Ofici extends Component {
     }
   }
 
-  oracio(LT, diumenge){
+  oracio(LT, weekDay){
     switch(LT){
       case O_ORDINARI:
-        if(diumenge){
-          oracio = this.state.tempsOrdinariOracions.oracio;
-        }
-        else{
-          oracio = this.state.salteriComuLaudes.oraFi;
-        }
+        oracio = this.state.tempsOrdinariOracions.oracio;
         break;
       case Q_CENDRA:
         oracio = this.state.tempsQuaresmaCendra.oraFiLaudes;
@@ -1030,30 +1016,3 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('Ofici', () => Ofici);
-
-/*    switch(LT){
-      case O_ORDINARI:
-        break;
-      case Q_CENDRA:
-        break;
-      case Q_SETMANES:
-        break;
-      case Q_DIUM_RAMS:
-        break;
-      case Q_SET_SANTA:
-        break;
-      case Q_TRIDU:
-        break;
-      case P_OCTAVA:
-        break;
-      case P_SETMANES:
-        break;
-      case A_DESPRES:
-        break;
-      case A_FERIES:
-        break;
-      case N_OCTAVA:
-        break;
-      case N_ABANS:
-        break;
-    }*/

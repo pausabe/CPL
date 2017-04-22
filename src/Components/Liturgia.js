@@ -26,6 +26,7 @@ export default class Liturgia extends Component {
           cicle: this.props.cicle,
           ordinariWeek: this.props.ordinariWeek,
           pasquaWeek: this.props.pasquaWeek,
+          quaresmaWeek: this.props.quaresmaWeek,
         },
         component: component
       });
@@ -43,6 +44,7 @@ export default class Liturgia extends Component {
         cicle: this.props.cicle,
         ordinariWeek: this.props.ordinariWeek,
         pasquaWeek: this.props.pasquaWeek,
+        quaresmaWeek: this.props.quaresmaWeek
       });
     }
   }
