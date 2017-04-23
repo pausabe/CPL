@@ -20,6 +20,22 @@ function paddingBar(){
   return 54;
 }
 
+/*
+O_ORDINARI
+Q_CENDRA
+Q_SETMANES
+Q_DIUM_RAMS
+Q_SET_SANTA
+Q_TRIDU
+Q_DIUM_PASQUA
+P_OCTAVA
+P_SETMANES
+A_SETMANES
+A_FERIES
+N_OCTAVA
+N_ABANS
+*/
+
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
@@ -32,6 +48,7 @@ export default class HomeScreen extends Component {
       month: 11,//today.getMonth(), //0-11
       year: 2017,//today.getFullYear(), //xxxx
       hour: 7,//today.getHours(), //0-23
+      LT: 'O_ORDINARI',
       weekDay: 3,//today.getDay(), //0-6 (diumenge-dissabte)
       cicle: 2, //HC 1-4
       ordinariWeek: 15, //HC 1-34
@@ -103,7 +120,8 @@ export default class HomeScreen extends Component {
                         cicle={this.state.cicle}
                         ordinariWeek={this.state.ordinariWeek}
                         pasquaWeek={this.state.pasquaWeek}
-                        quaresmaWeek={this.state.quaresmaWeek}/>
+                        quaresmaWeek={this.state.quaresmaWeek}
+                        LT={this.state.LT}/>
             </View>
             :
             <View style={styles.liturgiaContainer}>
@@ -116,7 +134,8 @@ export default class HomeScreen extends Component {
                         cicle={this.state.cicle}
                         ordinariWeek={this.state.ordinariWeek}
                         pasquaWeek={this.state.pasquaWeek}
-                        quaresmaWeek={this.state.quaresmaWeek}/>
+                        quaresmaWeek={this.state.quaresmaWeek}
+                        LT={this.state.LT}/>
             </View>
           }
         </Image>

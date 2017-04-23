@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
 
-import Ofici from '../SQL/Ofici'
+import Ofici from '../Components/Ofici'
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -30,7 +30,8 @@ export default class LiturgiaDisplayScreen extends Component {
               cicle = {this.props.cicle}
               ordinariWeek = {this.props.ordinariWeek}
               pasquaWeek = {this.props.pasquaWeek}
-              quaresmaWeek = {this.props.quaresmaWeek}/>
+              quaresmaWeek = {this.props.quaresmaWeek}
+              LT={this.props.LT}/>
             :
             <Text style={styles.normalText}>{this.props.type}</Text>
           }

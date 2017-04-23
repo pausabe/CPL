@@ -22,15 +22,14 @@ const A_FERIES = 'A_FERIES';
 const N_OCTAVA = 'N_OCTAVA';
 const N_ABANS = 'N_ABANS';
 
-import DBAdapter from './DBAdapter';
+import DBAdapter from '../SQL/DBAdapter';
 
 export default class Ofici extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      nit: false, //TODO: HC
-      LT: 'N_ABANS', //TODO: HC
+      nit: null,
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
@@ -51,7 +50,6 @@ export default class Ofici extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
-      //tempsAdventSetmanesDium: '',
     }
 
     this.queryRows = {
@@ -75,7 +73,6 @@ export default class Ofici extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
-      //tempsAdventSetmanesDium: ''
     }
 
     this.count = 20; //number of queryies
@@ -126,7 +123,7 @@ export default class Ofici extends Component {
     id = (props.pasquaWeek-2)*7 + weekDayNormal;
     acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(); });
 
-    switch (this.state.LT) {
+    switch (this.props.LT) {
       case A_SETMANES:
         id = 1;
       break;
@@ -142,7 +139,6 @@ export default class Ofici extends Component {
       break;
       default: id = 1;
     }
-    console.log("YEAH: " + id);
     acceso.getLiturgia("tempsAdventNadalComu", id, (result) => { this.queryRows.tempsAdventNadalComu = result; this.dataReceived(); });
 
     //Week begins with saturday
@@ -161,16 +157,15 @@ export default class Ofici extends Component {
 
     id = props.monthDay-1;
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
-
-    /*id=1;
-    acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });*/
   }
 
   dataReceived(){
     this.count -= 1;
 
     if(this.count === 0){
+      nit = false; //TODO: HC
       this.setState({
+        nit: nit,
         salteriComuOfici: this.queryRows.salteriComuOfici,
         tempsOrdinariOfici: this.queryRows.tempsOrdinariOfici,
         tempsOrdinariOracions: this.queryRows.tempsOrdinariOracions,
@@ -191,7 +186,6 @@ export default class Ofici extends Component {
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
         salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
-        //tempsAdventSetmanesDium: this.queryRows.tempsAdventSetmanesDium
       })
     }
   }
@@ -217,31 +211,31 @@ export default class Ofici extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.state.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek)}
+        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.state.LT, this.props.pasquaWeek, this.props.weekDay)}
+        {this.salmodia(this.props.LT, this.props.pasquaWeek, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>VERS</Text>
         <Text />
-        {this.vers(this.state.LT)}
+        {this.vers(this.props.LT)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>LECTURES</Text>
         <Text />
-        {this.lectures(this.state.LT)}
-        {this.himneOhDeu(this.state.LT, this.props.weekDay)}
+        {this.lectures(this.props.LT)}
+        {this.himneOhDeu(this.props.LT, this.props.weekDay)}
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
         <Text />
-        {this.oracio(this.state.LT, this.props.weekDay)}
+        {this.oracio(this.props.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />

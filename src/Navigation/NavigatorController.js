@@ -180,7 +180,8 @@ export default class NavigatorController extends Component {
                           cicle= {route.cicle}
                           ordinariWeek= {route.ordinariWeek}
                           pasquaWeek= {route.pasquaWeek}
-                          quaresmaWeek={route.quaresmaWeek}/>);
+                          quaresmaWeek={route.quaresmaWeek}
+                          LT={route.LT}/>);
     }
   }
 }
