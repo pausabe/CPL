@@ -30,7 +30,7 @@ export default class Ofici extends Component {
 
     this.state = {
       nit: false, //TODO: HC
-      LT: 'A_FERIES', //TODO: HC
+      LT: 'N_ABANS', //TODO: HC
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
@@ -51,7 +51,7 @@ export default class Ofici extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
-      tempsAdventSetmanesDium: '',
+      //tempsAdventSetmanesDium: '',
     }
 
     this.queryRows = {
@@ -75,10 +75,10 @@ export default class Ofici extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
-      tempsAdventSetmanesDium: ''
+      //tempsAdventSetmanesDium: ''
     }
 
-    this.count = 21; //number of queryies
+    this.count = 20; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -93,7 +93,7 @@ export default class Ofici extends Component {
     id = props.ordinariWeek;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
 
-    /*id = 1;
+    id = 1;
     acceso.getLiturgia("tempsQuaresmaComuFV", id, (result) => { this.queryRows.tempsQuaresmaComuFV = result; this.dataReceived(); });
 
     id = props.weekDay-2; //dimecres = 1, dijous = 2, ...
@@ -137,11 +137,12 @@ export default class Ofici extends Component {
         id = 3;
       break;
       case N_ABANS:
-        if(props.mothDay <= 7){ id = 3; }
+        if(props.monthDay <= 7){ id = 3; }
         else{ id = 4; }
       break;
       default: id = 1;
     }
+    console.log("YEAH: " + id);
     acceso.getLiturgia("tempsAdventNadalComu", id, (result) => { this.queryRows.tempsAdventNadalComu = result; this.dataReceived(); });
 
     //Week begins with saturday
@@ -151,19 +152,18 @@ export default class Ofici extends Component {
 
     id = props.cicle;
     acceso.getLiturgia("tempsAdventSetmanesDium", id, (result) => { this.queryRows.tempsAdventSetmanesDium = result; this.dataReceived(); });
-*/
+
     id = props.monthDay-16;
     acceso.getLiturgia("tempsAdventFeries", id, (result) => { this.queryRows.tempsAdventFeries = result; this.dataReceived(); });
-/*
-    id=1;
+
+    id = props.monthDay-25;
     acceso.getLiturgia("tempsNadalOctava", id, (result) => { this.queryRows.tempsNadalOctava = result; this.dataReceived(); });
-*/
-    id=1;
+
+    id = props.monthDay-1;
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
-/*
-    id=1;
-    acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });
-*/
+
+    /*id=1;
+    acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });*/
   }
 
   dataReceived(){
@@ -191,7 +191,7 @@ export default class Ofici extends Component {
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
         salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
-        tempsAdventSetmanesDium: this.queryRows.tempsAdventSetmanesDium
+        //tempsAdventSetmanesDium: this.queryRows.tempsAdventSetmanesDium
       })
     }
   }
@@ -273,7 +273,7 @@ export default class Ofici extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek){
+  himne(LT, weekDay, nit, pasquaWeek, monthDay){
     switch(LT){
       case O_ORDINARI:
         if(nit){

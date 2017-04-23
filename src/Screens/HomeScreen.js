@@ -28,12 +28,12 @@ export default class HomeScreen extends Component {
 
     this.state = {
       santPressed: false,
-      monthDay: 21,//today.getDate(), //1-31
+      monthDay: 4,//today.getDate(), //1-31
       month: 11,//today.getMonth(), //0-11
       year: 2017,//today.getFullYear(), //xxxx
       hour: 7,//today.getHours(), //0-23
-      weekDay: 2,//today.getDay(), //0-6 (diumenge-dissabte)
-      cicle: 1, //HC 1-4
+      weekDay: 3,//today.getDay(), //0-6 (diumenge-dissabte)
+      cicle: 2, //HC 1-4
       ordinariWeek: 15, //HC 1-34
       pasquaWeek: 3, //HC 2-7
       quaresmaWeek: 3, //HC 1-5 o 2-7

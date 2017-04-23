@@ -24,7 +24,7 @@ export default class LiturgiaDisplayScreen extends Component {
             <Ofici
               hour = {this.props.hour}
               weekDay = {this.props.weekDay}
-              mothDay = {this.props.mothDay}
+              monthDay = {this.props.monthDay}
               month = {this.props.month}
               year = {this.props.year}
               cicle = {this.props.cicle}
