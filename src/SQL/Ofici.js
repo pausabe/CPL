@@ -30,7 +30,7 @@ export default class Ofici extends Component {
 
     this.state = {
       nit: false, //TODO: HC
-      LT: 'Q_TRIDU', //TODO: HC
+      LT: 'A_FERIES', //TODO: HC
       salteriComuOfici: '',
       tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
@@ -80,6 +80,8 @@ export default class Ofici extends Component {
 
     this.count = 21; //number of queryies
 
+    {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
+
     acceso = new DBAdapter();
 
     id = (props.cicle-1)*7 + (props.weekDay+1);
@@ -91,7 +93,7 @@ export default class Ofici extends Component {
     id = props.ordinariWeek;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
 
-    id = 1;
+    /*id = 1;
     acceso.getLiturgia("tempsQuaresmaComuFV", id, (result) => { this.queryRows.tempsQuaresmaComuFV = result; this.dataReceived(); });
 
     id = props.weekDay-2; //dimecres = 1, dijous = 2, ...
@@ -112,38 +114,56 @@ export default class Ofici extends Component {
     id = props.weekDay-3; //dijous = 1, divendres = 2 i dissabte = 3
     acceso.getLiturgia("tempsQuaresmaTridu", id, (result) => { this.queryRows.tempsQuaresmaTridu = result; this.dataReceived(); });
 
-    id=1;
+    id = 1;
     acceso.getLiturgia("tempsPasquaAA", id, (result) => { this.queryRows.tempsPasquaAA = result; this.dataReceived(); });
 
-    id=1;
+    id = weekDayNormal;
     acceso.getLiturgia("tempsPasquaOct", id, (result) => { this.queryRows.tempsPasquaOct = result; this.dataReceived(); });
 
-    id=1;
+    id = 1;
     acceso.getLiturgia("tempsPasquaDA", id, (result) => { this.queryRows.tempsPasquaDA = result; this.dataReceived(); });
 
-    id=1;
+    id = (props.pasquaWeek-2)*7 + weekDayNormal;
     acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(); });
 
-    id=1;
+    switch (this.state.LT) {
+      case A_SETMANES:
+        id = 1;
+      break;
+      case A_FERIES:
+        id = 2;
+      break;
+      case N_OCTAVA:
+        id = 3;
+      break;
+      case N_ABANS:
+        if(props.mothDay <= 7){ id = 3; }
+        else{ id = 4; }
+      break;
+      default: id = 1;
+    }
     acceso.getLiturgia("tempsAdventNadalComu", id, (result) => { this.queryRows.tempsAdventNadalComu = result; this.dataReceived(); });
 
-    id=1;
+    //Week begins with saturday
+    {props.weekDay === 6 ? auxDay = 1 : auxDay = props.weekDay + 2}
+    id = (props.cicle-1)*7 + auxDay;
     acceso.getLiturgia("tempsAdventSetmanes", id, (result) => { this.queryRows.tempsAdventSetmanes = result; this.dataReceived(); });
 
-    id=1;
+    id = props.cicle;
+    acceso.getLiturgia("tempsAdventSetmanesDium", id, (result) => { this.queryRows.tempsAdventSetmanesDium = result; this.dataReceived(); });
+*/
+    id = props.monthDay-16;
     acceso.getLiturgia("tempsAdventFeries", id, (result) => { this.queryRows.tempsAdventFeries = result; this.dataReceived(); });
-
+/*
     id=1;
     acceso.getLiturgia("tempsNadalOctava", id, (result) => { this.queryRows.tempsNadalOctava = result; this.dataReceived(); });
-
+*/
     id=1;
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
-
+/*
     id=1;
     acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });
-
-    id=1;
-    acceso.getLiturgia("tempsAdventSetmanesDium", id, (result) => { this.queryRows.tempsAdventSetmanesDium = result; this.dataReceived(); });
+*/
   }
 
   dataReceived(){
@@ -197,7 +217,7 @@ export default class Ofici extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.state.LT, this.props.weekDay, this.state.nit)}
+        {this.himne(this.state.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -253,7 +273,7 @@ export default class Ofici extends Component {
     }
   }
 
-  himne(LT, weekDay, nit){
+  himne(LT, weekDay, nit, pasquaWeek){
     switch(LT){
       case O_ORDINARI:
         if(nit){
@@ -328,11 +348,31 @@ export default class Ofici extends Component {
         }
         break;
       case P_SETMANES:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-          himne = this.state.tempsPasquaDA.himneOficiLlati;
+        if(pasquaWeek === 7){
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.tempsPasquaDA.himneOficiLlati;
+          }
+          else{
+            himne = this.state.tempsPasquaDA.himneOficiCat;
+          }
         }
         else{
-          himne = this.state.tempsPasquaDA.himneOficiCat;
+          if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
+            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+              himne = this.state.tempsPasquaAA.himneOficiLlati1;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneOficiCat1;
+            }
+          }
+          else{//fórmula 2
+            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+              himne = this.state.tempsPasquaAA.himneOficiLlati2;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneOficiCat2;
+            }
+          }
         }
         break;
       case A_SETMANES:
@@ -474,9 +514,9 @@ export default class Ofici extends Component {
         gloria3 = this.state.salteriComuOfici.gloria3;
 
         if(weekDay == 0){
-            ant1 = this.state.tempsAdventSetmanesDium.ant1Ofici;
-            ant2 = this.state.tempsAdventSetmanesDium.ant2Ofici;
-            ant3 = this.state.tempsAdventSetmanesDium.ant3Ofici;
+            ant1 = this.state.tempsAdventSetmanesDium.Ant1Ofici; //TODO: change the field! A to a
+            ant2 = this.state.tempsAdventSetmanesDium.Ant2Ofici; //TODO: change the field! A to a
+            ant3 = this.state.tempsAdventSetmanesDium.Ant3Ofici; //TODO: change the field! A to a
         }
         else{
           ant1 = this.state.salteriComuOfici.ant1;
