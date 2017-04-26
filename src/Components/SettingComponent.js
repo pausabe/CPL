@@ -9,7 +9,7 @@ export default class SettingComponent extends Component{
         super();
         this.name = props.name;
         this.description = props.description;
-        this.key = props.key;
+        this.id = props.id;
         this.value = props.value;
         this.callback = props.callback;
         this.selectorComponent = props.selectorComponent;
@@ -69,7 +69,7 @@ export default class SettingComponent extends Component{
     }
 
     _selectionCallback(value){
-        this.callback(this.key, value);
+        this.callback(this.id, value);
     }
 
 }
