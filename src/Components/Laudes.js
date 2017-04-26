@@ -30,7 +30,7 @@ export default class Laudes extends Component {
 
     this.state = {
       nit: null,
-      salteriComuOfici: '',
+      salteriComuLaudes: '',
       tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
@@ -53,7 +53,7 @@ export default class Laudes extends Component {
     }
 
     this.queryRows = {
-      salteriComuOfici: '',
+      salteriComuLaudes: '',
       tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
@@ -82,7 +82,7 @@ export default class Laudes extends Component {
     acceso = new DBAdapter();
 
     id = (props.cicle-1)*7 + (props.weekDay+1);
-    acceso.getLiturgia("salteriComuOfici", id, (result) => { this.queryRows.salteriComuOfici = result; this.dataReceived(); });
+    acceso.getLiturgia("salteriComuLaudes", id, (result) => { this.queryRows.salteriComuLaudes = result; this.dataReceived(); });
 
     id = (props.ordinariWeek-1)*7  + (props.weekDay+1);
     acceso.getLiturgia("tempsOrdinariOfici", id, (result) => { this.queryRows.tempsOrdinariOfici = result; this.dataReceived(); });
@@ -166,7 +166,7 @@ export default class Laudes extends Component {
       nit = false; //TODO: HC
       this.setState({
         nit: nit,
-        salteriComuOfici: this.queryRows.salteriComuOfici,
+        salteriComuLaudes: this.queryRows.salteriComuLaudes,
         tempsOrdinariOfici: this.queryRows.tempsOrdinariOfici,
         tempsOrdinariOracions: this.queryRows.tempsOrdinariOracions,
         tempsQuaresmaComuFV: this.queryRows.tempsQuaresmaComuFV,
@@ -228,7 +228,7 @@ export default class Laudes extends Component {
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>CÀNTIC DE ZACARIES</Text>
-        {this.cantic(this.props.LT)}
+        {this.cantic(this.props.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -272,21 +272,11 @@ export default class Laudes extends Component {
   himne(LT, weekDay, nit, pasquaWeek, monthDay){
     switch(LT){
       case O_ORDINARI:
-        if(nit){
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.salteriComuOfici.himneNitLlati;
-          }
-          else{
-            himne = this.state.salteriComuOfici.himneNitCat;
-          }
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.salteriComuLaudes.himneLlati;
         }
-        else{//dia
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.salteriComuOfici.himneDiaLlati;
-          }
-          else{
-            himne = this.state.salteriComuOfici.himneDiaCat;
-          }
+        else{
+          himne = this.state.salteriComuLaudes.himneCat;
         }
         break;
       case Q_CENDRA:
@@ -395,21 +385,21 @@ export default class Laudes extends Component {
       case Q_DIUM_RAMS:
       case Q_SET_SANTA:
       case N_ABANS:
-        ant1 = this.state.salteriComuOfici.ant1;
-        titol1 = this.state.salteriComuOfici.titol1;
-        com1 = this.state.salteriComuOfici.com1;
-        salm1 = this.state.salteriComuOfici.salm1;
-        gloria1 = this.state.salteriComuOfici.gloria1;
-        ant2 = this.state.salteriComuOfici.ant2;
-        titol2 = this.state.salteriComuOfici.titol2;
-        com2 = this.state.salteriComuOfici.com2;
-        salm2 = this.state.salteriComuOfici.salm2;
-        gloria2 = this.state.salteriComuOfici.gloria2;
-        ant3 = this.state.salteriComuOfici.ant3;
-        titol3 = this.state.salteriComuOfici.titol3;
-        com3 = this.state.salteriComuOfici.com3;
-        salm3 = this.state.salteriComuOfici.salm3;
-        gloria3 = this.state.salteriComuOfici.gloria3;
+        ant1 = this.state.salteriComuLaudes.ant1;
+        titol1 = this.state.salteriComuLaudes.titol1;
+        com1 = this.state.salteriComuLaudes.com1;
+        salm1 = this.state.salteriComuLaudes.salm1;
+        gloria1 = this.state.salteriComuLaudes.gloria1;
+        ant2 = this.state.salteriComuLaudes.ant2;
+        titol2 = this.state.salteriComuLaudes.titol2;
+        com2 = this.state.salteriComuLaudes.com2;
+        salm2 = this.state.salteriComuLaudes.salm2;
+        gloria2 = this.state.salteriComuLaudes.gloria2;
+        ant3 = this.state.salteriComuLaudes.ant3;
+        titol3 = this.state.salteriComuLaudes.titol3;
+        com3 = this.state.salteriComuLaudes.com3;
+        salm3 = this.state.salteriComuLaudes.salm3;
+        gloria3 = this.state.salteriComuLaudes.gloria3;
         break;
       case Q_TRIDU:
         ant1 = this.state.tempsQuaresmaTridu.ant1Ofici;
@@ -446,18 +436,18 @@ export default class Laudes extends Component {
         gloria3 = this.state.tempsPasquaOct.gloriaOfici3;
         break;
       case P_SETMANES:
-        titol1 = this.state.salteriComuOfici.titol1;
-        com1 = this.state.salteriComuOfici.com1;
-        salm1 = this.state.salteriComuOfici.salm1;
-        gloria1 = this.state.salteriComuOfici.gloria1;
-        titol2 = this.state.salteriComuOfici.titol2;
-        com2 = this.state.salteriComuOfici.com2;
-        salm2 = this.state.salteriComuOfici.salm2;
-        gloria2 = this.state.salteriComuOfici.gloria2;
-        titol3 = this.state.salteriComuOfici.titol3;
-        com3 = this.state.salteriComuOfici.com3;
-        salm3 = this.state.salteriComuOfici.salm3;
-        gloria3 = this.state.salteriComuOfici.gloria3;
+        titol1 = this.state.salteriComuLaudes.titol1;
+        com1 = this.state.salteriComuLaudes.com1;
+        salm1 = this.state.salteriComuLaudes.salm1;
+        gloria1 = this.state.salteriComuLaudes.gloria1;
+        titol2 = this.state.salteriComuLaudes.titol2;
+        com2 = this.state.salteriComuLaudes.com2;
+        salm2 = this.state.salteriComuLaudes.salm2;
+        gloria2 = this.state.salteriComuLaudes.gloria2;
+        titol3 = this.state.salteriComuLaudes.titol3;
+        com3 = this.state.salteriComuLaudes.com3;
+        salm3 = this.state.salteriComuLaudes.salm3;
+        gloria3 = this.state.salteriComuLaudes.gloria3;
 
         if(weekDay === 0){ //diumenge
           switch (pasquaWeek) { //TODO: check this with master table
@@ -489,25 +479,25 @@ export default class Laudes extends Component {
           }
         }
         else{
-          ant1 = this.state.salteriComuOfici.ant1;
-          ant2 = this.state.salteriComuOfici.ant2;
-          ant3 = this.state.salteriComuOfici.ant3;
+          ant1 = this.state.salteriComuLaudes.ant1;
+          ant2 = this.state.salteriComuLaudes.ant2;
+          ant3 = this.state.salteriComuLaudes.ant3;
         }
         break;
       case A_SETMANES:
       case A_FERIES:
-        titol1 = this.state.salteriComuOfici.titol1;
-        com1 = this.state.salteriComuOfici.com1;
-        salm1 = this.state.salteriComuOfici.salm1;
-        gloria1 = this.state.salteriComuOfici.gloria1;
-        titol2 = this.state.salteriComuOfici.titol2;
-        com2 = this.state.salteriComuOfici.com2;
-        salm2 = this.state.salteriComuOfici.salm2;
-        gloria2 = this.state.salteriComuOfici.gloria2;
-        titol3 = this.state.salteriComuOfici.titol3;
-        com3 = this.state.salteriComuOfici.com3;
-        salm3 = this.state.salteriComuOfici.salm3;
-        gloria3 = this.state.salteriComuOfici.gloria3;
+        titol1 = this.state.salteriComuLaudes.titol1;
+        com1 = this.state.salteriComuLaudes.com1;
+        salm1 = this.state.salteriComuLaudes.salm1;
+        gloria1 = this.state.salteriComuLaudes.gloria1;
+        titol2 = this.state.salteriComuLaudes.titol2;
+        com2 = this.state.salteriComuLaudes.com2;
+        salm2 = this.state.salteriComuLaudes.salm2;
+        gloria2 = this.state.salteriComuLaudes.gloria2;
+        titol3 = this.state.salteriComuLaudes.titol3;
+        com3 = this.state.salteriComuLaudes.com3;
+        salm3 = this.state.salteriComuLaudes.salm3;
+        gloria3 = this.state.salteriComuLaudes.gloria3;
 
         if(weekDay == 0){
             ant1 = this.state.tempsAdventSetmanesDium.Ant1Ofici; //TODO: change the field! A to a
@@ -515,9 +505,9 @@ export default class Laudes extends Component {
             ant3 = this.state.tempsAdventSetmanesDium.Ant3Ofici; //TODO: change the field! A to a
         }
         else{
-          ant1 = this.state.salteriComuOfici.ant1;
-          ant2 = this.state.salteriComuOfici.ant2;
-          ant3 = this.state.salteriComuOfici.ant3;
+          ant1 = this.state.salteriComuLaudes.ant1;
+          ant2 = this.state.salteriComuLaudes.ant2;
+          ant3 = this.state.salteriComuLaudes.ant3;
         }
         break;
       case N_OCTAVA:
@@ -595,416 +585,89 @@ export default class Laudes extends Component {
   lecturaBreu(LT){
     switch(LT){
       case O_ORDINARI:
-        referencia1 = this.state.tempsOrdinariOfici.referencia1;
-        cita1 = this.state.tempsOrdinariOfici.cita1;
-        titol1 = this.state.tempsOrdinariOfici.titol1;
-        lectura1 = this.state.tempsOrdinariOfici.lectura1;
-        citaResp1 = this.state.tempsOrdinariOfici.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsOrdinariOfici.resp1Part1;
-        resp1Part2 = this.state.tempsOrdinariOfici.resp1Part2;
-        resp1Part3 = this.state.tempsOrdinariOfici.resp1Part3;
-        referencia2 = this.state.tempsOrdinariOfici.referencia2;
-        cita2 = this.state.tempsOrdinariOfici.cita2;
-        titol2 = this.state.tempsOrdinariOfici.titol2;
-        lectura2 = this.state.tempsOrdinariOfici.lectura2;
-        versResp2 = this.state.tempsOrdinariOfici.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsOrdinariOfici.resp2Part1;
-        resp2Part2 = this.state.tempsOrdinariOfici.resp2Part2;
-        resp2Part3 = this.state.tempsOrdinariOfici.resp2Part3;
+        vers = this.state.salteriComuLaudes.versetLB;
+        lecturaBreu = this.state.salteriComuLaudes.lecturaBreu;
         break;
       case Q_CENDRA:
-        referencia1 = this.state.tempsQuaresmaCendra.referencia1;
-        cita1 = this.state.tempsQuaresmaCendra.cita1;
-        titol1 = this.state.tempsQuaresmaCendra.titol1;
-        lectura1 = this.state.tempsQuaresmaCendra.lectura1;
-        citaResp1 = this.state.tempsQuaresmaCendra.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsQuaresmaCendra.resp1Part1;
-        resp1Part2 = this.state.tempsQuaresmaCendra.resp1Part2;
-        resp1Part3 = this.state.tempsQuaresmaCendra.resp1Part3;
-        referencia2 = this.state.tempsQuaresmaCendra.referencia2;
-        cita2 = this.state.tempsQuaresmaCendra.cita2;
-        titol2 = this.state.tempsQuaresmaCendra.titol2;
-        lectura2 = this.state.tempsQuaresmaCendra.lectura2;
-        versResp2 = this.state.tempsQuaresmaCendra.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsQuaresmaCendra.resp2Part1;
-        resp2Part2 = this.state.tempsQuaresmaCendra.resp2Part2;
-        resp2Part3 = this.state.tempsQuaresmaCendra.resp2Part3;
+
         break;
       case Q_SETMANES:
-        referencia1 = this.state.tempsQuaresmaVSetmanes.referencia1;
-        cita1 = this.state.tempsQuaresmaVSetmanes.cita1;
-        titol1 = this.state.tempsQuaresmaVSetmanes.titol1;
-        lectura1 = this.state.tempsQuaresmaVSetmanes.lectura1;
-        citaResp1 = this.state.tempsQuaresmaVSetmanes.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsQuaresmaVSetmanes.resp1Part1;
-        resp1Part2 = this.state.tempsQuaresmaVSetmanes.resp1Part2;
-        resp1Part3 = this.state.tempsQuaresmaVSetmanes.resp1Part3;
-        referencia2 = this.state.tempsQuaresmaVSetmanes.referencia2;
-        cita2 = this.state.tempsQuaresmaVSetmanes.cita2;
-        titol2 = this.state.tempsQuaresmaVSetmanes.titol2;
-        lectura2 = this.state.tempsQuaresmaVSetmanes.lectura2;
-        versResp2 = this.state.tempsQuaresmaVSetmanes.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsQuaresmaVSetmanes.resp2Part1;
-        resp2Part2 = this.state.tempsQuaresmaVSetmanes.resp2Part2;
-        resp2Part3 = this.state.tempsQuaresmaVSetmanes.resp2Part3;
+
         break;
       case Q_DIUM_RAMS:
-        referencia1 = this.state.tempsQuaresmaRams.referencia1;
-        cita1 = this.state.tempsQuaresmaRams.cita1;
-        titol1 = this.state.tempsQuaresmaRams.titol1;
-        lectura1 = this.state.tempsQuaresmaRams.lectura1;
-        citaResp1 = this.state.tempsQuaresmaRams.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsQuaresmaRams.resp1Part1;
-        resp1Part2 = this.state.tempsQuaresmaRams.resp1Part2;
-        resp1Part3 = this.state.tempsQuaresmaRams.resp1Part3;
-        referencia2 = this.state.tempsQuaresmaRams.referencia2;
-        cita2 = this.state.tempsQuaresmaRams.cita2;
-        titol2 = this.state.tempsQuaresmaRams.titol2;
-        lectura2 = this.state.tempsQuaresmaRams.lectura2;
-        versResp2 = this.state.tempsQuaresmaRams.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsQuaresmaRams.resp2Part1;
-        resp2Part2 = this.state.tempsQuaresmaRams.resp2Part2;
-        resp2Part3 = this.state.tempsQuaresmaRams.resp2Part3;
+
         break;
       case Q_SET_SANTA:
-        referencia1 = this.state.tempsQuaresmaSetSanta.referencia1;
-        cita1 = this.state.tempsQuaresmaSetSanta.cita1;
-        titol1 = this.state.tempsQuaresmaSetSanta.titol1;
-        lectura1 = this.state.tempsQuaresmaSetSanta.lectura1;
-        citaResp1 = this.state.tempsQuaresmaSetSanta.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsQuaresmaSetSanta.resp1Part1;
-        resp1Part2 = this.state.tempsQuaresmaSetSanta.resp1Part2;
-        resp1Part3 = this.state.tempsQuaresmaSetSanta.resp1Part3;
-        referencia2 = this.state.tempsQuaresmaSetSanta.referencia2;
-        cita2 = this.state.tempsQuaresmaSetSanta.cita2;
-        titol2 = this.state.tempsQuaresmaSetSanta.titol2;
-        lectura2 = this.state.tempsQuaresmaSetSanta.lectura2;
-        versResp2 = this.state.tempsQuaresmaSetSanta.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsQuaresmaSetSanta.resp2Part1;
-        resp2Part2 = this.state.tempsQuaresmaSetSanta.resp2Part2;
-        resp2Part3 = this.state.tempsQuaresmaSetSanta.resp2Part3;
+
         break;
       case Q_TRIDU:
-        referencia1 = this.state.tempsQuaresmaTridu.referencia1; //TODO: canvair nom de la variable???
-        cita1 = this.state.tempsQuaresmaTridu.citaLect1Ofici;
-        titol1 = this.state.tempsQuaresmaTridu.titolLect1Ofici;
-        lectura1 = this.state.tempsQuaresmaTridu.lectura1;
-        citaResp1 = this.state.tempsQuaresmaTridu.citaResp1Ofici;
-        resp1Part1 = this.state.tempsQuaresmaTridu.resp1Part1Ofici;
-        resp1Part2 = this.state.tempsQuaresmaTridu.resp1Part2Ofici;
-        resp1Part3 = this.state.tempsQuaresmaTridu.resp1Part3Ofici;
-        referencia2 = this.state.tempsQuaresmaTridu.referencia2Ofici; //TODO: canvair nom de la variable???
-        cita2 = this.state.tempsQuaresmaTridu.citaLect2Ofici;
-        titol2 = this.state.tempsQuaresmaTridu.titolLect2Ofici;
-        lectura2 = this.state.tempsQuaresmaTridu.lectura2;
-        versResp2 = this.state.tempsQuaresmaTridu.citaResp2Ofici;
-        resp2Part1 = this.state.tempsQuaresmaTridu.resp2Part1Ofici;
-        resp2Part2 = this.state.tempsQuaresmaTridu.resp2Part2Ofici;
-        resp2Part3 = this.state.tempsQuaresmaTridu.resp2Part3Ofici;
+
         break;
       case P_OCTAVA:
-        referencia1 = this.state.tempsPasquaOct.referencia1; //TODO: canvair nom de la variable???
-        cita1 = this.state.tempsPasquaOct.citaLect1Ofici;
-        titol1 = this.state.tempsPasquaOct.titolLect1Ofici;
-        lectura1 = this.state.tempsPasquaOct.lectura1;
-        citaResp1 = this.state.tempsPasquaOct.citaResp1Ofici;
-        resp1Part1 = this.state.tempsPasquaOct.resp1Part1Ofici;
-        resp1Part2 = this.state.tempsPasquaOct.resp1Part2Ofici;
-        resp1Part3 = this.state.tempsPasquaOct.resp1Part3Ofici;
-        referencia2 = this.state.tempsPasquaOct.referencia2Ofici; //TODO: canvair nom de la variable???
-        cita2 = this.state.tempsPasquaOct.citaLect2Ofici;
-        titol2 = this.state.tempsPasquaOct.titolLect2Ofici;
-        lectura2 = this.state.tempsPasquaOct.lectura2;
-        versResp2 = this.state.tempsPasquaOct.citaResp2Ofici;
-        resp2Part1 = this.state.tempsPasquaOct.resp2Part1Ofici;
-        resp2Part2 = this.state.tempsPasquaOct.resp2Part2Ofici;
-        resp2Part3 = this.state.tempsPasquaOct.resp2Part3Ofici;
+
         break;
       case P_SETMANES:
-        referencia1 = this.state.tempsPasquaSetmanes.referencia1;
-        cita1 = this.state.tempsPasquaSetmanes.cita1;
-        titol1 = this.state.tempsPasquaSetmanes.titol1;
-        lectura1 = this.state.tempsPasquaSetmanes.lectura1;
-        citaResp1 = this.state.tempsPasquaSetmanes.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsPasquaSetmanes.resp1Part1;
-        resp1Part2 = this.state.tempsPasquaSetmanes.resp1Part2;
-        resp1Part3 = this.state.tempsPasquaSetmanes.resp1Part3;
-        referencia2 = this.state.tempsPasquaSetmanes.referencia2;
-        cita2 = this.state.tempsPasquaSetmanes.cita2;
-        titol2 = this.state.tempsPasquaSetmanes.titol2;
-        lectura2 = this.state.tempsPasquaSetmanes.lectura2;
-        versResp2 = this.state.tempsPasquaSetmanes.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsPasquaSetmanes.resp2Part1;
-        resp2Part2 = this.state.tempsPasquaSetmanes.resp2Part2;
-        resp2Part3 = this.state.tempsPasquaSetmanes.resp2Part3;
+
         break;
       case A_SETMANES:
-        referencia1 = this.state.tempsAdventSetmanes.referencia1;
-        cita1 = this.state.tempsAdventSetmanes.cita1;
-        titol1 = this.state.tempsAdventSetmanes.titol1;
-        lectura1 = this.state.tempsAdventSetmanes.lectura1;
-        citaResp1 = this.state.tempsAdventSetmanes.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsAdventSetmanes.resp1Part1;
-        resp1Part2 = this.state.tempsAdventSetmanes.resp1Part2;
-        resp1Part3 = this.state.tempsAdventSetmanes.resp1Part3;
-        referencia2 = this.state.tempsAdventSetmanes.referencia2;
-        cita2 = this.state.tempsAdventSetmanes.cita2;
-        titol2 = this.state.tempsAdventSetmanes.titol2;
-        lectura2 = this.state.tempsAdventSetmanes.lectura2;
-        versResp2 = this.state.tempsAdventSetmanes.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsAdventSetmanes.resp2Part1;
-        resp2Part2 = this.state.tempsAdventSetmanes.resp2Part2;
-        resp2Part3 = this.state.tempsAdventSetmanes.resp2Part3;
+
         break;
       case A_FERIES:
-        referencia1 = this.state.tempsAdventFeries.referencia1;
-        cita1 = this.state.tempsAdventFeries.cita1;
-        titol1 = this.state.tempsAdventFeries.titol1;
-        lectura1 = this.state.tempsAdventFeries.lectura1;
-        citaResp1 = this.state.tempsAdventFeries.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsAdventFeries.resp1Part1;
-        resp1Part2 = this.state.tempsAdventFeries.resp1Part2;
-        resp1Part3 = this.state.tempsAdventFeries.resp1Part3;
-        referencia2 = this.state.tempsAdventFeries.referencia2;
-        cita2 = this.state.tempsAdventFeries.cita2;
-        titol2 = this.state.tempsAdventFeries.titol2;
-        lectura2 = this.state.tempsAdventFeries.lectura2;
-        versResp2 = this.state.tempsAdventFeries.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsAdventFeries.resp2Part1;
-        resp2Part2 = this.state.tempsAdventFeries.resp2Part2;
-        resp2Part3 = this.state.tempsAdventFeries.resp2Part3;
+
         break;
       case N_OCTAVA:
-        referencia1 = this.state.tempsNadalOctava.referencia1; //TODO: canvair nom de la variable???
-        cita1 = this.state.tempsNadalOctava.citaLect1Ofici;
-        titol1 = this.state.tempsNadalOctava.titolLect1Ofici;
-        lectura1 = this.state.tempsNadalOctava.lectura1;
-        citaResp1 = this.state.tempsNadalOctava.citaResp1Ofici;
-        resp1Part1 = this.state.tempsNadalOctava.resp1Part1Ofici;
-        resp1Part2 = this.state.tempsNadalOctava.resp1Part2Ofici;
-        resp1Part3 = this.state.tempsNadalOctava.resp1Part3Ofici;
-        referencia2 = this.state.tempsNadalOctava.referencia2Ofici; //TODO: canvair nom de la variable???
-        cita2 = this.state.tempsNadalOctava.citaLect2Ofici;
-        titol2 = this.state.tempsNadalOctava.titolLect2Ofici;
-        lectura2 = this.state.tempsNadalOctava.lectura2;
-        versResp2 = this.state.tempsNadalOctava.citaResp2Ofici;
-        resp2Part1 = this.state.tempsNadalOctava.resp2Part1Ofici;
-        resp2Part2 = this.state.tempsNadalOctava.resp2Part2Ofici;
-        resp2Part3 = this.state.tempsNadalOctava.resp2Part3Ofici;
+
         break;
       case N_ABANS:
-        referencia1 = this.state.tempsNadalAbansEpifania.referencia1;
-        cita1 = this.state.tempsNadalAbansEpifania.cita1;
-        titol1 = this.state.tempsNadalAbansEpifania.titol1;
-        lectura1 = this.state.tempsNadalAbansEpifania.lectura1;
-        citaResp1 = this.state.tempsNadalAbansEpifania.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsNadalAbansEpifania.resp1Part1;
-        resp1Part2 = this.state.tempsNadalAbansEpifania.resp1Part2;
-        resp1Part3 = this.state.tempsNadalAbansEpifania.resp1Part3;
-        referencia2 = this.state.tempsNadalAbansEpifania.referencia2;
-        cita2 = this.state.tempsNadalAbansEpifania.cita2;
-        titol2 = this.state.tempsNadalAbansEpifania.titol2;
-        lectura2 = this.state.tempsNadalAbansEpifania.lectura2;
-        versResp2 = this.state.tempsNadalAbansEpifania.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsNadalAbansEpifania.resp2Part1;
-        resp2Part2 = this.state.tempsNadalAbansEpifania.resp2Part2;
-        resp2Part3 = this.state.tempsNadalAbansEpifania.resp2Part3;
+
         break;
     }
     return(
       <View>
-        <Text style={styles.red}> {cita}</Text>
+        <Text style={styles.red}>{vers}</Text>
         <Text />
         <Text style={styles.black}>{lecturaBreu}</Text>
       </View>
     )
   }
 
-  cantic(LT){
-    switch(LT){
-      case O_ORDINARI:
-        respV = this.state.salteriComuOfici.respV;
-        respR = this.state.salteriComuOfici.respR;
-        break;
-      case Q_CENDRA:
-        respV = this.state.tempsQuaresmaCendra.respVOfici;
-        respR = this.state.tempsQuaresmaCendra.respROfici;
-        break;
-      case Q_SETMANES:
-        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
-        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
-        break;
-      case Q_DIUM_RAMS:
-        respV = this.state.tempsQuaresmaRams.respVOfici;
-        respR = this.state.tempsQuaresmaRams.respROfici;
-        break;
-      case Q_SET_SANTA:
-        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
-        respR = this.state.tempsQuaresmaSetSanta.respROfici;
-        break;
-      case Q_TRIDU:
-        respV = this.state.tempsQuaresmaTridu.respVOfici;
-        respR = this.state.tempsQuaresmaTridu.respROfici;
-        break;
-      case P_OCTAVA:
-        respV = this.state.tempsPasquaOct.respVOfici;
-        respR = this.state.tempsPasquaOct.respROfici;
-        break;
-      case P_SETMANES:
-        respV = this.state.tempsPasquaSetmanes.respVOfici;
-        respR = this.state.tempsPasquaSetmanes.respROfici;
-        break;
-      case A_SETMANES:
-        respV = this.state.tempsAdventSetmanes.respVOfici;
-        respR = this.state.tempsAdventSetmanes.respROfici;
-        break;
-      case A_FERIES:
-        respV = this.state.tempsAdventFeries.respVOfici;
-        respR = this.state.tempsAdventFeries.respROfici;
-        break;
-      case N_OCTAVA:
-        respV = this.state.tempsNadalOctava.respVOfici;
-        respR = this.state.tempsNadalOctava.respROfici;
-        break;
-      case N_ABANS:
-        respV = this.state.tempsNadalAbansEpifania.respVOfici;
-        respR = this.state.tempsNadalAbansEpifania.respROfici;
-        break;
-    }
-
-    cantic = "Beneït.. etc";
-
-    return(
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-      <Text style={styles.black}>{cantic}</Text>
-      <Text />
-      {this.gloria('1')}
-      <Text />
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-    );
-  }
-
-  cantic(LT){
-    switch(LT){
-      case O_ORDINARI:
-        respV = this.state.salteriComuOfici.respV;
-        respR = this.state.salteriComuOfici.respR;
-        break;
-      case Q_CENDRA:
-        respV = this.state.tempsQuaresmaCendra.respVOfici;
-        respR = this.state.tempsQuaresmaCendra.respROfici;
-        break;
-      case Q_SETMANES:
-        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
-        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
-        break;
-      case Q_DIUM_RAMS:
-        respV = this.state.tempsQuaresmaRams.respVOfici;
-        respR = this.state.tempsQuaresmaRams.respROfici;
-        break;
-      case Q_SET_SANTA:
-        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
-        respR = this.state.tempsQuaresmaSetSanta.respROfici;
-        break;
-      case Q_TRIDU:
-        respV = this.state.tempsQuaresmaTridu.respVOfici;
-        respR = this.state.tempsQuaresmaTridu.respROfici;
-        break;
-      case P_OCTAVA:
-        respV = this.state.tempsPasquaOct.respVOfici;
-        respR = this.state.tempsPasquaOct.respROfici;
-        break;
-      case P_SETMANES:
-        respV = this.state.tempsPasquaSetmanes.respVOfici;
-        respR = this.state.tempsPasquaSetmanes.respROfici;
-        break;
-      case A_SETMANES:
-        respV = this.state.tempsAdventSetmanes.respVOfici;
-        respR = this.state.tempsAdventSetmanes.respROfici;
-        break;
-      case A_FERIES:
-        respV = this.state.tempsAdventFeries.respVOfici;
-        respR = this.state.tempsAdventFeries.respROfici;
-        break;
-      case N_OCTAVA:
-        respV = this.state.tempsNadalOctava.respVOfici;
-        respR = this.state.tempsNadalOctava.respROfici;
-        break;
-      case N_ABANS:
-        respV = this.state.tempsNadalAbansEpifania.respVOfici;
-        respR = this.state.tempsNadalAbansEpifania.respROfici;
-        break;
-    }
-
-    cantic = "Beneït.. etc";
-
-    return(
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-      <Text style={styles.black}>{cantic}</Text>
-      <Text />
-      {this.gloria('1')}
-      <Text />
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-    );
-  }
-
   pregaries(LT){
     switch(LT){
       case O_ORDINARI:
-        respV = this.state.salteriComuOfici.respV;
-        respR = this.state.salteriComuOfici.respR;
+        pregaries = this.state.salteriComuLaudes.pregaries;
         break;
       case Q_CENDRA:
-        respV = this.state.tempsQuaresmaCendra.respVOfici;
-        respR = this.state.tempsQuaresmaCendra.respROfici;
+
         break;
       case Q_SETMANES:
-        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
-        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
+
         break;
       case Q_DIUM_RAMS:
-        respV = this.state.tempsQuaresmaRams.respVOfici;
-        respR = this.state.tempsQuaresmaRams.respROfici;
+
         break;
       case Q_SET_SANTA:
-        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
-        respR = this.state.tempsQuaresmaSetSanta.respROfici;
+
         break;
       case Q_TRIDU:
-        respV = this.state.tempsQuaresmaTridu.respVOfici;
-        respR = this.state.tempsQuaresmaTridu.respROfici;
+
         break;
       case P_OCTAVA:
-        respV = this.state.tempsPasquaOct.respVOfici;
-        respR = this.state.tempsPasquaOct.respROfici;
+
         break;
       case P_SETMANES:
-        respV = this.state.tempsPasquaSetmanes.respVOfici;
-        respR = this.state.tempsPasquaSetmanes.respROfici;
+
         break;
       case A_SETMANES:
-        respV = this.state.tempsAdventSetmanes.respVOfici;
-        respR = this.state.tempsAdventSetmanes.respROfici;
+
         break;
       case A_FERIES:
-        respV = this.state.tempsAdventFeries.respVOfici;
-        respR = this.state.tempsAdventFeries.respROfici;
+
         break;
       case N_OCTAVA:
-        respV = this.state.tempsNadalOctava.respVOfici;
-        respR = this.state.tempsNadalOctava.respROfici;
+
         break;
       case N_ABANS:
-        respV = this.state.tempsNadalAbansEpifania.respVOfici;
-        respR = this.state.tempsNadalAbansEpifania.respROfici;
+
         break;
     }
 
@@ -1013,10 +676,86 @@ export default class Laudes extends Component {
     );
   }
 
+  cantic(LT, weekDay, litYear){
+    switch(LT){
+      case O_ORDINARI:
+        if(weekDay !== 0){ ///no diumenge
+          antCantic = this.state.salteriComuLaudes.antEvangelic;
+        }
+        else{ //diumenge
+          switch (litYear) {
+            case 'A':
+              antCantic = this.state.tempsOrdinariOracions.antZacariesA;
+              break;
+            case 'B':
+              antCantic = this.state.tempsOrdinariOracions.antZacariesB;
+              break;
+            case 'C':
+              antCantic = this.state.tempsOrdinariOracions.antZacariesC;
+              break;
+          }
+        }
+        break;
+      case Q_CENDRA:
+
+        break;
+      case Q_SETMANES:
+
+        break;
+      case Q_DIUM_RAMS:
+
+        break;
+      case Q_SET_SANTA:
+
+        break;
+      case Q_TRIDU:
+
+        break;
+      case P_OCTAVA:
+
+        break;
+      case P_SETMANES:
+
+        break;
+      case A_SETMANES:
+
+        break;
+      case A_FERIES:
+
+        break;
+      case N_OCTAVA:
+
+        break;
+      case N_ABANS:
+
+        break;
+    }
+
+    cantic = "Beneït.. etc"; //TODO: tidi
+
+    return(
+      <Text style={styles.red}>Ant.
+        <Text style={styles.black}> {antCantic}</Text>
+      </Text>
+      <Text style={styles.black}>{cantic}</Text>
+      <Text />
+      {this.gloria('1')}
+      <Text />
+      <Text style={styles.red}>Ant.
+        <Text style={styles.black}> {antCantic}</Text>
+      </Text>
+    );
+  }
+
   oracio(LT, weekDay){
     switch(LT){
       case O_ORDINARI:
-        oracio = this.state.tempsOrdinariOracions.oracio;
+        if(weekDay !== 0){ ///no diumenge
+          oracio = this.state.salteriComuLaudes.oracio;
+        }
+        else{ //diumenge
+          antCantic = this.state.tempsOrdinariOracions.oracio;
+        }
         break;
       case Q_CENDRA:
         oracio = this.state.tempsQuaresmaCendra.oraFiLaudes;

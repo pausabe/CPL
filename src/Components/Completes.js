@@ -24,7 +24,7 @@ const N_ABANS = 'N_ABANS';
 
 import DBAdapter from '../SQL/DBAdapter';
 
-export default class Completes extends Component {
+export default class Laudes extends Component {
   constructor(props) {
     super(props)
 
@@ -221,16 +221,21 @@ export default class Completes extends Component {
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>VERS</Text>
+        <Text style={styles.red}>LECTURA BREU</Text>
         <Text />
-        {this.vers(this.props.LT)}
+        {this.lecturaBreu(this.props.LT)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>LECTURES</Text>
+        <Text style={styles.red}>RESPONSORI BREU</Text>
         <Text />
-        {this.lectures(this.props.LT)}
-        {this.himneOhDeu(this.props.LT, this.props.weekDay)}
+        {this.responsoriBreu(this.props.LT)}
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.red}>CÀNTIC DE SIMEÓ</Text>
+        {this.cantic(this.props.LT)}
+        <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
@@ -590,71 +595,7 @@ export default class Completes extends Component {
     );
   }
 
-  vers(LT){
-    switch(LT){
-      case O_ORDINARI:
-        respV = this.state.salteriComuOfici.respV;
-        respR = this.state.salteriComuOfici.respR;
-        break;
-      case Q_CENDRA:
-        respV = this.state.tempsQuaresmaCendra.respVOfici;
-        respR = this.state.tempsQuaresmaCendra.respROfici;
-        break;
-      case Q_SETMANES:
-        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
-        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
-        break;
-      case Q_DIUM_RAMS:
-        respV = this.state.tempsQuaresmaRams.respVOfici;
-        respR = this.state.tempsQuaresmaRams.respROfici;
-        break;
-      case Q_SET_SANTA:
-        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
-        respR = this.state.tempsQuaresmaSetSanta.respROfici;
-        break;
-      case Q_TRIDU:
-        respV = this.state.tempsQuaresmaTridu.respVOfici;
-        respR = this.state.tempsQuaresmaTridu.respROfici;
-        break;
-      case P_OCTAVA:
-        respV = this.state.tempsPasquaOct.respVOfici;
-        respR = this.state.tempsPasquaOct.respROfici;
-        break;
-      case P_SETMANES:
-        respV = this.state.tempsPasquaSetmanes.respVOfici;
-        respR = this.state.tempsPasquaSetmanes.respROfici;
-        break;
-      case A_SETMANES:
-        respV = this.state.tempsAdventSetmanes.respVOfici;
-        respR = this.state.tempsAdventSetmanes.respROfici;
-        break;
-      case A_FERIES:
-        respV = this.state.tempsAdventFeries.respVOfici;
-        respR = this.state.tempsAdventFeries.respROfici;
-        break;
-      case N_OCTAVA:
-        respV = this.state.tempsNadalOctava.respVOfici;
-        respR = this.state.tempsNadalOctava.respROfici;
-        break;
-      case N_ABANS:
-        respV = this.state.tempsNadalAbansEpifania.respVOfici;
-        respR = this.state.tempsNadalAbansEpifania.respROfici;
-        break;
-    }
-
-    return(
-      <View>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> {respV}</Text>
-        </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> {respR}</Text>
-        </Text>
-      </View>
-    );
-  }
-
-  lectures(LT){
+  lecturaBreu(LT){
     switch(LT){
       case O_ORDINARI:
         referencia1 = this.state.tempsOrdinariOfici.referencia1;
@@ -875,96 +816,204 @@ export default class Completes extends Component {
     }
     return(
       <View>
-        <Text style={styles.red}>Primera lectura</Text>
-        <Text style={styles.black}>{referencia1}
-          <Text style={styles.red}> {cita1}</Text></Text>
+        <Text style={styles.red}> {cita}</Text>
         <Text />
-        <Text style={styles.redCenterBold}>{titol1}</Text>
-        <Text />
-        <Text style={styles.black}>{lectura1}</Text>
-        <Text />
-        <Text style={styles.red}>Responsori
-          <Text style={styles.redSmallItalicRight}> {citaResp1}</Text>
-        </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> {resp1Part1}
-            <Text style={styles.red}>*</Text> {resp1Part2}</Text>
-        </Text>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> {resp1Part3}
-            <Text style={styles.red}>*</Text> {resp1Part2}</Text>
-        </Text>
-        <Text />
-        <Text style={styles.red}>Segona lectura</Text>
-        <Text style={styles.black}>{referencia2}
-          <Text style={styles.red}> {cita2}</Text></Text>
-        <Text />
-        <Text style={styles.redCenterBold}>{titol2}</Text>
-        <Text />
-        <Text style={styles.black}>{lectura2}</Text>
-        <Text />
-        <Text style={styles.red}>Responsori
-          <Text style={styles.redSmallItalicRight}>  {versResp2}</Text>
-        </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> {resp2Part1}
-            <Text style={styles.red}>*</Text> {resp2Part2}</Text>
-        </Text>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}>  {resp2Part3}
-            <Text style={styles.red}>*</Text> {resp2Part2}</Text>
-        </Text>
+        <Text style={styles.black}>{lecturaBreu}</Text>
       </View>
     )
   }
 
-  himneOhDeu(LT, weekDay){
-    var himne = false;
+  cantic(LT){
     switch(LT){
       case O_ORDINARI:
-        if(weekDay == 0) himne = true; //diumenge
+        respV = this.state.salteriComuOfici.respV;
+        respR = this.state.salteriComuOfici.respR;
         break;
       case Q_CENDRA:
+        respV = this.state.tempsQuaresmaCendra.respVOfici;
+        respR = this.state.tempsQuaresmaCendra.respROfici;
         break;
       case Q_SETMANES:
+        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
+        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
         break;
       case Q_DIUM_RAMS:
+        respV = this.state.tempsQuaresmaRams.respVOfici;
+        respR = this.state.tempsQuaresmaRams.respROfici;
         break;
       case Q_SET_SANTA:
+        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
+        respR = this.state.tempsQuaresmaSetSanta.respROfici;
         break;
       case Q_TRIDU:
+        respV = this.state.tempsQuaresmaTridu.respVOfici;
+        respR = this.state.tempsQuaresmaTridu.respROfici;
         break;
       case P_OCTAVA:
-        himne = true;
+        respV = this.state.tempsPasquaOct.respVOfici;
+        respR = this.state.tempsPasquaOct.respROfici;
         break;
       case P_SETMANES:
-        if(weekDay == 0) himne = true; //diumenge
+        respV = this.state.tempsPasquaSetmanes.respVOfici;
+        respR = this.state.tempsPasquaSetmanes.respROfici;
         break;
       case A_SETMANES:
-        if(weekDay == 0) himne = true; //diumenge
+        respV = this.state.tempsAdventSetmanes.respVOfici;
+        respR = this.state.tempsAdventSetmanes.respROfici;
         break;
       case A_FERIES:
+        respV = this.state.tempsAdventFeries.respVOfici;
+        respR = this.state.tempsAdventFeries.respROfici;
         break;
       case N_OCTAVA:
-        himne = true;
+        respV = this.state.tempsNadalOctava.respVOfici;
+        respR = this.state.tempsNadalOctava.respROfici;
         break;
       case N_ABANS:
-        if(weekDay == 0) himne = true; //diumenge
+        respV = this.state.tempsNadalAbansEpifania.respVOfici;
+        respR = this.state.tempsNadalAbansEpifania.respROfici;
         break;
     }
 
-    if(himne){
-      return(
-        <View>
-          <Hr lineColor='#CFD8DC' />
-          <Text />
-          <Text style={styles.red}>HIMNE</Text>
-          <Text />
-          <Text style={styles.black}>Oh Déu, us lloem.</Text>
-          <Text />
-        </View>
-      )
+    cantic = "Beneït.. etc";
+
+    return(
+      <Text style={styles.red}>Ant.
+        <Text style={styles.black}> {antifona}</Text>
+      </Text>
+      <Text style={styles.black}>{cantic}</Text>
+      <Text />
+      {this.gloria('1')}
+      <Text />
+      <Text style={styles.red}>Ant.
+        <Text style={styles.black}> {antifona}</Text>
+      </Text>
+    );
+  }
+
+  responsoriBreu(LT){
+    switch(LT){
+      case O_ORDINARI:
+        respV = this.state.salteriComuOfici.respV;
+        respR = this.state.salteriComuOfici.respR;
+        break;
+      case Q_CENDRA:
+        respV = this.state.tempsQuaresmaCendra.respVOfici;
+        respR = this.state.tempsQuaresmaCendra.respROfici;
+        break;
+      case Q_SETMANES:
+        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
+        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
+        break;
+      case Q_DIUM_RAMS:
+        respV = this.state.tempsQuaresmaRams.respVOfici;
+        respR = this.state.tempsQuaresmaRams.respROfici;
+        break;
+      case Q_SET_SANTA:
+        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
+        respR = this.state.tempsQuaresmaSetSanta.respROfici;
+        break;
+      case Q_TRIDU:
+        respV = this.state.tempsQuaresmaTridu.respVOfici;
+        respR = this.state.tempsQuaresmaTridu.respROfici;
+        break;
+      case P_OCTAVA:
+        respV = this.state.tempsPasquaOct.respVOfici;
+        respR = this.state.tempsPasquaOct.respROfici;
+        break;
+      case P_SETMANES:
+        respV = this.state.tempsPasquaSetmanes.respVOfici;
+        respR = this.state.tempsPasquaSetmanes.respROfici;
+        break;
+      case A_SETMANES:
+        respV = this.state.tempsAdventSetmanes.respVOfici;
+        respR = this.state.tempsAdventSetmanes.respROfici;
+        break;
+      case A_FERIES:
+        respV = this.state.tempsAdventFeries.respVOfici;
+        respR = this.state.tempsAdventFeries.respROfici;
+        break;
+      case N_OCTAVA:
+        respV = this.state.tempsNadalOctava.respVOfici;
+        respR = this.state.tempsNadalOctava.respROfici;
+        break;
+      case N_ABANS:
+        respV = this.state.tempsNadalAbansEpifania.respVOfici;
+        respR = this.state.tempsNadalAbansEpifania.respROfici;
+        break;
     }
+
+    return(
+        <Text style={styles.black}> {pregaries}</Text>
+    );
+  }
+
+  cantic(LT){
+    switch(LT){
+      case O_ORDINARI:
+        respV = this.state.salteriComuOfici.respV;
+        respR = this.state.salteriComuOfici.respR;
+        break;
+      case Q_CENDRA:
+        respV = this.state.tempsQuaresmaCendra.respVOfici;
+        respR = this.state.tempsQuaresmaCendra.respROfici;
+        break;
+      case Q_SETMANES:
+        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
+        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
+        break;
+      case Q_DIUM_RAMS:
+        respV = this.state.tempsQuaresmaRams.respVOfici;
+        respR = this.state.tempsQuaresmaRams.respROfici;
+        break;
+      case Q_SET_SANTA:
+        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
+        respR = this.state.tempsQuaresmaSetSanta.respROfici;
+        break;
+      case Q_TRIDU:
+        respV = this.state.tempsQuaresmaTridu.respVOfici;
+        respR = this.state.tempsQuaresmaTridu.respROfici;
+        break;
+      case P_OCTAVA:
+        respV = this.state.tempsPasquaOct.respVOfici;
+        respR = this.state.tempsPasquaOct.respROfici;
+        break;
+      case P_SETMANES:
+        respV = this.state.tempsPasquaSetmanes.respVOfici;
+        respR = this.state.tempsPasquaSetmanes.respROfici;
+        break;
+      case A_SETMANES:
+        respV = this.state.tempsAdventSetmanes.respVOfici;
+        respR = this.state.tempsAdventSetmanes.respROfici;
+        break;
+      case A_FERIES:
+        respV = this.state.tempsAdventFeries.respVOfici;
+        respR = this.state.tempsAdventFeries.respROfici;
+        break;
+      case N_OCTAVA:
+        respV = this.state.tempsNadalOctava.respVOfici;
+        respR = this.state.tempsNadalOctava.respROfici;
+        break;
+      case N_ABANS:
+        respV = this.state.tempsNadalAbansEpifania.respVOfici;
+        respR = this.state.tempsNadalAbansEpifania.respROfici;
+        break;
+    }
+
+    cantic = "Beneït.. etc";
+
+    return(
+      <Text style={styles.red}>Ant.
+        <Text style={styles.black}> {antifona}</Text>
+      </Text>
+      <Text style={styles.black}>{cantic}</Text>
+      <Text />
+      {this.gloria('1')}
+      <Text />
+      <Text style={styles.red}>Ant.
+        <Text style={styles.black}> {antifona}</Text>
+      </Text>
+    );
   }
 
   oracio(LT, weekDay){
@@ -1049,4 +1098,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('Completes', () => Completes);
+AppRegistry.registerComponent('Laudes', () => Laudes);
