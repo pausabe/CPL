@@ -23,29 +23,15 @@ export default class SettingComponent extends Component{
     }
 
     render(){
-        let selectorProps;
         switch (this.props.selectorComponent) {
             case "switch":
-                selectorProps = Object.assign(this.selectorProps ? this.selectorProps : {}, {
-                    value: this.state.value,
-                    onValueChange: this._updateSelectionStateCallback.bind(this)
-                });
-                this.selectorComponent = React.createElement(Switch, selectorProps);
+                this.selectorComponent = this._generateSwitch();
                 break;
             case "slider":
-                selectorProps = Object.assign(this.selectorProps ? this.selectorProps : {}, {
-                    onValueChange: this._selectionCallback.bind(this)
-                });
-                this.selectorComponent = React.createElement(Slider, selectorProps);
+                this.selectorComponent = this._generateSlider();
                 break;
             case "picker":
-                selectorProps = Object.assign(this.selectorProps ? this.selectorProps : {}, {
-                    selectedValue: this.state.value,
-                    onValueChange: this._updateSelectionStateCallback.bind(this)
-                });
-                this.selectorComponent = React.createElement(Picker, selectorProps,
-                    <Picker.Item label="Java" value="java"/>,
-                    <Picker.Item label="JavaScript" value="js"/>);
+                this.selectorComponent = this._generatePicker();
                 break;
             default:
         }
@@ -61,6 +47,32 @@ export default class SettingComponent extends Component{
         );
     }
 
+    _generateSwitch(){
+        let selectorProps = this._mergeProps({
+            value: this.state.value,
+            onValueChange: this._updateSelectionStateCallback.bind(this)
+        });
+        return React.createElement(Switch, selectorProps);
+    }
+
+    _generateSlider(){
+        let selectorProps = this._mergeProps({
+            onValueChange: this._selectionCallback.bind(this)
+        });
+        return React.createElement(Slider, selectorProps);
+    }
+
+    _generatePicker(){
+        let selectorProps = this._mergeProps({
+            selectedValue: this.state.value,
+            onValueChange: this._updateSelectionStateCallback.bind(this)
+        });
+        return React.createElement(Picker, selectorProps,
+            <Picker.Item label="Java" value="java"/>,
+            <Picker.Item label="JavaScript" value="js"/>
+        );
+    }
+
     _updateSelectionStateCallback(value){
         this.setState({
             value: value
@@ -70,6 +82,10 @@ export default class SettingComponent extends Component{
 
     _selectionCallback(value){
         this.callback(this.id, value);
+    }
+
+    _mergeProps(properties){
+        return Object.assign(this.selectorProps ? this.selectorProps : {}, properties);
     }
 
 }
