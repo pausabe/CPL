@@ -734,16 +734,18 @@ export default class Laudes extends Component {
     cantic = "Beneït.. etc"; //TODO: tidi
 
     return(
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antCantic}</Text>
-      </Text>
-      <Text style={styles.black}>{cantic}</Text>
-      <Text />
-      {this.gloria('1')}
-      <Text />
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antCantic}</Text>
-      </Text>
+      <View>
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antCantic}</Text>
+        </Text>
+        <Text style={styles.black}>{cantic}</Text>
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antCantic}</Text>
+        </Text>
+      </View>
     );
   }
 
