@@ -11,6 +11,7 @@ export default class SettingComponent extends Component{
         this.description = props.description;
         this.id = props.id;
         this.value = props.value;
+        this.options = props.options;
         this.callback = props.callback;
         this.selectorComponent = props.selectorComponent;
         this.selectorProps = props.selectorProps;
@@ -23,15 +24,16 @@ export default class SettingComponent extends Component{
     }
 
     render(){
+        let selectorComponent;
         switch (this.props.selectorComponent) {
             case "switch":
-                this.selectorComponent = this._generateSwitch();
+                selectorComponent = this._generateSwitch();
                 break;
             case "slider":
-                this.selectorComponent = this._generateSlider();
+                selectorComponent = this._generateSlider();
                 break;
             case "picker":
-                this.selectorComponent = this._generatePicker();
+                selectorComponent = this._generatePicker();
                 break;
             default:
         }
@@ -40,7 +42,7 @@ export default class SettingComponent extends Component{
             <View>
                 <View style={styles.option}>
                     <Text>{this.name}</Text>
-                    {this.selectorComponent}
+                    {selectorComponent}
                 </View>
                 <Hr style={styles.separator} lineColor={GLOBAL.hrColor} />
             </View>
@@ -57,6 +59,7 @@ export default class SettingComponent extends Component{
 
     _generateSlider(){
         let selectorProps = this._mergeProps({
+            value: this.state.value,
             onValueChange: this._selectionCallback.bind(this)
         });
         return React.createElement(Slider, selectorProps);
@@ -68,9 +71,19 @@ export default class SettingComponent extends Component{
             onValueChange: this._updateSelectionStateCallback.bind(this)
         });
         return React.createElement(Picker, selectorProps,
-            <Picker.Item label="Java" value="java"/>,
-            <Picker.Item label="JavaScript" value="js"/>
+            this._generatePickerOptions()
         );
+    }
+
+    _generatePickerOptions(){
+        console.log("Generating options...");
+        let options = [];
+        for(let key in this.options){
+            options.push(
+                <Picker.Item label={this.options[key]} value={key} key={key}/>
+            );
+        }
+        return options;
     }
 
     _updateSelectionStateCallback(value){

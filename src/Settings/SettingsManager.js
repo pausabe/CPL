@@ -1,6 +1,6 @@
 import {AsyncStorage} from "react-native";
 
-const diocesis = {
+export const diocesis = {
     BARCELONA: "Barcelona",
     TARRAGONA: "Tarragona",
     LLEIDA: "Lleida",
@@ -17,7 +17,7 @@ const defaultSettings = {
 };
 
 export default class SettingsManager{
-    
+
     /**
     * The undescore means that the method is "private", DO NOT USE outside of SettingsManager
     *
@@ -45,9 +45,12 @@ export default class SettingsManager{
     }
 
     static _setValueIfValid(key, value, validateFunc, callback){
+        console.log(key + " - " + value)
         if(!(validateFunc instanceof Function) || validateFunc(value)){
+            console.log("VALID");
             return SettingsManager._setStorageValue(key, value, callback);
         }else{
+            console.log("NOT VALID");
             let wrongValuePromise = new Promise((resolve, reject) => {
                 reject(new Error("Invalid value"));
             });
@@ -98,7 +101,7 @@ export default class SettingsManager{
             (val) => {
                 let found = false;
                 for(key in diocesis){
-                    if(diocesis[key] === val){
+                    if(diocesis[key] == val){
                         found = true;
                     }
                 }

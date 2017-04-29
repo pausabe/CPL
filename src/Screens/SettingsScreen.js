@@ -2,19 +2,28 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, ScrollView } from 'react-native';
 import GLOBAL from "../Globals/Globals";
 import SettingComponent from "../Components/SettingComponent";
+import SettingsComponentAdapter from "../ComponentAdapters/SettingsComponentAdapter";
 
 export default class SettingsScreen extends Component {
 
+    componentWillMount(){
+        SettingsComponentAdapter.getSettingsOptions().then(result =>{
+            this.setState({options: result});
+        });
+    }
+
     render() {
         console.log("I'm rendering settings.");
+        if(!this.state || this.state && !this.state.options){
+            return (<ScrollView style={styles.itemList}>
+                <Text>Carregant opcions</Text>
+            </ScrollView>);
+        }
         return (
             <ScrollView style={styles.itemList}>
-                <SettingComponent name="Option 1" id="o1" selectorComponent="switch" value={true} callback={callbackTest}/>
-                <SettingComponent name="Option 2" id="o2" selectorComponent="switch" value={false} callback={callbackTest}/>
-                <SettingComponent name="Option 3" id="o3" selectorComponent="picker" value="java" callback={callbackTest}/>
-                <SettingComponent name="Option 4" id="o4" selectorComponent="slider" selectorProps={{maximumValue: 10}} callback={callbackTest}/>
+                {this.state.options}
             </ScrollView>
-        )
+        );
       }
 }
 
