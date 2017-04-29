@@ -60,10 +60,6 @@ export default class SettingsComponentAdapter{
 
 }
 
-function callbackTest(id, value){
-    console.log("ID: "+id+" - VALUE: "+value)
-}
-
 function _getKeyFromValue(object, value){
     for(key in object){
         if(object[key] == value){
