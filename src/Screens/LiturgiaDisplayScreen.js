@@ -42,7 +42,8 @@ export default class LiturgiaDisplayScreen extends Component {
             ordinariWeek = {this.props.ordinariWeek}
             pasquaWeek = {this.props.pasquaWeek}
             quaresmaWeek = {this.props.quaresmaWeek}
-            LT={this.props.LT}/>
+            LT={this.props.LT}
+            ABC={this.props.ABC}/>
           )
         break;
         case 'Laudes':
@@ -57,7 +58,8 @@ export default class LiturgiaDisplayScreen extends Component {
               ordinariWeek = {this.props.ordinariWeek}
               pasquaWeek = {this.props.pasquaWeek}
               quaresmaWeek = {this.props.quaresmaWeek}
-              LT={this.props.LT}/>
+              LT={this.props.LT}
+              ABC={this.props.ABC}/>
             )
           break;
           case 'Vespres':
@@ -72,7 +74,8 @@ export default class LiturgiaDisplayScreen extends Component {
                 ordinariWeek = {this.props.ordinariWeek}
                 pasquaWeek = {this.props.pasquaWeek}
                 quaresmaWeek = {this.props.quaresmaWeek}
-                LT={this.props.LT}/>
+                LT={this.props.LT}
+                ABC={this.props.ABC}/>
               )
             break;
             case 'Hora menor':
@@ -87,7 +90,8 @@ export default class LiturgiaDisplayScreen extends Component {
                   ordinariWeek = {this.props.ordinariWeek}
                   pasquaWeek = {this.props.pasquaWeek}
                   quaresmaWeek = {this.props.quaresmaWeek}
-                  LT={this.props.LT}/>
+                  LT={this.props.LT}
+                  ABC={this.props.ABC}/>
                 )
               break;
               case 'Completes':
@@ -102,7 +106,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     ordinariWeek = {this.props.ordinariWeek}
                     pasquaWeek = {this.props.pasquaWeek}
                     quaresmaWeek = {this.props.quaresmaWeek}
-                    LT={this.props.LT}/>
+                    LT={this.props.LT}
+                    ABC={this.propsABC}/>
                   )
                 break;
       default: return(<Text style={styles.normalText}>{this.props.type}</Text>)

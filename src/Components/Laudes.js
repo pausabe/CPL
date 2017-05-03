@@ -28,6 +28,8 @@ export default class Laudes extends Component {
   constructor(props) {
     super(props)
 
+    console.log("aha: " + props.ABC);
+
     this.state = {
       nit: null,
       salteriComuLaudes: '',
@@ -36,10 +38,12 @@ export default class Laudes extends Component {
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
       tempsQuaresmaVSetmanes: '',
+      tempsQuaresmaVSetmanesDium: '',
       tempsQuaresmaComuSS: '',
       tempsQuaresmaRams: '',
       tempsQuaresmaSetSanta: '',
       tempsQuaresmaTridu: '',
+      tempsQuaresmaDiumPasq: '',
       tempsPasquaAA: '',
       tempsPasquaOct: '',
       tempsPasquaDA: '',
@@ -59,10 +63,12 @@ export default class Laudes extends Component {
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
       tempsQuaresmaVSetmanes: '',
+      tempsQuaresmaVSetmanesDium: '',
       tempsQuaresmaComuSS: '',
       tempsQuaresmaRams: '',
       tempsQuaresmaSetSanta: '',
       tempsQuaresmaTridu: '',
+      tempsQuaresmaDiumPasq: '',
       tempsPasquaAA: '',
       tempsPasquaOct: '',
       tempsPasquaDA: '',
@@ -75,7 +81,7 @@ export default class Laudes extends Component {
       salteriComuEspPasquaDium: '',
     }
 
-    this.count = 20; //number of queryies
+    this.count = 22; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -99,6 +105,9 @@ export default class Laudes extends Component {
     id = (props.quaresmaWeek-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => { this.queryRows.tempsQuaresmaVSetmanes = result; this.dataReceived(); });
 
+    id = props.quaresmaWeek;
+    acceso.getLiturgia("tempsQuaresmaVSetmanesDium", id, (result) => { this.queryRows.tempsQuaresmaVSetmanesDium = result; this.dataReceived(); });
+
     id = 1;
     acceso.getLiturgia("tempsQuaresmaComuSS", id, (result) => { this.queryRows.tempsQuaresmaComuSS = result; this.dataReceived(); });
 
@@ -110,6 +119,9 @@ export default class Laudes extends Component {
 
     id = props.weekDay-3; //dijous = 1, divendres = 2 i dissabte = 3
     acceso.getLiturgia("tempsQuaresmaTridu", id, (result) => { this.queryRows.tempsQuaresmaTridu = result; this.dataReceived(); });
+
+    id = 1;
+    acceso.getLiturgia("tempsQuaresmaDiumPasq", id, (result) => { this.queryRows.tempsQuaresmaDiumPasq = result; this.dataReceived(); });
 
     id = 1;
     acceso.getLiturgia("tempsPasquaAA", id, (result) => { this.queryRows.tempsPasquaAA = result; this.dataReceived(); });
@@ -172,10 +184,12 @@ export default class Laudes extends Component {
         tempsQuaresmaComuFV: this.queryRows.tempsQuaresmaComuFV,
         tempsQuaresmaCendra: this.queryRows.tempsQuaresmaCendra,
         tempsQuaresmaVSetmanes: this.queryRows.tempsQuaresmaVSetmanes,
+        tempsQuaresmaVSetmanesDium: this.queryRows.tempsQuaresmaVSetmanesDium,
         tempsQuaresmaComuSS: this.queryRows.tempsQuaresmaComuSS,
         tempsQuaresmaRams: this.queryRows.tempsQuaresmaRams,
         tempsQuaresmaSetSanta: this.queryRows.tempsQuaresmaSetSanta,
         tempsQuaresmaTridu: this.queryRows.tempsQuaresmaTridu,
+        tempsQuaresmaDiumPasq: this.queryRows.tempsQuaresmaDiumPasq,
         tempsPasquaAA: this.queryRows.tempsPasquaAA,
         tempsPasquaOct: this.queryRows.tempsPasquaOct,
         tempsPasquaDA: this.queryRows.tempsPasquaDA,
@@ -227,8 +241,14 @@ export default class Laudes extends Component {
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
+        <Text style={styles.red}>RESPONSORI BREU</Text>
+        <Text />
+        {this.responsori(this.props.LT)}
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
         <Text style={styles.red}>CÀNTIC DE ZACARIES</Text>
-        {this.cantic(this.props.LT, this.props.weekDay)}
+        {this.cantic(this.props.LT, this.props.weekDay, this.props.ABC)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -283,53 +303,53 @@ export default class Laudes extends Component {
       case Q_SETMANES:
         if(weekDay===0){ //diumenge
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiDom;
+            himne = this.state.tempsQuaresmaComuFV.himneLaudesLlatiDom;
           }
           else{
-            himne = this.state.tempsQuaresmaComuFV.himneOficiCatDom;
+            himne = this.state.tempsQuaresmaComuFV.himneLaudesCatDom;
           }
         }
         else{//ferial
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiFer;
+            himne = this.state.tempsQuaresmaComuFV.himneLaudesLlatiFer;
           }
           else{
-            himne = this.state.tempsQuaresmaComuFV.himneOficiCatFer;
+            himne = this.state.tempsQuaresmaComuFV.himneLaudesCatFer;
           }
         }
         break;
       case Q_DIUM_RAMS:
       case Q_SET_SANTA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-          himne = this.state.tempsQuaresmaComuSS.himneOficiLlati;
+          himne = this.state.tempsQuaresmaComuSS.himneLaudesLlati;
         }
         else{
-          himne = this.state.tempsQuaresmaComuSS.himneOficiCat;
+          himne = this.state.tempsQuaresmaComuSS.himneLaudesCat;
         }
         break;
       case Q_TRIDU:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-          himne = this.state.tempsQuaresmaTridu.himneDSOLLati;
+          himne = this.state.tempsQuaresmaTridu.himneDSOLaudesllati;
         }
         else{
-          himne = this.state.tempsQuaresmaTridu.himneDSOLCat;
+          himne = this.state.tempsQuaresmaTridu.himneDSOLaudescat;
         }
         break;
       case P_OCTAVA:
         if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneOficiLlati1;
+            himne = this.state.tempsPasquaAA.himneLaudesLlati1;
           }
           else{
-            himne = this.state.tempsPasquaAA.himneOficiCat1;
+            himne = this.state.tempsPasquaAA.himneLaudesCat1;
           }
         }
         else{//fórmula 2
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneOficiLlati2;
+            himne = this.state.tempsPasquaAA.himneLaudesLlati2;
           }
           else{
-            himne = this.state.tempsPasquaAA.himneOficiCat2;
+            himne = this.state.tempsPasquaAA.himneLaudesCat2;
           }
         }
         break;
@@ -381,9 +401,6 @@ export default class Laudes extends Component {
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
-      case Q_SETMANES:
-      case Q_DIUM_RAMS:
-      case Q_SET_SANTA:
       case N_ABANS:
         ant1 = this.state.salteriComuLaudes.ant1;
         titol1 = this.state.salteriComuLaudes.titol1;
@@ -401,39 +418,105 @@ export default class Laudes extends Component {
         salm3 = this.state.salteriComuLaudes.salm3;
         gloria3 = this.state.salteriComuLaudes.gloria3;
         break;
+        case Q_SETMANES:
+          ant1 = this.state.salteriComuLaudes.ant1;
+          titol1 = this.state.salteriComuLaudes.titol1;
+          com1 = this.state.salteriComuLaudes.com1;
+          salm1 = this.state.salteriComuLaudes.salm1;
+          gloria1 = this.state.salteriComuLaudes.gloria1;
+          ant2 = this.state.salteriComuLaudes.ant2;
+          titol2 = this.state.salteriComuLaudes.titol2;
+          com2 = this.state.salteriComuLaudes.com2;
+          salm2 = this.state.salteriComuLaudes.salm2;
+          gloria2 = this.state.salteriComuLaudes.gloria2;
+          ant3 = this.state.salteriComuLaudes.ant3;
+          titol3 = this.state.salteriComuLaudes.titol3;
+          com3 = this.state.salteriComuLaudes.com3;
+          salm3 = this.state.salteriComuLaudes.salm3;
+          gloria3 = this.state.salteriComuLaudes.gloria3;
+          if(weekDay === 0){ //diumenge
+              ant1 = this.state.tempsQuaresmaVSetmanesDium.ant1Laudes;
+              ant2 = this.state.tempsQuaresmaVSetmanesDium.ant2Laudes;
+              ant3 = this.state.tempsQuaresmaVSetmanesDium.ant3Laudes;
+            }
+          break;
+      case Q_DIUM_RAMS:
+        ant1 = this.state.salteriComuLaudes.ant1;
+        titol1 = this.state.salteriComuLaudes.titol1;
+        com1 = this.state.salteriComuLaudes.com1;
+        salm1 = this.state.salteriComuLaudes.salm1;
+        gloria1 = this.state.salteriComuLaudes.gloria1;
+        ant2 = this.state.salteriComuLaudes.ant2;
+        titol2 = this.state.salteriComuLaudes.titol2;
+        com2 = this.state.salteriComuLaudes.com2;
+        salm2 = this.state.salteriComuLaudes.salm2;
+        gloria2 = this.state.salteriComuLaudes.gloria2;
+        ant3 = this.state.salteriComuLaudes.ant3;
+        titol3 = this.state.salteriComuLaudes.titol3;
+        com3 = this.state.salteriComuLaudes.com3;
+        salm3 = this.state.salteriComuLaudes.salm3;
+        gloria3 = this.state.salteriComuLaudes.gloria3;
+        if(weekDay === 0){ //diumenge
+            ant1 = this.state.tempsQuaresmaRams.ant1Laudes;
+            ant2 = this.state.tempsQuaresmaRams.ant2Laudes;
+            ant3 = this.state.tempsQuaresmaRams.ant3Laudes;
+          }
+        break;
+      case Q_SET_SANTA:
+        ant1 = this.state.salteriComuLaudes.ant1;
+        titol1 = this.state.salteriComuLaudes.titol1;
+        com1 = this.state.salteriComuLaudes.com1;
+        salm1 = this.state.salteriComuLaudes.salm1;
+        gloria1 = this.state.salteriComuLaudes.gloria1;
+        ant2 = this.state.salteriComuLaudes.ant2;
+        titol2 = this.state.salteriComuLaudes.titol2;
+        com2 = this.state.salteriComuLaudes.com2;
+        salm2 = this.state.salteriComuLaudes.salm2;
+        gloria2 = this.state.salteriComuLaudes.gloria2;
+        ant3 = this.state.salteriComuLaudes.ant3;
+        titol3 = this.state.salteriComuLaudes.titol3;
+        com3 = this.state.salteriComuLaudes.com3;
+        salm3 = this.state.salteriComuLaudes.salm3;
+        gloria3 = this.state.salteriComuLaudes.gloria3;
+
+        ant1 = this.state.tempsQuaresmaSetSanta.ant1Laudes;
+        ant2 = this.state.tempsQuaresmaSetSanta.ant2Laudes;
+        ant3 = this.state.tempsQuaresmaSetSanta.ant3Laudes;
+
+      break;
       case Q_TRIDU:
-        ant1 = this.state.tempsQuaresmaTridu.ant1Ofici;
-        titol1 = this.state.tempsQuaresmaTridu.titolSalm1Ofici;
+        ant1 = this.state.tempsQuaresmaTridu.ant1Laudes;
+        titol1 = this.state.tempsQuaresmaTridu.titol1Laudes;
         com1 = "-";
-        salm1 = this.state.tempsQuaresmaTridu.salm1Ofici;
-        gloria1 = this.state.tempsQuaresmaTridu.gloriaOfici1;
-        ant2 = this.state.tempsQuaresmaTridu.ant2Ofici;
-        titol2 = this.state.tempsQuaresmaTridu.titolSalm2Ofici;
+        salm1 = this.state.tempsQuaresmaTridu.salm1Laudes;
+        gloria1 = this.state.tempsQuaresmaTridu.gloriaLaudes1;
+        ant2 = this.state.tempsQuaresmaTridu.ant2Laudes;
+        titol2 = this.state.tempsQuaresmaTridu.titol2Laudes;
         com2 = "-";
-        salm2 = this.state.tempsQuaresmaTridu.salm2Ofici;
-        gloria2 = this.state.tempsQuaresmaTridu.gloriaOfici2;
-        ant3 = this.state.tempsQuaresmaTridu.ant3Ofici;
-        titol3 = this.state.tempsQuaresmaTridu.titolSalm3Ofici;
+        salm2 = this.state.tempsQuaresmaTridu.salm2Laudes;
+        gloria2 = this.state.tempsQuaresmaTridu.gloriaLaudes2;
+        ant3 = this.state.tempsQuaresmaTridu.ant3Laudes;
+        titol3 = this.state.tempsQuaresmaTridu.titol3Laudes;
         com3 = "-";
-        salm3 = this.state.tempsQuaresmaTridu.salm3Ofici;
-        gloria3 = this.state.tempsQuaresmaTridu.gloriaOfici3;
+        salm3 = this.state.tempsQuaresmaTridu.salm3Laudes;
+        gloria3 = this.state.tempsQuaresmaTridu.gloriaLaudes3;
         break;
       case P_OCTAVA:
-        ant1 = this.state.tempsPasquaOct.ant1Ofici;
-        titol1 = this.state.tempsPasquaOct.titolSalm1Ofici;
+        ant1 = this.state.tempsQuaresmaDiumPasq.ant1Laudes;
+        titol1 = this.state.tempsQuaresmaDiumPasq.titol1Laudes;
         com1 = "-";
-        salm1 = this.state.tempsPasquaOct.salm1Ofici;
-        gloria1 = this.state.tempsPasquaOct.gloriaOfici1;
-        ant2 = this.state.tempsPasquaOct.ant2Ofici;
-        titol2 = this.state.tempsPasquaOct.titolSalm2Ofici;
+        salm1 = this.state.tempsQuaresmaDiumPasq.text1Laudes;
+        gloria1 = this.state.tempsQuaresmaDiumPasq.gloria1Laudes;
+        ant2 = this.state.tempsQuaresmaDiumPasq.ant2Laudes;
+        titol2 = this.state.tempsQuaresmaDiumPasq.titol2Laudes;
         com2 = "-";
-        salm2 = this.state.tempsPasquaOct.salm2Ofici;
-        gloria2 = this.state.tempsPasquaOct.gloriaOfici2;
-        ant3 = this.state.tempsPasquaOct.ant3Ofici;
-        titol3 = this.state.tempsPasquaOct.titolSalm3Ofici;
+        salm2 = this.state.tempsQuaresmaDiumPasq.text2Laudes;
+        gloria2 = this.state.tempsQuaresmaDiumPasq.gloria2Laudes;
+        ant3 = this.state.tempsQuaresmaDiumPasq.ant3Laudes;
+        titol3 = this.state.tempsQuaresmaDiumPasq.titol3Laudes;
         com3 = "-";
-        salm3 = this.state.tempsPasquaOct.salm3Ofici;
-        gloria3 = this.state.tempsPasquaOct.gloriaOfici3;
+        salm3 = this.state.tempsQuaresmaDiumPasq.text3Laudes;
+        gloria3 = this.state.tempsQuaresmaDiumPasq.gloria3Laudes;
         break;
       case P_SETMANES:
         titol1 = this.state.salteriComuLaudes.titol1;
@@ -589,22 +672,28 @@ export default class Laudes extends Component {
         lecturaBreu = this.state.salteriComuLaudes.lecturaBreu;
         break;
       case Q_CENDRA:
-
+        vers = this.state.tempsQuaresmaCendra.citaLBLaudes;
+        lecturaBreu = this.state.tempsQuaresmaCendra.lecturaBreuLaudes;
         break;
       case Q_SETMANES:
-
+        vers = this.state.tempsQuaresmaVSetmanes.citaLBLaudes;
+        lecturaBreu = this.state.tempsQuaresmaVSetmanes.lecturaBreuLaudes;
         break;
       case Q_DIUM_RAMS:
-
+        vers = this.state.tempsQuaresmaRams.citaLBLaudes;
+        lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuLaudes;
         break;
       case Q_SET_SANTA:
-
+        vers = this.state.tempsQuaresmaSetSanta.citaLBLaudes;
+        lecturaBreu = this.state.tempsQuaresmaSetSanta.lecturaBreuLaudes;
         break;
       case Q_TRIDU:
-
+        vers = this.state.tempsQuaresmaTridu.citaLBLaudes;
+        lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuLaudes;
         break;
       case P_OCTAVA:
-
+        vers = this.state.tempsPasquaOct.citaLBLaudes;
+        lecturaBreu = this.state.tempsPasquaOct.lecturaBreuLaudes;
         break;
       case P_SETMANES:
 
@@ -631,28 +720,32 @@ export default class Laudes extends Component {
     )
   }
 
-  pregaries(LT){
+  responsori(LT){
     switch(LT){
       case O_ORDINARI:
-        pregaries = this.state.salteriComuLaudes.pregaries;
+        respBreu1 = this.state.salteriComuLaudes.respBreu1
+        respBreu2 = this.state.salteriComuLaudes.respBreu2
+        respBreu3 = this.state.salteriComuLaudes.respBreu3
         break;
       case Q_CENDRA:
-
+        respBreu1 = this.state.tempsQuaresmaCendra.respBreuLaudes1
+        respBreu2 = this.state.tempsQuaresmaCendra.respBreuLaudes2
+        respBreu3 = this.state.tempsQuaresmaCendra.respBreuLaudes3
         break;
       case Q_SETMANES:
-
+        respBreu1 = this.state.tempsQuaresmaVSetmanes.respBreuLaudes1
+        respBreu2 = this.state.tempsQuaresmaVSetmanes.respBreuLaudes2
+        respBreu3 = this.state.tempsQuaresmaVSetmanes.respBreuLaudes3
         break;
       case Q_DIUM_RAMS:
-
+        respBreu1 = this.state.tempsQuaresmaRams.respBreu1Laudes
+        respBreu2 = this.state.tempsQuaresmaRams.respBreu2Laudes
+        respBreu3 = this.state.tempsQuaresmaRams.respBreu3Laudes
         break;
       case Q_SET_SANTA:
-
-        break;
-      case Q_TRIDU:
-
-        break;
-      case P_OCTAVA:
-
+        respBreu1 = this.state.tempsQuaresmaSetSanta.respBreu1Laudes
+        respBreu2 = this.state.tempsQuaresmaSetSanta.respBreu2Laudes
+        respBreu3 = this.state.tempsQuaresmaSetSanta.respBreu3Laudes
         break;
       case P_SETMANES:
 
@@ -670,10 +763,50 @@ export default class Laudes extends Component {
 
         break;
     }
-
-    return(
-        <Text style={styles.black}> {pregaries}</Text>
-    );
+    if(LT === Q_TRIDU){
+      return(
+        <View>
+          <Text style={styles.red}>Ant.
+            <Text style={styles.black}> {this.state.tempsQuaresmaTridu.antEspecialLaudes}</Text>
+          </Text>
+        </View>
+      )
+    }
+    else if(LT === P_OCTAVA){
+      return(
+        <View>
+          <Text style={styles.red}>Ant.
+            <Text style={styles.black}> {this.state.tempsPasquaOct.antEspecialLaudes}</Text>
+          </Text>
+        </View>
+      )
+    }
+    else{
+      return(
+        <View>
+          <Text style={styles.red}>V.
+            <Text style={styles.black}> {respBreu1} {respBreu2}</Text>
+          </Text>
+          <Text style={styles.red}>R.
+            <Text style={styles.black}> {respBreu1} {respBreu2}</Text>
+          </Text>
+          <Text />
+          <Text style={styles.red}>V.
+            <Text style={styles.black}> {respBreu3}</Text>
+          </Text>
+          <Text style={styles.red}>R.
+            <Text style={styles.black}> {respBreu2}</Text>
+          </Text>
+          <Text />
+          <Text style={styles.red}>V.
+            <Text style={styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
+          </Text>
+          <Text style={styles.red}>R.
+            <Text style={styles.black}> {respBreu1} {respBreu2}</Text>
+          </Text>
+        </View>
+      )
+    }
   }
 
   cantic(LT, weekDay, litYear){
@@ -697,22 +830,47 @@ export default class Laudes extends Component {
         }
         break;
       case Q_CENDRA:
-
+        antCantic = this.state.tempsQuaresmaCendra.antZacaries;
         break;
       case Q_SETMANES:
-
+        if(weekDay !== 0){ ///no diumenge
+          antCantic = this.state.tempsQuaresmaVSetmanesDium.antZacaries;
+        }
+        else{ //diumenge
+          switch (litYear) {
+            case 'A':
+              antCantic = this.state.tempsQuaresmaVSetmanesDium.antZacariesA;
+              break;
+            case 'B':
+              antCantic = this.state.tempsQuaresmaVSetmanesDium.antZacariesB;
+              break;
+            case 'C':
+              antCantic = this.state.tempsQuaresmaVSetmanesDium.antZacariesC;
+              break;
+          }
+        }
         break;
       case Q_DIUM_RAMS:
-
+        switch (litYear) {
+          case 'A':
+            antCantic = this.state.tempsQuaresmaRams.antZacariesA;
+            break;
+          case 'B':
+            antCantic = this.state.tempsQuaresmaRams.antZacariesB;
+            break;
+          case 'C':
+            antCantic = this.state.tempsQuaresmaRams.antZacariesC;
+            break;
+        }
         break;
       case Q_SET_SANTA:
-
+          antCantic = this.state.tempsQuaresmaSetSanta.antZacaries;
         break;
       case Q_TRIDU:
-
+          antCantic = this.state.tempsQuaresmaTridu.antZacaries;
         break;
       case P_OCTAVA:
-
+          antCantic = this.state.tempsPasquaOct.antZacaries;
         break;
       case P_SETMANES:
 
@@ -731,7 +889,7 @@ export default class Laudes extends Component {
         break;
     }
 
-    cantic = "Beneït.. etc"; //TODO: tidi
+    cantic = "Beneït.. etc"; //TODO: aha
 
     return(
       <View>
@@ -749,14 +907,59 @@ export default class Laudes extends Component {
     );
   }
 
+  pregaries(LT){
+    switch(LT){
+      case O_ORDINARI:
+        pregaries = this.state.salteriComuLaudes.pregaries;
+        break;
+      case Q_CENDRA:
+        pregaries = this.state.tempsQuaresmaCendra.pregariesLaudes;
+        break;
+      case Q_SETMANES:
+        pregaries = this.state.tempsQuaresmaVSetmanes.pregariesLaudes;
+        break;
+      case Q_DIUM_RAMS:
+          pregaries = this.state.tempsQuaresmaRams.pregariesLaudes;
+        break;
+      case Q_SET_SANTA:
+          pregaries = this.state.tempsQuaresmaSetSanta.pregariesLaudes;
+        break;
+      case Q_TRIDU:
+          pregaries = this.state.tempsQuaresmaTridu.pregariesLaudes;
+        break;
+      case P_OCTAVA:
+          pregaries = this.state.tempsPasquaOct.pregariesLaudes;
+        break;
+      case P_SETMANES:
+
+        break;
+      case A_SETMANES:
+
+        break;
+      case A_FERIES:
+
+        break;
+      case N_OCTAVA:
+
+        break;
+      case N_ABANS:
+
+        break;
+    }
+
+    return(
+        <Text style={styles.black}> {pregaries}</Text>
+    );
+  }
+
   oracio(LT, weekDay){
     switch(LT){
       case O_ORDINARI:
         if(weekDay !== 0){ ///no diumenge
-          oracio = this.state.salteriComuLaudes.oracio;
+          oracio = this.state.salteriComuLaudes.oraFi;
         }
         else{ //diumenge
-          antCantic = this.state.tempsOrdinariOracions.oracio;
+          oracio = this.state.tempsOrdinariOracions.oracio;
         }
         break;
       case Q_CENDRA:
@@ -772,7 +975,7 @@ export default class Laudes extends Component {
         oracio = this.state.tempsQuaresmaSetSanta.oraFiLaudes;
         break;
       case Q_TRIDU:
-        oracio = this.state.tempsQuaresmaTridu.oraFiOfici;
+        oracio = this.state.tempsQuaresmaTridu.oraFiLaudes;
         break;
       case P_OCTAVA:
         oracio = this.state.tempsPasquaOct.oraFiLaudes;
