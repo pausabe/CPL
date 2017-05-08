@@ -55,6 +55,7 @@ export default class Laudes extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
+      tempsSolemnitatsFestes: '',
     }
 
     this.queryRows = {
@@ -81,9 +82,10 @@ export default class Laudes extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
+      tempsSolemnitatsFestes: '',
     }
 
-    this.count = 23; //number of queryies
+    this.count = 24; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -174,6 +176,9 @@ export default class Laudes extends Component {
 
     id = props.monthDay-1;
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
+
+    id = 1; //En Laudes només necessito Nadal (1) per N_OCTAVA
+    acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => { this.queryRows.tempsSolemnitatsFestes = result; this.dataReceived(); });
   }
 
   dataReceived(){
@@ -206,7 +211,8 @@ export default class Laudes extends Component {
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
         salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
-      })
+        tempsSolemnitatsFestes: this.queryRows.tempsSolemnitatsFestes,
+      });
     }
   }
 
@@ -389,13 +395,20 @@ export default class Laudes extends Component {
         break;
       case A_SETMANES:
       case A_FERIES:
-      case N_OCTAVA:
       case N_ABANS:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsAdventNadalComu.himneLaudesLlati;
         }
         else{
           himne = this.state.tempsAdventNadalComu.himneLaudesCat;
+        }
+        break;
+      case N_OCTAVA:
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsSolemnitatsFestes.himneLaudesLlati;
+        }
+        else{
+          himne = this.state.tempsSolemnitatsFestes.himneLaudesCat;
         }
         break;
     }
@@ -552,21 +565,25 @@ export default class Laudes extends Component {
         }
         break;
       case N_OCTAVA:
-        ant1 = this.state.tempsNadalOctava.ant1Ofici;
-        titol1 = this.state.tempsNadalOctava.titolSalm1Ofici;
-        com1 = "";
-        salm1 = this.state.tempsNadalOctava.salm1Ofici;
-        gloria1 = this.state.tempsNadalOctava.gloriaOfici1;
-        ant2 = this.state.tempsNadalOctava.ant2Ofici;
-        titol2 = this.state.tempsNadalOctava.titolSalm2Ofici;
-        com2 = "-";
-        salm2 = this.state.tempsNadalOctava.salm2Ofici;
-        gloria2 = this.state.tempsNadalOctava.gloriaOfici2;
-        ant3 = this.state.tempsNadalOctava.ant3Ofici;
-        titol3 = this.state.tempsNadalOctava.titolSalm3Ofici;
-        com3 = "-";
-        salm3 = this.state.tempsNadalOctava.salm3Ofici;
-        gloria3 = this.state.tempsNadalOctava.gloriaOfici3;
+        ant1 = this.state.salteriComuLaudes.ant1;
+        titol1 = this.state.salteriComuLaudes.titol1;
+        com1 = this.state.salteriComuLaudes.com1;
+        salm1 = this.state.salteriComuLaudes.salm1;
+        gloria1 = this.state.salteriComuLaudes.gloria1;
+        ant2 = this.state.salteriComuLaudes.ant2;
+        titol2 = this.state.salteriComuLaudes.titol2;
+        com2 = this.state.salteriComuLaudes.com2;
+        salm2 = this.state.salteriComuLaudes.salm2;
+        gloria2 = this.state.salteriComuLaudes.gloria2;
+        ant3 = this.state.salteriComuLaudes.ant3;
+        titol3 = this.state.salteriComuLaudes.titol3;
+        com3 = this.state.salteriComuLaudes.com3;
+        salm3 = this.state.salteriComuLaudes.salm3;
+        gloria3 = this.state.salteriComuLaudes.gloria3;
+
+        ant1 = this.state.tempsSolemnitatsFestes.ant1Laudes;
+        ant2 = this.state.tempsSolemnitatsFestes.ant2Laudes;
+        ant3 = this.state.tempsSolemnitatsFestes.ant3Laudes;
         break;
     }
 
@@ -662,13 +679,16 @@ export default class Laudes extends Component {
         lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuLaudes;
         break;
       case A_FERIES:
-
+        vers = this.state.tempsAdventFeries.citaLBLaudes;
+        lecturaBreu = this.state.tempsAdventFeries.lecturaBreuLaudes;
         break;
       case N_OCTAVA:
-
+        vers = this.state.tempsNadalOctava.citaLBLaudes;
+        lecturaBreu = this.state.tempsNadalOctava.lecturaBreuLaudes;
         break;
       case N_ABANS:
-
+        vers = this.state.tempsNadalAbansEpifania.citaLBLaudes;
+        lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuLaudes;
         break;
     }
     return(
@@ -718,13 +738,19 @@ export default class Laudes extends Component {
         respBreu3 = this.state.tempsAdventSetmanes.respBreuLaudes3
         break;
       case A_FERIES:
-
+        respBreu1 = this.state.tempsAdventFeries.respBreuLaudes1
+        respBreu2 = this.state.tempsAdventFeries.respBreuLaudes2
+        respBreu3 = this.state.tempsAdventFeries.respBreuLaudes3
         break;
       case N_OCTAVA:
-
+        respBreu1 = this.state.tempsNadalOctava.resp2Breu1Laudes
+        respBreu2 = this.state.tempsNadalOctava.resp2Breu2Laudes
+        respBreu3 = this.state.tempsNadalOctava.resp2Breu3Laudes
         break;
       case N_ABANS:
-
+        respBreu1 = this.state.tempsNadalAbansEpifania.respBreuLaudes1
+        respBreu2 = this.state.tempsNadalAbansEpifania.respBreuLaudes2
+        respBreu3 = this.state.tempsNadalAbansEpifania.respBreuLaudes3
         break;
     }
     if(LT === Q_TRIDU){
@@ -873,13 +899,13 @@ export default class Laudes extends Component {
         }
         break;
       case A_FERIES:
-
+        antCantic = this.state.tempsAdventFeries.antZacaries;
         break;
       case N_OCTAVA:
-
+        antCantic = this.state.tempsNadalOctava.antZacaries;
         break;
       case N_ABANS:
-
+        antCantic = this.state.tempsNadalAbansEpifania.antZacaries;
         break;
     }
 
@@ -931,13 +957,13 @@ export default class Laudes extends Component {
           pregaries = this.state.tempsAdventSetmanes.pregariesLaudes;
         break;
       case A_FERIES:
-
+          pregaries = this.state.tempsAdventFeries.pregariesLaudes;
         break;
       case N_OCTAVA:
-
+          pregaries = this.state.tempsNadalOctava.pregariesLaudes;
         break;
       case N_ABANS:
-
+        pregaries = this.state.tempsNadalAbansEpifania.pregariesLaudes;
         break;
     }
 
