@@ -28,12 +28,9 @@ export default class Laudes extends Component {
   constructor(props) {
     super(props)
 
-    console.log("aha: " + props.ABC);
-
     this.state = {
       nit: null,
       salteriComuLaudes: '',
-      tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
@@ -60,7 +57,6 @@ export default class Laudes extends Component {
 
     this.queryRows = {
       salteriComuLaudes: '',
-      tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
@@ -85,7 +81,7 @@ export default class Laudes extends Component {
       tempsSolemnitatsFestes: '',
     }
 
-    this.count = 24; //number of queryies
+    this.count = 23; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -93,9 +89,6 @@ export default class Laudes extends Component {
 
     id = (props.cicle-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("salteriComuLaudes", id, (result) => { this.queryRows.salteriComuLaudes = result; this.dataReceived(); });
-
-    id = (props.ordinariWeek-1)*7  + (props.weekDay+1);
-    acceso.getLiturgia("tempsOrdinariOfici", id, (result) => { this.queryRows.tempsOrdinariOfici = result; this.dataReceived(); });
 
     id = props.ordinariWeek;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
@@ -189,7 +182,6 @@ export default class Laudes extends Component {
       this.setState({
         nit: nit,
         salteriComuLaudes: this.queryRows.salteriComuLaudes,
-        tempsOrdinariOfici: this.queryRows.tempsOrdinariOfici,
         tempsOrdinariOracions: this.queryRows.tempsOrdinariOracions,
         tempsQuaresmaComuFV: this.queryRows.tempsQuaresmaComuFV,
         tempsQuaresmaCendra: this.queryRows.tempsQuaresmaCendra,

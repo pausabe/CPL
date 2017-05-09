@@ -48,9 +48,9 @@ export default class HomeScreen extends Component {
       month: 2,//today.getMonth(), //0-11
       year: 2017,//today.getFullYear(), //xxxx
       hour: 7,//today.getHours(), //0-23
-      LT: 'N_ABANS',
-      weekDay: 0,//today.getDay(), //0-6 (diumenge-dissabte)
-      cicle: 2, //HC 1-4
+      LT: 'Q_TRIDU',
+      weekDay: 5,//today.getDay(), //0-6 (diumenge-dissabte)
+      cicle: 2, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
       ordinariWeek: 15, //HC 1-34
       pasquaWeek: 3, //HC 2-7
       quaresmaWeek: 3, //HC 1-5 o 2-7

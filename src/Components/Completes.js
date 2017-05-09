@@ -24,7 +24,7 @@ const N_ABANS = 'N_ABANS';
 
 import DBAdapter from '../SQL/DBAdapter';
 
-export default class Laudes extends Component {
+export default class Completes extends Component {
   constructor(props) {
     super(props)
 
@@ -224,17 +224,6 @@ export default class Laudes extends Component {
         <Text style={styles.red}>LECTURA BREU</Text>
         <Text />
         {this.lecturaBreu(this.props.LT)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={styles.red}>RESPONSORI BREU</Text>
-        <Text />
-        {this.responsoriBreu(this.props.LT)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={styles.red}>CÀNTIC DE SIMEÓ</Text>
-        {this.cantic(this.props.LT)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -878,73 +867,18 @@ export default class Laudes extends Component {
     cantic = "Beneït.. etc";
 
     return(
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-      <Text style={styles.black}>{cantic}</Text>
-      <Text />
-      {this.gloria('1')}
-      <Text />
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-    );
-  }
-
-  responsoriBreu(LT){
-    switch(LT){
-      case O_ORDINARI:
-        respV = this.state.salteriComuOfici.respV;
-        respR = this.state.salteriComuOfici.respR;
-        break;
-      case Q_CENDRA:
-        respV = this.state.tempsQuaresmaCendra.respVOfici;
-        respR = this.state.tempsQuaresmaCendra.respROfici;
-        break;
-      case Q_SETMANES:
-        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
-        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
-        break;
-      case Q_DIUM_RAMS:
-        respV = this.state.tempsQuaresmaRams.respVOfici;
-        respR = this.state.tempsQuaresmaRams.respROfici;
-        break;
-      case Q_SET_SANTA:
-        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
-        respR = this.state.tempsQuaresmaSetSanta.respROfici;
-        break;
-      case Q_TRIDU:
-        respV = this.state.tempsQuaresmaTridu.respVOfici;
-        respR = this.state.tempsQuaresmaTridu.respROfici;
-        break;
-      case P_OCTAVA:
-        respV = this.state.tempsPasquaOct.respVOfici;
-        respR = this.state.tempsPasquaOct.respROfici;
-        break;
-      case P_SETMANES:
-        respV = this.state.tempsPasquaSetmanes.respVOfici;
-        respR = this.state.tempsPasquaSetmanes.respROfici;
-        break;
-      case A_SETMANES:
-        respV = this.state.tempsAdventSetmanes.respVOfici;
-        respR = this.state.tempsAdventSetmanes.respROfici;
-        break;
-      case A_FERIES:
-        respV = this.state.tempsAdventFeries.respVOfici;
-        respR = this.state.tempsAdventFeries.respROfici;
-        break;
-      case N_OCTAVA:
-        respV = this.state.tempsNadalOctava.respVOfici;
-        respR = this.state.tempsNadalOctava.respROfici;
-        break;
-      case N_ABANS:
-        respV = this.state.tempsNadalAbansEpifania.respVOfici;
-        respR = this.state.tempsNadalAbansEpifania.respROfici;
-        break;
-    }
-
-    return(
-        <Text style={styles.black}> {pregaries}</Text>
+      <View>
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+        <Text style={styles.black}>{cantic}</Text>
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+      </View>
     );
   }
 
@@ -1003,16 +937,18 @@ export default class Laudes extends Component {
     cantic = "Beneït.. etc";
 
     return(
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-      <Text style={styles.black}>{cantic}</Text>
-      <Text />
-      {this.gloria('1')}
-      <Text />
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
+      <View>
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+        <Text style={styles.black}>{cantic}</Text>
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+      </View>
     );
   }
 
@@ -1098,4 +1034,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('Laudes', () => Laudes);
+AppRegistry.registerComponent('Completes', () => Completes);

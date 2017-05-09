@@ -867,16 +867,18 @@ export default class HoraMenor extends Component {
     cantic = "Beneït.. etc";
 
     return(
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-      <Text style={styles.black}>{cantic}</Text>
-      <Text />
-      {this.gloria('1')}
-      <Text />
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
+      <View>
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+        <Text style={styles.black}>{cantic}</Text>
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+      </View>
     );
   }
 
@@ -935,16 +937,18 @@ export default class HoraMenor extends Component {
     cantic = "Beneït.. etc";
 
     return(
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
-      <Text style={styles.black}>{cantic}</Text>
-      <Text />
-      {this.gloria('1')}
-      <Text />
-      <Text style={styles.red}>Ant.
-        <Text style={styles.black}> {antifona}</Text>
-      </Text>
+      <View>
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+        <Text style={styles.black}>{cantic}</Text>
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antifona}</Text>
+        </Text>
+      </View>
     );
   }
 

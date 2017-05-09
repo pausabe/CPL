@@ -3,6 +3,9 @@ import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
 
 import Ofici from '../Components/Ofici'
 import Laudes from '../Components/Laudes'
+import Vespres from '../Components/Vespres'
+import HoraMenor from '../Components/HoraMenor'
+import Completes from '../Components/Completes'
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -64,7 +67,7 @@ export default class LiturgiaDisplayScreen extends Component {
           break;
           case 'Vespres':
             return(
-              <Laudes
+              <Vespres
                 hour = {this.props.hour}
                 weekDay = {this.props.weekDay}
                 monthDay = {this.props.monthDay}
@@ -80,7 +83,7 @@ export default class LiturgiaDisplayScreen extends Component {
             break;
             case 'Hora menor':
               return(
-                <Laudes
+                <HoraMenor
                   hour = {this.props.hour}
                   weekDay = {this.props.weekDay}
                   monthDay = {this.props.monthDay}
@@ -96,7 +99,7 @@ export default class LiturgiaDisplayScreen extends Component {
               break;
               case 'Completes':
                 return(
-                  <Laudes
+                  <Completes
                     hour = {this.props.hour}
                     weekDay = {this.props.weekDay}
                     monthDay = {this.props.monthDay}
