@@ -48,10 +48,10 @@ export default class Vespres extends Component {
       tempsPasquaSetmanesDium: '',
       tempsAdventNadalComu: '',
       tempsAdventSetmanes: '',
+      tempsAdventSetmanesDium: '',
       tempsAdventFeries: '',
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
-      salteriComuEspPasquaDium: '',
       tempsSolemnitatsFestes: '',
     }
 
@@ -74,10 +74,10 @@ export default class Vespres extends Component {
       tempsPasquaSetmanesDium: '',
       tempsAdventNadalComu: '',
       tempsAdventSetmanes: '',
+      tempsAdventSetmanesDium: '',
       tempsAdventFeries: '',
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
-      salteriComuEspPasquaDium: '',
       tempsSolemnitatsFestes: '',
     }
 
@@ -169,10 +169,10 @@ export default class Vespres extends Component {
     id = props.monthDay-25;
     acceso.getLiturgia("tempsNadalOctava", id, (result) => { this.queryRows.tempsNadalOctava = result; this.dataReceived(); });
 
-    id = props.monthDay-1;
+    {props.monthDay < 6 ? id = props.monthDay-1 : id = props.monthDay-2}
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
 
-    id = 1; //En Laudes només necessito Nadal (1) per N_OCTAVA
+    id = 1; //En Vespres només necessito Nadal (1) per N_OCTAVA
     acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => { this.queryRows.tempsSolemnitatsFestes = result; this.dataReceived(); });
   }
 
@@ -202,10 +202,10 @@ export default class Vespres extends Component {
         tempsPasquaSetmanesDium: this.queryRows.tempsPasquaSetmanesDium,
         tempsAdventNadalComu: this.queryRows.tempsAdventNadalComu,
         tempsAdventSetmanes: this.queryRows.tempsAdventSetmanes,
+        tempsAdventSetmanesDium: this.queryRows.tempsAdventSetmanesDium,
         tempsAdventFeries: this.queryRows.tempsAdventFeries,
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
-        salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
         tempsSolemnitatsFestes: this.queryRows.tempsSolemnitatsFestes,
       });
     }
@@ -345,45 +345,45 @@ export default class Vespres extends Component {
       case P_OCTAVA:
         if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneLaudesLlati1;
+            himne = this.state.tempsPasquaAA.himneVespresLlati1;
           }
           else{
-            himne = this.state.tempsPasquaAA.himneLaudesCat1;
+            himne = this.state.tempsPasquaAA.himneVespresCat1;
           }
         }
         else{//fórmula 2
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneLaudesLlati2;
+            himne = this.state.tempsPasquaAA.himneVespresLlati2;
           }
           else{
-            himne = this.state.tempsPasquaAA.himneLaudesCat2;
+            himne = this.state.tempsPasquaAA.himneVespresCat2;
           }
         }
         break;
       case P_SETMANES:
         if(pasquaWeek === 7){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaDA.himneLaudesLlati;
+            himne = this.state.tempsPasquaDA.himneVespresLlati;
           }
           else{
-            himne = this.state.tempsPasquaDA.himneLaudesCat;
+            himne = this.state.tempsPasquaDA.himneVespresCat;
           }
         }
         else{
           if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
             if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-              himne = this.state.tempsPasquaAA.himnelaudesLlati1;
+              himne = this.state.tempsPasquaAA.himneVespresLlati1;
             }
             else{
-              himne = this.state.tempsPasquaAA.himneLaudesCat1;
+              himne = this.state.tempsPasquaAA.himneVespresCat1;
             }
           }
           else{//fórmula 2
             if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-              himne = this.state.tempsPasquaAA.himneLaudesLlati2;
+              himne = this.state.tempsPasquaAA.himneVespresLlati2;
             }
             else{
-              himne = this.state.tempsPasquaAA.himneLaudesCat2;
+              himne = this.state.tempsPasquaAA.himneVespresCat2;
             }
           }
         }
@@ -392,18 +392,18 @@ export default class Vespres extends Component {
       case A_FERIES:
       case N_ABANS:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-          himne = this.state.tempsAdventNadalComu.himneLaudesLlati;
+          himne = this.state.tempsAdventNadalComu.himneVespresLlati;
         }
         else{
-          himne = this.state.tempsAdventNadalComu.himneLaudesCat;
+          himne = this.state.tempsAdventNadalComu.himneVespresCat;
         }
         break;
       case N_OCTAVA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-          himne = this.state.tempsSolemnitatsFestes.himneLaudesLlati;
+          himne = this.state.tempsSolemnitatsFestes.himneVespres2Llati;
         }
         else{
-          himne = this.state.tempsSolemnitatsFestes.himneLaudesCat;
+          himne = this.state.tempsSolemnitatsFestes.himneVespres2Cat;
         }
         break;
     }
@@ -415,7 +415,6 @@ export default class Vespres extends Component {
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
-      case A_SETMANES:
       case A_FERIES:
       case N_ABANS:
         ant1 = this.state.salteriComuVespres.ant1;
@@ -528,67 +527,95 @@ export default class Vespres extends Component {
         gloria3 = this.state.tempsQuaresmaTridu.gloriaVespres3;
         break;
       case P_OCTAVA:
-        ant1 = this.state.tempsQuaresmaDiumPasq.ant1Laudes;
-        titol1 = this.state.tempsQuaresmaDiumPasq.titol1Laudes;
+        ant1 = this.state.tempsQuaresmaDiumPasq.ant1Vespres;
+        titol1 = this.state.tempsQuaresmaDiumPasq.titol1Vespres;
         com1 = "-";
-        salm1 = this.state.tempsQuaresmaDiumPasq.text1Laudes;
-        gloria1 = this.state.tempsQuaresmaDiumPasq.gloria1Laudes;
-        ant2 = this.state.tempsQuaresmaDiumPasq.ant2Laudes;
-        titol2 = this.state.tempsQuaresmaDiumPasq.titol2Laudes;
+        salm1 = this.state.tempsQuaresmaDiumPasq.text1Vespres;
+        gloria1 = this.state.tempsQuaresmaDiumPasq.gloria1Vespres;
+        ant2 = this.state.tempsQuaresmaDiumPasq.ant2Vespres;
+        titol2 = this.state.tempsQuaresmaDiumPasq.titol2Vespres;
         com2 = "-";
-        salm2 = this.state.tempsQuaresmaDiumPasq.text2Laudes;
-        gloria2 = this.state.tempsQuaresmaDiumPasq.gloria2Laudes;
-        ant3 = this.state.tempsQuaresmaDiumPasq.ant3Laudes;
-        titol3 = this.state.tempsQuaresmaDiumPasq.titol3Laudes;
+        salm2 = this.state.tempsQuaresmaDiumPasq.text2Vespres;
+        gloria2 = this.state.tempsQuaresmaDiumPasq.gloria2Vespres;
+        ant3 = this.state.tempsQuaresmaDiumPasq.ant3Vespres;
+        titol3 = this.state.tempsQuaresmaDiumPasq.titol3Vespres;
         com3 = "-";
-        salm3 = this.state.tempsQuaresmaDiumPasq.text3Laudes;
-        gloria3 = this.state.tempsQuaresmaDiumPasq.gloria3Laudes;
+        salm3 = this.state.tempsQuaresmaDiumPasq.text3Vespres;
+        gloria3 = this.state.tempsQuaresmaDiumPasq.gloria3Vespres;
         break;
       case P_SETMANES:
-        titol1 = this.state.salteriComuLaudes.titol1;
-        com1 = this.state.salteriComuLaudes.com1;
-        salm1 = this.state.salteriComuLaudes.salm1;
-        gloria1 = this.state.salteriComuLaudes.gloria1;
-        titol2 = this.state.salteriComuLaudes.titol2;
-        com2 = this.state.salteriComuLaudes.com2;
-        salm2 = this.state.salteriComuLaudes.salm2;
-        gloria2 = this.state.salteriComuLaudes.gloria2;
-        titol3 = this.state.salteriComuLaudes.titol3;
-        com3 = this.state.salteriComuLaudes.com3;
-        salm3 = this.state.salteriComuLaudes.salm3;
-        gloria3 = this.state.salteriComuLaudes.gloria3;
+        titol1 = this.state.salteriComuVespres.titol1;
+        com1 = this.state.salteriComuVespres.com1;
+        salm1 = this.state.salteriComuVespres.salm1;
+        gloria1 = this.state.salteriComuVespres.gloria1;
+        titol2 = this.state.salteriComuVespres.titol2;
+        com2 = this.state.salteriComuVespres.com2;
+        salm2 = this.state.salteriComuVespres.salm2;
+        gloria2 = this.state.salteriComuVespres.gloria2;
+        titol3 = this.state.salteriComuVespres.titol3;
+        com3 = this.state.salteriComuVespres.com3;
+        salm3 = this.state.salteriComuVespres.salm3;
+        gloria3 = this.state.salteriComuVespres.gloria3;
 
-        if(weekDay === 0){ //diumenge
-          ant1 = this.state.tempsPasquaSetmanesDium.ant1Laudes;
-          ant2 = this.state.tempsPasquaSetmanesDium.ant2Laudes;
-          ant3 = this.state.tempsPasquaSetmanesDium.ant3Laudes;
+        if(weekDay === 6){ //primeres vespres de diumenge
+          ant1 = this.state.tempsPasquaSetmanesDium.ant1Vespres1;
+          ant2 = this.state.tempsPasquaSetmanesDium.ant2Vespres1;
+          ant3 = this.state.tempsPasquaSetmanesDium.ant3Vespres1;
         }
-        else{
-          ant1 = this.state.salteriComuLaudes.ant1;
-          ant2 = this.state.salteriComuLaudes.ant2;
-          ant3 = this.state.salteriComuLaudes.ant3;
+        else if(weekDay === 0){ //segones vespres de diumenge
+          ant1 = this.state.tempsPasquaSetmanesDium.ant1Vespres2;
+          ant2 = this.state.tempsPasquaSetmanesDium.ant2Vespres2;
+          ant3 = this.state.tempsPasquaSetmanesDium.ant3Vespres2;
+        }
+        else{ //feria, normal
+          ant1 = this.state.salteriComuVespres.ant1;
+          ant2 = this.state.salteriComuVespres.ant2;
+          ant3 = this.state.salteriComuVespres.ant3;
+        }
+        break;
+      case A_SETMANES:
+        ant1 = this.state.salteriComuVespres.ant1;
+        titol1 = this.state.salteriComuVespres.titol1;
+        com1 = this.state.salteriComuVespres.com1;
+        salm1 = this.state.salteriComuVespres.salm1;
+        gloria1 = this.state.salteriComuVespres.gloria1;
+        ant2 = this.state.salteriComuVespres.ant2;
+        titol2 = this.state.salteriComuVespres.titol2;
+        com2 = this.state.salteriComuVespres.com2;
+        salm2 = this.state.salteriComuVespres.salm2;
+        gloria2 = this.state.salteriComuVespres.gloria2;
+        ant3 = this.state.salteriComuVespres.ant3;
+        titol3 = this.state.salteriComuVespres.titol3;
+        com3 = this.state.salteriComuVespres.com3;
+        salm3 = this.state.salteriComuVespres.salm3;
+        gloria3 = this.state.salteriComuVespres.gloria3;
+        if(weekDay === 6){ //primeres vespres de diumenge
+          ant1 = this.state.tempsAdventSetmanesDium.ant1Vespres;
+          ant2 = this.state.tempsAdventSetmanesDium.ant2Vespres;
+          ant3 = this.state.tempsAdventSetmanesDium.ant3Vespres;
+        }
+        else if(weekDay === 0){ //segones vespres de diumenge
+          ant1 = this.state.tempsAdventSetmanesDium.ant1Vespres2;
+          ant2 = this.state.tempsAdventSetmanesDium.ant2Vespres2;
+          ant3 = this.state.tempsAdventSetmanesDium.ant3Vespres2;
         }
         break;
       case N_OCTAVA:
-        ant1 = this.state.salteriComuLaudes.ant1;
-        titol1 = this.state.salteriComuLaudes.titol1;
-        com1 = this.state.salteriComuLaudes.com1;
-        salm1 = this.state.salteriComuLaudes.salm1;
-        gloria1 = this.state.salteriComuLaudes.gloria1;
-        ant2 = this.state.salteriComuLaudes.ant2;
-        titol2 = this.state.salteriComuLaudes.titol2;
-        com2 = this.state.salteriComuLaudes.com2;
-        salm2 = this.state.salteriComuLaudes.salm2;
-        gloria2 = this.state.salteriComuLaudes.gloria2;
-        ant3 = this.state.salteriComuLaudes.ant3;
-        titol3 = this.state.salteriComuLaudes.titol3;
-        com3 = this.state.salteriComuLaudes.com3;
-        salm3 = this.state.salteriComuLaudes.salm3;
-        gloria3 = this.state.salteriComuLaudes.gloria3;
-
-        ant1 = this.state.tempsSolemnitatsFestes.ant1Laudes;
-        ant2 = this.state.tempsSolemnitatsFestes.ant2Laudes;
-        ant3 = this.state.tempsSolemnitatsFestes.ant3Laudes;
+        ant1 = this.state.tempsSolemnitatsFestes.ant1Vespres2;
+        titol1 = this.state.tempsSolemnitatsFestes.titol1Vespres2;
+        com1 = this.state.tempsSolemnitatsFestes.cita1Vespres2;
+        salm1 = this.state.tempsSolemnitatsFestes.text1Vespres2;
+        gloria1 = "1";
+        ant2 = this.state.tempsSolemnitatsFestes.ant2Vespres2;
+        titol2 = this.state.tempsSolemnitatsFestes.titol2Vespres2;
+        com2 = this.state.tempsSolemnitatsFestes.cita2Vespres2;
+        salm2 = this.state.tempsSolemnitatsFestes.text2Vespres2;
+        gloria2 = "1";
+        ant3 = this.state.tempsSolemnitatsFestes.ant3Vespres2;
+        titol3 = this.state.tempsSolemnitatsFestes.titol3Vespres2;
+        com3 = this.state.tempsSolemnitatsFestes.cita3Vespres2;
+        salm3 = this.state.tempsSolemnitatsFestes.text3Vespres2;
+        gloria3 = "1";
         break;
     }
 
@@ -678,28 +705,28 @@ export default class Vespres extends Component {
         lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuVespres;
         break;
       case P_OCTAVA:
-        vers = this.state.tempsPasquaOct.citaLBLaudes;
-        lecturaBreu = this.state.tempsPasquaOct.lecturaBreuLaudes;
+        vers = this.state.tempsPasquaOct.citaLBVespres;
+        lecturaBreu = this.state.tempsPasquaOct.lecturaBreuVespres;
         break;
       case P_SETMANES:
-        vers = this.state.tempsPasquaSetmanes.citaLBLaudes;
-        lecturaBreu = this.state.tempsPasquaSetmanes.lecturaBreuLaudes;
+        vers = this.state.tempsPasquaSetmanes.citaLBVespres;
+        lecturaBreu = this.state.tempsPasquaSetmanes.lecturaBreuVespres;
         break;
       case A_SETMANES:
-        vers = this.state.tempsAdventSetmanes.citaLBLaudes;
-        lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuLaudes;
+        vers = this.state.tempsAdventSetmanes.citaLBVespres;
+        lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuVespres;
         break;
       case A_FERIES:
-        vers = this.state.tempsAdventFeries.citaLBLaudes;
-        lecturaBreu = this.state.tempsAdventFeries.lecturaBreuLaudes;
+        vers = this.state.tempsAdventFeries.citaLBVespres;
+        lecturaBreu = this.state.tempsAdventFeries.lecturaBreuVespres;
         break;
       case N_OCTAVA:
-        vers = this.state.tempsNadalOctava.citaLBLaudes;
-        lecturaBreu = this.state.tempsNadalOctava.lecturaBreuLaudes;
+        vers = this.state.tempsNadalOctava.citaLBVespres;
+        lecturaBreu = this.state.tempsNadalOctava.lecturaBreuVespres;
         break;
       case N_ABANS:
-        vers = this.state.tempsNadalAbansEpifania.citaLBLaudes;
-        lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuLaudes;
+        vers = this.state.tempsNadalAbansEpifania.citaLBVespres;
+        lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuVespres;
         break;
     }
     return(
@@ -746,29 +773,29 @@ export default class Vespres extends Component {
         respBreu3 = this.state.tempsQuaresmaSetSanta.respBreuVespres3
         break;
       case P_SETMANES:
-        respBreu1 = this.state.tempsPasquaSetmanes.respBreuLaudes1
-        respBreu2 = this.state.tempsPasquaSetmanes.respBreuLaudes2
-        respBreu3 = this.state.tempsPasquaSetmanes.respBreuLaudes3
+        respBreu1 = this.state.tempsPasquaSetmanes.respBreuVespres1
+        respBreu2 = this.state.tempsPasquaSetmanes.respBreuVespres2
+        respBreu3 = this.state.tempsPasquaSetmanes.respBreuVespres3
         break;
       case A_SETMANES:
-        respBreu1 = this.state.tempsAdventSetmanes.respBreuLaudes1
-        respBreu2 = this.state.tempsAdventSetmanes.respBreuLaudes2
-        respBreu3 = this.state.tempsAdventSetmanes.respBreuLaudes3
+        respBreu1 = this.state.tempsAdventSetmanes.respBreuVespres1
+        respBreu2 = this.state.tempsAdventSetmanes.respBreuVespres2
+        respBreu3 = this.state.tempsAdventSetmanes.respBreuVespres3
         break;
       case A_FERIES:
-        respBreu1 = this.state.tempsAdventFeries.respBreuLaudes1
-        respBreu2 = this.state.tempsAdventFeries.respBreuLaudes2
-        respBreu3 = this.state.tempsAdventFeries.respBreuLaudes3
+        respBreu1 = this.state.tempsAdventFeries.respBreuVespres1
+        respBreu2 = this.state.tempsAdventFeries.respBreuVespres2
+        respBreu3 = this.state.tempsAdventFeries.respBreuVespres3
         break;
       case N_OCTAVA:
-        respBreu1 = this.state.tempsNadalOctava.resp2Breu1Laudes
-        respBreu2 = this.state.tempsNadalOctava.resp2Breu2Laudes
-        respBreu3 = this.state.tempsNadalOctava.resp2Breu3Laudes
+        respBreu1 = this.state.tempsNadalOctava.respBreuVespres1Part1
+        respBreu2 = this.state.tempsNadalOctava.respBreuVespres1Part2
+        respBreu3 = this.state.tempsNadalOctava.respBreuVespres1Part3
         break;
       case N_ABANS:
-        respBreu1 = this.state.tempsNadalAbansEpifania.respBreuLaudes1
-        respBreu2 = this.state.tempsNadalAbansEpifania.respBreuLaudes2
-        respBreu3 = this.state.tempsNadalAbansEpifania.respBreuLaudes3
+        respBreu1 = this.state.tempsNadalAbansEpifania.respBreuVespres1
+        respBreu2 = this.state.tempsNadalAbansEpifania.respBreuVespres2
+        respBreu3 = this.state.tempsNadalAbansEpifania.respBreuVespres3
         break;
     }
     if(LT === Q_TRIDU){
@@ -784,7 +811,7 @@ export default class Vespres extends Component {
       return(
         <View>
           <Text style={styles.red}>Ant.
-            <Text style={styles.black}> {this.state.tempsPasquaOct.antEspecialLaudes}</Text>
+            <Text style={styles.black}> {this.state.tempsPasquaOct.antEspecialVespres}</Text>
           </Text>
         </View>
       )
@@ -923,52 +950,82 @@ export default class Vespres extends Component {
           antCantic = this.state.tempsQuaresmaTridu.antMaria;
         break;
       case P_OCTAVA:
-          antCantic = this.state.tempsPasquaOct.antZacaries;
+          antCantic = this.state.tempsPasquaOct.antMaria;
         break;
       case P_SETMANES:
-        if(weekDay !== 0){ ///no diumenge
-          antCantic = this.state.tempsPasquaSetmanes.antZacaries;
+        if(weekDay !== 6 && weekDay !== 0){ ///no vespres de diumenge
+          antCantic = this.state.tempsPasquaSetmanes.antMaria;
         }
-        else{ //diumenge
-          switch (litYear) {
-            case 'A':
-              antCantic = this.state.tempsPasquaSetmanesDium.antZacariesA;
-              break;
-            case 'B':
-              antCantic = this.state.tempsPasquaSetmanesDium.antZacariesB;
-              break;
-            case 'C':
-              antCantic = this.state.tempsPasquaSetmanesDium.antZacariesC;
-              break;
+        else{ //vespres de diumenge
+          if(weekDay === 6){ //primeres vespres
+            switch (litYear) {
+              case 'A':
+                antCantic = this.state.tempsPasquaSetmanesDium.antMaria1A;
+                break;
+              case 'B':
+                antCantic = this.state.tempsPasquaSetmanesDium.antMaria1B;
+                break;
+              case 'C':
+                antCantic = this.state.tempsPasquaSetmanesDium.antMaria1C;
+                break;
+            }
+          }
+          else{ //segones vespres
+            switch (litYear) {
+              case 'A':
+                antCantic = this.state.tempsPasquaSetmanesDium.antMaria2A;
+                break;
+              case 'B':
+                antCantic = this.state.tempsPasquaSetmanesDium.antMaria2B;
+                break;
+              case 'C':
+                antCantic = this.state.tempsPasquaSetmanesDium.antMaria2C;
+                break;
+            }
           }
         }
         break;
       case A_SETMANES:
-        if(weekDay !== 0){ ///no diumenge
-          antCantic = this.state.tempsAdventSetmanes.antZacaries;
+        if(weekDay !== 6 && weekDay !==0){ ///no vespres de diumenge
+          antCantic = this.state.tempsAdventSetmanes.antMaria;
         }
-        else{ //diumenge
-          switch (litYear) {
-            case 'A':
-              antCantic = this.state.tempsAdventSetmanesDium.antZacariesA;
-              break;
-            case 'B':
-              antCantic = this.state.tempsAdventSetmanesDium.antZacariesB;
-              break;
-            case 'C':
-              antCantic = this.state.tempsAdventSetmanesDium.antZacariesC;
-              break;
+        else{ //vespres de diumenge
+          if(weekDay === 6){ //primeres vespres
+            switch (litYear) {
+              case 'A':
+                antCantic = this.state.tempsAdventSetmanesDium.antMaria1A;
+                break;
+              case 'B':
+                antCantic = this.state.tempsAdventSetmanesDium.antMaria1B;
+                break;
+              case 'C':
+                antCantic = this.state.tempsAdventSetmanesDium.antMaria1C;
+                break;
+            }
+          }
+          else{ //segones vespres
+            switch (litYear) {
+              case 'A':
+                antCantic = this.state.tempsAdventSetmanesDium.antMaria2A;
+                break;
+              case 'B':
+                antCantic = this.state.tempsAdventSetmanesDium.antMaria2B;
+                break;
+              case 'C':
+                antCantic = this.state.tempsAdventSetmanesDium.antMaria2C;
+                break;
+            }
           }
         }
         break;
       case A_FERIES:
-        antCantic = this.state.tempsAdventFeries.antZacaries;
+        antCantic = this.state.tempsAdventFeries.antMaria;
         break;
       case N_OCTAVA:
-        antCantic = this.state.tempsNadalOctava.antZacaries;
+        antCantic = this.state.tempsNadalOctava.antMaria;
         break;
       case N_ABANS:
-        antCantic = this.state.tempsNadalAbansEpifania.antZacaries;
+        antCantic = this.state.tempsNadalAbansEpifania.antMaria;
         break;
     }
 
@@ -1017,22 +1074,22 @@ export default class Vespres extends Component {
           pregaries = this.state.tempsQuaresmaTridu.pregariesVespres;
         break;
       case P_OCTAVA:
-          pregaries = this.state.tempsPasquaOct.pregariesLaudes;
+          pregaries = this.state.tempsPasquaOct.pregariesVespres;
         break;
       case P_SETMANES:
-          pregaries = this.state.tempsPasquaSetmanes.pregariesLaudes;
+          pregaries = this.state.tempsPasquaSetmanes.pregariesVespres;
         break;
       case A_SETMANES:
-          pregaries = this.state.tempsAdventSetmanes.pregariesLaudes;
+          pregaries = this.state.tempsAdventSetmanes.pregariesVespres;
         break;
       case A_FERIES:
-          pregaries = this.state.tempsAdventFeries.pregariesLaudes;
+          pregaries = this.state.tempsAdventFeries.pregariesVespres;
         break;
       case N_OCTAVA:
-          pregaries = this.state.tempsNadalOctava.pregariesLaudes;
+          pregaries = this.state.tempsNadalOctava.pregariesVespres;
         break;
       case N_ABANS:
-        pregaries = this.state.tempsNadalAbansEpifania.pregariesLaudes;
+        pregaries = this.state.tempsNadalAbansEpifania.pregariesVespres;
         break;
     }
 
@@ -1072,22 +1129,22 @@ export default class Vespres extends Component {
         oracio = this.state.tempsQuaresmaTridu.oraFiVespres;
         break;
       case P_OCTAVA:
-        oracio = this.state.tempsPasquaOct.oraFiLaudes;
+        oracio = this.state.tempsPasquaOct.oraFiVespres;
         break;
       case P_SETMANES:
-        oracio = this.state.tempsPasquaSetmanes.oraFiLaudes;
+        oracio = this.state.tempsPasquaSetmanes.oraFiVespres;
         break;
       case A_SETMANES:
-        oracio = this.state.tempsAdventSetmanes.oraFiLaudes;
+        oracio = this.state.tempsAdventSetmanes.oraFiVespres;
         break;
       case A_FERIES:
-        oracio = this.state.tempsAdventFeries.oraFiLaudes;
+        oracio = this.state.tempsAdventFeries.oraFiVespres;
         break;
       case N_OCTAVA:
-        oracio = this.state.tempsNadalOctava.oraFiLaudes;
+        oracio = this.state.tempsNadalOctava.oraFiVespres;
         break;
       case N_ABANS:
-        oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+        oracio = this.state.tempsNadalAbansEpifania.oraFiVespres;
         break;
     }
     return(<Text style={styles.black}>{oracio}</Text>);

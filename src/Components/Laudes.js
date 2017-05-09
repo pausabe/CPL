@@ -48,10 +48,10 @@ export default class Laudes extends Component {
       tempsPasquaSetmanesDium: '',
       tempsAdventNadalComu: '',
       tempsAdventSetmanes: '',
+      tempsAdventSetmanesDium: '',
       tempsAdventFeries: '',
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
-      salteriComuEspPasquaDium: '',
       tempsSolemnitatsFestes: '',
     }
 
@@ -74,10 +74,10 @@ export default class Laudes extends Component {
       tempsPasquaSetmanesDium: '',
       tempsAdventNadalComu: '',
       tempsAdventSetmanes: '',
+      tempsAdventSetmanesDium: '',
       tempsAdventFeries: '',
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
-      salteriComuEspPasquaDium: '',
       tempsSolemnitatsFestes: '',
     }
 
@@ -167,7 +167,7 @@ export default class Laudes extends Component {
     id = props.monthDay-25;
     acceso.getLiturgia("tempsNadalOctava", id, (result) => { this.queryRows.tempsNadalOctava = result; this.dataReceived(); });
 
-    id = props.monthDay-1;
+    {props.monthDay < 6 ? id = props.monthDay-1 : id = props.monthDay-2}
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
 
     id = 1; //En Laudes només necessito Nadal (1) per N_OCTAVA
@@ -199,10 +199,10 @@ export default class Laudes extends Component {
         tempsPasquaSetmanesDium: this.queryRows.tempsPasquaSetmanesDium,
         tempsAdventNadalComu: this.queryRows.tempsAdventNadalComu,
         tempsAdventSetmanes: this.queryRows.tempsAdventSetmanes,
+        tempsAdventSetmanesDium: this.queryRows.tempsAdventSetmanesDium,
         tempsAdventFeries: this.queryRows.tempsAdventFeries,
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
-        salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
         tempsSolemnitatsFestes: this.queryRows.tempsSolemnitatsFestes,
       });
     }
@@ -412,7 +412,6 @@ export default class Laudes extends Component {
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
-      case A_SETMANES:
       case A_FERIES:
       case N_ABANS:
         ant1 = this.state.salteriComuLaudes.ant1;
@@ -549,6 +548,31 @@ export default class Laudes extends Component {
           ant1 = this.state.tempsPasquaSetmanesDium.ant1Laudes;
           ant2 = this.state.tempsPasquaSetmanesDium.ant2Laudes;
           ant3 = this.state.tempsPasquaSetmanesDium.ant3Laudes;
+        }
+        else{
+          ant1 = this.state.salteriComuLaudes.ant1;
+          ant2 = this.state.salteriComuLaudes.ant2;
+          ant3 = this.state.salteriComuLaudes.ant3;
+        }
+        break;
+      case A_SETMANES:
+        titol1 = this.state.salteriComuLaudes.titol1;
+        com1 = this.state.salteriComuLaudes.com1;
+        salm1 = this.state.salteriComuLaudes.salm1;
+        gloria1 = this.state.salteriComuLaudes.gloria1;
+        titol2 = this.state.salteriComuLaudes.titol2;
+        com2 = this.state.salteriComuLaudes.com2;
+        salm2 = this.state.salteriComuLaudes.salm2;
+        gloria2 = this.state.salteriComuLaudes.gloria2;
+        titol3 = this.state.salteriComuLaudes.titol3;
+        com3 = this.state.salteriComuLaudes.com3;
+        salm3 = this.state.salteriComuLaudes.salm3;
+        gloria3 = this.state.salteriComuLaudes.gloria3;
+
+        if(weekDay === 0){ //diumenge
+          ant1 = this.state.tempsAdventSetmanesDium.ant1Laudes;
+          ant2 = this.state.tempsAdventSetmanesDium.ant2Laudes;
+          ant3 = this.state.tempsAdventSetmanesDium.ant3Laudes;
         }
         else{
           ant1 = this.state.salteriComuLaudes.ant1;

@@ -44,15 +44,15 @@ export default class HomeScreen extends Component {
 
     this.state = {
       santPressed: false,
-      monthDay: 11,//today.getDate(), //1-31
+      monthDay: 7,//today.getDate(), //1-31
       month: 2,//today.getMonth(), //0-11
       year: 2017,//today.getFullYear(), //xxxx
       hour: 7,//today.getHours(), //0-23
-      LT: 'Q_TRIDU',
-      weekDay: 5,//today.getDay(), //0-6 (diumenge-dissabte)
-      cicle: 2, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
+      LT: 'N_ABANS', //TODO: pensar com ferho x les vespres (potser: els dissabtes vespres sóndel temps del diumenge seguent)
+      weekDay: 4,//today.getDay(), //0-6 (diumenge-dissabte)
+      cicle: 1, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
       ordinariWeek: 15, //HC 1-34
-      pasquaWeek: 3, //HC 2-7
+      pasquaWeek: 5, //HC 2-7
       quaresmaWeek: 3, //HC 1-5 o 2-7
       ABC: 'A',
     }
