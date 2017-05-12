@@ -105,8 +105,9 @@ export default class SettingComponent extends Component{
 
 const styles = StyleSheet.create({
     option: {
-        height: 70,
+        minHeight: 70,
         justifyContent: 'center',
-        padding: 20
+        paddingHorizontal: 10,
+        paddingVertical: 10
     }
 });

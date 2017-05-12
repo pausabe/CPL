@@ -43,7 +43,7 @@ export default class SettingsComponentAdapter{
         let value = await SettingsManager.getSettingDiocesis();
         value = _getKeyFromValue(diocesis, value);
         let component = (<SettingComponent selectorComponent="picker" name="Selecciona diocesis" id="diocesis" key="diocesis"
-            value={value} options={diocesis} callback={(id, value) => {
+            value={value} options={diocesis} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
                 SettingsManager.setSettingDiocesis(diocesis[value]);
             }}/>);
         return component;
@@ -52,7 +52,7 @@ export default class SettingsComponentAdapter{
     static async getSettingComponentDayStart(){
         let value = await SettingsManager.getSettingDayStart();
         let component = (<SettingComponent selectorComponent="picker" name="Selecciona a quina hora comença el día" id="dayStart" key="dayStart"
-            value={value} options={{0: "00:00 AM", 1: "01:00 AM", 2: "02:00 AM", 3: "03:00 AM"}} callback={(id, value) => {
+            value={value} options={{0: "00:00 AM", 1: "01:00 AM", 2: "02:00 AM", 3: "03:00 AM"}} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
                 SettingsManager.setSettingDayStart(value);
             }}/>);
         return component;
