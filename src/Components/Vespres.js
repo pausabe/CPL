@@ -296,7 +296,7 @@ export default class Vespres extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek, monthDay){
+  himne(LT, weekDay, nit, pasquaWeek){
     switch(LT){
       case O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)

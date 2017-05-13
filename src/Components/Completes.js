@@ -261,7 +261,7 @@ export default class Completes extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek, monthDay){
+  himne(LT, weekDay, nit, pasquaWeek){
     switch(LT){
       case O_ORDINARI:
         if(nit){

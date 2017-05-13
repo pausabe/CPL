@@ -211,7 +211,7 @@ export default class HoraMenor extends Component {
         <Text />
         <Text style={styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.pasquaWeek, this.props.weekDay)}
+        {this.salmodia(this.props.LT, this.props.pasquaWeek, this.props.weekDay, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -255,7 +255,7 @@ export default class HoraMenor extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek, monthDay, HM){
+  himne(LT, weekDay, nit, pasquaWeek, HM){
     switch(LT){
       case O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
@@ -296,16 +296,126 @@ export default class HoraMenor extends Component {
         break;
       case Q_DIUM_RAMS:
       case Q_SET_SANTA:
-
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsQuaresmaComuSS.himneHoraLlati;
+        }
+        else{
+          himne = this.state.tempsQuaresmaComuSS.himneHoraCat;
+        }
         break;
       case Q_TRIDU:
-
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsQuaresmaTridu.himneLlatiTercia;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsQuaresmaTridu.himneLlatiSexta;
+              break;
+            case 'Nona':
+              himne = this.state.tempsQuaresmaTridu.himneLlatiNona;
+              break;
+          }
+        }
+        else{
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsQuaresmaTridu.himneCatTercia;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsQuaresmaTridu.himneCatSexta;
+              break;
+            case 'Nona':
+              himne = this.state.tempsQuaresmaTridu.himneCatNona;
+              break;
+          }
+        }
         break;
       case P_OCTAVA:
-
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsPasquaAA.himneTerciaLlati;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsPasquaAA.himneSextaLlati;
+              break;
+            case 'Nona':
+              himne = this.state.tempsPasquaAA.himneNonaLlati;
+              break;
+          }
+        }
+        else{
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsPasquaAA.himneTerciaCat;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsPasquaAA.himneSextaCat;
+              break;
+            case 'Nona':
+              himne = this.state.tempsPasquaAA.himneNonaCat;
+              break;
+          }
+        }
         break;
       case P_SETMANES:
-
+        if(pasquaWeek === 7){
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            switch (HM) {
+              case 'Tèrcia':
+                himne = this.state.tempsPasquaDA.himneTerciaLlati;
+                break;
+              case 'Sexta':
+                himne = this.state.tempsPasquaDA.himneSextaLlati;
+                break;
+              case 'Nona':
+                himne = this.state.tempsPasquaDA.himneNonaLlati;
+                break;
+            }
+          }
+          else{
+            switch (HM) {
+              case 'Tèrcia':
+                himne = this.state.tempsPasquaDA.himneTerciaCat;
+                break;
+              case 'Sexta':
+                himne = this.state.tempsPasquaDA.himneSextaCat;
+                break;
+              case 'Nona':
+                himne = this.state.tempsPasquaDA.himneNonaCat;
+                break;
+            }
+          }
+        }
+        else{
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            switch (HM) {
+              case 'Tèrcia':
+                himne = this.state.tempsPasquaAA.himneTerciaLlati;
+                break;
+              case 'Sexta':
+                himne = this.state.tempsPasquaAA.himneSextaLlati;
+                break;
+              case 'Nona':
+                himne = this.state.tempsPasquaAA.himneNonaLlati;
+                break;
+            }
+          }
+          else{
+            switch (HM) {
+              case 'Tèrcia':
+                himne = this.state.tempsPasquaAA.himneTerciaCat;
+                break;
+              case 'Sexta':
+                himne = this.state.tempsPasquaAA.himneSextaCat;
+                break;
+              case 'Nona':
+                himne = this.state.tempsPasquaAA.himneNonaCat;
+                break;
+            }
+          }
+        }
         break;
       case A_SETMANES:
       case A_FERIES:
@@ -318,7 +428,7 @@ export default class HoraMenor extends Component {
     return(<Text style={styles.black}>{himne}</Text>);
   }
 
-  salmodia(LT, pasquaWeek, weekDay){
+  salmodia(LT, pasquaWeek, weekDay, HM){
     antifones = true;
     switch(LT){
       case O_ORDINARI:
@@ -340,6 +450,7 @@ export default class HoraMenor extends Component {
         gloria3 = this.state.salteriComuHora.gloria3;
         break;
       case Q_CENDRA:
+      case Q_SETMANES:
         antifones = false;
 
         titol1 = this.state.salteriComuHora.titol1;
@@ -355,22 +466,120 @@ export default class HoraMenor extends Component {
         salm3 = this.state.salteriComuHora.salm3;
         gloria3 = this.state.salteriComuHora.gloria3;
 
-        ant = "per fer";
-        break;
-      case Q_SETMANES:
+        switch (HM) {
+          case 'Tèrcia':
+            ant = this.state.tempsQuaresmaComuFV.antTercia;
+            break;
+          case 'Sexta':
+            ant = this.state.tempsQuaresmaComuFV.antSexta;
+            break;
+          case 'Nona':
+            ant = this.state.tempsQuaresmaComuFV.antNona;
+            break;
+        }
         break;
       case Q_DIUM_RAMS:
-        break;
       case Q_SET_SANTA:
+        antifones = false;
+
+        titol1 = this.state.salteriComuHora.titol1;
+        com1 = this.state.salteriComuHora.com1;
+        salm1 = this.state.salteriComuHora.salm1;
+        gloria1 = this.state.salteriComuHora.gloria1;
+        titol2 = this.state.salteriComuHora.titol2;
+        com2 = this.state.salteriComuHora.com2;
+        salm2 = this.state.salteriComuHora.salm2;
+        gloria2 = this.state.salteriComuHora.gloria2;
+        titol3 = this.state.salteriComuHora.titol3;
+        com3 = this.state.salteriComuHora.com3;
+        salm3 = this.state.salteriComuHora.salm3;
+        gloria3 = this.state.salteriComuHora.gloria3;
+
+        switch (HM) {
+          case 'Tèrcia':
+            ant = this.state.tempsQuaresmaComuSS.antTercia;
+            break;
+          case 'Sexta':
+            ant = this.state.tempsQuaresmaComuSS.antSexta;
+            break;
+          case 'Nona':
+            ant = this.state.tempsQuaresmaComuSS.antNona;
+            break;
+        }
         break;
       case Q_TRIDU:
+        antifones = false;
 
+        titol1 = this.state.tempsQuaresmaTridu.titolSalmMenor1;
+        com1 = "-";
+        salm1 = this.state.tempsQuaresmaTridu.salmMenor1;
+        gloria1 = "1";
+        titol2 = this.state.tempsQuaresmaTridu.titolSalmMenor2;
+        com2 = "-";
+        salm2 = this.state.tempsQuaresmaTridu.salmMenor2;
+        gloria2 = "1";
+        titol3 = this.state.tempsQuaresmaTridu.titolSalmMenor3;
+        com3 = "-";
+        salm3 = this.state.tempsQuaresmaTridu.salmMenor3;
+        gloria3 = "1";
+
+        switch (HM) {
+          case 'Tèrcia':
+            ant = this.state.tempsQuaresmaTridu.antTercia;
+            break;
+          case 'Sexta':
+            ant = this.state.tempsQuaresmaTridu.antSexta;
+            break;
+          case 'Nona':
+            ant = this.state.tempsQuaresmaTridu.antNona;
+            break;
+        }
         break;
       case P_OCTAVA:
+        antifones = false;
 
+        titol1 = this.state.tempsPasquaOct.titol1salm117;
+        com1 = "-";
+        salm1 = this.state.tempsPasquaOct.part1Salm117;
+        gloria1 = this.state.tempsPasquaOct.gloria1salm117;
+        titol2 = this.state.tempsPasquaOct.titol2salm117;
+        com2 = "-";
+        salm2 = this.state.tempsPasquaOct.part2Salm117;
+        gloria2 = this.state.tempsPasquaOct.gloria2salm117;
+        titol3 = this.state.tempsPasquaOct.titol3salm117;
+        com3 = "-";
+        salm3 = this.state.tempsPasquaOct.part3Salm117;
+        gloria3 = this.state.tempsPasquaOct.gloria3salm117;
+
+        switch (HM) {
+          case 'Tèrcia':
+            ant = this.state.tempsPasquaOct.antMenorTercia;
+            break;
+          case 'Sexta':
+            ant = this.state.tempsPasquaOct.antMenorSexta;
+            break;
+          case 'Nona':
+            ant = this.state.tempsPasquaOct.antMenorNona;
+            break;
+        }
         break;
       case P_SETMANES:
+        antifones = false;
 
+        titol1 = this.state.salteriComuHora.titol1;
+        com1 = this.state.salteriComuHora.com1;
+        salm1 = this.state.salteriComuHora.salm1;
+        gloria1 = this.state.salteriComuHora.gloria1;
+        titol2 = this.state.salteriComuHora.titol2;
+        com2 = this.state.salteriComuHora.com2;
+        salm2 = this.state.salteriComuHora.salm2;
+        gloria2 = this.state.salteriComuHora.gloria2;
+        titol3 = this.state.salteriComuHora.titol3;
+        com3 = this.state.salteriComuHora.com3;
+        salm3 = this.state.salteriComuHora.salm3;
+        gloria3 = this.state.salteriComuHora.gloria3;
+
+        ant = "Al·leluia, al·leluia, al·leluia."
         break;
       case A_SETMANES:
       case A_FERIES:
@@ -383,9 +592,19 @@ export default class HoraMenor extends Component {
 
     return(
       <View>
-        <Text style={styles.red}>Ant. 1.
-          <Text style={styles.black}> {ant1}</Text>
-        </Text>
+        {antifones ?
+          <View>
+            <Text style={styles.red}>Ant. 1.
+              <Text style={styles.black}> {ant1}</Text>
+            </Text>
+          </View>
+        :
+          <View>
+            <Text style={styles.red}>Ant.
+              <Text style={styles.black}> {ant}</Text>
+            </Text>
+          </View>
+        }
         <Text />
         <Text style={styles.redCenter}>{titol1}</Text>
         <Text />
@@ -395,14 +614,18 @@ export default class HoraMenor extends Component {
         <Text />
         {this.gloria(gloria1)}
         <Text />
-        <Text style={styles.red}>Ant. 1.
-          <Text style={styles.black}> {ant1}</Text>
-        </Text>
-        <Text />
-        <Text style={styles.red}>Ant. 2.
-          <Text style={styles.black}> {ant2}</Text>
-        </Text>
-        <Text />
+        {antifones ?
+          <View>
+            <Text style={styles.red}>Ant. 1.
+              <Text style={styles.black}> {ant1}</Text>
+            </Text>
+            <Text />
+            <Text style={styles.red}>Ant. 2.
+              <Text style={styles.black}> {ant2}</Text>
+            </Text>
+            <Text />
+          </View>
+        : null }
         <Text style={styles.redCenter}>{titol2}</Text>
         <Text />
         {com2 !== '-' ?
@@ -411,14 +634,18 @@ export default class HoraMenor extends Component {
         <Text />
         {this.gloria(gloria2)}
         <Text />
-        <Text style={styles.red}>Ant. 2.
-          <Text style={styles.black}> {ant2}</Text>
-        </Text>
-        <Text />
-        <Text style={styles.red}>Ant. 3.
-          <Text style={styles.black}> {ant3}</Text>
-        </Text>
-        <Text />
+        {antifones ?
+          <View>
+            <Text style={styles.red}>Ant. 2.
+              <Text style={styles.black}> {ant2}</Text>
+            </Text>
+            <Text />
+            <Text style={styles.red}>Ant. 3.
+              <Text style={styles.black}> {ant3}</Text>
+            </Text>
+            <Text />
+          </View>
+        : null }
         <Text style={styles.redCenter}>{titol3}</Text>
         <Text />
         {com3 !== '-' ?
@@ -427,9 +654,19 @@ export default class HoraMenor extends Component {
         <Text />
         {this.gloria(gloria3)}
         <Text />
-        <Text style={styles.red}>Ant. 3.
-          <Text style={styles.black}> {ant3}</Text>
-        </Text>
+        {antifones ?
+          <View>
+            <Text style={styles.red}>Ant. 3.
+              <Text style={styles.black}> {ant3}</Text>
+            </Text>
+          </View>
+        :
+          <View>
+            <Text style={styles.red}>Ant.
+              <Text style={styles.black}> {ant}</Text>
+            </Text>
+          </View>
+        }
       </View>
     );
   }
@@ -459,25 +696,154 @@ export default class HoraMenor extends Component {
         }
         break;
       case Q_CENDRA:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsQuaresmaCendra.citaLBTercia;
+            lecturaBreu = this.state.tempsQuaresmaCendra.lecturaBreuTercia;
+            respV = this.state.tempsQuaresmaCendra.respVTercia;
+            respR = this.state.tempsQuaresmaCendra.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsQuaresmaCendra.citaLBSexta;
+            lecturaBreu = this.state.tempsQuaresmaCendra.lecturaBreuSexta;
+            respV = this.state.tempsQuaresmaCendra.respVSexta;
+            respR = this.state.tempsQuaresmaCendra.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsQuaresmaCendra.citaLBNona;
+            lecturaBreu = this.state.tempsQuaresmaCendra.lecturaBreuNona;
+            respV = this.state.tempsQuaresmaCendra.respVNona;
+            respR = this.state.tempsQuaresmaCendra.respRNona;
+            break;
+        }
         break;
       case Q_SETMANES:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsQuaresmaVSetmanes.citaLBTercia;
+            lecturaBreu = this.state.tempsQuaresmaVSetmanes.lecturaBreuTercia;
+            respV = this.state.tempsQuaresmaVSetmanes.respVTercia;
+            respR = this.state.tempsQuaresmaVSetmanes.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsQuaresmaVSetmanes.citaLBSexta;
+            lecturaBreu = this.state.tempsQuaresmaVSetmanes.lecturaBreuSexta;
+            respV = this.state.tempsQuaresmaVSetmanes.respVSexta;
+            respR = this.state.tempsQuaresmaVSetmanes.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsQuaresmaVSetmanes.citaLBNona;
+            lecturaBreu = this.state.tempsQuaresmaVSetmanes.lecturaBreuNona;
+            respV = this.state.tempsQuaresmaVSetmanes.respVNona;
+            respR = this.state.tempsQuaresmaVSetmanes.respRNona;
+            break;
+        }
         break;
       case Q_DIUM_RAMS:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsQuaresmaRams.citaLBTercia;
+            lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuTercia;
+            respV = this.state.tempsQuaresmaRams.respVTercia;
+            respR = this.state.tempsQuaresmaRams.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsQuaresmaRams.citaLBSexta;
+            lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuSexta;
+            respV = this.state.tempsQuaresmaRams.respVSexta;
+            respR = this.state.tempsQuaresmaRams.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsQuaresmaRams.citaLBNona;
+            lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuNona;
+            respV = this.state.tempsQuaresmaRams.respVNona;
+            respR = this.state.tempsQuaresmaRams.respRNona;
+            break;
+        }
         break;
       case Q_SET_SANTA:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsQuaresmaSetSanta.citaLBTercia;
+            lecturaBreu = this.state.tempsQuaresmaSetSanta.lecturaBreuTercia;
+            respV = this.state.tempsQuaresmaSetSanta.respVTercia;
+            respR = this.state.tempsQuaresmaSetSanta.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsQuaresmaSetSanta.citaLBSexta;
+            lecturaBreu = this.state.tempsQuaresmaSetSanta.lecturaBreuSexta;
+            respV = this.state.tempsQuaresmaSetSanta.respVSexta;
+            respR = this.state.tempsQuaresmaSetSanta.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsQuaresmaSetSanta.citaLBNona;
+            lecturaBreu = this.state.tempsQuaresmaSetSanta.lecturaBreuNona;
+            respV = this.state.tempsQuaresmaSetSanta.respVNona;
+            respR = this.state.tempsQuaresmaSetSanta.respRNona;
+            break;
+        }
         break;
       case Q_TRIDU:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsQuaresmaTridu.citaLecturaBreuTercia;
+            lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuTercia;
+            respV = this.state.tempsQuaresmaTridu.respVTercia;
+            respR = this.state.tempsQuaresmaTridu.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsQuaresmaTridu.citaLecturaBreuSexta;
+            lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuSexta;
+            respV = this.state.tempsQuaresmaTridu.respVSexta;
+            respR = this.state.tempsQuaresmaTridu.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsQuaresmaTridu.citaLecturaBreuNona;
+            lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuNona;
+            respV = this.state.tempsQuaresmaTridu.respVNona;
+            respR = this.state.tempsQuaresmaTridu.respRNona;
+            break;
+        }
         break;
       case P_OCTAVA:
-
+        respV = "Avui és el dia en què ha obrat el Senyor, al·leluia.";
+        respR = "Alegrem-nos i celebrem-lo, al·leluia.";
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsPasquaOct.citaLBTercia;
+            lecturaBreu = this.state.tempsPasquaOct.lecturaBreuTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsPasquaOct.citaLBSexta;
+            lecturaBreu = this.state.tempsPasquaOct.lecturaBreuSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsPasquaOct.citaLBNona;
+            lecturaBreu = this.state.tempsPasquaOct.lecturaBreuNona;
+            break;
+        }
         break;
       case P_SETMANES:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsPasquaSetmanes.citaLBTercia;
+            lecturaBreu = this.state.tempsPasquaSetmanes.lecturaBreuTercia;
+            respV = this.state.tempsPasquaSetmanes.respVTercia;
+            respR = this.state.tempsPasquaSetmanes.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsPasquaSetmanes.citaLBSexta;
+            lecturaBreu = this.state.tempsPasquaSetmanes.lecturaBreuSexta;
+            respV = this.state.tempsPasquaSetmanes.respVSexta;
+            respR = this.state.tempsPasquaSetmanes.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsPasquaSetmanes.citaLBNona;
+            lecturaBreu = this.state.tempsPasquaSetmanes.lecturaBreuNona;
+            respV = this.state.tempsPasquaSetmanes.respVNona;
+            respR = this.state.tempsPasquaSetmanes.respRNona;
+            break;
+        }
         break;
       case A_SETMANES:
 
@@ -541,10 +907,10 @@ export default class HoraMenor extends Component {
         oracio = this.state.tempsQuaresmaSetSanta.oraFiLaudes;
         break;
       case Q_TRIDU:
-        oracio = this.state.tempsQuaresmaTridu.oraFiOfici;
+        oracio = this.state.tempsQuaresmaTridu.oraFiMenor;
         break;
       case P_OCTAVA:
-        oracio = this.state.tempsPasquaOct.oraFiLaudes;
+        oracio = this.state.tempsPasquaOct.oraFiMenor;
         break;
       case P_SETMANES:
         oracio = this.state.tempsPasquaSetmanes.oraFiLaudes;

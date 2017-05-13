@@ -73,15 +73,15 @@ export default class Liturgia extends Component {
          <View style={{flex:2, flexDirection: 'row'}}>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Tèrcia", LiturgiaDisplayScreen)}>
-             <Text style={styles.buttonText}>Tèrcia</Text>
+             <Text style={styles.horaMenorText}>Tèrcia</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Sexta", LiturgiaDisplayScreen)}>
-             <Text style={styles.buttonText}>Sexta</Text>
+             <Text style={styles.horaMenorText}>Sexta</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Nona", LiturgiaDisplayScreen)}>
-             <Text style={styles.buttonText}>Nona</Text>
+             <Text style={styles.horaMenorText}>Nona</Text>
            </TouchableOpacity>
          </View>
        </View>
@@ -114,6 +114,12 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: 'black',
+    fontSize: 18,
+    fontWeight: '400'
+  },
+  horaMenorText: {
+    textAlign: 'center',
+    color: '#333333',
     fontSize: 18,
     fontWeight: '400'
   },
