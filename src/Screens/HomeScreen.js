@@ -49,8 +49,8 @@ export default class HomeScreen extends Component {
       year: 2017,//today.getFullYear(), //xxxx
       hour: 7,//today.getHours(), //0-23
       LT: 'O_ORDINARI', //TODO: pensar com ferho x les vespres (potser: els dissabtes vespres sóndel temps del diumenge seguent)
-      weekDay: 4,//today.getDay(), //0-6 (diumenge-dissabte)
-      cicle: 1, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
+      weekDay: 0,//today.getDay(), //0-6 (diumenge-dissabte)
+      cicle: 3, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
       ordinariWeek: 15, //HC 1-34
       pasquaWeek: 5, //HC 2-7
       quaresmaWeek: 3, //HC 1-5 o 2-7

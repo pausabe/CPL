@@ -49,7 +49,7 @@ export default class NavigatorController extends Component {
             ref='navi'
             initialRoute={{
               component: HomeScreen,
-              title: 'LitCat - CPL',
+              title: 'LitCat',
               rightButtonIcon: this.state.gearIcon,
               onRightButtonPress: () => this.setPress()
             }}
