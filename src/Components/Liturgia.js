@@ -66,10 +66,25 @@ export default class Liturgia extends Component {
          <Text style={styles.buttonText}>Laudes</Text>
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
-       <TouchableOpacity style={styles.buttonContainer} onPress={
-       this.onButtonPress.bind(this, "liturgia-display", "Hora menor", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>Hora menor</Text>
-       </TouchableOpacity>
+       <View style={{flex:1, flexDirection: 'column'}}>
+         <View style={{flex:1, paddingTop: 10}}>
+          <Text style={styles.buttonText}>Hora menor</Text>
+         </View>
+         <View style={{flex:2, flexDirection: 'row'}}>
+           <TouchableOpacity style={styles.buttonContainer} onPress={
+           this.onButtonPress.bind(this, "liturgia-display", "Tèrcia", LiturgiaDisplayScreen)}>
+             <Text style={styles.buttonText}>Tèrcia</Text>
+           </TouchableOpacity>
+           <TouchableOpacity style={styles.buttonContainer} onPress={
+           this.onButtonPress.bind(this, "liturgia-display", "Sexta", LiturgiaDisplayScreen)}>
+             <Text style={styles.buttonText}>Sexta</Text>
+           </TouchableOpacity>
+           <TouchableOpacity style={styles.buttonContainer} onPress={
+           this.onButtonPress.bind(this, "liturgia-display", "Nona", LiturgiaDisplayScreen)}>
+             <Text style={styles.buttonText}>Nona</Text>
+           </TouchableOpacity>
+         </View>
+       </View>
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Vespres", LiturgiaDisplayScreen)}>

@@ -81,9 +81,10 @@ export default class LiturgiaDisplayScreen extends Component {
                 ABC={this.props.ABC}/>
               )
             break;
-            case 'Hora menor':
+            case 'Tèrcia':
               return(
                 <HoraMenor
+                  HM = {type}
                   hour = {this.props.hour}
                   weekDay = {this.props.weekDay}
                   monthDay = {this.props.monthDay}
@@ -97,6 +98,40 @@ export default class LiturgiaDisplayScreen extends Component {
                   ABC={this.props.ABC}/>
                 )
               break;
+              case 'Sexta':
+                return(
+                  <HoraMenor
+                    HM = {type}
+                    hour = {this.props.hour}
+                    weekDay = {this.props.weekDay}
+                    monthDay = {this.props.monthDay}
+                    month = {this.props.month}
+                    year = {this.props.year}
+                    cicle = {this.props.cicle}
+                    ordinariWeek = {this.props.ordinariWeek}
+                    pasquaWeek = {this.props.pasquaWeek}
+                    quaresmaWeek = {this.props.quaresmaWeek}
+                    LT={this.props.LT}
+                    ABC={this.props.ABC}/>
+                  )
+                break;
+              case 'Nona':
+                return(
+                  <HoraMenor
+                    HM = {type}
+                    hour = {this.props.hour}
+                    weekDay = {this.props.weekDay}
+                    monthDay = {this.props.monthDay}
+                    month = {this.props.month}
+                    year = {this.props.year}
+                    cicle = {this.props.cicle}
+                    ordinariWeek = {this.props.ordinariWeek}
+                    pasquaWeek = {this.props.pasquaWeek}
+                    quaresmaWeek = {this.props.quaresmaWeek}
+                    LT={this.props.LT}
+                    ABC={this.props.ABC}/>
+                  )
+                break;
               case 'Completes':
                 return(
                   <Completes
