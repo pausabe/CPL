@@ -111,12 +111,12 @@ export default class SettingComponent extends Component{
 }
 
 //Util function for cloning objects
-const clone = function(obj){
+/*const clone = function(obj){
     return JSON.parse(JSON.stringify(obj));
-};
+};*/
 
 //Pregenetarion of styles objects
-const preStyles = {
+/*const preStyles = {
     selectorView: {
         flex: 5,
         justifyContent: "center"
@@ -126,7 +126,7 @@ const preStyles = {
         flexDirection: "row",
         justifyContent: "flex-end"
     }
-};
+};*/
 
 const styles = StyleSheet.create({
     option: {
@@ -140,12 +140,19 @@ const styles = StyleSheet.create({
         flex: 5,
         justifyContent: "center"
     },
-    selectorView: preStyles.selectorView,
+    selectorView: {
+        flex: 5,
+        justifyContent: "center"
+    },
     text: {
         color: "black",
         fontSize: 16
     },
-    selectorViewSwitch: Object.assign(clone(preStyles.selectorView), preStyles.selectorViewSwitch),
+    selectorViewSwitch: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-end"
+    },
     selectorPicker: {
         color: "gray"
     }
