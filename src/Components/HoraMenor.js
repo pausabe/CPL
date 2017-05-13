@@ -205,7 +205,7 @@ export default class HoraMenor extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek)}
+        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -255,7 +255,7 @@ export default class HoraMenor extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek, monthDay){
+  himne(LT, weekDay, nit, pasquaWeek, monthDay, HM){
     switch(LT){
       case O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
@@ -267,7 +267,32 @@ export default class HoraMenor extends Component {
         break;
       case Q_CENDRA:
       case Q_SETMANES:
-
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsQuaresmaComuFV.himneTerciaLlati;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsQuaresmaComuFV.himneSextaLlati;
+              break;
+            case 'Nona':
+              himne = this.state.tempsQuaresmaComuFV.himneNonaLlati;
+              break;
+          }
+        }
+        else{
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsQuaresmaComuFV.himneTerciaCat;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsQuaresmaComuFV.himneSextaCat;
+              break;
+            case 'Nona':
+              himne = this.state.tempsQuaresmaComuFV.himneNonaCat;
+              break;
+          }
+        }
         break;
       case Q_DIUM_RAMS:
       case Q_SET_SANTA:
@@ -294,12 +319,9 @@ export default class HoraMenor extends Component {
   }
 
   salmodia(LT, pasquaWeek, weekDay){
+    antifones = true;
     switch(LT){
       case O_ORDINARI:
-      case Q_CENDRA:
-      case Q_SETMANES:
-      case Q_DIUM_RAMS:
-      case Q_SET_SANTA:
       case N_ABANS:
         ant1 = this.state.salteriComuHora.ant1;
         titol1 = this.state.salteriComuHora.titol1;
@@ -316,6 +338,30 @@ export default class HoraMenor extends Component {
         com3 = this.state.salteriComuHora.com3;
         salm3 = this.state.salteriComuHora.salm3;
         gloria3 = this.state.salteriComuHora.gloria3;
+        break;
+      case Q_CENDRA:
+        antifones = false;
+
+        titol1 = this.state.salteriComuHora.titol1;
+        com1 = this.state.salteriComuHora.com1;
+        salm1 = this.state.salteriComuHora.salm1;
+        gloria1 = this.state.salteriComuHora.gloria1;
+        titol2 = this.state.salteriComuHora.titol2;
+        com2 = this.state.salteriComuHora.com2;
+        salm2 = this.state.salteriComuHora.salm2;
+        gloria2 = this.state.salteriComuHora.gloria2;
+        titol3 = this.state.salteriComuHora.titol3;
+        com3 = this.state.salteriComuHora.com3;
+        salm3 = this.state.salteriComuHora.salm3;
+        gloria3 = this.state.salteriComuHora.gloria3;
+
+        ant = "per fer";
+        break;
+      case Q_SETMANES:
+        break;
+      case Q_DIUM_RAMS:
+        break;
+      case Q_SET_SANTA:
         break;
       case Q_TRIDU:
 
