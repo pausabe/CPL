@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     option: {
         minHeight: 70,
         justifyContent: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         paddingVertical: 10
     }
 });
