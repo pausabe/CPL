@@ -122,6 +122,7 @@ const preStyles = {
         justifyContent: "center"
     },
     selectorViewSwitch: {
+        flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end"
     }
