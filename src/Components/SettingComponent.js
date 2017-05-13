@@ -41,8 +41,12 @@ export default class SettingComponent extends Component{
         return(
             <View>
                 <View style={styles.option}>
-                    <Text>{this.name}</Text>
-                    {selectorComponent}
+                    <View style={styles.textView}>
+                        <Text style={styles.text}>{this.name}</Text>
+                    </View>
+                    <View style={styles.selectorView}>
+                        {selectorComponent}
+                    </View>
                 </View>
                 <Hr style={styles.separator} lineColor={GLOBAL.hrColor} />
             </View>
@@ -68,7 +72,10 @@ export default class SettingComponent extends Component{
     _generatePicker(){
         let selectorProps = this._mergeProps({
             selectedValue: this.state.value,
-            onValueChange: this._updateSelectionStateCallback.bind(this)
+            onValueChange: this._updateSelectionStateCallback.bind(this),
+            style: {
+                color: "gray"
+            }
         });
         return React.createElement(Picker, selectorProps,
             this._generatePickerOptions()
@@ -106,8 +113,25 @@ export default class SettingComponent extends Component{
 const styles = StyleSheet.create({
     option: {
         minHeight: 70,
-        justifyContent: 'center',
         paddingHorizontal: 20,
-        paddingVertical: 10
-    }
+        paddingVertical: 10,
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    textView: {
+        flex: 5,
+        justifyContent: "center"
+    },
+    selectorView: {
+        flex: 5,
+        justifyContent: "center"
+    },
+    text: {
+        color: "black",
+        fontSize: 16
+    }/*,
+    selectorSwitch: {
+        flexDirection: "row",
+        justifyContent: "flex-end"
+    }*/
 });
