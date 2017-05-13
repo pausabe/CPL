@@ -25,8 +25,10 @@ export default class SettingComponent extends Component{
 
     render(){
         let selectorComponent;
+        let styleSelectorView = styles.selectorView;
         switch (this.props.selectorComponent) {
             case "switch":
+                styleSelectorView = styles.selectorViewSwitch;
                 selectorComponent = this._generateSwitch();
                 break;
             case "slider":
@@ -44,7 +46,7 @@ export default class SettingComponent extends Component{
                     <View style={styles.textView}>
                         <Text style={styles.text}>{this.name}</Text>
                     </View>
-                    <View style={styles.selectorView}>
+                    <View style={styleSelectorView}>
                         {selectorComponent}
                     </View>
                 </View>
@@ -73,9 +75,7 @@ export default class SettingComponent extends Component{
         let selectorProps = this._mergeProps({
             selectedValue: this.state.value,
             onValueChange: this._updateSelectionStateCallback.bind(this),
-            style: {
-                color: "gray"
-            }
+            style: styles.selectorPicker
         });
         return React.createElement(Picker, selectorProps,
             this._generatePickerOptions()
@@ -110,6 +110,23 @@ export default class SettingComponent extends Component{
 
 }
 
+//Util function for cloning objects
+const clone = function(obj){
+    return JSON.parse(JSON.stringify(obj));
+};
+
+//Pregenetarion of styles objects
+const preStyles = {
+    selectorView: {
+        flex: 5,
+        justifyContent: "center"
+    },
+    selectorViewSwitch: {
+        flexDirection: "row",
+        justifyContent: "flex-end"
+    }
+};
+
 const styles = StyleSheet.create({
     option: {
         minHeight: 70,
@@ -122,16 +139,13 @@ const styles = StyleSheet.create({
         flex: 5,
         justifyContent: "center"
     },
-    selectorView: {
-        flex: 5,
-        justifyContent: "center"
-    },
+    selectorView: preStyles.selectorView,
     text: {
         color: "black",
         fontSize: 16
-    }/*,
-    selectorSwitch: {
-        flexDirection: "row",
-        justifyContent: "flex-end"
-    }*/
+    },
+    selectorViewSwitch: Object.assign(clone(preStyles.selectorView), preStyles.selectorViewSwitch),
+    selectorPicker: {
+        color: "gray"
+    }
 });
