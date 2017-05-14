@@ -155,7 +155,7 @@ export default class Ofici extends Component {
     id = props.monthDay-25;
     acceso.getLiturgia("tempsNadalOctava", id, (result) => { this.queryRows.tempsNadalOctava = result; this.dataReceived(); });
 
-    id = props.monthDay-1;
+    {props.monthDay < 6 ? id = props.monthDay-1 : id = props.monthDay-2}
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
   }
 

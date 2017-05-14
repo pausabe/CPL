@@ -150,7 +150,7 @@ export default class HoraMenor extends Component {
     id = props.monthDay-25;
     acceso.getLiturgia("tempsNadalOctava", id, (result) => { this.queryRows.tempsNadalOctava = result; this.dataReceived(); });
 
-    id = props.monthDay-1;
+    {props.monthDay < 6 ? id = props.monthDay-1 : id = props.monthDay-2}
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
   }
 
@@ -421,7 +421,32 @@ export default class HoraMenor extends Component {
       case A_FERIES:
       case N_OCTAVA:
       case N_ABANS:
-
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsAdventNadalComu.himneTerciaLlati;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsAdventNadalComu.himneSextaLlati;
+              break;
+            case 'Nona':
+              himne = this.state.tempsAdventNadalComu.himneNonaLlati;
+              break;
+          }
+        }
+        else{
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.tempsAdventNadalComu.himneTerciaCat;
+              break;
+            case 'Sexta':
+              himne = this.state.tempsAdventNadalComu.himneSextaCat;
+              break;
+            case 'Nona':
+              himne = this.state.tempsAdventNadalComu.himneNonaCat;
+              break;
+          }
+        }
         break;
     }
 
@@ -432,7 +457,6 @@ export default class HoraMenor extends Component {
     antifones = true;
     switch(LT){
       case O_ORDINARI:
-      case N_ABANS:
         ant1 = this.state.salteriComuHora.ant1;
         titol1 = this.state.salteriComuHora.titol1;
         com1 = this.state.salteriComuHora.com1;
@@ -582,11 +606,35 @@ export default class HoraMenor extends Component {
         ant = "Al·leluia, al·leluia, al·leluia."
         break;
       case A_SETMANES:
-      case A_FERIES:
-
-        break;
       case N_OCTAVA:
+      case A_FERIES:
+      case N_ABANS:
+        antifones = false;
 
+        titol1 = this.state.salteriComuHora.titol1;
+        com1 = this.state.salteriComuHora.com1;
+        salm1 = this.state.salteriComuHora.salm1;
+        gloria1 = this.state.salteriComuHora.gloria1;
+        titol2 = this.state.salteriComuHora.titol2;
+        com2 = this.state.salteriComuHora.com2;
+        salm2 = this.state.salteriComuHora.salm2;
+        gloria2 = this.state.salteriComuHora.gloria2;
+        titol3 = this.state.salteriComuHora.titol3;
+        com3 = this.state.salteriComuHora.com3;
+        salm3 = this.state.salteriComuHora.salm3;
+        gloria3 = this.state.salteriComuHora.gloria3;
+
+        switch (HM) {
+          case 'Tèrcia':
+            ant = this.state.tempsAdventNadalComu.antTercia;
+            break;
+          case 'Sexta':
+            ant = this.state.tempsAdventNadalComu.antSexta;
+            break;
+          case 'Nona':
+            ant = this.state.tempsAdventNadalComu.antNona;
+            break;
+        }
         break;
     }
 
@@ -846,16 +894,92 @@ export default class HoraMenor extends Component {
         }
         break;
       case A_SETMANES:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsAdventSetmanes.citaLBTercia;
+            lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuTercia;
+            respV = this.state.tempsAdventSetmanes.respVTercia;
+            respR = this.state.tempsAdventSetmanes.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsAdventSetmanes.citaLBSexta;
+            lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuSexta;
+            respV = this.state.tempsAdventSetmanes.respVSexta;
+            respR = this.state.tempsAdventSetmanes.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsAdventSetmanes.citaLBNona;
+            lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuNona;
+            respV = this.state.tempsAdventSetmanes.respVNona;
+            respR = this.state.tempsAdventSetmanes.respRNona;
+            break;
+        }
         break;
       case A_FERIES:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsAdventFeries.citaLBTercia;
+            lecturaBreu = this.state.tempsAdventFeries.lecturaBreuTercia;
+            respV = this.state.tempsAdventFeries.respVTercia;
+            respR = this.state.tempsAdventFeries.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsAdventFeries.citaLBSexta;
+            lecturaBreu = this.state.tempsAdventFeries.lecturaBreuSexta;
+            respV = this.state.tempsAdventFeries.respVSexta;
+            respR = this.state.tempsAdventFeries.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsAdventFeries.citaLBNona;
+            lecturaBreu = this.state.tempsAdventFeries.lecturaBreuNona;
+            respV = this.state.tempsAdventFeries.respVNona;
+            respR = this.state.tempsAdventFeries.respRNona;
+            break;
+        }
         break;
       case N_OCTAVA:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsNadalOctava.citaLectBreuTercia;
+            lecturaBreu = this.state.tempsNadalOctava.lecturaBreuTercia;
+            respV = this.state.tempsNadalOctava.respVTercia;
+            respR = this.state.tempsNadalOctava.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsNadalOctava.citaLectBreuSexta;
+            lecturaBreu = this.state.tempsNadalOctava.lecturaBreuSexta;
+            respV = this.state.tempsNadalOctava.respVSexta;
+            respR = this.state.tempsNadalOctava.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsNadalOctava.citaLectBreuNona;
+            lecturaBreu = this.state.tempsNadalOctava.lecturaBreuNona;
+            respV = this.state.tempsNadalOctava.respVNona;
+            respR = this.state.tempsNadalOctava.respRNona;
+            break;
+        }
         break;
       case N_ABANS:
-
+        switch (HM) {
+          case 'Tèrcia':
+            vers = this.state.tempsNadalAbansEpifania.citaLectBreuTercia;
+            lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuTercia;
+            respV = this.state.tempsNadalAbansEpifania.respVTercia;
+            respR = this.state.tempsNadalAbansEpifania.respRTercia;
+            break;
+          case 'Sexta':
+            vers = this.state.tempsNadalAbansEpifania.citaLectBreuSexta;
+            lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuSexta;
+            respV = this.state.tempsNadalAbansEpifania.respVSexta;
+            respR = this.state.tempsNadalAbansEpifania.respRSexta;
+            break;
+          case 'Nona':
+            vers = this.state.tempsNadalAbansEpifania.citaLectBreuNona;
+            lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuNona;
+            respV = this.state.tempsNadalAbansEpifania.respVNona;
+            respR = this.state.tempsNadalAbansEpifania.respRNona;
+            break;
+        }
         break;
     }
     return(
