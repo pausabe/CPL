@@ -32,7 +32,10 @@ export default class SettingsManager{
         let getPromise = AsyncStorage.getItem(key);
         let settingsPromise = new Promise((resolve, reject) => {
             getPromise.then(
-                value => resolve(value == null ? defaultValue : value)
+                value => {
+                    console.log("LOADED OPTION: " + key + " - " + value);
+                    resolve(value == null ? defaultValue : value);
+                }
             ).catch(
                 error => reject(error)
             );
