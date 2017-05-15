@@ -7,13 +7,18 @@ export const diocesis = {
     GIRONA: "Girona",
 };
 
+export const invitatori = {
+    OFICI: "Ofici",
+    LAUDE: "Laudes"
+};
 
 const defaultSettings = {
     showGlories: "false",
     useLatin: "false",
     textSize: "18",
     diocesis: diocesis.BARCELONA,
-    dayStart: "0" //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
+    dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
+    invitatori: invitatori.OFICI
 };
 
 export default class SettingsManager{
@@ -78,6 +83,10 @@ export default class SettingsManager{
         return SettingsManager._getStorageValue("dayStart", callback, defaultSettings.dayStart);
     }
 
+    static getSettingInvitatori(callback){
+        return SettingsManager._getStorageValue("invitatori", callback, defaultSettings.invitatori);
+    }
+
     static setSettingShowGlories(value, callback){
         return SettingsManager._setValueIfValid("showGlories", value,
             (val) => val === "true" || val === "false",
@@ -99,13 +108,7 @@ export default class SettingsManager{
     static setSettingDiocesis(value, callback){
         return SettingsManager._setValueIfValid("diocesis", value,
             (val) => {
-                let found = false;
-                for(key in diocesis){
-                    if(diocesis[key] == val){
-                        found = true;
-                    }
-                }
-                return found;
+                return findValueInObject(diocesis, val);
             }, callback);
     }
 
@@ -115,4 +118,21 @@ export default class SettingsManager{
             callback);
     }
 
+    static setSettingInvitatori(value, callback){
+        return SettingsManager._setValueIfValid("invitatori", value,
+            (val) => {
+                return findValueInObject(invitatori, val);
+            }, callback);
+    }
+
+}
+
+function findValueInObject(obj, value){
+    let found = false;
+    for(key in obj){
+        if(invitatori[key] == value){
+            found = true;
+        }
+    }
+    return found;
 }

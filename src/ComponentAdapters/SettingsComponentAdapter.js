@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SettingsManager, {diocesis} from '../Settings/SettingsManager';
+import SettingsManager, {diocesis, invitatori} from '../Settings/SettingsManager';
 import SettingComponent from '../Components/SettingComponent';
 
 //Id generating different keys for testing
@@ -14,8 +14,10 @@ export default class SettingsComponentAdapter{
         options.push(await SettingsComponentAdapter.getSettingComponentTextSize());
         options.push(await SettingsComponentAdapter.getSettingComponentDiocesis());
         options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
+        options.push(await SettingsComponentAdapter.getSettingComponentInvitatori());
         //Added for testing
 
+        /*options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
@@ -24,8 +26,7 @@ export default class SettingsComponentAdapter{
         options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
+        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());*/
         return options;
     }
 
@@ -66,11 +67,20 @@ export default class SettingsComponentAdapter{
 
     static async getSettingComponentDayStart(){
         let value = await SettingsManager.getSettingDayStart();
-        let component = (<SettingComponent selectorComponent="picker" name="Selecciona a quina hora comença el día" id="dayStart" key={"dayStart"+id} //Addes key+id for testing
+        let component = (<SettingComponent selectorComponent="picker" name="Selecciona a quina hora comença el día" id="dayStart" key={"dayStart"/*+id*/} //Addes key+id for testing
             value={value} options={{0: "00:00 AM", 1: "01:00 AM", 2: "02:00 AM", 3: "03:00 AM"}} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
                 SettingsManager.setSettingDayStart(value);
             }}/>);
-        id++;//Augment ID for testing
+        //id++;//Augment ID for testing
+        return component;
+    }
+
+    static async getSettingComponentInvitatori(){
+        let value = await SettingsManager.getSettingInvitatori();
+        let component = (<SettingComponent selectorComponent="picker" name="Selecciona invitatori" id="invitatori" key="invitatori"
+            value={value} options={invitatori} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
+                SettingsManager.setSettingInvitatori(invitatori[value]);
+            }}/>);
         return component;
     }
 

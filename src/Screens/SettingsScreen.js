@@ -9,7 +9,7 @@ export default class SettingsScreen extends Component {
     componentWillMount(){
         SettingsComponentAdapter.getSettingsOptions().then(result =>{
             this.setState({options: result});
-        });
+        }).catch(error => console.log(error));
     }
 
     render() {
