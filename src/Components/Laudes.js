@@ -932,6 +932,7 @@ export default class Laudes extends Component {
         <Text style={styles.red}>Ant.
           <Text style={styles.black}> {antCantic}</Text>
         </Text>
+        <Text />
         <Text style={styles.black}>{cantic}</Text>
         <Text />
         {this.gloria('1')}

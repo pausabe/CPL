@@ -40,7 +40,7 @@ export default class Completes extends Component {
 
     acceso = new DBAdapter();
 
-    id = (props.cicle-1)*7 + (props.weekDay+1);
+    {props.weekDay === 6 ? id = 1 : id = props.weekDay + 2}
     acceso.getLiturgia("salteriComuCompletes", id, (result) => { this.queryRows.salteriComuCompletes = result; this.dataReceived(); });
   }
 
@@ -50,7 +50,7 @@ export default class Completes extends Component {
     if(this.count === 0){
       nit = false; //TODO: HC
       this.setState({
-        salteriComuCompletes: this.queryRows.salteriComuOfici,
+        salteriComuCompletes: this.queryRows.salteriComuCompletes,
       })
     }
   }
@@ -60,46 +60,50 @@ export default class Completes extends Component {
 
     himne = "Oh crist llum..."; //TODO: a partir de la taula nova d'elements dispersos
 
+    antifones = true;
     ant1 = this.state.salteriComuCompletes.ant1;
-    titol1 = this.state.salteriComuCompletes.ant1;
-    com1 = this.state.salteriComuCompletes.ant1;
-    salm1 = this.state.salteriComuCompletes.ant1;
-    gloria1 = this.state.salteriComuCompletes.ant1;
-    dosSalms = this.state.salteriComuCompletes.ant1;
-    ant2 = this.state.salteriComuCompletes.ant1;
-    titol2 = this.state.salteriComuCompletes.ant1;
-    com2 = this.state.salteriComuCompletes.ant1;
-    salm2 = this.state.salteriComuCompletes.ant1;
-    gloria2 = this.state.salteriComuCompletes.ant1;
+    titol1 = this.state.salteriComuCompletes.titol1;
+    com1 = this.state.salteriComuCompletes.com1
+    salm1 = this.state.salteriComuCompletes.salm1;
+    gloria1 = this.state.salteriComuCompletes.gloria1;
+    dosSalms = this.state.salteriComuCompletes.dosSalms;
+    ant2 = this.state.salteriComuCompletes.ant2;
+    titol2 = this.state.salteriComuCompletes.titol2;
+    com2 = this.state.salteriComuCompletes.com2;
+    salm2 = this.state.salteriComuCompletes.salm2;
+    gloria2 = this.state.salteriComuCompletes.gloria2;
 
-    vers = this.state.salteriComuCompletes.ant1;
-    lecturaBreu = this.state.salteriComuCompletes.ant1;
+    vers = this.state.salteriComuCompletes.versetLB;
+    lecturaBreu = this.state.salteriComuCompletes.lecturaBreu;
 
-    resp1 = "A les vostes...";
-    resp2 = ;
-    resp3 = ;
+    antRespEspecial = "-";
+    respBreu1 = "A les vostes mans, Senyor,";
+    respBreu2 = "Encomano el meu esperit.";
+    respBreu3 = "Vós, Déu fidel, ens heu redimit.";
 
-    antCantic = "Salveu-nos Senyor..."; //TODO: omplir!
+    antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans."; //TODO: omplir!
     cantic = "Ara Senyor..."; //TODO: a partir de la taula nova d'elements dispersos
 
     oracio = this.state.salteriComuCompletes.oraFi;
 
     switch (this.props.LT) {
       case P_OCTAVA: //TODO: l'oració final és com diumenge??
+        antifones = false;
+        ant1 = "Al·leluia, al·leluia, al·leluia.";
+        antRespEspecial = "Avui és el dia en què ha obrat el Senyor: alegrem-nos i celebrem-lo, al·leluia.";
+        antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans al·leluia.";
+        break;
       case P_SETMANES:
+        antifones = false;
+        ant1 = "Al·leluia, al·leluia, al·leluia.";
+        respBreu1 = "A les vostes mans, Senyor, encomano el meu esperit,";
+        respBreu2 = "Al·leluia, al·leluia.";
+        respBreu3 = "Vós, Déu fidel, ens heu redimit.";
+        antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans al·leluia.";
       case Q_TRIDU:
-        ant1 = ;
-        ant2 = ;
-
-        vers = ;
-        lecturaBreu = ;
-
-        respV = ;
-        respR = ;
-
-        antCantic = ;
-
-        oracio = ;
+        if(weekDay === 6){ //primeres vespres diumenge de pasqua
+          antRespEspecial = "Avui és el dia en què ha obrat el Senyor: alegrem-nos i celebrem-lo, al·leluia.";
+        }
         break;
     }
 
@@ -130,9 +134,15 @@ export default class Completes extends Component {
         <Text />
         {dosSalms === "1" ?
           <View>
-            <Text style={styles.red}>Ant. 1.
-              <Text style={styles.black}> {ant1}</Text>
-            </Text>
+            {antifones ?
+              <Text style={styles.red}>Ant. 1.
+                <Text style={styles.black}> {ant1}</Text>
+              </Text>
+            :
+              <Text style={styles.red}>Ant.
+                <Text style={styles.black}> {ant1}</Text>
+              </Text>
+            }
             <Text />
             <Text style={styles.redCenter}>{titol1}</Text>
             <Text />
@@ -142,14 +152,19 @@ export default class Completes extends Component {
             <Text />
             {this.gloria(gloria1)}
             <Text />
-            <Text style={styles.red}>Ant. 1.
-              <Text style={styles.black}> {ant1}</Text>
-            </Text>
-            <Text />
-            <Text style={styles.red}>Ant. 2.
-              <Text style={styles.black}> {ant2}</Text>
-            </Text>
-            <Text />
+            {antifones ?
+              <View>
+                <Text style={styles.red}>Ant. 1.
+                  <Text style={styles.black}> {ant1}</Text>
+                </Text>
+                <Text />
+                <Text style={styles.red}>Ant. 2.
+                  <Text style={styles.black}> {ant2}</Text>
+                </Text>
+                <Text />
+              </View>
+            : null
+            }
             <Text style={styles.redCenter}>{titol2}</Text>
             <Text />
             {com2 !== '-' ?
@@ -158,9 +173,19 @@ export default class Completes extends Component {
             <Text />
             {this.gloria(gloria2)}
             <Text />
-            <Text style={styles.red}>Ant. 2.
-              <Text style={styles.black}> {ant2}</Text>
-            </Text>
+            {antifones ?
+              <View>
+                <Text style={styles.red}>Ant. 2.
+                  <Text style={styles.black}> {ant2}</Text>
+                </Text>
+              </View>
+            :
+              <View>
+                <Text style={styles.red}>Ant.
+                  <Text style={styles.black}> {ant1}</Text>
+                </Text>
+              </View>
+            }
           </View>
         :
           <View>
@@ -184,21 +209,6 @@ export default class Completes extends Component {
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>CÀNTIC EVANGÈLIC</Text>
-        <Text />
-        <Text style={styles.red}>Ant.
-          <Text style={styles.black}> {antCantic}</Text>
-        </Text>
-        <Text style={styles.black}>{cantic}</Text>
-        <Text />
-        {this.gloria('1')}
-        <Text />
-        <Text style={styles.red}>Ant.
-          <Text style={styles.black}> {antCantic}</Text>
-        </Text>
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
         <Text style={styles.red}>LECTURA BREU</Text>
         <Text />
         <Text style={styles.red}>{vers}</Text>
@@ -209,11 +219,51 @@ export default class Completes extends Component {
         <Text />
         <Text style={styles.red}>RESPONSORI BREU</Text>
         <Text />
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> {respV}</Text>
+        {antRespEspecial === "-" ?
+          <View>
+            <Text style={styles.red}>V.
+              <Text style={styles.black}> {respBreu1} {respBreu2}</Text>
+            </Text>
+            <Text style={styles.red}>R.
+              <Text style={styles.black}> {respBreu1} {respBreu2}</Text>
+            </Text>
+            <Text />
+            <Text style={styles.red}>V.
+              <Text style={styles.black}> {respBreu3}</Text>
+            </Text>
+            <Text style={styles.red}>R.
+              <Text style={styles.black}> {respBreu2}</Text>
+            </Text>
+            <Text />
+            <Text style={styles.red}>V.
+              <Text style={styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
+            </Text>
+            <Text style={styles.red}>R.
+              <Text style={styles.black}> {respBreu1} {respBreu2}</Text>
+            </Text>
+          </View>
+        :
+          <View>
+            <Text style={styles.red}>Ant.
+              <Text style={styles.black}> {antRespEspecial}</Text>
+            </Text>
+          </View>
+        }
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.red}>CÀNTIC EVANGÈLIC</Text>
+        <Text />
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antCantic}</Text>
         </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> {respR}</Text>
+        <Text />
+        <Text style={styles.black}>{cantic}</Text>
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={styles.red}>Ant.
+          <Text style={styles.black}> {antCantic}</Text>
         </Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
@@ -227,10 +277,10 @@ export default class Completes extends Component {
         <Text style={styles.red}>CONCLUSIÓ</Text>
         <Text />
         <Text style={styles.red}>V.
-          <Text style={styles.black}> Beneïm al Senyor.</Text>
+          <Text style={styles.black}> Que el Senyor totpoderós ens concedeixi una nit tranquil·la i una fi beneurada.</Text>
         </Text>
         <Text style={styles.red}>R.
-          <Text style={styles.black}> Donem gràcies a Déu.</Text>
+          <Text style={styles.black}> Amén.</Text>
         </Text>
       </View>
     );
@@ -251,6 +301,7 @@ export default class Completes extends Component {
       }
     }
   }
+}
 
 const styles = StyleSheet.create({
   black: {
