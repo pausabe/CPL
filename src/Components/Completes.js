@@ -91,7 +91,7 @@ export default class Completes extends Component {
         antifones = false;
         ant1 = "Al·leluia, al·leluia, al·leluia.";
         antRespEspecial = "Avui és el dia en què ha obrat el Senyor: alegrem-nos i celebrem-lo, al·leluia.";
-        antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans al·leluia.";
+        antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans. Al·leluia.";
         break;
       case P_SETMANES:
         antifones = false;
@@ -99,9 +99,9 @@ export default class Completes extends Component {
         respBreu1 = "A les vostes mans, Senyor, encomano el meu esperit,";
         respBreu2 = "Al·leluia, al·leluia.";
         respBreu3 = "Vós, Déu fidel, ens heu redimit.";
-        antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans al·leluia.";
+        antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans. Al·leluia.";
       case Q_TRIDU:
-        if(weekDay === 6){ //primeres vespres diumenge de pasqua
+        if(this.props.weekDay === 6){ //primeres vespres diumenge de pasqua
           antRespEspecial = "Avui és el dia en què ha obrat el Senyor: alegrem-nos i celebrem-lo, al·leluia.";
         }
         break;
@@ -252,7 +252,7 @@ export default class Completes extends Component {
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>CÀNTIC EVANGÈLIC</Text>
+        <Text style={styles.red}>CÀNTIC SIMEÓ</Text>
         <Text />
         <Text style={styles.red}>Ant.
           <Text style={styles.black}> {antCantic}</Text>

@@ -42,18 +42,18 @@ export default class HomeScreen extends Component {
 
     var today = new Date();
 
+    console.log("??: " + today.getDay());
+
     this.state = {
       santPressed: false,
-      monthDay: 5,//today.getDate(), //1-31
-      month: 2,//today.getMonth(), //0-11
-      year: 2017,//today.getFullYear(), //xxxx
-      hour: 7,//today.getHours(), //0-23
-      LT: 'P_OCTAVA', //TODO: pensar com ferho x les vespres (potser: els dissabtes vespres sóndel temps del diumenge seguent)
-      weekDay: 6,//today.getDay(), //0-6 (diumenge-dissabte)
-      cicle: 2, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
-      ordinariWeek: 15, //HC 1-34
-      pasquaWeek: 3, //HC 2-7
-      quaresmaWeek: 3, //HC 1-5 o 2-7
+      monthDay: today.getDate(), //1-31
+      month: today.getMonth(), //0-11
+      year: today.getFullYear(), //xxxx
+      hour: today.getHours(), //0-23
+      weekDay: today.getDay(), //0-6 (diumenge-dissabte)
+      LT: 'P_SETMANES', //TODO: pensar com ferho x les vespres (potser: els dissabtes vespres sóndel temps del diumenge seguent)
+      cicle: 4, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
+      setmana: 4, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
       ABC: 'A',
     }
   }
@@ -119,9 +119,7 @@ export default class HomeScreen extends Component {
                         month={this.state.month}
                         year={this.state.year}
                         cicle={this.state.cicle}
-                        ordinariWeek={this.state.ordinariWeek}
-                        pasquaWeek={this.state.pasquaWeek}
-                        quaresmaWeek={this.state.quaresmaWeek}
+                        setmana={this.state.setmana}
                         LT={this.state.LT}
                         ABC={this.state.ABC}/>
             </View>
@@ -134,9 +132,7 @@ export default class HomeScreen extends Component {
                         month={this.state.month}
                         year={this.state.year}
                         cicle={this.state.cicle}
-                        ordinariWeek={this.state.ordinariWeek}
-                        pasquaWeek={this.state.pasquaWeek}
-                        quaresmaWeek={this.state.quaresmaWeek}
+                        setmana={this.state.setmana}
                         LT={this.state.LT}
                         ABC={this.state.ABC}/>
             </View>

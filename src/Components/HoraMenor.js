@@ -82,7 +82,7 @@ export default class HoraMenor extends Component {
     id = (props.cicle-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("salteriComuHora", id, (result) => { this.queryRows.salteriComuHora = result; this.dataReceived(); });
 
-    id = props.ordinariWeek;
+    id = props.setmana;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
 
     id = 1;
@@ -91,7 +91,7 @@ export default class HoraMenor extends Component {
     id = props.weekDay-2; //dimecres = 1, dijous = 2, ...
     acceso.getLiturgia("tempsQuaresmaCendra", id, (result) => { this.queryRows.tempsQuaresmaCendra = result; this.dataReceived(); });
 
-    id = (props.quaresmaWeek-1)*7 + (props.weekDay+1);
+    id = (props.setmana-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => { this.queryRows.tempsQuaresmaVSetmanes = result; this.dataReceived(); });
 
     id = 1;
@@ -115,7 +115,7 @@ export default class HoraMenor extends Component {
     id = 1;
     acceso.getLiturgia("tempsPasquaDA", id, (result) => { this.queryRows.tempsPasquaDA = result; this.dataReceived(); });
 
-    id = (props.pasquaWeek-2)*7 + weekDayNormal;
+    id = (props.setmana-2)*7 + weekDayNormal;
     acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(); });
 
     switch (this.props.LT) {
@@ -205,13 +205,13 @@ export default class HoraMenor extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek, this.props.HM)}
+        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.setmana, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.pasquaWeek, this.props.weekDay, this.props.HM)}
+        {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -255,7 +255,7 @@ export default class HoraMenor extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek, HM){
+  himne(LT, weekDay, nit, setmana, HM){
     switch(LT){
       case O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
@@ -360,7 +360,7 @@ export default class HoraMenor extends Component {
         }
         break;
       case P_SETMANES:
-        if(pasquaWeek === 7){
+        if(setmana === 7){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             switch (HM) {
               case 'Tèrcia':
@@ -453,7 +453,7 @@ export default class HoraMenor extends Component {
     return(<Text style={styles.black}>{himne}</Text>);
   }
 
-  salmodia(LT, pasquaWeek, weekDay, HM){
+  salmodia(LT, setmana, weekDay, HM){
     antifones = true;
     switch(LT){
       case O_ORDINARI:

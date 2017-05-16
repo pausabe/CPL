@@ -53,6 +53,7 @@ export default class Vespres extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       tempsSolemnitatsFestes: '',
+      salteriComuEspPasqua: '',
     }
 
     this.queryRows = {
@@ -79,9 +80,10 @@ export default class Vespres extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       tempsSolemnitatsFestes: '',
+      salteriComuEspPasqua: '',
     }
 
-    this.count = 23; //number of queryies
+    this.count = 24; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -92,7 +94,7 @@ export default class Vespres extends Component {
     id = (props.cicle-1)*7 + weekDayNormalVESPRES;
     acceso.getLiturgia("salteriComuVespres", id, (result) => { this.queryRows.salteriComuVespres = result; this.dataReceived(); });
 
-    id = props.ordinariWeek;
+    id = props.setmana;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
 
     id = 1;
@@ -101,10 +103,10 @@ export default class Vespres extends Component {
     id = props.weekDay-2; //dimecres = 1, dijous = 2, ...
     acceso.getLiturgia("tempsQuaresmaCendra", id, (result) => { this.queryRows.tempsQuaresmaCendra = result; this.dataReceived(); });
 
-    id = (props.quaresmaWeek-1)*7 + (props.weekDay+1);
+    id = (props.setmana-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => { this.queryRows.tempsQuaresmaVSetmanes = result; this.dataReceived(); });
 
-    id = props.quaresmaWeek;
+    id = props.setmana;
     acceso.getLiturgia("tempsQuaresmaVSetmanesDium", id, (result) => { this.queryRows.tempsQuaresmaVSetmanesDium = result; this.dataReceived(); });
 
     id = 1;
@@ -131,10 +133,10 @@ export default class Vespres extends Component {
     id = 1;
     acceso.getLiturgia("tempsPasquaDA", id, (result) => { this.queryRows.tempsPasquaDA = result; this.dataReceived(); });
 
-    id = (props.pasquaWeek-2)*7 + weekDayNormal;
+    id = (props.setmana-2)*7 + weekDayNormal;
     acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(); });
 
-    id = props.pasquaWeek;
+    id = props.setmana;
     acceso.getLiturgia("tempsPasquaSetmanesDium", id, (result) => { this.queryRows.tempsPasquaSetmanesDium = result; this.dataReceived(); });
 
     switch (this.props.LT) {
@@ -174,6 +176,9 @@ export default class Vespres extends Component {
 
     id = 1; //En Vespres només necessito Nadal (1) per N_OCTAVA
     acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => { this.queryRows.tempsSolemnitatsFestes = result; this.dataReceived(); });
+
+    id = (props.cicle-1)*6 + (props.weekDay);
+    acceso.getLiturgia("salteriComuEspPasqua", id, (result) => { this.queryRows.salteriComuEspPasqua = result; this.dataReceived(); });
   }
 
   dataReceived(){
@@ -207,6 +212,7 @@ export default class Vespres extends Component {
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
         tempsSolemnitatsFestes: this.queryRows.tempsSolemnitatsFestes,
+        salteriComuEspPasqua: this.queryRows.salteriComuEspPasqua,
       });
     }
   }
@@ -232,13 +238,13 @@ export default class Vespres extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek)}
+        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.setmana)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.pasquaWeek, this.props.weekDay)}
+        {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -255,11 +261,13 @@ export default class Vespres extends Component {
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>CÀNTIC DE MARIA</Text>
+        <Text />
         {this.cantic(this.props.LT, this.props.weekDay, this.props.ABC)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>PREGÀRIES</Text>
+        <Text />
         {this.pregaries(this.props.LT, this.props.weekDay)}
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
@@ -296,7 +304,7 @@ export default class Vespres extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek){
+  himne(LT, weekDay, nit, setmana){
     switch(LT){
       case O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
@@ -343,25 +351,15 @@ export default class Vespres extends Component {
         }
         break;
       case P_OCTAVA:
-        if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneVespresLlati1;
-          }
-          else{
-            himne = this.state.tempsPasquaAA.himneVespresCat1;
-          }
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsPasquaAA.himneVespresLlati1;
         }
-        else{//fórmula 2
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneVespresLlati2;
-          }
-          else{
-            himne = this.state.tempsPasquaAA.himneVespresCat2;
-          }
+        else{
+          himne = this.state.tempsPasquaAA.himneVespresCat1;
         }
         break;
       case P_SETMANES:
-        if(pasquaWeek === 7){
+        if(setmana === 7){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneVespresLlati;
           }
@@ -370,21 +368,11 @@ export default class Vespres extends Component {
           }
         }
         else{
-          if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
-            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-              himne = this.state.tempsPasquaAA.himneVespresLlati1;
-            }
-            else{
-              himne = this.state.tempsPasquaAA.himneVespresCat1;
-            }
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.tempsPasquaAA.himneVespresLlati2;
           }
-          else{//fórmula 2
-            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-              himne = this.state.tempsPasquaAA.himneVespresLlati2;
-            }
-            else{
-              himne = this.state.tempsPasquaAA.himneVespresCat2;
-            }
+          else{
+            himne = this.state.tempsPasquaAA.himneVespresCat2;
           }
         }
         break;
@@ -411,7 +399,7 @@ export default class Vespres extends Component {
     return(<Text style={styles.black}>{himne}</Text>);
   }
 
-  salmodia(LT, pasquaWeek, weekDay){
+  salmodia(LT, setmana, weekDay){
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
@@ -568,9 +556,9 @@ export default class Vespres extends Component {
           ant3 = this.state.tempsPasquaSetmanesDium.ant3Vespres2;
         }
         else{ //feria, normal
-          ant1 = this.state.salteriComuVespres.ant1;
-          ant2 = this.state.salteriComuVespres.ant2;
-          ant3 = this.state.salteriComuVespres.ant3;
+          ant1 = this.state.salteriComuEspPasqua.ant1Vespres;
+          ant2 = this.state.salteriComuEspPasqua.ant2Vespres;
+          ant3 = this.state.salteriComuEspPasqua.ant3Vespres;
         }
         break;
       case A_SETMANES:

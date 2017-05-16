@@ -178,9 +178,7 @@ export default class NavigatorController extends Component {
                           month= {route.month}
                           year= {route.year}
                           cicle= {route.cicle}
-                          ordinariWeek= {route.ordinariWeek}
-                          pasquaWeek= {route.pasquaWeek}
-                          quaresmaWeek={route.quaresmaWeek}
+                          setmana= {route.setmana}
                           LT={route.LT}
                           ABC={route.ABC}/>);
     }

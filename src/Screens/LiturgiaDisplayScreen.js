@@ -42,9 +42,7 @@ export default class LiturgiaDisplayScreen extends Component {
             month = {this.props.month}
             year = {this.props.year}
             cicle = {this.props.cicle}
-            ordinariWeek = {this.props.ordinariWeek}
-            pasquaWeek = {this.props.pasquaWeek}
-            quaresmaWeek = {this.props.quaresmaWeek}
+            setmana = {this.props.setmana}
             LT={this.props.LT}
             ABC={this.props.ABC}/>
           )
@@ -58,9 +56,7 @@ export default class LiturgiaDisplayScreen extends Component {
               month = {this.props.month}
               year = {this.props.year}
               cicle = {this.props.cicle}
-              ordinariWeek = {this.props.ordinariWeek}
-              pasquaWeek = {this.props.pasquaWeek}
-              quaresmaWeek = {this.props.quaresmaWeek}
+              setmana = {this.props.setmana}
               LT={this.props.LT}
               ABC={this.props.ABC}/>
             )
@@ -74,9 +70,7 @@ export default class LiturgiaDisplayScreen extends Component {
                 month = {this.props.month}
                 year = {this.props.year}
                 cicle = {this.props.cicle}
-                ordinariWeek = {this.props.ordinariWeek}
-                pasquaWeek = {this.props.pasquaWeek}
-                quaresmaWeek = {this.props.quaresmaWeek}
+                setmana = {this.props.setmana}
                 LT={this.props.LT}
                 ABC={this.props.ABC}/>
               )
@@ -91,9 +85,7 @@ export default class LiturgiaDisplayScreen extends Component {
                   month = {this.props.month}
                   year = {this.props.year}
                   cicle = {this.props.cicle}
-                  ordinariWeek = {this.props.ordinariWeek}
-                  pasquaWeek = {this.props.pasquaWeek}
-                  quaresmaWeek = {this.props.quaresmaWeek}
+                  setmana = {this.props.setmana}
                   LT={this.props.LT}
                   ABC={this.props.ABC}/>
                 )
@@ -108,9 +100,7 @@ export default class LiturgiaDisplayScreen extends Component {
                     month = {this.props.month}
                     year = {this.props.year}
                     cicle = {this.props.cicle}
-                    ordinariWeek = {this.props.ordinariWeek}
-                    pasquaWeek = {this.props.pasquaWeek}
-                    quaresmaWeek = {this.props.quaresmaWeek}
+                    setmana = {this.props.setmana}
                     LT={this.props.LT}
                     ABC={this.props.ABC}/>
                   )
@@ -125,9 +115,7 @@ export default class LiturgiaDisplayScreen extends Component {
                     month = {this.props.month}
                     year = {this.props.year}
                     cicle = {this.props.cicle}
-                    ordinariWeek = {this.props.ordinariWeek}
-                    pasquaWeek = {this.props.pasquaWeek}
-                    quaresmaWeek = {this.props.quaresmaWeek}
+                    setmana = {this.props.setmana}
                     LT={this.props.LT}
                     ABC={this.props.ABC}/>
                   )
@@ -141,9 +129,7 @@ export default class LiturgiaDisplayScreen extends Component {
                     month = {this.props.month}
                     year = {this.props.year}
                     cicle = {this.props.cicle}
-                    ordinariWeek = {this.props.ordinariWeek}
-                    pasquaWeek = {this.props.pasquaWeek}
-                    quaresmaWeek = {this.props.quaresmaWeek}
+                    setmana = {this.props.setmana}
                     LT={this.props.LT}
                     ABC={this.propsABC}/>
                   )

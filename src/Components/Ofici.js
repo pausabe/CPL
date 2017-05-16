@@ -84,10 +84,10 @@ export default class Ofici extends Component {
     id = (props.cicle-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("salteriComuOfici", id, (result) => { this.queryRows.salteriComuOfici = result; this.dataReceived(); });
 
-    id = (props.ordinariWeek-1)*7  + (props.weekDay+1);
+    id = (props.setmana-1)*7  + (props.weekDay+1);
     acceso.getLiturgia("tempsOrdinariOfici", id, (result) => { this.queryRows.tempsOrdinariOfici = result; this.dataReceived(); });
 
-    id = props.ordinariWeek;
+    id = props.setmana;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
 
     id = 1;
@@ -96,7 +96,7 @@ export default class Ofici extends Component {
     id = props.weekDay-2; //dimecres = 1, dijous = 2, ...
     acceso.getLiturgia("tempsQuaresmaCendra", id, (result) => { this.queryRows.tempsQuaresmaCendra = result; this.dataReceived(); });
 
-    id = (props.quaresmaWeek-1)*7 + (props.weekDay+1);
+    id = (props.setmana-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => { this.queryRows.tempsQuaresmaVSetmanes = result; this.dataReceived(); });
 
     id = 1;
@@ -120,7 +120,7 @@ export default class Ofici extends Component {
     id = 1;
     acceso.getLiturgia("tempsPasquaDA", id, (result) => { this.queryRows.tempsPasquaDA = result; this.dataReceived(); });
 
-    id = (props.pasquaWeek-2)*7 + weekDayNormal;
+    id = (props.setmana-2)*7 + weekDayNormal;
     acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(); });
 
     switch (this.props.LT) {
@@ -211,13 +211,13 @@ export default class Ofici extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.pasquaWeek)}
+        {this.himne(this.props.LT, this.props.weekDay, this.state.nit, this.props.setmana)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.pasquaWeek, this.props.weekDay)}
+        {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay, this.props.cicle)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -267,7 +267,7 @@ export default class Ofici extends Component {
     }
   }
 
-  himne(LT, weekDay, nit, pasquaWeek){
+  himne(LT, weekDay, nit, setmana){
     switch(LT){
       case O_ORDINARI:
         if(nit){
@@ -324,25 +324,15 @@ export default class Ofici extends Component {
         }
         break;
       case P_OCTAVA:
-        if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneOficiLlati1;
-          }
-          else{
-            himne = this.state.tempsPasquaAA.himneOficiCat1;
-          }
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsPasquaAA.himneOficiLlati1;
         }
-        else{//fórmula 2
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-            himne = this.state.tempsPasquaAA.himneOficiLlati2;
-          }
-          else{
-            himne = this.state.tempsPasquaAA.himneOficiCat2;
-          }
+        else{
+          himne = this.state.tempsPasquaAA.himneOficiCat1;
         }
         break;
       case P_SETMANES:
-        if(pasquaWeek === 7){
+        if(setmana === 7){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneOficiLlati;
           }
@@ -351,21 +341,11 @@ export default class Ofici extends Component {
           }
         }
         else{
-          if(true){ //TODO: triar si fórmula 1 o 2, hardcoded
-            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-              himne = this.state.tempsPasquaAA.himneOficiLlati1;
-            }
-            else{
-              himne = this.state.tempsPasquaAA.himneOficiCat1;
-            }
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.tempsPasquaAA.himneOficiLlati2;
           }
-          else{//fórmula 2
-            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-              himne = this.state.tempsPasquaAA.himneOficiLlati2;
-            }
-            else{
-              himne = this.state.tempsPasquaAA.himneOficiCat2;
-            }
+          else{
+            himne = this.state.tempsPasquaAA.himneOficiCat2;
           }
         }
         break;
@@ -385,7 +365,7 @@ export default class Ofici extends Component {
     return(<Text style={styles.black}>{himne}</Text>);
   }
 
-  salmodia(LT, pasquaWeek, weekDay){
+  salmodia(LT, setmana, weekDay, cicle){
     switch(LT){
       case O_ORDINARI:
       case Q_CENDRA:
@@ -458,26 +438,26 @@ export default class Ofici extends Component {
         gloria3 = this.state.salteriComuOfici.gloria3;
 
         if(weekDay === 0){ //diumenge
-          switch (pasquaWeek) { //TODO: check this with master table
+          switch (setmana) { //TODO: s'ha de modificar. Els noms de la database no estan bé
             case 3:
+              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
+              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVI;
+              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVI;
+              break;
+            case 4:
+              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
+              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVI;
+              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVI;
+              break;
+            case 5:
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIII;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIII;
               ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumIII;
               break;
-            case 4:
+            case 6:
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIV;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIV;
               ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumIV;
-              break;
-            case 5:
-              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumV;
-              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumV;
-              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumV;
-              break;
-            case 6:
-              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
-              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVI;
-              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVI;
               break;
             case 7:
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVII;
@@ -490,6 +470,15 @@ export default class Ofici extends Component {
           ant1 = this.state.salteriComuOfici.ant1;
           ant2 = this.state.salteriComuOfici.ant2;
           ant3 = this.state.salteriComuOfici.ant3;
+          if(!(cicle === 3 && weekDay === 4) && !(cicle === 4 && weekDay === 2) && !(cicle === 2 && weekDay === 1) && !(cicle === 2 && weekDay === 3) && !(cicle === 2 && weekDay === 5)){
+            ant1 += " Al·leluia.";
+          }
+          if(!(cicle === 2 && weekDay === 3) && !(cicle === 2 && weekDay === 4) && !(cicle === 2 && weekDay === 6) && !(cicle === 3 && weekDay === 5) && !(cicle === 4 && weekDay === 1) && !(cicle === 4 && weekDay === 2)){
+            ant2 += " Al·leluia.";
+          }
+          if(!(cicle === 4 && weekDay === 4)){
+            ant3 += " Al·leluia.";
+          }
         }
         break;
       case A_SETMANES:
@@ -888,11 +877,11 @@ export default class Ofici extends Component {
         </Text>
         <Text style={styles.red}>R.
           <Text style={styles.black}> {resp1Part1}
-            <Text style={styles.red}>*</Text> {resp1Part2}</Text>
+            <Text style={styles.red}> *</Text> {resp1Part2}</Text>
         </Text>
         <Text style={styles.red}>V.
           <Text style={styles.black}> {resp1Part3}
-            <Text style={styles.red}>*</Text> {resp1Part2}</Text>
+            <Text style={styles.red}> *</Text> {resp1Part2}</Text>
         </Text>
         <Text />
         <Text style={styles.red}>Segona lectura</Text>
@@ -908,11 +897,11 @@ export default class Ofici extends Component {
         </Text>
         <Text style={styles.red}>R.
           <Text style={styles.black}> {resp2Part1}
-            <Text style={styles.red}>*</Text> {resp2Part2}</Text>
+            <Text style={styles.red}> *</Text> {resp2Part2}</Text>
         </Text>
         <Text style={styles.red}>V.
           <Text style={styles.black}>  {resp2Part3}
-            <Text style={styles.red}>*</Text> {resp2Part2}</Text>
+            <Text style={styles.red}> *</Text> {resp2Part2}</Text>
         </Text>
       </View>
     )
