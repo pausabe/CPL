@@ -61,17 +61,17 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    today.setDate(16); //1-31
-    today.setMonth(4); //0-11
-    today.setFullYear(2017); //XXXX
+    //today.setDate(20); //1-31
+    //today.setMonth(4); //0-11
+    //today.setFullYear(2017); //XXXX
 
-    console.log("aha: " + today.getDay());
+    console.log("dia avui: " + today.getDate());
 
     acceso = new DBAdapter();
     acceso.getAnyLiturgic(today.getFullYear(),
-                          today.getMonth()+1,
+                          today.getMonth(),
                           today.getDate(),
-                          (tomorrow, current) => {
+                          (current, tomorrow) => {
                             this.setState({
                                     monthDay: today.getDate(), //1-31
                                     month: today.getMonth(), //0-11
@@ -82,14 +82,14 @@ export default class HomeScreen extends Component {
                                     LT: current.temps,
                                     cicle: current.cicle, //1-4
                                     setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-                                    ABC: 'A',
+                                    ABC: current.anyABC,
                                     anyliturgic2: tomorrow,
                                     LT2: tomorrow.temps,
                                     cicle2: tomorrow.cicle,
                                     setmana2: tomorrow.NumSet,
-                                    ABC2: 'A',
+                                    ABC2: tomorrow.anyABC,
                                   });
-                            console.log("asdf -> " + this.state.anyliturgic.dia + " " + this.state.anyliturgic2.dia);
+                            console.log("avui/dema -> " + this.state.anyliturgic.cicle + " / " + this.state.anyliturgic2.cicle);
                           });
   }
 

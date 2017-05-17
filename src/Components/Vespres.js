@@ -23,6 +23,7 @@ const N_OCTAVA = 'N_OCTAVA';
 const N_ABANS = 'N_ABANS';
 
 import DBAdapter from '../SQL/DBAdapter';
+import GLOBAL from '../Globals/Globals';
 
 export default class Vespres extends Component {
   constructor(props) {
@@ -90,6 +91,8 @@ export default class Vespres extends Component {
     {props.weekDay === 6 ? weekDayNormalVESPRES = 1 : weekDayNormalVESPRES = props.weekDay + 2}
 
     acceso = new DBAdapter();
+
+    console.log("2nes vespres. dia: " + props.monthDay + " cicle: " + props.cicle + " LT: " + props.LT);
 
     id = (props.cicle-1)*7 + weekDayNormalVESPRES;
     acceso.getLiturgia("salteriComuVespres", id, (result) => { this.queryRows.salteriComuVespres = result; this.dataReceived(); });
@@ -222,10 +225,10 @@ export default class Vespres extends Component {
     return (
       <View>
         <Text style={styles.red}>V.
-          <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
+          <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
         </Text>
         <Text style={styles.red}>R.
-          <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
+          <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
         </Text>
         <Text />
         <Text style={styles.black}>{gloriaString}
@@ -279,10 +282,10 @@ export default class Vespres extends Component {
         <Text style={styles.red}>CONCLUSIÓ</Text>
         <Text />
         <Text style={styles.red}>V.
-          <Text style={styles.black}> Beneïm al Senyor.</Text>
+          <Text style={styles.black}> Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.</Text>
         </Text>
         <Text style={styles.red}>R.
-          <Text style={styles.black}> Donem gràcies a Déu.</Text>
+          <Text style={styles.black}> Amén.</Text>
         </Text>
       </View>
     );
@@ -1142,37 +1145,37 @@ export default class Vespres extends Component {
 const styles = StyleSheet.create({
   black: {
     color: '#000000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
   },
   blackSmallItalic:{
     color: '#000000',
-    fontSize: 13,
+    fontSize: GLOBAL.normalTextSize,
     fontStyle: 'italic'
   },
   blackSmallItalicRight: {
     color: '#000000',
-    fontSize: 13,
+    fontSize: GLOBAL.normalTextSize,
     fontStyle: 'italic',
     textAlign: 'right'
   },
   red: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
   },
   redCenter: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
     textAlign: 'center'
   },
   redCenterBold: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
     textAlign: 'center',
     fontWeight: 'bold',
   },
   redSmallItalicRight: {
     color: '#FF0000',
-    fontSize: 13,
+    fontSize: GLOBAL.normalTextSize,
     fontStyle: 'italic',
     textAlign: 'right'
   }

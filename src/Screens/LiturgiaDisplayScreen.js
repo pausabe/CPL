@@ -24,7 +24,7 @@ export default class LiturgiaDisplayScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView >
+        <ScrollView style={{padding: 10,}}>
           {this.liturgicComponent(this.props.type)}
         </ScrollView>
       </View>
@@ -63,19 +63,19 @@ export default class LiturgiaDisplayScreen extends Component {
           break;
           case 'Vespres':
             var today = new Date();
-            if(today.getDay() !== 6){
-            return(
-              <Vespres
-                hour = {this.props.hour}
-                weekDay = {this.props.weekDay}
-                monthDay = {this.props.monthDay}
-                month = {this.props.month}
-                year = {this.props.year}
-                cicle = {this.props.cicle}
-                setmana = {this.props.setmana}
-                LT={this.props.LT}
-                ABC={this.props.ABC}/>
-              )
+            if(this.props.weekDay !== 6){
+              return(
+                <Vespres
+                  hour = {this.props.hour}
+                  weekDay = {this.props.weekDay}
+                  monthDay = {this.props.monthDay}
+                  month = {this.props.month}
+                  year = {this.props.year}
+                  cicle = {this.props.cicle}
+                  setmana = {this.props.setmana}
+                  LT={this.props.LT}
+                  ABC={this.props.ABC}/>
+                )
             }
             else{ //dissabte vespre = vespres de diumenge
               return(
@@ -86,7 +86,7 @@ export default class LiturgiaDisplayScreen extends Component {
                   month = {this.props.month}
                   year = {this.props.year}
                   cicle = {this.props.cicle2}
-                  setmana = {this.props.setmana2}
+                  setmana = {this.props.setmana}
                   LT={this.props.LT2}
                   ABC={this.props.ABC2}/>
                 )
@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: paddingBar(),
-    padding: 10,
     backgroundColor: '#E1F5FE',
   },
   normalText: {

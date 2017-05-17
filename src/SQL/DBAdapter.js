@@ -24,18 +24,24 @@ export default class DBAdapter {
   }
 
   getLiturgia(table, id, callback){
-    this.executeQuery(`SELECT * FROM ${table} WHERE id = ${id}`,
-      result => callback(result.rows.item(0)));
+    if(id !== -1){
+      this.executeQuery(`SELECT * FROM ${table} WHERE id = ${id}`,
+        result => callback(result.rows.item(0)));
+    }
+    else{
+      this.executeQuery(`SELECT * FROM ${table}`,
+        result => callback(result.rows));
+    }
   }
 
   getAnyLiturgic(year, month, day, callback){
-    var today = new Date(year, month-1, day);
-    var tomorrow = new Date();
-    tomorrow.setDate(today.getDate()+1);
+    var tomorrow = new Date(year, month, day);
+    tomorrow.setDate(tomorrow.getDate()+1); //TODO: i si no existeix a la base de dades??!! (limitar el datapicker)
     year2 = tomorrow.getFullYear();
     month2 = tomorrow.getMonth();
     day2 = tomorrow.getDate();
-    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month} AND dia = ${day} OR any = ${year2} AND mes = ${month2} AND dia = ${day2} ORDER BY any, mes, dia ASC`,
+    //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
+    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day} OR any = ${year2} AND mes = ${month2+1} AND dia = ${day2} ORDER BY any, mes, dia ASC`,
       result => callback(result.rows.item(0), result.rows.item(1)));
   }
 

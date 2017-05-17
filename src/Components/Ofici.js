@@ -23,6 +23,7 @@ const N_OCTAVA = 'N_OCTAVA';
 const N_ABANS = 'N_ABANS';
 
 import DBAdapter from '../SQL/DBAdapter';
+import GLOBAL from '../Globals/Globals';
 
 export default class Ofici extends Component {
   constructor(props) {
@@ -195,10 +196,10 @@ export default class Ofici extends Component {
     return (
       <View>
         <Text style={styles.red}>V.
-          <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
+          <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
         </Text>
         <Text style={styles.red}>R.
-          <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
+          <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
         </Text>
         <Text />
         <Text style={styles.black}>{gloriaString}
@@ -1002,37 +1003,37 @@ export default class Ofici extends Component {
 const styles = StyleSheet.create({
   black: {
     color: '#000000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
   },
   blackSmallItalic:{
     color: '#000000',
-    fontSize: 13,
+    fontSize: GLOBAL.smallTextSize,
     fontStyle: 'italic'
   },
   blackSmallItalicRight: {
     color: '#000000',
-    fontSize: 13,
+    fontSize: GLOBAL.smallTextSize,
     fontStyle: 'italic',
     textAlign: 'right'
   },
   red: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
   },
   redCenter: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
     textAlign: 'center'
   },
   redCenterBold: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
     textAlign: 'center',
     fontWeight: 'bold',
   },
   redSmallItalicRight: {
     color: '#FF0000',
-    fontSize: 13,
+    fontSize: GLOBAL.smallTextSize,
     fontStyle: 'italic',
     textAlign: 'right'
   }

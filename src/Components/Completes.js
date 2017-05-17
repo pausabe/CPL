@@ -23,6 +23,7 @@ const N_OCTAVA = 'N_OCTAVA';
 const N_ABANS = 'N_ABANS';
 
 import DBAdapter from '../SQL/DBAdapter';
+import GLOBAL from '../Globals/Globals';
 
 export default class Completes extends Component {
   constructor(props) {
@@ -30,27 +31,36 @@ export default class Completes extends Component {
 
     this.state = {
       salteriComuCompletes: '',
+      cantic: '',
+      himneLlati: '',
+      himneCat: '',
     }
 
     this.queryRows = {
       salteriComuCompletes: '',
     }
 
-    this.count = 1; //number of queryies
+    this.count = 2; //number of queryies
 
     acceso = new DBAdapter();
 
     {props.weekDay === 6 ? id = 1 : id = props.weekDay + 2}
     acceso.getLiturgia("salteriComuCompletes", id, (result) => { this.queryRows.salteriComuCompletes = result; this.dataReceived(); });
+
+    id = -1;
+    acceso.getLiturgia("diversos", id, (result) => { this.queryRows.diversos = result; this.dataReceived(); });
   }
 
   dataReceived(){
     this.count -= 1;
 
     if(this.count === 0){
-      nit = false; //TODO: HC
+      //console.log("test: " + this.queryRows.diversos.item(0).concepte);
       this.setState({
         salteriComuCompletes: this.queryRows.salteriComuCompletes,
+        cantic: this.queryRows.diversos.item(22).oracio,
+        himneLlati: this.queryRows.diversos.item(20).oracio, //TODO: opto per la fórmula 2, fer seleccionable?
+        himneCat: this.queryRows.diversos.item(21).oracio,
       })
     }
   }
@@ -58,7 +68,8 @@ export default class Completes extends Component {
   render() {
     const gloriaString = "Glòria al Pare i al Fill i a l'Esperit Sant. Com era al principi, ara i sempre i pels segles dels segles. Amén.";
 
-    himne = "Oh crist llum..."; //TODO: a partir de la taula nova d'elements dispersos
+    himneLlati = this.state.himneLlati;
+    himneCat = this.state.himneCat;
 
     antifones = true;
     ant1 = this.state.salteriComuCompletes.ant1;
@@ -82,7 +93,7 @@ export default class Completes extends Component {
     respBreu3 = "Vós, Déu fidel, ens heu redimit.";
 
     antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans."; //TODO: omplir!
-    cantic = "Ara Senyor..."; //TODO: a partir de la taula nova d'elements dispersos
+    cantic = this.state.cantic;
 
     oracio = this.state.salteriComuCompletes.oraFi;
 
@@ -110,10 +121,10 @@ export default class Completes extends Component {
     return (
       <View>
         <Text style={styles.red}>V.
-          <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
+          <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
         </Text>
         <Text style={styles.red}>R.
-          <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
+          <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
         </Text>
         <Text />
         <Text style={styles.black}>{gloriaString}
@@ -126,7 +137,7 @@ export default class Completes extends Component {
         <Text />
         <Text style={styles.red}>HIMNE</Text>
         <Text />
-        <Text style={styles.black}>{himne}</Text>
+        {false ? <Text style={styles.black}>{himneLlati}</Text> : <Text style={styles.black}>{himneCat}</Text>}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -306,37 +317,37 @@ export default class Completes extends Component {
 const styles = StyleSheet.create({
   black: {
     color: '#000000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
   },
   blackSmallItalic:{
     color: '#000000',
-    fontSize: 13,
+    fontSize: GLOBAL.smallTextSize,
     fontStyle: 'italic'
   },
   blackSmallItalicRight: {
     color: '#000000',
-    fontSize: 13,
+    fontSize: GLOBAL.smallTextSize,
     fontStyle: 'italic',
     textAlign: 'right'
   },
   red: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
   },
   redCenter: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
     textAlign: 'center'
   },
   redCenterBold: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: GLOBAL.normalTextSize,
     textAlign: 'center',
     fontWeight: 'bold',
   },
   redSmallItalicRight: {
     color: '#FF0000',
-    fontSize: 13,
+    fontSize: GLOBAL.smallTextSize,
     fontStyle: 'italic',
     textAlign: 'right'
   }
