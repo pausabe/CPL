@@ -55,6 +55,7 @@ export default class Vespres extends Component {
       tempsNadalAbansEpifania: '',
       tempsSolemnitatsFestes: '',
       salteriComuEspPasqua: '',
+      magnificat: '',
     }
 
     this.queryRows = {
@@ -82,9 +83,10 @@ export default class Vespres extends Component {
       tempsNadalAbansEpifania: '',
       tempsSolemnitatsFestes: '',
       salteriComuEspPasqua: '',
+      diversos: '',
     }
 
-    this.count = 24; //number of queryies
+    this.count = 25; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -182,13 +184,15 @@ export default class Vespres extends Component {
 
     id = (props.cicle-1)*6 + (props.weekDay);
     acceso.getLiturgia("salteriComuEspPasqua", id, (result) => { this.queryRows.salteriComuEspPasqua = result; this.dataReceived(); });
+
+    id = -1;
+    acceso.getLiturgia("diversos", id, (result) => { this.queryRows.diversos = result; this.dataReceived(); });
   }
 
   dataReceived(){
     this.count -= 1;
 
     if(this.count === 0){
-      console.log("hola: " + this.queryRows.salteriComuVespres);
       nit = false; //TODO: HC
       this.setState({
         nit: nit,
@@ -216,6 +220,7 @@ export default class Vespres extends Component {
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
         tempsSolemnitatsFestes: this.queryRows.tempsSolemnitatsFestes,
         salteriComuEspPasqua: this.queryRows.salteriComuEspPasqua,
+        magnificat: this.queryRows.diversos.item(5).oracio,
       });
     }
   }
@@ -232,7 +237,7 @@ export default class Vespres extends Component {
         </Text>
         <Text />
         <Text style={styles.black}>{gloriaString}
-        {false === true ? //TODO: tenir en compte si és o no Quaresma
+        {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
           <Text style={styles.black}> Al·leluia</Text> : null
         }
         </Text>
@@ -275,6 +280,7 @@ export default class Vespres extends Component {
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
         <Text />
+        <Text style={styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
@@ -287,6 +293,7 @@ export default class Vespres extends Component {
         <Text style={styles.red}>R.
           <Text style={styles.black}> Amén.</Text>
         </Text>
+        <Text />
       </View>
     );
   }
@@ -1020,7 +1027,7 @@ export default class Vespres extends Component {
         break;
     }
 
-    cantic = "La meva ànima.. etc"; //TODO: aha
+    cantic = this.state.magnificat;
 
     return(
       <View>
@@ -1146,6 +1153,11 @@ const styles = StyleSheet.create({
   black: {
     color: '#000000',
     fontSize: GLOBAL.normalTextSize,
+  },
+  blackBold: {
+    color: '#000000',
+    fontSize: GLOBAL.normalTextSize,
+    fontWeight: 'bold',
   },
   blackSmallItalic:{
     color: '#000000',

@@ -203,7 +203,7 @@ export default class Ofici extends Component {
         </Text>
         <Text />
         <Text style={styles.black}>{gloriaString}
-        {false === true ? //TODO: tenir en compte si és o no Quaresma
+        {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
           <Text style={styles.black}> Al·leluia</Text> : null
         }
         </Text>
@@ -236,6 +236,7 @@ export default class Ofici extends Component {
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
         <Text />
+        <Text style={styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
@@ -248,6 +249,7 @@ export default class Ofici extends Component {
         <Text style={styles.red}>R.
           <Text style={styles.black}> Donem gràcies a Déu.</Text>
         </Text>
+        <Text />
       </View>
     );
   }
@@ -1004,6 +1006,11 @@ const styles = StyleSheet.create({
   black: {
     color: '#000000',
     fontSize: GLOBAL.normalTextSize,
+  },
+  blackBold: {
+    color: '#000000',
+    fontSize: GLOBAL.normalTextSize,
+    fontWeight: 'bold',
   },
   blackSmallItalic:{
     color: '#000000',

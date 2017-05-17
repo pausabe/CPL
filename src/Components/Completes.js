@@ -34,6 +34,7 @@ export default class Completes extends Component {
       cantic: '',
       himneLlati: '',
       himneCat: '',
+      antMare: '',
     }
 
     this.queryRows = {
@@ -61,6 +62,7 @@ export default class Completes extends Component {
         cantic: this.queryRows.diversos.item(22).oracio,
         himneLlati: this.queryRows.diversos.item(20).oracio, //TODO: opto per la fórmula 2, fer seleccionable?
         himneCat: this.queryRows.diversos.item(21).oracio,
+        antMare: this.queryRows.diversos.item(30).oracio, //TODO: opto per aqesta, fer seleccionable? Tb en llati?
       })
     }
   }
@@ -128,10 +130,14 @@ export default class Completes extends Component {
         </Text>
         <Text />
         <Text style={styles.black}>{gloriaString}
-        {false === true ? //TODO: tenir en compte si és o no Quaresma
+        {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ?
           <Text style={styles.black}> Al·leluia</Text> : null
         }
         </Text>
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.redCenter}>És lloable que aquí es faci examen de consciència, que, en la celebració comunitària, pot integrar-se en un acte penitencial com els que figuren en l'Ordre de la missa.</Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -281,6 +287,7 @@ export default class Completes extends Component {
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
         <Text />
+        <Text style={styles.blackBold}>Preguem.</Text>
         <Text style={styles.black}>{oracio}</Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
@@ -293,6 +300,11 @@ export default class Completes extends Component {
         <Text style={styles.red}>R.
           <Text style={styles.black}> Amén.</Text>
         </Text>
+        <Text />
+        <Hr lineColor='#CFD8DC' />
+        <Text />
+        <Text style={styles.black}>{this.state.antMare}</Text>
+        <Text />
       </View>
     );
   }
@@ -318,6 +330,11 @@ const styles = StyleSheet.create({
   black: {
     color: '#000000',
     fontSize: GLOBAL.normalTextSize,
+  },
+  blackBold: {
+    color: '#000000',
+    fontSize: GLOBAL.normalTextSize,
+    fontWeight: 'bold',
   },
   blackSmallItalic:{
     color: '#000000',

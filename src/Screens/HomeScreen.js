@@ -62,7 +62,7 @@ export default class HomeScreen extends Component {
 
     var today = new Date();
     //today.setDate(20); //1-31
-    //today.setMonth(4); //0-11
+    //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
 
     console.log("dia avui: " + today.getDate());

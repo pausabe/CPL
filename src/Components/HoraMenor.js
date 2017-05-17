@@ -50,6 +50,12 @@ export default class HoraMenor extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
+      himneTerciaOrdinariLlati: '',
+      himneSextaOrdinariLlati: '',
+      himneNonaOrdinariLlati: '',
+      himneTerciaOrdinariCat: '',
+      himneSextaOrdinariCat: '',
+      himneNonaOrdinariCat: '',
     }
 
     this.queryRows = {
@@ -72,9 +78,10 @@ export default class HoraMenor extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
+      diversos: '',
     }
 
-    this.count = 19; //number of queryies
+    this.count = 20; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -153,6 +160,9 @@ export default class HoraMenor extends Component {
 
     {props.monthDay < 6 ? id = props.monthDay-1 : id = props.monthDay-2}
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
+
+    id = -1;
+    acceso.getLiturgia("diversos", id, (result) => { this.queryRows.diversos = result; this.dataReceived(); });
   }
 
   dataReceived(){
@@ -181,6 +191,12 @@ export default class HoraMenor extends Component {
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
         salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
+        himneTerciaOrdinariLlati: this.queryRows.diversos.item(6).oracio,
+        himneTerciaOrdinariCat: this.queryRows.diversos.item(7).oracio,
+        himneSextaOrdinariLlati: this.queryRows.diversos.item(10).oracio,
+        himneSextaOrdinariCat: this.queryRows.diversos.item(11).oracio,
+        himneNonaOrdinariLlati: this.queryRows.diversos.item(14).oracio,
+        himneNonaOrdinariCat: this.queryRows.diversos.item(15).oracio,
       })
     }
   }
@@ -197,7 +213,7 @@ export default class HoraMenor extends Component {
         </Text>
         <Text />
         <Text style={styles.black}>{gloriaString}
-        {false === true ? //TODO: tenir en compte si és o no Quaresma
+        {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
           <Text style={styles.black}> Al·leluia</Text> : null
         }
         </Text>
@@ -224,6 +240,7 @@ export default class HoraMenor extends Component {
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
         <Text />
+        <Text style={styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.LT, this.props.weekDay, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
@@ -236,6 +253,7 @@ export default class HoraMenor extends Component {
         <Text style={styles.red}>R.
           <Text style={styles.black}> Donem gràcies a Déu.</Text>
         </Text>
+        <Text />
       </View>
     );
   }
@@ -260,10 +278,30 @@ export default class HoraMenor extends Component {
     switch(LT){
       case O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
-          himne = "Per fer! Esperant una taula nova";
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.himneTerciaOrdinariLlati;
+              break;
+            case 'Sexta':
+              himne = this.state.himneSextaOrdinariLlati;
+              break;
+            case 'Nona':
+              himne = this.state.himneNonaOrdinariLlati;
+              break;
+          }
         }
         else{
-          himne = "Per fer! Esperant una taula nova";
+          switch (HM) {
+            case 'Tèrcia':
+              himne = this.state.himneTerciaOrdinariCat;
+              break;
+            case 'Sexta':
+              himne = this.state.himneSextaOrdinariCat;
+              break;
+            case 'Nona':
+              himne = this.state.himneNonaOrdinariCat;
+              break;
+          }
         }
         break;
       case Q_CENDRA:
@@ -1061,6 +1099,11 @@ const styles = StyleSheet.create({
   black: {
     color: '#000000',
     fontSize: GLOBAL.normalTextSize,
+  },
+  blackBold: {
+    color: '#000000',
+    fontSize: GLOBAL.normalTextSize,
+    fontWeight: 'bold',
   },
   blackSmallItalic:{
     color: '#000000',
