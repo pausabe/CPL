@@ -12,6 +12,7 @@ import {
 
 import Liturgia from '../Components/Liturgia';
 import Icon from 'react-native-vector-icons/Ionicons';
+import DBAdapter from '../SQL/DBAdapter';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -40,21 +41,95 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
-    var today = new Date();
-
-    console.log("??: " + today.getDay());
-
     this.state = {
       santPressed: false,
-      monthDay: today.getDate(), //1-31
-      month: today.getMonth(), //0-11
-      year: today.getFullYear(), //xxxx
-      hour: today.getHours(), //0-23
-      weekDay: today.getDay(), //0-6 (diumenge-dissabte)
-      LT: 'P_SETMANES', //TODO: pensar com ferho x les vespres (potser: els dissabtes vespres sóndel temps del diumenge seguent)
-      cicle: 4, //HC 1-4 TODO: SOLUCIONAR: vespres dissabte és setmana X o X-1??
-      setmana: 4, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-      ABC: 'A',
+      anyliturgic: '',
+      anyliturgic2: '',
+      monthDay: '',
+      month: '',
+      year: '',
+      hour: '',
+      weekDay: '',
+      LT: '',
+      cicle: '',
+      setmana: '',
+      ABC: '',
+      LT2: '',
+      cicle2: '',
+      setmana2: '',
+      ABC2: '',
+    }
+
+    var today = new Date();
+    today.setDate(16); //1-31
+    today.setMonth(4); //0-11
+    today.setFullYear(2017); //XXXX
+
+    console.log("aha: " + today.getDay());
+
+    acceso = new DBAdapter();
+    acceso.getAnyLiturgic(today.getFullYear(),
+                          today.getMonth()+1,
+                          today.getDate(),
+                          (tomorrow, current) => {
+                            this.setState({
+                                    monthDay: today.getDate(), //1-31
+                                    month: today.getMonth(), //0-11
+                                    year: today.getFullYear(), //xxxx
+                                    hour: today.getHours(), //0-23
+                                    weekDay: today.getDay(), //0-6 (diumenge-dissabte)
+                                    anyliturgic: current,
+                                    LT: current.temps,
+                                    cicle: current.cicle, //1-4
+                                    setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+                                    ABC: 'A',
+                                    anyliturgic2: tomorrow,
+                                    LT2: tomorrow.temps,
+                                    cicle2: tomorrow.cicle,
+                                    setmana2: tomorrow.NumSet,
+                                    ABC2: 'A',
+                                  });
+                            console.log("asdf -> " + this.state.anyliturgic.dia + " " + this.state.anyliturgic2.dia);
+                          });
+  }
+
+  romanize (num) {
+      if (!+num)
+          return false;
+      var digits = String(+num).split(""),
+          key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                 "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                 "","I","II","III","IV","V","VI","VII","VIII","IX"],
+          roman = "",
+          i = 3;
+      while (i--)
+          roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+      return Array(+digits.join("") + 1).join("M") + roman;
+  }
+
+  weekDayName(num){
+    switch (num) {
+      case 0:
+        return("Diumenge");
+        break;
+      case 1:
+        return("Dilluns");
+        break;
+      case 2:
+        return("Dimarts");
+        break;
+      case 3:
+        return("Dimecres");
+        break;
+      case 4:
+        return("Dijous");
+        break;
+      case 5:
+        return("Divendres");
+        break;
+      case 6:
+        return("Dissabte");
+        break;
     }
   }
 
@@ -70,17 +145,17 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Bisbat de Terrassa - 07/03/2017</Text>
+            <Text style={styles.infoText}>Bisbat de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>Dimarts de la setmana
-              <Text style={{color: '#c0392b'}}> I</Text></Text>
+            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.weekDay)}{this.state.anyliturgic.NumSet !== 0 ? " de la setmana" : null}
+              {this.state.anyliturgic.NumSet !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.NumSet)}</Text> : null }</Text>
             <Text style={styles.diaLiturgicText}>Temps de
-              <Text style={{color: '#c0392b'}}> Quaresma</Text></Text>
+              <Text style={{color: '#c0392b'}}> {this.state.anyliturgic.tempsespecific}</Text></Text>
             <Text style={styles.diaLiturgicText}>Setmana
-              <Text style={{color: '#c0392b'}}> I </Text>
+              <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.cicle)} </Text>
               del cicle litúrgic, any
-                <Text style={{color: '#c0392b'}}> A</Text></Text>
+                <Text style={{color: '#c0392b'}}> {this.state.ABC}</Text></Text>
           </View>
           <View style={styles.santContainer}>
             <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
@@ -121,7 +196,11 @@ export default class HomeScreen extends Component {
                         cicle={this.state.cicle}
                         setmana={this.state.setmana}
                         LT={this.state.LT}
-                        ABC={this.state.ABC}/>
+                        ABC={this.state.ABC}
+                        cicle2={this.state.cicle2}
+                        setmana2={this.state.setmana2}
+                        LT2={this.state.LT2}
+                        ABC2={this.state.ABC2}/>
             </View>
             :
             <View style={styles.liturgiaContainer}>
@@ -134,7 +213,11 @@ export default class HomeScreen extends Component {
                         cicle={this.state.cicle}
                         setmana={this.state.setmana}
                         LT={this.state.LT}
-                        ABC={this.state.ABC}/>
+                        ABC={this.state.ABC}
+                        cicle2={this.state.cicle2}
+                        setmana2={this.state.setmana2}
+                        LT2={this.state.LT2}
+                        ABC2={this.state.ABC2}/>
             </View>
           }
         </Image>

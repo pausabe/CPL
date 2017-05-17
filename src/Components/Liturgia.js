@@ -26,7 +26,11 @@ export default class Liturgia extends Component {
           cicle: this.props.cicle,
           setmana: this.props.setmana,
           LT: this.props.LT,
-          ABC: this.props.ABC
+          ABC: this.props.ABC,
+          cicle2: this.props.cicle2,
+          setmana2: this.props.setmana2,
+          LT2: this.props.LT2,
+          ABC2: this.props.ABC2,
         },
         component: component
       });
@@ -44,7 +48,11 @@ export default class Liturgia extends Component {
         cicle: this.props.cicle,
         setmana: this.props.setmana,
         LT: this.props.LT,
-        ABC: this.props.ABC
+        ABC: this.props.ABC,
+        cicle2: this.props.cicle2,
+        setmana2: this.props.setmana2,
+        LT2: this.props.LT2,
+        ABC2: this.props.ABC2,
       });
     }
   }

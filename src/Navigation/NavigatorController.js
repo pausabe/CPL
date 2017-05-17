@@ -180,7 +180,11 @@ export default class NavigatorController extends Component {
                           cicle= {route.cicle}
                           setmana= {route.setmana}
                           LT={route.LT}
-                          ABC={route.ABC}/>);
+                          ABC={route.ABC}
+                          cicle2={route.cicle2}
+                          setmana2={route.setmana2}
+                          LT2={route.LT2}
+                          ABC2={route.ABC2}/>);
     }
   }
 }

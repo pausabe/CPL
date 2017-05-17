@@ -62,6 +62,8 @@ export default class LiturgiaDisplayScreen extends Component {
             )
           break;
           case 'Vespres':
+            var today = new Date();
+            if(today.getDay() !== 6){
             return(
               <Vespres
                 hour = {this.props.hour}
@@ -74,6 +76,21 @@ export default class LiturgiaDisplayScreen extends Component {
                 LT={this.props.LT}
                 ABC={this.props.ABC}/>
               )
+            }
+            else{ //dissabte vespre = vespres de diumenge
+              return(
+                <Vespres
+                  hour = {this.props.hour}
+                  weekDay = {this.props.weekDay}
+                  monthDay = {this.props.monthDay}
+                  month = {this.props.month}
+                  year = {this.props.year}
+                  cicle = {this.props.cicle2}
+                  setmana = {this.props.setmana2}
+                  LT={this.props.LT2}
+                  ABC={this.props.ABC2}/>
+                )
+            }
             break;
             case 'Tèrcia':
               return(

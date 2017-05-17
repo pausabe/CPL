@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Hr from 'react-native-hr';
 
-const O_ORDINARI = 'O_ORDINARI';
+const O_ORDINARI = 'O_ORDINAR';
 const Q_CENDRA = 'Q_CENDRA';
 const Q_SETMANES = 'Q_SETMANES';
 const Q_DIUM_RAMS = 'Q_DIUM_RAMS';
