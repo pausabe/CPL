@@ -70,12 +70,13 @@ export default class HomeScreen extends Component {
     //today.setFullYear(2017); //XXXX
 
     acceso = new DBAdapter();
+    console.log("aha1");
     acceso.getAnyLiturgic(today.getFullYear(),
                           today.getMonth(),
                           today.getDate(),
                           (current, tomorrow) => {
                             var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
-
+                            console.log("aha2");
                             this.setState({
                                     monthDay: today.getDate(), //1-31
                                     month: today.getMonth(), //0-11
@@ -94,28 +95,10 @@ export default class HomeScreen extends Component {
                                     setmana2: tomorrow.NumSet,
                                     ABC2: tomorrow.anyABC,
                                   });
-                            props = {
-                                    monthDay: today.getDate(), //1-31
-                                    month: today.getMonth(), //0-11
-                                    year: today.getFullYear(), //xxxx
-                                    hour: today.getHours(), //0-23
-                                    weekDay: today.getDay(), //0-6 (diumenge-dissabte)
-                                    anyliturgic: current,
-                                    celebracio: cel,
-                                    LT: current.temps,
-                                    cicle: current.cicle, //1-4
-                                    setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-                                    ABC: current.anyABC,
-                                    anyliturgic2: tomorrow,
-                                    LT2: tomorrow.temps,
-                                    cicle2: tomorrow.cicle,
-                                    setmana2: tomorrow.NumSet,
-                                    ABC2: tomorrow.anyABC,
-                                 };
                             //console.log("avui/dema -> " + this.state.anyliturgic.cicle + " / " + this.state.anyliturgic2.cicle);
                             //console.log("LT: " + this.state.LT);
                             //console.log("Celebracio: " + this.state.celebracio);
-                            new SOUL(props, this);
+                            new SOUL(this.state, this);
                           });
 
       //id = 1;
@@ -279,7 +262,7 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesis de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
+            <Text style={styles.infoText}>Diòcesi de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
             <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.weekDay)}{this.state.anyliturgic.NumSet !== 0 ? " de la setmana" : null}
