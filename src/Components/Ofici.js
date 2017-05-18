@@ -32,6 +32,7 @@ export default class Ofici extends Component {
     this.state = {
       nit: null,
       salteriComuOfici: '',
+      salteriComuInvitatori: '',
       tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
@@ -51,10 +52,13 @@ export default class Ofici extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
+      salm94: '',
+      ohDeu: '',
     }
 
     this.queryRows = {
       salteriComuOfici: '',
+      salteriComuInvitatori: '',
       tempsOrdinariOfici: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
@@ -74,9 +78,10 @@ export default class Ofici extends Component {
       tempsNadalOctava: '',
       tempsNadalAbansEpifania: '',
       salteriComuEspPasquaDium: '',
+      diversos: '',
     }
 
-    this.count = 20; //number of queryies
+    this.count = 23; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -84,6 +89,9 @@ export default class Ofici extends Component {
 
     id = (props.cicle-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("salteriComuOfici", id, (result) => { this.queryRows.salteriComuOfici = result; this.dataReceived(); });
+
+    id = (props.cicle-1)*7 + (props.weekDay+1);
+    acceso.getLiturgia("salteriComuInvitatori", id, (result) => { this.queryRows.salteriComuInvitatori = result; this.dataReceived(); });
 
     id = (props.setmana-1)*7  + (props.weekDay+1);
     acceso.getLiturgia("tempsOrdinariOfici", id, (result) => { this.queryRows.tempsOrdinariOfici = result; this.dataReceived(); });
@@ -121,7 +129,8 @@ export default class Ofici extends Component {
     id = 1;
     acceso.getLiturgia("tempsPasquaDA", id, (result) => { this.queryRows.tempsPasquaDA = result; this.dataReceived(); });
 
-    id = (props.setmana-2)*7 + weekDayNormal;
+    id = (props.setmana-2)*7 + (props.weekDay+1);
+    console.log("ID: " + id);
     acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(); });
 
     switch (this.props.LT) {
@@ -158,6 +167,12 @@ export default class Ofici extends Component {
 
     {props.monthDay < 6 ? id = props.monthDay-1 : id = props.monthDay-2}
     acceso.getLiturgia("tempsNadalAbansEpifania", id, (result) => { this.queryRows.tempsNadalAbansEpifania = result; this.dataReceived(); });
+
+    id = -1;
+    acceso.getLiturgia("diversos", id, (result) => { this.queryRows.diversos = result; this.dataReceived(); });
+
+    id = 1;
+    acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });
   }
 
   dataReceived(){
@@ -168,6 +183,7 @@ export default class Ofici extends Component {
       this.setState({
         nit: nit,
         salteriComuOfici: this.queryRows.salteriComuOfici,
+        salteriComuInvitatori: this.queryRows.salteriComuInvitatori,
         tempsOrdinariOfici: this.queryRows.tempsOrdinariOfici,
         tempsOrdinariOracions: this.queryRows.tempsOrdinariOracions,
         tempsQuaresmaComuFV: this.queryRows.tempsQuaresmaComuFV,
@@ -187,26 +203,16 @@ export default class Ofici extends Component {
         tempsNadalOctava: this.queryRows.tempsNadalOctava,
         tempsNadalAbansEpifania: this.queryRows.tempsNadalAbansEpifania,
         salteriComuEspPasquaDium: this.queryRows.salteriComuEspPasquaDium,
+        salm94: this.queryRows.diversos.item(0).oracio,
+        ohDeu: this.queryRows.diversos.item(2).oracio, //TODO: opció en llati?
       })
     }
   }
 
   render() {
-    const gloriaString = "Glòria al Pare i al Fill i a l'Esperit Sant. Com era al principi, ara i sempre i pels segles dels segles. Amén.";
     return (
       <View>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
-        </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
-        </Text>
-        <Text />
-        <Text style={styles.black}>{gloriaString}
-        {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
-          <Text style={styles.black}> Al·leluia</Text> : null
-        }
-        </Text>
+        {this.introduccio(this.props.LT)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -232,6 +238,7 @@ export default class Ofici extends Component {
         <Text />
         {this.lectures(this.props.LT)}
         {this.himneOhDeu(this.props.LT, this.props.weekDay)}
+        <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={styles.red}>ORACIÓ</Text>
@@ -255,6 +262,8 @@ export default class Ofici extends Component {
   }
 
   gloria(g){
+    const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+
     if(g === '1'){
       if(true === true){ //TODO: tenir en compte els ajustaments
         return(<Text style={styles.black}>Glòria.</Text>);
@@ -267,6 +276,97 @@ export default class Ofici extends Component {
       if(g==='0'){
         return(<Text style={styles.black}>S'omet el Glòria.</Text>);
       }
+    }
+  }
+
+  introduccio(LT){
+    switch(LT){
+      case O_ORDINARI:
+        antInvitatori = this.state.salteriComuInvitatori.ant;
+        break;
+      case Q_CENDRA:
+        antInvitatori = "";
+        break;
+      case Q_SETMANES:
+        antInvitatori ="";
+        break;
+      case Q_DIUM_RAMS:
+        antInvitatori = "";
+        break;
+      case Q_SET_SANTA:
+        antInvitatori = "";
+        break;
+      case Q_TRIDU:
+        antInvitatori = "";
+        break;
+      case P_OCTAVA:
+        antInvitatori = "";
+        break;
+      case P_SETMANES:
+        antInvitatori = "";
+        break;
+      case A_SETMANES:
+        antInvitatori = "";
+        break;
+      case A_FERIES:
+        antInvitatori = "";
+        break;
+      case N_OCTAVA:
+        antInvitatori = this.state.salteriComuInvitatori.ant;
+        break;
+      case N_ABANS:
+        antInvitatori = this.state.salteriComuInvitatori.ant;
+        break;
+    }
+    const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
+
+    if(true){
+      return(
+        <View>
+          <Text style={styles.red}>V.
+            <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
+          </Text>
+          <Text style={styles.red}>R.
+            <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
+          </Text>
+          <Text />
+          <Text style={styles.black}>{gloriaStringIntro}
+            {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
+              <Text style={styles.black}> Al·leluia</Text> : null
+            }
+          </Text>
+        </View>
+      )
+    }
+    else{
+      return(
+        <View>
+          <Text style={styles.red}>V.
+            <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
+          </Text>
+          <Text style={styles.red}>R.
+            <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
+          </Text>
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={styles.red}>Ant.
+            <Text style={styles.black}> {antInvitatori}</Text>
+          </Text>
+          <Text />
+          <Text style={styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
+          <Text />
+          <Text style={styles.blackSmallItalicRight}>{"Mentre repetim aquell <<avui>>, exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
+          <Text />
+          <Text style={styles.black}>{this.state.salm94}</Text>
+          <Text />
+          {this.gloria('1')}
+          <Text />
+          <Text style={styles.red}>Ant.
+            <Text style={styles.black}> {antInvitatori}</Text>
+          </Text>
+        </View>
+      )
     }
   }
 
@@ -441,28 +541,29 @@ export default class Ofici extends Component {
         gloria3 = this.state.salteriComuOfici.gloria3;
 
         if(weekDay === 0){ //diumenge
+          console.log("setmana: " + setmana);
           switch (setmana) { //TODO: s'ha de modificar. Els noms de la database no estan bé
-            case 3:
+            case "3":
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVI;
               ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVI;
               break;
-            case 4:
+            case "4":
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVI;
               ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVI;
               break;
-            case 5:
+            case "5":
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIII;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIII;
               ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumIII;
               break;
-            case 6:
+            case "6":
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIV;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIV;
               ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumIV;
               break;
-            case 7:
+            case "7":
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVII;
               ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVII;
               ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVII;
@@ -879,12 +980,10 @@ export default class Ofici extends Component {
           <Text style={styles.redSmallItalicRight}> {citaResp1}</Text>
         </Text>
         <Text style={styles.red}>R.
-          <Text style={styles.black}> {resp1Part1}
-            <Text style={styles.red}> *</Text> {resp1Part2}</Text>
+          <Text style={styles.black}> {resp1Part1} {resp1Part2}</Text>
         </Text>
         <Text style={styles.red}>V.
-          <Text style={styles.black}> {resp1Part3}
-            <Text style={styles.red}> *</Text> {resp1Part2}</Text>
+          <Text style={styles.black}> {resp1Part3} {resp1Part2}</Text>
         </Text>
         <Text />
         <Text style={styles.red}>Segona lectura</Text>
@@ -952,7 +1051,7 @@ export default class Ofici extends Component {
           <Text />
           <Text style={styles.red}>HIMNE</Text>
           <Text />
-          <Text style={styles.black}>Oh Déu, us lloem.</Text>
+          <Text style={styles.black}>{this.state.ohDeu}</Text>
           <Text />
         </View>
       )

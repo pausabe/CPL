@@ -32,6 +32,7 @@ export default class Laudes extends Component {
     this.state = {
       nit: null,
       salteriComuLaudes: '',
+      salteriComuInvitatori: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
@@ -56,10 +57,12 @@ export default class Laudes extends Component {
       tempsSolemnitatsFestes: '',
       salteriComuEspPasqua: '',
       benedictus: '',
+      salm94: '',
     }
 
     this.queryRows = {
       salteriComuLaudes: '',
+      salteriComuInvitatori: '',
       tempsOrdinariOracions: '',
       tempsQuaresmaComuFV: '',
       tempsQuaresmaCendra: '',
@@ -86,7 +89,7 @@ export default class Laudes extends Component {
       diversos: '',
     }
 
-    this.count = 25; //number of queryies
+    this.count = 26; //number of queryies
 
     {props.weekDay === 0 ? weekDayNormal = 7 : weekDayNormal = props.weekDay}
 
@@ -94,6 +97,9 @@ export default class Laudes extends Component {
 
     id = (props.cicle-1)*7 + (props.weekDay+1);
     acceso.getLiturgia("salteriComuLaudes", id, (result) => { this.queryRows.salteriComuLaudes = result; this.dataReceived(); });
+
+    id = (props.cicle-1)*7 + (props.weekDay+1);
+    acceso.getLiturgia("salteriComuInvitatori", id, (result) => { this.queryRows.salteriComuInvitatori = result; this.dataReceived(); });
 
     id = props.setmana;
     acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(); });
@@ -193,6 +199,7 @@ export default class Laudes extends Component {
       this.setState({
         nit: nit,
         salteriComuLaudes: this.queryRows.salteriComuLaudes,
+        salteriComuInvitatori: this.queryRows.salteriComuInvitatori,
         tempsOrdinariOracions: this.queryRows.tempsOrdinariOracions,
         tempsQuaresmaComuFV: this.queryRows.tempsQuaresmaComuFV,
         tempsQuaresmaCendra: this.queryRows.tempsQuaresmaCendra,
@@ -217,26 +224,15 @@ export default class Laudes extends Component {
         tempsSolemnitatsFestes: this.queryRows.tempsSolemnitatsFestes,
         salteriComuEspPasqua: this.queryRows.salteriComuEspPasqua,
         benedictus: this.queryRows.diversos.item(3).oracio,
+        salm94: this.queryRows.diversos.item(0).oracio,
       });
     }
   }
 
   render() {
-    const gloriaString = "Glòria al Pare i al Fill i a l'Esperit Sant. Com era al principi, ara i sempre i pels segles dels segles. Amén.";
     return (
       <View>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
-        </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
-        </Text>
-        <Text />
-        <Text style={styles.black}>{gloriaString}
-        {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
-          <Text style={styles.black}> Al·leluia</Text> : null
-        }
-        </Text>
+        {this.introduccio(this.props.LT, this.props.setmana)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -295,6 +291,8 @@ export default class Laudes extends Component {
   }
 
   gloria(g){
+    const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+
     if(g === '1'){
       if(true === true){ //TODO: tenir en compte els ajustaments
         return(<Text style={styles.black}>Glòria.</Text>);
@@ -307,6 +305,94 @@ export default class Laudes extends Component {
       if(g==='0'){
         return(<Text style={styles.black}>S'omet el Glòria.</Text>);
       }
+    }
+  }
+
+  introduccio(LT, setmana){
+    switch(LT){
+      case O_ORDINARI:
+        antInvitatori = this.state.salteriComuInvitatori.ant;
+        break;
+      case Q_CENDRA:
+      case Q_SETMANES:
+        antInvitatori = this.state.tempsQuaresmaComuFV.antInvitatori1;
+        break;
+      case Q_DIUM_RAMS:
+      case Q_SET_SANTA:
+        antInvitatori = this.state.tempsQuaresmaComuSS.antInvitatori;
+        break;
+      case Q_TRIDU:
+        antInvitatori = this.state.tempsQuaresmaTridu.antInvitatori;
+        break;
+      case P_OCTAVA:
+        antInvitatori = this.state.tempsPasquaAA.antInvitatori;
+        break;
+      case P_SETMANES:
+        if(setmana === 7){
+          antInvitatori = this.state.tempsPasquaDA.antInvitatori;
+        }
+        else{
+          antInvitatori = this.state.tempsPasquaAA.antInvitatori;
+        }
+        break;
+      case A_SETMANES:
+      case A_FERIES:
+      case N_ABANS:
+        antInvitatori = this.state.tempsAdventNadalComu.antInvitatori;
+        break;
+      case N_OCTAVA:
+        antInvitatori = this.state.tempsSolemnitatsFestes.antInvitatori;
+        break;
+    }
+    const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
+
+    if(false){
+      return(
+        <View>
+          <Text style={styles.red}>V.
+            <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
+          </Text>
+          <Text style={styles.red}>R.
+            <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
+          </Text>
+          <Text />
+          <Text style={styles.black}>{gloriaStringIntro}
+            {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
+              <Text style={styles.black}> Al·leluia</Text> : null
+            }
+          </Text>
+        </View>
+      )
+    }
+    else{
+      return(
+        <View>
+          <Text style={styles.red}>V.
+            <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
+          </Text>
+          <Text style={styles.red}>R.
+            <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
+          </Text>
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={styles.red}>Ant.
+            <Text style={styles.black}> {antInvitatori}</Text>
+          </Text>
+          <Text />
+          <Text style={styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
+          <Text />
+          <Text style={styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
+          <Text />
+          <Text style={styles.black}>{this.state.salm94}</Text>
+          <Text />
+          {this.gloria('1')}
+          <Text />
+          <Text style={styles.red}>Ant.
+            <Text style={styles.black}> {antInvitatori}</Text>
+          </Text>
+        </View>
+      )
     }
   }
 

@@ -61,7 +61,7 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(20); //1-31
+    //today.setDate(21); //1-31
     //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
 
@@ -90,6 +90,7 @@ export default class HomeScreen extends Component {
                                     ABC2: tomorrow.anyABC,
                                   });
                             console.log("avui/dema -> " + this.state.anyliturgic.cicle + " / " + this.state.anyliturgic2.cicle);
+                            console.log("LT: " + this.state.LT);
                           });
   }
 

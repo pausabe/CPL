@@ -202,7 +202,7 @@ export default class HoraMenor extends Component {
   }
 
   render() {
-    const gloriaString = "Glòria al Pare i al Fill i a l'Esperit Sant. Com era al principi, ara i sempre i pels segles dels segles. Amén.";
+    const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
     return (
       <View>
         <Text style={styles.red}>V.
@@ -212,7 +212,7 @@ export default class HoraMenor extends Component {
           <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
         </Text>
         <Text />
-        <Text style={styles.black}>{gloriaString}
+        <Text style={styles.black}>{gloriaStringIntro}
         {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
           <Text style={styles.black}> Al·leluia</Text> : null
         }
@@ -259,8 +259,9 @@ export default class HoraMenor extends Component {
   }
 
   gloria(g){
+    const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
     if(g === '1'){
-      if(true === true){ //TODO: tenir en compte els ajustaments
+      if(true === false){ //TODO: tenir en compte els ajustaments
         return(<Text style={styles.black}>Glòria.</Text>);
       }
       else{
