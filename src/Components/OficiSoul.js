@@ -1,0 +1,776 @@
+import GLOBAL from '../Globals/Globals';
+
+const O_ORDINARI = 'O_ORDINAR';
+const Q_CENDRA = 'Q_CENDRA';
+const Q_SETMANES = 'Q_SETMANES';
+const Q_DIUM_RAMS = 'Q_DIUM_RAMS';
+const Q_SET_SANTA = 'Q_SET_SANTA';
+const Q_TRIDU = 'Q_TRIDU';
+const Q_DIUM_PASQUA = 'Q_DIUM_PASQUA';
+const P_OCTAVA = 'P_OCTAVA';
+const P_SETMANES = 'P_SETMANES';
+const A_SETMANES = 'A_SETMANES';
+const A_FERIES = 'A_FERIES';
+const N_OCTAVA = 'N_OCTAVA';
+const N_ABANS = 'N_ABANS';
+
+export default class OficiSoul {
+  constructor(props, TABLES, HS, SOUL) {
+
+    nit=false; //TODO: todo
+    this.state = {
+      nit: nit,
+      salteriComuOfici: TABLES.salteriComuOfici,
+      salteriComuInvitatori: TABLES.salteriComuInvitatori,
+      tempsOrdinariOfici: TABLES.tempsOrdinariOfici,
+      tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
+      tempsQuaresmaComuFV: TABLES.tempsQuaresmaComuFV,
+      tempsQuaresmaCendra: TABLES.tempsQuaresmaCendra,
+      tempsQuaresmaVSetmanes: TABLES.tempsQuaresmaVSetmanes,
+      tempsQuaresmaComuSS: TABLES.tempsQuaresmaComuSS,
+      tempsQuaresmaRams: TABLES.tempsQuaresmaRams,
+      tempsQuaresmaSetSanta: TABLES.tempsQuaresmaSetSanta,
+      tempsQuaresmaTridu: TABLES.tempsQuaresmaTridu,
+      tempsPasquaAA: TABLES.tempsPasquaAA,
+      tempsPasquaOct: TABLES.tempsPasquaOct,
+      tempsPasquaDA: TABLES.tempsPasquaDA,
+      tempsPasquaSetmanes: TABLES.tempsPasquaSetmanes,
+      tempsAdventNadalComu: TABLES.tempsAdventNadalComu,
+      tempsAdventSetmanes: TABLES.tempsAdventSetmanes,
+      tempsAdventFeries: TABLES.tempsAdventFeries,
+      tempsNadalOctava: TABLES.tempsNadalOctava,
+      tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
+      salteriComuEspPasquaDium: TABLES.salteriComuEspPasquaDium,
+      diversos: TABLES.diversos,
+      salm94: TABLES.diversos.item(0).oracio,
+      ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
+    };
+
+    this.OFICI = { //39
+      antInvitatori: '',
+      salm94: '',
+      himne: '',
+      ant1: '',
+      titol1: '',
+      com1: '',
+      salm1: '',
+      gloria1: '',
+      ant2: '',
+      titol2: '',
+      com2: '',
+      salm2: '',
+      gloria2: '',
+      ant3: '',
+      titol3: '',
+      com3: '',
+      salm3: '',
+      gloria3: '',
+      respV: '',
+      respR: '',
+      referencia1: '',
+      cita1: '',
+      titol1: '',
+      lectura1: '',
+      citaResp1: '',
+      resp1Part1: '',
+      resp1Part2: '',
+      resp1Part3: '',
+      referencia2: '',
+      cita2: '',
+      titol2: '',
+      lectura2: '',
+      versResp2: '',
+      resp2Part1: '',
+      resp2Part2: '',
+      resp2Part3: '',
+      himneOhDeu: '',
+      himneOhDeuBool: '',
+      oracio: '',
+    }
+
+    this.introduccio(props.LT, props.setmana);
+    this.himne(props.LT, props.weekDay, false, props.setmana);
+    this.salmodia(props.LT, props.setmana, props.weekDay, props.cicle);
+    this.vers(props.LT);
+    this.lectures(props.LT);
+    this.himneOhDeu(props.LT, props.weekDay);
+    this.oracio(props.LT, props.weekDay);
+
+    SOUL.setSoul(HS, "ofici", this.OFICI);
+  }
+
+  introduccio(LT, setmana){
+    switch(LT){
+      case O_ORDINARI:
+        antInvitatori = this.state.salteriComuInvitatori.ant;
+        break;
+      case Q_CENDRA:
+      case Q_SETMANES:
+        antInvitatori = this.state.tempsQuaresmaComuFV.antInvitatori1;
+        break;
+      case Q_DIUM_RAMS:
+      case Q_SET_SANTA:
+        antInvitatori = this.state.tempsQuaresmaComuSS.antInvitatori;
+        break;
+      case Q_TRIDU:
+        antInvitatori = this.state.tempsQuaresmaTridu.antInvitatori;
+        break;
+      case P_OCTAVA:
+        antInvitatori = this.state.tempsPasquaAA.antInvitatori;
+        break;
+      case P_SETMANES:
+        if(setmana === 7){
+          antInvitatori = this.state.tempsPasquaDA.antInvitatori;
+        }
+        else{
+          antInvitatori = this.state.tempsPasquaAA.antInvitatori;
+        }
+        break;
+      case A_SETMANES:
+      case A_FERIES:
+      case N_ABANS:
+        antInvitatori = this.state.tempsAdventNadalComu.antInvitatori;
+        break;
+      case N_OCTAVA:
+        antInvitatori = this.state.tempsSolemnitatsFestes.antInvitatori;
+        break;
+    }
+    this.OFICI.antInvitatori = antInvitatori;
+    this.OFICI.salm94 = this.state.salm94;
+  }
+
+  himne(LT, weekDay, nit, setmana){
+    switch(LT){
+      case O_ORDINARI:
+        if(nit){
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.salteriComuOfici.himneNitLlati;
+          }
+          else{
+            himne = this.state.salteriComuOfici.himneNitCat;
+          }
+        }
+        else{//dia
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.salteriComuOfici.himneDiaLlati;
+          }
+          else{
+            himne = this.state.salteriComuOfici.himneDiaCat;
+          }
+        }
+        break;
+      case Q_CENDRA:
+      case Q_SETMANES:
+        if(weekDay===0){ //diumenge
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiDom;
+          }
+          else{
+            himne = this.state.tempsQuaresmaComuFV.himneOficiCatDom;
+          }
+        }
+        else{//ferial
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiFer;
+          }
+          else{
+            himne = this.state.tempsQuaresmaComuFV.himneOficiCatFer;
+          }
+        }
+        break;
+      case Q_DIUM_RAMS:
+      case Q_SET_SANTA:
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsQuaresmaComuSS.himneOficiLlati;
+        }
+        else{
+          himne = this.state.tempsQuaresmaComuSS.himneOficiCat;
+        }
+        break;
+      case Q_TRIDU:
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsQuaresmaTridu.himneDSOLLati;
+        }
+        else{
+          himne = this.state.tempsQuaresmaTridu.himneDSOLCat;
+        }
+        break;
+      case P_OCTAVA:
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsPasquaAA.himneOficiLlati1;
+        }
+        else{
+          himne = this.state.tempsPasquaAA.himneOficiCat1;
+        }
+        break;
+      case P_SETMANES:
+        if(setmana === 7){
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.tempsPasquaDA.himneOficiLlati;
+          }
+          else{
+            himne = this.state.tempsPasquaDA.himneOficiCat;
+          }
+        }
+        else{
+          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            himne = this.state.tempsPasquaAA.himneOficiLlati2;
+          }
+          else{
+            himne = this.state.tempsPasquaAA.himneOficiCat2;
+          }
+        }
+        break;
+      case A_SETMANES:
+      case A_FERIES:
+      case N_OCTAVA:
+      case N_ABANS:
+        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          himne = this.state.tempsAdventNadalComu.himneOficiLlati;
+        }
+        else{
+          himne = this.state.tempsAdventNadalComu.himneOficiCat;
+        }
+        break;
+    }
+    this.OFICI.himne = himne;
+  }
+
+  salmodia(LT, setmana, weekDay, cicle){
+    switch(LT){
+      case O_ORDINARI:
+      case Q_CENDRA:
+      case Q_SETMANES:
+      case Q_DIUM_RAMS:
+      case Q_SET_SANTA:
+      case N_ABANS:
+        ant1 = this.state.salteriComuOfici.ant1;
+        titol1 = this.state.salteriComuOfici.titol1;
+        com1 = this.state.salteriComuOfici.com1;
+        salm1 = this.state.salteriComuOfici.salm1;
+        gloria1 = this.state.salteriComuOfici.gloria1;
+        ant2 = this.state.salteriComuOfici.ant2;
+        titol2 = this.state.salteriComuOfici.titol2;
+        com2 = this.state.salteriComuOfici.com2;
+        salm2 = this.state.salteriComuOfici.salm2;
+        gloria2 = this.state.salteriComuOfici.gloria2;
+        ant3 = this.state.salteriComuOfici.ant3;
+        titol3 = this.state.salteriComuOfici.titol3;
+        com3 = this.state.salteriComuOfici.com3;
+        salm3 = this.state.salteriComuOfici.salm3;
+        gloria3 = this.state.salteriComuOfici.gloria3;
+        break;
+      case Q_TRIDU:
+        ant1 = this.state.tempsQuaresmaTridu.ant1Ofici;
+        titol1 = this.state.tempsQuaresmaTridu.titolSalm1Ofici;
+        com1 = "-";
+        salm1 = this.state.tempsQuaresmaTridu.salm1Ofici;
+        gloria1 = this.state.tempsQuaresmaTridu.gloriaOfici1;
+        ant2 = this.state.tempsQuaresmaTridu.ant2Ofici;
+        titol2 = this.state.tempsQuaresmaTridu.titolSalm2Ofici;
+        com2 = "-";
+        salm2 = this.state.tempsQuaresmaTridu.salm2Ofici;
+        gloria2 = this.state.tempsQuaresmaTridu.gloriaOfici2;
+        ant3 = this.state.tempsQuaresmaTridu.ant3Ofici;
+        titol3 = this.state.tempsQuaresmaTridu.titolSalm3Ofici;
+        com3 = "-";
+        salm3 = this.state.tempsQuaresmaTridu.salm3Ofici;
+        gloria3 = this.state.tempsQuaresmaTridu.gloriaOfici3;
+        break;
+      case P_OCTAVA:
+        ant1 = this.state.tempsPasquaOct.ant1Ofici;
+        titol1 = this.state.tempsPasquaOct.titolSalm1Ofici;
+        com1 = "-";
+        salm1 = this.state.tempsPasquaOct.salm1Ofici;
+        gloria1 = this.state.tempsPasquaOct.gloriaOfici1;
+        ant2 = this.state.tempsPasquaOct.ant2Ofici;
+        titol2 = this.state.tempsPasquaOct.titolSalm2Ofici;
+        com2 = "-";
+        salm2 = this.state.tempsPasquaOct.salm2Ofici;
+        gloria2 = this.state.tempsPasquaOct.gloriaOfici2;
+        ant3 = this.state.tempsPasquaOct.ant3Ofici;
+        titol3 = this.state.tempsPasquaOct.titolSalm3Ofici;
+        com3 = "-";
+        salm3 = this.state.tempsPasquaOct.salm3Ofici;
+        gloria3 = this.state.tempsPasquaOct.gloriaOfici3;
+        break;
+      case P_SETMANES:
+        titol1 = this.state.salteriComuOfici.titol1;
+        com1 = this.state.salteriComuOfici.com1;
+        salm1 = this.state.salteriComuOfici.salm1;
+        gloria1 = this.state.salteriComuOfici.gloria1;
+        titol2 = this.state.salteriComuOfici.titol2;
+        com2 = this.state.salteriComuOfici.com2;
+        salm2 = this.state.salteriComuOfici.salm2;
+        gloria2 = this.state.salteriComuOfici.gloria2;
+        titol3 = this.state.salteriComuOfici.titol3;
+        com3 = this.state.salteriComuOfici.com3;
+        salm3 = this.state.salteriComuOfici.salm3;
+        gloria3 = this.state.salteriComuOfici.gloria3;
+
+        if(weekDay === 0){ //diumenge
+          console.log("setmana: " + setmana);
+          switch (setmana) { //TODO: s'ha de modificar. Els noms de la database no estan bé
+            case "3":
+              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
+              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVI;
+              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVI;
+              break;
+            case "4":
+              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
+              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVI;
+              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVI;
+              break;
+            case "5":
+              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIII;
+              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIII;
+              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumIII;
+              break;
+            case "6":
+              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumIV;
+              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumIV;
+              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumIV;
+              break;
+            case "7":
+              ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVII;
+              ant2 = this.state.salteriComuEspPasquaDium.ant2OficiDiumVII;
+              ant3 = this.state.salteriComuEspPasquaDium.ant3OficiDiumVII;
+              break;
+          }
+        }
+        else{
+          ant1 = this.state.salteriComuOfici.ant1;
+          ant2 = this.state.salteriComuOfici.ant2;
+          ant3 = this.state.salteriComuOfici.ant3;
+          if(!(cicle === 3 && weekDay === 4) && !(cicle === 4 && weekDay === 2) && !(cicle === 2 && weekDay === 1) && !(cicle === 2 && weekDay === 3) && !(cicle === 2 && weekDay === 5)){
+            ant1 += " Al·leluia.";
+          }
+          if(!(cicle === 2 && weekDay === 3) && !(cicle === 2 && weekDay === 4) && !(cicle === 2 && weekDay === 6) && !(cicle === 3 && weekDay === 5) && !(cicle === 4 && weekDay === 1) && !(cicle === 4 && weekDay === 2)){
+            ant2 += " Al·leluia.";
+          }
+          if(!(cicle === 4 && weekDay === 4)){
+            ant3 += " Al·leluia.";
+          }
+        }
+        break;
+      case A_SETMANES:
+      case A_FERIES:
+        titol1 = this.state.salteriComuOfici.titol1;
+        com1 = this.state.salteriComuOfici.com1;
+        salm1 = this.state.salteriComuOfici.salm1;
+        gloria1 = this.state.salteriComuOfici.gloria1;
+        titol2 = this.state.salteriComuOfici.titol2;
+        com2 = this.state.salteriComuOfici.com2;
+        salm2 = this.state.salteriComuOfici.salm2;
+        gloria2 = this.state.salteriComuOfici.gloria2;
+        titol3 = this.state.salteriComuOfici.titol3;
+        com3 = this.state.salteriComuOfici.com3;
+        salm3 = this.state.salteriComuOfici.salm3;
+        gloria3 = this.state.salteriComuOfici.gloria3;
+
+        if(weekDay == 0){
+            ant1 = this.state.tempsAdventSetmanesDium.Ant1Ofici; //TODO: change the field! A to a
+            ant2 = this.state.tempsAdventSetmanesDium.Ant2Ofici; //TODO: change the field! A to a
+            ant3 = this.state.tempsAdventSetmanesDium.Ant3Ofici; //TODO: change the field! A to a
+        }
+        else{
+          ant1 = this.state.salteriComuOfici.ant1;
+          ant2 = this.state.salteriComuOfici.ant2;
+          ant3 = this.state.salteriComuOfici.ant3;
+        }
+        break;
+      case N_OCTAVA:
+        ant1 = this.state.tempsNadalOctava.ant1Ofici;
+        titol1 = this.state.tempsNadalOctava.titolSalm1Ofici;
+        com1 = "";
+        salm1 = this.state.tempsNadalOctava.salm1Ofici;
+        gloria1 = this.state.tempsNadalOctava.gloriaOfici1;
+        ant2 = this.state.tempsNadalOctava.ant2Ofici;
+        titol2 = this.state.tempsNadalOctava.titolSalm2Ofici;
+        com2 = "-";
+        salm2 = this.state.tempsNadalOctava.salm2Ofici;
+        gloria2 = this.state.tempsNadalOctava.gloriaOfici2;
+        ant3 = this.state.tempsNadalOctava.ant3Ofici;
+        titol3 = this.state.tempsNadalOctava.titolSalm3Ofici;
+        com3 = "-";
+        salm3 = this.state.tempsNadalOctava.salm3Ofici;
+        gloria3 = this.state.tempsNadalOctava.gloriaOfici3;
+        break;
+    }
+    this.OFICI.ant1 = ant1;
+    this.OFICI.titol1 = titol1;
+    this.OFICI.com1 = com1;
+    this.OFICI.salm1 = salm1;
+    this.OFICI.gloria1 = gloria1;
+    this.OFICI.ant2 = ant2;
+    this.OFICI.titol2 = titol2;
+    this.OFICI.com2 = com2;
+    this.OFICI.salm2 = salm2;
+    this.OFICI.gloria2 = gloria2;
+    this.OFICI.ant3 = ant3;
+    this.OFICI.titol3 = titol3;
+    this.OFICI.com3 = com3;
+    this.OFICI.salm3 = salm3;
+    this.OFICI.gloria3 = gloria3;
+  }
+
+  vers(LT){
+    switch(LT){
+      case O_ORDINARI:
+        respV = this.state.salteriComuOfici.respV;
+        respR = this.state.salteriComuOfici.respR;
+        break;
+      case Q_CENDRA:
+        respV = this.state.tempsQuaresmaCendra.respVOfici;
+        respR = this.state.tempsQuaresmaCendra.respROfici;
+        break;
+      case Q_SETMANES:
+        respV = this.state.tempsQuaresmaVSetmanes.respVOfici;
+        respR = this.state.tempsQuaresmaVSetmanes.respROfici;
+        break;
+      case Q_DIUM_RAMS:
+        respV = this.state.tempsQuaresmaRams.respVOfici;
+        respR = this.state.tempsQuaresmaRams.respROfici;
+        break;
+      case Q_SET_SANTA:
+        respV = this.state.tempsQuaresmaSetSanta.respVOfici;
+        respR = this.state.tempsQuaresmaSetSanta.respROfici;
+        break;
+      case Q_TRIDU:
+        respV = this.state.tempsQuaresmaTridu.respVOfici;
+        respR = this.state.tempsQuaresmaTridu.respROfici;
+        break;
+      case P_OCTAVA:
+        respV = this.state.tempsPasquaOct.respVOfici;
+        respR = this.state.tempsPasquaOct.respROfici;
+        break;
+      case P_SETMANES:
+        respV = this.state.tempsPasquaSetmanes.respVOfici;
+        respR = this.state.tempsPasquaSetmanes.respROfici;
+        break;
+      case A_SETMANES:
+        respV = this.state.tempsAdventSetmanes.respVOfici;
+        respR = this.state.tempsAdventSetmanes.respROfici;
+        break;
+      case A_FERIES:
+        respV = this.state.tempsAdventFeries.respVOfici;
+        respR = this.state.tempsAdventFeries.respROfici;
+        break;
+      case N_OCTAVA:
+        respV = this.state.tempsNadalOctava.respVOfici;
+        respR = this.state.tempsNadalOctava.respROfici;
+        break;
+      case N_ABANS:
+        respV = this.state.tempsNadalAbansEpifania.respVOfici;
+        respR = this.state.tempsNadalAbansEpifania.respROfici;
+        break;
+    }
+    this.OFICI.respV = respV;
+    this.OFICI.respR = respR;
+  }
+
+  lectures(LT){
+    switch(LT){
+      case O_ORDINARI:
+        referencia1 = this.state.tempsOrdinariOfici.referencia1;
+        cita1 = this.state.tempsOrdinariOfici.cita1;
+        titol1 = this.state.tempsOrdinariOfici.titol1;
+        lectura1 = this.state.tempsOrdinariOfici.lectura1;
+        citaResp1 = this.state.tempsOrdinariOfici.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsOrdinariOfici.resp1Part1;
+        resp1Part2 = this.state.tempsOrdinariOfici.resp1Part2;
+        resp1Part3 = this.state.tempsOrdinariOfici.resp1Part3;
+        referencia2 = this.state.tempsOrdinariOfici.referencia2;
+        cita2 = this.state.tempsOrdinariOfici.cita2;
+        titol2 = this.state.tempsOrdinariOfici.titol2;
+        lectura2 = this.state.tempsOrdinariOfici.lectura2;
+        versResp2 = this.state.tempsOrdinariOfici.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsOrdinariOfici.resp2Part1;
+        resp2Part2 = this.state.tempsOrdinariOfici.resp2Part2;
+        resp2Part3 = this.state.tempsOrdinariOfici.resp2Part3;
+        break;
+      case Q_CENDRA:
+        referencia1 = this.state.tempsQuaresmaCendra.referencia1;
+        cita1 = this.state.tempsQuaresmaCendra.cita1;
+        titol1 = this.state.tempsQuaresmaCendra.titol1;
+        lectura1 = this.state.tempsQuaresmaCendra.lectura1;
+        citaResp1 = this.state.tempsQuaresmaCendra.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsQuaresmaCendra.resp1Part1;
+        resp1Part2 = this.state.tempsQuaresmaCendra.resp1Part2;
+        resp1Part3 = this.state.tempsQuaresmaCendra.resp1Part3;
+        referencia2 = this.state.tempsQuaresmaCendra.referencia2;
+        cita2 = this.state.tempsQuaresmaCendra.cita2;
+        titol2 = this.state.tempsQuaresmaCendra.titol2;
+        lectura2 = this.state.tempsQuaresmaCendra.lectura2;
+        versResp2 = this.state.tempsQuaresmaCendra.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsQuaresmaCendra.resp2Part1;
+        resp2Part2 = this.state.tempsQuaresmaCendra.resp2Part2;
+        resp2Part3 = this.state.tempsQuaresmaCendra.resp2Part3;
+        break;
+      case Q_SETMANES:
+        referencia1 = this.state.tempsQuaresmaVSetmanes.referencia1;
+        cita1 = this.state.tempsQuaresmaVSetmanes.cita1;
+        titol1 = this.state.tempsQuaresmaVSetmanes.titol1;
+        lectura1 = this.state.tempsQuaresmaVSetmanes.lectura1;
+        citaResp1 = this.state.tempsQuaresmaVSetmanes.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsQuaresmaVSetmanes.resp1Part1;
+        resp1Part2 = this.state.tempsQuaresmaVSetmanes.resp1Part2;
+        resp1Part3 = this.state.tempsQuaresmaVSetmanes.resp1Part3;
+        referencia2 = this.state.tempsQuaresmaVSetmanes.referencia2;
+        cita2 = this.state.tempsQuaresmaVSetmanes.cita2;
+        titol2 = this.state.tempsQuaresmaVSetmanes.titol2;
+        lectura2 = this.state.tempsQuaresmaVSetmanes.lectura2;
+        versResp2 = this.state.tempsQuaresmaVSetmanes.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsQuaresmaVSetmanes.resp2Part1;
+        resp2Part2 = this.state.tempsQuaresmaVSetmanes.resp2Part2;
+        resp2Part3 = this.state.tempsQuaresmaVSetmanes.resp2Part3;
+        break;
+      case Q_DIUM_RAMS:
+        referencia1 = this.state.tempsQuaresmaRams.referencia1;
+        cita1 = this.state.tempsQuaresmaRams.cita1;
+        titol1 = this.state.tempsQuaresmaRams.titol1;
+        lectura1 = this.state.tempsQuaresmaRams.lectura1;
+        citaResp1 = this.state.tempsQuaresmaRams.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsQuaresmaRams.resp1Part1;
+        resp1Part2 = this.state.tempsQuaresmaRams.resp1Part2;
+        resp1Part3 = this.state.tempsQuaresmaRams.resp1Part3;
+        referencia2 = this.state.tempsQuaresmaRams.referencia2;
+        cita2 = this.state.tempsQuaresmaRams.cita2;
+        titol2 = this.state.tempsQuaresmaRams.titol2;
+        lectura2 = this.state.tempsQuaresmaRams.lectura2;
+        versResp2 = this.state.tempsQuaresmaRams.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsQuaresmaRams.resp2Part1;
+        resp2Part2 = this.state.tempsQuaresmaRams.resp2Part2;
+        resp2Part3 = this.state.tempsQuaresmaRams.resp2Part3;
+        break;
+      case Q_SET_SANTA:
+        referencia1 = this.state.tempsQuaresmaSetSanta.referencia1;
+        cita1 = this.state.tempsQuaresmaSetSanta.cita1;
+        titol1 = this.state.tempsQuaresmaSetSanta.titol1;
+        lectura1 = this.state.tempsQuaresmaSetSanta.lectura1;
+        citaResp1 = this.state.tempsQuaresmaSetSanta.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsQuaresmaSetSanta.resp1Part1;
+        resp1Part2 = this.state.tempsQuaresmaSetSanta.resp1Part2;
+        resp1Part3 = this.state.tempsQuaresmaSetSanta.resp1Part3;
+        referencia2 = this.state.tempsQuaresmaSetSanta.referencia2;
+        cita2 = this.state.tempsQuaresmaSetSanta.cita2;
+        titol2 = this.state.tempsQuaresmaSetSanta.titol2;
+        lectura2 = this.state.tempsQuaresmaSetSanta.lectura2;
+        versResp2 = this.state.tempsQuaresmaSetSanta.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsQuaresmaSetSanta.resp2Part1;
+        resp2Part2 = this.state.tempsQuaresmaSetSanta.resp2Part2;
+        resp2Part3 = this.state.tempsQuaresmaSetSanta.resp2Part3;
+        break;
+      case Q_TRIDU:
+        referencia1 = this.state.tempsQuaresmaTridu.referencia1; //TODO: canvair nom de la variable???
+        cita1 = this.state.tempsQuaresmaTridu.citaLect1Ofici;
+        titol1 = this.state.tempsQuaresmaTridu.titolLect1Ofici;
+        lectura1 = this.state.tempsQuaresmaTridu.lectura1;
+        citaResp1 = this.state.tempsQuaresmaTridu.citaResp1Ofici;
+        resp1Part1 = this.state.tempsQuaresmaTridu.resp1Part1Ofici;
+        resp1Part2 = this.state.tempsQuaresmaTridu.resp1Part2Ofici;
+        resp1Part3 = this.state.tempsQuaresmaTridu.resp1Part3Ofici;
+        referencia2 = this.state.tempsQuaresmaTridu.referencia2Ofici; //TODO: canvair nom de la variable???
+        cita2 = this.state.tempsQuaresmaTridu.citaLect2Ofici;
+        titol2 = this.state.tempsQuaresmaTridu.titolLect2Ofici;
+        lectura2 = this.state.tempsQuaresmaTridu.lectura2;
+        versResp2 = this.state.tempsQuaresmaTridu.citaResp2Ofici;
+        resp2Part1 = this.state.tempsQuaresmaTridu.resp2Part1Ofici;
+        resp2Part2 = this.state.tempsQuaresmaTridu.resp2Part2Ofici;
+        resp2Part3 = this.state.tempsQuaresmaTridu.resp2Part3Ofici;
+        break;
+      case P_OCTAVA:
+        referencia1 = this.state.tempsPasquaOct.referencia1; //TODO: canvair nom de la variable???
+        cita1 = this.state.tempsPasquaOct.citaLect1Ofici;
+        titol1 = this.state.tempsPasquaOct.titolLect1Ofici;
+        lectura1 = this.state.tempsPasquaOct.lectura1;
+        citaResp1 = this.state.tempsPasquaOct.citaResp1Ofici;
+        resp1Part1 = this.state.tempsPasquaOct.resp1Part1Ofici;
+        resp1Part2 = this.state.tempsPasquaOct.resp1Part2Ofici;
+        resp1Part3 = this.state.tempsPasquaOct.resp1Part3Ofici;
+        referencia2 = this.state.tempsPasquaOct.referencia2Ofici; //TODO: canvair nom de la variable???
+        cita2 = this.state.tempsPasquaOct.citaLect2Ofici;
+        titol2 = this.state.tempsPasquaOct.titolLect2Ofici;
+        lectura2 = this.state.tempsPasquaOct.lectura2;
+        versResp2 = this.state.tempsPasquaOct.citaResp2Ofici;
+        resp2Part1 = this.state.tempsPasquaOct.resp2Part1Ofici;
+        resp2Part2 = this.state.tempsPasquaOct.resp2Part2Ofici;
+        resp2Part3 = this.state.tempsPasquaOct.resp2Part3Ofici;
+        break;
+      case P_SETMANES:
+        referencia1 = this.state.tempsPasquaSetmanes.referencia1;
+        cita1 = this.state.tempsPasquaSetmanes.cita1;
+        titol1 = this.state.tempsPasquaSetmanes.titol1;
+        lectura1 = this.state.tempsPasquaSetmanes.lectura1;
+        citaResp1 = this.state.tempsPasquaSetmanes.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsPasquaSetmanes.resp1Part1;
+        resp1Part2 = this.state.tempsPasquaSetmanes.resp1Part2;
+        resp1Part3 = this.state.tempsPasquaSetmanes.resp1Part3;
+        referencia2 = this.state.tempsPasquaSetmanes.referencia2;
+        cita2 = this.state.tempsPasquaSetmanes.cita2;
+        titol2 = this.state.tempsPasquaSetmanes.titol2;
+        lectura2 = this.state.tempsPasquaSetmanes.lectura2;
+        versResp2 = this.state.tempsPasquaSetmanes.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsPasquaSetmanes.resp2Part1;
+        resp2Part2 = this.state.tempsPasquaSetmanes.resp2Part2;
+        resp2Part3 = this.state.tempsPasquaSetmanes.resp2Part3;
+        break;
+      case A_SETMANES:
+        referencia1 = this.state.tempsAdventSetmanes.referencia1;
+        cita1 = this.state.tempsAdventSetmanes.cita1;
+        titol1 = this.state.tempsAdventSetmanes.titol1;
+        lectura1 = this.state.tempsAdventSetmanes.lectura1;
+        citaResp1 = this.state.tempsAdventSetmanes.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsAdventSetmanes.resp1Part1;
+        resp1Part2 = this.state.tempsAdventSetmanes.resp1Part2;
+        resp1Part3 = this.state.tempsAdventSetmanes.resp1Part3;
+        referencia2 = this.state.tempsAdventSetmanes.referencia2;
+        cita2 = this.state.tempsAdventSetmanes.cita2;
+        titol2 = this.state.tempsAdventSetmanes.titol2;
+        lectura2 = this.state.tempsAdventSetmanes.lectura2;
+        versResp2 = this.state.tempsAdventSetmanes.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsAdventSetmanes.resp2Part1;
+        resp2Part2 = this.state.tempsAdventSetmanes.resp2Part2;
+        resp2Part3 = this.state.tempsAdventSetmanes.resp2Part3;
+        break;
+      case A_FERIES:
+        referencia1 = this.state.tempsAdventFeries.referencia1;
+        cita1 = this.state.tempsAdventFeries.cita1;
+        titol1 = this.state.tempsAdventFeries.titol1;
+        lectura1 = this.state.tempsAdventFeries.lectura1;
+        citaResp1 = this.state.tempsAdventFeries.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsAdventFeries.resp1Part1;
+        resp1Part2 = this.state.tempsAdventFeries.resp1Part2;
+        resp1Part3 = this.state.tempsAdventFeries.resp1Part3;
+        referencia2 = this.state.tempsAdventFeries.referencia2;
+        cita2 = this.state.tempsAdventFeries.cita2;
+        titol2 = this.state.tempsAdventFeries.titol2;
+        lectura2 = this.state.tempsAdventFeries.lectura2;
+        versResp2 = this.state.tempsAdventFeries.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsAdventFeries.resp2Part1;
+        resp2Part2 = this.state.tempsAdventFeries.resp2Part2;
+        resp2Part3 = this.state.tempsAdventFeries.resp2Part3;
+        break;
+      case N_OCTAVA:
+        referencia1 = this.state.tempsNadalOctava.referencia1; //TODO: canvair nom de la variable???
+        cita1 = this.state.tempsNadalOctava.citaLect1Ofici;
+        titol1 = this.state.tempsNadalOctava.titolLect1Ofici;
+        lectura1 = this.state.tempsNadalOctava.lectura1;
+        citaResp1 = this.state.tempsNadalOctava.citaResp1Ofici;
+        resp1Part1 = this.state.tempsNadalOctava.resp1Part1Ofici;
+        resp1Part2 = this.state.tempsNadalOctava.resp1Part2Ofici;
+        resp1Part3 = this.state.tempsNadalOctava.resp1Part3Ofici;
+        referencia2 = this.state.tempsNadalOctava.referencia2Ofici; //TODO: canvair nom de la variable???
+        cita2 = this.state.tempsNadalOctava.citaLect2Ofici;
+        titol2 = this.state.tempsNadalOctava.titolLect2Ofici;
+        lectura2 = this.state.tempsNadalOctava.lectura2;
+        versResp2 = this.state.tempsNadalOctava.citaResp2Ofici;
+        resp2Part1 = this.state.tempsNadalOctava.resp2Part1Ofici;
+        resp2Part2 = this.state.tempsNadalOctava.resp2Part2Ofici;
+        resp2Part3 = this.state.tempsNadalOctava.resp2Part3Ofici;
+        break;
+      case N_ABANS:
+        referencia1 = this.state.tempsNadalAbansEpifania.referencia1;
+        cita1 = this.state.tempsNadalAbansEpifania.cita1;
+        titol1 = this.state.tempsNadalAbansEpifania.titol1;
+        lectura1 = this.state.tempsNadalAbansEpifania.lectura1;
+        citaResp1 = this.state.tempsNadalAbansEpifania.citaResp1; //TODO: canviar nom de la variable??
+        resp1Part1 = this.state.tempsNadalAbansEpifania.resp1Part1;
+        resp1Part2 = this.state.tempsNadalAbansEpifania.resp1Part2;
+        resp1Part3 = this.state.tempsNadalAbansEpifania.resp1Part3;
+        referencia2 = this.state.tempsNadalAbansEpifania.referencia2;
+        cita2 = this.state.tempsNadalAbansEpifania.cita2;
+        titol2 = this.state.tempsNadalAbansEpifania.titol2;
+        lectura2 = this.state.tempsNadalAbansEpifania.lectura2;
+        versResp2 = this.state.tempsNadalAbansEpifania.versResp2; //TODO: canviar nom de la variable??
+        resp2Part1 = this.state.tempsNadalAbansEpifania.resp2Part1;
+        resp2Part2 = this.state.tempsNadalAbansEpifania.resp2Part2;
+        resp2Part3 = this.state.tempsNadalAbansEpifania.resp2Part3;
+        break;
+    }
+    this.OFICI.referencia1 = referencia1;
+    this.OFICI.cita1 = cita1;
+    this.OFICI.titol1 = titol1;
+    this.OFICI.lectura1 = lectura1;
+    this.OFICI.citaResp1 = citaResp1;
+    this.OFICI.resp1Part1 = resp1Part1;
+    this.OFICI.resp1Part2 = resp1Part2;
+    this.OFICI.resp1Part3 = resp1Part3;
+    this.OFICI.referencia2 = referencia2;
+    this.OFICI.cita2 = cita2;
+    this.OFICI.titol2 = titol2;
+    this.OFICI.lectura2 = lectura2;
+    this.OFICI.versResp2 = versResp2;
+    this.OFICI.resp2Part1 = resp2Part1;
+    this.OFICI.resp2Part2 = resp2Part2;
+    this.OFICI.resp2Part3 = resp2Part3;
+  }
+
+  himneOhDeu(LT, weekDay){
+    var himneOhDeuBool = false;
+    switch(LT){
+      case O_ORDINARI:
+        if(weekDay == 0) himneOhDeuBool = true; //diumenge
+        break;
+      case P_OCTAVA:
+        himneOhDeuBool = true;
+        break;
+      case P_SETMANES:
+        if(weekDay == 0) himneOhDeuBool = true; //diumenge
+        break;
+      case A_SETMANES:
+        if(weekDay == 0) himneOhDeuBool = true; //diumenge
+        break;
+      case N_OCTAVA:
+        himneOhDeuBool = true;
+        break;
+      case N_ABANS:
+        if(weekDay == 0) himneOhDeuBool = true; //diumenge
+        break;
+    }
+    this.OFICI.himneOhDeuBool = himneOhDeuBool;
+    this.OFICI.himneOhDeu = this.state.ohDeu;
+  }
+
+  oracio(LT, weekDay){
+    switch(LT){
+      case O_ORDINARI:
+        oracio = this.state.tempsOrdinariOracions.oracio;
+        break;
+      case Q_CENDRA:
+        oracio = this.state.tempsQuaresmaCendra.oraFiLaudes;
+        break;
+      case Q_SETMANES:
+        oracio = this.state.tempsQuaresmaVSetmanes.oraFiLaudes;
+        break;
+      case Q_DIUM_RAMS:
+        oracio = this.state.tempsQuaresmaRams.oraFiLaudes;
+        break;
+      case Q_SET_SANTA:
+        oracio = this.state.tempsQuaresmaSetSanta.oraFiLaudes;
+        break;
+      case Q_TRIDU:
+        oracio = this.state.tempsQuaresmaTridu.oraFiOfici;
+        break;
+      case P_OCTAVA:
+        oracio = this.state.tempsPasquaOct.oraFiLaudes;
+        break;
+      case P_SETMANES:
+        oracio = this.state.tempsPasquaSetmanes.oraFiLaudes;
+        break;
+      case A_SETMANES:
+        oracio = this.state.tempsAdventSetmanes.oraFiLaudes;
+        break;
+      case A_FERIES:
+        oracio = this.state.tempsAdventFeries.oraFiLaudes;
+        break;
+      case N_OCTAVA:
+        oracio = this.state.tempsNadalOctava.oraFiLaudes;
+        break;
+      case N_ABANS:
+        oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+        break;
+    }
+    this.OFICI.oracio = oracio;
+  }
+}

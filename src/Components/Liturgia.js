@@ -31,6 +31,7 @@ export default class Liturgia extends Component {
           setmana2: this.props.setmana2,
           LT2: this.props.LT2,
           ABC2: this.props.ABC2,
+          LITURGIA: this.props.LITURGIA,
         },
         component: component
       });
@@ -53,6 +54,7 @@ export default class Liturgia extends Component {
         setmana2: this.props.setmana2,
         LT2: this.props.LT2,
         ABC2: this.props.ABC2,
+        LITURGIA: this.props.LITURGIA,
       });
     }
   }

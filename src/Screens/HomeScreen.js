@@ -13,6 +13,7 @@ import {
 import Liturgia from '../Components/Liturgia';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DBAdapter from '../SQL/DBAdapter';
+import SOUL from '../Components/SOUL';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -42,7 +43,10 @@ export default class HomeScreen extends Component {
     super(props)
 
     this.state = {
+      ofici: null,
       santPressed: false,
+      memoria: false,
+      celebracio: '',
       anyliturgic: '',
       anyliturgic2: '',
       monthDay: '',
@@ -65,13 +69,13 @@ export default class HomeScreen extends Component {
     //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
 
-    console.log("dia avui: " + today.getDate());
-
     acceso = new DBAdapter();
     acceso.getAnyLiturgic(today.getFullYear(),
                           today.getMonth(),
                           today.getDate(),
                           (current, tomorrow) => {
+                            var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
+
                             this.setState({
                                     monthDay: today.getDate(), //1-31
                                     month: today.getMonth(), //0-11
@@ -79,6 +83,7 @@ export default class HomeScreen extends Component {
                                     hour: today.getHours(), //0-23
                                     weekDay: today.getDay(), //0-6 (diumenge-dissabte)
                                     anyliturgic: current,
+                                    celebracio: cel,
                                     LT: current.temps,
                                     cicle: current.cicle, //1-4
                                     setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
@@ -89,9 +94,137 @@ export default class HomeScreen extends Component {
                                     setmana2: tomorrow.NumSet,
                                     ABC2: tomorrow.anyABC,
                                   });
-                            console.log("avui/dema -> " + this.state.anyliturgic.cicle + " / " + this.state.anyliturgic2.cicle);
-                            console.log("LT: " + this.state.LT);
+                            props = {
+                                    monthDay: today.getDate(), //1-31
+                                    month: today.getMonth(), //0-11
+                                    year: today.getFullYear(), //xxxx
+                                    hour: today.getHours(), //0-23
+                                    weekDay: today.getDay(), //0-6 (diumenge-dissabte)
+                                    anyliturgic: current,
+                                    celebracio: cel,
+                                    LT: current.temps,
+                                    cicle: current.cicle, //1-4
+                                    setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+                                    ABC: current.anyABC,
+                                    anyliturgic2: tomorrow,
+                                    LT2: tomorrow.temps,
+                                    cicle2: tomorrow.cicle,
+                                    setmana2: tomorrow.NumSet,
+                                    ABC2: tomorrow.anyABC,
+                                 };
+                            //console.log("avui/dema -> " + this.state.anyliturgic.cicle + " / " + this.state.anyliturgic2.cicle);
+                            //console.log("LT: " + this.state.LT);
+                            //console.log("Celebracio: " + this.state.celebracio);
+                            new SOUL(props, this);
                           });
+
+      //id = 1;
+      //acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });
+  }
+
+  setSoul(LITURGIA){
+    //console.log("laudeeeeees -> " + LITURGIA.laudes.oracio);
+    this.setState({ LITURGIA: LITURGIA });
+  }
+
+  celebracio(diocesis, anyliturgic){
+    switch (diocesis) {
+      case "BaD":
+        celebracio = anyliturgic.BaD;
+        break;
+      case "BaV":
+        celebracio = anyliturgic.BaV;
+        break;
+      case "BaC":
+        celebracio = anyliturgic.BaC;
+        break;
+      case "GiD":
+        celebracio = anyliturgic.GiD;
+        break;
+      case "GiV":
+        celebracio = anyliturgic.GiV;
+        break;
+      case "GiC":
+        celebracio = anyliturgic.GiC;
+        break;
+      case "LlD":
+        celebracio = anyliturgic.LlD;
+        break;
+      case "LlV":
+        celebracio = anyliturgic.LlV;
+        break;
+      case "LlC":
+        celebracio = anyliturgic.LlC;
+        break;
+      case "SFD":
+        celebracio = anyliturgic.SFD;
+        break;
+      case "SFV":
+        celebracio = anyliturgic.SFV;
+        break;
+      case "SFC":
+        celebracio = anyliturgic.SFC;
+        break;
+      case "SoD":
+        celebracio = anyliturgic.SoD;
+        break;
+      case "SoV":
+        celebracio = anyliturgic.SoV;
+        break;
+      case "SoC":
+        celebracio = anyliturgic.SoC;
+        break;
+      case "TaD":
+        celebracio = anyliturgic.TaD;
+        break;
+      case "TaV":
+        celebracio = anyliturgic.TaV;
+        break;
+      case "TaC":
+        celebracio = anyliturgic.TaC;
+        break;
+      case "TeD":
+        celebracio = anyliturgic.TeD;
+        break;
+      case "TeV":
+        celebracio = anyliturgic.TeV;
+        break;
+      case "TeC":
+        celebracio = anyliturgic.TeC;
+        break;
+      case "ToD":
+        celebracio = anyliturgic.ToD;
+        break;
+      case "ToV":
+        celebracio = anyliturgic.ToV;
+        break;
+      case "ToC":
+        celebracio = anyliturgic.ToC;
+        break;
+      case "UrD":
+        celebracio = anyliturgic.UrD;
+        break;
+      case "UrV":
+        celebracio = anyliturgic.UrV;
+        break;
+      case "UrC":
+        celebracio = anyliturgic.UrC;
+        break;
+      case "ViD":
+        celebracio = anyliturgic.ViD;
+        break;
+      case "ViV":
+        celebracio = anyliturgic.ViV;
+        break;
+      case "ViC":
+        celebracio = anyliturgic.ViC;
+        break;
+      case "Andorra":
+        celebracio = anyliturgic.Andorra;
+        break;
+    }
+
+    return(celebracio);
   }
 
   romanize (num) {
@@ -146,7 +279,7 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Bisbat de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
+            <Text style={styles.infoText}>Diòcesis de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
             <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.weekDay)}{this.state.anyliturgic.NumSet !== 0 ? " de la setmana" : null}
@@ -201,7 +334,8 @@ export default class HomeScreen extends Component {
                         cicle2={this.state.cicle2}
                         setmana2={this.state.setmana2}
                         LT2={this.state.LT2}
-                        ABC2={this.state.ABC2}/>
+                        ABC2={this.state.ABC2}
+                        LITURGIA={this.state.LITURGIA}/>
             </View>
             :
             <View style={styles.liturgiaContainer}>
@@ -218,7 +352,8 @@ export default class HomeScreen extends Component {
                         cicle2={this.state.cicle2}
                         setmana2={this.state.setmana2}
                         LT2={this.state.LT2}
-                        ABC2={this.state.ABC2}/>
+                        ABC2={this.state.ABC2}
+                        LITURGIA={this.state.LITURGIA}/>
             </View>
           }
         </Image>

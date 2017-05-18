@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
 
-import Ofici from '../Components/Ofici'
-import Laudes from '../Components/Laudes'
+import Ofici from '../Components/OficiDisplay'
+import Laudes from '../Components/LaudesDisplay'
 import Vespres from '../Components/Vespres'
 import HoraMenor from '../Components/HoraMenor'
 import Completes from '../Components/Completes'
@@ -44,7 +44,8 @@ export default class LiturgiaDisplayScreen extends Component {
             cicle = {this.props.cicle}
             setmana = {this.props.setmana}
             LT={this.props.LT}
-            ABC={this.props.ABC}/>
+            ABC={this.props.ABC}
+            OFICI={this.props.LITURGIA.ofici}/>
           )
         break;
         case 'Laudes':
@@ -57,8 +58,9 @@ export default class LiturgiaDisplayScreen extends Component {
               year = {this.props.year}
               cicle = {this.props.cicle}
               setmana = {this.props.setmana}
-              LT={this.props.LT}
-              ABC={this.props.ABC}/>
+              LT = {this.props.LT}
+              ABC = {this.props.ABC}
+              LAUDES = {this.props.LITURGIA.laudes}/>
             )
           break;
           case 'Vespres':

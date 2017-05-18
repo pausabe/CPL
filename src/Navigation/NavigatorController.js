@@ -184,7 +184,8 @@ export default class NavigatorController extends Component {
                           cicle2={route.cicle2}
                           setmana2={route.setmana2}
                           LT2={route.LT2}
-                          ABC2={route.ABC2}/>);
+                          ABC2={route.ABC2}
+                          LITURGIA={route.LITURGIA}/>);
     }
   }
 }
