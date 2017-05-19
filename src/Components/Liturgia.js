@@ -13,11 +13,35 @@ import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen'
 
 export default class Liturgia extends Component {
   onButtonPress(idPressed, type, component){
-    if(Platform.OS === 'ios'){
-      this.props.navigator.push({
-        title: type,
-        passProps: {
+    if(this.props.LITURGIA !== null){
+      if(Platform.OS === 'ios'){
+        this.props.navigator.push({
+          title: type,
+          passProps: {
+            type: type,
+            hour: this.props.hour,
+            weekDay: this.props.weekDay,
+            monthDay: this.props.monthDay,
+            month: this.props.month,
+            year: this.props.year,
+            cicle: this.props.cicle,
+            setmana: this.props.setmana,
+            LT: this.props.LT,
+            ABC: this.props.ABC,
+            cicle2: this.props.cicle2,
+            setmana2: this.props.setmana2,
+            LT2: this.props.LT2,
+            ABC2: this.props.ABC2,
+            LITURGIA: this.props.LITURGIA,
+          },
+          component: component
+        });
+      }
+      else{
+        this.props.navigator.push({
+          id: idPressed,
           type: type,
+          index: 1,
           hour: this.props.hour,
           weekDay: this.props.weekDay,
           monthDay: this.props.monthDay,
@@ -32,30 +56,8 @@ export default class Liturgia extends Component {
           LT2: this.props.LT2,
           ABC2: this.props.ABC2,
           LITURGIA: this.props.LITURGIA,
-        },
-        component: component
-      });
-    }
-    else{
-      this.props.navigator.push({
-        id: idPressed,
-        type: type,
-        index: 1,
-        hour: this.props.hour,
-        weekDay: this.props.weekDay,
-        monthDay: this.props.monthDay,
-        month: this.props.month,
-        year: this.props.year,
-        cicle: this.props.cicle,
-        setmana: this.props.setmana,
-        LT: this.props.LT,
-        ABC: this.props.ABC,
-        cicle2: this.props.cicle2,
-        setmana2: this.props.setmana2,
-        LT2: this.props.LT2,
-        ABC2: this.props.ABC2,
-        LITURGIA: this.props.LITURGIA,
-      });
+        });
+      }
     }
   }
 

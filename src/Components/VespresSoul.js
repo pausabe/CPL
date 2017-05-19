@@ -1,12 +1,6 @@
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Platform
-} from 'react-native';
+import { Platform } from 'react-native';
 import Hr from 'react-native-hr';
+import GLOBAL from '../Globals/Globals';
 
 const O_ORDINARI = 'O_ORDINAR';
 const Q_CENDRA = 'Q_CENDRA';
@@ -21,9 +15,6 @@ const A_SETMANES = 'A_SETMANES';
 const A_FERIES = 'A_FERIES';
 const N_OCTAVA = 'N_OCTAVA';
 const N_ABANS = 'N_ABANS';
-
-import DBAdapter from '../SQL/DBAdapter';
-import GLOBAL from '../Globals/Globals';
 
 export default class Vespres {
   constructor(props, TABLES, HS, SOUL) {
@@ -53,6 +44,7 @@ export default class Vespres {
       tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
       tempsSolemnitatsFestes: TABLES.tempsSolemnitatsFestes,
       salteriComuEspPasqua: TABLES.salteriComuEspPasqua,
+      diversos: TABLES.diversos,
       magnificat: TABLES.diversos.item(5).oracio,
       diversos: TABLES.diversos,
     };

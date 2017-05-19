@@ -13,6 +13,7 @@ import {
   Platform
 } from 'react-native';
 
+import CustomTransitions from '../CustomTransitions/CustomTransitions';
 import HomeScreen from '../Screens/HomeScreen'
 import SettingsScreen from '../Screens/SettingsScreen'
 import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen'
@@ -74,8 +75,9 @@ export default class NavigatorController extends Component {
             renderScene={this.renderScene}
 
             configureScene={(route, routeStack) =>
+              CustomTransitions.NONE
               //Navigator.SceneConfigs.PushFromRight //tipo iphone
-              Navigator.SceneConfigs.FloatFromBottomAndroid //tipo android
+              //Navigator.SceneConfigs.FloatFromBottomAndroid //tipo android
             }
 
             navigationBar={

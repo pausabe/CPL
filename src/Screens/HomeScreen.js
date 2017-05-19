@@ -37,12 +37,12 @@ A_FERIES
 N_OCTAVA
 N_ABANS
 */
-
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      LITURGIA: null,
       ofici: null,
       santPressed: false,
       memoria: false,
@@ -70,42 +70,136 @@ export default class HomeScreen extends Component {
     //today.setFullYear(2017); //XXXX
 
     acceso = new DBAdapter();
-    acceso.getAnyLiturgic(today.getFullYear(),
-                          today.getMonth(),
-                          today.getDate(),
-                          (current, tomorrow) => {
-                            var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
-                            this.setState({
-                                    monthDay: today.getDate(), //1-31
-                                    month: today.getMonth(), //0-11
-                                    year: today.getFullYear(), //xxxx
-                                    hour: today.getHours(), //0-23
-                                    weekDay: today.getDay(), //0-6 (diumenge-dissabte)
-                                    anyliturgic: current,
-                                    celebracio: cel,
-                                    LT: current.temps,
-                                    cicle: current.cicle, //1-4
-                                    setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-                                    ABC: current.anyABC,
-                                    anyliturgic2: tomorrow,
-                                    LT2: tomorrow.temps,
-                                    cicle2: tomorrow.cicle,
-                                    setmana2: tomorrow.NumSet,
-                                    ABC2: tomorrow.anyABC,
-                                  });
-                            //console.log("avui/dema -> " + this.state.anyliturgic.cicle + " / " + this.state.anyliturgic2.cicle);
-                            //console.log("LT: " + this.state.LT);
-                            //console.log("Celebracio: " + this.state.celebracio);
-                            new SOUL(this.state, this);
-                          });
+    acceso.getAnyLiturgic(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      (current, tomorrow) => {
+        var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
+        this.setState({
+          monthDay: today.getDate(), //1-31
+          month: today.getMonth(), //0-11
+          year: today.getFullYear(), //xxxx
+          hour: today.getHours(), //0-23
+          weekDay: today.getDay(), //0-6 (diumenge-dissabte)
+          anyliturgic: current,
+          celebracio: cel,
+          LT: current.temps,
+          cicle: current.cicle, //1-4
+          setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+          ABC: current.anyABC,
+          anyliturgic2: tomorrow,
+          LT2: tomorrow.temps,
+          cicle2: tomorrow.cicle,
+          setmana2: tomorrow.NumSet,
+          ABC2: tomorrow.anyABC,
+        });
 
-      //id = 1;
-      //acceso.getLiturgia("salteriComuEspPasquaDium", id, (result) => { this.queryRows.salteriComuEspPasquaDium = result; this.dataReceived(); });
+        new SOUL(this.state, this);
+      }
+    );
   }
 
   setSoul(LITURGIA){
-    //console.log("laudeeeeees -> " + LITURGIA.laudes.oracio);
     this.setState({ LITURGIA: LITURGIA });
+  }
+
+  componentWillMount() {
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      this.props.navigator.pop();
+      return true;
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoText}>Diòcesi de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
+          </View>
+          <View style={styles.diaLiturgicContainer}>
+            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.weekDay)}{this.state.anyliturgic.NumSet !== 0 ? " de la setmana" : null}
+              {this.state.anyliturgic.NumSet !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.NumSet)}</Text> : null }</Text>
+            <Text style={styles.diaLiturgicText}>Temps de
+              <Text style={{color: '#c0392b'}}> {this.state.anyliturgic.tempsespecific}</Text></Text>
+            <Text style={styles.diaLiturgicText}>Setmana
+              <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.cicle)} </Text>
+              del cicle litúrgic, any
+                <Text style={{color: '#c0392b'}}> {this.state.ABC}</Text></Text>
+          </View>
+          <View style={styles.santContainer}>
+            <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{flex: 20, justifyContent: 'center'}}>
+                  <Text style={styles.santText}>{this.state.LITURGIA === null ? "NO - " : "YES - "}{"Santa Perpètua i Santa Felicitat"}</Text>
+                </View>
+                <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
+                  {this.state.santPressed ?
+                    <Icon
+                      name="ios-arrow-down"
+                      size={25}
+                      color="#424242"
+                    />
+                    :
+                    <Icon
+                      name="ios-arrow-forward-outline"
+                      size={25}
+                      iconStyle={{padding: 50}}
+                      color="#424242"
+                    />
+                  }
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          {this.state.santPressed ?
+            <View style={styles.liturgiaContainer}>
+              <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
+              <Text style={styles.santExText}/>
+              <Liturgia navigator={this.props.navigator}
+                        hour={this.state.hour}
+                        weekDay={this.state.weekDay}
+                        monthDay={this.state.monthDay}
+                        month={this.state.month}
+                        year={this.state.year}
+                        cicle={this.state.cicle}
+                        setmana={this.state.setmana}
+                        LT={this.state.LT}
+                        ABC={this.state.ABC}
+                        cicle2={this.state.cicle2}
+                        setmana2={this.state.setmana2}
+                        LT2={this.state.LT2}
+                        ABC2={this.state.ABC2}
+                        LITURGIA={this.state.LITURGIA}/>
+            </View>
+            :
+            <View style={styles.liturgiaContainer}>
+              <Liturgia navigator={this.props.navigator}
+                        hour={this.state.hour}
+                        weekDay={this.state.weekDay}
+                        monthDay={this.state.monthDay}
+                        month={this.state.month}
+                        year={this.state.year}
+                        cicle={this.state.cicle}
+                        setmana={this.state.setmana}
+                        LT={this.state.LT}
+                        ABC={this.state.ABC}
+                        cicle2={this.state.cicle2}
+                        setmana2={this.state.setmana2}
+                        LT2={this.state.LT2}
+                        ABC2={this.state.ABC2}
+                        LITURGIA={this.state.LITURGIA}/>
+            </View>
+          }
+        </Image>
+      </View>
+    )
+  }
+
+  onSantPress(){
+    this.setState({santPressed: !this.state.santPressed});
   }
 
   celebracio(diocesis, anyliturgic){
@@ -246,104 +340,6 @@ export default class HomeScreen extends Component {
         return("Dissabte");
         break;
     }
-  }
-
-  componentWillMount() {
-    BackAndroid.addEventListener('hardwareBackPress', () => {
-      this.props.navigator.pop();
-      return true;
-    });
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesi de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
-          </View>
-          <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.weekDay)}{this.state.anyliturgic.NumSet !== 0 ? " de la setmana" : null}
-              {this.state.anyliturgic.NumSet !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.NumSet)}</Text> : null }</Text>
-            <Text style={styles.diaLiturgicText}>Temps de
-              <Text style={{color: '#c0392b'}}> {this.state.anyliturgic.tempsespecific}</Text></Text>
-            <Text style={styles.diaLiturgicText}>Setmana
-              <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.cicle)} </Text>
-              del cicle litúrgic, any
-                <Text style={{color: '#c0392b'}}> {this.state.ABC}</Text></Text>
-          </View>
-          <View style={styles.santContainer}>
-            <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
-              <View style={{flex: 1, flexDirection: 'row'}}>
-                <View style={{flex: 20, justifyContent: 'center'}}>
-                  <Text style={styles.santText}>Santa Perpètua i Santa Felicitat</Text>
-                </View>
-                <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
-                  {this.state.santPressed ?
-                    <Icon
-                      name="ios-arrow-down"
-                      size={25}
-                      color="#424242"
-                    />
-                    :
-                    <Icon
-                      name="ios-arrow-forward-outline"
-                      size={25}
-                      iconStyle={{padding: 50}}
-                      color="#424242"
-                    />
-                  }
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          {this.state.santPressed ?
-            <View style={styles.liturgiaContainer}>
-              <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
-              <Text style={styles.santExText}/>
-              <Liturgia navigator={this.props.navigator}
-                        hour={this.state.hour}
-                        weekDay={this.state.weekDay}
-                        monthDay={this.state.monthDay}
-                        month={this.state.month}
-                        year={this.state.year}
-                        cicle={this.state.cicle}
-                        setmana={this.state.setmana}
-                        LT={this.state.LT}
-                        ABC={this.state.ABC}
-                        cicle2={this.state.cicle2}
-                        setmana2={this.state.setmana2}
-                        LT2={this.state.LT2}
-                        ABC2={this.state.ABC2}
-                        LITURGIA={this.state.LITURGIA}/>
-            </View>
-            :
-            <View style={styles.liturgiaContainer}>
-              <Liturgia navigator={this.props.navigator}
-                        hour={this.state.hour}
-                        weekDay={this.state.weekDay}
-                        monthDay={this.state.monthDay}
-                        month={this.state.month}
-                        year={this.state.year}
-                        cicle={this.state.cicle}
-                        setmana={this.state.setmana}
-                        LT={this.state.LT}
-                        ABC={this.state.ABC}
-                        cicle2={this.state.cicle2}
-                        setmana2={this.state.setmana2}
-                        LT2={this.state.LT2}
-                        ABC2={this.state.ABC2}
-                        LITURGIA={this.state.LITURGIA}/>
-            </View>
-          }
-        </Image>
-      </View>
-    )
-  }
-
-  onSantPress(){
-    this.setState({santPressed: !this.state.santPressed});
   }
 }
 

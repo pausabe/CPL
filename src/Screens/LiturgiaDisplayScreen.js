@@ -4,7 +4,7 @@ import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
 import Ofici from '../Components/OficiDisplay'
 import Laudes from '../Components/LaudesDisplay'
 import Vespres from '../Components/VespresDisplay'
-import HoraMenor from '../Components/HoraMenor'
+import HoraMenor from '../Components/HoraMenorDisplay'
 import Completes from '../Components/Completes'
 
 function paddingBar(){
@@ -108,7 +108,8 @@ export default class LiturgiaDisplayScreen extends Component {
                   cicle = {this.props.cicle}
                   setmana = {this.props.setmana}
                   LT={this.props.LT}
-                  ABC={this.props.ABC}/>
+                  ABC={this.props.ABC}
+                  HORA_MENOR = {this.props.LITURGIA.tercia}/>
                 )
               break;
               case 'Sexta':
@@ -123,7 +124,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     cicle = {this.props.cicle}
                     setmana = {this.props.setmana}
                     LT={this.props.LT}
-                    ABC={this.props.ABC}/>
+                    ABC={this.props.ABC}
+                    HORA_MENOR = {this.props.LITURGIA.sexta}/>
                   )
                 break;
               case 'Nona':
@@ -138,7 +140,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     cicle = {this.props.cicle}
                     setmana = {this.props.setmana}
                     LT={this.props.LT}
-                    ABC={this.props.ABC}/>
+                    ABC={this.props.ABC}
+                    HORA_MENOR = {this.props.LITURGIA.nona}/>
                   )
                 break;
               case 'Completes':
