@@ -5,21 +5,6 @@ import {
   Platform
 } from 'react-native';
 import Hr from 'react-native-hr';
-
-const O_ORDINARI = 'O_ORDINAR';
-const Q_CENDRA = 'Q_CENDRA';
-const Q_SETMANES = 'Q_SETMANES';
-const Q_DIUM_RAMS = 'Q_DIUM_RAMS';
-const Q_SET_SANTA = 'Q_SET_SANTA';
-const Q_TRIDU = 'Q_TRIDU';
-const Q_DIUM_PASQUA = 'Q_DIUM_PASQUA';
-const P_OCTAVA = 'P_OCTAVA';
-const P_SETMANES = 'P_SETMANES';
-const A_SETMANES = 'A_SETMANES';
-const A_FERIES = 'A_FERIES';
-const N_OCTAVA = 'N_OCTAVA';
-const N_ABANS = 'N_ABANS';
-
 import GLOBAL from '../Globals/Globals';
 
 export default class LaudesSoul {
@@ -102,24 +87,24 @@ export default class LaudesSoul {
 
   introduccio(LT, setmana){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         antInvitatori = this.state.salteriComuInvitatori.ant;
         break;
-      case Q_CENDRA:
-      case Q_SETMANES:
+      case GLOBAL.Q_CENDRA:
+      case GLOBAL.Q_SETMANES:
         antInvitatori = this.state.tempsQuaresmaComuFV.antInvitatori1;
         break;
-      case Q_DIUM_RAMS:
-      case Q_SET_SANTA:
+      case GLOBAL.Q_DIUM_RAMS:
+      case GLOBAL.Q_SET_SANTA:
         antInvitatori = this.state.tempsQuaresmaComuSS.antInvitatori;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         antInvitatori = this.state.tempsQuaresmaTridu.antInvitatori;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         antInvitatori = this.state.tempsPasquaAA.antInvitatori;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         if(setmana === 7){
           antInvitatori = this.state.tempsPasquaDA.antInvitatori;
         }
@@ -127,12 +112,12 @@ export default class LaudesSoul {
           antInvitatori = this.state.tempsPasquaAA.antInvitatori;
         }
         break;
-      case A_SETMANES:
-      case A_FERIES:
-      case N_ABANS:
+      case GLOBAL.A_SETMANES:
+      case GLOBAL.A_FERIES:
+      case GLOBAL.N_ABANS:
         antInvitatori = this.state.tempsAdventNadalComu.antInvitatori;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         antInvitatori = this.state.tempsSolemnitatsFestes.antInvitatori;
         break;
     }
@@ -142,7 +127,7 @@ export default class LaudesSoul {
 
   himne(LT, weekDay, setmana){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.salteriComuLaudes.himneLlati;
         }
@@ -150,8 +135,8 @@ export default class LaudesSoul {
           himne = this.state.salteriComuLaudes.himneCat;
         }
         break;
-      case Q_CENDRA:
-      case Q_SETMANES:
+      case GLOBAL.Q_CENDRA:
+      case GLOBAL.Q_SETMANES:
         if(weekDay===0){ //diumenge
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsQuaresmaComuFV.himneLaudesLlatiDom;
@@ -169,8 +154,8 @@ export default class LaudesSoul {
           }
         }
         break;
-      case Q_DIUM_RAMS:
-      case Q_SET_SANTA:
+      case GLOBAL.Q_DIUM_RAMS:
+      case GLOBAL.Q_SET_SANTA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsQuaresmaComuSS.himneLaudesLlati;
         }
@@ -178,7 +163,7 @@ export default class LaudesSoul {
           himne = this.state.tempsQuaresmaComuSS.himneLaudesCat;
         }
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsQuaresmaTridu.himneDSOLaudesllati;
         }
@@ -186,7 +171,7 @@ export default class LaudesSoul {
           himne = this.state.tempsQuaresmaTridu.himneDSOLaudescat;
         }
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsPasquaAA.himneLaudesLlati1;
         }
@@ -194,7 +179,7 @@ export default class LaudesSoul {
           himne = this.state.tempsPasquaAA.himneLaudesCat1;
         }
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         if(setmana === 7){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneLaudesLlati;
@@ -212,9 +197,9 @@ export default class LaudesSoul {
           }
         }
         break;
-      case A_SETMANES:
-      case A_FERIES:
-      case N_ABANS:
+      case GLOBAL.A_SETMANES:
+      case GLOBAL.A_FERIES:
+      case GLOBAL.N_ABANS:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsAdventNadalComu.himneLaudesLlati;
         }
@@ -222,7 +207,7 @@ export default class LaudesSoul {
           himne = this.state.tempsAdventNadalComu.himneLaudesCat;
         }
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsSolemnitatsFestes.himneLaudesLlati;
         }
@@ -236,10 +221,10 @@ export default class LaudesSoul {
 
   salmodia(LT, setmana, weekDay){
     switch(LT){
-      case O_ORDINARI:
-      case Q_CENDRA:
-      case A_FERIES:
-      case N_ABANS:
+      case GLOBAL.O_ORDINARI:
+      case GLOBAL.Q_CENDRA:
+      case GLOBAL.A_FERIES:
+      case GLOBAL.N_ABANS:
         ant1 = this.state.salteriComuLaudes.ant1;
         titol1 = this.state.salteriComuLaudes.titol1;
         com1 = this.state.salteriComuLaudes.com1;
@@ -256,7 +241,7 @@ export default class LaudesSoul {
         salm3 = this.state.salteriComuLaudes.salm3;
         gloria3 = this.state.salteriComuLaudes.gloria3;
         break;
-        case Q_SETMANES:
+        case GLOBAL.Q_SETMANES:
           ant1 = this.state.salteriComuLaudes.ant1;
           titol1 = this.state.salteriComuLaudes.titol1;
           com1 = this.state.salteriComuLaudes.com1;
@@ -278,7 +263,7 @@ export default class LaudesSoul {
               ant3 = this.state.tempsQuaresmaVSetmanesDium.ant3Laudes;
             }
           break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         ant1 = this.state.salteriComuLaudes.ant1;
         titol1 = this.state.salteriComuLaudes.titol1;
         com1 = this.state.salteriComuLaudes.com1;
@@ -300,7 +285,7 @@ export default class LaudesSoul {
             ant3 = this.state.tempsQuaresmaRams.ant3Laudes;
           }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         ant1 = this.state.salteriComuLaudes.ant1;
         titol1 = this.state.salteriComuLaudes.titol1;
         com1 = this.state.salteriComuLaudes.com1;
@@ -322,7 +307,7 @@ export default class LaudesSoul {
         ant3 = this.state.tempsQuaresmaSetSanta.ant3Laudes;
 
       break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         ant1 = this.state.tempsQuaresmaTridu.ant1Laudes;
         titol1 = this.state.tempsQuaresmaTridu.titol1Laudes;
         com1 = "-";
@@ -339,7 +324,7 @@ export default class LaudesSoul {
         salm3 = this.state.tempsQuaresmaTridu.salm3Laudes;
         gloria3 = this.state.tempsQuaresmaTridu.gloriaLaudes3;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         ant1 = this.state.tempsQuaresmaDiumPasq.ant1Laudes;
         titol1 = this.state.tempsQuaresmaDiumPasq.titol1Laudes;
         com1 = "-";
@@ -356,7 +341,7 @@ export default class LaudesSoul {
         salm3 = this.state.tempsQuaresmaDiumPasq.text3Laudes;
         gloria3 = this.state.tempsQuaresmaDiumPasq.gloria3Laudes;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         titol1 = this.state.salteriComuLaudes.titol1;
         com1 = this.state.salteriComuLaudes.com1;
         salm1 = this.state.salteriComuLaudes.salm1;
@@ -381,7 +366,7 @@ export default class LaudesSoul {
           ant3 = this.state.salteriComuEspPasqua.ant3Laudes;
         }
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         titol1 = this.state.salteriComuLaudes.titol1;
         com1 = this.state.salteriComuLaudes.com1;
         salm1 = this.state.salteriComuLaudes.salm1;
@@ -406,7 +391,7 @@ export default class LaudesSoul {
           ant3 = this.state.salteriComuLaudes.ant3;
         }
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         ant1 = this.state.salteriComuLaudes.ant1;
         titol1 = this.state.salteriComuLaudes.titol1;
         com1 = this.state.salteriComuLaudes.com1;
@@ -447,51 +432,51 @@ export default class LaudesSoul {
 
   lecturaBreu(LT){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         vers = this.state.salteriComuLaudes.versetLB;
         lecturaBreu = this.state.salteriComuLaudes.lecturaBreu;
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         vers = this.state.tempsQuaresmaCendra.citaLBLaudes;
         lecturaBreu = this.state.tempsQuaresmaCendra.lecturaBreuLaudes;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         vers = this.state.tempsQuaresmaVSetmanes.citaLBLaudes;
         lecturaBreu = this.state.tempsQuaresmaVSetmanes.lecturaBreuLaudes;
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         vers = this.state.tempsQuaresmaRams.citaLBLaudes;
         lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuLaudes;
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         vers = this.state.tempsQuaresmaSetSanta.citaLBLaudes;
         lecturaBreu = this.state.tempsQuaresmaSetSanta.lecturaBreuLaudes;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         vers = this.state.tempsQuaresmaTridu.citaLBLaudes;
         lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuLaudes;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         vers = this.state.tempsPasquaOct.citaLBLaudes;
         lecturaBreu = this.state.tempsPasquaOct.lecturaBreuLaudes;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         vers = this.state.tempsPasquaSetmanes.citaLBLaudes;
         lecturaBreu = this.state.tempsPasquaSetmanes.lecturaBreuLaudes;
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         vers = this.state.tempsAdventSetmanes.citaLBLaudes;
         lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuLaudes;
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         vers = this.state.tempsAdventFeries.citaLBLaudes;
         lecturaBreu = this.state.tempsAdventFeries.lecturaBreuLaudes;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         vers = this.state.tempsNadalOctava.citaLBLaudes;
         lecturaBreu = this.state.tempsNadalOctava.lecturaBreuLaudes;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         vers = this.state.tempsNadalAbansEpifania.citaLBLaudes;
         lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuLaudes;
         break;
@@ -502,62 +487,62 @@ export default class LaudesSoul {
 
   responsori(LT){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         respBreu1 = this.state.salteriComuLaudes.respBreu1
         respBreu2 = this.state.salteriComuLaudes.respBreu2
         respBreu3 = this.state.salteriComuLaudes.respBreu3
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         respBreu1 = this.state.tempsQuaresmaCendra.respBreuLaudes1
         respBreu2 = this.state.tempsQuaresmaCendra.respBreuLaudes2
         respBreu3 = this.state.tempsQuaresmaCendra.respBreuLaudes3
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         respBreu1 = this.state.tempsQuaresmaVSetmanes.respBreuLaudes1
         respBreu2 = this.state.tempsQuaresmaVSetmanes.respBreuLaudes2
         respBreu3 = this.state.tempsQuaresmaVSetmanes.respBreuLaudes3
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         respBreu1 = this.state.tempsQuaresmaRams.respBreu1Laudes
         respBreu2 = this.state.tempsQuaresmaRams.respBreu2Laudes
         respBreu3 = this.state.tempsQuaresmaRams.respBreu3Laudes
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         respBreu1 = this.state.tempsQuaresmaSetSanta.respBreu1Laudes
         respBreu2 = this.state.tempsQuaresmaSetSanta.respBreu2Laudes
         respBreu3 = this.state.tempsQuaresmaSetSanta.respBreu3Laudes
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         respBreu1 = this.state.tempsPasquaSetmanes.respBreuLaudes1
         respBreu2 = this.state.tempsPasquaSetmanes.respBreuLaudes2
         respBreu3 = this.state.tempsPasquaSetmanes.respBreuLaudes3
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         respBreu1 = this.state.tempsAdventSetmanes.respBreuLaudes1
         respBreu2 = this.state.tempsAdventSetmanes.respBreuLaudes2
         respBreu3 = this.state.tempsAdventSetmanes.respBreuLaudes3
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         respBreu1 = this.state.tempsAdventFeries.respBreuLaudes1
         respBreu2 = this.state.tempsAdventFeries.respBreuLaudes2
         respBreu3 = this.state.tempsAdventFeries.respBreuLaudes3
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         respBreu1 = this.state.tempsNadalOctava.resp2Breu1Laudes
         respBreu2 = this.state.tempsNadalOctava.resp2Breu2Laudes
         respBreu3 = this.state.tempsNadalOctava.resp2Breu3Laudes
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         respBreu1 = this.state.tempsNadalAbansEpifania.respBreuLaudes1
         respBreu2 = this.state.tempsNadalAbansEpifania.respBreuLaudes2
         respBreu3 = this.state.tempsNadalAbansEpifania.respBreuLaudes3
         break;
     }
-    if(LT === Q_TRIDU){
+    if(LT === GLOBAL.Q_TRIDU){
       this.LAUDES.calAntEspecial = true;
       this.LAUDES.antEspecialLaudes = antEspecialLaudes;
     }
-    else if(LT === P_OCTAVA){
+    else if(LT === GLOBAL.P_OCTAVA){
       this.LAUDES.calAntEspecial = true;
       this.LAUDES.antEspecialLaudes = antEspecialLaudes;
     }
@@ -571,7 +556,7 @@ export default class LaudesSoul {
 
   cantic(LT, weekDay, litYear){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(weekDay !== 0){ ///no diumenge
           antCantic = this.state.salteriComuLaudes.antEvangelic;
         }
@@ -589,10 +574,10 @@ export default class LaudesSoul {
           }
         }
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         antCantic = this.state.tempsQuaresmaCendra.antZacaries;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         if(weekDay !== 0){ ///no diumenge
           antCantic = this.state.tempsQuaresmaVSetmanesDium.antZacaries;
         }
@@ -610,7 +595,7 @@ export default class LaudesSoul {
           }
         }
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         switch (litYear) {
           case 'A':
             antCantic = this.state.tempsQuaresmaRams.antZacariesA;
@@ -623,16 +608,16 @@ export default class LaudesSoul {
             break;
         }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
           antCantic = this.state.tempsQuaresmaSetSanta.antZacaries;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
           antCantic = this.state.tempsQuaresmaTridu.antZacaries;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
           antCantic = this.state.tempsPasquaOct.antZacaries;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         if(weekDay !== 0){ ///no diumenge
           antCantic = this.state.tempsPasquaSetmanes.antZacaries;
         }
@@ -650,7 +635,7 @@ export default class LaudesSoul {
           }
         }
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         if(weekDay !== 0){ ///no diumenge
           antCantic = this.state.tempsAdventSetmanes.antZacaries;
         }
@@ -668,13 +653,13 @@ export default class LaudesSoul {
           }
         }
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         antCantic = this.state.tempsAdventFeries.antZacaries;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         antCantic = this.state.tempsNadalOctava.antZacaries;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         antCantic = this.state.tempsNadalAbansEpifania.antZacaries;
         break;
     }
@@ -684,40 +669,40 @@ export default class LaudesSoul {
 
   pregaries(LT){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         pregaries = this.state.salteriComuLaudes.pregaries;
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         pregaries = this.state.tempsQuaresmaCendra.pregariesLaudes;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         pregaries = this.state.tempsQuaresmaVSetmanes.pregariesLaudes;
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
           pregaries = this.state.tempsQuaresmaRams.pregariesLaudes;
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
           pregaries = this.state.tempsQuaresmaSetSanta.pregariesLaudes;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
           pregaries = this.state.tempsQuaresmaTridu.pregariesLaudes;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
           pregaries = this.state.tempsPasquaOct.pregariesLaudes;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
           pregaries = this.state.tempsPasquaSetmanes.pregariesLaudes;
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
           pregaries = this.state.tempsAdventSetmanes.pregariesLaudes;
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
           pregaries = this.state.tempsAdventFeries.pregariesLaudes;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
           pregaries = this.state.tempsNadalOctava.pregariesLaudes;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         pregaries = this.state.tempsNadalAbansEpifania.pregariesLaudes;
         break;
     }
@@ -726,7 +711,7 @@ export default class LaudesSoul {
 
   oracio(LT, weekDay){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(weekDay !== 0){ ///no diumenge
           oracio = this.state.salteriComuLaudes.oraFi;
         }
@@ -734,37 +719,37 @@ export default class LaudesSoul {
           oracio = this.state.tempsOrdinariOracions.oracio;
         }
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         oracio = this.state.tempsQuaresmaCendra.oraFiLaudes;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         oracio = this.state.tempsQuaresmaVSetmanes.oraFiLaudes;
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         oracio = this.state.tempsQuaresmaRams.oraFiLaudes;
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         oracio = this.state.tempsQuaresmaSetSanta.oraFiLaudes;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         oracio = this.state.tempsQuaresmaTridu.oraFiLaudes;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         oracio = this.state.tempsPasquaOct.oraFiLaudes;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         oracio = this.state.tempsPasquaSetmanes.oraFiLaudes;
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         oracio = this.state.tempsAdventSetmanes.oraFiLaudes;
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         oracio = this.state.tempsAdventFeries.oraFiLaudes;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         oracio = this.state.tempsNadalOctava.oraFiLaudes;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
         break;
     }

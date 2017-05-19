@@ -5,7 +5,7 @@ import Ofici from '../Components/OficiDisplay'
 import Laudes from '../Components/LaudesDisplay'
 import Vespres from '../Components/VespresDisplay'
 import HoraMenor from '../Components/HoraMenorDisplay'
-import Completes from '../Components/Completes'
+import Completes from '../Components/CompletesDisplay'
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -155,7 +155,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     cicle = {this.props.cicle}
                     setmana = {this.props.setmana}
                     LT={this.props.LT}
-                    ABC={this.propsABC}/>
+                    ABC={this.propsABC}
+                    COMPLETES = {this.props.LITURGIA.completes}/>
                   )
                 break;
       default: return(<Text style={styles.normalText}>{this.props.type}</Text>)

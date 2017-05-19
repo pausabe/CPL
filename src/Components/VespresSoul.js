@@ -2,20 +2,6 @@ import { Platform } from 'react-native';
 import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
 
-const O_ORDINARI = 'O_ORDINAR';
-const Q_CENDRA = 'Q_CENDRA';
-const Q_SETMANES = 'Q_SETMANES';
-const Q_DIUM_RAMS = 'Q_DIUM_RAMS';
-const Q_SET_SANTA = 'Q_SET_SANTA';
-const Q_TRIDU = 'Q_TRIDU';
-const Q_DIUM_PASQUA = 'Q_DIUM_PASQUA';
-const P_OCTAVA = 'P_OCTAVA';
-const P_SETMANES = 'P_SETMANES';
-const A_SETMANES = 'A_SETMANES';
-const A_FERIES = 'A_FERIES';
-const N_OCTAVA = 'N_OCTAVA';
-const N_ABANS = 'N_ABANS';
-
 export default class Vespres {
   constructor(props, TABLES, HS, SOUL) {
 
@@ -92,7 +78,7 @@ export default class Vespres {
 
   himne(LT, weekDay, setmana){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.salteriComuVespres.himneLlati;
         }
@@ -100,8 +86,8 @@ export default class Vespres {
           himne = this.state.salteriComuVespres.himneCat;
         }
         break;
-      case Q_CENDRA:
-      case Q_SETMANES:
+      case GLOBAL.Q_CENDRA:
+      case GLOBAL.Q_SETMANES:
         if(weekDay===0 || weekDay===6){ //vespres de diumenge
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsQuaresmaComuFV.himneVespresLlatiDom;
@@ -119,8 +105,8 @@ export default class Vespres {
           }
         }
         break;
-      case Q_DIUM_RAMS:
-      case Q_SET_SANTA:
+      case GLOBAL.Q_DIUM_RAMS:
+      case GLOBAL.Q_SET_SANTA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsQuaresmaComuSS.himneVespresLlati;
         }
@@ -128,7 +114,7 @@ export default class Vespres {
           himne = this.state.tempsQuaresmaComuSS.himneVespresCat;
         }
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsQuaresmaTridu.himneDSOVespresllati;
         }
@@ -136,7 +122,7 @@ export default class Vespres {
           himne = this.state.tempsQuaresmaTridu.himneDSOVespresCat;
         }
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsPasquaAA.himneVespresLlati1;
         }
@@ -144,7 +130,7 @@ export default class Vespres {
           himne = this.state.tempsPasquaAA.himneVespresCat1;
         }
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         if(setmana === 7){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneVespresLlati;
@@ -162,9 +148,9 @@ export default class Vespres {
           }
         }
         break;
-      case A_SETMANES:
-      case A_FERIES:
-      case N_ABANS:
+      case GLOBAL.A_SETMANES:
+      case GLOBAL.A_FERIES:
+      case GLOBAL.N_ABANS:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsAdventNadalComu.himneVespresLlati;
         }
@@ -172,7 +158,7 @@ export default class Vespres {
           himne = this.state.tempsAdventNadalComu.himneVespresCat;
         }
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           himne = this.state.tempsSolemnitatsFestes.himneVespres2Llati;
         }
@@ -186,10 +172,10 @@ export default class Vespres {
 
   salmodia(LT, setmana, weekDay){
     switch(LT){
-      case O_ORDINARI:
-      case Q_CENDRA:
-      case A_FERIES:
-      case N_ABANS:
+      case GLOBAL.O_ORDINARI:
+      case GLOBAL.Q_CENDRA:
+      case GLOBAL.A_FERIES:
+      case GLOBAL.N_ABANS:
         ant1 = this.state.salteriComuVespres.ant1;
         titol1 = this.state.salteriComuVespres.titol1;
         com1 = this.state.salteriComuVespres.com1;
@@ -206,7 +192,7 @@ export default class Vespres {
         salm3 = this.state.salteriComuVespres.salm3;
         gloria3 = this.state.salteriComuVespres.gloria3;
         break;
-        case Q_SETMANES:
+        case GLOBAL.Q_SETMANES:
           ant1 = this.state.salteriComuVespres.ant1;
           titol1 = this.state.salteriComuVespres.titol1;
           com1 = this.state.salteriComuVespres.com1;
@@ -233,7 +219,7 @@ export default class Vespres {
             ant3 = this.state.tempsQuaresmaVSetmanesDium.ant3Vespres2;
           }
           break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         ant1 = this.state.salteriComuVespres.ant1;
         titol1 = this.state.salteriComuVespres.titol1;
         com1 = this.state.salteriComuVespres.com1;
@@ -260,7 +246,7 @@ export default class Vespres {
           ant3 = this.state.tempsQuaresmaRams.ant3Vespres2;
         }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         ant1 = this.state.salteriComuVespres.ant1;
         titol1 = this.state.salteriComuVespres.titol1;
         com1 = this.state.salteriComuVespres.com1;
@@ -282,7 +268,7 @@ export default class Vespres {
         ant3 = this.state.tempsQuaresmaSetSanta.ant3Vespres;
 
       break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         ant1 = this.state.tempsQuaresmaTridu.ant1Vespres;
         titol1 = this.state.tempsQuaresmaTridu.titol1Vespres;
         com1 = "-";
@@ -299,7 +285,7 @@ export default class Vespres {
         salm3 = this.state.tempsQuaresmaTridu.salm3Vespres;
         gloria3 = this.state.tempsQuaresmaTridu.gloriaVespres3;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         ant1 = this.state.tempsQuaresmaDiumPasq.ant1Vespres;
         titol1 = this.state.tempsQuaresmaDiumPasq.titol1Vespres;
         com1 = "-";
@@ -316,7 +302,7 @@ export default class Vespres {
         salm3 = this.state.tempsQuaresmaDiumPasq.text3Vespres;
         gloria3 = this.state.tempsQuaresmaDiumPasq.gloria3Vespres;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         titol1 = this.state.salteriComuVespres.titol1;
         com1 = this.state.salteriComuVespres.com1;
         salm1 = this.state.salteriComuVespres.salm1;
@@ -346,7 +332,7 @@ export default class Vespres {
           ant3 = this.state.salteriComuEspPasqua.ant3Vespres;
         }
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         ant1 = this.state.salteriComuVespres.ant1;
         titol1 = this.state.salteriComuVespres.titol1;
         com1 = this.state.salteriComuVespres.com1;
@@ -373,7 +359,7 @@ export default class Vespres {
           ant3 = this.state.tempsAdventSetmanesDium.ant3Vespres2;
         }
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         ant1 = this.state.tempsSolemnitatsFestes.ant1Vespres2;
         titol1 = this.state.tempsSolemnitatsFestes.titol1Vespres2;
         com1 = this.state.tempsSolemnitatsFestes.cita1Vespres2;
@@ -410,19 +396,19 @@ export default class Vespres {
 
   lecturaBreu(LT, weekDay){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         vers = this.state.salteriComuVespres.versetLB;
         lecturaBreu = this.state.salteriComuVespres.lecturaBreu;
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         vers = this.state.tempsQuaresmaCendra.citaLBVespres;
         lecturaBreu = this.state.tempsQuaresmaCendra.lecturaBreuVespres;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         vers = this.state.tempsQuaresmaVSetmanes.citaLBVespres;
         lecturaBreu = this.state.tempsQuaresmaVSetmanes.lecturaBreuVespres;
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         if(weekDay === 6){ //Primeres vespres
           vers = this.state.tempsQuaresmaRams.citaLBVespres;
           lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuVespres;
@@ -432,35 +418,35 @@ export default class Vespres {
           lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuVespres2;
         }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         vers = this.state.tempsQuaresmaSetSanta.citaLBVespres;
         lecturaBreu = this.state.tempsQuaresmaSetSanta.lecturaBreuVespres;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         vers = this.state.tempsQuaresmaTridu.citaLBVespres;
         lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuVespres;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         vers = this.state.tempsPasquaOct.citaLBVespres;
         lecturaBreu = this.state.tempsPasquaOct.lecturaBreuVespres;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         vers = this.state.tempsPasquaSetmanes.citaLBVespres;
         lecturaBreu = this.state.tempsPasquaSetmanes.lecturaBreuVespres;
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         vers = this.state.tempsAdventSetmanes.citaLBVespres;
         lecturaBreu = this.state.tempsAdventSetmanes.lecturaBreuVespres;
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         vers = this.state.tempsAdventFeries.citaLBVespres;
         lecturaBreu = this.state.tempsAdventFeries.lecturaBreuVespres;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         vers = this.state.tempsNadalOctava.citaLBVespres;
         lecturaBreu = this.state.tempsNadalOctava.lecturaBreuVespres;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         vers = this.state.tempsNadalAbansEpifania.citaLBVespres;
         lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuVespres;
         break;
@@ -471,22 +457,22 @@ export default class Vespres {
 
   responsori(LT, weekDay){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         respBreu1 = this.state.salteriComuVespres.respBreu1
         respBreu2 = this.state.salteriComuVespres.respBreu2
         respBreu3 = this.state.salteriComuVespres.respBreu3
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         respBreu1 = this.state.tempsQuaresmaCendra.respBreuVespres1
         respBreu2 = this.state.tempsQuaresmaCendra.respBreuVespres2
         respBreu3 = this.state.tempsQuaresmaCendra.respBreuVespres3
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         respBreu1 = this.state.tempsQuaresmaVSetmanes.respBreuVespres1
         respBreu2 = this.state.tempsQuaresmaVSetmanes.respBreuVespres2
         respBreu3 = this.state.tempsQuaresmaVSetmanes.respBreuVespres3
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         if(weekDay === 6){ //Primeres vespres
           respBreu1 = this.state.tempsQuaresmaRams.respBreuVespres1
           respBreu2 = this.state.tempsQuaresmaRams.respBreuVespres2
@@ -498,42 +484,42 @@ export default class Vespres {
           respBreu3 = this.state.tempsQuaresmaRams.respBreuVespres32
         }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         respBreu1 = this.state.tempsQuaresmaSetSanta.respBreuVespres1
         respBreu2 = this.state.tempsQuaresmaSetSanta.respBreuVespres2
         respBreu3 = this.state.tempsQuaresmaSetSanta.respBreuVespres3
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         respBreu1 = this.state.tempsPasquaSetmanes.respBreuVespres1
         respBreu2 = this.state.tempsPasquaSetmanes.respBreuVespres2
         respBreu3 = this.state.tempsPasquaSetmanes.respBreuVespres3
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         respBreu1 = this.state.tempsAdventSetmanes.respBreuVespres1
         respBreu2 = this.state.tempsAdventSetmanes.respBreuVespres2
         respBreu3 = this.state.tempsAdventSetmanes.respBreuVespres3
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         respBreu1 = this.state.tempsAdventFeries.respBreuVespres1
         respBreu2 = this.state.tempsAdventFeries.respBreuVespres2
         respBreu3 = this.state.tempsAdventFeries.respBreuVespres3
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         respBreu1 = this.state.tempsNadalOctava.respBreuVespres1Part1
         respBreu2 = this.state.tempsNadalOctava.respBreuVespres1Part2
         respBreu3 = this.state.tempsNadalOctava.respBreuVespres1Part3
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         respBreu1 = this.state.tempsNadalAbansEpifania.respBreuVespres1
         respBreu2 = this.state.tempsNadalAbansEpifania.respBreuVespres2
         respBreu3 = this.state.tempsNadalAbansEpifania.respBreuVespres3
         break;
     }
-    if(LT === Q_TRIDU){
+    if(LT === GLOBAL.Q_TRIDU){
       this.VESPRES.calAntEspecial = true;
       this.VESPRES.antEspecialVespres = antEspecialVespres;
     }
-    else if(LT === P_OCTAVA){
+    else if(LT === GLOBAL.P_OCTAVA){
       this.VESPRES.calAntEspecial = true;
       this.VESPRES.antEspecialVespres = antEspecialVespres;
     }
@@ -547,7 +533,7 @@ export default class Vespres {
 
   cantic(LT, weekDay, litYear){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge
           antCantic = this.state.salteriComuVespres.antEvangelic;
         }
@@ -580,10 +566,10 @@ export default class Vespres {
           }
         }
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         antCantic = this.state.tempsQuaresmaCendra.antMaria;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge
           antCantic = this.state.salteriComuVespres.antEvangelic;
         }
@@ -616,7 +602,7 @@ export default class Vespres {
           }
         }
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         if(weekDay === 6){ //dissabte, 1res Vespres
           switch (litYear) {
             case 'A':
@@ -644,16 +630,16 @@ export default class Vespres {
           }
         }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
           antCantic = this.state.tempsQuaresmaSetSanta.antMaria;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
           antCantic = this.state.tempsQuaresmaTridu.antMaria;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
           antCantic = this.state.tempsPasquaOct.antMaria;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         if(weekDay !== 6 && weekDay !== 0){ ///no vespres de diumenge
           antCantic = this.state.tempsPasquaSetmanes.antMaria;
         }
@@ -686,7 +672,7 @@ export default class Vespres {
           }
         }
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         if(weekDay !== 6 && weekDay !==0){ ///no vespres de diumenge
           antCantic = this.state.tempsAdventSetmanes.antMaria;
         }
@@ -719,13 +705,13 @@ export default class Vespres {
           }
         }
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         antCantic = this.state.tempsAdventFeries.antMaria;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         antCantic = this.state.tempsNadalOctava.antMaria;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         antCantic = this.state.tempsNadalAbansEpifania.antMaria;
         break;
     }
@@ -735,16 +721,16 @@ export default class Vespres {
 
   pregaries(LT, weekDay){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         pregaries = this.state.salteriComuVespres.pregaries;
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         pregaries = this.state.tempsQuaresmaCendra.pregariesVespres;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         pregaries = this.state.tempsQuaresmaVSetmanes.pregariesVespres;
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
           if(weekDay === 6){ //Primeres vespres
             pregaries = this.state.tempsQuaresmaRams.pregariesVespres1;
           }
@@ -752,28 +738,28 @@ export default class Vespres {
             pregaries = this.state.tempsQuaresmaRams.pregariesVespres12;
           }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
           pregaries = this.state.tempsQuaresmaSetSanta.pregariesVespres;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
           pregaries = this.state.tempsQuaresmaTridu.pregariesVespres;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
           pregaries = this.state.tempsPasquaOct.pregariesVespres;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
           pregaries = this.state.tempsPasquaSetmanes.pregariesVespres;
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
           pregaries = this.state.tempsAdventSetmanes.pregariesVespres;
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
           pregaries = this.state.tempsAdventFeries.pregariesVespres;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
           pregaries = this.state.tempsNadalOctava.pregariesVespres;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         pregaries = this.state.tempsNadalAbansEpifania.pregariesVespres;
         break;
     }
@@ -782,7 +768,7 @@ export default class Vespres {
 
   oracio(LT, weekDay){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge
           oracio = this.state.salteriComuVespres.oraFi;
         }
@@ -790,13 +776,13 @@ export default class Vespres {
           oracio = this.state.tempsOrdinariOracions.oracio;
         }
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         oracio = this.state.tempsQuaresmaCendra.oraFiVespres;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         oracio = this.state.tempsQuaresmaVSetmanes.oraFiVespres;
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         if(weekDay === 6){ //Primeres vespres
           oracio = this.state.tempsQuaresmaRams.oraFiVespres1;
         }
@@ -804,28 +790,28 @@ export default class Vespres {
           oracio = this.state.tempsQuaresmaRams.oraFiVespres12;
         }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         oracio = this.state.tempsQuaresmaSetSanta.oraFiVespres;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         oracio = this.state.tempsQuaresmaTridu.oraFiVespres;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         oracio = this.state.tempsPasquaOct.oraFiVespres;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         oracio = this.state.tempsPasquaSetmanes.oraFiVespres;
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         oracio = this.state.tempsAdventSetmanes.oraFiVespres;
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         oracio = this.state.tempsAdventFeries.oraFiVespres;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         oracio = this.state.tempsNadalOctava.oraFiVespres;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         oracio = this.state.tempsNadalAbansEpifania.oraFiVespres;
         break;
     }

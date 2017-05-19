@@ -6,21 +6,6 @@ import {
   Platform
 } from 'react-native';
 import Hr from 'react-native-hr';
-
-const O_ORDINARI = 'O_ORDINAR';
-const Q_CENDRA = 'Q_CENDRA';
-const Q_SETMANES = 'Q_SETMANES';
-const Q_DIUM_RAMS = 'Q_DIUM_RAMS';
-const Q_SET_SANTA = 'Q_SET_SANTA';
-const Q_TRIDU = 'Q_TRIDU';
-const Q_DIUM_PASQUA = 'Q_DIUM_PASQUA';
-const P_OCTAVA = 'P_OCTAVA';
-const P_SETMANES = 'P_SETMANES';
-const A_SETMANES = 'A_SETMANES';
-const A_FERIES = 'A_FERIES';
-const N_OCTAVA = 'N_OCTAVA';
-const N_ABANS = 'N_ABANS';
-
 import GLOBAL from '../Globals/Globals';
 
 export default class VespresDisplay extends Component {
@@ -36,7 +21,7 @@ export default class VespresDisplay extends Component {
         </Text>
         <Text />
         <Text style={GLOBAL.styles.black}>{gloriaStringIntro}
-        {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
+        {this.props.LT !== GLOBAL.Q_CENDRA && this.props.LT !== GLOBAL.Q_SETMANES && this.props.LT !== GLOBAL.Q_DIUM_RAMS && this.props.LT !== GLOBAL.Q_SET_SANTA && this.props.LT !== GLOBAL.Q_TRIDU ?
           <Text style={GLOBAL.styles.black}> Al·leluia</Text> : null
         }
         </Text>

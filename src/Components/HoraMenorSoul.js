@@ -2,20 +2,6 @@ import { Platform } from 'react-native';
 import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
 
-const O_ORDINARI = 'O_ORDINAR';
-const Q_CENDRA = 'Q_CENDRA';
-const Q_SETMANES = 'Q_SETMANES';
-const Q_DIUM_RAMS = 'Q_DIUM_RAMS';
-const Q_SET_SANTA = 'Q_SET_SANTA';
-const Q_TRIDU = 'Q_TRIDU';
-const Q_DIUM_PASQUA = 'Q_DIUM_PASQUA';
-const P_OCTAVA = 'P_OCTAVA';
-const P_SETMANES = 'P_SETMANES';
-const A_SETMANES = 'A_SETMANES';
-const A_FERIES = 'A_FERIES';
-const N_OCTAVA = 'N_OCTAVA';
-const N_ABANS = 'N_ABANS';
-
 export default class TerciaSoul {
   constructor(props, TABLES, HS, SOUL) {
 
@@ -98,7 +84,7 @@ export default class TerciaSoul {
 
   himne(LT, weekDay, setmana, HM){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           switch (HM) {
             case 'Tèrcia':
@@ -126,8 +112,8 @@ export default class TerciaSoul {
           }
         }
         break;
-      case Q_CENDRA:
-      case Q_SETMANES:
+      case GLOBAL.Q_CENDRA:
+      case GLOBAL.Q_SETMANES:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           switch (HM) {
             case 'Tèrcia':
@@ -155,8 +141,8 @@ export default class TerciaSoul {
           }
         }
         break;
-      case Q_DIUM_RAMS:
-      case Q_SET_SANTA:
+      case GLOBAL.Q_DIUM_RAMS:
+      case GLOBAL.Q_SET_SANTA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           this.HORA_MENOR.himne = this.state.tempsQuaresmaComuSS.himneHoraLlati;
         }
@@ -164,7 +150,7 @@ export default class TerciaSoul {
           this.HORA_MENOR.himne = this.state.tempsQuaresmaComuSS.himneHoraCat;
         }
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           switch (HM) {
             case 'Tèrcia':
@@ -192,7 +178,7 @@ export default class TerciaSoul {
           }
         }
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           switch (HM) {
             case 'Tèrcia':
@@ -220,7 +206,7 @@ export default class TerciaSoul {
           }
         }
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         if(setmana === 7){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             switch (HM) {
@@ -278,10 +264,10 @@ export default class TerciaSoul {
           }
         }
         break;
-      case A_SETMANES:
-      case A_FERIES:
-      case N_OCTAVA:
-      case N_ABANS:
+      case GLOBAL.A_SETMANES:
+      case GLOBAL.A_FERIES:
+      case GLOBAL.N_OCTAVA:
+      case GLOBAL.N_ABANS:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
           switch (HM) {
             case 'Tèrcia':
@@ -315,7 +301,7 @@ export default class TerciaSoul {
   salmodia(LT, setmana, weekDay, HM){
     this.HORA_MENOR.antifones = true;
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         this.HORA_MENOR.ant1 = this.state.salteriComuHora.ant1;
         this.HORA_MENOR.titol1 = this.state.salteriComuHora.titol1;
         this.HORA_MENOR.com1 = this.state.salteriComuHora.com1;
@@ -332,8 +318,8 @@ export default class TerciaSoul {
         this.HORA_MENOR.salm3 = this.state.salteriComuHora.salm3;
         this.HORA_MENOR.gloria3 = this.state.salteriComuHora.gloria3;
         break;
-      case Q_CENDRA:
-      case Q_SETMANES:
+      case GLOBAL.Q_CENDRA:
+      case GLOBAL.Q_SETMANES:
         this.HORA_MENOR.antifones = false;
 
         this.HORA_MENOR.titol1 = this.state.salteriComuHora.titol1;
@@ -361,8 +347,8 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case Q_DIUM_RAMS:
-      case Q_SET_SANTA:
+      case GLOBAL.Q_DIUM_RAMS:
+      case GLOBAL.Q_SET_SANTA:
         this.HORA_MENOR.antifones = false;
 
         this.HORA_MENOR.titol1 = this.state.salteriComuHora.titol1;
@@ -390,7 +376,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         this.HORA_MENOR.antifones = false;
 
         this.HORA_MENOR.titol1 = this.state.tempsQuaresmaTridu.titolSalmMenor1;
@@ -418,7 +404,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         this.HORA_MENOR.antifones = false;
 
         this.HORA_MENOR.titol1 = this.state.tempsPasquaOct.titol1salm117;
@@ -446,7 +432,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         this.HORA_MENOR.antifones = false;
 
         this.HORA_MENOR.titol1 = this.state.salteriComuHora.titol1;
@@ -464,10 +450,10 @@ export default class TerciaSoul {
 
         this.HORA_MENOR.ant = "Al·leluia, al·leluia, al·leluia."
         break;
-      case A_SETMANES:
-      case N_OCTAVA:
-      case A_FERIES:
-      case N_ABANS:
+      case GLOBAL.A_SETMANES:
+      case GLOBAL.N_OCTAVA:
+      case GLOBAL.A_FERIES:
+      case GLOBAL.N_ABANS:
         this.HORA_MENOR.antifones = false;
 
         this.HORA_MENOR.titol1 = this.state.salteriComuHora.titol1;
@@ -500,7 +486,7 @@ export default class TerciaSoul {
 
   lecturaBreuResp(LT, HM){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.salteriComuHora.versetLBTercia;
@@ -522,7 +508,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsQuaresmaCendra.citaLBTercia;
@@ -544,7 +530,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsQuaresmaVSetmanes.citaLBTercia;
@@ -566,7 +552,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsQuaresmaRams.citaLBTercia;
@@ -588,7 +574,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsQuaresmaSetSanta.citaLBTercia;
@@ -610,7 +596,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsQuaresmaTridu.citaLecturaBreuTercia;
@@ -632,7 +618,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         this.HORA_MENOR.respV = "Avui és el dia en què ha obrat el Senyor, al·leluia.";
         this.HORA_MENOR.respR = "Alegrem-nos i celebrem-lo, al·leluia.";
         switch (HM) {
@@ -650,7 +636,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsPasquaSetmanes.citaLBTercia;
@@ -672,7 +658,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsAdventSetmanes.citaLBTercia;
@@ -694,7 +680,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsAdventFeries.citaLBTercia;
@@ -716,7 +702,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsNadalOctava.citaLectBreuTercia;
@@ -738,7 +724,7 @@ export default class TerciaSoul {
             break;
         }
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         switch (HM) {
           case 'Tèrcia':
             this.HORA_MENOR.vers = this.state.tempsNadalAbansEpifania.citaLectBreuTercia;
@@ -765,7 +751,7 @@ export default class TerciaSoul {
 
   oracio(LT, weekDay, HM){
     switch(LT){
-      case O_ORDINARI:
+      case GLOBAL.O_ORDINARI:
         if(weekDay === 0){ //diumenge
           this.HORA_MENOR.oracio = this.state.tempsOrdinariOracions.oracio;
         }
@@ -783,37 +769,37 @@ export default class TerciaSoul {
           }
         }
         break;
-      case Q_CENDRA:
+      case GLOBAL.Q_CENDRA:
         this.HORA_MENOR.oracio = this.state.tempsQuaresmaCendra.oraFiLaudes;
         break;
-      case Q_SETMANES:
+      case GLOBAL.Q_SETMANES:
         this.HORA_MENOR.oracio = this.state.tempsQuaresmaVSetmanes.oraFiLaudes;
         break;
-      case Q_DIUM_RAMS:
+      case GLOBAL.Q_DIUM_RAMS:
         this.HORA_MENOR.oracio = this.state.tempsQuaresmaRams.oraFiLaudes;
         break;
-      case Q_SET_SANTA:
+      case GLOBAL.Q_SET_SANTA:
         this.HORA_MENOR.oracio = this.state.tempsQuaresmaSetSanta.oraFiLaudes;
         break;
-      case Q_TRIDU:
+      case GLOBAL.Q_TRIDU:
         this.HORA_MENOR.oracio = this.state.tempsQuaresmaTridu.oraFiMenor;
         break;
-      case P_OCTAVA:
+      case GLOBAL.P_OCTAVA:
         this.HORA_MENOR.oracio = this.state.tempsPasquaOct.oraFiMenor;
         break;
-      case P_SETMANES:
+      case GLOBAL.P_SETMANES:
         this.HORA_MENOR.oracio = this.state.tempsPasquaSetmanes.oraFiLaudes;
         break;
-      case A_SETMANES:
+      case GLOBAL.A_SETMANES:
         this.HORA_MENOR.oracio = this.state.tempsAdventSetmanes.oraFiLaudes;
         break;
-      case A_FERIES:
+      case GLOBAL.A_FERIES:
         this.HORA_MENOR.oracio = this.state.tempsAdventFeries.oraFiLaudes;
         break;
-      case N_OCTAVA:
+      case GLOBAL.N_OCTAVA:
         this.HORA_MENOR.oracio = this.state.tempsNadalOctava.oraFiLaudes;
         break;
-      case N_ABANS:
+      case GLOBAL.N_ABANS:
         this.HORA_MENOR.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
         break;
     }
