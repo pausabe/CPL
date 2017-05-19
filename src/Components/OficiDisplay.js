@@ -82,7 +82,7 @@ export default class OficiDisplay extends Component {
   introduccio(LT, setmana){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    if(true){ //TODO: todo
+    if(this.props.OFICI.invitatori !== "Ofici"){
       return(
         <View>
           <Text style={GLOBAL.styles.red}>V.
@@ -93,7 +93,7 @@ export default class OficiDisplay extends Component {
           </Text>
           <Text />
           <Text style={GLOBAL.styles.black}>{gloriaStringIntro}
-            {this.props.LT !== GLOBAL.Q_CENDRA && this.props.LT !== GLOBAL.Q_SETMANES && this.props.LT !== GLOBAL.Q_DIUM_RAMS && this.props.LT !== GLOBAL.Q_SET_SANTA && this.props.LT !== GLOBAL.Q_TRIDU ? 
+            {this.props.LT !== GLOBAL.Q_CENDRA && this.props.LT !== GLOBAL.Q_SETMANES && this.props.LT !== GLOBAL.Q_DIUM_RAMS && this.props.LT !== GLOBAL.Q_SET_SANTA && this.props.LT !== GLOBAL.Q_TRIDU ?
               <Text style={GLOBAL.styles.black}> Al·leluia</Text> : null
             }
           </Text>

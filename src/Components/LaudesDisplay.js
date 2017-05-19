@@ -91,7 +91,7 @@ export default class LaudesDisplay extends Component {
   introduccio(LT, setmana){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    if(false){
+    if(this.props.LAUDES.invitatori !== "Laudes"){
       return(
         <View>
           <Text style={GLOBAL.styles.red}>V.

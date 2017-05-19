@@ -41,7 +41,8 @@ export default class LaudesSoul {
       salm94: TABLES.diversos.item(0).oracio,
     };
 
-    this.LAUDES = { //29
+    this.LAUDES = { //30
+      invitatori: props.invitatori,
       antInvitatori: '',
       salm94: '',
       himne: '',

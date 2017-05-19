@@ -14,6 +14,7 @@ import Liturgia from '../Components/Liturgia';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DBAdapter from '../SQL/DBAdapter';
 import SOUL from '../Components/SOUL';
+import SettingsManager from '../Settings/SettingsManager';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -44,6 +45,8 @@ export default class HomeScreen extends Component {
     this.state = {
       LITURGIA: null,
       ofici: null,
+      diocesis: '',
+      invitatori: '',
       santPressed: false,
       memoria: false,
       celebracio: '',
@@ -64,24 +67,27 @@ export default class HomeScreen extends Component {
       ABC2: '',
     }
 
-    var today = new Date();
+    SettingsManager.getSettingDiocesis((r) => this.setState({diocesis: r}));
+    SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
+
+    this.today = new Date();
     //today.setDate(18); //1-31
     //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
 
     acceso = new DBAdapter();
     acceso.getAnyLiturgic(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
+      this.today.getFullYear(),
+      this.today.getMonth(),
+      this.today.getDate(),
       (current, tomorrow) => {
         var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
         this.setState({
-          monthDay: today.getDate(), //1-31
-          month: today.getMonth(), //0-11
-          year: today.getFullYear(), //xxxx
-          hour: today.getHours(), //0-23
-          weekDay: today.getDay(), //0-6 (diumenge-dissabte)
+          monthDay: this.today.getDate(), //1-31
+          month: this.today.getMonth(), //0-11
+          year: this.today.getFullYear(), //xxxx
+          hour: this.today.getHours(), //0-23
+          weekDay: this.today.getDay(), //0-6 (diumenge-dissabte)
           anyliturgic: current,
           celebracio: cel,
           LT: current.temps,
@@ -116,7 +122,7 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesi de Terrassa - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
+            <Text style={styles.infoText}>Diòcesi de {this.state.diocesis} - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
             <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.weekDay)}{this.state.anyliturgic.NumSet !== 0 ? " de la setmana" : null}

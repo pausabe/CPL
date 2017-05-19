@@ -32,7 +32,8 @@ export default class OficiSoul {
       ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
     };
 
-    this.OFICI = { //39
+    this.OFICI = { //40
+      invitatori: props.invitatori,
       antInvitatori: '',
       salm94: '',
       himne: '',
