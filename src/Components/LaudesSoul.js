@@ -56,7 +56,7 @@ export default class LaudesSoul {
       salm94: TABLES.diversos.item(0).oracio,
     };
 
-    this.LAUDES = { //24
+    this.LAUDES = { //29
       antInvitatori: '',
       salm94: '',
       himne: '',
@@ -77,6 +77,11 @@ export default class LaudesSoul {
       gloria3: '',
       vers: '',
       lecturaBreu: '',
+      calAntEspecial: '',
+      antEspecialLaudes: '',
+      respBreu1: '',
+      respBreu2: '',
+      respBreu3: '',
       cantic: '',
       antCantic: '',
       pregaries: '',

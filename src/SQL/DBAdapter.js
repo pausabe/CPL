@@ -24,7 +24,6 @@ export default class DBAdapter {
   }
 
   getLiturgia(table, id, callback){
-    console.log("aha1.1");
     if(id !== -1){
       this.executeQuery(`SELECT * FROM ${table} WHERE id = ${id}`,
         result => callback(result.rows.item(0)));

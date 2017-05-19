@@ -3,7 +3,7 @@ import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
 
 import Ofici from '../Components/OficiDisplay'
 import Laudes from '../Components/LaudesDisplay'
-import Vespres from '../Components/Vespres'
+import Vespres from '../Components/VespresDisplay'
 import HoraMenor from '../Components/HoraMenor'
 import Completes from '../Components/Completes'
 
@@ -75,8 +75,9 @@ export default class LiturgiaDisplayScreen extends Component {
                   year = {this.props.year}
                   cicle = {this.props.cicle}
                   setmana = {this.props.setmana}
-                  LT={this.props.LT}
-                  ABC={this.props.ABC}/>
+                  LT = {this.props.LT}
+                  ABC = {this.props.ABC}
+                  VESPRES = {this.props.LITURGIA.vespres}/>
                 )
             }
             else{ //dissabte vespre = vespres de diumenge
@@ -90,7 +91,8 @@ export default class LiturgiaDisplayScreen extends Component {
                   cicle = {this.props.cicle2}
                   setmana = {this.props.setmana}
                   LT={this.props.LT2}
-                  ABC={this.props.ABC2}/>
+                  ABC={this.props.ABC2}
+                  VESPRES = {this.props.LITURGIA.vespres}/>
                 )
             }
             break;

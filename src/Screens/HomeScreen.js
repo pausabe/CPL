@@ -65,18 +65,16 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(21); //1-31
+    //today.setDate(18); //1-31
     //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
 
     acceso = new DBAdapter();
-    console.log("aha1");
     acceso.getAnyLiturgic(today.getFullYear(),
                           today.getMonth(),
                           today.getDate(),
                           (current, tomorrow) => {
                             var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
-                            console.log("aha2");
                             this.setState({
                                     monthDay: today.getDate(), //1-31
                                     month: today.getMonth(), //0-11

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
   Text,
   View,
   Platform
@@ -32,45 +31,45 @@ export default class OficiDisplay extends Component {
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>HIMNE</Text>
+        <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
         {this.himne(this.props.LT, this.props.weekDay, false, this.props.setmana)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>SALMÒDIA</Text>
+        <Text style={GLOBAL.styles.red}>SALMÒDIA</Text>
         <Text />
         {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay, this.props.cicle)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>VERS</Text>
+        <Text style={GLOBAL.styles.red}>VERS</Text>
         <Text />
         {this.vers(this.props.LT)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>LECTURES</Text>
+        <Text style={GLOBAL.styles.red}>LECTURES</Text>
         <Text />
         {this.lectures(this.props.LT)}
         {this.himneOhDeu(this.props.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>ORACIÓ</Text>
+        <Text style={GLOBAL.styles.red}>ORACIÓ</Text>
         <Text />
-        <Text style={styles.blackBold}>Preguem.</Text>
+        <Text style={GLOBAL.styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={styles.red}>CONCLUSIÓ</Text>
+        <Text style={GLOBAL.styles.red}>CONCLUSIÓ</Text>
         <Text />
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> Beneïm al Senyor.</Text>
+        <Text style={GLOBAL.styles.red}>V.
+          <Text style={GLOBAL.styles.black}> Beneïm al Senyor.</Text>
         </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> Donem gràcies a Déu.</Text>
+        <Text style={GLOBAL.styles.red}>R.
+          <Text style={GLOBAL.styles.black}> Donem gràcies a Déu.</Text>
         </Text>
         <Text />
       </View>
@@ -82,15 +81,15 @@ export default class OficiDisplay extends Component {
 
     if(g === '1'){
       if(true === true){ //TODO: tenir en compte els ajustaments
-        return(<Text style={styles.black}>Glòria.</Text>);
+        return(<Text style={GLOBAL.styles.black}>Glòria.</Text>);
       }
       else{
-        return(<Text style={styles.black}>{gloriaString}</Text>);
+        return(<Text style={GLOBAL.styles.black}>{gloriaString}</Text>);
       }
     }
     else{
       if(g==='0'){
-        return(<Text style={styles.black}>S'omet el Glòria.</Text>);
+        return(<Text style={GLOBAL.styles.black}>S'omet el Glòria.</Text>);
       }
     }
   }
@@ -101,16 +100,16 @@ export default class OficiDisplay extends Component {
     if(true){ //TODO: todo
       return(
         <View>
-          <Text style={styles.red}>V.
-            <Text style={styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
+          <Text style={GLOBAL.styles.red}>V.
+            <Text style={GLOBAL.styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
           </Text>
-          <Text style={styles.red}>R.
-            <Text style={styles.black}> Senyor, veniu a ajudar-nos.</Text>
+          <Text style={GLOBAL.styles.red}>R.
+            <Text style={GLOBAL.styles.black}> Senyor, veniu a ajudar-nos.</Text>
           </Text>
           <Text />
-          <Text style={styles.black}>{gloriaStringIntro}
+          <Text style={GLOBAL.styles.black}>{gloriaStringIntro}
             {this.props.LT !== Q_CENDRA && this.props.LT !== Q_SETMANES && this.props.LT !== Q_DIUM_RAMS && this.props.LT !== Q_SET_SANTA && this.props.LT !== Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
-              <Text style={styles.black}> Al·leluia</Text> : null
+              <Text style={GLOBAL.styles.black}> Al·leluia</Text> : null
             }
           </Text>
         </View>
@@ -119,29 +118,29 @@ export default class OficiDisplay extends Component {
     else{
       return(
         <View>
-          <Text style={styles.red}>V.
-            <Text style={styles.black}> Obriu-me els llavis, Senyor.</Text>
+          <Text style={GLOBAL.styles.red}>V.
+            <Text style={GLOBAL.styles.black}> Obriu-me els llavis, Senyor.</Text>
           </Text>
-          <Text style={styles.red}>R.
-            <Text style={styles.black}> I proclamaré la vostra lloança.</Text>
+          <Text style={GLOBAL.styles.red}>R.
+            <Text style={GLOBAL.styles.black}> I proclamaré la vostra lloança.</Text>
           </Text>
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={styles.red}>Ant.
-            <Text style={styles.black}> {this.props.OFICI.antInvitatori}</Text>
+          <Text style={GLOBAL.styles.red}>Ant.
+            <Text style={GLOBAL.styles.black}> {this.props.OFICI.antInvitatori}</Text>
           </Text>
           <Text />
-          <Text style={styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
+          <Text style={GLOBAL.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
           <Text />
-          <Text style={styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
+          <Text style={GLOBAL.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
           <Text />
-          <Text style={styles.black}>{this.props.OFICI.salm94}</Text>
+          <Text style={GLOBAL.styles.black}>{this.props.OFICI.salm94}</Text>
           <Text />
           {this.gloria('1')}
           <Text />
-          <Text style={styles.red}>Ant.
-            <Text style={styles.black}> {this.props.OFICI.antInvitatori}</Text>
+          <Text style={GLOBAL.styles.red}>Ant.
+            <Text style={GLOBAL.styles.black}> {this.props.OFICI.antInvitatori}</Text>
           </Text>
         </View>
       )
@@ -149,58 +148,58 @@ export default class OficiDisplay extends Component {
   }
 
   himne(LT, weekDay, nit, setmana){
-    return(<Text style={styles.black}>{this.props.OFICI.himne}</Text>);
+    return(<Text style={GLOBAL.styles.black}>{this.props.OFICI.himne}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, cicle){
     return(
       <View>
-        <Text style={styles.red}>Ant. 1.
-          <Text style={styles.black}> {this.props.OFICI.ant1}</Text>
+        <Text style={GLOBAL.styles.red}>Ant. 1.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.ant1}</Text>
         </Text>
         <Text />
-        <Text style={styles.redCenter}>{this.props.OFICI.titol1}</Text>
+        <Text style={GLOBAL.styles.redCenter}>{this.props.OFICI.titol1}</Text>
         <Text />
         {this.props.OFICI.com1 !== '-' ?
-          <View><Text style={styles.blackSmallItalicRight}>{this.props.OFICI.com1}</Text><Text /></View> : null}
-        <Text style={styles.black}>{this.props.OFICI.salm1}</Text>
+          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{this.props.OFICI.com1}</Text><Text /></View> : null}
+        <Text style={GLOBAL.styles.black}>{this.props.OFICI.salm1}</Text>
         <Text />
         {this.gloria(this.props.OFICI.gloria1)}
         <Text />
-        <Text style={styles.red}>Ant. 1.
-          <Text style={styles.black}> {this.props.OFICI.ant1}</Text>
+        <Text style={GLOBAL.styles.red}>Ant. 1.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.ant1}</Text>
         </Text>
         <Text />
-        <Text style={styles.red}>Ant. 2.
-          <Text style={styles.black}> {this.props.OFICI.ant2}</Text>
+        <Text style={GLOBAL.styles.red}>Ant. 2.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.ant2}</Text>
         </Text>
         <Text />
-        <Text style={styles.redCenter}>{this.props.OFICI.titol2}</Text>
+        <Text style={GLOBAL.styles.redCenter}>{this.props.OFICI.titol2}</Text>
         <Text />
         {this.props.OFICI.com2 !== '-' ?
-          <View><Text style={styles.blackSmallItalicRight}>{this.props.OFICI.com2}</Text><Text /></View> : null}
-        <Text style={styles.black}>{this.props.OFICI.salm2}</Text>
+          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{this.props.OFICI.com2}</Text><Text /></View> : null}
+        <Text style={GLOBAL.styles.black}>{this.props.OFICI.salm2}</Text>
         <Text />
         {this.gloria(this.props.OFICI.gloria2)}
         <Text />
-        <Text style={styles.red}>Ant. 2.
-          <Text style={styles.black}> {this.props.OFICI.ant2}</Text>
+        <Text style={GLOBAL.styles.red}>Ant. 2.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.ant2}</Text>
         </Text>
         <Text />
-        <Text style={styles.red}>Ant. 3.
-          <Text style={styles.black}> {this.props.OFICI.ant3}</Text>
+        <Text style={GLOBAL.styles.red}>Ant. 3.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.ant3}</Text>
         </Text>
         <Text />
-        <Text style={styles.redCenter}>{this.props.OFICI.titol3}</Text>
+        <Text style={GLOBAL.styles.redCenter}>{this.props.OFICI.titol3}</Text>
         <Text />
         {this.props.OFICI.com3 !== '-' ?
-          <View><Text style={styles.blackSmallItalicRight}>{this.props.OFICI.com3}</Text><Text /></View> : null}
-        <Text style={styles.black}>{this.props.OFICI.salm3}</Text>
+          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{this.props.OFICI.com3}</Text><Text /></View> : null}
+        <Text style={GLOBAL.styles.black}>{this.props.OFICI.salm3}</Text>
         <Text />
         {this.gloria(this.props.OFICI.gloria3)}
         <Text />
-        <Text style={styles.red}>Ant. 3.
-          <Text style={styles.black}> {this.props.OFICI.ant3}</Text>
+        <Text style={GLOBAL.styles.red}>Ant. 3.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.ant3}</Text>
         </Text>
       </View>
     );
@@ -209,11 +208,11 @@ export default class OficiDisplay extends Component {
   vers(LT){
     return(
       <View>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> {this.props.OFICI.respV}</Text>
+        <Text style={GLOBAL.styles.red}>V.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.respV}</Text>
         </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> {this.props.OFICI.respR}</Text>
+        <Text style={GLOBAL.styles.red}>R.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.respR}</Text>
         </Text>
       </View>
     );
@@ -222,40 +221,40 @@ export default class OficiDisplay extends Component {
   lectures(LT){
     return(
       <View>
-        <Text style={styles.red}>Primera lectura</Text>
-        <Text style={styles.black}>{this.props.OFICI.referencia1}
-          <Text style={styles.red}> {this.props.OFICI.cita1}</Text></Text>
+        <Text style={GLOBAL.styles.red}>Primera lectura</Text>
+        <Text style={GLOBAL.styles.black}>{this.props.OFICI.referencia1}
+          <Text style={GLOBAL.styles.red}> {this.props.OFICI.cita1}</Text></Text>
         <Text />
-        <Text style={styles.redCenterBold}>{this.props.OFICI.titol1}</Text>
+        <Text style={GLOBAL.styles.redCenterBold}>{this.props.OFICI.titol1}</Text>
         <Text />
-        <Text style={styles.black}>{this.props.OFICI.lectura1}</Text>
+        <Text style={GLOBAL.styles.black}>{this.props.OFICI.lectura1}</Text>
         <Text />
-        <Text style={styles.red}>Responsori
-          <Text style={styles.redSmallItalicRight}> {this.props.OFICI.citaResp1}</Text>
+        <Text style={GLOBAL.styles.red}>Responsori
+          <Text style={GLOBAL.styles.redSmallItalicRight}> {this.props.OFICI.citaResp1}</Text>
         </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> {this.props.OFICI.resp1Part1} {this.props.OFICI.resp1Part2}</Text>
+        <Text style={GLOBAL.styles.red}>R.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.resp1Part1} {this.props.OFICI.resp1Part2}</Text>
         </Text>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}> {this.props.OFICI.resp1Part3} {this.props.OFICI.resp1Part2}</Text>
+        <Text style={GLOBAL.styles.red}>V.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.resp1Part3} {this.props.OFICI.resp1Part2}</Text>
         </Text>
         <Text />
-        <Text style={styles.red}>Segona lectura</Text>
-        <Text style={styles.black}>{this.props.OFICI.referencia2}
-          <Text style={styles.red}> {this.props.OFICI.cita2}</Text></Text>
+        <Text style={GLOBAL.styles.red}>Segona lectura</Text>
+        <Text style={GLOBAL.styles.black}>{this.props.OFICI.referencia2}
+          <Text style={GLOBAL.styles.red}> {this.props.OFICI.cita2}</Text></Text>
         <Text />
-        <Text style={styles.redCenterBold}>{this.props.OFICI.titol2}</Text>
+        <Text style={GLOBAL.styles.redCenterBold}>{this.props.OFICI.titol2}</Text>
         <Text />
-        <Text style={styles.black}>{this.props.OFICI.lectura2}</Text>
+        <Text style={GLOBAL.styles.black}>{this.props.OFICI.lectura2}</Text>
         <Text />
-        <Text style={styles.red}>Responsori
-          <Text style={styles.redSmallItalicRight}>  {this.props.OFICI.versResp2}</Text>
+        <Text style={GLOBAL.styles.red}>Responsori
+          <Text style={GLOBAL.styles.redSmallItalicRight}>  {this.props.OFICI.versResp2}</Text>
         </Text>
-        <Text style={styles.red}>R.
-          <Text style={styles.black}> {this.props.OFICI.resp2Part1} {this.props.OFICI.resp2Part2}</Text>
+        <Text style={GLOBAL.styles.red}>R.
+          <Text style={GLOBAL.styles.black}> {this.props.OFICI.resp2Part1} {this.props.OFICI.resp2Part2}</Text>
         </Text>
-        <Text style={styles.red}>V.
-          <Text style={styles.black}>  {this.props.OFICI.resp2Part3} {this.props.OFICI.resp2Part2}</Text>
+        <Text style={GLOBAL.styles.red}>V.
+          <Text style={GLOBAL.styles.black}>  {this.props.OFICI.resp2Part3} {this.props.OFICI.resp2Part2}</Text>
         </Text>
       </View>
     )
@@ -267,9 +266,9 @@ export default class OficiDisplay extends Component {
         <View>
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={styles.red}>HIMNE</Text>
+          <Text style={GLOBAL.styles.red}>HIMNE</Text>
           <Text />
-          <Text style={styles.black}>{this.props.OFICI.himneOhDeu}</Text>
+          <Text style={GLOBAL.styles.black}>{this.props.OFICI.himneOhDeu}</Text>
           <Text />
         </View>
       )
@@ -277,52 +276,8 @@ export default class OficiDisplay extends Component {
   }
 
   oracio(LT, weekDay){
-    return(<Text style={styles.black}>{this.props.OFICI.oracio}</Text>);
+    return(<Text style={GLOBAL.styles.black}>{this.props.OFICI.oracio}</Text>);
   }
 }
-
-const styles = StyleSheet.create({
-  black: {
-    color: '#000000',
-    fontSize: GLOBAL.normalTextSize,
-  },
-  blackBold: {
-    color: '#000000',
-    fontSize: GLOBAL.normalTextSize,
-    fontWeight: 'bold',
-  },
-  blackSmallItalic:{
-    color: '#000000',
-    fontSize: GLOBAL.smallTextSize,
-    fontStyle: 'italic'
-  },
-  blackSmallItalicRight: {
-    color: '#000000',
-    fontSize: GLOBAL.smallTextSize,
-    fontStyle: 'italic',
-    textAlign: 'right'
-  },
-  red: {
-    color: '#FF0000',
-    fontSize: GLOBAL.normalTextSize,
-  },
-  redCenter: {
-    color: '#FF0000',
-    fontSize: GLOBAL.normalTextSize,
-    textAlign: 'center'
-  },
-  redCenterBold: {
-    color: '#FF0000',
-    fontSize: GLOBAL.normalTextSize,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  redSmallItalicRight: {
-    color: '#FF0000',
-    fontSize: GLOBAL.smallTextSize,
-    fontStyle: 'italic',
-    textAlign: 'right'
-  }
-});
 
 AppRegistry.registerComponent('OficiDisplay', () => OficiDisplay);
