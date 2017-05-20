@@ -255,7 +255,7 @@ export default class SOUL {
     //taula 26 (#24): Laudes(23), Vespres(21)
     if(props.LT === GLOBAL.P_SETMANES){
       c += 1;
-      id = props.setmana;
+      id = props.setmana-1;
       acceso.getLiturgia("tempsPasquaSetmanesDium", id, (result) => { this.queryRows.tempsPasquaSetmanesDium = result; this.dataReceived(HS, SOUL); });
     }
 
@@ -276,8 +276,12 @@ export default class SOUL {
     //taula 29 (#5): Vespres(24)
     if(props.LT !== GLOBAL.Q_TRIDU && props.LT !== GLOBAL.P_OCTAVA){
       c += 1;
-      {props.weekDay === 6 ? weekDayNormalVESPRES = 1 : weekDayNormalVESPRES = props.weekDay + 2}
-      id = (props.cicle-1)*7 + weekDayNormalVESPRES;
+      { props.weekDay === 6 ? weekDayNormalVESPRES = 1 : weekDayNormalVESPRES = props.weekDay + 2 }
+      var cicle = parseInt(props.cicle);
+      if(props.weekDay === 6){
+        { cicle === 4 ? cicle = 1 : cicle += 1 }
+      }
+      id = (cicle-1)*7 + weekDayNormalVESPRES;
       acceso.getLiturgia("salteriComuVespres", id, (result) => { this.queryRows.salteriComuVespres = result; this.dataReceived(HS, SOUL); });
     }
 

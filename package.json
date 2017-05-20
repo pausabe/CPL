@@ -11,6 +11,8 @@
     "react-native": "0.42.0",
     "react-native-datepicker-dialog": "0.0.4",
     "react-native-hr": "^1.1.3",
+    "react-native-modal-datetime-picker": "^4.6.0",
+    "react-native-popup-dialog": "^0.7.28",
     "react-native-sqlite-storage": "^3.2.2",
     "react-native-vector-icons": "^4.0.0"
   },

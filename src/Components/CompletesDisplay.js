@@ -10,6 +10,7 @@ import GLOBAL from '../Globals/Globals';
 
 export default class CompletesDisplay extends Component {
   render() {
+    console.log("antEspecial: " + this.props.COMPLETES.antRespEspecial);
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
     return (
       <View>

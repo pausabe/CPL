@@ -93,6 +93,7 @@ export default class CompletesSoul{
         this.COMPLETES.respBreu2 = "Al·leluia, al·leluia.";
         this.COMPLETES.respBreu3 = "Vós, Déu fidel, ens heu redimit.";
         this.COMPLETES.antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans. Al·leluia.";
+        break;
       case GLOBAL.Q_TRIDU:
         if(weekDay === 6){ //primeres vespres diumenge de pasqua
           this.COMPLETES.antRespEspecial = "Avui és el dia en què ha obrat el Senyor: alegrem-nos i celebrem-lo, al·leluia.";

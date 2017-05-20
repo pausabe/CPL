@@ -156,7 +156,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         {this.props.LAUDES.com1 !== '-' ?
           <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{this.props.LAUDES.com1}</Text><Text /></View> : null}
-        <Text style={GLOBAL.styles.black}>{salm1}</Text>
+        <Text style={GLOBAL.styles.black}>{this.props.LAUDES.salm1}</Text>
         <Text />
         {this.gloria(this.props.LAUDES.gloria1)}
         <Text />

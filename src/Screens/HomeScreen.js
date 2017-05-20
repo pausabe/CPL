@@ -7,7 +7,7 @@ import {
   StatusBar,
   Image,
   BackAndroid,
-  TouchableOpacity
+  TouchableOpacity,
  } from 'react-native';
 
 import Liturgia from '../Components/Liturgia';
@@ -71,9 +71,9 @@ export default class HomeScreen extends Component {
     SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
 
     this.today = new Date();
-    //today.setDate(18); //1-31
-    //today.setMonth(0); //0-11
-    //today.setFullYear(2017); //XXXX
+    //this.today.setDate(20); //1-31
+    //this.today.setMonth(0); //0-11
+    //this.today.setFullYear(2017); //XXXX
 
     acceso = new DBAdapter();
     acceso.getAnyLiturgic(
@@ -83,6 +83,8 @@ export default class HomeScreen extends Component {
       (current, tomorrow) => {
         var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
         this.setState({
+          date: this.today,
+          dialogShow: false,
           monthDay: this.today.getDate(), //1-31
           month: this.today.getMonth(), //0-11
           year: this.today.getFullYear(), //xxxx
@@ -138,7 +140,7 @@ export default class HomeScreen extends Component {
             <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={{flex: 20, justifyContent: 'center'}}>
-                  <Text style={styles.santText}>{this.state.LITURGIA === null ? "NO - " : "YES - "}{"Santa Perpètua i Santa Felicitat"}</Text>
+                  <Text style={styles.santText}>{"Santa Perpètua i Santa Felicitat"}</Text>
                 </View>
                 <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
                   {this.state.santPressed ?
@@ -164,43 +166,53 @@ export default class HomeScreen extends Component {
             <View style={styles.liturgiaContainer}>
               <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
               <Text style={styles.santExText}/>
-              <Liturgia navigator={this.props.navigator}
-                        hour={this.state.hour}
-                        weekDay={this.state.weekDay}
-                        monthDay={this.state.monthDay}
-                        month={this.state.month}
-                        year={this.state.year}
-                        cicle={this.state.cicle}
-                        setmana={this.state.setmana}
-                        LT={this.state.LT}
-                        ABC={this.state.ABC}
-                        cicle2={this.state.cicle2}
-                        setmana2={this.state.setmana2}
-                        LT2={this.state.LT2}
-                        ABC2={this.state.ABC2}
-                        LITURGIA={this.state.LITURGIA}/>
+              {this.liturgiaComponent.bind(this)}
             </View>
             :
             <View style={styles.liturgiaContainer}>
-              <Liturgia navigator={this.props.navigator}
-                        hour={this.state.hour}
-                        weekDay={this.state.weekDay}
-                        monthDay={this.state.monthDay}
-                        month={this.state.month}
-                        year={this.state.year}
-                        cicle={this.state.cicle}
-                        setmana={this.state.setmana}
-                        LT={this.state.LT}
-                        ABC={this.state.ABC}
-                        cicle2={this.state.cicle2}
-                        setmana2={this.state.setmana2}
-                        LT2={this.state.LT2}
-                        ABC2={this.state.ABC2}
-                        LITURGIA={this.state.LITURGIA}/>
+              <Liturgia
+                navigator={this.props.navigator}
+                hour={this.state.hour}
+                weekDay={this.state.weekDay}
+                monthDay={this.state.monthDay}
+                month={this.state.month}
+                year={this.state.year}
+                cicle={this.state.cicle}
+                setmana={this.state.setmana}
+                LT={this.state.LT}
+                ABC={this.state.ABC}
+                cicle2={this.state.cicle2}
+                setmana2={this.state.setmana2}
+                LT2={this.state.LT2}
+                ABC2={this.state.ABC2}
+                LITURGIA={this.state.LITURGIA}
+              />
             </View>
           }
         </Image>
       </View>
+    )
+  }
+
+  liturgiaComponent(){
+    return(
+      <Liturgia
+        navigator={this.props.navigator}
+        hour={this.state.hour}
+        weekDay={this.state.weekDay}
+        monthDay={this.state.monthDay}
+        month={this.state.month}
+        year={this.state.year}
+        cicle={this.state.cicle}
+        setmana={this.state.setmana}
+        LT={this.state.LT}
+        ABC={this.state.ABC}
+        cicle2={this.state.cicle2}
+        setmana2={this.state.setmana2}
+        LT2={this.state.LT2}
+        ABC2={this.state.ABC2}
+        LITURGIA={this.state.LITURGIA}
+      />
     )
   }
 
@@ -348,6 +360,7 @@ export default class HomeScreen extends Component {
     }
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
