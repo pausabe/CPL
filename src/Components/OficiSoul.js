@@ -56,7 +56,7 @@ export default class OficiSoul {
       respR: '',
       referencia1: '',
       cita1: '',
-      titol1: '',
+      titolLectura1: '',
       lectura1: '',
       citaResp1: '',
       resp1Part1: '',
@@ -64,7 +64,7 @@ export default class OficiSoul {
       resp1Part3: '',
       referencia2: '',
       cita2: '',
-      titol2: '',
+      titolLectura2: '',
       lectura2: '',
       versResp2: '',
       resp2Part1: '',
@@ -296,7 +296,6 @@ export default class OficiSoul {
         gloria3 = this.state.salteriComuOfici.gloria3;
 
         if(weekDay === 0){ //diumenge
-          console.log("setmana: " + setmana);
           switch (setmana) { //TODO: s'ha de modificar. Els noms de la database no estan bé
             case "3":
               ant1 = this.state.salteriComuEspPasquaDium.ant1OficiDiumVI;
@@ -677,7 +676,7 @@ export default class OficiSoul {
     }
     this.OFICI.referencia1 = referencia1;
     this.OFICI.cita1 = cita1;
-    this.OFICI.titol1 = titol1;
+    this.OFICI.titolLectura1 = titol1;
     this.OFICI.lectura1 = lectura1;
     this.OFICI.citaResp1 = citaResp1;
     this.OFICI.resp1Part1 = resp1Part1;
@@ -685,7 +684,7 @@ export default class OficiSoul {
     this.OFICI.resp1Part3 = resp1Part3;
     this.OFICI.referencia2 = referencia2;
     this.OFICI.cita2 = cita2;
-    this.OFICI.titol2 = titol2;
+    this.OFICI.titolLectura2 = titol2;
     this.OFICI.lectura2 = lectura2;
     this.OFICI.versResp2 = versResp2;
     this.OFICI.resp2Part1 = resp2Part1;

@@ -37,6 +37,7 @@ export default class OficiDisplay extends Component {
         <Text style={GLOBAL.styles.red}>LECTURES</Text>
         <Text />
         {this.lectures(this.props.LT)}
+        <Text />
         {this.himneOhDeu(this.props.LT, this.props.weekDay)}
         <Text />
         <Hr lineColor='#CFD8DC' />
@@ -137,6 +138,7 @@ export default class OficiDisplay extends Component {
   }
 
   salmodia(LT, setmana, weekDay, cicle){
+    console.log("vamoh a ver: " + this.props.OFICI.titol1);
     return(
       <View>
         <Text style={GLOBAL.styles.red}>Ant. 1.
@@ -210,7 +212,7 @@ export default class OficiDisplay extends Component {
         <Text style={GLOBAL.styles.black}>{this.props.OFICI.referencia1}
           <Text style={GLOBAL.styles.red}> {this.props.OFICI.cita1}</Text></Text>
         <Text />
-        <Text style={GLOBAL.styles.redCenterBold}>{this.props.OFICI.titol1}</Text>
+        <Text style={GLOBAL.styles.redCenterBold}>{this.props.OFICI.titolLectura1}</Text>
         <Text />
         <Text style={GLOBAL.styles.black}>{this.props.OFICI.lectura1}</Text>
         <Text />
@@ -228,7 +230,7 @@ export default class OficiDisplay extends Component {
         <Text style={GLOBAL.styles.black}>{this.props.OFICI.referencia2}
           <Text style={GLOBAL.styles.red}> {this.props.OFICI.cita2}</Text></Text>
         <Text />
-        <Text style={GLOBAL.styles.redCenterBold}>{this.props.OFICI.titol2}</Text>
+        <Text style={GLOBAL.styles.redCenterBold}>{this.props.OFICI.titolLectura2}</Text>
         <Text />
         <Text style={GLOBAL.styles.black}>{this.props.OFICI.lectura2}</Text>
         <Text />
