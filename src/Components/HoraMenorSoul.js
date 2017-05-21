@@ -112,24 +112,24 @@ export default class TerciaSoul {
       oracio: '',
     }
 
-    this.himne(props.LT, props.weekDay, props.setmana, "Tèrcia");
-    this.salmodia(props.LT, props.setmana, props.weekDay, props.cicle, "Tèrcia");
-    this.lecturaBreuResp(props.LT, "Tèrcia");
-    this.oracio(props.LT, props.weekDay, "Tèrcia");
+    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana, "Tèrcia");
+    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.cicle, "Tèrcia");
+    this.lecturaBreuResp(props.liturgicProps.LT, "Tèrcia");
+    this.oracio(props.liturgicProps.LT, props.date.getDay(), "Tèrcia");
 
     SOUL.setSoul(HS, "tercia", this.TERCIA);
 
-    this.himne(props.LT, props.weekDay, props.setmana, "Sexta");
-    this.salmodia(props.LT, props.setmana, props.weekDay, props.cicle, "Sexta");
-    this.lecturaBreuResp(props.LT, "Sexta");
-    this.oracio(props.LT, props.weekDay, "Sexta");
+    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana, "Sexta");
+    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.cicle, "Sexta");
+    this.lecturaBreuResp(props.liturgicProps.LT, "Sexta");
+    this.oracio(props.liturgicProps.LT, props.date.getDay(), "Sexta");
 
     SOUL.setSoul(HS, "sexta", this.SEXTA);
 
-    this.himne(props.LT, props.weekDay, props.setmana, "Nona");
-    this.salmodia(props.LT, props.setmana, props.weekDay, props.cicle, "Nona");
-    this.lecturaBreuResp(props.LT, "Nona");
-    this.oracio(props.LT, props.weekDay, "Nona");
+    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana, "Nona");
+    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.cicle, "Nona");
+    this.lecturaBreuResp(props.liturgicProps.LT, "Nona");
+    this.oracio(props.liturgicProps.LT, props.date.getDay(), "Nona");
 
     SOUL.setSoul(HS, "nona", this.NONA);
   }

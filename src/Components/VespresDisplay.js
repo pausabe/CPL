@@ -30,13 +30,13 @@ export default class VespresDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, this.props.setmana)}
+        {this.himne(this.props.LT, this.props.date.getDay(), this.props.setmana)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay)}
+        {this.salmodia(this.props.LT, this.props.setmana, this.props.date.getDay())}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -48,24 +48,24 @@ export default class VespresDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>RESPONSORI BREU</Text>
         <Text />
-        {this.responsori(this.props.LT, this.props.weekDay)}
+        {this.responsori(this.props.LT, this.props.date.getDay())}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>CÀNTIC DE MARIA</Text>
         <Text />
-        {this.cantic(this.props.LT, this.props.weekDay, this.props.ABC)}
+        {this.cantic(this.props.LT, this.props.date.getDay(), this.props.ABC)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>PREGÀRIES</Text>
         <Text />
-        {this.pregaries(this.props.LT, this.props.weekDay)}
+        {this.pregaries(this.props.LT, this.props.date.getDay())}
         <Text />
         <Text style={GLOBAL.styles.red}>ORACIÓ</Text>
         <Text />
         <Text style={GLOBAL.styles.blackBold}>Preguem.</Text>
-        {this.oracio(this.props.LT, this.props.weekDay)}
+        {this.oracio(this.props.LT, this.props.date.getDay())}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />

@@ -30,13 +30,13 @@ export default class HoraMenorDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, this.props.setmana, this.props.HM)}
+        {this.himne(this.props.LT, this.props.date.getDay(), this.props.setmana, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay, this.props.HM)}
+        {this.salmodia(this.props.LT, this.props.setmana, this.props.date.getDay(), this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -49,7 +49,7 @@ export default class HoraMenorDisplay extends Component {
         <Text style={GLOBAL.styles.red}>ORACIÓ</Text>
         <Text />
         <Text style={GLOBAL.styles.blackBold}>Preguem.</Text>
-        {this.oracio(this.props.LT, this.props.weekDay, this.props.HM)}
+        {this.oracio(this.props.LT, this.props.date.getDay(), this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />

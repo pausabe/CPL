@@ -262,20 +262,8 @@ export default class NavigatorController extends Component {
                           route={route}
                           title="Liturgia"
                           type={route.type}
-                          hour={route.hour}
-                          weekDay={route.weekDay}
-                          monthDay= {route.monthDay}
-                          month= {route.month}
-                          year= {route.year}
-                          cicle= {route.cicle}
-                          setmana= {route.setmana}
-                          LT={route.LT}
-                          ABC={route.ABC}
-                          cicle2={route.cicle2}
-                          setmana2={route.setmana2}
-                          LT2={route.LT2}
-                          ABC2={route.ABC2}
-                          LITURGIA={route.LITURGIA}/>);
+                          date={route.date}
+                          liturgicProps={route.liturgicProps} />);
     }
   }
 }

@@ -36,31 +36,25 @@ export default class LiturgiaDisplayScreen extends Component {
       case 'Ofici':
         return(
           <Ofici
-            hour = {this.props.hour}
-            weekDay = {this.props.weekDay}
-            monthDay = {this.props.monthDay}
-            month = {this.props.month}
-            year = {this.props.year}
-            cicle = {this.props.cicle}
-            setmana = {this.props.setmana}
-            LT={this.props.LT}
-            ABC={this.props.ABC}
-            OFICI={this.props.LITURGIA.ofici}/>
+            date={this.props.date}
+
+            cicle = {this.props.liturgicProps.cicle}
+            setmana = {this.props.liturgicProps.setmana}
+            LT={this.props.liturgicProps.LT}
+            ABC={this.props.liturgicProps.ABC}
+            OFICI={this.props.liturgicProps.LITURGIA.ofici}/>
           )
         break;
         case 'Laudes':
           return(
             <Laudes
-              hour = {this.props.hour}
-              weekDay = {this.props.weekDay}
-              monthDay = {this.props.monthDay}
-              month = {this.props.month}
-              year = {this.props.year}
-              cicle = {this.props.cicle}
-              setmana = {this.props.setmana}
-              LT = {this.props.LT}
-              ABC = {this.props.ABC}
-              LAUDES = {this.props.LITURGIA.laudes}/>
+              date={this.props.date}
+
+              cicle = {this.props.liturgicProps.cicle}
+              setmana = {this.props.liturgicProps.setmana}
+              LT = {this.props.liturgicProps.LT}
+              ABC = {this.props.liturgicProps.ABC}
+              LAUDES = {this.props.liturgicProps.LITURGIA.laudes}/>
             )
           break;
           case 'Vespres':
@@ -68,31 +62,25 @@ export default class LiturgiaDisplayScreen extends Component {
             if(this.props.weekDay !== 6){
               return(
                 <Vespres
-                  hour = {this.props.hour}
-                  weekDay = {this.props.weekDay}
-                  monthDay = {this.props.monthDay}
-                  month = {this.props.month}
-                  year = {this.props.year}
-                  cicle = {this.props.cicle}
-                  setmana = {this.props.setmana}
-                  LT = {this.props.LT}
-                  ABC = {this.props.ABC}
-                  VESPRES = {this.props.LITURGIA.vespres}/>
+                  date={this.props.date}
+
+                  cicle = {this.props.liturgicProps.cicle}
+                  setmana = {this.props.liturgicProps.setmana}
+                  LT = {this.props.liturgicProps.LT}
+                  ABC = {this.props.liturgicProps.ABC}
+                  VESPRES = {this.props.liturgicProps.LITURGIA.vespres}/>
                 )
             }
             else{ //dissabte vespre = vespres de diumenge
               return(
                 <Vespres
-                  hour = {this.props.hour}
-                  weekDay = {this.props.weekDay}
-                  monthDay = {this.props.monthDay}
-                  month = {this.props.month}
-                  year = {this.props.year}
-                  cicle = {this.props.cicle2}
-                  setmana = {this.props.setmana}
-                  LT={this.props.LT2}
-                  ABC={this.props.ABC2}
-                  VESPRES = {this.props.LITURGIA.vespres}/>
+                  date={this.props.date}
+
+                  cicle = {this.props.liturgicProps.cicle2}
+                  setmana = {this.props.liturgicProps.setmana}
+                  LT={this.props.liturgicProps.LT2}
+                  ABC={this.props.liturgicProps.ABC2}
+                  VESPRES = {this.props.liturgicProps.LITURGIA.vespres}/>
                 )
             }
             break;
@@ -100,63 +88,51 @@ export default class LiturgiaDisplayScreen extends Component {
               return(
                 <HoraMenor
                   HM = {type}
-                  hour = {this.props.hour}
-                  weekDay = {this.props.weekDay}
-                  monthDay = {this.props.monthDay}
-                  month = {this.props.month}
-                  year = {this.props.year}
-                  cicle = {this.props.cicle}
-                  setmana = {this.props.setmana}
-                  LT={this.props.LT}
-                  ABC={this.props.ABC}
-                  HORA_MENOR = {this.props.LITURGIA.tercia}/>
+                  date={this.props.date}
+
+                  cicle = {this.props.liturgicProps.cicle}
+                  setmana = {this.props.liturgicProps.setmana}
+                  LT={this.props.liturgicProps.LT}
+                  ABC={this.props.liturgicProps.ABC}
+                  HORA_MENOR = {this.props.liturgicProps.LITURGIA.tercia}/>
                 )
               break;
               case 'Sexta':
                 return(
                   <HoraMenor
                     HM = {type}
-                    hour = {this.props.hour}
-                    weekDay = {this.props.weekDay}
-                    monthDay = {this.props.monthDay}
-                    month = {this.props.month}
-                    year = {this.props.year}
-                    cicle = {this.props.cicle}
-                    setmana = {this.props.setmana}
-                    LT={this.props.LT}
-                    ABC={this.props.ABC}
-                    HORA_MENOR = {this.props.LITURGIA.sexta}/>
+                    date={this.props.date}
+
+                    cicle = {this.props.liturgicProps.cicle}
+                    setmana = {this.props.liturgicProps.setmana}
+                    LT={this.props.liturgicProps.LT}
+                    ABC={this.props.liturgicProps.ABC}
+                    HORA_MENOR = {this.props.liturgicProps.LITURGIA.sexta}/>
                   )
                 break;
               case 'Nona':
                 return(
                   <HoraMenor
                     HM = {type}
-                    hour = {this.props.hour}
-                    weekDay = {this.props.weekDay}
-                    monthDay = {this.props.monthDay}
-                    month = {this.props.month}
-                    year = {this.props.year}
-                    cicle = {this.props.cicle}
-                    setmana = {this.props.setmana}
-                    LT={this.props.LT}
-                    ABC={this.props.ABC}
-                    HORA_MENOR = {this.props.LITURGIA.nona}/>
+                    date={this.props.date}
+
+                    cicle = {this.props.liturgicProps.cicle}
+                    setmana = {this.props.liturgicProps.setmana}
+                    LT={this.props.liturgicProps.LT}
+                    ABC={this.props.liturgicProps.ABC}
+                    HORA_MENOR = {this.props.liturgicProps.LITURGIA.nona}/>
                   )
                 break;
               case 'Completes':
                 return(
                   <Completes
-                    hour = {this.props.hour}
-                    weekDay = {this.props.weekDay}
-                    monthDay = {this.props.monthDay}
-                    month = {this.props.month}
-                    year = {this.props.year}
-                    cicle = {this.props.cicle}
-                    setmana = {this.props.setmana}
-                    LT={this.props.LT}
-                    ABC={this.propsABC}
-                    COMPLETES = {this.props.LITURGIA.completes}/>
+                    date={this.props.date}
+
+                    cicle = {this.props.liturgicProps.cicle}
+                    setmana = {this.props.liturgicProps.setmana}
+                    LT={this.props.liturgicProps.LT}
+                    ABC={this.props.liturgicProps.ABC}
+                    COMPLETES = {this.props.liturgicProps.LITURGIA.completes}/>
                   )
                 break;
       default: return(<Text style={styles.normalText}>{this.props.type}</Text>)

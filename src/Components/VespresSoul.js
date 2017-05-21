@@ -65,13 +65,13 @@ export default class Vespres {
       oracio: '',
     }
 
-    this.himne(props.LT, props.weekDay, props.setmana);
-    this.salmodia(props.LT, props.setmana, props.weekDay, props.cicle);
-    this.lecturaBreu(props.LT);
-    this.responsori(props.LT);
-    this.cantic(props.LT, props.weekDay, props.ABC);
-    this.pregaries(props.LT);
-    this.oracio(props.LT, props.weekDay);
+    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana);
+    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.liturgicProps.cicle);
+    this.lecturaBreu(props.liturgicProps.LT);
+    this.responsori(props.liturgicProps.LT);
+    this.cantic(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.ABC);
+    this.pregaries(props.liturgicProps.LT);
+    this.oracio(props.liturgicProps.LT, props.date.getDay());
 
     SOUL.setSoul(HS, "vespres", this.VESPRES);
   }

@@ -18,13 +18,13 @@ export default class OficiDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, false, this.props.setmana)}
+        {this.himne(this.props.LT, this.props.date.getDay(), false, this.props.setmana)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay, this.props.cicle)}
+        {this.salmodia(this.props.LT, this.props.setmana, this.props.date.getDay(), this.props.cicle)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -38,14 +38,14 @@ export default class OficiDisplay extends Component {
         <Text />
         {this.lectures(this.props.LT)}
         <Text />
-        {this.himneOhDeu(this.props.LT, this.props.weekDay)}
+        {this.himneOhDeu(this.props.LT, this.props.date.getDay())}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>ORACIÓ</Text>
         <Text />
         <Text style={GLOBAL.styles.blackBold}>Preguem.</Text>
-        {this.oracio(this.props.LT, this.props.weekDay)}
+        {this.oracio(this.props.LT, this.props.date.getDay())}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -138,7 +138,6 @@ export default class OficiDisplay extends Component {
   }
 
   salmodia(LT, setmana, weekDay, cicle){
-    console.log("vamoh a ver: " + this.props.OFICI.titol1);
     return(
       <View>
         <Text style={GLOBAL.styles.red}>Ant. 1.

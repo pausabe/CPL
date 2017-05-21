@@ -75,13 +75,13 @@ export default class OficiSoul {
       oracio: '',
     }
 
-    this.introduccio(props.LT, props.setmana);
-    this.himne(props.LT, props.weekDay, false, props.setmana);
-    this.salmodia(props.LT, props.setmana, props.weekDay, props.cicle);
-    this.vers(props.LT);
-    this.lectures(props.LT);
-    this.himneOhDeu(props.LT, props.weekDay);
-    this.oracio(props.LT, props.weekDay);
+    this.introduccio(props.liturgicProps.LT, props.liturgicProps.setmana);
+    this.himne(props.liturgicProps.LT, props.date.getDay(), false, props.liturgicProps.setmana);
+    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.liturgicProps.cicle);
+    this.vers(props.liturgicProps.LT);
+    this.lectures(props.liturgicProps.LT);
+    this.himneOhDeu(props.liturgicProps.LT, props.date.getDay());
+    this.oracio(props.liturgicProps.LT, props.date.getDay());
 
     SOUL.setSoul(HS, "ofici", this.OFICI);
   }

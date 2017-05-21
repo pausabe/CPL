@@ -18,13 +18,13 @@ export default class LaudesDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.weekDay, this.props.setmana)}
+        {this.himne(this.props.LT, this.props.date.getDay(), this.props.setmana)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.setmana, this.props.weekDay)}
+        {this.salmodia(this.props.LT, this.props.setmana, this.props.date.getDay())}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -42,7 +42,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>CÀNTIC DE ZACARIES</Text>
         <Text />
-        {this.cantic(this.props.LT, this.props.weekDay, this.props.ABC)}
+        {this.cantic(this.props.LT, this.props.date.getDay(), this.props.ABC)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -53,7 +53,7 @@ export default class LaudesDisplay extends Component {
         <Text style={GLOBAL.styles.red}>ORACIÓ</Text>
         <Text />
         <Text style={GLOBAL.styles.blackBold}>Preguem.</Text>
-        {this.oracio(this.props.LT, this.props.weekDay)}
+        {this.oracio(this.props.LT, this.props.date.getDay())}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />

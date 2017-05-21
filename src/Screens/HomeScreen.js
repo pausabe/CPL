@@ -23,93 +23,92 @@ function paddingBar(){
   return 54;
 }
 
-/*
-O_ORDINARI
-Q_CENDRA
-Q_SETMANES
-Q_DIUM_RAMS
-Q_SET_SANTA
-Q_TRIDU
-Q_DIUM_PASQUA
-P_OCTAVA
-P_SETMANES
-A_SETMANES
-A_FERIES
-N_OCTAVA
-N_ABANS
-*/
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      LITURGIA: null,
-      ofici: null,
-      diocesis: '',
-      invitatori: '',
-      santPressed: false,
-      memoria: false,
-      celebracio: '',
-      anyliturgic: '',
-      anyliturgic2: '',
-      monthDay: '',
-      month: '',
-      year: '',
-      hour: '',
-      weekDay: '',
-      LT: '',
-      cicle: '',
-      setmana: '',
-      ABC: '',
-      LT2: '',
-      cicle2: '',
-      setmana2: '',
-      ABC2: '',
-    }
-
-    SettingsManager.getSettingDiocesis((r) => this.setState({diocesis: r}));
-    SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
-
-    this.today = new Date();
+    var today = new Date();
     //this.today.setDate(20); //1-31
     //this.today.setMonth(0); //0-11
     //this.today.setFullYear(2017); //XXXX
 
+    this.state = {
+      diocesis: '',
+      santPressed: false,
+      celebracio: '',
+      date: today,
+
+      liturgicProps: {
+        LITURGIA: null,
+        tempsespecific: '',
+        LT: '',
+        cicle: '',
+        setmana: '',
+        ABC: '',
+        tempsespecific2: '',
+        LT2: '',
+        cicle2: '',
+        setmana2: '',
+        ABC2: '',
+      },
+    }
+
+    SettingsManager.getSettingDiocesis((r) => this.setState({diocesis: r}));
+
     acceso = new DBAdapter();
     acceso.getAnyLiturgic(
-      this.today.getFullYear(),
-      this.today.getMonth(),
-      this.today.getDate(),
+      this.state.date.getFullYear(),
+      this.state.date.getMonth(),
+      this.state.date.getDate(),
       (current, tomorrow) => {
         var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
         this.setState({
-          date: this.today,
-          dialogShow: false,
-          monthDay: this.today.getDate(), //1-31
-          month: this.today.getMonth(), //0-11
-          year: this.today.getFullYear(), //xxxx
-          hour: this.today.getHours(), //0-23
-          weekDay: this.today.getDay(), //0-6 (diumenge-dissabte)
-          anyliturgic: current,
           celebracio: cel,
-          LT: current.temps,
-          cicle: current.cicle, //1-4
-          setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-          ABC: current.anyABC,
-          anyliturgic2: tomorrow,
-          LT2: tomorrow.temps,
-          cicle2: tomorrow.cicle,
-          setmana2: tomorrow.NumSet,
-          ABC2: tomorrow.anyABC,
+
+          liturgicProps: {
+            LITURGIA: null,
+
+            tempsespecific: current.tempsespecific,
+            LT: current.temps,
+            cicle: current.cicle, //1-4
+            setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+            ABC: current.anyABC,
+
+            tempsespecific2: tomorrow.tempsespecific,
+            LT2: tomorrow.temps,
+            cicle2: tomorrow.cicle,
+            setmana2: tomorrow.NumSet,
+            ABC2: tomorrow.anyABC,
+          },
         });
 
-        new SOUL(this.state, this);
+        this.SOUL = new SOUL(this.state, this);
       }
     );
   }
 
-  setSoul(LITURGIA){
-    this.setState({ LITURGIA: LITURGIA });
+  changeDate(){
+    var d = new Date();
+    //this.SOUL.
+  }
+
+  setSoul(liturgia){
+    this.setState({
+      liturgicProps: {
+        LITURGIA: liturgia,
+        tempsespecific: this.state.liturgicProps.tempsespecific,
+        LT: this.state.liturgicProps.LT,
+        cicle: this.state.liturgicProps.cicle,
+        setmana: this.state.liturgicProps.setmana,
+        ABC: this.state.liturgicProps.ABC,
+
+        tempsespecific2: this.state.liturgicProps.tempsespecific2,
+        LT2: this.state.liturgicProps.LT2,
+        cicle2: this.state.liturgicProps.cicle2,
+        setmana2: this.state.liturgicProps.setmana2,
+        ABC2: this.state.liturgicProps.ABC2,
+      }
+    });
   }
 
   componentWillMount() {
@@ -124,17 +123,17 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesi de {this.state.diocesis} - {this.state.monthDay < 10 ? `0${this.state.monthDay}` : this.state.monthDay}/{this.state.month+1 < 10 ? `0${this.state.month+1}` : this.state.month+1}/{this.state.year}</Text>
+            <Text style={styles.infoText}>Diòcesi de {this.state.diocesis} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.weekDay)}{this.state.anyliturgic.NumSet !== 0 ? " de la setmana" : null}
-              {this.state.anyliturgic.NumSet !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.NumSet)}</Text> : null }</Text>
+            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmanes !== 0 ? " de la setmana" : null}
+              {this.state.liturgicProps.setmanes !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.setmanes)}</Text> : null }</Text>
             <Text style={styles.diaLiturgicText}>Temps de
-              <Text style={{color: '#c0392b'}}> {this.state.anyliturgic.tempsespecific}</Text></Text>
+              <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.tempsespecific}</Text></Text>
             <Text style={styles.diaLiturgicText}>Setmana
-              <Text style={{color: '#c0392b'}}> {this.romanize(this.state.anyliturgic.cicle)} </Text>
+              <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.cicle)} </Text>
               del cicle litúrgic, any
-                <Text style={{color: '#c0392b'}}> {this.state.ABC}</Text></Text>
+                <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.ABC}</Text></Text>
           </View>
           <View style={styles.santContainer}>
             <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
@@ -172,20 +171,8 @@ export default class HomeScreen extends Component {
             <View style={styles.liturgiaContainer}>
               <Liturgia
                 navigator={this.props.navigator}
-                hour={this.state.hour}
-                weekDay={this.state.weekDay}
-                monthDay={this.state.monthDay}
-                month={this.state.month}
-                year={this.state.year}
-                cicle={this.state.cicle}
-                setmana={this.state.setmana}
-                LT={this.state.LT}
-                ABC={this.state.ABC}
-                cicle2={this.state.cicle2}
-                setmana2={this.state.setmana2}
-                LT2={this.state.LT2}
-                ABC2={this.state.ABC2}
-                LITURGIA={this.state.LITURGIA}
+                date={this.state.date}
+                liturgicProps={this.state.liturgicProps}
               />
             </View>
           }
@@ -198,26 +185,15 @@ export default class HomeScreen extends Component {
     return(
       <Liturgia
         navigator={this.props.navigator}
-        hour={this.state.hour}
-        weekDay={this.state.weekDay}
-        monthDay={this.state.monthDay}
-        month={this.state.month}
-        year={this.state.year}
-        cicle={this.state.cicle}
-        setmana={this.state.setmana}
-        LT={this.state.LT}
-        ABC={this.state.ABC}
-        cicle2={this.state.cicle2}
-        setmana2={this.state.setmana2}
-        LT2={this.state.LT2}
-        ABC2={this.state.ABC2}
-        LITURGIA={this.state.LITURGIA}
+        date={this.state.date}
+        liturgicProps={this.state.liturgicProps}
       />
     )
   }
 
   onSantPress(){
-    this.setState({santPressed: !this.state.santPressed});
+    //this.setState({santPressed: !this.state.santPressed});
+    this.changeDate();
   }
 
   celebracio(diocesis, anyliturgic){
