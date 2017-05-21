@@ -28,14 +28,15 @@ export default class HomeScreen extends Component {
     super(props)
 
     var today = new Date();
-    //this.today.setDate(20); //1-31
-    //this.today.setMonth(0); //0-11
-    //this.today.setFullYear(2017); //XXXX
+    //today.setDate(20); //1-31
+    //today.setMonth(0); //0-11
+    //today.setFullYear(2017); //XXXX
 
     this.state = {
       diocesis: '',
       santPressed: false,
       celebracio: '',
+      invitatori: '',
       date: today,
 
       liturgicProps: {
@@ -54,9 +55,10 @@ export default class HomeScreen extends Component {
     }
 
     SettingsManager.getSettingDiocesis((r) => this.setState({diocesis: r}));
+    SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
 
-    acceso = new DBAdapter();
-    acceso.getAnyLiturgic(
+    this.acceso = new DBAdapter();
+    this.acceso.getAnyLiturgic(
       this.state.date.getFullYear(),
       this.state.date.getMonth(),
       this.state.date.getDate(),
@@ -88,11 +90,45 @@ export default class HomeScreen extends Component {
   }
 
   changeDate(){
-    var d = new Date();
-    //this.SOUL.
+    var newDay = new Date();
+    newDay.setDate(this.state.date.getDate()-1); //1-31
+    //newDay.setMonth(0); //0-11
+    //newDay.setFullYear(2017); //XXXX
+
+    this.acceso.getAnyLiturgic(
+      newDay.getFullYear(),
+      newDay.getMonth(),
+      newDay.getDate(),
+      (current, tomorrow) => {
+        var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
+        this.setState({
+          date: newDay,
+          celebracio: cel,
+
+          liturgicProps: {
+            LITURGIA: null,
+
+            tempsespecific: current.tempsespecific,
+            LT: current.temps,
+            cicle: current.cicle, //1-4
+            setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+            ABC: current.anyABC,
+
+            tempsespecific2: tomorrow.tempsespecific,
+            LT2: tomorrow.temps,
+            cicle2: tomorrow.cicle,
+            setmana2: tomorrow.NumSet,
+            ABC2: tomorrow.anyABC,
+          },
+        });
+
+        this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.state.invitatori, this);
+      }
+    );
   }
 
   setSoul(liturgia){
+    console.log("Setting soul. Titol 1, himne de Laudes: " + liturgia.laudes.titol1);
     this.setState({
       liturgicProps: {
         LITURGIA: liturgia,
@@ -126,8 +162,8 @@ export default class HomeScreen extends Component {
             <Text style={styles.infoText}>Diòcesi de {this.state.diocesis} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmanes !== 0 ? " de la setmana" : null}
-              {this.state.liturgicProps.setmanes !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.setmanes)}</Text> : null }</Text>
+            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmana !== 0 ? " de la setmana" : null}
+              {this.state.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.setmana)}</Text> : null }</Text>
             <Text style={styles.diaLiturgicText}>Temps de
               <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.tempsespecific}</Text></Text>
             <Text style={styles.diaLiturgicText}>Setmana

@@ -5,6 +5,10 @@ import GLOBAL from '../Globals/Globals';
 export default class TerciaSoul {
   constructor(props, TABLES, HS, SOUL) {
 
+    this.makePrayer(props.date, props.liturgicProps, TABLES, HS, SOUL);
+  }
+
+  makePrayer(date, liturgicProps, TABLES, HS, SOUL){
     this.state = {
       salteriComuHora: TABLES.salteriComuHora,
       tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
@@ -112,24 +116,24 @@ export default class TerciaSoul {
       oracio: '',
     }
 
-    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana, "Tèrcia");
-    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.cicle, "Tèrcia");
-    this.lecturaBreuResp(props.liturgicProps.LT, "Tèrcia");
-    this.oracio(props.liturgicProps.LT, props.date.getDay(), "Tèrcia");
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia");
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Tèrcia");
+    this.lecturaBreuResp(liturgicProps.LT, "Tèrcia");
+    this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia");
 
     SOUL.setSoul(HS, "tercia", this.TERCIA);
 
-    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana, "Sexta");
-    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.cicle, "Sexta");
-    this.lecturaBreuResp(props.liturgicProps.LT, "Sexta");
-    this.oracio(props.liturgicProps.LT, props.date.getDay(), "Sexta");
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta");
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Sexta");
+    this.lecturaBreuResp(liturgicProps.LT, "Sexta");
+    this.oracio(liturgicProps.LT, date.getDay(), "Sexta");
 
     SOUL.setSoul(HS, "sexta", this.SEXTA);
 
-    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana, "Nona");
-    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.cicle, "Nona");
-    this.lecturaBreuResp(props.liturgicProps.LT, "Nona");
-    this.oracio(props.liturgicProps.LT, props.date.getDay(), "Nona");
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona");
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Nona");
+    this.lecturaBreuResp(liturgicProps.LT, "Nona");
+    this.oracio(liturgicProps.LT, date.getDay(), "Nona");
 
     SOUL.setSoul(HS, "nona", this.NONA);
   }

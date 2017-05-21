@@ -3,85 +3,89 @@ import GLOBAL from '../Globals/Globals';
 export default class OficiSoul {
   constructor(props, TABLES, HS, SOUL) {
 
-    nit=false; //TODO: todo
-    this.state = {
-      nit: nit,
-      salteriComuOfici: TABLES.salteriComuOfici,
-      salteriComuInvitatori: TABLES.salteriComuInvitatori,
-      tempsOrdinariOfici: TABLES.tempsOrdinariOfici,
-      tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
-      tempsQuaresmaComuFV: TABLES.tempsQuaresmaComuFV,
-      tempsQuaresmaCendra: TABLES.tempsQuaresmaCendra,
-      tempsQuaresmaVSetmanes: TABLES.tempsQuaresmaVSetmanes,
-      tempsQuaresmaComuSS: TABLES.tempsQuaresmaComuSS,
-      tempsQuaresmaRams: TABLES.tempsQuaresmaRams,
-      tempsQuaresmaSetSanta: TABLES.tempsQuaresmaSetSanta,
-      tempsQuaresmaTridu: TABLES.tempsQuaresmaTridu,
-      tempsPasquaAA: TABLES.tempsPasquaAA,
-      tempsPasquaOct: TABLES.tempsPasquaOct,
-      tempsPasquaDA: TABLES.tempsPasquaDA,
-      tempsPasquaSetmanes: TABLES.tempsPasquaSetmanes,
-      tempsAdventNadalComu: TABLES.tempsAdventNadalComu,
-      tempsAdventSetmanes: TABLES.tempsAdventSetmanes,
-      tempsAdventFeries: TABLES.tempsAdventFeries,
-      tempsNadalOctava: TABLES.tempsNadalOctava,
-      tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
-      salteriComuEspPasquaDium: TABLES.salteriComuEspPasquaDium,
-      diversos: TABLES.diversos,
-      salm94: TABLES.diversos.item(0).oracio,
-      ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
-    };
+    this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, HS, SOUL);
+  }
 
-    this.OFICI = { //40
-      invitatori: props.invitatori,
-      antInvitatori: '',
-      salm94: '',
-      himne: '',
-      ant1: '',
-      titol1: '',
-      com1: '',
-      salm1: '',
-      gloria1: '',
-      ant2: '',
-      titol2: '',
-      com2: '',
-      salm2: '',
-      gloria2: '',
-      ant3: '',
-      titol3: '',
-      com3: '',
-      salm3: '',
-      gloria3: '',
-      respV: '',
-      respR: '',
-      referencia1: '',
-      cita1: '',
-      titolLectura1: '',
-      lectura1: '',
-      citaResp1: '',
-      resp1Part1: '',
-      resp1Part2: '',
-      resp1Part3: '',
-      referencia2: '',
-      cita2: '',
-      titolLectura2: '',
-      lectura2: '',
-      versResp2: '',
-      resp2Part1: '',
-      resp2Part2: '',
-      resp2Part3: '',
-      himneOhDeu: '',
-      himneOhDeuBool: '',
-      oracio: '',
-    }
+  makePrayer(date, liturgicProps, TABLES, invitatori, HS, SOUL){
+        nit=false; //TODO: todo
+        this.state = {
+          nit: nit,
+          salteriComuOfici: TABLES.salteriComuOfici,
+          salteriComuInvitatori: TABLES.salteriComuInvitatori,
+          tempsOrdinariOfici: TABLES.tempsOrdinariOfici,
+          tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
+          tempsQuaresmaComuFV: TABLES.tempsQuaresmaComuFV,
+          tempsQuaresmaCendra: TABLES.tempsQuaresmaCendra,
+          tempsQuaresmaVSetmanes: TABLES.tempsQuaresmaVSetmanes,
+          tempsQuaresmaComuSS: TABLES.tempsQuaresmaComuSS,
+          tempsQuaresmaRams: TABLES.tempsQuaresmaRams,
+          tempsQuaresmaSetSanta: TABLES.tempsQuaresmaSetSanta,
+          tempsQuaresmaTridu: TABLES.tempsQuaresmaTridu,
+          tempsPasquaAA: TABLES.tempsPasquaAA,
+          tempsPasquaOct: TABLES.tempsPasquaOct,
+          tempsPasquaDA: TABLES.tempsPasquaDA,
+          tempsPasquaSetmanes: TABLES.tempsPasquaSetmanes,
+          tempsAdventNadalComu: TABLES.tempsAdventNadalComu,
+          tempsAdventSetmanes: TABLES.tempsAdventSetmanes,
+          tempsAdventFeries: TABLES.tempsAdventFeries,
+          tempsNadalOctava: TABLES.tempsNadalOctava,
+          tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
+          salteriComuEspPasquaDium: TABLES.salteriComuEspPasquaDium,
+          diversos: TABLES.diversos,
+          salm94: TABLES.diversos.item(0).oracio,
+          ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
+        };
 
-    this.introduccio(props.liturgicProps.LT, props.liturgicProps.setmana);
-    this.himne(props.liturgicProps.LT, props.date.getDay(), false, props.liturgicProps.setmana);
-    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.liturgicProps.cicle);
-    this.vers(props.liturgicProps.LT);
-    this.lectures(props.liturgicProps.LT);
-    this.himneOhDeu(props.liturgicProps.LT, props.date.getDay());
-    this.oracio(props.liturgicProps.LT, props.date.getDay());
+        this.OFICI = { //40
+          invitatori: invitatori,
+          antInvitatori: '',
+          salm94: '',
+          himne: '',
+          ant1: '',
+          titol1: '',
+          com1: '',
+          salm1: '',
+          gloria1: '',
+          ant2: '',
+          titol2: '',
+          com2: '',
+          salm2: '',
+          gloria2: '',
+          ant3: '',
+          titol3: '',
+          com3: '',
+          salm3: '',
+          gloria3: '',
+          respV: '',
+          respR: '',
+          referencia1: '',
+          cita1: '',
+          titolLectura1: '',
+          lectura1: '',
+          citaResp1: '',
+          resp1Part1: '',
+          resp1Part2: '',
+          resp1Part3: '',
+          referencia2: '',
+          cita2: '',
+          titolLectura2: '',
+          lectura2: '',
+          versResp2: '',
+          resp2Part1: '',
+          resp2Part2: '',
+          resp2Part3: '',
+          himneOhDeu: '',
+          himneOhDeuBool: '',
+          oracio: '',
+        }
+
+    this.introduccio(liturgicProps.LT, liturgicProps.setmana);
+    this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle);
+    this.vers(liturgicProps.LT);
+    this.lectures(liturgicProps.LT);
+    this.himneOhDeu(liturgicProps.LT, date.getDay());
+    this.oracio(liturgicProps.LT, date.getDay());
 
     SOUL.setSoul(HS, "ofici", this.OFICI);
   }

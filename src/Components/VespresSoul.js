@@ -5,73 +5,77 @@ import GLOBAL from '../Globals/Globals';
 export default class Vespres {
   constructor(props, TABLES, HS, SOUL) {
 
-    this.state = {
-      salteriComuVespres: TABLES.salteriComuVespres,
-      tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
-      tempsQuaresmaComuFV: TABLES.tempsQuaresmaComuFV,
-      tempsQuaresmaCendra: TABLES.tempsQuaresmaCendra,
-      tempsQuaresmaVSetmanes: TABLES.tempsQuaresmaVSetmanes,
-      tempsQuaresmaVSetmanesDium: TABLES.tempsQuaresmaVSetmanesDium,
-      tempsQuaresmaComuSS: TABLES.tempsQuaresmaComuSS,
-      tempsQuaresmaRams: TABLES.tempsQuaresmaRams,
-      tempsQuaresmaSetSanta: TABLES.tempsQuaresmaSetSanta,
-      tempsQuaresmaTridu: TABLES.tempsQuaresmaTridu,
-      tempsQuaresmaDiumPasq: TABLES.tempsQuaresmaDiumPasq,
-      tempsPasquaAA: TABLES.tempsPasquaAA,
-      tempsPasquaOct: TABLES.tempsPasquaOct,
-      tempsPasquaDA: TABLES.tempsPasquaDA,
-      tempsPasquaSetmanes: TABLES.tempsPasquaSetmanes,
-      tempsPasquaSetmanesDium: TABLES.tempsPasquaSetmanesDium,
-      tempsAdventNadalComu: TABLES.tempsAdventNadalComu,
-      tempsAdventSetmanes: TABLES.tempsAdventSetmanes,
-      tempsAdventSetmanesDium: TABLES.tempsAdventSetmanesDium,
-      tempsAdventFeries: TABLES.tempsAdventFeries,
-      tempsNadalOctava: TABLES.tempsNadalOctava,
-      tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
-      tempsSolemnitatsFestes: TABLES.tempsSolemnitatsFestes,
-      salteriComuEspPasqua: TABLES.salteriComuEspPasqua,
-      diversos: TABLES.diversos,
-      magnificat: TABLES.diversos.item(5).oracio,
-      diversos: TABLES.diversos,
-    };
+    this.makePrayer(props.date, props.liturgicProps, TABLES, HS, SOUL)
+  }
 
-    this.VESPRES = { //27
-      himne: '',
-      ant1: '',
-      titol1: '',
-      com1: '',
-      salm1: '',
-      gloria1: '',
-      ant2: '',
-      titol2: '',
-      com2: '',
-      salm2: '',
-      gloria2: '',
-      ant3: '',
-      titol3: '',
-      com3: '',
-      salm3: '',
-      gloria3: '',
-      vers: '',
-      lecturaBreu: '',
-      calAntEspecial: '',
-      antEspecialVespres: '',
-      respBreu1: '',
-      respBreu2: '',
-      respBreu3: '',
-      cantic: '',
-      antCantic: '',
-      pregaries: '',
-      oracio: '',
-    }
+  makePrayer(date, liturgicProps, TABLES, HS, SOUL){
+        this.state = {
+          salteriComuVespres: TABLES.salteriComuVespres,
+          tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
+          tempsQuaresmaComuFV: TABLES.tempsQuaresmaComuFV,
+          tempsQuaresmaCendra: TABLES.tempsQuaresmaCendra,
+          tempsQuaresmaVSetmanes: TABLES.tempsQuaresmaVSetmanes,
+          tempsQuaresmaVSetmanesDium: TABLES.tempsQuaresmaVSetmanesDium,
+          tempsQuaresmaComuSS: TABLES.tempsQuaresmaComuSS,
+          tempsQuaresmaRams: TABLES.tempsQuaresmaRams,
+          tempsQuaresmaSetSanta: TABLES.tempsQuaresmaSetSanta,
+          tempsQuaresmaTridu: TABLES.tempsQuaresmaTridu,
+          tempsQuaresmaDiumPasq: TABLES.tempsQuaresmaDiumPasq,
+          tempsPasquaAA: TABLES.tempsPasquaAA,
+          tempsPasquaOct: TABLES.tempsPasquaOct,
+          tempsPasquaDA: TABLES.tempsPasquaDA,
+          tempsPasquaSetmanes: TABLES.tempsPasquaSetmanes,
+          tempsPasquaSetmanesDium: TABLES.tempsPasquaSetmanesDium,
+          tempsAdventNadalComu: TABLES.tempsAdventNadalComu,
+          tempsAdventSetmanes: TABLES.tempsAdventSetmanes,
+          tempsAdventSetmanesDium: TABLES.tempsAdventSetmanesDium,
+          tempsAdventFeries: TABLES.tempsAdventFeries,
+          tempsNadalOctava: TABLES.tempsNadalOctava,
+          tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
+          tempsSolemnitatsFestes: TABLES.tempsSolemnitatsFestes,
+          salteriComuEspPasqua: TABLES.salteriComuEspPasqua,
+          diversos: TABLES.diversos,
+          magnificat: TABLES.diversos.item(5).oracio,
+          diversos: TABLES.diversos,
+        };
 
-    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana);
-    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.liturgicProps.cicle);
-    this.lecturaBreu(props.liturgicProps.LT);
-    this.responsori(props.liturgicProps.LT);
-    this.cantic(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.ABC);
-    this.pregaries(props.liturgicProps.LT);
-    this.oracio(props.liturgicProps.LT, props.date.getDay());
+        this.VESPRES = { //27
+          himne: '',
+          ant1: '',
+          titol1: '',
+          com1: '',
+          salm1: '',
+          gloria1: '',
+          ant2: '',
+          titol2: '',
+          com2: '',
+          salm2: '',
+          gloria2: '',
+          ant3: '',
+          titol3: '',
+          com3: '',
+          salm3: '',
+          gloria3: '',
+          vers: '',
+          lecturaBreu: '',
+          calAntEspecial: '',
+          antEspecialVespres: '',
+          respBreu1: '',
+          respBreu2: '',
+          respBreu3: '',
+          cantic: '',
+          antCantic: '',
+          pregaries: '',
+          oracio: '',
+        }
+
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle);
+    this.lecturaBreu(liturgicProps.LT);
+    this.responsori(liturgicProps.LT);
+    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC);
+    this.pregaries(liturgicProps.LT);
+    this.oracio(liturgicProps.LT, date.getDay());
 
     SOUL.setSoul(HS, "vespres", this.VESPRES);
   }

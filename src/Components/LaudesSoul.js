@@ -10,6 +10,10 @@ import GLOBAL from '../Globals/Globals';
 export default class LaudesSoul {
   constructor(props, TABLES, HS, SOUL) {
 
+    this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, HS, SOUL);
+  }
+
+  makePrayer(date, liturgicProps, TABLES, invitatori, HS, SOUL){
     this.state = {
       salteriComuLaudes: TABLES.salteriComuLaudes,
       salteriComuInvitatori: TABLES.salteriComuInvitatori,
@@ -42,7 +46,7 @@ export default class LaudesSoul {
     };
 
     this.LAUDES = { //30
-      invitatori: props.invitatori,
+      invitatori: invitatori,
       antInvitatori: '',
       salm94: '',
       himne: '',
@@ -74,14 +78,14 @@ export default class LaudesSoul {
       oracio: '',
     }
 
-    this.introduccio(props.liturgicProps.LT, props.liturgicProps.setmana);
-    this.himne(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.setmana);
-    this.salmodia(props.liturgicProps.LT, props.liturgicProps.setmana, props.date.getDay(), props.liturgicProps.cicle);
-    this.lecturaBreu(props.liturgicProps.LT);
-    this.responsori(props.liturgicProps.LT);
-    this.cantic(props.liturgicProps.LT, props.date.getDay(), props.liturgicProps.ABC);
-    this.pregaries(props.liturgicProps.LT);
-    this.oracio(props.liturgicProps.LT, props.date.getDay());
+    this.introduccio(liturgicProps.LT, liturgicProps.setmana);
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle);
+    this.lecturaBreu(liturgicProps.LT);
+    this.responsori(liturgicProps.LT);
+    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC);
+    this.pregaries(liturgicProps.LT);
+    this.oracio(liturgicProps.LT, date.getDay());
 
     SOUL.setSoul(HS, "laudes", this.LAUDES);
   }
@@ -416,6 +420,7 @@ export default class LaudesSoul {
     }
     this.LAUDES.ant1 = ant1;
     this.LAUDES.titol1 = titol1;
+    console.log("in laudes: " + titol1);
     this.LAUDES.com1 = com1;
     this.LAUDES.salm1 = salm1;
     this.LAUDES.gloria1 = gloria1;

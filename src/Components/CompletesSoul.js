@@ -5,6 +5,10 @@ import GLOBAL from '../Globals/Globals';
 export default class CompletesSoul{
   constructor(props, TABLES, HS, SOUL) {
 
+    this.makePrayer(props.date, props.liturgicProps, TABLES, HS, SOUL);
+  }
+
+  makePrayer(date, liturgicProps, TABLES, HS, SOUL){
     this.state = {
       salteriComuCompletes: TABLES.salteriComuCompletes,
       diversos: TABLES.diversos,
@@ -42,7 +46,7 @@ export default class CompletesSoul{
       antMare: this.state.antMare,
     }
 
-    this.completes(props.LT, props.weekDay);
+    this.completes(liturgicProps.LT, date.getDay());
 
     SOUL.setSoul(HS, "completes", this.COMPLETES);
   }

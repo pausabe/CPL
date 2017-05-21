@@ -13,7 +13,7 @@ import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen'
 
 export default class Liturgia extends Component {
   onButtonPress(idPressed, type, component){
-    if(this.props.LITURGIA !== null){
+    if(this.props.liturgicProps.LITURGIA !== null){
       if(Platform.OS === 'ios'){
         this.props.navigator.push({
           title: type,
