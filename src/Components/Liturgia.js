@@ -48,7 +48,7 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Laudes", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>{hour > 5 && hour < 9 ? "* " : null}{"Laudes"}</Text>
+         <Text style={styles.buttonText}>{hour > 5 && hour < 9 ? "* Laudes *" : "Laudes"}</Text>
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
        <View style={{flex:1, flexDirection: 'column'}}>
@@ -58,27 +58,27 @@ export default class Liturgia extends Component {
          <View style={{flex:2, flexDirection: 'row'}}>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Tèrcia", LiturgiaDisplayScreen)}>
-             <Text style={styles.horaMenorText}>{hour > 8 && hour < 12 ? "* " : null}{"Tèrica"}</Text>
+             <Text style={styles.horaMenorText}>{hour > 8 && hour < 12 ? "* Tèrica *" : "Tèrica"}</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Sexta", LiturgiaDisplayScreen)}>
-             <Text style={styles.horaMenorText}>{hour > 11 && hour < 15 ? "* " : null}{"Sexta"}</Text>
+             <Text style={styles.horaMenorText}>{hour > 11 && hour < 15 ? "* Sexta *" : "Sexta"}</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Nona", LiturgiaDisplayScreen)}>
-             <Text style={styles.horaMenorText}>{hour > 14 && hour < 18 ? "* " : null}{"Nona"}</Text>
+             <Text style={styles.horaMenorText}>{hour > 14 && hour < 18 ? "* Nona *" : "Nona"}</Text>
            </TouchableOpacity>
          </View>
        </View>
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Vespres", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>{hour > 17 && hour < 23 ? "* " : null}{"Vespres"}</Text>
+         <Text style={styles.buttonText}>{hour > 17 && hour < 23 ? "* Vespres *" : "Vespres"}</Text>
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Completes", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>{hour > 22 ? "* " : null}{"Completes"}</Text>
+         <Text style={styles.buttonText}>{hour > 22 ? "* Completes *" : "Completes"}</Text>
        </TouchableOpacity>
       </View>
     )

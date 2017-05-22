@@ -15,9 +15,7 @@ export default class SettingsScreen extends Component {
     render() {
         console.log("I'm rendering settings.");
         if(!this.state || this.state && !this.state.options){
-            return (<ScrollView style={styles.itemList}>
-                <Text>Carregant opcions</Text>
-            </ScrollView>);
+            return (<ScrollView style={styles.itemList}></ScrollView>);
         }
         return (
             <ScrollView style={styles.itemList}>
@@ -34,12 +32,7 @@ function callbackTest(id, value){
 const styles = StyleSheet.create({
     itemList: {
         flex: 1,
-        paddingTop: GLOBAL.paddingBar
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        paddingTop: GLOBAL.paddingBar,
         backgroundColor: '#E1F5FE',
     },
     normalText: {

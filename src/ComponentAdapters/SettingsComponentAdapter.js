@@ -76,13 +76,18 @@ export default class SettingsComponentAdapter{
     }
 
     static async getSettingComponentInvitatori(){
+      console.log(this.aha);
         let value = await SettingsManager.getSettingInvitatori();
         value = _getKeyFromValue(invitatori, value);
         let component = (<SettingComponent selectorComponent="picker" name="Selecciona invitatori" id="invitatori" key="invitatori"
             value={value} options={invitatori} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
-                SettingsManager.setSettingInvitatori(invitatori[value]);
+                SettingsManager.setSettingInvitatori(invitatori[value], this.aha);
             }}/>);
         return component;
+    }
+
+    static aha(){
+      console.log("hola test");
     }
 
 }

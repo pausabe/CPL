@@ -33,7 +33,7 @@ export default class HomeScreen extends Component {
     //today.setFullYear(2017); //XXXX
 
     this.state = {
-      diocesis: '',
+      diocesi: '',
       santPressed: false,
       celebracio: '',
       invitatori: '',
@@ -54,7 +54,11 @@ export default class HomeScreen extends Component {
       },
     }
 
-    SettingsManager.getSettingDiocesis((r) => this.setState({diocesis: r}));
+    this.dataRec = {
+      diocesi: '',
+      invitatori: '',
+    }
+    SettingsManager.getSettingDiocesis((r) => this.setState({diocesi: r}));
     SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
 
     this.acceso = new DBAdapter();
@@ -89,8 +93,8 @@ export default class HomeScreen extends Component {
     );
   }
 
-  changeDate(){
-    var newDay = new Date();
+  refreshDate(newDay, diocesi, invitatori){
+    newDay = new Date();
     newDay.setDate(this.state.date.getDate()-1); //1-31
     //newDay.setMonth(0); //0-11
     //newDay.setFullYear(2017); //XXXX
@@ -104,6 +108,8 @@ export default class HomeScreen extends Component {
         this.setState({
           date: newDay,
           celebracio: cel,
+          diocesi: diocesi,
+          invitatori: invitatori,
 
           liturgicProps: {
             LITURGIA: null,
@@ -127,8 +133,39 @@ export default class HomeScreen extends Component {
     );
   }
 
+  /*asdf(){
+    console.log("update");
+
+    //1
+    SettingsManager.getSettingDiocesis((r) => {
+      this.dataReceived("diocesi", r);
+    });
+    //2
+    SettingsManager.getSettingInvitatori((r) => {
+      this.dataReceived("invitatori", r);
+    });
+  }
+
+  dataReceived(type, value){
+    this.cDR = 2;
+    switch (type) {
+      case "diocesi":
+        this.cDR -= 1;
+        this.dataRec.diocesi = value;
+        break;
+      case "invitatori":
+        this.cDR -= 1;
+        this.dataRec.invitatori = value;
+        break;
+    }
+
+    if(this.cDR === 0){
+      this.setState({diocesi: this.dateRec.diocesi, invitatori: this.dateRec.invitatori});
+      this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.dateRec.invitatori, this);
+    }
+  }*/
+
   setSoul(liturgia){
-    console.log("Setting soul. Titol 1, himne de Laudes: " + liturgia.laudes.titol1);
     this.setState({
       liturgicProps: {
         LITURGIA: liturgia,
@@ -159,7 +196,7 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesi de {this.state.diocesis} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
+            <Text style={styles.infoText}>Diòcesi de {this.state.diocesi} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
             <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmana !== 0 ? " de la setmana" : null}
@@ -229,11 +266,11 @@ export default class HomeScreen extends Component {
 
   onSantPress(){
     //this.setState({santPressed: !this.state.santPressed});
-    this.changeDate();
+    this.refreshDate();
   }
 
-  celebracio(diocesis, anyliturgic){
-    switch (diocesis) {
+  celebracio(diocesi, anyliturgic){
+    switch (diocesi) {
       case "BaD":
         celebracio = anyliturgic.BaD;
         break;
