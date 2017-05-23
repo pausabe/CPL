@@ -45,6 +45,68 @@ export default class DBAdapter {
       result => callback(result.rows.item(0), result.rows.item(1)));
   }
 
+  getSolMem(table, date, diocesi, callback){
+    dia = this.calculeDia(date);
+    if(diocesi === '-'){
+    this.executeQuery(`SELECT * FROM ${table} WHERE dia = ${dia}`,
+      result => callback(result.rows.item(0)));
+    }
+    else{
+      this.executeQuery(`SELECT * FROM ${table} WHERE Diocesis = ${diocesi} AND dia = ${dia}`,
+        result => callback(result.rows.item(0)));
+    }
+  }
+
+  getOC(categoria, callback){
+    this.executeQuery(`SELECT * FROM OficisComuns WHERE Categoria = ${categoria}`,
+      result => callback(result.rows.item(0)));
+  }
+
+  calculeDia(date){
+    switch (date.getMonth()) {
+      case 0:
+        mes = "ene";
+        break;
+      case 1:
+        mes = "feb";
+        break;
+      case 2:
+        mes = "mar";
+        break;
+      case 3:
+        mes = "abr";
+        break;
+      case 4:
+        mes = "may";
+        break;
+      case 5:
+        mes = "jun";
+        break;
+      case 6:
+        mes = "jul";
+        break;
+      case 7:
+        mes = "ago";
+        break;
+      case 8:
+        mes = "sep";
+        break;
+      case 9:
+        mes = "oct";
+        break;
+      case 10:
+        mes = "nov";
+        break;
+      case 11:
+        mes = "dic";
+        break;
+    }
+    if(date.getDate() < 10)
+      dia = `0${date.getDate()}`;
+    else dia = date.getDate();
+    return dia + "-" + mes;
+  }
+
   errorCB(err) {
     console.log("SQL Error: " + err);
   }

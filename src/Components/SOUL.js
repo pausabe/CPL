@@ -45,6 +45,9 @@ export default class SOUL {
       salteriComuHora: '', //31
       salteriComuCompletes: '', //32
       salteriComuOficiTF: '', //33
+      santsSolemnitats: '', //34
+      santsMemories: '', //35
+      OficisComuns: null, //36
     }
 
     this.LITURGIA = { //7
@@ -337,29 +340,29 @@ export default class SOUL {
       this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => { this.queryRows.salteriComuOficiTF = result; this.dataReceived(params); });
     }
 
-    //taula 34 (#32): -
-    if(true){
+    //taula 34 (#32): - i //taula 36
+    if(celType === 'S' || celType === 'F'){
       c += 1;
-      id = 1;
-      this.acceso.getLiturgia("santsSolemnitats", id, (result) => { this.queryRows.santsSolemnitats = result; this.dataReceived(params); });
+      this.acceso.getSolMem("santsSolemnitats", date, diocesi, (result) => { this.queryRows.santsSolemnitats = result; this.getOficisComuns(params, result.Categoria); });
     }
 
-    //taula 35 (#31): -
-    if(true){
+    //taula 35 (#31): -  i //taula 36
+    if(celType === 'M' || celType === 'L' || celType === 'V'){
       c += 1;
-      id = 1;
-      this.acceso.getLiturgia("santsMemories", id, (result) => { this.queryRows.santsMemories = result; this.dataReceived(params); });
-    }
-
-    //taula 36 (#??): -
-    if(true){
-      c += 1;
-      id = 1;
-      this.acceso.getLiturgia("OficisComuns", id, (result) => { this.queryRows.OficisComuns = result; this.dataReceived(params); });
+      this.acceso.getSolMem("santsMemories", date, diocesi, (result) => { this.queryRows.santsMemories = result; this.getOficisComuns(params, result.Categoria); });
     }
 
     this.count = c; //number of queryies
     console.log(c + " accessos.");
+  }
+
+  getOficisComuns(params, categoria){
+    if(categoria !== '0000'){
+      console.log("Més un accéss extra per OficisComuns");
+
+      //taula 36 (#??): -
+      this.acceso.getOC(categoria, (result) => { this.queryRows.OficisComuns = result; this.dataReceived(params); });
+    }
   }
 
   dataReceived(params){
