@@ -69,6 +69,11 @@ export default class SOUL {
   }
 
   makeQueryies(date, liturgicProps, celType, diocesi, invitatori, HS){
+    //HC
+    celType = "L";
+    diocesi = "BaD";
+    //HC
+
     params = {
       date: date,
       liturgicProps: liturgicProps,
@@ -363,10 +368,14 @@ export default class SOUL {
       //taula 36 (#??): -
       this.acceso.getOC(categoria, (result) => { this.queryRows.OficisComuns = result; this.dataReceived(params); });
     }
+    else{
+      this.dataReceived(params);
+    }
   }
 
   dataReceived(params){
     this.count -= 1;
+    console.log("Count: " + this.count);
 
     if(this.count === 0){
       if(this.firstAccessCel){
@@ -380,39 +389,50 @@ export default class SOUL {
   }
 
   setSoul(HS, type, pregaria){
+    console.log("COUNTLIT: " + this.countLit);
     switch (type) {
       case "ofici":
+        console.log("----> OFICI");
           this.countLit -= 1;
           this.LITURGIA.ofici = pregaria;
         break;
       case "laudes":
+      console.log("----> LAUDES");
           this.countLit -= 1;
           this.LITURGIA.laudes = pregaria;
         break;
       case "vespres":
+      console.log("----> VESPRES");
           this.countLit -= 1;
           this.LITURGIA.vespres = pregaria;
         break;
       case "tercia":
+      console.log("----> TERCIA");
           this.countLit -= 1;
           this.LITURGIA.tercia = pregaria;
         break;
       case "sexta":
+      console.log("----> SEXTA");
           this.countLit -= 1;
           this.LITURGIA.sexta = pregaria;
         break;
       case "nona":
+      console.log("----> NONA");
           this.countLit -= 1;
           this.LITURGIA.nona = pregaria;
         break;
       case "completes":
+      console.log("----> COMPLETES");
           this.countLit -= 1;
           this.LITURGIA.completes = pregaria;
         break;
       case "celebracio":
           this.CEL = pregaria;
 
+          console.log("here ok?");
+
           if(this.firstAccess){
+            console.log("first acces invitatori: " + this.props.invitatori);
             this.firstAccess = false;
             this.OficiSoul = new OficiSoul(this.props, this.queryRows, this.CEL.OFICI, HS, this);
             this.LaudesSoul = new LaudesSoul(this.props, this.queryRows, this.CEL.LAUDES, HS, this);
@@ -432,6 +452,7 @@ export default class SOUL {
 
     if(this.countLit === 0){
       this.countLit = 7;
+      console.log("AHAHAAHAH " + this.LITURGIA.OFICI);
       HS.setSoul(this.LITURGIA);
     }
   }

@@ -23,7 +23,7 @@ module.exports = {
   N_OCTAVA: 'N_OCTAVA',
   N_ABANS: 'N_ABANS',
 
-  DBName: 'lh_v6.db',
+  DBName: 'lh_v7.db',
 
   paddingBar: Platform.OS === 'ios' ? 0 : 54,
 

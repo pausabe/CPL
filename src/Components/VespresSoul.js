@@ -8,7 +8,7 @@ export default class Vespres {
     this.makePrayer(props.date, props.liturgicProps, TABLES, CEL, HS, SOUL)
   }
 
-  makePrayer(date, liturgicProps, TABLES, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, CEL, HS, SOUL){
         this.state = {
           salteriComuVespres: TABLES.salteriComuVespres,
           tempsOrdinariOracions: TABLES.tempsOrdinariOracions,

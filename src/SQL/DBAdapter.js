@@ -52,7 +52,7 @@ export default class DBAdapter {
       result => callback(result.rows.item(0)));
     }
     else{
-      this.executeQuery(`SELECT * FROM ${table} WHERE Diocesis = ${diocesi} AND dia = ${dia}`,
+      this.executeQuery(`SELECT * FROM ${table} WHERE Diocesis = '${diocesi}' AND dia = '${dia}'`,
         result => callback(result.rows.item(0)));
     }
   }
@@ -104,6 +104,7 @@ export default class DBAdapter {
     if(date.getDate() < 10)
       dia = `0${date.getDate()}`;
     else dia = date.getDate();
+    console.log("Whats up: " + dia + "-" + mes);
     return dia + "-" + mes;
   }
 
