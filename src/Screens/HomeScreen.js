@@ -67,18 +67,18 @@ export default class HomeScreen extends Component {
       this.state.date.getMonth(),
       this.state.date.getDate(),
       (current, tomorrow) => {
-        var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
+        var celType = this.celebracio("BaD", current); //TODO: HC, cal agafar-ho de settings
         this.setState({
-          celebracio: cel,
+          celType: celType, //S, M, L, F, V o -
 
           liturgicProps: {
             LITURGIA: null,
 
-            tempsespecific: current.tempsespecific,
-            LT: current.temps,
+            tempsespecific: current.tempsespecific, //Pasqua, Quaresema...
+            LT: current.temps, //Q_SETMANES, P_SETMANES...
             cicle: current.cicle, //1-4
             setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-            ABC: current.anyABC,
+            ABC: current.anyABC, //A, B o C
 
             tempsespecific2: tomorrow.tempsespecific,
             LT2: tomorrow.temps,
@@ -104,10 +104,10 @@ export default class HomeScreen extends Component {
       newDay.getMonth(),
       newDay.getDate(),
       (current, tomorrow) => {
-        var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
+        var celType = this.celebracio("BaD", current); //TODO: HC, "BaD" cal agafarho de settings (diocesi)
         this.setState({
           date: newDay,
-          celebracio: cel,
+          celType: celType,
           diocesi: diocesi,
           invitatori: invitatori,
 
@@ -128,7 +128,7 @@ export default class HomeScreen extends Component {
           },
         });
 
-        this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.state.invitatori, this);
+        this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.state.celType, this.state.diocesi, this.state.invitatori, this);
       }
     );
   }

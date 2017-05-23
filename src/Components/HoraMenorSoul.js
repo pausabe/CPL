@@ -38,7 +38,7 @@ export default class TerciaSoul {
       himneNonaOrdinariCat: TABLES.diversos.item(15).oracio,
     }
 
-    this.TERCIA = { //24
+    this.TERCIA = { //23
       himne: '',
       antifones: '',
       ant: '',
@@ -64,7 +64,7 @@ export default class TerciaSoul {
       oracio: '',
     }
 
-    this.SEXTA = { //24
+    this.SEXTA = { //23
       himne: '',
       antifones: '',
       ant: '',
@@ -90,7 +90,7 @@ export default class TerciaSoul {
       oracio: '',
     }
 
-    this.NONA = { //24
+    this.NONA = { //23
       himne: '',
       antifones: '',
       ant: '',
