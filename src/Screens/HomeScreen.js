@@ -165,7 +165,7 @@ export default class HomeScreen extends Component {
     }
   }*/
 
-  setSoul(liturgia){
+  setSoul(liturgia /*, info celebració*/){
     this.setState({
       liturgicProps: {
         LITURGIA: liturgia,

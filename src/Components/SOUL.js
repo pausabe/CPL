@@ -43,6 +43,7 @@ export default class SOUL {
       tempsSolemnitatsFestes: '', //30
       salteriComuHora: '', //31
       salteriComuCompletes: '', //32
+      salteriComuOficiTF: '', //33
     }
 
     this.LITURGIA = { //7
@@ -311,6 +312,13 @@ export default class SOUL {
       this.acceso.getLiturgia("salteriComuCompletes", id, (result) => { this.queryRows.salteriComuCompletes = result; this.dataReceived(date, liturgicProps, invitatori, HS); });
     }
 
+    //taula 33 (#??): Ofici(24)
+    if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA && liturgicProps.LT !== GLOBAL.N_OCTAVA){
+      c += 1;
+      id = (liturgicProps.cicle-1)*7 + (date.getDay()+1);
+      this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => { this.queryRows.salteriComuOficiTF = result; this.dataReceived(date, liturgicProps, invitatori, HS); });
+    }
+
     this.count = c; //number of queryies
     console.log(c + " accessos.");
   }
@@ -319,6 +327,8 @@ export default class SOUL {
     this.count -= 1;
 
     if(this.count === 0){ //TODO: quan es canvia de dia s'han deliminar aqestes instancies
+      //var celebracio = this.createCelebracio(date);
+
       if(this.firstAccess){
         this.firstAccess = false;
         this.OficiSoul = new OficiSoul(this.props, this.queryRows, HS, this);
@@ -376,4 +386,37 @@ export default class SOUL {
       HS.setSoul(this.LITURGIA);
     }
   }
+
+  /*createCelebracio(date, celType){
+    var idTempsSolemnitatsFestes = this.findTempsSolemnitatsFestes(date);
+
+    if(idTempsSolemnitatsFestes !== -1){
+      switch (celType) {
+        case "-":
+          return null;
+          break;
+        case "S":
+        case "F":
+
+          break;
+        case "M":
+        case "L":
+
+          break;
+        case "V":
+
+          break;
+
+      }
+    }
+    return null;
+  }*/
+
+  /*
+    Return id of #tempsSolemnitatsFestes or -1 if there isnt there
+  */
+  /*findTempsSolemnitatsFestes(date){
+
+    return -1;
+  }*/
 }
