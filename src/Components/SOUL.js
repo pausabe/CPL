@@ -3,6 +3,7 @@ import LaudesSoul from '../Components/LaudesSoul';
 import VespresSoul from '../Components/VespresSoul';
 import HoraMenorSoul from '../Components/HoraMenorSoul';
 import CompletesSoul from '../Components/CompletesSoul';
+import CelebracioSoul from '../Components/CelebracioSoul';
 import DBAdapter from '../SQL/DBAdapter';
 import GLOBAL from '../Globals/Globals';
 
@@ -56,6 +57,8 @@ export default class SOUL {
       completes: null,
     }
 
+    this.celDone = false;
+    this.firstAccessCel = true;
     this.countLit = 7;
     this.firstAccess = true;
     this.acceso = new DBAdapter();
@@ -326,23 +329,15 @@ export default class SOUL {
   dataReceived(date, liturgicProps, invitatori, HS){
     this.count -= 1;
 
-    if(this.count === 0){ //TODO: quan es canvia de dia s'han deliminar aqestes instancies
-      //var celebracio = this.createCelebracio(date);
+    if(this.count === 0){
+      //var cel = this.createCelebracio(date);
 
-      if(this.firstAccess){
-        this.firstAccess = false;
-        this.OficiSoul = new OficiSoul(this.props, this.queryRows, HS, this);
-        this.LaudesSoul = new LaudesSoul(this.props, this.queryRows, HS, this);
-        this.VespresSoul = new VespresSoul(this.props, this.queryRows, HS, this);
-        this.HoraMenorSoul = new HoraMenorSoul(this.props, this.queryRows, HS, this);
-        this.CompletesSoul = new CompletesSoul(this.props, this.queryRows, HS, this);
+      if(this.firstAccessCel){
+        this.firstAccessCel = false;
+        this.CelebracioSoul = new CelebracioSoul(this.props, this.queryRows, cel, HS, this);
       }
       else{
-        this.OficiSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, HS, this);
-        this.LaudesSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, HS, this);
-        this.VespresSoul.makePrayer(date, liturgicProps, this.queryRows, HS, this);
-        this.HoraMenorSoul.makePrayer(date, liturgicProps, this.queryRows, HS, this);
-        this.CompletesSoul.makePrayer(date, liturgicProps, this.queryRows, HS, this);
+        this.CelebracioSoul.makePrayer(this.props, this.queryRows, cel, HS, this);
       }
     }
   }
@@ -379,6 +374,25 @@ export default class SOUL {
           this.countLit -= 1;
           this.LITURGIA.completes = pregaria;
         break;
+      case "celebracio":
+          this.CEL = pregaria;
+
+          if(this.firstAccess){
+            this.firstAccess = false;
+            this.OficiSoul = new OficiSoul(this.props, this.queryRows, cel, HS, this);
+            this.LaudesSoul = new LaudesSoul(this.props, this.queryRows, cel, HS, this);
+            this.VespresSoul = new VespresSoul(this.props, this.queryRows, cel, HS, this);
+            this.HoraMenorSoul = new HoraMenorSoul(this.props, this.queryRows, cel, HS, this);
+            this.CompletesSoul = new CompletesSoul(this.props, this.queryRows, cel, HS, this);
+          }
+          else{
+            this.OficiSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, cel, HS, this);
+            this.LaudesSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, cel, HS, this);
+            this.VespresSoul.makePrayer(date, liturgicProps, this.queryRows, cel, HS, this);
+            this.HoraMenorSoul.makePrayer(date, liturgicProps, this.queryRows, cel, HS, this);
+            this.CompletesSoul.makePrayer(date, liturgicProps, this.queryRows, cel, HS, this);
+          }
+        break;
     }
 
     if(this.countLit === 0){
@@ -386,37 +400,4 @@ export default class SOUL {
       HS.setSoul(this.LITURGIA);
     }
   }
-
-  /*createCelebracio(date, celType){
-    var idTempsSolemnitatsFestes = this.findTempsSolemnitatsFestes(date);
-
-    if(idTempsSolemnitatsFestes !== -1){
-      switch (celType) {
-        case "-":
-          return null;
-          break;
-        case "S":
-        case "F":
-
-          break;
-        case "M":
-        case "L":
-
-          break;
-        case "V":
-
-          break;
-
-      }
-    }
-    return null;
-  }*/
-
-  /*
-    Return id of #tempsSolemnitatsFestes or -1 if there isnt there
-  */
-  /*findTempsSolemnitatsFestes(date){
-
-    return -1;
-  }*/
 }

@@ -3,12 +3,12 @@ import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
 
 export default class CompletesSoul{
-  constructor(props, TABLES, HS, SOUL) {
+  constructor(props, TABLES, CEL, HS, SOUL) {
 
-    this.makePrayer(props.date, props.liturgicProps, TABLES, HS, SOUL);
+    this.makePrayer(props.date, props.liturgicProps, TABLES, CEL, HS, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, CEL, HS, SOUL){
     this.state = {
       salteriComuCompletes: TABLES.salteriComuCompletes,
       diversos: TABLES.diversos,

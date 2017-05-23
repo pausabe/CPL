@@ -1,12 +1,12 @@
 import GLOBAL from '../Globals/Globals';
 
 export default class OficiSoul {
-  constructor(props, TABLES, HS, SOUL) {
+  constructor(props, TABLES, CEL, HS, SOUL) {
 
-    this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, HS, SOUL);
+    this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, CEL, HS, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, invitatori, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
         nit=false; //TODO: todo
         this.state = {
           nit: nit,
