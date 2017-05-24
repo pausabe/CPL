@@ -7,7 +7,6 @@ export default class OficiSoul {
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
-    console.log("EGRBSF");
         nit=false; //TODO: todo
         this.state = {
           nit: nit,

@@ -58,7 +58,7 @@ export default class DBAdapter {
   }
 
   getOC(categoria, callback){
-    this.executeQuery(`SELECT * FROM OficisComuns WHERE Categoria = ${categoria}`,
+    this.executeQuery(`SELECT * FROM OficisComuns WHERE Categoria = '${categoria}'`,
       result => callback(result.rows.item(0)));
   }
 
@@ -104,7 +104,7 @@ export default class DBAdapter {
     if(date.getDate() < 10)
       dia = `0${date.getDate()}`;
     else dia = date.getDate();
-    console.log("Whats up: " + dia + "-" + mes);
+    console.log("Dia: " + dia + "-" + mes);
     return dia + "-" + mes;
   }
 

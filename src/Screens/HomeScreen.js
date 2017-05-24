@@ -28,9 +28,10 @@ export default class HomeScreen extends Component {
     super(props)
 
     var today = new Date();
-    //today.setDate(20); //1-31
+    //today.setDate(26); //1-31
     //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
+    this.HCDiocesi = 'BaD';
 
     this.state = {
       diocesi: '',
@@ -58,7 +59,7 @@ export default class HomeScreen extends Component {
       diocesi: '',
       invitatori: '',
     }
-    SettingsManager.getSettingDiocesis((r) => this.setState({diocesi: r}));
+    SettingsManager.getSettingDiocesis((r) => this.setState({diocesi: /*r*/this.HCDiocesi}));
     SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
 
     this.acceso = new DBAdapter();
@@ -67,7 +68,7 @@ export default class HomeScreen extends Component {
       this.state.date.getMonth(),
       this.state.date.getDate(),
       (current, tomorrow) => {
-        var celType = this.celebracio("BaD", current); //TODO: HC, cal agafar-ho de settings
+        var celType = this.celebracio(this.HCDiocesi, current); //TODO: HC, cal agafar-ho de settings
         this.setState({
           celType: celType, //S, M, L, F, V o -
 
@@ -108,7 +109,7 @@ export default class HomeScreen extends Component {
         this.setState({
           date: newDay,
           celType: celType,
-          diocesi: diocesi,
+          diocesi: /*diocesi*/this.HCDiocesi,
           invitatori: invitatori,
 
           liturgicProps: {

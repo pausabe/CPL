@@ -7,7 +7,7 @@ export default class CelebracioSoul {
   }
 
   makePrayer(date, liturgicProps, TABLES, celType, diocesi, idTSF, HS, SOUL){
-    console.log("celType: " + celType + ", diocesi: " + diocesi);
+    console.log("In CelebracioSoul, celType: " + celType + ", diocesi: " + diocesi);
 
     this.OFICI = { //40
       invitatori: '-',
@@ -918,7 +918,6 @@ export default class CelebracioSoul {
         this.VESPRES.oracio = TABLES.santsSolemnitats.oraFi;
         break;
       case  "ML":
-      console.log("ML");
         /*if(this.VESPRES1.himne = TABLES.santsMemories.himneVespres1Llati !== '-'){
           if(llati) this.VESPRES1.himne = TABLES.santsMemories.himneVespres1Llati;
           else this.VESPRES1.himne = TABLES.santsMemories.himneVespres1Cat;
@@ -1251,7 +1250,6 @@ export default class CelebracioSoul {
         else if(TABLES.OficisComuns !== null) this.SEXTA.oracio = TABLES.OficisComuns.oraFiMenor;
 
         this.NONA.antifones = false;
-                console.log("EVEN HERE");
         if(TABLES.santsMemories.antMenorNona !== '-')
           this.NONA.ant = TABLES.santsMemories.antMenorNona;
         else if(TABLES.OficisComuns !== null) this.NONA.ant = TABLES.OficisComuns.antMenorNona;

@@ -70,9 +70,10 @@ export default class SOUL {
 
   makeQueryies(date, liturgicProps, celType, diocesi, invitatori, HS){
     //HC
-    celType = "L";
-    diocesi = "BaD";
+    //celType = "L";
+    //diocesi = "SFC";
     //HC
+    console.log("SOUL, celyType: " + celType + ", diocesi: " + diocesi);
 
     params = {
       date: date,
@@ -363,7 +364,7 @@ export default class SOUL {
 
   getOficisComuns(params, categoria){
     if(categoria !== '0000'){
-      console.log("Més un accéss extra per OficisComuns");
+      console.log("Més un accéss extra per OficisComuns. Categoria: " + categoria);
 
       //taula 36 (#??): -
       this.acceso.getOC(categoria, (result) => { this.queryRows.OficisComuns = result; this.dataReceived(params); });
@@ -375,7 +376,7 @@ export default class SOUL {
 
   dataReceived(params){
     this.count -= 1;
-    console.log("Count: " + this.count);
+    //console.log("Count: " + this.count);
 
     if(this.count === 0){
       if(this.firstAccessCel){
@@ -389,51 +390,49 @@ export default class SOUL {
   }
 
   setSoul(HS, type, pregaria){
-    console.log("COUNTLIT: " + this.countLit);
+    //console.log("COUNTLIT: " + this.countLit);
     switch (type) {
       case "ofici":
-        console.log("----> OFICI");
+        //console.log("----> OFICI");
           this.countLit -= 1;
           this.LITURGIA.ofici = pregaria;
         break;
       case "laudes":
-      console.log("----> LAUDES");
+      //console.log("----> LAUDES");
           this.countLit -= 1;
           this.LITURGIA.laudes = pregaria;
         break;
       case "vespres":
-      console.log("----> VESPRES");
+      //console.log("----> VESPRES");
           this.countLit -= 1;
           this.LITURGIA.vespres = pregaria;
         break;
       case "tercia":
-      console.log("----> TERCIA");
+      //console.log("----> TERCIA");
           this.countLit -= 1;
           this.LITURGIA.tercia = pregaria;
         break;
       case "sexta":
-      console.log("----> SEXTA");
+      //console.log("----> SEXTA");
           this.countLit -= 1;
           this.LITURGIA.sexta = pregaria;
         break;
       case "nona":
-      console.log("----> NONA");
+      //console.log("----> NONA");
           this.countLit -= 1;
           this.LITURGIA.nona = pregaria;
         break;
       case "completes":
-      console.log("----> COMPLETES");
+      //console.log("----> COMPLETES");
           this.countLit -= 1;
           this.LITURGIA.completes = pregaria;
         break;
       case "celebracio":
           this.CEL = pregaria;
 
-          console.log("here ok?");
-
           if(this.firstAccess){
-            console.log("first acces invitatori: " + this.props.invitatori);
             this.firstAccess = false;
+            console.log("CEL 1rst access: " + this.CEL.OFICI.himne);
             this.OficiSoul = new OficiSoul(this.props, this.queryRows, this.CEL.OFICI, HS, this);
             this.LaudesSoul = new LaudesSoul(this.props, this.queryRows, this.CEL.LAUDES, HS, this);
             this.VespresSoul = new VespresSoul(this.props, this.queryRows, this.CEL.VESPRES, HS, this);
@@ -441,18 +440,18 @@ export default class SOUL {
             this.CompletesSoul = new CompletesSoul(this.props, this.queryRows, this.CEL.COMPLETES, HS, this);
           }
           else{
-            this.OficiSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, this.CEL.OFICI, HS, this);
-            this.LaudesSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, this.CEL.LAUDES, HS, this);
-            this.VespresSoul.makePrayer(date, liturgicProps, this.queryRows, this.CEL.VESPRES, HS, this);
-            this.HoraMenorSoul.makePrayer(date, liturgicProps, this.queryRows, this.CEL.HORA_MENOR, HS, this);
-            this.CompletesSoul.makePrayer(date, liturgicProps, this.queryRows, this.CEL.COMPLETES, HS, this);
+            console.log("CEL 2nd access: " + this.CEL.OFICI.himne);
+            this.OficiSoul.makePrayer(this.props.date, this.props.liturgicProps, this.queryRows, this.props.invitatori, this.CEL.OFICI, HS, this);
+            this.LaudesSoul.makePrayer(this.props.date, this.props.liturgicProps, this.queryRows, this.props.invitatori, this.CEL.LAUDES, HS, this);
+            this.VespresSoul.makePrayer(this.props.date, this.props.liturgicProps, this.queryRows, this.CEL.VESPRES, HS, this);
+            this.HoraMenorSoul.makePrayer(this.props.date, this.props.liturgicProps, this.queryRows, this.CEL.HORA_MENOR, HS, this);
+            this.CompletesSoul.makePrayer(this.props.date, this.props.liturgicProps, this.queryRows, this.CEL.COMPLETES, HS, this);
           }
         break;
     }
 
     if(this.countLit === 0){
       this.countLit = 7;
-      console.log("AHAHAAHAH " + this.LITURGIA.OFICI);
       HS.setSoul(this.LITURGIA);
     }
   }
