@@ -51,6 +51,7 @@ export default class SOUL {
     }
 
     this.LITURGIA = { //7
+      info_cel: null,
       ofici: null,
       laudes: null,
       vespres: null,
@@ -429,10 +430,11 @@ export default class SOUL {
         break;
       case "celebracio":
           this.CEL = pregaria;
+          this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
           if(this.firstAccess){
             this.firstAccess = false;
-            console.log("CEL 1rst access: " + this.CEL.OFICI.himne);
+            console.log("CEL 1rst access: " + this.CEL.LAUDES.ant1);
             this.OficiSoul = new OficiSoul(this.props, this.queryRows, this.CEL.OFICI, HS, this);
             this.LaudesSoul = new LaudesSoul(this.props, this.queryRows, this.CEL.LAUDES, HS, this);
             this.VespresSoul = new VespresSoul(this.props, this.queryRows, this.CEL.VESPRES, HS, this);

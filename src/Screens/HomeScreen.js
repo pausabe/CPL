@@ -28,15 +28,14 @@ export default class HomeScreen extends Component {
     super(props)
 
     var today = new Date();
-    today.setDate(11); //1-31
-    today.setMonth(5); //0-11
+    today.setDate(19); //1-31
+    today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
 
     this.state = {
       diocesi: '',
       santPressed: false,
-      celebracio: '',
       invitatori: '',
       date: today,
 
@@ -95,17 +94,13 @@ export default class HomeScreen extends Component {
   }
 
   refreshDate(newDay, diocesi, invitatori){
-    newDay = new Date();
-    newDay.setDate(this.state.date.getDate()-1); //1-31
-    //newDay.setMonth(0); //0-11
-    //newDay.setFullYear(2017); //XXXX
-
+    console.log("NEW DAY: " + newDay.getDate() + ", diocesi: " + diocesi + ", invitatori: " + invitatori);
     this.acceso.getAnyLiturgic(
       newDay.getFullYear(),
       newDay.getMonth(),
       newDay.getDate(),
       (current, tomorrow) => {
-        var celType = this.celebracio("BaD", current); //TODO: HC, "BaD" cal agafarho de settings (diocesi)
+        var celType = this.celebracio(this.HCDiocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
         this.setState({
           date: newDay,
           celType: celType,
@@ -166,7 +161,7 @@ export default class HomeScreen extends Component {
     }
   }*/
 
-  setSoul(liturgia /*, info celebració*/){
+  setSoul(liturgia){
     this.setState({
       liturgicProps: {
         LITURGIA: liturgia,
@@ -192,82 +187,99 @@ export default class HomeScreen extends Component {
     });
   }
 
+  onMinusPress(){
+    var newDay = new Date();
+    newDay.setDate(this.state.date.getDate()-1);
+    this.refreshDate(newDay, this.state.diocesi, this.state.liturgia);
+  }
+
+  onPlusPress(){
+    var newDay = new Date();
+    newDay.setDate(this.state.date.getDate()+1);
+    this.refreshDate(newDay, this.state.diocesi, this.state.liturgia);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesi de {this.state.diocesi} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
-          </View>
-          <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmana !== 0 ? " de la setmana" : null}
-              {this.state.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.setmana)}</Text> : null }</Text>
-            <Text style={styles.diaLiturgicText}>Temps de
-              <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.tempsespecific}</Text></Text>
-            <Text style={styles.diaLiturgicText}>Setmana
-              <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.cicle)} </Text>
-              del cicle litúrgic, any
-                <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.ABC}</Text></Text>
-          </View>
-          <View style={styles.santContainer}>
-            <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
-              <View style={{flex: 1, flexDirection: 'row'}}>
-                <View style={{flex: 20, justifyContent: 'center'}}>
-                  <Text style={styles.santText}>{"Santa Perpètua i Santa Felicitat"}</Text>
-                </View>
-                <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
-                  {this.state.santPressed ?
-                    <Icon
-                      name="ios-arrow-down"
-                      size={25}
-                      color="#424242"
-                    />
-                    :
-                    <Icon
-                      name="ios-arrow-forward-outline"
-                      size={25}
-                      iconStyle={{padding: 50}}
-                      color="#424242"
-                    />
-                  }
-                </View>
+       <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
+         <View style={styles.infoContainer}>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+              <View>
+                <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onMinusPress.bind(this)}>
+                   <Text>{"<<<     "}</Text>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-
-          {this.state.santPressed ?
-            <View style={styles.liturgiaContainer}>
-              <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
-              <Text style={styles.santExText}/>
-              {this.liturgiaComponent.bind(this)}
+              <View>
+                <Text style={styles.infoText}>Diòcesi de {this.state.diocesi} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
+              </View>
+              <View>
+                <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
+                   <Text>{"     >>>"}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            :
-            <View style={styles.liturgiaContainer}>
-              <Liturgia
-                navigator={this.props.navigator}
-                date={this.state.date}
-                liturgicProps={this.state.liturgicProps}
-              />
-            </View>
-          }
-        </Image>
-      </View>
-    )
-  }
+         </View>
+         <View style={styles.diaLiturgicContainer}>
+           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmana !== 0 ? " de la setmana" : null}
+             {this.state.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.setmana)}</Text> : null }</Text>
+           <Text style={styles.diaLiturgicText}>Temps de
+             <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.tempsespecific}</Text></Text>
+           <Text style={styles.diaLiturgicText}>Setmana
+             <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.cicle)} </Text>
+             del cicle litúrgic, any
+               <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.ABC}</Text></Text>
+         </View>
+         {this.state.liturgicProps.LITURGIA !== null && this.state.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
+           <View style={styles.santContainer}>
+             <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
+               <View style={{flex: 1, flexDirection: 'row'}}>
+                 <View style={{flex: 20, justifyContent: 'center'}}>
+                   <Text style={styles.santText}>{this.state.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
+                 </View>
+                 <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
+                   {this.state.santPressed ?
+                     <Icon
+                       name="ios-arrow-down"
+                       size={25}
+                       color="#424242"
+                     />
+                     :
+                     <Icon
+                       name="ios-arrow-forward-outline"
+                       size={25}
+                       iconStyle={{padding: 50}}
+                       color="#424242"
+                     />
+                   }
+                 </View>
+               </View>
+             </TouchableOpacity>
+           </View>
+         : null}
 
-  liturgiaComponent(){
-    return(
-      <Liturgia
-        navigator={this.props.navigator}
-        date={this.state.date}
-        liturgicProps={this.state.liturgicProps}
-      />
+         {this.state.santPressed ?
+           <View style={styles.liturgiaContainer}>
+             <Text style={styles.santExText}>{this.state.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
+             <Text style={styles.santExText}/>
+           </View>
+           :
+           <View style={styles.liturgiaContainer}>
+             <Liturgia
+               navigator={this.props.navigator}
+               date={this.state.date}
+               liturgicProps={this.state.liturgicProps}
+             />
+           </View>
+         }
+       </Image>
+     </View>
     )
   }
 
   onSantPress(){
-    //this.setState({santPressed: !this.state.santPressed});
-    this.refreshDate();
+    this.setState({santPressed: !this.state.santPressed});
+    //this.refreshDate();
   }
 
   celebracio(diocesi, anyliturgic){

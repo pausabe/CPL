@@ -2,12 +2,11 @@ import GLOBAL from '../Globals/Globals';
 
 export default class OficiSoul {
   constructor(props, TABLES, CEL, HS, SOUL) {
-    console.log("Creating Ofici in soul... " + CEL.himne);
+
     this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, CEL, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
-        console.log("qe tal CEL? " + CEL.himne);
         nit=false; //TODO: todo
         this.state = {
           nit: nit,
@@ -130,9 +129,8 @@ export default class OficiSoul {
     if(CEL.antInvitatori === '-')
       this.OFICI.antInvitatori = antInvitatori;
     else this.OFICI.antInvitatori = CEL.antInvitatori;
-    if(CEL.salm94 === '-')
-      this.OFICI.salm94 = this.state.salm94;
-    else this.OFICI.salm94 = CEL.salm94
+
+    this.OFICI.salm94 = this.state.salm94;
   }
 
   himne(LT, weekDay, nit, setmana, CEL){
@@ -398,7 +396,6 @@ export default class OficiSoul {
     if(CEL.ant1 === '-')
       this.OFICI.ant1 = ant1;
     else this.OFICI.ant1 = CEL.ant1;
-    console.log("----> " + CEL.titol1 + " " + titol1);
     if(CEL.titol1 === '-'){
       this.OFICI.titol1 = titol1;
       this.OFICI.com1 = com1;

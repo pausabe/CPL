@@ -9,6 +9,11 @@ export default class CelebracioSoul {
   makePrayer(date, liturgicProps, TABLES, celType, diocesi, idTSF, HS, SOUL){
     console.log("In CelebracioSoul, celType: " + celType + ", diocesi: " + diocesi);
 
+    this.INFO_CEL = {
+      nomCel: '-',
+      infoCel: '-',
+    }
+
     this.OFICI = { //40
       invitatori: '-',
       antInvitatori: '-',
@@ -224,13 +229,15 @@ export default class CelebracioSoul {
     if(idTSF !== -1){
       switch (celType) {
         case "S":
-        case "F":
           this.createCel(TABLES, "SF", diocesi, -1);
+          break;
+        case "F":
+          if(date.getDay() !== 0) this.createCel(TABLES, "SF", diocesi, -1);
           break;
         case "M":
         case "L":
         case "V": //santsMemories entrada 457 o 458
-          this.createCel(TABLES, "ML", diocesi, -1);
+          if(date.getDay() !== 0) this.createCel(TABLES, "ML", diocesi, -1);
           break;
       }
     }
@@ -239,6 +246,7 @@ export default class CelebracioSoul {
     }
 
     CEL = {
+      INFO_CEL: this.INFO_CEL,
       OFICI: this.OFICI,
       LAUDES: this.LAUDES,
       HORA_MENOR: {
@@ -918,7 +926,11 @@ export default class CelebracioSoul {
         this.VESPRES.oracio = TABLES.santsSolemnitats.oraFi;
         break;
       case  "ML":
-        /*if(this.VESPRES1.himne = TABLES.santsMemories.himneVespres1Llati !== '-'){
+      //::::::>>>>>ML<<<<<::::::
+      //::::::INFO_CEL::::::
+      this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
+      this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
+        /*if(TABLES.santsMemories.himneVespres1Llati !== '-'){
           if(llati) this.VESPRES1.himne = TABLES.santsMemories.himneVespres1Llati;
           else this.VESPRES1.himne = TABLES.santsMemories.himneVespres1Cat;
         }
@@ -991,8 +1003,8 @@ export default class CelebracioSoul {
           this.VESPRES1.oracio = TABLES.santsMemories.oraFiVespres1;
         else if(TABLES.OficisComuns !== null) this.VESPRES1.oracio = TABLES.OficisComuns.oraFiVespres1;*/
 
-        if(TABLES.santsMemories.antInvitatori !== '-')
-          this.OFICI.antInvitatori = TABLES.santsMemories.antInvitatori;
+        if(TABLES.santsMemories.Invitatori !== '-')
+          this.OFICI.antInvitatori = TABLES.santsMemories.Invitatori;
         else if(TABLES.OficisComuns !== null) this.OFICI.antInvitatori = TABLES.OficisComuns.antInvitatori;
         if(TABLES.santsMemories.himneOficiLlati !== '-'){
           if(llati) this.OFICI.himne = TABLES.santsMemories.himneOficiLlati;
@@ -1100,9 +1112,12 @@ export default class CelebracioSoul {
         else if(TABLES.OficisComuns !== null) this.OFICI.himneOhDeu = TABLES.OficisComuns.oraFiOfici;
         this.OFICI.himneOhDeuBool = true; //TODO: si??
 
-        if(TABLES.santsMemories.antInvitatori !== '-')
-          this.LAUDES.antInvitatori = TABLES.santsMemories.antInvitatori;
+        //:::::::ML LAUDES:::::::
+        //ML LAUDES -> INVITATORI
+        if(TABLES.santsMemories.Invitatori !== '-')
+          this.LAUDES.antInvitatori = TABLES.santsMemories.Invitatori;
         else if(TABLES.OficisComuns !== null) this.LAUDES.antInvitatori = TABLES.OficisComuns.antInvitatori;
+        //ML LAUDES -> HIMNE
         if(TABLES.santsMemories.himneLaudesLlati !== '-'){
           if(llati) this.LAUDES.himne = TABLES.santsMemories.himneLaudesLlati;
           else this.LAUDES.himne = TABLES.santsMemories.himneLaudesCat;
@@ -1111,41 +1126,77 @@ export default class CelebracioSoul {
           if(llati) this.LAUDES.himne = TABLES.OficisComuns.himneLaudesLlati;
           else this.LAUDES.himne = TABLES.OficisComuns.himneLaudesCat;
         }
+        //ML LAUDES -> SALMÒDIA
+        //ML LAUDES -> S1
         if(TABLES.santsMemories.ant1Laudes !== '-')
           this.LAUDES.ant1 = TABLES.santsMemories.ant1Laudes;
         else if(TABLES.OficisComuns !== null) this.LAUDES.ant1 = TABLES.OficisComuns.ant1Laudes;
+        if(TABLES.santsMemories.titol1Laudes !== '-')
+          this.LAUDES.titol1 = TABLES.santsMemories.titol1Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.titol1 = TABLES.OficisComuns.titol1Laudes;
+        if(TABLES.santsMemories.Salm1Laudes !== '-')
+          this.LAUDES.salm1 = TABLES.santsMemories.Salm1Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.salm1 = TABLES.OficisComuns.Salm1Laudes;
+        if(TABLES.santsMemories.gloria1Laudes !== '-')
+          this.LAUDES.gloria1 = TABLES.santsMemories.gloria1Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.gloria1 = TABLES.OficisComuns.gloria1Laudes;
+        //ML LAUDES -> S2
         if(TABLES.santsMemories.ant2Laudes !== '-')
           this.LAUDES.ant2 = TABLES.santsMemories.ant2Laudes;
         else if(TABLES.OficisComuns !== null) this.LAUDES.ant2 = TABLES.OficisComuns.ant2Laudes;
+        if(TABLES.santsMemories.titol2Laudes !== '-')
+          this.LAUDES.titol2 = TABLES.santsMemories.titol2Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.titol2 = TABLES.OficisComuns.titol2Laudes;
+        if(TABLES.santsMemories.Salm2Laudes !== '-')
+          this.LAUDES.salm2 = TABLES.santsMemories.Salm2Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.salm2 = TABLES.OficisComuns.Salm2Laudes;
+        if(TABLES.santsMemories.gloria2Laudes !== '-')
+          this.LAUDES.gloria2 = TABLES.santsMemories.gloria2Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.gloria2 = TABLES.OficisComuns.gloria2Laudes;
+        //ML LAUDES -> LAUDES -> S3
         if(TABLES.santsMemories.ant3Laudes !== '-')
           this.LAUDES.ant3 = TABLES.santsMemories.ant3Laudes;
         else if(TABLES.OficisComuns !== null) this.LAUDES.ant3 = TABLES.OficisComuns.ant3Laudes;
+        if(TABLES.santsMemories.titol3Laudes !== '-')
+          this.LAUDES.titol3 = TABLES.santsMemories.titol3Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.titol3 = TABLES.OficisComuns.titol3Laudes;
+        if(TABLES.santsMemories.Salm3Laudes !== '-')
+          this.LAUDES.salm3 = TABLES.santsMemories.Salm3Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.salm3 = TABLES.OficisComuns.Salm3Laudes;
+        if(TABLES.santsMemories.gloria3Laudes !== '-')
+          this.LAUDES.gloria3 = TABLES.santsMemories.gloria3Laudes;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.gloria3 = TABLES.OficisComuns.gloria3Laudes;
+        //ML LAUDES -> LECTURA BREU
         if(TABLES.santsMemories.citaLBLaudes !== '-')
           this.LAUDES.vers = TABLES.santsMemories.citaLBLaudes;
         else if(TABLES.OficisComuns !== null) this.LAUDES.vers = TABLES.OficisComuns.citaLBLaudes;
         if(TABLES.santsMemories.lecturaBreuLaudes !== '-')
           this.LAUDES.lecturaBreu = TABLES.santsMemories.lecturaBreuLaudes;
         else if(TABLES.OficisComuns !== null) this.LAUDES.lecturaBreu = TABLES.OficisComuns.lecturaBreuLaudes;
+        //ML LAUDES -> RESPONSORI BREU
         this.LAUDES.calAntEspecial = false;
-        if(TABLES.santsMemories.resp2Part1Laudes !== '-')
-          this.LAUDES.respBreu1 = TABLES.santsMemories.resp2Part1Laudes;
-        else if(TABLES.OficisComuns !== null) this.LAUDES.respBreu1 = TABLES.OficisComuns.resp2Part1Laudes;
-        if(TABLES.santsMemories.resp2Part2Laudes !== '-')
-          this.LAUDES.respBreu2 = TABLES.santsMemories.resp2Part2Laudes;
-        else if(TABLES.OficisComuns !== null) this.LAUDES.respBreu2 = TABLES.OficisComuns.resp2Part2Laudes;
-        if(TABLES.santsMemories !== '-')
-          this.LAUDES.respBreu3 = TABLES.santsMemories.resp2Part3Laudes;
-        else if(TABLES.OficisComuns !== null) this.LAUDES.respBreu3 = TABLES.OficisComuns.resp2Part3Laudes;
+        if(TABLES.santsMemories.respBreuLaudes1 !== '-')
+          this.LAUDES.respBreu1 = TABLES.santsMemories.respBreuLaudes1;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.respBreu1 = TABLES.OficisComuns.respBreuLaudes1;
+        if(TABLES.santsMemories.respBreuLaudes2 !== '-')
+          this.LAUDES.respBreu2 = TABLES.santsMemories.respBreuLaudes2;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.respBreu2 = TABLES.OficisComuns.respBreuLaudes2;
+        if(TABLES.santsMemories.respBreuLaudes3 !== '-')
+          this.LAUDES.respBreu3 = TABLES.santsMemories.respBreuLaudes3;
+        else if(TABLES.OficisComuns !== null) this.LAUDES.respBreu3 = TABLES.OficisComuns.respBreuLaudes3;
+        //ML LAUDES -> CANTIC
         if(TABLES.santsMemories.antZacaries !== '-')
           this.LAUDES.antCantic = TABLES.santsMemories.antZacaries;
         else if(TABLES.OficisComuns !== null) this.LAUDES.antCantic = TABLES.OficisComuns.antZacaries;
+        //ML LAUDES -> PREGÀRIES
         if(TABLES.santsMemories.pregariesLaudes !== '-')
           this.LAUDES.pregaries = TABLES.santsMemories.pregariesLaudes;
         else if(TABLES.OficisComuns !== null) this.LAUDES.pregaries = TABLES.OficisComuns.pregariesLaudes;
-        if(TABLES.santsMemories.oraFiLaudes !== '-')
-          this.LAUDES.oracio = TABLES.santsMemories.oraFiLaudes;
-        else if(TABLES.OficisComuns !== null) this.LAUDES.oracio = TABLES.OficisComuns.oraFiLaudes;
+        //ML LAUDES -> ORACIÓ
+        if(TABLES.santsMemories.oraFi !== '-')
+          this.LAUDES.oracio = TABLES.santsMemories.oraFi;
 
+        //:::::::TÈRCIA:::::::
         this.TERCIA.antifones = false;
         if(TABLES.santsMemories.antMenorTercia !== '-')
           this.TERCIA.ant = TABLES.santsMemories.antMenorTercia;

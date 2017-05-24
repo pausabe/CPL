@@ -116,29 +116,29 @@ export default class TerciaSoul {
       oracio: '',
     }
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia");
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Tèrcia");
-    this.lecturaBreuResp(liturgicProps.LT, "Tèrcia");
-    this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia");
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia", CEL.TERCIA);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Tèrcia", CEL.TERCIA);
+    this.lecturaBreuResp(liturgicProps.LT, "Tèrcia", CEL.TERCIA);
+    this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia", CEL.TERCIA);
 
     SOUL.setSoul(HS, "tercia", this.TERCIA);
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta");
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Sexta");
-    this.lecturaBreuResp(liturgicProps.LT, "Sexta");
-    this.oracio(liturgicProps.LT, date.getDay(), "Sexta");
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Sexta", CEL.SEXTA);
+    this.lecturaBreuResp(liturgicProps.LT, "Sexta", CEL.SEXTA);
+    this.oracio(liturgicProps.LT, date.getDay(), "Sexta", CEL.SEXTA);
 
     SOUL.setSoul(HS, "sexta", this.SEXTA);
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona");
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Nona");
-    this.lecturaBreuResp(liturgicProps.LT, "Nona");
-    this.oracio(liturgicProps.LT, date.getDay(), "Nona");
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Nona", CEL.NONA);
+    this.lecturaBreuResp(liturgicProps.LT, "Nona", CEL.NONA);
+    this.oracio(liturgicProps.LT, date.getDay(), "Nona", CEL.NONA);
 
     SOUL.setSoul(HS, "nona", this.NONA);
   }
 
-  himne(LT, weekDay, setmana, HM){
+  himne(LT, weekDay, setmana, HM, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
@@ -356,9 +356,22 @@ export default class TerciaSoul {
         }
         break;
     }
+    if(CEL.himne !== '-'){
+      switch (HM) {
+        case 'Tèrcia':
+          this.TERCIA.himne = CEL.himne;
+          break;
+        case 'Sexta':
+          this.SEXTA.himne = CEL.himne;
+          break;
+        case 'Nona':
+          this.NONA.himne = CEL.himne;
+          break;
+      }
+    }
   }
 
-  salmodia(LT, setmana, weekDay, HM){
+  salmodia(LT, setmana, weekDay, HM, CEL){
     this.TERCIA.antifones = true;
     this.SEXTA.antifones = true;
     this.NONA.antifones = true;
@@ -760,9 +773,63 @@ export default class TerciaSoul {
         }
         break;
     }
+
+    if(CEL.antifones !== '-'){
+      this.NONA.antifones = CEL.antifones;
+      switch (HM) {
+        case 'Tèrcia':
+          this.TERCIA.ant = CEL.ant;
+
+          this.TERCIA.titol1 = CEL.titol1;
+          this.TERCIA.com1 = '-';
+          this.TERCIA.salm1 = CEL.salm1;
+          this.TERCIA.gloria1 = CEL.gloria1;
+          this.TERCIA.titol2 = CEL.titol2;
+          this.TERCIA.com2 = '-';
+          this.TERCIA.salm2 = CELsalm2.;
+          this.TERCIA.gloria2 = CEL.gloria2;
+          this.TERCIA.titol3 = CELtitol3.;
+          this.TERCIA.com3 = '-';
+          this.TERCIA.salm3 = CEL.salm3;
+          this.TERCIA.gloria3 = CEL.gloria3;
+          break;
+        case 'Sexta':
+          this.SEXTA.ant = CEL.ant;
+
+          this.SEXTA.titol1 = CEL.titol1;
+          this.SEXTA.com1 = '-';
+          this.SEXTA.salm1 = CEL.salm1;
+          this.SEXTA.gloria1 = CEL.gloria1;
+          this.SEXTA.titol2 = CEL.titol2;
+          this.SEXTA.com2 = '-';
+          this.SEXTA.salm2 = CELsalm2.;
+          this.SEXTA.gloria2 = CEL.gloria2;
+          this.SEXTA.titol3 = CELtitol3.;
+          this.SEXTA.com3 = '-';
+          this.SEXTA.salm3 = CEL.salm3;
+          this.SEXTA.gloria3 = CEL.gloria3;
+          break;
+        case 'Nona':
+          this.NONA.ant = CEL.ant;
+
+          this.NONA.titol1 = CEL.titol1;
+          this.NONA.com1 = '-';
+          this.NONA.salm1 = CEL.salm1;
+          this.NONA.gloria1 = CEL.gloria1;
+          this.NONA.titol2 = CEL.titol2;
+          this.NONA.com2 = '-';
+          this.NONA.salm2 = CELsalm2.;
+          this.NONA.gloria2 = CEL.gloria2;
+          this.NONA.titol3 = CELtitol3.;
+          this.NONA.com3 = '-';
+          this.NONA.salm3 = CEL.salm3;
+          this.NONA.gloria3 = CEL.gloria3;
+          break;
+      }
+    }
   }
 
-  lecturaBreuResp(LT, HM){
+  lecturaBreuResp(LT, HM, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         switch (HM) {
@@ -1031,9 +1098,26 @@ export default class TerciaSoul {
         }
         break;
     }
+
+    if(CEL.vers !== '-'){
+      switch (HM) {
+        case 'Tèrcia':
+          this.NONA.vers = CEL.vers;
+          this.NONA.lecturaBreu = CEL.lecturaBreu;
+          this.NONA.respV = CEL.respV;
+          this.NONA.respR = CEL.respR;
+          break;
+        case 'Sexta':
+
+          break;
+        case 'Nona':
+
+          break;
+      }
+    }
   }
 
-  oracio(LT, weekDay, HM){
+  oracio(LT, weekDay, HM, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(weekDay === 0){ //diumenge

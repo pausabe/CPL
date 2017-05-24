@@ -14,6 +14,7 @@ export default class LaudesSoul {
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
+    console.log("DONT UNDERSTAND " + CEL.ant1);
     this.state = {
       salteriComuLaudes: TABLES.salteriComuLaudes,
       salteriComuInvitatori: TABLES.salteriComuInvitatori,
@@ -80,7 +81,7 @@ export default class LaudesSoul {
 
     this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
     this.lecturaBreu(liturgicProps.LT, CEL);
     this.responsori(liturgicProps.LT, CEL);
     this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
@@ -126,7 +127,10 @@ export default class LaudesSoul {
         antInvitatori = this.state.tempsSolemnitatsFestes.antInvitatori;
         break;
     }
-    this.LAUDES.antInvitatori = antInvitatori;
+    if(CEL.antInvitatori === '-')
+      this.LAUDES.antInvitatori = antInvitatori;
+    else this.LAUDES.antInvitatori = CEL.antInvitatori;
+
     this.LAUDES.salm94 = this.state.salm94;
   }
 
@@ -221,7 +225,9 @@ export default class LaudesSoul {
         }
         break;
     }
-    this.LAUDES.himne = himne;
+    if(CEL.himne === '-')
+      this.LAUDES.himne = himne;
+    else this.LAUDES.himne = CEL.himne;
   }
 
   salmodia(LT, setmana, weekDay, CEL){
@@ -418,22 +424,58 @@ export default class LaudesSoul {
         ant3 = this.state.tempsSolemnitatsFestes.ant3Laudes;
         break;
     }
-    this.LAUDES.ant1 = ant1;
-    this.LAUDES.titol1 = titol1;
-    console.log("in laudes: " + titol1);
-    this.LAUDES.com1 = com1;
-    this.LAUDES.salm1 = salm1;
-    this.LAUDES.gloria1 = gloria1;
-    this.LAUDES.ant2 = ant2;
-    this.LAUDES.titol2 = titol2;
-    this.LAUDES.com2 = com2;
-    this.LAUDES.salm2 = salm2;
-    this.LAUDES.gloria2 = gloria2;
-    this.LAUDES.ant3 = ant3;
-    this.LAUDES.titol3 = titol3;
-    this.LAUDES.com3 = com3;
-    this.LAUDES.salm3 = salm3;
-    this.LAUDES.gloria3 = gloria3;
+    console.log("Here I am " + CEL.ant1);
+    if(CEL.ant1 === '-')
+      this.LAUDES.ant1 = ant1;
+    else this.LAUDES.ant1 = CEL.ant1;
+    if(CEL.titol1 === '-'){
+      this.LAUDES.titol1 = titol1;
+      this.LAUDES.com1 = com1;
+    }
+    else {
+      this.LAUDES.titol1 = CEL.titol1;
+      this.LAUDES.com1 = "-";
+    }
+    if(CEL.salm1 === '-')
+      this.LAUDES.salm1 = salm1;
+    else this.LAUDES.salm1 = CEL.salm1;
+    if(CEL.gloria1 === '-')
+      this.LAUDES.gloria1 = gloria1;
+    else this.LAUDES.gloria1 = CEL.gloria1;
+    if(CEL.ant2 === '-')
+      this.LAUDES.ant2 = ant2;
+    else this.LAUDES.ant2 = CEL.ant2;
+    if(CEL.titol2 === '-'){
+      this.LAUDES.titol2 = titol2;
+      this.LAUDES.com2 = com2;
+    }
+    else {
+      this.LAUDES.titol2 = CEL.titol2;
+      this.LAUDES.com2 = "-";
+    }
+    if(CEL.salm2 === '-')
+      this.LAUDES.salm2 = salm2;
+    else this.LAUDES.salm2 = CEL.salm2;
+    if(CEL.gloria2 === '-')
+      this.LAUDES.gloria2 = gloria2;
+    else this.LAUDES.gloria2 = CEL.gloria2;
+    if(CEL.ant3 === '-')
+      this.LAUDES.ant3 = ant3;
+    else this.LAUDES.ant3 = CEL.ant3;
+    if(CEL.titol3 === '-'){
+      this.LAUDES.titol3 = titol3;
+      this.LAUDES.com3 = com3;
+    }
+    else {
+      this.LAUDES.titol3 = CEL.titol3;
+      this.LAUDES.com3 = "-";
+    }
+    if(CEL.salm3 === '-')
+      this.LAUDES.salm3 = salm3;
+    else this.LAUDES.salm3 = CEL.salm3;
+    if(CEL.gloria3 === '-')
+      this.LAUDES.gloria3 = gloria3;
+    else this.LAUDES.gloria3 = CEL.gloria3;
   }
 
   lecturaBreu(LT, CEL){
@@ -487,8 +529,12 @@ export default class LaudesSoul {
         lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuLaudes;
         break;
     }
-    this.LAUDES.vers = vers;
-    this.LAUDES.lecturaBreu = lecturaBreu;
+    if(CEL.vers === '-')
+      this.LAUDES.vers = vers;
+    else this.LAUDES.vers = CEL.vers;
+    if(CEL.lecturaBreu === '-')
+      this.LAUDES.lecturaBreu = lecturaBreu;
+    else this.LAUDES.lecturaBreu = CEL.lecturaBreu;
   }
 
   responsori(LT, CEL){
@@ -544,19 +590,27 @@ export default class LaudesSoul {
         respBreu3 = this.state.tempsNadalAbansEpifania.respBreuLaudes3
         break;
     }
-    if(LT === GLOBAL.Q_TRIDU){
-      this.LAUDES.calAntEspecial = true;
-      this.LAUDES.antEspecialLaudes = antEspecialLaudes;
+    if(CEL.respBreu1 === '-'){
+      if(LT === GLOBAL.Q_TRIDU){
+        this.LAUDES.calAntEspecial = true;
+        this.LAUDES.antEspecialLaudes = antEspecialLaudes;
+      }
+      else if(LT === GLOBAL.P_OCTAVA){
+        this.LAUDES.calAntEspecial = true;
+        this.LAUDES.antEspecialLaudes = antEspecialLaudes;
+      }
+      else{
+        this.LAUDES.calAntEspecial = false;
+        this.LAUDES.respBreu1 = respBreu1;
+        this.LAUDES.respBreu2 = respBreu2;
+        this.LAUDES.respBreu3 = respBreu3;
+      }
     }
-    else if(LT === GLOBAL.P_OCTAVA){
-      this.LAUDES.calAntEspecial = true;
-      this.LAUDES.antEspecialLaudes = antEspecialLaudes;
-    }
-    else{
+    else {
       this.LAUDES.calAntEspecial = false;
-      this.LAUDES.respBreu1 = respBreu1;
-      this.LAUDES.respBreu2 = respBreu2;
-      this.LAUDES.respBreu3 = respBreu3;
+      this.LAUDES.respBreu1 = CEL.respBreu1;
+      this.LAUDES.respBreu2 = CEL.respBreu2;
+      this.LAUDES.respBreu3 = CEL.respBreu3;
     }
   }
 
@@ -670,7 +724,10 @@ export default class LaudesSoul {
         break;
     }
     this.LAUDES.cantic = this.state.benedictus;
-    this.LAUDES.antCantic = antCantic;
+
+    if(CEL.antCantic === '-')
+      this.LAUDES.antCantic = antCantic;
+    else this.LAUDES.antCantic = CEL.antCantic;
   }
 
   pregaries(LT, CEL){
@@ -712,7 +769,9 @@ export default class LaudesSoul {
         pregaries = this.state.tempsNadalAbansEpifania.pregariesLaudes;
         break;
     }
-    this.LAUDES.pregaries = pregaries;
+    if(CEL.pregaries === '-')
+      this.LAUDES.pregaries = pregaries;
+    else this.LAUDES.pregaries = CEL.pregaries;
   }
 
   oracio(LT, weekDay, CEL){
@@ -759,6 +818,8 @@ export default class LaudesSoul {
         oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
         break;
     }
-    this.LAUDES.oracio = oracio;
+    if(CEL.oracio === '-')
+      this.LAUDES.oracio = oracio;
+    else this.LAUDES.oracio = CEL.oracio;
   }
 }
