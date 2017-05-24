@@ -70,7 +70,7 @@ export default class Vespres {
         }
 
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay());
     this.lecturaBreu(liturgicProps.LT);
     this.responsori(liturgicProps.LT);
     this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC);

@@ -117,21 +117,22 @@ export default class TerciaSoul {
     }
 
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia", CEL.TERCIA);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Tèrcia", CEL.TERCIA);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Tèrcia", CEL.TERCIA);
     this.lecturaBreuResp(liturgicProps.LT, "Tèrcia", CEL.TERCIA);
     this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia", CEL.TERCIA);
 
+    console.log("vamoh a ver: " + CEL.TERCIA.titol1);
     SOUL.setSoul(HS, "tercia", this.TERCIA);
 
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Sexta", CEL.SEXTA);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Sexta", CEL.SEXTA);
     this.lecturaBreuResp(liturgicProps.LT, "Sexta", CEL.SEXTA);
     this.oracio(liturgicProps.LT, date.getDay(), "Sexta", CEL.SEXTA);
 
     SOUL.setSoul(HS, "sexta", this.SEXTA);
 
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, "Nona", CEL.NONA);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Nona", CEL.NONA);
     this.lecturaBreuResp(liturgicProps.LT, "Nona", CEL.NONA);
     this.oracio(liturgicProps.LT, date.getDay(), "Nona", CEL.NONA);
 
@@ -773,12 +774,15 @@ export default class TerciaSoul {
         }
         break;
     }
-
+    console.log("CEL.antifones - " + CEL.antifones);
     if(CEL.antifones !== '-'){
+      this.TERCIA.antifones = CEL.antifones;
+      this.SEXTA.antifones = CEL.antifones;
       this.NONA.antifones = CEL.antifones;
       switch (HM) {
         case 'Tèrcia':
           this.TERCIA.ant = CEL.ant;
+          console.log("CEL.titol1 - " + CEL.titol1);
 
           this.TERCIA.titol1 = CEL.titol1;
           this.TERCIA.com1 = '-';
@@ -786,9 +790,9 @@ export default class TerciaSoul {
           this.TERCIA.gloria1 = CEL.gloria1;
           this.TERCIA.titol2 = CEL.titol2;
           this.TERCIA.com2 = '-';
-          this.TERCIA.salm2 = CELsalm2.;
+          this.TERCIA.salm2 = CEL.salm2;
           this.TERCIA.gloria2 = CEL.gloria2;
-          this.TERCIA.titol3 = CELtitol3.;
+          this.TERCIA.titol3 = CEL.titol3;
           this.TERCIA.com3 = '-';
           this.TERCIA.salm3 = CEL.salm3;
           this.TERCIA.gloria3 = CEL.gloria3;
@@ -802,9 +806,9 @@ export default class TerciaSoul {
           this.SEXTA.gloria1 = CEL.gloria1;
           this.SEXTA.titol2 = CEL.titol2;
           this.SEXTA.com2 = '-';
-          this.SEXTA.salm2 = CELsalm2.;
+          this.SEXTA.salm2 = CEL.salm2;
           this.SEXTA.gloria2 = CEL.gloria2;
-          this.SEXTA.titol3 = CELtitol3.;
+          this.SEXTA.titol3 = CEL.titol3;
           this.SEXTA.com3 = '-';
           this.SEXTA.salm3 = CEL.salm3;
           this.SEXTA.gloria3 = CEL.gloria3;
@@ -818,9 +822,9 @@ export default class TerciaSoul {
           this.NONA.gloria1 = CEL.gloria1;
           this.NONA.titol2 = CEL.titol2;
           this.NONA.com2 = '-';
-          this.NONA.salm2 = CELsalm2.;
+          this.NONA.salm2 = CEL.salm2;
           this.NONA.gloria2 = CEL.gloria2;
-          this.NONA.titol3 = CELtitol3.;
+          this.NONA.titol3 = CEL.titol3;
           this.NONA.com3 = '-';
           this.NONA.salm3 = CEL.salm3;
           this.NONA.gloria3 = CEL.gloria3;
@@ -1102,16 +1106,22 @@ export default class TerciaSoul {
     if(CEL.vers !== '-'){
       switch (HM) {
         case 'Tèrcia':
+          this.TERCIA.vers = CEL.vers;
+          this.TERCIA.lecturaBreu = CEL.lecturaBreu;
+          this.TERCIA.respV = CEL.respV;
+          this.TERCIA.respR = CEL.respR;
+          break;
+        case 'Sexta':
+          this.SEXTA.vers = CEL.vers;
+          this.SEXTA.lecturaBreu = CEL.lecturaBreu;
+          this.SEXTA.respV = CEL.respV;
+          this.SEXTA.respR = CEL.respR;
+          break;
+        case 'Nona':
           this.NONA.vers = CEL.vers;
           this.NONA.lecturaBreu = CEL.lecturaBreu;
           this.NONA.respV = CEL.respV;
           this.NONA.respR = CEL.respR;
-          break;
-        case 'Sexta':
-
-          break;
-        case 'Nona':
-
           break;
       }
     }
@@ -1194,6 +1204,19 @@ export default class TerciaSoul {
         this.SEXTA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
         this.NONA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
         break;
+    }
+    if(CEL.oracio !== '-'){
+      switch (HM) {
+        case 'Tèrcia':
+          this.TERCIA.oracio = CEL.oracio;
+          break;
+        case 'Sexta':
+          this.SEXTA.oracio = CEL.oracio;
+          break;
+        case 'Nona':
+          this.NONA.oracio = CEL.oracio;
+          break;
+      }
     }
   }
 }
