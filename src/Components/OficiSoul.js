@@ -399,12 +399,14 @@ export default class OficiSoul {
       this.OFICI.ant1 = ant1;
     else this.OFICI.ant1 = CEL.ant1;
     console.log("----> " + CEL.titol1 + " " + titol1);
-    if(CEL.titol1 === '-')
+    if(CEL.titol1 === '-'){
       this.OFICI.titol1 = titol1;
-    else this.OFICI.titol1 = CEL.titol1;
-    if(CEL.com1 === '-' || CEL.com1 === '.')
       this.OFICI.com1 = com1;
-    else this.OFICI.com1 = CEL.com1;
+    }
+    else {
+      this.OFICI.titol1 = CEL.titol1;
+      this.OFICI.com1 = '-';
+    }
     if(CEL.salm1 === '-')
       this.OFICI.salm1 = salm1;
     else this.OFICI.salm1 = CEL.salm1;
@@ -414,12 +416,14 @@ export default class OficiSoul {
     if(CEL.ant2 === '-')
       this.OFICI.ant2 = ant2;
     else this.OFICI.ant2 = CEL.ant2;
-    if(CEL.titol2 === '-')
+    if(CEL.titol2 === '-'){
       this.OFICI.titol2 = titol2;
-    else this.OFICI.titol2 = CEL.titol2;
-    if(CEL.com2 === '-' || CEL.com2 === '.')
       this.OFICI.com2 = com2;
-    else this.OFICI.com2 = CEL.com2;
+    }
+    else {
+      this.OFICI.titol2 = CEL.titol2;
+      this.OFICI.com2 = '-';
+    }
     if(CEL.salm2 === '-')
       this.OFICI.salm2 = salm2;
     else this.OFICI.salm2 = CEL.salm2;
@@ -429,12 +433,14 @@ export default class OficiSoul {
     if(CEL.ant3 === '-')
       this.OFICI.ant3 = ant3;
     else this.OFICI.ant3 = CEL.ant3;
-    if(CEL.titol3 === '-')
+    if(CEL.titol3 === '-'){
       this.OFICI.titol3 = titol3;
-    else this.OFICI.titol3 = CEL.titol3;
-    if(CEL.com3 === '-' || CEL.com3 === '.')
       this.OFICI.com3 = com3;
-    else this.OFICI.com3 = CEL.com3;
+    }
+    else {
+      this.OFICI.titol3 = CEL.titol3;
+      this.OFICI.com3 = '-';
+    }
     if(CEL.salm3 === '-')
       this.OFICI.salm3 = salm3;
     else this.OFICI.salm3 = CEL.salm3;
