@@ -2,11 +2,12 @@ import GLOBAL from '../Globals/Globals';
 
 export default class OficiSoul {
   constructor(props, TABLES, CEL, HS, SOUL) {
-
+    console.log("Creating Ofici in soul... " + CEL.himne);
     this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, CEL, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
+        console.log("qe tal CEL? " + CEL.himne);
         nit=false; //TODO: todo
         this.state = {
           nit: nit,
@@ -79,18 +80,18 @@ export default class OficiSoul {
           oracio: '',
         }
 
-    this.introduccio(liturgicProps.LT, liturgicProps.setmana);
-    this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle);
-    this.vers(liturgicProps.LT);
-    this.lectures(liturgicProps.LT);
-    this.himneOhDeu(liturgicProps.LT, date.getDay());
-    this.oracio(liturgicProps.LT, date.getDay());
+    this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
+    this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana, CEL);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
+    this.vers(liturgicProps.LT, CEL);
+    this.lectures(liturgicProps.LT, CEL);
+    this.himneOhDeu(liturgicProps.LT, date.getDay(), CEL);
+    this.oracio(liturgicProps.LT, date.getDay(), CEL);
 
     SOUL.setSoul(HS, "ofici", this.OFICI);
   }
 
-  introduccio(LT, setmana){
+  introduccio(LT, setmana, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         antInvitatori = this.state.salteriComuInvitatori.ant;
@@ -126,11 +127,15 @@ export default class OficiSoul {
         antInvitatori = this.state.tempsSolemnitatsFestes.antInvitatori;
         break;
     }
-    this.OFICI.antInvitatori = antInvitatori;
-    this.OFICI.salm94 = this.state.salm94;
+    if(CEL.antInvitatori === '-')
+      this.OFICI.antInvitatori = antInvitatori;
+    else this.OFICI.antInvitatori = CEL.antInvitatori;
+    if(CEL.salm94 === '-')
+      this.OFICI.salm94 = this.state.salm94;
+    else this.OFICI.salm94 = CEL.salm94
   }
 
-  himne(LT, weekDay, nit, setmana){
+  himne(LT, weekDay, nit, setmana, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(nit){
@@ -224,10 +229,13 @@ export default class OficiSoul {
         }
         break;
     }
-    this.OFICI.himne = himne;
+    if(CEL.himne === '-')
+      this.OFICI.himne = himne;
+    else
+      this.OFICI.himne = CEL.himne;
   }
 
-  salmodia(LT, setmana, weekDay, cicle){
+  salmodia(LT, setmana, weekDay, cicle, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.Q_CENDRA:
@@ -387,24 +395,55 @@ export default class OficiSoul {
         gloria3 = this.state.tempsNadalOctava.gloriaOfici3;
         break;
     }
-    this.OFICI.ant1 = ant1;
-    this.OFICI.titol1 = titol1;
-    this.OFICI.com1 = com1;
-    this.OFICI.salm1 = salm1;
-    this.OFICI.gloria1 = gloria1;
-    this.OFICI.ant2 = ant2;
-    this.OFICI.titol2 = titol2;
-    this.OFICI.com2 = com2;
-    this.OFICI.salm2 = salm2;
-    this.OFICI.gloria2 = gloria2;
-    this.OFICI.ant3 = ant3;
-    this.OFICI.titol3 = titol3;
-    this.OFICI.com3 = com3;
-    this.OFICI.salm3 = salm3;
-    this.OFICI.gloria3 = gloria3;
+    if(CEL.ant1 === '-')
+      this.OFICI.ant1 = ant1;
+    else this.OFICI.ant1 = CEL.ant1;
+    console.log("----> " + CEL.titol1 + " " + titol1);
+    if(CEL.titol1 === '-')
+      this.OFICI.titol1 = titol1;
+    else this.OFICI.titol1 = CEL.titol1;
+    if(CEL.com1 === '-' || CEL.com1 === '.')
+      this.OFICI.com1 = com1;
+    else this.OFICI.com1 = CEL.com1;
+    if(CEL.salm1 === '-')
+      this.OFICI.salm1 = salm1;
+    else this.OFICI.salm1 = CEL.salm1;
+    if(CEL.gloria1 === '-')
+      this.OFICI.gloria1 = gloria1;
+    else this.OFICI.gloria1 = CEL.gloria1;
+    if(CEL.ant2 === '-')
+      this.OFICI.ant2 = ant2;
+    else this.OFICI.ant2 = CEL.ant2;
+    if(CEL.titol2 === '-')
+      this.OFICI.titol2 = titol2;
+    else this.OFICI.titol2 = CEL.titol2;
+    if(CEL.com2 === '-' || CEL.com2 === '.')
+      this.OFICI.com2 = com2;
+    else this.OFICI.com2 = CEL.com2;
+    if(CEL.salm2 === '-')
+      this.OFICI.salm2 = salm2;
+    else this.OFICI.salm2 = CEL.salm2;
+    if(CEL.gloria2 === '-')
+      this.OFICI.gloria2 = gloria2;
+    else this.OFICI.gloria2 = CEL.gloria2;
+    if(CEL.ant3 === '-')
+      this.OFICI.ant3 = ant3;
+    else this.OFICI.ant3 = CEL.ant3;
+    if(CEL.titol3 === '-')
+      this.OFICI.titol3 = titol3;
+    else this.OFICI.titol3 = CEL.titol3;
+    if(CEL.com3 === '-' || CEL.com3 === '.')
+      this.OFICI.com3 = com3;
+    else this.OFICI.com3 = CEL.com3;
+    if(CEL.salm3 === '-')
+      this.OFICI.salm3 = salm3;
+    else this.OFICI.salm3 = CEL.salm3;
+    if(CEL.gloria3 === '-')
+      this.OFICI.gloria3 = gloria3;
+    else this.OFICI.gloria3 = CEL.gloria3;
   }
 
-  vers(LT){
+  vers(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         respV = this.state.salteriComuOfici.respV;
@@ -455,11 +494,15 @@ export default class OficiSoul {
         respR = this.state.tempsNadalAbansEpifania.respROfici;
         break;
     }
-    this.OFICI.respV = respV;
-    this.OFICI.respR = respR;
+    if(CEL.respV === '-')
+      this.OFICI.respV = respV;
+    else this.OFICI.respV = CEL.respV;
+    if(CEL.respR === '-')
+      this.OFICI.respR = respR;
+    else this.OFICI.respR = CEL.respR;
   }
 
-  lectures(LT){
+  lectures(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         referencia1 = this.state.tempsOrdinariOfici.referencia1;
@@ -678,25 +721,57 @@ export default class OficiSoul {
         resp2Part3 = this.state.tempsNadalAbansEpifania.resp2Part3;
         break;
     }
-    this.OFICI.referencia1 = referencia1;
-    this.OFICI.cita1 = cita1;
-    this.OFICI.titolLectura1 = titol1;
-    this.OFICI.lectura1 = lectura1;
-    this.OFICI.citaResp1 = citaResp1;
-    this.OFICI.resp1Part1 = resp1Part1;
-    this.OFICI.resp1Part2 = resp1Part2;
-    this.OFICI.resp1Part3 = resp1Part3;
-    this.OFICI.referencia2 = referencia2;
-    this.OFICI.cita2 = cita2;
-    this.OFICI.titolLectura2 = titol2;
-    this.OFICI.lectura2 = lectura2;
-    this.OFICI.versResp2 = versResp2;
-    this.OFICI.resp2Part1 = resp2Part1;
-    this.OFICI.resp2Part2 = resp2Part2;
-    this.OFICI.resp2Part3 = resp2Part3;
+    if(CEL.referencia1 === '-')
+      this.OFICI.referencia1 = referencia1;
+    else this.OFICI.referencia1 = CEL.referencia1;
+    if(CEL.cita1 === '-')
+      this.OFICI.cita1 = cita1;
+    else this.OFICI.cita1 = CEL.cita1;
+    if(CEL.titolLectura1 === '-')
+      this.OFICI.titolLectura1 = titol1;
+    else this.OFICI.titolLectura1 = CEL.titolLectura1;
+    if(CEL.lectura1 === '-')
+      this.OFICI.lectura1 = lectura1;
+    else this.OFICI.lectura1 = CEL.lectura1;
+    if(CEL.citaResp1 === '-')
+      this.OFICI.citaResp1 = citaResp1;
+    else this.OFICI.citaResp1 = CEL.citaResp1;
+    if(CEL.resp1Part1 === '-')
+      this.OFICI.resp1Part1 = resp1Part1;
+    else this.OFICI.resp1Part1 = CEL.resp1Part1;
+    if(CEL.resp1Part2 === '-')
+      this.OFICI.resp1Part2 = resp1Part2;
+    else this.OFICI.resp1Part2 = CEL.resp1Part2;
+    if(CEL.resp1Part3 === '-')
+      this.OFICI.resp1Part3 = resp1Part3;
+    else this.OFICI.resp1Part3 = CEL.resp1Part3;
+    if(CEL.referencia2 === '-')
+      this.OFICI.referencia2 = referencia2;
+    else this.OFICI.referencia2 = CEL.referencia2;
+    if(CEL.cita2 === '-')
+      this.OFICI.cita2 = cita2;
+    else this.OFICI.cita2 = CEL.cita2;
+    if(CEL.titolLectura2 === '-')
+      this.OFICI.titolLectura2 = titol2;
+    else this.OFICI.titolLectura2 = CEL.titolLectura2;
+    if(CEL.lectura2 === '-')
+      this.OFICI.lectura2 = lectura2;
+    else this.OFICI.lectura2 = CEL.lectura2;
+    if(CEL.versResp2 === '-')
+      this.OFICI.versResp2 = versResp2;
+    else this.OFICI.versResp2 = CEL.versResp2;
+    if(CEL.resp2Part1 === '-')
+      this.OFICI.resp2Part1 = resp2Part1;
+    else this.OFICI.resp2Part1 = CEL.resp2Part1;
+    if(CEL.resp2Part2 === '-')
+      this.OFICI.resp2Part2 = resp2Part2;
+    else this.OFICI.resp2Part2 = CEL.resp2Part2;
+    if(CEL.resp2Part3 === '-')
+      this.OFICI.resp2Part3 = resp2Part3;
+    else this.OFICI.resp2Part3 = CEL.resp2Part3;
   }
 
-  himneOhDeu(LT, weekDay){
+  himneOhDeu(LT, weekDay, CEL){
     var himneOhDeuBool = false;
     switch(LT){
       case GLOBAL.O_ORDINARI:
@@ -718,11 +793,15 @@ export default class OficiSoul {
         if(weekDay == 0) himneOhDeuBool = true; //diumenge
         break;
     }
-    this.OFICI.himneOhDeuBool = himneOhDeuBool;
+
+    if(CEL.himneOhDeuBool === '-')
+      this.OFICI.himneOhDeuBool = himneOhDeuBool;
+    else this.OFICI.himneOhDeuBool = CEL.himneOhDeuBool;
+
     this.OFICI.himneOhDeu = this.state.ohDeu;
   }
 
-  oracio(LT, weekDay){
+  oracio(LT, weekDay, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         oracio = this.state.tempsOrdinariOracions.oracio;
@@ -761,6 +840,8 @@ export default class OficiSoul {
         oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
         break;
     }
-    this.OFICI.oracio = oracio;
+    if(CEL.oracio === '-')
+      this.OFICI.oracio = oracio;
+    else this.OFICI.oracio = CEL.oracio;
   }
 }

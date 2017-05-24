@@ -78,19 +78,19 @@ export default class LaudesSoul {
       oracio: '',
     }
 
-    this.introduccio(liturgicProps.LT, liturgicProps.setmana);
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle);
-    this.lecturaBreu(liturgicProps.LT);
-    this.responsori(liturgicProps.LT);
-    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC);
-    this.pregaries(liturgicProps.LT);
-    this.oracio(liturgicProps.LT, date.getDay());
+    this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
+    this.lecturaBreu(liturgicProps.LT, CEL);
+    this.responsori(liturgicProps.LT, CEL);
+    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
+    this.pregaries(liturgicProps.LT, CEL);
+    this.oracio(liturgicProps.LT, date.getDay(), CEL);
 
     SOUL.setSoul(HS, "laudes", this.LAUDES);
   }
 
-  introduccio(LT, setmana){
+  introduccio(LT, setmana, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         antInvitatori = this.state.salteriComuInvitatori.ant;
@@ -130,7 +130,7 @@ export default class LaudesSoul {
     this.LAUDES.salm94 = this.state.salm94;
   }
 
-  himne(LT, weekDay, setmana){
+  himne(LT, weekDay, setmana, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
@@ -224,7 +224,7 @@ export default class LaudesSoul {
     this.LAUDES.himne = himne;
   }
 
-  salmodia(LT, setmana, weekDay){
+  salmodia(LT, setmana, weekDay, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.Q_CENDRA:
@@ -436,7 +436,7 @@ export default class LaudesSoul {
     this.LAUDES.gloria3 = gloria3;
   }
 
-  lecturaBreu(LT){
+  lecturaBreu(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         vers = this.state.salteriComuLaudes.versetLB;
@@ -491,7 +491,7 @@ export default class LaudesSoul {
     this.LAUDES.lecturaBreu = lecturaBreu;
   }
 
-  responsori(LT){
+  responsori(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         respBreu1 = this.state.salteriComuLaudes.respBreu1
@@ -560,7 +560,7 @@ export default class LaudesSoul {
     }
   }
 
-  cantic(LT, weekDay, litYear){
+  cantic(LT, weekDay, litYear, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(weekDay !== 0){ ///no diumenge
@@ -673,7 +673,7 @@ export default class LaudesSoul {
     this.LAUDES.antCantic = antCantic;
   }
 
-  pregaries(LT){
+  pregaries(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         pregaries = this.state.salteriComuLaudes.pregaries;
@@ -715,7 +715,7 @@ export default class LaudesSoul {
     this.LAUDES.pregaries = pregaries;
   }
 
-  oracio(LT, weekDay){
+  oracio(LT, weekDay, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(weekDay !== 0){ ///no diumenge

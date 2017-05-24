@@ -47,14 +47,9 @@ export default class DBAdapter {
 
   getSolMem(table, date, diocesi, callback){
     dia = this.calculeDia(date);
-    if(diocesi === '-'){
-    this.executeQuery(`SELECT * FROM ${table} WHERE dia = ${dia}`,
+
+    this.executeQuery(`SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}'`,
       result => callback(result.rows.item(0)));
-    }
-    else{
-      this.executeQuery(`SELECT * FROM ${table} WHERE Diocesis = '${diocesi}' AND dia = '${dia}'`,
-        result => callback(result.rows.item(0)));
-    }
   }
 
   getOC(categoria, callback){
