@@ -394,38 +394,40 @@ export default class SOUL {
     //console.log("COUNTLIT: " + this.countLit);
     switch (type) {
       case "ofici":
-        console.log("----> OFICI");
+          console.log("----> OFICI");
           this.countLit -= 1;
           this.LITURGIA.ofici = pregaria;
         break;
       case "laudes":
-      console.log("----> LAUDES");
+          console.log("----> LAUDES");
           this.countLit -= 1;
           this.LITURGIA.laudes = pregaria;
         break;
       case "vespres":
-      console.log("----> VESPRES");
+          console.log("----> VESPRES");
           this.countLit -= 1;
           this.LITURGIA.vespres = pregaria;
         break;
       case "tercia":
-      console.log("----> TERCIA" + " - " + pregaria.titol1);
           this.countLit -= 1;
           this.LITURGIA.tercia = pregaria;
-          console.log("no entenc1: " + this.LITURGIA.tercia.titol1);
+          console.log("----> TERCIA" + " - " + this.LITURGIA.tercia.titol1);
         break;
       case "sexta":
-      console.log("----> SEXTA" + " - " + this.LITURGIA.tercia.titol1);
-          this.countLit -= 1;
+          console.log("----> SEXTA" + " - " + this.LITURGIA.tercia.titol1);
           this.LITURGIA.sexta = pregaria;
+          this.countLit -= 1;
         break;
       case "nona":
-      console.log("----> NONA" + " - " + this.LITURGIA.tercia.titol1);
+          console.log("----> NONA" + " - " + this.LITURGIA.tercia.titol1);
           this.countLit -= 1;
           this.LITURGIA.nona = pregaria;
+          console.log("D----> TERCIA titol" + " - " + this.LITURGIA.tercia.titol1);
+          console.log("D----> SEXTA titol" + " - " + this.LITURGIA.sexta.titol1);
+          console.log("D----> NONA titol" + " - " + this.LITURGIA.nona.titol1);
         break;
       case "completes":
-      console.log("----> COMPLETES");
+          console.log("----> COMPLETES");
           this.countLit -= 1;
           this.LITURGIA.completes = pregaria;
         break;
@@ -455,7 +457,7 @@ export default class SOUL {
 
     if(this.countLit === 0){
       this.countLit = 7;
-      console.log("no entencXX: " + this.LITURGIA.tercia.titol1);
+
       HS.setSoul(this.LITURGIA);
     }
   }
