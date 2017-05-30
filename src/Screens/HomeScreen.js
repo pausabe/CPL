@@ -28,8 +28,8 @@ export default class HomeScreen extends Component {
     super(props)
 
     var today = new Date();
-    //today.setDate(20); //1-31
-    //today.setMonth(0); //0-11
+    today.setDate(4); //1-31
+    today.setMonth(5); //0-11
     //today.setFullYear(2017); //XXXX
 
     this.state = {
