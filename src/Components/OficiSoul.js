@@ -110,7 +110,7 @@ export default class OficiSoul {
         antInvitatori = this.state.tempsPasquaAA.antInvitatori;
         break;
       case GLOBAL.P_SETMANES:
-        if(setmana === 7){
+        if(setmana === '7'){
           antInvitatori = this.state.tempsPasquaDA.antInvitatori;
         }
         else{
@@ -195,7 +195,7 @@ export default class OficiSoul {
         }
         break;
       case GLOBAL.P_SETMANES:
-        if(setmana === 7){
+        if(setmana === '7'){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneOficiLlati;
           }

@@ -135,7 +135,7 @@ export default class Vespres {
         }
         break;
       case GLOBAL.P_SETMANES:
-        if(setmana === 7){
+        if(setmana === '7'){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneVespresLlati;
           }
