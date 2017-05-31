@@ -99,6 +99,7 @@ export default class DBAdapter {
     if(date.getDate() < 10)
       dia = `0${date.getDate()}`;
     else dia = date.getDate();
+    
     console.log("Dia: " + dia + "-" + mes);
     return dia + "-" + mes;
   }

@@ -14,7 +14,6 @@ export default class LaudesSoul {
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
-    console.log("DONT UNDERSTAND " + CEL.ant1);
     this.state = {
       salteriComuLaudes: TABLES.salteriComuLaudes,
       salteriComuInvitatori: TABLES.salteriComuInvitatori,

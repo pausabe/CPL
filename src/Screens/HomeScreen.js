@@ -28,10 +28,10 @@ export default class HomeScreen extends Component {
     super(props)
 
     var today = new Date();
-    //today.setDate(8); //1-31
-    //today.setMonth(7); //0-11
+    today.setDate(26); //1-31
+    today.setMonth(4); //0-11
     //today.setFullYear(2017); //XXXX
-    this.HCDiocesi = 'BaD';
+    this.HCDiocesi = 'SFC';
 
     this.state = {
       diocesi: '',
@@ -94,7 +94,6 @@ export default class HomeScreen extends Component {
   }
 
   refreshDate(newDay, diocesi, invitatori){
-    console.log("NEW DAY: " + newDay.getDate() + ", diocesi: " + diocesi + ", invitatori: " + invitatori);
     this.acceso.getAnyLiturgic(
       newDay.getFullYear(),
       newDay.getMonth(),

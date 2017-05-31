@@ -121,7 +121,6 @@ export default class TerciaSoul {
     this.lecturaBreuResp(liturgicProps.LT, "Tèrcia", CEL.TERCIA);
     this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia", CEL.TERCIA);
 
-    console.log("--------------> " + this.TERCIA.titol1);
     SOUL.setSoul(HS, "tercia", this.TERCIA);
 
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA);
@@ -129,7 +128,6 @@ export default class TerciaSoul {
     this.lecturaBreuResp(liturgicProps.LT, "Sexta", CEL.SEXTA);
     this.oracio(liturgicProps.LT, date.getDay(), "Sexta", CEL.SEXTA);
 
-    console.log("--------------> " + this.TERCIA.titol1);
     SOUL.setSoul(HS, "sexta", this.SEXTA);
 
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA);
