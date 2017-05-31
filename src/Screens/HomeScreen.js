@@ -58,8 +58,10 @@ export default class HomeScreen extends Component {
       diocesi: '',
       invitatori: '',
     }
-    SettingsManager.getSettingDiocesis((r) => this.setState({diocesi: r}));
-    SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
+
+    this.rendering = false;
+
+    this.refreshSettings();
 
     this.acceso = new DBAdapter();
     this.acceso.getAnyLiturgic(
@@ -91,6 +93,20 @@ export default class HomeScreen extends Component {
         this.SOUL = new SOUL(this.state, this);
       }
     );
+  }
+
+  shouldComponentUpdate(){
+    console.log("should");
+    //cojo Settings
+    //creo oraciones
+    //render
+    Promise.all([
+      SetM.getSetGlo(),
+      SetM.getSetL()
+    ]).then(results => {
+      console.log(results[0]);
+    });
+    return this.rendering;
   }
 
   refreshDate(newDay, diocesi, invitatori){
@@ -133,6 +149,11 @@ export default class HomeScreen extends Component {
     );
   }
 
+  refreshSettings(){
+    SettingsManager.getSettingDiocesis((r) => this.setState({diocesi: r}));
+    SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
+  }
+
   /*asdf(){
     console.log("update");
 
@@ -166,6 +187,7 @@ export default class HomeScreen extends Component {
   }*/
 
   setSoul(liturgia /*, info celebració*/){
+    this.rendering = true;
     this.setState({
       liturgicProps: {
         LITURGIA: liturgia,
@@ -182,6 +204,7 @@ export default class HomeScreen extends Component {
         ABC2: this.state.liturgicProps.ABC2,
       }
     });
+    this.rendering = false;
   }
 
   componentWillMount() {
@@ -192,6 +215,8 @@ export default class HomeScreen extends Component {
   }
 
   render() {
+    //this.refreshSettings();
+    console.log("estoy rendering en HomeScreen");
     return (
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
