@@ -1325,7 +1325,8 @@ export default class CelebracioSoul {
         this.NONA.oracio = TABLES.santsMemories.OracioNona;
 
 
-        //:::::::VESPRES:::::::
+        //:::::::ML-VESPRES:::::::
+        //ML-VESPRES -> HIMNE
         if(TABLES.santsMemories.himneVespresLlati !== '-'){
           if(llati) this.VESPRES.himne = TABLES.santsMemories.himneVespresLlati;
           else this.VESPRES.himne = TABLES.santsMemories.himneVespresCat;
@@ -1334,6 +1335,8 @@ export default class CelebracioSoul {
           if(llati) this.VESPRES.himne = TABLES.OficisComuns.himneVespresLlati;
           else this.VESPRES.himne = TABLES.OficisComuns.himneVespresCat;
         }
+        //ML-VESPRES -> SALMÒDIA
+        //S1
         if(TABLES.santsMemories.ant1Vespres !== '-')
           this.VESPRES.ant1 = TABLES.santsMemories.ant1Vespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.ant1 = TABLES.OficisComuns.ant1Vespres;
@@ -1347,6 +1350,7 @@ export default class CelebracioSoul {
         if(TABLES.santsMemories.gloria1Vespres !== '-')
           this.VESPRES.gloria1 = TABLES.santsMemories.gloria1Vespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.gloria1 = TABLES.OficisComuns.gloria1Vespres;
+        //S2
         if(TABLES.santsMemories.ant2Vespres !== '-')
           this.VESPRES.ant2 = TABLES.santsMemories.ant2Vespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.ant2 = TABLES.OficisComuns.ant2Vespres;
@@ -1360,6 +1364,7 @@ export default class CelebracioSoul {
         if(TABLES.santsMemories.gloria2Vespres !== '-')
           this.VESPRES.gloria2 = TABLES.santsMemories.gloria2Vespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.gloria2 = TABLES.OficisComuns.gloria2Vespres;
+        //s3
         if(TABLES.santsMemories.ant3Vespres !== '-')
           this.VESPRES.ant3 = TABLES.santsMemories.ant3Vespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.ant3 = TABLES.OficisComuns.ant3Vespres;
@@ -1373,12 +1378,14 @@ export default class CelebracioSoul {
         if(TABLES.santsMemories.gloria3Vespres !== '-')
           this.VESPRES.gloria3 = TABLES.santsMemories.gloria3Vespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.gloria3 = TABLES.OficisComuns.gloria3Vespres;
+        //ML-VESPRES -> LECTURA BREU
         if(TABLES.santsMemories.citaLBVespres !== '-')
           this.VESPRES.vers = TABLES.santsMemories.citaLBVespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.vers = TABLES.OficisComuns.citaLBVespres;
         if(TABLES.santsMemories.lecturaBreuVespres !== '-')
           this.VESPRES.lecturaBreu = TABLES.santsMemories.lecturaBreuVespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.lecturaBreu = TABLES.OficisComuns.lecturaBreuVespres;
+        //ML-VESPRES -> RESPONSORI
         this.VESPRES.calAntEspecial = false;
         if(TABLES.santsMemories.respBreuVespres1 !== '-')
           this.VESPRES.respBreu1 = TABLES.santsMemories.respBreuVespres1;
@@ -1389,12 +1396,15 @@ export default class CelebracioSoul {
         if(TABLES.santsMemories.respBreuVespres3 !== '-')
           this.VESPRES.respBreu3 = TABLES.santsMemories.respBreuVespres3;
         else if(TABLES.OficisComuns !== null) this.VESPRES.respBreu3 = TABLES.OficisComuns.respBreuVespres3;
+        //ML-VESPRES -> CÀNTIC
         if(TABLES.santsMemories.antMaria !== '-')
           this.VESPRES.antCantic = TABLES.santsMemories.antMaria;
         else if(TABLES.OficisComuns !== null) this.VESPRES.antCantic = TABLES.OficisComuns.antMaria;
+        //ML-VESPRES -> PREGÀRIES
         if(TABLES.santsMemories.pregariesVespres2 !== '-')
           this.VESPRES.pregaries = TABLES.santsMemories.pregariesVespres;
         else if(TABLES.OficisComuns !== null) this.VESPRES.pregaries = TABLES.OficisComuns.pregariesVespres;
+        //ML-VESPRES -> ORACIÓ
         this.VESPRES.oracio = TABLES.santsMemories.oraFi;
         break;
     }

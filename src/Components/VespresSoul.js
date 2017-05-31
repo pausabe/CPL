@@ -69,18 +69,18 @@ export default class Vespres {
           oracio: '',
         }
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay());
-    this.lecturaBreu(liturgicProps.LT);
-    this.responsori(liturgicProps.LT);
-    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC);
-    this.pregaries(liturgicProps.LT);
-    this.oracio(liturgicProps.LT, date.getDay());
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL);
+    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
+    this.lecturaBreu(liturgicProps.LT, CEL);
+    this.responsori(liturgicProps.LT, CEL);
+    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
+    this.pregaries(liturgicProps.LT, CEL);
+    this.oracio(liturgicProps.LT, date.getDay(), CEL);
 
     SOUL.setSoul(HS, "vespres", this.VESPRES);
   }
 
-  himne(LT, weekDay, setmana){
+  himne(LT, weekDay, setmana, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
@@ -171,10 +171,12 @@ export default class Vespres {
         }
         break;
     }
-    this.VESPRES.himne = himne;
+    if(CEL.himne === '-')
+      this.VESPRES.himne = himne;
+    else this.VESPRES.himne = CEL.himne;
   }
 
-  salmodia(LT, setmana, weekDay){
+  salmodia(LT, setmana, weekDay, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.Q_CENDRA:
@@ -381,24 +383,47 @@ export default class Vespres {
         gloria3 = "1";
         break;
     }
-    this.VESPRES.ant1 = ant1;
-    this.VESPRES.titol1 = titol1;
-    this.VESPRES.com1 = com1;
-    this.VESPRES.salm1 = salm1;
-    this.VESPRES.gloria1 = gloria1;
-    this.VESPRES.ant2 = ant2;
-    this.VESPRES.titol2 = titol2;
-    this.VESPRES.com2 = com2;
-    this.VESPRES.salm2 = salm2;
-    this.VESPRES.gloria2 = gloria2;
-    this.VESPRES.ant3 = ant3;
-    this.VESPRES.titol3 = titol3;
-    this.VESPRES.com3 = com3;
-    this.VESPRES.salm3 = salm3;
-    this.VESPRES.gloria3 = gloria3;
+    if(CEL.ant1 === '-')
+      this.VESPRES.ant1 = ant1;
+    else this.VESPRES.ant1 = CEL.ant1;
+    if(CEL.ant2 === '-')
+      this.VESPRES.ant2 = ant2;
+    else this.VESPRES.ant2 = CEL.ant2;
+    if(CEL.ant3 === '-')
+      this.VESPRES.ant3 = ant3;
+    else this.VESPRES.ant3 = CEL.ant3;
+
+    if(CEL.titol1 === '-'){
+      this.VESPRES.titol1 = titol1;
+      this.VESPRES.com1 = com1;
+      this.VESPRES.salm1 = salm1;
+      this.VESPRES.gloria1 = gloria1;
+      this.VESPRES.titol2 = titol2;
+      this.VESPRES.com2 = com2;
+      this.VESPRES.salm2 = salm2;
+      this.VESPRES.gloria2 = gloria2;
+      this.VESPRES.titol3 = titol3;
+      this.VESPRES.com3 = com3;
+      this.VESPRES.salm3 = salm3;
+      this.VESPRES.gloria3 = gloria3;
+    }
+    else{
+      this.VESPRES.titol1 = CEL.titol1;
+      this.VESPRES.com1 = '-';
+      this.VESPRES.salm1 = CEL.salm1;
+      this.VESPRES.gloria1 = CEL.gloria1;
+      this.VESPRES.titol2 = CEL.titol2;
+      this.VESPRES.com2 = '-';
+      this.VESPRES.salm2 = CEL.salm2;
+      this.VESPRES.gloria2 = CEL.gloria2;
+      this.VESPRES.titol3 = CEL.titol3;
+      this.VESPRES.com3 = '-';
+      this.VESPRES.salm3 = CEL.salm3;
+      this.VESPRES.gloria3 = CEL.gloria3;
+    }
   }
 
-  lecturaBreu(LT, weekDay){
+  lecturaBreu(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         vers = this.state.salteriComuVespres.versetLB;
@@ -455,11 +480,15 @@ export default class Vespres {
         lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuVespres;
         break;
     }
-    this.VESPRES.vers = vers;
-    this.VESPRES.lecturaBreu = lecturaBreu;
+    if(CEL.vers === '-')
+      this.VESPRES.vers = vers;
+    else this.VESPRES.vers = CEL.vers;
+    if(CEL.lecturaBreu === '-')
+      this.VESPRES.lecturaBreu = lecturaBreu;
+    else this.VESPRES.lecturaBreu = CEL.lecturaBreu;
   }
 
-  responsori(LT, weekDay){
+  responsori(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         respBreu1 = this.state.salteriComuVespres.respBreu1
@@ -519,23 +548,31 @@ export default class Vespres {
         respBreu3 = this.state.tempsNadalAbansEpifania.respBreuVespres3
         break;
     }
-    if(LT === GLOBAL.Q_TRIDU){
-      this.VESPRES.calAntEspecial = true;
-      this.VESPRES.antEspecialVespres = antEspecialVespres;
-    }
-    else if(LT === GLOBAL.P_OCTAVA){
-      this.VESPRES.calAntEspecial = true;
-      this.VESPRES.antEspecialVespres = antEspecialVespres;
+    if(CEL.respBreu1 === '-'){
+      if(LT === GLOBAL.Q_TRIDU){
+        this.VESPRES.calAntEspecial = true;
+        this.VESPRES.antEspecialVespres = antEspecialVespres;
+      }
+      else if(LT === GLOBAL.P_OCTAVA){
+        this.VESPRES.calAntEspecial = true;
+        this.VESPRES.antEspecialVespres = antEspecialVespres;
+      }
+      else{
+        this.VESPRES.calAntEspecial = false;
+        this.VESPRES.respBreu1 = respBreu1;
+        this.VESPRES.respBreu2 = respBreu2;
+        this.VESPRES.respBreu3 = respBreu3;
+      }
     }
     else{
       this.VESPRES.calAntEspecial = false;
-      this.VESPRES.respBreu1 = respBreu1;
-      this.VESPRES.respBreu2 = respBreu2;
-      this.VESPRES.respBreu3 = respBreu3;
+      this.VESPRES.respBreu1 = CEL.respBreu1;
+      this.VESPRES.respBreu2 = CEL.respBreu2;
+      this.VESPRES.respBreu3 = CEL.respBreu3;
     }
   }
 
-  cantic(LT, weekDay, litYear){
+  cantic(LT, weekDay, litYear, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge
@@ -720,10 +757,13 @@ export default class Vespres {
         break;
     }
     this.VESPRES.cantic = this.state.magnificat;
-    this.VESPRES.antCantic = antCantic;
+
+    if(CEL.antCantic === '-')
+      this.VESPRES.antCantic = antCantic;
+    else this.VESPRES.antCantic = CEL.antCantic;
   }
 
-  pregaries(LT, weekDay){
+  pregaries(LT, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         pregaries = this.state.salteriComuVespres.pregaries;
@@ -767,10 +807,12 @@ export default class Vespres {
         pregaries = this.state.tempsNadalAbansEpifania.pregariesVespres;
         break;
     }
-    this.VESPRES.pregaries = pregaries;
+    if(CEL.pregaries === '-')
+      this.VESPRES.pregaries = pregaries;
+    else this.VESPRES.pregaries = CEL.pregaries;
   }
 
-  oracio(LT, weekDay){
+  oracio(LT, weekDay, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge
@@ -819,6 +861,8 @@ export default class Vespres {
         oracio = this.state.tempsNadalAbansEpifania.oraFiVespres;
         break;
     }
-    this.VESPRES.oracio = oracio;
+    if(CEL.oracio === '-')
+      this.VESPRES.oracio = oracio;
+    else this.VESPRES.oracio = CEL.oracio;
   }
 }

@@ -424,7 +424,6 @@ export default class LaudesSoul {
         ant3 = this.state.tempsSolemnitatsFestes.ant3Laudes;
         break;
     }
-    console.log("Here I am " + CEL.ant1);
     if(CEL.ant1 === '-')
       this.LAUDES.ant1 = ant1;
     else this.LAUDES.ant1 = CEL.ant1;
