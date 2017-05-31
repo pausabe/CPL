@@ -28,10 +28,10 @@ export default class HomeScreen extends Component {
     super(props)
 
     var today = new Date();
-    today.setDate(26); //1-31
-    today.setMonth(4); //0-11
+    //today.setDate(8); //1-31
+    //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
-    this.HCDiocesi = 'SFC';
+    this.HCDiocesi = 'BaD';
 
     this.state = {
       diocesi: '',
@@ -94,6 +94,7 @@ export default class HomeScreen extends Component {
   }
 
   refreshDate(newDay, diocesi, invitatori){
+    console.log(this.state.date.getDate()+'/'+this.state.date.getMonth()+'/'+this.state.date.getFullYear()+' -> '+newDay.getDate()+'/'+newDay.getMonth()+'/'+newDay.getFullYear());
     this.acceso.getAnyLiturgic(
       newDay.getFullYear(),
       newDay.getMonth(),
@@ -188,12 +189,18 @@ export default class HomeScreen extends Component {
 
   onMinusPress(){
     var newDay = new Date();
+    newDay.setDate(this.state.date.getDate());
+    newDay.setMonth(this.state.date.getMonth());
+    newDay.setFullYear(this.state.date.getFullYear());
     newDay.setDate(this.state.date.getDate()-1);
     this.refreshDate(newDay, this.state.diocesi, this.state.liturgia);
   }
 
   onPlusPress(){
     var newDay = new Date();
+    newDay.setDate(this.state.date.getDate());
+    newDay.setMonth(this.state.date.getMonth());
+    newDay.setFullYear(this.state.date.getFullYear());
     newDay.setDate(this.state.date.getDate()+1);
     this.refreshDate(newDay, this.state.diocesi, this.state.liturgia);
   }

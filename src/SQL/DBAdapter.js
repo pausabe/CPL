@@ -45,6 +45,11 @@ export default class DBAdapter {
       result => callback(result.rows.item(0), result.rows.item(1)));
   }
 
+  getPentacosta(callback){
+    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day} OR any = ${year2} AND mes = ${month2+1} AND dia = ${day2} ORDER BY any, mes, dia ASC`,
+      result => callback(result.rows.item(0), result.rows.item(1)));
+  }
+
   getSolMem(table, date, diocesi, callback){
     dia = this.calculeDia(date);
 
@@ -99,7 +104,7 @@ export default class DBAdapter {
     if(date.getDate() < 10)
       dia = `0${date.getDate()}`;
     else dia = date.getDate();
-    
+
     console.log("Dia: " + dia + "-" + mes);
     return dia + "-" + mes;
   }

@@ -71,13 +71,16 @@ export default class SOUL {
 
   makeQueryies(date, liturgicProps, celType, diocesi, invitatori, HS){
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
+    idTSF_aux = this.findTempsSolemnitatsFestes(date, liturgicProps.LT, liturgicProps.setmana);
+    console.log("idTSF: " + idTSF_aux);
+    idTSF_aux = -1;
     params = {
       date: date,
       liturgicProps: liturgicProps,
       celType: celType,
       diocesi: diocesi,
       invitatori: invitatori,
-      idTSF: this.findTempsSolemnitatsFestes,
+      idTSF: idTSF_aux,
       HS: HS,
     }
 
@@ -359,7 +362,6 @@ export default class SOUL {
   }
 
   getOficisComuns(params, result){
-    console.log("result " + result);
     categoria = result.Categoria;
     if(categoria !== '0000'){
       console.log("Més un accéss extra per OficisComuns. Categoria: " + categoria);
@@ -450,8 +452,70 @@ export default class SOUL {
   /*
     Return id of #tempsSolemnitatsFestes or -1 if there isnt there
   */
-  findTempsSolemnitatsFestes(tempsSolemnitatsFestes, date){
+  findTempsSolemnitatsFestes(date, LT, setmana, pentacosta){
+    //1- Nadal
+    if(date.getDate() === 25 && date.getMonth() === 11){
+      return 1;
+    }
+
+    //2- Sagrada Família
+    if(false){
+      return 2;
+    }
+
+    //3- Mare de Déu
+    if(date.getDate() === 1 && date.getMonth() === 0){
+      return 3;
+    }
+
+    //4- Epifania
+    if(date.getDate() === 6 && date.getMonth() === 0){
+      return 4;
+    }
+
+    //5- Baptisme
+    if(this.isBaptisme(date)){
+      return 5;
+    }
+
+    //6- Ascensió
+    if(date.getDay() === 0 && LT === GLOBAL.P_SETMANES && setmana === '7'){
+      return 6;
+    }
+
+    //7- Diumenge pentacosta
+    if(date.getDate() === pentacosta.getDate() && date.getMonth() === pentacosta.getDate() && date.getFullYear() === pentacosta.getFullYear()){
+      return 7;
+    }
+
+    //8- Santíssima trinitat
+    if(false){
+      return 8;
+    }
+
+    //9- Santíssim cos i sang de crist
+    if(false){
+      return 9;
+    }
+
+    //10- Sagrat cor de Jesús
+    if(false){
+      return 10;
+    }
+
+    //11- Nostre senyor Jesucrist
+    if(date.getDay() === 0 && LT === GLOBAL.O_ORDINARI && setmana === '34'){
+      return 11;
+    }
 
     return -1;
+  }
+
+  isBaptisme(today){
+    if(today.getFullYear() !== today.getFullYear()) return false;
+    if(today.getMonth() !== 0) return false;
+    if(today.getDay() !== 0) return false;
+    if(today.getDate() < 7 || today.getDate() > 13) return false;
+    return true;
   }
 }
