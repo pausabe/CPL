@@ -47,7 +47,7 @@ export default class DBAdapter {
 
   getPentacosta(callback){
     this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day} OR any = ${year2} AND mes = ${month2+1} AND dia = ${day2} ORDER BY any, mes, dia ASC`,
-      result => callback(result.rows.item(0), result.rows.item(1)));
+      result => callback());
   }
 
   getSolMem(table, date, diocesi, callback){
