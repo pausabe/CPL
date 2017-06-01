@@ -41,8 +41,8 @@ export default class HomeScreen extends Component {
 
     this.variables = {
       diocesi: '',
-      celType: '',
       invitatori: '',
+      celType: '',
       date: today,
     }
 
