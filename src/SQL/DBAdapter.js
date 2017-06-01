@@ -40,6 +40,7 @@ export default class DBAdapter {
     year2 = tomorrow.getFullYear();
     month2 = tomorrow.getMonth();
     day2 = tomorrow.getDate();
+    //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
     this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day} OR any = ${year2} AND mes = ${month2+1} AND dia = ${day2} ORDER BY any, mes, dia ASC`,
       result => callback(result.rows.item(0), result.rows.item(1)));

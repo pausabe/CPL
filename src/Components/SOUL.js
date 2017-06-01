@@ -7,8 +7,9 @@ import DBAdapter from '../SQL/DBAdapter';
 import GLOBAL from '../Globals/Globals';
 
 export default class SOUL {
-  constructor(props, HS) {
-    this.props = props;
+  constructor(variables, liturgicProps, HS) {
+    this.variables = variables;
+    this.liturgicProps = liturgicProps;
 
     this.queryRows = {
       salteriComuOfici: '', //1
@@ -59,7 +60,7 @@ export default class SOUL {
     this.countLit = 7;
     this.firstAccess = true;
     this.acceso = new DBAdapter();
-    this.makeQueryies(props.date, props.liturgicProps, props.invitatori, HS);
+    this.makeQueryies(variables.date, liturgicProps, variables.invitatori, HS);
   }
 
   makeQueryies(date, liturgicProps, invitatori, HS){
@@ -330,19 +331,20 @@ export default class SOUL {
       //var celebracio = this.createCelebracio(date);
 
       if(this.firstAccess){
+        console.log("DEBUG: " + this.variables.date.getFullYear());
         this.firstAccess = false;
-        this.OficiSoul = new OficiSoul(this.props, this.queryRows, HS, this);
-        this.LaudesSoul = new LaudesSoul(this.props, this.queryRows, HS, this);
-        this.VespresSoul = new VespresSoul(this.props, this.queryRows, HS, this);
-        this.HoraMenorSoul = new HoraMenorSoul(this.props, this.queryRows, HS, this);
-        this.CompletesSoul = new CompletesSoul(this.props, this.queryRows, HS, this);
+        this.OficiSoul = new OficiSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
+        this.LaudesSoul = new LaudesSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
+        this.VespresSoul = new VespresSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
+        this.HoraMenorSoul = new HoraMenorSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
+        this.CompletesSoul = new CompletesSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
       }
       else{
-        this.OficiSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, HS, this);
-        this.LaudesSoul.makePrayer(date, liturgicProps, this.queryRows, invitatori, HS, this);
-        this.VespresSoul.makePrayer(date, liturgicProps, this.queryRows, HS, this);
-        this.HoraMenorSoul.makePrayer(date, liturgicProps, this.queryRows, HS, this);
-        this.CompletesSoul.makePrayer(date, liturgicProps, this.queryRows, HS, this);
+        this.OficiSoul.makePrayer(this.variables.date,  this.liturgicProps, this.queryRows, this.variables.invitatori, HS, this);
+        this.LaudesSoul.makePrayer(this.variables.date,  this.liturgicProps, this.queryRows, this.variables.invitatori, HS, this);
+        this.VespresSoul.makePrayer(this.variables.date, liturgicProps, this.queryRows, HS, this);
+        this.HoraMenorSoul.makePrayer(this.variables.date, liturgicProps, this.queryRows, HS, this);
+        this.CompletesSoul.makePrayer(this.variables.date, liturgicProps, this.queryRows, HS, this);
       }
     }
   }

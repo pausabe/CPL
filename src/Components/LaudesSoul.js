@@ -8,9 +8,9 @@ import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
 
 export default class LaudesSoul {
-  constructor(props, TABLES, HS, SOUL) {
+  constructor(variables, liturgicProps, TABLES, HS, SOUL) {
 
-    this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, HS, SOUL);
+    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, HS, SOUL){

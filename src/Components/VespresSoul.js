@@ -3,9 +3,9 @@ import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
 
 export default class Vespres {
-  constructor(props, TABLES, HS, SOUL) {
+  constructor(variables, liturgicProps, TABLES, HS, SOUL) {
 
-    this.makePrayer(props.date, props.liturgicProps, TABLES, HS, SOUL)
+    this.makePrayer(variables.date, liturgicProps, TABLES, HS, SOUL)
   }
 
   makePrayer(date, liturgicProps, TABLES, HS, SOUL){

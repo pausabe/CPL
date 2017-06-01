@@ -24,6 +24,13 @@ function paddingBar(){
 }
 
 export default class HomeScreen extends Component {
+  componentWillMount() {
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      this.props.navigator.pop();
+      return true;
+    });
+  }
+
   constructor(props) {
     super(props)
 
@@ -32,44 +39,64 @@ export default class HomeScreen extends Component {
     //today.setMonth(5); //0-11
     //today.setFullYear(2017); //XXXX
 
-    this.state = {
+    this.variables = {
       diocesi: '',
-      santPressed: false,
-      celebracio: '',
+      //santPressed: false,
+      celType: '',
       invitatori: '',
       date: today,
-
-      liturgicProps: {
-        LITURGIA: null,
-        tempsespecific: '',
-        LT: '',
-        cicle: '',
-        setmana: '',
-        ABC: '',
-        tempsespecific2: '',
-        LT2: '',
-        cicle2: '',
-        setmana2: '',
-        ABC2: '',
-      },
     }
 
-    this.dataRec = {
+    this.liturgicProps = {
+      LITURGIA: null,
+      tempsespecific: '',
+      LT: '',
+      cicle: '',
+      setmana: '',
+      ABC: '',
+      tempsespecific2: '',
+      LT2: '',
+      cicle2: '',
+      setmana2: '',
+      ABC2: '',
+    }
+
+    /*this.dataRec = {
       diocesi: '',
       invitatori: '',
-    }
+    }*/
 
-    this.rendering = false;
-
-    this.refreshSettings();
+    //this.rendering = false;
 
     this.acceso = new DBAdapter();
-    this.acceso.getAnyLiturgic(
-      this.state.date.getFullYear(),
-      this.state.date.getMonth(),
-      this.state.date.getDate(),
+
+    this.refresh = false;
+    this.refreshEverything(today);
+
+    /*this.acceso.getAnyLiturgic(
+      this.variables.date.getFullYear(),
+      this.variables.date.getMonth(),
+      this.variables.date.getDate(),
       (current, tomorrow) => {
-        var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
+        var celType = this.getCelType("BaD", current); //TODO: HC, cal agafarho de settings
+        this.variables.celType = celType;
+
+        this.liturgicProps.LITURGIA = null;
+
+        this.liturgicProps.tempsespecific = current.tempsespecific;
+        this.liturgicProps.LT = current.temps;
+        this.liturgicProps.cicle = current.cicle; //1-4
+        this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+        this.liturgicProps.ABC = current.anyABC;
+
+        this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
+        this.liturgicProps.LT2 = tomorrow.temps;
+        this.liturgicProps.cicle2 = tomorrow.cicle; //1-4
+        this.liturgicProps.setmana2 = tomorrow.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+        this.liturgicProps.ABC2 = tomorrow.anyABC;
+
+
+        /*
         this.setState({
           celebracio: cel,
 
@@ -88,40 +115,71 @@ export default class HomeScreen extends Component {
             setmana2: tomorrow.NumSet,
             ABC2: tomorrow.anyABC,
           },
-        });
+        });*/
 
-        this.SOUL = new SOUL(this.state, this);
+        /*this.SOUL = new SOUL(this.variables, this.liturgicProps, this);
       }
-    );
+    );*/
   }
+
+  refreshEverything(date){
+    //settings > anyliturgic > soul > render
+    Promise.all([
+      SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = r),
+      SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
+    ]).then(results => {
+      this.refreshDate(date);
+    });
+  }
+
+  /*refreshSettings(){
+    SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = r);
+    SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r);
+  }*/
 
   shouldComponentUpdate(){
-    console.log("should");
-    //cojo Settings
-    //creo oraciones
-    //render
-    Promise.all([
-      SetM.getSetGlo(),
-      SetM.getSetL()
-    ]).then(results => {
-      console.log(results[0]);
-    });
-    return this.rendering;
+    console.log("should render here but I don't want it");
+
+    if(this.refresh){
+      this.refreshEverything(this.variables.date);
+    }
+
+    this.refresh = !this.refresh;
+
+    return false;//this.rendering;
   }
 
-  refreshDate(newDay, diocesi, invitatori){
-    newDay = new Date();
-    newDay.setDate(this.state.date.getDate()-1); //1-31
+  refreshDate(newDay){
     //newDay.setMonth(0); //0-11
     //newDay.setFullYear(2017); //XXXX
+
+    console.log("? " + newDay.getDate());
 
     this.acceso.getAnyLiturgic(
       newDay.getFullYear(),
       newDay.getMonth(),
       newDay.getDate(),
       (current, tomorrow) => {
-        var cel = this.celebracio("BaD", current); //TODO: HC, cal agafarho de settings
-        this.setState({
+        var celType = this.getCelType("BaD", current); //TODO: HC, cal agafarho de settings
+        this.variables.celType = celType;
+        this.variables.date = newDay;
+
+        this.liturgicProps.LITURGIA = null;
+
+        this.liturgicProps.tempsespecific = current.tempsespecific;
+        this.liturgicProps.LT = current.temps;
+        this.liturgicProps.cicle = current.cicle; //1-4
+        this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+        this.liturgicProps.ABC = current.anyABC;
+
+        this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
+        this.liturgicProps.LT2 = tomorrow.temps;
+        this.liturgicProps.cicle2 = tomorrow.cicle; //1-4
+        this.liturgicProps.setmana2 = tomorrow.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+        this.liturgicProps.ABC2 = tomorrow.anyABC;
+
+
+        /*this.setState({
           date: newDay,
           celebracio: cel,
           diocesi: diocesi,
@@ -142,17 +200,16 @@ export default class HomeScreen extends Component {
             setmana2: tomorrow.NumSet,
             ABC2: tomorrow.anyABC,
           },
-        });
+        });*/
 
-        this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.state.invitatori, this);
+        if(this.SOUL === undefined)
+          this.SOUL = new SOUL(this.variables, this.liturgicProps, this);
+        else
+          this.SOUL.makeQueryies(newDay, this.liturgicProps, this.variables.invitatori, this);
       }
     );
   }
 
-  refreshSettings(){
-    SettingsManager.getSettingDiocesis((r) => this.setState({diocesi: r}));
-    SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
-  }
 
   /*asdf(){
     console.log("update");
@@ -186,9 +243,13 @@ export default class HomeScreen extends Component {
     }
   }*/
 
-  setSoul(liturgia /*, info celebració*/){
-    this.rendering = true;
-    this.setState({
+  setSoul(liturgia){
+    //this.rendering = true;
+
+    this.liturgicProps.LITURGIA = liturgia;
+    this.forceUpdate();
+
+    /*this.setState({
       liturgicProps: {
         LITURGIA: liturgia,
         tempsespecific: this.state.liturgicProps.tempsespecific,
@@ -203,35 +264,27 @@ export default class HomeScreen extends Component {
         setmana2: this.state.liturgicProps.setmana2,
         ABC2: this.state.liturgicProps.ABC2,
       }
-    });
-    this.rendering = false;
-  }
-
-  componentWillMount() {
-    BackAndroid.addEventListener('hardwareBackPress', () => {
-      this.props.navigator.pop();
-      return true;
-    });
+    });*/
   }
 
   render() {
-    //this.refreshSettings();
-    console.log("estoy rendering en HomeScreen");
+    //this.rendering = false;
+    console.log("RENDER!!!");
     return (
       <View style={styles.container}>
         <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesi de {this.state.diocesi} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
+            <Text style={styles.infoText}>Diòcesi de {this.variables.diocesi} - {this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
           </View>
           <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmana !== 0 ? " de la setmana" : null}
-              {this.state.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.setmana)}</Text> : null }</Text>
+            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== 0 ? " de la setmana" : null}
+              {this.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.setmana)}</Text> : null }</Text>
             <Text style={styles.diaLiturgicText}>Temps de
-              <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.tempsespecific}</Text></Text>
+              <Text style={{color: '#c0392b'}}> {this.liturgicProps.tempsespecific}</Text></Text>
             <Text style={styles.diaLiturgicText}>Setmana
-              <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.cicle)} </Text>
+              <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.cicle)} </Text>
               del cicle litúrgic, any
-                <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.ABC}</Text></Text>
+                <Text style={{color: '#c0392b'}}> {this.liturgicProps.ABC}</Text></Text>
           </View>
           <View style={styles.santContainer}>
             <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
@@ -240,7 +293,7 @@ export default class HomeScreen extends Component {
                   <Text style={styles.santText}>{"Santa Perpètua i Santa Felicitat"}</Text>
                 </View>
                 <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
-                  {this.state.santPressed ?
+                  {/*this.state.santPressed*/ false ?
                     <Icon
                       name="ios-arrow-down"
                       size={25}
@@ -259,7 +312,7 @@ export default class HomeScreen extends Component {
             </TouchableOpacity>
           </View>
 
-          {this.state.santPressed ?
+          {/*this.state.santPressed*/ false ?
             <View style={styles.liturgiaContainer}>
               <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
               <Text style={styles.santExText}/>
@@ -269,129 +322,191 @@ export default class HomeScreen extends Component {
             <View style={styles.liturgiaContainer}>
               <Liturgia
                 navigator={this.props.navigator}
-                date={this.state.date}
-                liturgicProps={this.state.liturgicProps}
+                date={this.variables.date}
+                liturgicProps={this.liturgicProps}
               />
             </View>
           }
         </Image>
       </View>
     )
+    /*return (
+      <View style={styles.container}>
+        <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoText}>Diòcesi de {this.variables.diocesi} - {this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+          </View>
+          <View style={styles.diaLiturgicContainer}>
+            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== 0 ? " de la setmana" : null}
+              {this.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.setmana)}</Text> : null }</Text>
+            <Text style={styles.diaLiturgicText}>Temps de
+              <Text style={{color: '#c0392b'}}> {this.liturgicProps.tempsespecific}</Text></Text>
+            <Text style={styles.diaLiturgicText}>Setmana
+              <Text style={{color: '#c0392b'}}> {this.romanize(this.variables.liturgicProps.cicle)} </Text>
+              del cicle litúrgic, any
+                <Text style={{color: '#c0392b'}}> {this.liturgicProps.ABC}</Text></Text>
+          </View>
+          <View style={styles.santContainer}>
+            <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{flex: 20, justifyContent: 'center'}}>
+                  <Text style={styles.santText}>{"Santa Perpètua i Santa Felicitat"}</Text>
+                </View>
+                <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
+                  {/*this.state.santPressed*//*false ?
+                    <Icon
+                      name="ios-arrow-down"
+                      size={25}
+                      color="#424242"
+                    />
+                    :
+                    <Icon
+                      name="ios-arrow-forward-outline"
+                      size={25}
+                      iconStyle={{padding: 50}}
+                      color="#424242"
+                    />
+                  }
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          {/*this.state.santPressed*/ /*false ?
+            <View style={styles.liturgiaContainer}>
+              <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
+              <Text style={styles.santExText}/>
+              {this.liturgiaComponent.bind(this)}
+            </View>
+            :
+            <View style={styles.liturgiaContainer}>
+              <Liturgia
+                navigator={this.props.navigator}
+                date={this.variables.date}
+                liturgicProps={this.variables.liturgicProps}
+              />
+            </View>
+          }
+        </Image>
+      </View>
+    )*/
   }
 
   liturgiaComponent(){
     return(
       <Liturgia
         navigator={this.props.navigator}
-        date={this.state.date}
-        liturgicProps={this.state.liturgicProps}
+        date={this.variables.date}
+        liturgicProps={this.liturgicProps}
       />
     )
   }
 
   onSantPress(){
+    var newDay = new Date();
+    newDay.setDate(this.variables.date.getDate()-1); //1-31
     //this.setState({santPressed: !this.state.santPressed});
-    this.refreshDate();
+    this.refreshDate(newDay);
   }
 
-  celebracio(diocesi, anyliturgic){
+  getCelType(diocesi, anyliturgic){
     switch (diocesi) {
       case "BaD":
-        celebracio = anyliturgic.BaD;
+        celType = anyliturgic.BaD;
         break;
       case "BaV":
-        celebracio = anyliturgic.BaV;
+        celType = anyliturgic.BaV;
         break;
       case "BaC":
-        celebracio = anyliturgic.BaC;
+        celType = anyliturgic.BaC;
         break;
       case "GiD":
-        celebracio = anyliturgic.GiD;
+        celType = anyliturgic.GiD;
         break;
       case "GiV":
-        celebracio = anyliturgic.GiV;
+        celType = anyliturgic.GiV;
         break;
       case "GiC":
-        celebracio = anyliturgic.GiC;
+        celType = anyliturgic.GiC;
         break;
       case "LlD":
-        celebracio = anyliturgic.LlD;
+        celType = anyliturgic.LlD;
         break;
       case "LlV":
-        celebracio = anyliturgic.LlV;
+        celType = anyliturgic.LlV;
         break;
       case "LlC":
-        celebracio = anyliturgic.LlC;
+        celType = anyliturgic.LlC;
         break;
       case "SFD":
-        celebracio = anyliturgic.SFD;
+        celType = anyliturgic.SFD;
         break;
       case "SFV":
-        celebracio = anyliturgic.SFV;
+        celType = anyliturgic.SFV;
         break;
       case "SFC":
-        celebracio = anyliturgic.SFC;
+        celType = anyliturgic.SFC;
         break;
       case "SoD":
-        celebracio = anyliturgic.SoD;
+        celType = anyliturgic.SoD;
         break;
       case "SoV":
-        celebracio = anyliturgic.SoV;
+        celType = anyliturgic.SoV;
         break;
       case "SoC":
-        celebracio = anyliturgic.SoC;
+        celType = anyliturgic.SoC;
         break;
       case "TaD":
-        celebracio = anyliturgic.TaD;
+        celType = anyliturgic.TaD;
         break;
       case "TaV":
-        celebracio = anyliturgic.TaV;
+        celType = anyliturgic.TaV;
         break;
       case "TaC":
-        celebracio = anyliturgic.TaC;
+        celType = anyliturgic.TaC;
         break;
       case "TeD":
-        celebracio = anyliturgic.TeD;
+        celType = anyliturgic.TeD;
         break;
       case "TeV":
-        celebracio = anyliturgic.TeV;
+        celType = anyliturgic.TeV;
         break;
       case "TeC":
-        celebracio = anyliturgic.TeC;
+        celType = anyliturgic.TeC;
         break;
       case "ToD":
-        celebracio = anyliturgic.ToD;
+        celType = anyliturgic.ToD;
         break;
       case "ToV":
-        celebracio = anyliturgic.ToV;
+        celType = anyliturgic.ToV;
         break;
       case "ToC":
-        celebracio = anyliturgic.ToC;
+        celType = anyliturgic.ToC;
         break;
       case "UrD":
-        celebracio = anyliturgic.UrD;
+        celType = anyliturgic.UrD;
         break;
       case "UrV":
-        celebracio = anyliturgic.UrV;
+        celType = anyliturgic.UrV;
         break;
       case "UrC":
-        celebracio = anyliturgic.UrC;
+        celType = anyliturgic.UrC;
         break;
       case "ViD":
-        celebracio = anyliturgic.ViD;
+        celType = anyliturgic.ViD;
         break;
       case "ViV":
-        celebracio = anyliturgic.ViV;
+        celType = anyliturgic.ViV;
         break;
       case "ViC":
-        celebracio = anyliturgic.ViC;
+        celType = anyliturgic.ViC;
         break;
       case "Andorra":
-        celebracio = anyliturgic.Andorra;
+        celType = anyliturgic.Andorra;
         break;
     }
 
-    return(celebracio);
+    return(celType);
   }
 
   romanize (num) {
