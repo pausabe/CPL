@@ -41,7 +41,6 @@ export default class HomeScreen extends Component {
 
     this.variables = {
       diocesi: '',
-      //santPressed: false,
       celType: '',
       invitatori: '',
       date: today,
@@ -61,65 +60,11 @@ export default class HomeScreen extends Component {
       ABC2: '',
     }
 
-    /*this.dataRec = {
-      diocesi: '',
-      invitatori: '',
-    }*/
-
-    //this.rendering = false;
-
     this.acceso = new DBAdapter();
 
     this.refresh = false;
     this.refreshEverything(today);
 
-    /*this.acceso.getAnyLiturgic(
-      this.variables.date.getFullYear(),
-      this.variables.date.getMonth(),
-      this.variables.date.getDate(),
-      (current, tomorrow) => {
-        var celType = this.getCelType("BaD", current); //TODO: HC, cal agafarho de settings
-        this.variables.celType = celType;
-
-        this.liturgicProps.LITURGIA = null;
-
-        this.liturgicProps.tempsespecific = current.tempsespecific;
-        this.liturgicProps.LT = current.temps;
-        this.liturgicProps.cicle = current.cicle; //1-4
-        this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-        this.liturgicProps.ABC = current.anyABC;
-
-        this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
-        this.liturgicProps.LT2 = tomorrow.temps;
-        this.liturgicProps.cicle2 = tomorrow.cicle; //1-4
-        this.liturgicProps.setmana2 = tomorrow.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-        this.liturgicProps.ABC2 = tomorrow.anyABC;
-
-
-        /*
-        this.setState({
-          celebracio: cel,
-
-          liturgicProps: {
-            LITURGIA: null,
-
-            tempsespecific: current.tempsespecific,
-            LT: current.temps,
-            cicle: current.cicle, //1-4
-            setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-            ABC: current.anyABC,
-
-            tempsespecific2: tomorrow.tempsespecific,
-            LT2: tomorrow.temps,
-            cicle2: tomorrow.cicle,
-            setmana2: tomorrow.NumSet,
-            ABC2: tomorrow.anyABC,
-          },
-        });*/
-
-        /*this.SOUL = new SOUL(this.variables, this.liturgicProps, this);
-      }
-    );*/
   }
 
   refreshEverything(date){
@@ -132,11 +77,6 @@ export default class HomeScreen extends Component {
     });
   }
 
-  /*refreshSettings(){
-    SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = r);
-    SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r);
-  }*/
-
   shouldComponentUpdate(){
     console.log("should render here but I don't want it");
 
@@ -146,15 +86,10 @@ export default class HomeScreen extends Component {
 
     this.refresh = !this.refresh;
 
-    return false;//this.rendering;
+    return false;
   }
 
   refreshDate(newDay){
-    //newDay.setMonth(0); //0-11
-    //newDay.setFullYear(2017); //XXXX
-
-    console.log("? " + newDay.getDate());
-
     this.acceso.getAnyLiturgic(
       newDay.getFullYear(),
       newDay.getMonth(),
@@ -178,30 +113,6 @@ export default class HomeScreen extends Component {
         this.liturgicProps.setmana2 = tomorrow.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
         this.liturgicProps.ABC2 = tomorrow.anyABC;
 
-
-        /*this.setState({
-          date: newDay,
-          celebracio: cel,
-          diocesi: diocesi,
-          invitatori: invitatori,
-
-          liturgicProps: {
-            LITURGIA: null,
-
-            tempsespecific: current.tempsespecific,
-            LT: current.temps,
-            cicle: current.cicle, //1-4
-            setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-            ABC: current.anyABC,
-
-            tempsespecific2: tomorrow.tempsespecific,
-            LT2: tomorrow.temps,
-            cicle2: tomorrow.cicle,
-            setmana2: tomorrow.NumSet,
-            ABC2: tomorrow.anyABC,
-          },
-        });*/
-
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this);
         else
@@ -210,65 +121,12 @@ export default class HomeScreen extends Component {
     );
   }
 
-
-  /*asdf(){
-    console.log("update");
-
-    //1
-    SettingsManager.getSettingDiocesis((r) => {
-      this.dataReceived("diocesi", r);
-    });
-    //2
-    SettingsManager.getSettingInvitatori((r) => {
-      this.dataReceived("invitatori", r);
-    });
-  }
-
-  dataReceived(type, value){
-    this.cDR = 2;
-    switch (type) {
-      case "diocesi":
-        this.cDR -= 1;
-        this.dataRec.diocesi = value;
-        break;
-      case "invitatori":
-        this.cDR -= 1;
-        this.dataRec.invitatori = value;
-        break;
-    }
-
-    if(this.cDR === 0){
-      this.setState({diocesi: this.dateRec.diocesi, invitatori: this.dateRec.invitatori});
-      this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.dateRec.invitatori, this);
-    }
-  }*/
-
   setSoul(liturgia){
-    //this.rendering = true;
-
     this.liturgicProps.LITURGIA = liturgia;
     this.forceUpdate();
-
-    /*this.setState({
-      liturgicProps: {
-        LITURGIA: liturgia,
-        tempsespecific: this.state.liturgicProps.tempsespecific,
-        LT: this.state.liturgicProps.LT,
-        cicle: this.state.liturgicProps.cicle,
-        setmana: this.state.liturgicProps.setmana,
-        ABC: this.state.liturgicProps.ABC,
-
-        tempsespecific2: this.state.liturgicProps.tempsespecific2,
-        LT2: this.state.liturgicProps.LT2,
-        cicle2: this.state.liturgicProps.cicle2,
-        setmana2: this.state.liturgicProps.setmana2,
-        ABC2: this.state.liturgicProps.ABC2,
-      }
-    });*/
   }
 
   render() {
-    //this.rendering = false;
     console.log("RENDER!!!");
     return (
       <View style={styles.container}>
@@ -330,66 +188,6 @@ export default class HomeScreen extends Component {
         </Image>
       </View>
     )
-    /*return (
-      <View style={styles.container}>
-        <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Diòcesi de {this.variables.diocesi} - {this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
-          </View>
-          <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== 0 ? " de la setmana" : null}
-              {this.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.setmana)}</Text> : null }</Text>
-            <Text style={styles.diaLiturgicText}>Temps de
-              <Text style={{color: '#c0392b'}}> {this.liturgicProps.tempsespecific}</Text></Text>
-            <Text style={styles.diaLiturgicText}>Setmana
-              <Text style={{color: '#c0392b'}}> {this.romanize(this.variables.liturgicProps.cicle)} </Text>
-              del cicle litúrgic, any
-                <Text style={{color: '#c0392b'}}> {this.liturgicProps.ABC}</Text></Text>
-          </View>
-          <View style={styles.santContainer}>
-            <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
-              <View style={{flex: 1, flexDirection: 'row'}}>
-                <View style={{flex: 20, justifyContent: 'center'}}>
-                  <Text style={styles.santText}>{"Santa Perpètua i Santa Felicitat"}</Text>
-                </View>
-                <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
-                  {/*this.state.santPressed*//*false ?
-                    <Icon
-                      name="ios-arrow-down"
-                      size={25}
-                      color="#424242"
-                    />
-                    :
-                    <Icon
-                      name="ios-arrow-forward-outline"
-                      size={25}
-                      iconStyle={{padding: 50}}
-                      color="#424242"
-                    />
-                  }
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          {/*this.state.santPressed*/ /*false ?
-            <View style={styles.liturgiaContainer}>
-              <Text style={styles.santExText}>Les santes Perpètua i Felicitat (mort a Cartago, 7 de març de 203) eren dues noies cristianes que van morir màrtir sota l'imperi de Septimi Sever (193 - 211) juntament amb Satur, Revocat, Sadurní i Secundí. Tots sis són venerats com a sants en certes branques de la cristiandat.</Text>
-              <Text style={styles.santExText}/>
-              {this.liturgiaComponent.bind(this)}
-            </View>
-            :
-            <View style={styles.liturgiaContainer}>
-              <Liturgia
-                navigator={this.props.navigator}
-                date={this.variables.date}
-                liturgicProps={this.variables.liturgicProps}
-              />
-            </View>
-          }
-        </Image>
-      </View>
-    )*/
   }
 
   liturgiaComponent(){
