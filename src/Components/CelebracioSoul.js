@@ -545,17 +545,7 @@ export default class CelebracioSoul {
         this.VESPRES1.respBreu1 = TABLES.diesespecials.respBreuVespres1Part1;
         this.VESPRES1.respBreu2 = TABLES.diesespecials.respBreuVespres1Part2;
         this.VESPRES1.respBreu3 = TABLES.diesespecials.respBreuVespres1Part3;
-        switch (anyABC) {
-          case "A":
-            this.VESPRES1.antCantic = TABLES.diesespecials.antMaria1A;
-            break;
-          case "B":
-            this.VESPRES1.antCantic = TABLES.diesespecials.antMaria1B;
-            break;
-          case "C":
-            this.VESPRES1.antCantic = TABLES.diesespecials.antMaria1C;
-            break;
-        }
+        this.VESPRES1.antCantic = TABLES.diesespecials.antMaria1A;
         this.VESPRES1.pregaries = TABLES.diesespecials.pregariesVespres1;
         this.VESPRES1.oracio = TABLES.diesespecials.oraFiVespres1;*/
 
@@ -600,8 +590,8 @@ export default class CelebracioSoul {
         this.OFICI.resp1Part3 = TABLES.diesespecials.resp1Part3Ofici;
         //DE-OFICI -> LECTURA2
         this.OFICI.referencia2 = TABLES.diesespecials.referencia2Ofici;
-        if(TABLES.diesespecials.citaResp2Ofici !== '-')
-          this.OFICI.citaResp2 = TABLES.diesespecials.citaResp2Ofici;
+        if(TABLES.diesespecials.citaLec2Ofici !== '-')
+          this.OFICI.citaResp2 = TABLES.diesespecials.citaLec2Ofici;
         else this.OFICI.citaResp2 = '';
         this.OFICI.titolLectura2 = TABLES.diesespecials.titolLect2Ofici;
         this.OFICI.lectura2 = TABLES.diesespecials.lectura2;
@@ -611,7 +601,7 @@ export default class CelebracioSoul {
         this.OFICI.resp2Part3 = TABLES.diesespecials.resp2Part3Ofici;
         //DE-OFICI -> ORACIÓ
         this.OFICI.himneOhDeuBool = true;
-        this.OFICI.oracio = TABLES.diesespecials.oraFiOfici;
+        this.OFICI.oracio = TABLES.diesespecials.OraFiOfici;
 
 
         //::::::DE-LAUDES::::::
@@ -622,141 +612,132 @@ export default class CelebracioSoul {
         else this.LAUDES.himne = TABLES.diesespecials.himneLaudesCat;
         //DE-LAUDES -> SALMÒDIA
         this.LAUDES.ant1 = TABLES.diesespecials.ant1Laudes;
+        this.LAUDES.titol1 = TABLES.diesespecials.titol1Laudes;
+        this.LAUDES.salm1 = TABLES.diesespecials.Salm1Laudes;
+        this.LAUDES.gloria1 = TABLES.diesespecials.gloria1Laudes;
         this.LAUDES.ant2 = TABLES.diesespecials.ant2Laudes;
+        this.LAUDES.titol2 = TABLES.diesespecials.titol2Laudes;
+        this.LAUDES.salm2 = TABLES.diesespecials.Salm2Laudes;
+        this.LAUDES.gloria2 = TABLES.diesespecials.gloria2Laudes;
         this.LAUDES.ant3 = TABLES.diesespecials.ant3Laudes;
+        this.LAUDES.titol3 = TABLES.diesespecials.titol3Laudes;
+        this.LAUDES.salm3 = TABLES.diesespecials.Salm3Laudes;
+        this.LAUDES.gloria3 = TABLES.diesespecials.gloria3Laudes;
         //DE-LAUDES -> LECTURA BREU
         this.LAUDES.vers = TABLES.diesespecials.citaLBLaudes;
         this.LAUDES.lecturaBreu = TABLES.diesespecials.lecturaBreuLaudes;
         //DE-LAUDES -> RESPONSORI
         this.LAUDES.calAntEspecial = false;
-        this.LAUDES.respBreu1 = TABLES.diesespecials.resp2Part1Laudes;
-        this.LAUDES.respBreu2 = TABLES.diesespecials.resp2Part2Laudes;
-        this.LAUDES.respBreu3 = TABLES.diesespecials.resp2Part3Laudes;
+        this.LAUDES.respBreu1 = TABLES.diesespecials.respBreuLaudes1;
+        this.LAUDES.respBreu2 = TABLES.diesespecials.respBreuLaudes2;
+        this.LAUDES.respBreu3 = TABLES.diesespecials.respBreuLaudes3;
         //DE-LAUDES -> CÀNTIC
-        switch (anyABC) {
-          case "A":
-            this.LAUDES.antCantic = TABLES.diesespecials.antZacariesA;
-            break;
-          case "B":
-            this.LAUDES.antCantic = TABLES.diesespecials.antZacariesB;
-            break;
-          case "C":
-            this.LAUDES.antCantic = TABLES.diesespecials.antZacariesC;
-            break;
-        }
+        this.LAUDES.antCantic = TABLES.diesespecials.antZacaries;
         //DE-LAUDES -> PREGÀRIES
         this.LAUDES.pregaries = TABLES.diesespecials.pregariesLaudes;
         //DE-LAUDES -> ORACIÓ
-        this.LAUDES.oracio = TABLES.diesespecials.oraFiLaudes;
+        this.LAUDES.oracio = TABLES.diesespecials.OracioTercia;
 
 
         //::::::DE-TERCIA::::::
-        if(llati) this.TERCIA.himne = TABLES.diesespecials.himneLlatiTercia;
-        else this.TERCIA.himne = TABLES.diesespecials.himneCatTercia;
+        if(llati) this.TERCIA.himne = TABLES.diesespecials.HimneMenorLlat;
+        else this.TERCIA.himne = TABLES.diesespecials.HimneMenorCat;
         this.TERCIA.antifones = false;
-        this.TERCIA.ant = TABLES.diesespecials.antMenorTercia;
-        this.TERCIA.titol1 = TABLES.diesespecials.titolSalm1;
+        this.TERCIA.ant = TABLES.diesespecials.antMenorTer;
+        this.TERCIA.titol1 = TABLES.diesespecials.titol1Menor;
         this.TERCIA.com1 = ".";
         this.TERCIA.salm1 = TABLES.diesespecials.salm1Menor;
-        this.TERCIA.gloria1 = TABLES.diesespecials.gloriaSalm1;
-        this.TERCIA.titol2 = TABLES.diesespecials.titolSalm2;
+        this.TERCIA.gloria1 = TABLES.diesespecials.gloria1Menor;
+        this.TERCIA.titol2 = TABLES.diesespecials.titol2Menor;
         this.TERCIA.com2 = ".";
         this.TERCIA.salm2 = TABLES.diesespecials.salm2Menor;
-        this.TERCIA.gloria2 = TABLES.diesespecials.gloriaSalm2;
-        this.TERCIA.titol3 = TABLES.diesespecials.titolSalm3;
+        this.TERCIA.gloria2 = TABLES.diesespecials.gloria2Menor;
+        this.TERCIA.titol3 = TABLES.diesespecials.titol3Menor;
         this.TERCIA.com3 = ".";
         this.TERCIA.salm3 = TABLES.diesespecials.salm3Menor;
-        this.TERCIA.gloria3 = TABLES.diesespecials.gloriaSalm3;
+        this.TERCIA.gloria3 = TABLES.diesespecials.gloria3Menor;
         this.TERCIA.vers = TABLES.diesespecials.citaLBTercia;
         this.TERCIA.lecturaBreu = TABLES.diesespecials.lecturaBreuTercia;
-        this.TERCIA.respV = TABLES.diesespecials.responsoriVTercia;
-        this.TERCIA.respR = TABLES.diesespecials.responsoriRTercia;
-        this.TERCIA.oracio = TABLES.diesespecials.oraFiMenor;
+        this.TERCIA.respV = TABLES.diesespecials.respVTercia;
+        this.TERCIA.respR = TABLES.diesespecials.respRTercia;
+        this.TERCIA.oracio = TABLES.diesespecials.OracioSexta;
 
 
         //::::::DE-SEXTA::::::
-        this.SEXTA.himne = '-';
+        if(llati) this.SEXTA.himne = TABLES.diesespecials.HimneMenorLlat;
+        else this.SEXTA.himne = TABLES.diesespecials.HimneMenorCat;
         this.SEXTA.antifones = false;
-        this.SEXTA.ant = TABLES.diesespecials.antMenorSexta;
-        this.SEXTA.titol1 = TABLES.diesespecials.titolSalm1;
+        this.SEXTA.ant = TABLES.diesespecials.antMenorSextA;
+        this.SEXTA.titol1 = TABLES.diesespecials.titol1Menor;
         this.SEXTA.com1 = ".";
         this.SEXTA.salm1 = TABLES.diesespecials.salm1Menor;
-        this.SEXTA.gloria1 = TABLES.diesespecials.gloriaSalm1;
-        this.SEXTA.titol2 = TABLES.diesespecials.titolSalm2;
+        this.SEXTA.gloria1 = TABLES.diesespecials.gloria1Menor;
+        this.SEXTA.titol2 = TABLES.diesespecials.titol2Menor;
         this.SEXTA.com2 = ".";
         this.SEXTA.salm2 = TABLES.diesespecials.salm2Menor;
-        this.SEXTA.gloria2 = TABLES.diesespecials.gloriaSalm2;
-        this.SEXTA.titol3 = TABLES.diesespecials.titolSalm3;
+        this.SEXTA.gloria2 = TABLES.diesespecials.gloria2Menor;
+        this.SEXTA.titol3 = TABLES.diesespecials.titol3Menor;
         this.SEXTA.com3 = ".";
         this.SEXTA.salm3 = TABLES.diesespecials.salm3Menor;
-        this.SEXTA.gloria3 = TABLES.diesespecials.gloriaSalm3;
+        this.SEXTA.gloria3 = TABLES.diesespecials.gloria3Menor;
         this.SEXTA.vers = TABLES.diesespecials.citaLBSexta;
         this.SEXTA.lecturaBreu = TABLES.diesespecials.lecturaBreuSexta;
-        this.SEXTA.respV = TABLES.diesespecials.responsoriVSexta;
-        this.SEXTA.respR = TABLES.diesespecials.responsoriRSexta;
-        this.SEXTA.oracio = TABLES.diesespecials.oraFiMenor;
+        this.SEXTA.respV = TABLES.diesespecials.respVSexta;
+        this.SEXTA.respR = TABLES.diesespecials.respRSexta;
+        this.SEXTA.oracio = TABLES.diesespecials.OracioNona;
 
 
         //::::::DE-NONA::::::
-        this.NONA.himne = '-';
+        if(llati) this.NONA.himne = TABLES.diesespecials.HimneMenorLlat;
+        else this.NONA.himne = TABLES.diesespecials.HimneMenorCat;
         this.NONA.antifones = false;
         this.NONA.ant = TABLES.diesespecials.antMenorNona;
-        this.NONA.titol1 = TABLES.diesespecials.titolSalm1;
+        this.NONA.titol1 = TABLES.diesespecials.titol1Menor;
         this.NONA.com1 = ".";
         this.NONA.salm1 = TABLES.diesespecials.salm1Menor;
-        this.NONA.gloria1 = TABLES.diesespecials.gloriaSalm1;
-        this.NONA.titol2 = TABLES.diesespecials.titolSalm2;
+        this.NONA.gloria1 = TABLES.diesespecials.gloria1Menor;
+        this.NONA.titol2 = TABLES.diesespecials.titol2Menor;
         this.NONA.com2 = ".";
         this.NONA.salm2 = TABLES.diesespecials.salm2Menor;
-        this.NONA.gloria2 = TABLES.diesespecials.gloriaSalm2;
-        this.NONA.titol3 = TABLES.diesespecials.titolSalm3;
+        this.NONA.gloria2 = TABLES.diesespecials.gloria2Menor;
+        this.NONA.titol3 = TABLES.diesespecials.titol3Menor;
         this.NONA.com3 = ".";
         this.NONA.salm3 = TABLES.diesespecials.salm3Menor;
-        this.NONA.gloria3 = TABLES.diesespecials.gloriaSalm3;
+        this.NONA.gloria3 = TABLES.diesespecials.gloria3Menor;
         this.NONA.vers = TABLES.diesespecials.citaLBNona;
         this.NONA.lecturaBreu = TABLES.diesespecials.lecturaBreuNona;
-        this.NONA.respV = TABLES.diesespecials.responsoriVNona;
-        this.NONA.respR = TABLES.diesespecials.responsoriRNona;
-        this.NONA.oracio = TABLES.diesespecials.oraFiMenor;
+        this.NONA.respV = TABLES.diesespecials.respVNona;
+        this.NONA.respR = TABLES.diesespecials.respRNona;
+        this.NONA.oracio = TABLES.diesespecials.OracioNona;
 
 
-        //::::::DE-NONA::::::
-        if(llati) this.VESPRES.himne = TABLES.diesespecials.himneVespres2Llati;
-        else this.VESPRES.himne = TABLES.diesespecials.himneVespres2Cat;
-        this.VESPRES.ant1 = TABLES.diesespecials.ant1Vespres2;
-        this.VESPRES.titol1 = TABLES.diesespecials.titol1Vespres2;
+        //::::::DE-VESPRES::::::
+        if(llati) this.VESPRES.himne = TABLES.diesespecials.himneVespresLlati;
+        else this.VESPRES.himne = TABLES.diesespecials.himneVespresCat;
+        this.VESPRES.ant1 = TABLES.diesespecials.ant1Vespres;
+        this.VESPRES.titol1 = TABLES.diesespecials.titol1Vespres;
         this.VESPRES.com1 = ".";
-        this.VESPRES.salm1 = TABLES.diesespecials.text1Vespres2;
-        this.VESPRES.gloria1 = TABLES.diesespecials.gloria1Vespres2;
-        this.VESPRES.ant2 = TABLES.diesespecials.ant2Vespres2;
-        this.VESPRES.titol2 = TABLES.diesespecials.titol2Vespres2;
+        this.VESPRES.salm1 = TABLES.diesespecials.Salm1Vespres;
+        this.VESPRES.gloria1 = TABLES.diesespecials.gloria1Vespres;
+        this.VESPRES.ant2 = TABLES.diesespecials.ant2Vespres;
+        this.VESPRES.titol2 = TABLES.diesespecials.titol2Vespres;
         this.VESPRES.com2 = ".";
-        this.VESPRES.salm2 = TABLES.diesespecials.text2Vespres2;
-        this.VESPRES.gloria2 = TABLES.diesespecials.gloria2Vespres2;
-        this.VESPRES.ant3 = TABLES.diesespecials.ant3Vespres2;
-        this.VESPRES.titol3 = TABLES.diesespecials.titol3Vespres2;
+        this.VESPRES.salm2 = TABLES.diesespecials.Salm2Vespres;
+        this.VESPRES.gloria2 = TABLES.diesespecials.gloria2Vespres;
+        this.VESPRES.ant3 = TABLES.diesespecials.ant3Vespres;
+        this.VESPRES.titol3 = TABLES.diesespecials.titol3Vespres;
         this.VESPRES.com3 = ".";
-        this.VESPRES.salm3 = TABLES.diesespecials.text3Vespres2;
-        this.VESPRES.gloria3 = TABLES.diesespecials.gloria3Vespres2;
-        this.VESPRES.vers = TABLES.diesespecials.citaLBVespres2;
-        this.VESPRES.lecturaBreu = TABLES.diesespecials.lecturaBreuVespres2;
+        this.VESPRES.salm3 = TABLES.diesespecials.Salm3Vespres;
+        this.VESPRES.gloria3 = TABLES.diesespecials.gloria3Vespres;
+        this.VESPRES.vers = TABLES.diesespecials.citaLBVespres;
+        this.VESPRES.lecturaBreu = TABLES.diesespecials.lecturaBreuVespres;
         this.VESPRES.calAntEspecial = false;
-        this.VESPRES.respBreu1 = TABLES.diesespecials.respBreuVespres2Part1;
-        this.VESPRES.respBreu2 = TABLES.diesespecials.respBreuVespres2Part2;
-        this.VESPRES.respBreu3 = TABLES.diesespecials.respBreuVespres2Part3;
-        switch (anyABC) {
-          case "A":
-            this.VESPRES.antCantic = TABLES.diesespecials.antMaria2A;
-            break;
-          case "B":
-            this.VESPRES.antCantic = TABLES.diesespecials.antMaria2B;
-            break;
-          case "C":
-            this.VESPRES.antCantic = TABLES.diesespecials.antMaria2C;
-            break;
-        }
-        this.VESPRES.pregaries = TABLES.diesespecials.pregariesVespres2;
-        this.VESPRES.oracio = TABLES.diesespecials.oraFiVespres2;
+        this.VESPRES.respBreu1 = TABLES.diesespecials.respBreuVespres1;
+        this.VESPRES.respBreu2 = TABLES.diesespecials.respBreuVespres2;
+        this.VESPRES.respBreu3 = TABLES.diesespecials.respBreuVespres3;
+        this.VESPRES.antCantic = TABLES.diesespecials.antMaria;
+        this.VESPRES.pregaries = TABLES.diesespecials.pregariesVespres;
+        this.VESPRES.oracio = TABLES.diesespecials.oraFi;
         break;
 
 
