@@ -207,6 +207,10 @@ export default class HomeScreen extends Component {
     this.refreshDate(newDay);
   }
 
+  changeDate(testtt){
+    console.log(testtt);
+  }
+
   getCelType(diocesi, anyliturgic){
     switch (diocesi) {
       case "BaD":
