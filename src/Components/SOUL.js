@@ -8,7 +8,7 @@ import DBAdapter from '../SQL/DBAdapter';
 import GLOBAL from '../Globals/Globals';
 
 export default class SOUL {
-  constructor(props, HS) {
+  constructor(props, pentacosta, HS) {
     this.props = props;
 
     this.queryRows = {
@@ -48,6 +48,7 @@ export default class SOUL {
       santsSolemnitats: '', //34
       santsMemories: '', //35
       OficisComuns: null, //36
+      diesespecials: '', //37
     }
 
     this.LITURGIA = { //7
@@ -66,21 +67,30 @@ export default class SOUL {
     this.firstAccess = true;
     this.acceso = new DBAdapter();
 
-    this.makeQueryies(props.date, props.liturgicProps, props.celType, props.diocesi, props.invitatori, HS);
+    this.makeQueryies(props.date, props.liturgicProps, props.celType, props.diocesi, props.invitatori, pentacosta, HS, props.llati);
   }
 
-  makeQueryies(date, liturgicProps, celType, diocesi, invitatori, HS){
+  makeQueryies(date, liturgicProps, celType, diocesi, invitatori, pentacosta, HS, llati){
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
-    idTSF_aux = this.findTempsSolemnitatsFestes(date, liturgicProps.LT, liturgicProps.setmana);
-    console.log("idTSF: " + idTSF_aux);
-    idTSF_aux = -1;
+    idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
+    console.log("idDE_aux: " + idDE_aux);
+    //idDE_aux = -1;
+    if(idDE_aux === -1)
+      idTSF_aux = this.findTempsSolemnitatsFestes(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
+    else idTSF_aux = -1;
+    console.log("idTSF_aux: " + idTSF_aux);
+    //idTSF_aux = -1;
+
+
     params = {
       date: date,
       liturgicProps: liturgicProps,
       celType: celType,
       diocesi: diocesi,
       invitatori: invitatori,
+      llati: llati,
       idTSF: idTSF_aux,
+      idDE: idDE_aux,
       HS: HS,
     }
 
@@ -189,6 +199,8 @@ export default class SOUL {
     if(liturgicProps.LT === GLOBAL.P_SETMANES){
       c += 1;
       id = (liturgicProps.setmana-2)*7 + (date.getDay()+1);
+      if(id === 43) //diumenge de pentacosta (no està dins tempsPasquaSetmanes). Apaño perquè no peti
+        id = 1;
       this.acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(params); });
     }
 
@@ -268,7 +280,10 @@ export default class SOUL {
     //taula 24 (#3): Laudes(21)
     if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA && liturgicProps.LT !== GLOBAL.N_OCTAVA){
       c += 1;
-      idLaudes = (liturgicProps.cicle-1)*7 + (date.getDay()+1);
+      cicleAux = liturgicProps.cicle;
+      if(params.idTSF !== -1) cicleAux = 1;
+      if(params.idTSF === 2) cicleAux = 2;
+      idLaudes = (cicleAux-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("salteriComuLaudes", idLaudes, (result) => { this.queryRows.salteriComuLaudes = result; this.dataReceived(params); });
     }
 
@@ -283,6 +298,8 @@ export default class SOUL {
     if(liturgicProps.LT === GLOBAL.P_SETMANES){
       c += 1;
       id = liturgicProps.setmana-1;
+      if(id === 7) //diumenge de pentacosta. Apaño perquè no peti
+        id = 6;
       this.acceso.getLiturgia("tempsPasquaSetmanesDium", id, (result) => { this.queryRows.tempsPasquaSetmanesDium = result; this.dataReceived(params); });
     }
 
@@ -315,7 +332,7 @@ export default class SOUL {
     //taula 30 (#31): -
     if(params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU){
       c += 1;
-      if(params.idTSF !== -1){
+      if(params.idTSF === -1){
         id = 1; //Només necessito Nadal (1) per N_OCTAVA
       }
       else{
@@ -346,15 +363,22 @@ export default class SOUL {
     }
 
     //taula 34 (#32): - i //taula 36
-    if(celType === 'S' || celType === 'F'){
+    if(params.idTSF === -1 && (celType === 'S' || celType === 'F')){
       c += 1;
       this.acceso.getSolMem("santsSolemnitats", date, diocesi, (result) => { this.queryRows.santsSolemnitats = result; this.getOficisComuns(params, result); });
     }
 
     //taula 35 (#31): -  i //taula 36
-    if(celType === 'M' || celType === 'L' || celType === 'V'){
+    if(params.idTSF === -1 && (celType === 'M' || celType === 'L' || celType === 'V')){
       c += 1;
       this.acceso.getSolMem("santsMemories", date, diocesi, (result) => { this.queryRows.santsMemories = result; this.getOficisComuns(params, result); });
+    }
+
+    //taula 37 (#?): -
+    if(params.idDE !== -1){
+      c += 1;
+      id = params.idDE;
+      this.acceso.getLiturgia("diesespecials", id, (result) => { this.queryRows.diesespecials = result; this.dataReceived(params); });
     }
 
     this.count = c; //number of queryies
@@ -381,10 +405,10 @@ export default class SOUL {
     if(this.count === 0){
       if(this.firstAccessCel){
         this.firstAccessCel = false;
-        this.CelebracioSoul = new CelebracioSoul(this.props, this.queryRows, params.idTSF, params.HS, this);
+        this.CelebracioSoul = new CelebracioSoul(this.props, this.queryRows, params.idTSF, params.idDE, params.HS, this, params.llati);
       }
       else{
-        this.CelebracioSoul.makePrayer(params.date, params.liturgicProps, this.queryRows, params.celType, params.diocesi, params.idTSF, params.HS, this);
+        this.CelebracioSoul.makePrayer(params.date, params.liturgicProps, this.queryRows, params.celType, params.diocesi, params.idTSF, params.idDE, params.HS, this, params.llati);
       }
     }
   }
@@ -450,6 +474,148 @@ export default class SOUL {
   }
 
   /*
+    Return id of #diesespecials or -1 if there isn't there
+  */
+  findDiesEspecials(date, LT, setmana, pentacosta){
+    //1- Sagrada Família quan és el 30 de desembre
+    if(this.isSagradaFamilia(date) && date.getDate() === 30){
+      return 1;
+    }
+
+    //2- Mare de Déu (1 gener) quan cau en diumenge
+    if(date.getMonth() === 0 && date.getDate() === 1 && date.getDay() === 0){
+      return 2;
+    }
+
+    var auxDay = new Date();
+    auxDay.setFullYear(date.getFullYear());
+    auxDay.setMonth(date.getMonth());
+    auxDay.setDate(date.getDate()-7);
+
+    //3- Diumenge II de Nadal, quan s’escau el dia 2 de gener
+    if(this.isSagradaFamilia(auxDay) && date.getDate() === 2){
+      return 3;
+    }
+
+    //4- Diumenge II de Nadal, quan s’escau el dia 3 de gener
+    if(this.isSagradaFamilia(auxDay) && date.getDate() === 3){
+      return 4;
+    }
+
+    //5- Diumenge II de Nadal, quan s’escau el dia 4 de gener
+    if(this.isSagradaFamilia(auxDay) && date.getDate() === 4){
+      return 5;
+    }
+
+    //6- Diumenge II de Nadal, quan s’escau el dia 5 de gener
+    if(this.isSagradaFamilia(auxDay) && date.getDate() === 5){
+      return 6;
+    }
+
+    //7- Baptisme del Senyor quan és 7 de gener
+    if(this.isBaptisme(date) && date.getDate() === 7){
+      return 7;
+    }
+
+    //8- Presentació del Senyor (2 febrer) quan cau en diumenge
+    if(date.getMonth() === 1 && date.getDate() === 2 && date.getDay() === 0){
+      return 8;
+    }
+
+    //9- Transfiguració del Senyor (6 agost) quan cau en diumenge
+    if(date.getMonth() === 7 && date.getDate() === 6 && date.getDay() === 0){
+      return 9;
+    }
+
+    //10- Exaltació Santa Creu (14 de setembre) quan cau en diumenge
+    if(date.getMonth() === 13 && date.getDate() === 14 && date.getDay() === 0){
+      return 10;
+    }
+
+    //11- Dedic. Sant Joan del Laterà (9 de novembre) quan cau en diumenge
+    if(date.getMonth() === 10 && date.getDate() === 9 && date.getDay() === 0){
+      return 11;
+    }
+
+    //12- Santa Eulàlia (12 de febrer) quan cau en diumenge i és temps de durant l’any
+    if(date.getMonth() === 1 && date.getDate() === 12 && date.getDay() === 0 && LT === GLOBAL.O_ORDINARI){
+      return 12;
+    }
+
+    //13- Sant Joan (24 de juny) quan cau en diumenge
+    if(date.getMonth() === 5 && date.getDate() === 24 && date.getDay() === 0){
+      return 13;
+    }
+
+    //14- Sants Pere i Pau (29 de juny) quan cau en diumenge
+    if(date.getMonth() === 5 && date.getDate() === 29 && date.getDay() === 0){
+      return 14;
+    }
+
+    //15- Sant Jaume (25 de juliol) quan cau en diumenge
+    if(date.getMonth() === 6 && date.getDate() === 25 && date.getDay() === 0){
+      return 15;
+    }
+
+    //16- Assumpció Maria (15 d’agost) quan cau en diumenge
+    if(date.getMonth() === 7 && date.getDate() === 15 && date.getDay() === 0){
+      return 16;
+    }
+
+    //17- Sta. Tecla (23 setembre) quan cau en diumenge
+    if(date.getMonth() === 8 && date.getDate() === 23 && date.getDay() === 0){
+      return 17;
+    }
+
+    //18- Mare de Déu de la Mercè (24 de setembre) quan cau en diumenge
+    if(date.getMonth() === 8 && date.getDate() === 24 && date.getDay() === 0){
+      return 18;
+    }
+
+    //19- Tots Sants (1 de novembre) quan cau en diumenge
+    if(date.getMonth() === 10 && date.getDate() === 1 && date.getDay() === 0){
+      return 19;
+    }
+
+    //20- Diumenge IV d’Advent, dia 18
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 18){
+      return 20;
+    }
+
+    //21- Diumenge IV d’Advent, dia 19
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 19){
+      return 21;
+    }
+
+    //22- Diumenge IV d’Advent, dia 20
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 20){
+      return 22;
+    }
+
+    //23- Diumenge IV d’Advent, dia 21
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 21){
+      return 23;
+    }
+
+    //24- Diumenge IV d’Advent, dia 22
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 22){
+      return 24;
+    }
+
+    //25- Diumenge IV d’Advent, dia 23
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 23){
+      return 25;
+    }
+
+    //26- Diumenge IV d’Advent, dia 24
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 24){
+      return 26;
+    }
+
+    return -1;
+  }
+
+  /*
     Return id of #tempsSolemnitatsFestes or -1 if there isnt there
   */
   findTempsSolemnitatsFestes(date, LT, setmana, pentacosta){
@@ -459,7 +625,7 @@ export default class SOUL {
     }
 
     //2- Sagrada Família
-    if(false){
+    if(this.isSagradaFamilia(date)){
       return 2;
     }
 
@@ -484,22 +650,31 @@ export default class SOUL {
     }
 
     //7- Diumenge pentacosta
-    if(date.getDate() === pentacosta.getDate() && date.getMonth() === pentacosta.getDate() && date.getFullYear() === pentacosta.getFullYear()){
+    //console.log('PENTACOSTA: ' + pentacosta.getDate()+'/'+pentacosta.getMonth()+'/'+pentacosta.getFullYear());
+    if(date.getDate() === pentacosta.getDate() && date.getMonth() === pentacosta.getMonth() &&
+        date.getFullYear() === pentacosta.getFullYear()){
       return 7;
     }
 
     //8- Santíssima trinitat
-    if(false){
+    var trinitat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+7);
+    //console.log('TRINITAT: ' + trinitat.getDate()+'/'+trinitat.getMonth()+'/'+trinitat.getFullYear());
+    if(date.getDate() === trinitat.getDate() && date.getMonth() === trinitat.getMonth() &&
+        date.getFullYear() === trinitat.getFullYear()){
       return 8;
     }
 
     //9- Santíssim cos i sang de crist
-    if(false){
+    var cosSang = new Date(trinitat.getFullYear(), trinitat.getMonth(), trinitat.getDate()+7);
+    if(date.getDate() === cosSang.getDate() && date.getMonth() === cosSang.getMonth() &&
+        date.getFullYear() === cosSang.getFullYear()){
       return 9;
     }
 
     //10- Sagrat cor de Jesús
-    if(false){
+    var sagratCor = new Date(cosSang.getFullYear(), cosSang.getMonth(), cosSang.getDate()+5);
+    if(date.getDate() === sagratCor.getDate() && date.getMonth() === sagratCor.getMonth() &&
+        date.getFullYear() === sagratCor.getFullYear()){
       return 10;
     }
 
@@ -511,8 +686,14 @@ export default class SOUL {
     return -1;
   }
 
+  isSagradaFamilia(today){
+    if(today.getMonth() !== 11) return false;
+    if(today.getDay() !== 0) return false;
+    if(today.getDate() < 26 || today.getDate() > 31) return false;
+    return true;
+  }
+
   isBaptisme(today){
-    if(today.getFullYear() !== today.getFullYear()) return false;
     if(today.getMonth() !== 0) return false;
     if(today.getDay() !== 0) return false;
     if(today.getDate() < 7 || today.getDate() > 13) return false;

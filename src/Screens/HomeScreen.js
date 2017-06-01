@@ -28,15 +28,17 @@ export default class HomeScreen extends Component {
     super(props)
 
     var today = new Date();
-    //today.setDate(8); //1-31
-    //today.setMonth(0); //0-11
+    today.setDate(4); //1-31
+    today.setMonth(5); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
+    this.llati = false;
 
     this.state = {
       diocesi: '',
       santPressed: false,
       invitatori: '',
+      llati: this.llati,
       date: today,
 
       liturgicProps: {
@@ -66,7 +68,7 @@ export default class HomeScreen extends Component {
       this.state.date.getFullYear(),
       this.state.date.getMonth(),
       this.state.date.getDate(),
-      (current, tomorrow) => {
+      (current, tomorrow, pentacosta) => {
         var celType = this.celebracio(this.HCDiocesi, current); //TODO: HC, cal agafar-ho de settings
         this.setState({
           celType: celType, //S, M, L, F, V o -
@@ -88,7 +90,7 @@ export default class HomeScreen extends Component {
           },
         });
 
-        this.SOUL = new SOUL(this.state, this);
+        this.SOUL = new SOUL(this.state, pentacosta, this);
       }
     );
   }
@@ -99,13 +101,14 @@ export default class HomeScreen extends Component {
       newDay.getFullYear(),
       newDay.getMonth(),
       newDay.getDate(),
-      (current, tomorrow) => {
+      (current, tomorrow, pentacosta) => {
         var celType = this.celebracio(this.HCDiocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
         this.setState({
           date: newDay,
           celType: celType,
           diocesi: /*diocesi*/this.HCDiocesi,
           invitatori: invitatori,
+          llati: this.llati,
 
           liturgicProps: {
             LITURGIA: null,
@@ -124,7 +127,7 @@ export default class HomeScreen extends Component {
           },
         });
 
-        this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.state.celType, this.state.diocesi, this.state.invitatori, this);
+        this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.state.celType, this.state.diocesi, this.state.invitatori, pentacosta, this);
       }
     );
   }
@@ -241,7 +244,7 @@ export default class HomeScreen extends Component {
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
                <View style={{flex: 1, flexDirection: 'row'}}>
                  <View style={{flex: 20, justifyContent: 'center'}}>
-                   <Text style={styles.santText}>{this.state.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
+                   <Text style={styles.santText}>{this.state.liturgicProps.LITURGIA.info_cel.typeCel} - {this.state.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
                  <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
                    {this.state.santPressed ?

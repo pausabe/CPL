@@ -41,13 +41,22 @@ export default class DBAdapter {
     month2 = tomorrow.getMonth();
     day2 = tomorrow.getDate();
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
-    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day} OR any = ${year2} AND mes = ${month2+1} AND dia = ${day2} ORDER BY any, mes, dia ASC`,
-      result => callback(result.rows.item(0), result.rows.item(1)));
+    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day}
+      OR any = ${year2} AND mes = ${month2+1} AND dia = ${day2}
+      ORDER BY any, mes, dia ASC`,
+      result => this.getPentacosta(result.rows.item(0), result.rows.item(1), year, callback));
   }
 
-  getPentacosta(callback){
-    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day} OR any = ${year2} AND mes = ${month2+1} AND dia = ${day2} ORDER BY any, mes, dia ASC`,
-      result => callback());
+  getPentacosta(r1, r2, year, callback){
+    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND temps = '${GLOBAL.P_SETMANES}' AND NumSet = 8 AND DiadelaSetmana = 'Dg'`,
+      result => {
+        var pentacosta = new Date();
+        pentacosta.setDate(result.rows.item(0).dia);
+        auxMonth = result.rows.item(0).mes-1;
+        pentacosta.setMonth(auxMonth);
+        //console.log("TESTING PENTA: " + result.rows.item(0).dia + " - " + auxMonth);
+        callback(r1, r2, pentacosta);
+      });
   }
 
   getSolMem(table, date, diocesi, callback){
