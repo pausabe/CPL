@@ -379,7 +379,7 @@ export default class SOUL {
     }
 
     //taula 30 (#31): -
-    if(this.tomorrowCal !== '-' || params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU){
+    if(this.tomorrowCal === 'TSF' || params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU){
       c += 1;
       if(params.idTSF === -1){
         id = 1; //Només necessito Nadal (1) per N_OCTAVA
@@ -387,7 +387,7 @@ export default class SOUL {
       else{
         id = params.idTSF;
       }
-      if(this.tomorrowCal !== '-') {
+      if(this.tomorrowCal === 'TSF') {
         id = this.idTSFTomorrow;
       }
       console.log("OOOOOOOOOOO " + id);
@@ -416,9 +416,12 @@ export default class SOUL {
     }
 
     //taula 34 (#32): - i //taula 36
-    if(params.idTSF === -1 && (celType === 'S' || celType === 'F')){
+    if(this.tomorrowCal === 'S' || params.idTSF === -1 && (celType === 'S' || celType === 'F')){
       c += 1;
-      this.acceso.getSolMem("santsSolemnitats", date, diocesi, (result) => { this.queryRows.santsSolemnitats = result; this.getOficisComuns(params, result); });
+      var auxDate = date;
+      if(this.tomorrowCal === 'S') auxDate = this.dataTomorrow.date;
+      console.log("AAAAAAAAAAAAAAAAAAAAA: " + auxDate.getDate());
+      this.acceso.getSolMem("santsSolemnitats", auxDate, diocesi, (result) => { this.queryRows.santsSolemnitats = result; this.getOficisComuns(params, result); });
     }
 
     //taula 35 (#31): -  i //taula 36
@@ -428,9 +431,11 @@ export default class SOUL {
     }
 
     //taula 37 (#?): -
-    if(params.idDE !== -1){
+    if(this.tomorrowCal === 'DE' || params.idDE !== -1){
       c += 1;
       id = params.idDE;
+      if(this.tomorrowCal === 'DE') id = this.idDETomorrow;
+      console.log("UUUUUUUUUUUUUUUUUU: " + id);
       this.acceso.getLiturgia("diesespecials", id, (result) => { this.queryRows.diesespecials = result; this.dataReceived(params); });
     }
 
@@ -544,8 +549,8 @@ export default class SOUL {
   }
 
   tomorrowCalVespres1CEL(date, LT, setmana, pentacosta){
-    var idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
-    if(idDETomorrow !== -1 && idDETomorrow !== 1)
+    this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
+    if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)
       return 'DE';
 
     this.idTSFTomorrow = this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta);
