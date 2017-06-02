@@ -8,16 +8,18 @@ import DBAdapter from '../SQL/DBAdapter';
 import GLOBAL from '../Globals/Globals';
 
 export default class SOUL {
-  constructor(variables, liturgicProps, pentacosta, HS) {
+  constructor(variables, liturgicProps, dataTomorrow, pentacosta, HS) {
     console.log("constructor SOUL");
     this.variables = variables;
     this.liturgicProps = liturgicProps;
+    this.dataTomorrow = dataTomorrow;
 
     this.queryRows = {
       salteriComuOfici: '', //1
       salteriComuInvitatori: '', //2
       tempsOrdinariOfici: '', //3
-      tempsOrdinariOracions: '', //4
+      tempsOrdinariOracions: '', //4.1
+      tempsOrdinariOracionsVespres1: '', //4.2
       tempsQuaresmaComuFV: '', //5
       tempsQuaresmaCendra: '', //6
       tempsQuaresmaVSetmanes: '', //7
@@ -31,7 +33,8 @@ export default class SOUL {
       tempsPasquaSetmanes: '', //15
       tempsAdventNadalComu: '', //16
       tempsAdventSetmanes: '', //17
-      tempsAdventSetmanesDium: '', //18
+      tempsAdventSetmanesDium: '', //18.1
+      tempsAdventSetmanesDiumVespres1: '', //18.2
       tempsAdventFeries: '', //19
       tempsNadalOctava: '', //20
       tempsNadalAbansEpifania: '', //21
@@ -39,7 +42,8 @@ export default class SOUL {
       diversos: '', //23
       salteriComuLaudes: '', //24
       salteriComuEspPasqua: '', //25
-      tempsPasquaSetmanesDium: '', //26
+      tempsPasquaSetmanesDium: '', //26.1
+      tempsPasquaSetmanesDiumVespres1: '', //26.2
       tempsQuaresmaDiumPasq: '', //27
       tempsQuaresmaVSetmanesDium: '', //28
       salteriComuVespres: '', //29
@@ -68,10 +72,10 @@ export default class SOUL {
     this.countLit = 7;
     this.firstAccess = true;
     this.acceso = new DBAdapter();
-    this.makeQueryies(variables.date, liturgicProps, variables.celType, variables.diocesi, variables.invitatori, pentacosta, HS, variables.llati);
+    this.makeQueryies(variables.date, liturgicProps, dataTomorrow, variables.celType, variables.diocesi, variables.invitatori, pentacosta, HS, variables.llati);
   }
 
-  makeQueryies(date, liturgicProps, celType, diocesi, invitatori, pentacosta, HS, llati){
+  makeQueryies(date, liturgicProps, dataTomorrow, celType, diocesi, invitatori, pentacosta, HS, llati){
     console.log("makeQueryies SOUL");
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
     idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
@@ -101,29 +105,36 @@ export default class SOUL {
     //taula 1 (#2): Ofici(1)
     if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA && liturgicProps.LT !== GLOBAL.N_OCTAVA){
       c += 1;
-      id = (liturgicProps.cicle-1)*7 + (date.getDay()+1);
+      id = (parseInt(liturgicProps.cicle)-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("salteriComuOfici", id, (result) => { this.queryRows.salteriComuOfici = result; this.dataReceived(params); });
     }
 
     //taula 2 (#1): Ofici(2), Laudes(1)
     if(liturgicProps.LT === GLOBAL.O_ORDINARI){
       c += 1;
-      id = (liturgicProps.cicle-1)*7 + (date.getDay()+1);
+      id = (parseInt(liturgicProps.cicle)-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("salteriComuInvitatori", id, (result) => { this.queryRows.salteriComuInvitatori = result; this.dataReceived(params); });
     }
 
     //taula 3 (#10): Ofici(3)
     if(liturgicProps.LT === GLOBAL.O_ORDINARI){
       c += 1;
-      id = (liturgicProps.setmana-1)*7  + (date.getDay()+1);
+      id = (parseInt(liturgicProps.setmana)-1)*7  + (date.getDay()+1);
       this.acceso.getLiturgia("tempsOrdinariOfici", id, (result) => { this.queryRows.tempsOrdinariOfici = result; this.dataReceived(params); });
     }
 
-    //taula 4 (#9): Ofici(4), Laudes(2), Vespres(1), HoraMenor(1)
+    //taula 4.1 (#9): Ofici(4), Laudes(2), Vespres(1), HoraMenor(1)
     if(liturgicProps.LT === GLOBAL.O_ORDINARI){
       c += 1;
-      id = liturgicProps.setmana;
+      id = parseInt(liturgicProps.setmana);
       this.acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracions = result; this.dataReceived(params); });
+    }
+
+    //taula 4.2 (#9): Ofici(4), Laudes(2), Vespres(1), HoraMenor(1)
+    if(liturgicProps.LT === GLOBAL.O_ORDINARI){
+      c += 1;
+      id = parseInt(liturgicProps.setmana) + 1;
+      this.acceso.getLiturgia("tempsOrdinariOracions", id, (result) => { this.queryRows.tempsOrdinariOracionsVespres1 = result; this.dataReceived(params); });
     }
 
     //taula 5 (#11): Ofici(5), Laudes(3), Vespres(2), HoraMenor(2)
@@ -143,7 +154,7 @@ export default class SOUL {
     //taula 7 (#14): Ofici(7), Laudes(5), Vespres(4), HoraMenor(4)
     if(liturgicProps.LT === GLOBAL.Q_SETMANES){
       c += 1;
-      id = (liturgicProps.setmana-1)*7 + (date.getDay()+1);
+      id = (parseInt(liturgicProps.setmana)-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => { this.queryRows.tempsQuaresmaVSetmanes = result; this.dataReceived(params); });
     }
 
@@ -200,7 +211,7 @@ export default class SOUL {
     //taula 15 (#23): Ofici(15), Laudes(13), Vespres(12), HoraMenor(12)
     if(liturgicProps.LT === GLOBAL.P_SETMANES){
       c += 1;
-      id = (liturgicProps.setmana-2)*7 + (date.getDay()+1);
+      id = (parseInt(liturgicProps.setmana)-2)*7 + (date.getDay()+1);
       if(id === 43) //diumenge de pentacosta (no està dins tempsPasquaSetmanes). Apaño perquè no peti
         id = 1;
       this.acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(params); });
@@ -233,15 +244,22 @@ export default class SOUL {
       c += 1;
       //Week begins with saturday
       {date.getDay() === 6 ? auxDay = 1 : auxDay = date.getDay() + 2}
-      id = (liturgicProps.cicle-1)*7 + auxDay;
+      id = (parseInt(liturgicProps.cicle)-1)*7 + auxDay;
       this.acceso.getLiturgia("tempsAdventSetmanes", id, (result) => { this.queryRows.tempsAdventSetmanes = result; this.dataReceived(params); });
     }
 
-    //taula 18 (#27): Ofici(18), Laudes(16), Vespres(15), HoraMenor(15)
+    //taula 18.1 (#27): Ofici(18), Laudes(16), Vespres(15), HoraMenor(15)
     if(liturgicProps.LT === GLOBAL.A_SETMANES || liturgicProps.LT === GLOBAL.A_FERIES){
       c += 1;
-      id = liturgicProps.cicle;
+      id = parseInt(liturgicProps.cicle);
       this.acceso.getLiturgia("tempsAdventSetmanesDium", id, (result) => { this.queryRows.tempsAdventSetmanesDium = result; this.dataReceived(params); });
+    }
+
+    //taula 18.2 (#27): Ofici(18), Laudes(16), Vespres(15), HoraMenor(15)
+    if(liturgicProps.LT === GLOBAL.A_SETMANES || liturgicProps.LT === GLOBAL.A_FERIES){
+      c += 1;
+      id = parseInt(liturgicProps.cicle) + 1;
+      this.acceso.getLiturgia("tempsAdventSetmanesDium", id, (result) => { this.queryRows.tempsAdventSetmanesDiumVespres1 = result; this.dataReceived(params); });
     }
 
     //taula 19 (#28): Ofici(19), Laudes(17), Vespres(16), HoraMenor(16)
@@ -282,7 +300,7 @@ export default class SOUL {
     //taula 24 (#3): Laudes(21)
     if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA && liturgicProps.LT !== GLOBAL.N_OCTAVA){
       c += 1;
-      cicleAux = liturgicProps.cicle;
+      cicleAux = parseInt(liturgicProps.cicle);
       if(params.idTSF !== -1) {
         cicleAux = 1;
       }
@@ -297,17 +315,26 @@ export default class SOUL {
     //taula 25 (#8): Laudes(22), Vespres(20)
     if(liturgicProps.LT === GLOBAL.P_SETMANES){
       c += 1;
-      idLaudes = (liturgicProps.cicle-1)*6 + (date.getDay());
+      idLaudes = (parseInt(liturgicProps.cicle)-1)*6 + (date.getDay());
       this.acceso.getLiturgia("salteriComuEspPasqua", idLaudes, (result) => { this.queryRows.salteriComuEspPasqua = result; this.dataReceived(params); });
     }
 
-    //taula 26 (#24): Laudes(23), Vespres(21)
+    //taula 26.1 (#24): Laudes(23), Vespres(21)
     if(liturgicProps.LT === GLOBAL.P_SETMANES){
       c += 1;
-      id = liturgicProps.setmana-1;
+      id = parseInt(liturgicProps.setmana)-1;
       if(id === 7) //diumenge de pentacosta. Apaño perquè no peti
         id = 6;
       this.acceso.getLiturgia("tempsPasquaSetmanesDium", id, (result) => { this.queryRows.tempsPasquaSetmanesDium = result; this.dataReceived(params); });
+    }
+
+    //taula 26.2 (#24): Laudes(23), Vespres(21)
+    if(liturgicProps.LT === GLOBAL.P_SETMANES){
+      c += 1;
+      id = parseInt(liturgicProps.setmana);
+      if(id === 7 || id === 8) //diumenge de pentacosta. Apaño perquè no peti
+        id = 6;
+      this.acceso.getLiturgia("tempsPasquaSetmanesDium", id, (result) => { this.queryRows.tempsPasquaSetmanesDiumVespres1 = result; this.dataReceived(params); });
     }
 
     //taula 27 (#19): Laudes(24), Vespres(22)
@@ -317,11 +344,18 @@ export default class SOUL {
       this.acceso.getLiturgia("tempsQuaresmaDiumPasq", id, (result) => { this.queryRows.tempsQuaresmaDiumPasq = result; this.dataReceived(params); });
     }
 
-    //taula 28 (#13): Laudes(26), Vespres(23)
+    //taula 28.1 (#13): Laudes(26), Vespres(23)
     if(liturgicProps.LT === GLOBAL.Q_SETMANES){
       c += 1;
-      id = liturgicProps.setmana;
+      id = parseInt(liturgicProps.setmana);
       this.acceso.getLiturgia("tempsQuaresmaVSetmanesDium", id, (result) => { this.queryRows.tempsQuaresmaVSetmanesDium = result; this.dataReceived(params); });
+    }
+
+    //taula 28.2 (#13): Laudes(26), Vespres(23)
+    if(liturgicProps.LT === GLOBAL.Q_SETMANES){
+      c += 1;
+      id = parseInt(liturgicProps.setmana) + 1;
+      this.acceso.getLiturgia("tempsQuaresmaVSetmanesDium", id, (result) => { this.queryRows.tempsQuaresmaVSetmanesDiumVespres1 = result; this.dataReceived(params); });
     }
 
     //taula 29 (#5): Vespres(24)
@@ -333,6 +367,7 @@ export default class SOUL {
         { cicle === 4 ? cicle = 1 : cicle += 1 }
       }
       id = (cicle-1)*7 + weekDayNormalVESPRES;
+      //console.log("ID----------------------------> weekDayNormalVESPRES: " + weekDayNormalVESPRES + ", liturgicProps.cicle: " + parseInt(liturgicProps.cicle) +", id: " + id);
       this.acceso.getLiturgia("salteriComuVespres", id, (result) => { this.queryRows.salteriComuVespres = result; this.dataReceived(params); });
     }
 
@@ -351,7 +386,7 @@ export default class SOUL {
     //taula 31 (#4): HoraMenor(20)
     if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA){
       c += 1;
-      id = (liturgicProps.cicle-1)*7 + (date.getDay()+1);
+      id = (parseInt(liturgicProps.cicle)-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("salteriComuHora", id, (result) => { this.queryRows.salteriComuHora = result; this.dataReceived(params); });
     }
 
@@ -365,7 +400,7 @@ export default class SOUL {
     //taula 33 (#??): Ofici(24)
     if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA && liturgicProps.LT !== GLOBAL.N_OCTAVA){
       c += 1;
-      id = (liturgicProps.cicle-1)*7 + (date.getDay()+1);
+      id = (parseInt(liturgicProps.cicle)-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => { this.queryRows.salteriComuOficiTF = result; this.dataReceived(params); });
     }
 
@@ -405,7 +440,7 @@ export default class SOUL {
         this.dataReceived(params);
       }
     }
-    else console.log("Error? no result from DB");
+    else console.log("Error OC? no result from DB");
   }
 
   dataReceived(params){
@@ -466,11 +501,14 @@ export default class SOUL {
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
+          if(false/*determinar*/) vespresCelDEF = this.CEL.VESPRES1;
+          else vespresCelDEF = this.CEL.VESPRES;
+
           if(this.firstAccess){
             this.firstAccess = false;
             this.OficiSoul = new OficiSoul(this.variables, this.liturgicProps, this.queryRows, this.CEL.OFICI, HS, this);
             this.LaudesSoul = new LaudesSoul(this.variables, this.liturgicProps, this.queryRows, this.CEL.LAUDES, HS, this);
-            this.VespresSoul = new VespresSoul(this.variables, this.liturgicProps, this.queryRows, this.CEL.VESPRES, HS, this);
+            this.VespresSoul = new VespresSoul(this.variables, this.liturgicProps, this.queryRows, vespresCelDEF, HS, this);
             this.HoraMenorSoul = new HoraMenorSoul(this.variables, this.liturgicProps, this.queryRows, this.CEL.HORA_MENOR, HS, this);
             this.CompletesSoul = new CompletesSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
           }
@@ -486,7 +524,6 @@ export default class SOUL {
 
     if(this.countLit === 0){
       this.countLit = 7;
-      console.log("????? " + this.LITURGIA.info_cel.nomCel);
       HS.setSoul(this.LITURGIA);
     }
   }

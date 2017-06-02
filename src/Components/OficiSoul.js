@@ -32,6 +32,7 @@ export default class OficiSoul {
           tempsNadalOctava: TABLES.tempsNadalOctava,
           tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
           salteriComuEspPasquaDium: TABLES.salteriComuEspPasquaDium,
+          tempsAdventSetmanesDium: TABLES.tempsAdventSetmanesDium,
           diversos: TABLES.diversos,
           salm94: TABLES.diversos.item(0).oracio,
           ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
@@ -366,6 +367,7 @@ export default class OficiSoul {
         gloria3 = this.state.salteriComuOfici.gloria3;
 
         if(weekDay == 0){
+          console.log("WHAT: " + this.state.tempsAdventSetmanesDium);
             ant1 = this.state.tempsAdventSetmanesDium.Ant1Ofici; //TODO: change the field! A to a
             ant2 = this.state.tempsAdventSetmanesDium.Ant2Ofici; //TODO: change the field! A to a
             ant3 = this.state.tempsAdventSetmanesDium.Ant3Ofici; //TODO: change the field! A to a

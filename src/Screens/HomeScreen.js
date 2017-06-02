@@ -41,8 +41,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    today.setDate(20); //1-31
-    today.setMonth(3); //0-11
+    today.setDate(9); //1-31
+    today.setMonth(11); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
     this.llati = false;
@@ -67,6 +67,13 @@ export default class HomeScreen extends Component {
       cicle2: '',
       setmana2: '',
       ABC2: '',*/
+    }
+
+    var tomorrow = new Date(today.getFullYear(), today.getMonth());
+    tomorrow.setDate(today.getDate() + 1);
+
+    this.dataTomorrow = {
+      date: tomorrow,
     }
 
     this.acceso = new DBAdapter();
@@ -128,9 +135,9 @@ export default class HomeScreen extends Component {
         this.liturgicProps.ABC2 = tomorrow.anyABC;*/
 
         if(this.SOUL === undefined)
-          this.SOUL = new SOUL(this.variables, this.liturgicProps, pentacosta, this);
+          this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
         else
-          this.SOUL.makeQueryies(this.variables.date, this.liturgicProps, this.variables.celType, this.variables.diocesi, this.variables.invitatori, pentacosta, this,  this.variables.llati);
+          this.SOUL.makeQueryies(this.variables.date, this.liturgicProps, this.dataTomorrow, this.variables.celType, this.variables.diocesi, this.variables.invitatori, pentacosta, this,  this.variables.llati);
       }
     );
   }
