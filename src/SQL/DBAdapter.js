@@ -63,7 +63,11 @@ export default class DBAdapter {
   getSolMem(table, date, diocesi, callback){
     dia = this.calculeDia(date);
 
-    this.executeQuery(`SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}'`,
+    var query = `SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}'`;
+
+    console.log("QUERY: " + query);
+
+    this.executeQuery(query,
       result => callback(result.rows.item(0)));
   }
 

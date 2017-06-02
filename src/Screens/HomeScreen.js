@@ -41,8 +41,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(6); //1-31
-    //today.setMonth(7); //0-11
+    today.setDate(23); //1-31
+    today.setMonth(4); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
     this.llati = false;
@@ -79,7 +79,7 @@ export default class HomeScreen extends Component {
   refreshEverything(date){
     //settings > anyliturgic > soul > render
     Promise.all([
-      SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = r),
+      SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = this.HCDiocesi/*r*/),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
     ]).then(results => {
       this.refreshDate(date);

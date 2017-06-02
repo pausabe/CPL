@@ -388,16 +388,19 @@ export default class SOUL {
   }
 
   getOficisComuns(params, result){
-    categoria = result.Categoria;
-    if(categoria !== '0000'){
-      console.log("Més un accéss extra per OficisComuns. Categoria: " + categoria);
+    if(result){
+      categoria = result.Categoria;
+      if(categoria !== '0000'){
+        console.log("Més un accéss extra per OficisComuns. Categoria: " + categoria);
 
-      //taula 36 (#??): -
-      this.acceso.getOC(categoria, (result) => { this.queryRows.OficisComuns = result; this.dataReceived(params); });
+        //taula 36 (#??): -
+        this.acceso.getOC(categoria, (result) => { this.queryRows.OficisComuns = result; this.dataReceived(params); });
+      }
+      else{
+        this.dataReceived(params);
+      }
     }
-    else{
-      this.dataReceived(params);
-    }
+    else console.log("Error? no result from DB");
   }
 
   dataReceived(params){
