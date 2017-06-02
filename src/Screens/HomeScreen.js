@@ -34,6 +34,12 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
+    this.iWantRender = false;
+
+    this.state = {
+      santPressed: false,
+    }
+
     var today = new Date();
     //today.setDate(6); //1-31
     //today.setMonth(7); //0-11
@@ -81,14 +87,19 @@ export default class HomeScreen extends Component {
   }
 
   shouldComponentUpdate(){
-    console.log("should render here but I don't want it");
+    if(!this.iWantRender){
+      console.log("should render here but I don't want it");
 
-    if(this.refresh){
-      this.refreshEverything(this.variables.date);
+      if(this.refresh){
+        this.refreshEverything(this.variables.date);
+      }
+
+      this.refresh = !this.refresh;
+      return false;
     }
-
-    this.refresh = !this.refresh;
-    return false;
+    console.log("should render here and I want it");
+    this.iWantRender = false;
+    return true;
   }
 
   refreshDate(newDay){
@@ -188,7 +199,7 @@ export default class HomeScreen extends Component {
                    <Text style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.typeCel} - {this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
                  <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
-                   {/*this.state.santPressed*/false ?
+                   {this.state.santPressed ?
                      <Icon
                        name="ios-arrow-down"
                        size={25}
@@ -208,7 +219,7 @@ export default class HomeScreen extends Component {
            </View>
          : null}
 
-          {/*this.state.santPressed*/ false ?
+          {this.state.santPressed ?
            <View style={styles.liturgiaContainer}>
              <Text style={styles.santExText}>{this.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
              <Text style={styles.santExText}/>
@@ -228,8 +239,10 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
-    //this.setState({santPressed: !this.state.santPressed});
-    //this.refreshDate();
+    if(this.liturgicProps.LITURGIA){
+      this.iWantRender = true;
+      this.setState({santPressed: !this.state.santPressed});
+    }
   }
 
   changeDate(testtt){
