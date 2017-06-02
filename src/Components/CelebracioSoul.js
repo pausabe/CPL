@@ -1,13 +1,13 @@
 import GLOBAL from '../Globals/Globals';
 
 export default class CelebracioSoul {
-  constructor(props, TABLES, idTSF, idDE, HS, SOUL, llati) {
-
-    this.makePrayer(props.date, props.liturgicProps, TABLES, props.celType, props.diocesi, idTSF, idDE, HS, SOUL, llati);
+  constructor(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati) {
+    console.log("Constructor CelebracioSoul");
+    this.makePrayer(variabales.date, liturgicProps, TABLES, variabales.celType, variabales.diocesi, idTSF, idDE, HS, SOUL, llati);
   }
 
   makePrayer(date, liturgicProps, TABLES, celType, diocesi, idTSF, idDE, HS, SOUL, llati){
-
+    console.log("MakePrayer CelebracioSoul");
     this.INFO_CEL = {
       nomCel: '-',
       infoCel: '-',
@@ -267,6 +267,7 @@ export default class CelebracioSoul {
   }
 
   createCel(TABLES, type, diocesi, llati, anyABC){
+    console.log("CelbracioSoul - createCel: " + type);
     switch (type) {
       case "TSF":
         //::::::>>>>>TSF<<<<<::::::

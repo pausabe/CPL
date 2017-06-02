@@ -24,165 +24,6 @@ function paddingBar(){
 }
 
 export default class HomeScreen extends Component {
-  constructor(props) {
-    super(props)
-
-    var today = new Date();
-    today.setDate(6); //1-31
-    today.setMonth(7); //0-11
-    //today.setFullYear(2017); //XXXX
-    this.HCDiocesi = 'BaD';
-    this.llati = false;
-
-    this.state = {
-      diocesi: '',
-      santPressed: false,
-      invitatori: '',
-      llati: this.llati,
-      date: today,
-
-      liturgicProps: {
-        LITURGIA: null,
-        tempsespecific: '',
-        LT: '',
-        cicle: '',
-        setmana: '',
-        ABC: '',
-        tempsespecific2: '',
-        LT2: '',
-        cicle2: '',
-        setmana2: '',
-        ABC2: '',
-      },
-    }
-
-    this.dataRec = {
-      diocesi: '',
-      invitatori: '',
-    }
-    SettingsManager.getSettingDiocesis((r) => this.setState({diocesi: /*r*/this.HCDiocesi}));
-    SettingsManager.getSettingInvitatori((r) => this.setState({invitatori: r}));
-
-    this.acceso = new DBAdapter();
-    this.acceso.getAnyLiturgic(
-      this.state.date.getFullYear(),
-      this.state.date.getMonth(),
-      this.state.date.getDate(),
-      (current, tomorrow, pentacosta) => {
-        var celType = this.celebracio(this.HCDiocesi, current); //TODO: HC, cal agafar-ho de settings
-        this.setState({
-          celType: celType, //S, M, L, F, V o -
-
-          liturgicProps: {
-            LITURGIA: null,
-
-            tempsespecific: current.tempsespecific, //Pasqua, Quaresema...
-            LT: current.temps, //Q_SETMANES, P_SETMANES...
-            cicle: current.cicle, //1-4
-            setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-            ABC: current.anyABC, //A, B o C
-
-            tempsespecific2: tomorrow.tempsespecific,
-            LT2: tomorrow.temps,
-            cicle2: tomorrow.cicle,
-            setmana2: tomorrow.NumSet,
-            ABC2: tomorrow.anyABC,
-          },
-        });
-
-        this.SOUL = new SOUL(this.state, pentacosta, this);
-      }
-    );
-  }
-
-  refreshDate(newDay, diocesi, invitatori){
-    console.log(this.state.date.getDate()+'/'+this.state.date.getMonth()+'/'+this.state.date.getFullYear()+' -> '+newDay.getDate()+'/'+newDay.getMonth()+'/'+newDay.getFullYear());
-    this.acceso.getAnyLiturgic(
-      newDay.getFullYear(),
-      newDay.getMonth(),
-      newDay.getDate(),
-      (current, tomorrow, pentacosta) => {
-        var celType = this.celebracio(this.HCDiocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
-        this.setState({
-          date: newDay,
-          celType: celType,
-          diocesi: /*diocesi*/this.HCDiocesi,
-          invitatori: invitatori,
-          llati: this.llati,
-
-          liturgicProps: {
-            LITURGIA: null,
-
-            tempsespecific: current.tempsespecific,
-            LT: current.temps,
-            cicle: current.cicle, //1-4
-            setmana: current.NumSet, //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-            ABC: current.anyABC,
-
-            tempsespecific2: tomorrow.tempsespecific,
-            LT2: tomorrow.temps,
-            cicle2: tomorrow.cicle,
-            setmana2: tomorrow.NumSet,
-            ABC2: tomorrow.anyABC,
-          },
-        });
-
-        this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.state.celType, this.state.diocesi, this.state.invitatori, pentacosta, this);
-      }
-    );
-  }
-
-  /*asdf(){
-    console.log("update");
-
-    //1
-    SettingsManager.getSettingDiocesis((r) => {
-      this.dataReceived("diocesi", r);
-    });
-    //2
-    SettingsManager.getSettingInvitatori((r) => {
-      this.dataReceived("invitatori", r);
-    });
-  }
-
-  dataReceived(type, value){
-    this.cDR = 2;
-    switch (type) {
-      case "diocesi":
-        this.cDR -= 1;
-        this.dataRec.diocesi = value;
-        break;
-      case "invitatori":
-        this.cDR -= 1;
-        this.dataRec.invitatori = value;
-        break;
-    }
-
-    if(this.cDR === 0){
-      this.setState({diocesi: this.dateRec.diocesi, invitatori: this.dateRec.invitatori});
-      this.SOUL.makeQueryies(newDay, this.state.liturgicProps, this.dateRec.invitatori, this);
-    }
-  }*/
-
-  setSoul(liturgia){
-    this.setState({
-      liturgicProps: {
-        LITURGIA: liturgia,
-        tempsespecific: this.state.liturgicProps.tempsespecific,
-        LT: this.state.liturgicProps.LT,
-        cicle: this.state.liturgicProps.cicle,
-        setmana: this.state.liturgicProps.setmana,
-        ABC: this.state.liturgicProps.ABC,
-
-        tempsespecific2: this.state.liturgicProps.tempsespecific2,
-        LT2: this.state.liturgicProps.LT2,
-        cicle2: this.state.liturgicProps.cicle2,
-        setmana2: this.state.liturgicProps.setmana2,
-        ABC2: this.state.liturgicProps.ABC2,
-      }
-    });
-  }
-
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       this.props.navigator.pop();
@@ -190,25 +31,125 @@ export default class HomeScreen extends Component {
     });
   }
 
+  constructor(props) {
+    super(props)
+
+    var today = new Date();
+    //today.setDate(6); //1-31
+    //today.setMonth(7); //0-11
+    //today.setFullYear(2017); //XXXX
+    this.HCDiocesi = 'BaD';
+    this.llati = false;
+
+    this.variables = {
+      diocesi: '',
+      invitatori: '',
+      llati: this.llati,
+      celType: '',
+      date: today,
+    }
+
+    this.liturgicProps = {
+      LITURGIA: null,
+      tempsespecific: '',
+      LT: '',
+      cicle: '',
+      setmana: '',
+      ABC: '',
+      tempsespecific2: '',
+      LT2: '',
+      cicle2: '',
+      setmana2: '',
+      ABC2: '',
+    }
+
+    this.acceso = new DBAdapter();
+
+    this.refresh = false;
+    this.refreshEverything(today);
+
+  }
+
+  refreshEverything(date){
+    //settings > anyliturgic > soul > render
+    Promise.all([
+      SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = r),
+      SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
+    ]).then(results => {
+      this.refreshDate(date);
+    });
+  }
+
+  shouldComponentUpdate(){
+    console.log("should render here but I don't want it");
+
+    if(this.refresh){
+      this.refreshEverything(this.variables.date);
+    }
+
+    this.refresh = !this.refresh;
+    return false;
+  }
+
+  refreshDate(newDay){
+    this.acceso.getAnyLiturgic(
+      newDay.getFullYear(),
+      newDay.getMonth(),
+      newDay.getDate(),
+      (current, tomorrow, pentacosta) => {
+        var celType = this.getCelType(this.HCDiocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
+        this.variables.celType = celType;
+        this.variables.date = newDay;
+          this.variables.llati = this.llati,
+
+        this.liturgicProps.LITURGIA = null;
+
+        this.liturgicProps.tempsespecific = current.tempsespecific;
+        this.liturgicProps.LT = current.temps;
+        this.liturgicProps.cicle = current.cicle; //1-4
+        this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+        this.liturgicProps.ABC = current.anyABC;
+
+        this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
+        this.liturgicProps.LT2 = tomorrow.temps;
+        this.liturgicProps.cicle2 = tomorrow.cicle; //1-4
+        this.liturgicProps.setmana2 = tomorrow.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+        this.liturgicProps.ABC2 = tomorrow.anyABC;
+
+        if(this.SOUL === undefined)
+          this.SOUL = new SOUL(this.variables, this.liturgicProps, pentacosta, this);
+        else
+          this.SOUL.makeQueryies(this.variables.date, this.liturgicProps, this.variables.celType, this.variables.diocesi, this.variables.invitatori, pentacosta, this,  this.variables.llati);
+      }
+    );
+  }
+
+  setSoul(liturgia){
+    console.log("HomeScreen - setSoul");
+    this.liturgicProps.LITURGIA = liturgia;
+    this.forceUpdate();
+  }
+
   onMinusPress(){
     var newDay = new Date();
-    newDay.setDate(this.state.date.getDate());
-    newDay.setMonth(this.state.date.getMonth());
-    newDay.setFullYear(this.state.date.getFullYear());
-    newDay.setDate(this.state.date.getDate()-1);
-    this.refreshDate(newDay, this.state.diocesi, this.state.liturgia);
+    newDay.setDate(this.variables.date.getDate());
+    newDay.setMonth(this.variables.date.getMonth());
+    newDay.setFullYear(this.variables.date.getFullYear());
+    newDay.setDate(this.variables.date.getDate()-1);
+    this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 
   onPlusPress(){
     var newDay = new Date();
-    newDay.setDate(this.state.date.getDate());
-    newDay.setMonth(this.state.date.getMonth());
-    newDay.setFullYear(this.state.date.getFullYear());
-    newDay.setDate(this.state.date.getDate()+1);
-    this.refreshDate(newDay, this.state.diocesi, this.state.liturgia);
+    newDay.setDate(this.variables.date.getDate());
+    newDay.setMonth(this.variables.date.getMonth());
+    newDay.setFullYear(this.variables.date.getFullYear());
+    newDay.setDate(this.variables.date.getDate()+1);
+    this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 
   render() {
+    console.log("RENDER!!!");
     return (
       <View style={styles.container}>
        <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
@@ -220,7 +161,7 @@ export default class HomeScreen extends Component {
                 </TouchableOpacity>
               </View>
               <View>
-                <Text style={styles.infoText}>Diòcesi de {this.state.diocesi} - {this.state.date.getDate() < 10 ? `0${this.state.date.getDate()}` : this.state.date.getDate()}/{this.state.date.getMonth()+1 < 10 ? `0${this.state.date.getMonth()+1}` : this.state.date.getMonth()+1}/{this.state.date.getFullYear()}</Text>
+                <Text style={styles.infoText}>Diòcesi de {this.variables.diocesi} - {this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
               </View>
               <View>
                 <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
@@ -230,24 +171,24 @@ export default class HomeScreen extends Component {
             </View>
          </View>
          <View style={styles.diaLiturgicContainer}>
-           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.state.date.getDay())}{this.state.liturgicProps.setmana !== 0 ? " de la setmana" : null}
-             {this.state.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.setmana)}</Text> : null }</Text>
+           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== 0 ? " de la setmana" : null}
+             {this.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.setmana)}</Text> : null }</Text>
            <Text style={styles.diaLiturgicText}>Temps de
-             <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.tempsespecific}</Text></Text>
+              <Text style={{color: '#c0392b'}}> {this.liturgicProps.tempsespecific}</Text></Text>
            <Text style={styles.diaLiturgicText}>Setmana
-             <Text style={{color: '#c0392b'}}> {this.romanize(this.state.liturgicProps.cicle)} </Text>
+             <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.cicle)} </Text>
              del cicle litúrgic, any
-               <Text style={{color: '#c0392b'}}> {this.state.liturgicProps.ABC}</Text></Text>
+               <Text style={{color: '#c0392b'}}> {this.liturgicProps.ABC}</Text></Text>
          </View>
-         {this.state.liturgicProps.LITURGIA !== null && this.state.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
+         {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
            <View style={styles.santContainer}>
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
                <View style={{flex: 1, flexDirection: 'row'}}>
                  <View style={{flex: 20, justifyContent: 'center'}}>
-                   <Text style={styles.santText}>{this.state.liturgicProps.LITURGIA.info_cel.typeCel} - {this.state.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
+                   <Text style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.typeCel} - {this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
                  <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
-                   {this.state.santPressed ?
+                   {/*this.state.santPressed*/false ?
                      <Icon
                        name="ios-arrow-down"
                        size={25}
@@ -267,17 +208,17 @@ export default class HomeScreen extends Component {
            </View>
          : null}
 
-         {this.state.santPressed ?
+          {/*this.state.santPressed*/ false ?
            <View style={styles.liturgiaContainer}>
-             <Text style={styles.santExText}>{this.state.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
+             <Text style={styles.santExText}>{this.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
              <Text style={styles.santExText}/>
            </View>
            :
            <View style={styles.liturgiaContainer}>
              <Liturgia
                navigator={this.props.navigator}
-               date={this.state.date}
-               liturgicProps={this.state.liturgicProps}
+                date={this.variables.date}
+                liturgicProps={this.liturgicProps}
              />
            </View>
          }
@@ -287,108 +228,112 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
-    this.setState({santPressed: !this.state.santPressed});
+    //this.setState({santPressed: !this.state.santPressed});
     //this.refreshDate();
   }
 
-  celebracio(diocesi, anyliturgic){
+  changeDate(testtt){
+    console.log(testtt);
+  }
+
+  getCelType(diocesi, anyliturgic){
     switch (diocesi) {
       case "BaD":
-        celebracio = anyliturgic.BaD;
+        celType = anyliturgic.BaD;
         break;
       case "BaV":
-        celebracio = anyliturgic.BaV;
+        celType = anyliturgic.BaV;
         break;
       case "BaC":
-        celebracio = anyliturgic.BaC;
+        celType = anyliturgic.BaC;
         break;
       case "GiD":
-        celebracio = anyliturgic.GiD;
+        celType = anyliturgic.GiD;
         break;
       case "GiV":
-        celebracio = anyliturgic.GiV;
+        celType = anyliturgic.GiV;
         break;
       case "GiC":
-        celebracio = anyliturgic.GiC;
+        celType = anyliturgic.GiC;
         break;
       case "LlD":
-        celebracio = anyliturgic.LlD;
+        celType = anyliturgic.LlD;
         break;
       case "LlV":
-        celebracio = anyliturgic.LlV;
+        celType = anyliturgic.LlV;
         break;
       case "LlC":
-        celebracio = anyliturgic.LlC;
+        celType = anyliturgic.LlC;
         break;
       case "SFD":
-        celebracio = anyliturgic.SFD;
+        celType = anyliturgic.SFD;
         break;
       case "SFV":
-        celebracio = anyliturgic.SFV;
+        celType = anyliturgic.SFV;
         break;
       case "SFC":
-        celebracio = anyliturgic.SFC;
+        celType = anyliturgic.SFC;
         break;
       case "SoD":
-        celebracio = anyliturgic.SoD;
+        celType = anyliturgic.SoD;
         break;
       case "SoV":
-        celebracio = anyliturgic.SoV;
+        celType = anyliturgic.SoV;
         break;
       case "SoC":
-        celebracio = anyliturgic.SoC;
+        celType = anyliturgic.SoC;
         break;
       case "TaD":
-        celebracio = anyliturgic.TaD;
+        celType = anyliturgic.TaD;
         break;
       case "TaV":
-        celebracio = anyliturgic.TaV;
+        celType = anyliturgic.TaV;
         break;
       case "TaC":
-        celebracio = anyliturgic.TaC;
+        celType = anyliturgic.TaC;
         break;
       case "TeD":
-        celebracio = anyliturgic.TeD;
+        celType = anyliturgic.TeD;
         break;
       case "TeV":
-        celebracio = anyliturgic.TeV;
+        celType = anyliturgic.TeV;
         break;
       case "TeC":
-        celebracio = anyliturgic.TeC;
+        celType = anyliturgic.TeC;
         break;
       case "ToD":
-        celebracio = anyliturgic.ToD;
+        celType = anyliturgic.ToD;
         break;
       case "ToV":
-        celebracio = anyliturgic.ToV;
+        celType = anyliturgic.ToV;
         break;
       case "ToC":
-        celebracio = anyliturgic.ToC;
+        celType = anyliturgic.ToC;
         break;
       case "UrD":
-        celebracio = anyliturgic.UrD;
+        celType = anyliturgic.UrD;
         break;
       case "UrV":
-        celebracio = anyliturgic.UrV;
+        celType = anyliturgic.UrV;
         break;
       case "UrC":
-        celebracio = anyliturgic.UrC;
+        celType = anyliturgic.UrC;
         break;
       case "ViD":
-        celebracio = anyliturgic.ViD;
+        celType = anyliturgic.ViD;
         break;
       case "ViV":
-        celebracio = anyliturgic.ViV;
+        celType = anyliturgic.ViV;
         break;
       case "ViC":
-        celebracio = anyliturgic.ViC;
+        celType = anyliturgic.ViC;
         break;
       case "Andorra":
-        celebracio = anyliturgic.Andorra;
+        celType = anyliturgic.Andorra;
         break;
     }
 
-    return(celebracio);
+    return(celType);
   }
 
   romanize (num) {

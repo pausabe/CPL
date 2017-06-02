@@ -23,6 +23,10 @@ export default class SettingsScreen extends Component {
             </ScrollView>
         );
       }
+
+      componentWillUnMount(){
+        console.log("tu puta madre se esta marchando! jejejej");
+      }
 }
 
 function callbackTest(id, value){

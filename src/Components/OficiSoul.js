@@ -1,12 +1,13 @@
 import GLOBAL from '../Globals/Globals';
 
 export default class OficiSoul {
-  constructor(props, TABLES, CEL, HS, SOUL) {
-
-    this.makePrayer(props.date, props.liturgicProps, TABLES, props.invitatori, CEL, HS, SOUL);
+  constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
+    console.log("Constructor OficiSoul");
+    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
+    console.log("MakePrayer OficiSoul");
         nit=false; //TODO: todo
         this.state = {
           nit: nit,
@@ -110,7 +111,7 @@ export default class OficiSoul {
         antInvitatori = this.state.tempsPasquaAA.antInvitatori;
         break;
       case GLOBAL.P_SETMANES:
-        if(setmana === 7){
+        if(setmana === '7'){
           antInvitatori = this.state.tempsPasquaDA.antInvitatori;
         }
         else{
@@ -198,7 +199,7 @@ export default class OficiSoul {
         }
         break;
       case GLOBAL.P_SETMANES:
-        if(setmana === 7){
+        if(setmana === '7'){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneOficiLlati;
           }

@@ -2,13 +2,14 @@ import { Platform } from 'react-native';
 import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
 
-export default class TerciaSoul {
-  constructor(props, TABLES, CEL, HS, SOUL) {
-
-    this.makePrayer(props.date, props.liturgicProps, TABLES, CEL, HS, SOUL);
+export default class HoraMenorSoul {
+  constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
+    console.log("Constructor HoraMenorSoul");
+    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, CEL, HS, SOUL){
+    console.log("MakePrayer HoraMenorSoul");
     this.state = {
       salteriComuHora: TABLES.salteriComuHora,
       tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
@@ -268,7 +269,7 @@ export default class TerciaSoul {
           }
           break;
         case GLOBAL.P_SETMANES:
-          if(setmana === 7){
+        if(setmana === '7'){
             if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
               switch (HM) {
                 case 'Tèrcia':

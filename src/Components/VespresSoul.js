@@ -2,13 +2,14 @@ import { Platform } from 'react-native';
 import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
 
-export default class Vespres {
-  constructor(props, TABLES, CEL, HS, SOUL) {
-
-    this.makePrayer(props.date, props.liturgicProps, TABLES, CEL, HS, SOUL)
+export default class VespresSoul {
+  constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
+    console.log("Constructor VesprsSoul");
+    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, HS, SOUL)
   }
 
   makePrayer(date, liturgicProps, TABLES, CEL, HS, SOUL){
+      console.log("MakePrayer VespresSoul");
         this.state = {
           salteriComuVespres: TABLES.salteriComuVespres,
           tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
@@ -135,7 +136,7 @@ export default class Vespres {
         }
         break;
       case GLOBAL.P_SETMANES:
-        if(setmana === 7){
+        if(setmana === '7'){
           if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
             himne = this.state.tempsPasquaDA.himneVespresLlati;
           }
