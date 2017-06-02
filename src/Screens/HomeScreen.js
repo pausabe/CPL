@@ -41,8 +41,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    today.setDate(23); //1-31
-    today.setMonth(4); //0-11
+    today.setDate(20); //1-31
+    today.setMonth(3); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
     this.llati = false;
@@ -62,11 +62,11 @@ export default class HomeScreen extends Component {
       cicle: '',
       setmana: '',
       ABC: '',
-      tempsespecific2: '',
+      /*tempsespecific2: '',
       LT2: '',
       cicle2: '',
       setmana2: '',
-      ABC2: '',
+      ABC2: '',*/
     }
 
     this.acceso = new DBAdapter();
@@ -107,7 +107,7 @@ export default class HomeScreen extends Component {
       newDay.getFullYear(),
       newDay.getMonth(),
       newDay.getDate(),
-      (current, tomorrow, pentacosta) => {
+      (current, pentacosta) => {
         var celType = this.getCelType(this.HCDiocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
         this.variables.celType = celType;
         this.variables.date = newDay;
@@ -121,11 +121,11 @@ export default class HomeScreen extends Component {
         this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
         this.liturgicProps.ABC = current.anyABC;
 
-        this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
+        /*this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
         this.liturgicProps.LT2 = tomorrow.temps;
         this.liturgicProps.cicle2 = tomorrow.cicle; //1-4
         this.liturgicProps.setmana2 = tomorrow.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-        this.liturgicProps.ABC2 = tomorrow.anyABC;
+        this.liturgicProps.ABC2 = tomorrow.anyABC;*/
 
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, pentacosta, this);
@@ -252,6 +252,7 @@ export default class HomeScreen extends Component {
   getCelType(diocesi, anyliturgic){
     switch (diocesi) {
       case "BaD":
+      console.log("???? " + anyliturgic.BaD);
         celType = anyliturgic.BaD;
         break;
       case "BaV":

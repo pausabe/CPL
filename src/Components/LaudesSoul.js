@@ -593,11 +593,12 @@ export default class LaudesSoul {
     if(CEL.respBreu1 === '-'){
       if(LT === GLOBAL.Q_TRIDU){
         this.LAUDES.calAntEspecial = true;
-        this.LAUDES.antEspecialLaudes = antEspecialLaudes;
+        this.LAUDES.antEspecialLaudes = this.state.tempsQuaresmaTridu.antEspecialLaudes;
       }
       else if(LT === GLOBAL.P_OCTAVA){
+        console.log("RIGHT HERE");
         this.LAUDES.calAntEspecial = true;
-        this.LAUDES.antEspecialLaudes = antEspecialLaudes;
+        this.LAUDES.antEspecialLaudes = this.state.tempsPasquaOct.antEspecialLaudes;
       }
       else{
         this.LAUDES.calAntEspecial = false;

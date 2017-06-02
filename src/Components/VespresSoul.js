@@ -549,14 +549,15 @@ export default class VespresSoul {
         respBreu3 = this.state.tempsNadalAbansEpifania.respBreuVespres3
         break;
     }
+    
     if(CEL.respBreu1 === '-'){
       if(LT === GLOBAL.Q_TRIDU){
         this.VESPRES.calAntEspecial = true;
-        this.VESPRES.antEspecialVespres = antEspecialVespres;
+        this.VESPRES.antEspecialVespres = this.state.tempsQuaresmaTridu.antEspecialVespres;
       }
       else if(LT === GLOBAL.P_OCTAVA){
         this.VESPRES.calAntEspecial = true;
-        this.VESPRES.antEspecialVespres = antEspecialVespres;
+        this.VESPRES.antEspecialVespres = this.state.tempsPasquaOct.antEspecialVespres;
       }
       else{
         this.VESPRES.calAntEspecial = false;
