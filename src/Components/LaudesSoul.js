@@ -10,10 +10,10 @@ import GLOBAL from '../Globals/Globals';
 export default class LaudesSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
     console.log("Constructor LaudesSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, HS, SOUL);
+    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, SOUL){
     console.log("MakePrayer LaudesSoul");
     this.state = {
       salteriComuLaudes: TABLES.salteriComuLaudes,
@@ -80,7 +80,7 @@ export default class LaudesSoul {
     }
 
     this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL);
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
     this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
     this.lecturaBreu(liturgicProps.LT, CEL);
     this.responsori(liturgicProps.LT, CEL);
@@ -135,10 +135,10 @@ export default class LaudesSoul {
     this.LAUDES.salm94 = this.state.salm94;
   }
 
-  himne(LT, weekDay, setmana, CEL){
+  himne(LT, weekDay, setmana, CEL, llati){
     switch(LT){
       case GLOBAL.O_ORDINARI:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){ 
           himne = this.state.salteriComuLaudes.himneLlati;
         }
         else{
@@ -148,7 +148,7 @@ export default class LaudesSoul {
       case GLOBAL.Q_CENDRA:
       case GLOBAL.Q_SETMANES:
         if(weekDay===0){ //diumenge
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsQuaresmaComuFV.himneLaudesLlatiDom;
           }
           else{
@@ -156,7 +156,7 @@ export default class LaudesSoul {
           }
         }
         else{//ferial
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsQuaresmaComuFV.himneLaudesLlatiFer;
           }
           else{
@@ -166,7 +166,7 @@ export default class LaudesSoul {
         break;
       case GLOBAL.Q_DIUM_RAMS:
       case GLOBAL.Q_SET_SANTA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsQuaresmaComuSS.himneLaudesLlati;
         }
         else{
@@ -174,7 +174,7 @@ export default class LaudesSoul {
         }
         break;
       case GLOBAL.Q_TRIDU:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsQuaresmaTridu.himneDSOLaudesllati;
         }
         else{
@@ -182,7 +182,7 @@ export default class LaudesSoul {
         }
         break;
       case GLOBAL.P_OCTAVA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsPasquaAA.himneLaudesLlati1;
         }
         else{
@@ -191,7 +191,7 @@ export default class LaudesSoul {
         break;
       case GLOBAL.P_SETMANES:
         if(setmana === '7'){
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsPasquaDA.himneLaudesLlati;
           }
           else{
@@ -199,7 +199,7 @@ export default class LaudesSoul {
           }
         }
         else{
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsPasquaAA.himneLaudesLlati2;
           }
           else{
@@ -210,7 +210,7 @@ export default class LaudesSoul {
       case GLOBAL.A_SETMANES:
       case GLOBAL.A_FERIES:
       case GLOBAL.N_ABANS:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsAdventNadalComu.himneLaudesLlati;
         }
         else{
@@ -218,7 +218,7 @@ export default class LaudesSoul {
         }
         break;
       case GLOBAL.N_OCTAVA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsSolemnitatsFestes.himneLaudesLlati;
         }
         else{

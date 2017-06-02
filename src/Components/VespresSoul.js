@@ -5,12 +5,11 @@ import GLOBAL from '../Globals/Globals';
 export default class VespresSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
     console.log("Constructor VesprsSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, HS, SOUL)
+    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, SOUL)
   }
 
-  makePrayer(date, liturgicProps, TABLES, CEL, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, SOUL){
       console.log("MakePrayer VespresSoul");
-      console.log("titol1 " + CEL.titol1);
         this.state = {
           salteriComuVespres: TABLES.salteriComuVespres,
           tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
@@ -77,7 +76,7 @@ export default class VespresSoul {
 
         console.log("CEL.titol1 INICI " + CEL.titol1);
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL);
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
     this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
     this.lecturaBreu(liturgicProps.LT, CEL);
     this.responsori(liturgicProps.LT, CEL);
@@ -88,10 +87,10 @@ export default class VespresSoul {
     SOUL.setSoul(HS, "vespres", this.VESPRES);
   }
 
-  himne(LT, weekDay, setmana, CEL){
+  himne(LT, weekDay, setmana, CEL, llati){
     switch(LT){
       case GLOBAL.O_ORDINARI:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.salteriComuVespres.himneLlati;
         }
         else{
@@ -101,7 +100,7 @@ export default class VespresSoul {
       case GLOBAL.Q_CENDRA:
       case GLOBAL.Q_SETMANES:
         if(weekDay===0 || weekDay===6){ //vespres de diumenge
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsQuaresmaComuFV.himneVespresLlatiDom;
           }
           else{
@@ -109,7 +108,7 @@ export default class VespresSoul {
           }
         }
         else{//ferial
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsQuaresmaComuFV.himneVespresLlatiFer;
           }
           else{
@@ -119,7 +118,7 @@ export default class VespresSoul {
         break;
       case GLOBAL.Q_DIUM_RAMS:
       case GLOBAL.Q_SET_SANTA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsQuaresmaComuSS.himneVespresLlati;
         }
         else{
@@ -127,7 +126,7 @@ export default class VespresSoul {
         }
         break;
       case GLOBAL.Q_TRIDU:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsQuaresmaTridu.himneDSOVespresllati;
         }
         else{
@@ -135,7 +134,7 @@ export default class VespresSoul {
         }
         break;
       case GLOBAL.P_OCTAVA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsPasquaAA.himneVespresLlati1;
         }
         else{
@@ -144,7 +143,7 @@ export default class VespresSoul {
         break;
       case GLOBAL.P_SETMANES:
         if(setmana === '7'){
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsPasquaDA.himneVespresLlati;
           }
           else{
@@ -152,7 +151,7 @@ export default class VespresSoul {
           }
         }
         else{
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsPasquaAA.himneVespresLlati2;
           }
           else{
@@ -163,7 +162,7 @@ export default class VespresSoul {
       case GLOBAL.A_SETMANES:
       case GLOBAL.A_FERIES:
       case GLOBAL.N_ABANS:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsAdventNadalComu.himneVespresLlati;
         }
         else{
@@ -171,7 +170,7 @@ export default class VespresSoul {
         }
         break;
       case GLOBAL.N_OCTAVA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsSolemnitatsFestes.himneVespres2Llati;
         }
         else{

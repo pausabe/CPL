@@ -4,12 +4,12 @@ import GLOBAL from '../Globals/Globals';
 
 export default class HoraMenorSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
-    console.log("Constructor HoraMenorSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, HS, SOUL);
+    console.log("Constructor HoraMenorSoul: " + variables.llati);
+    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, CEL, HS, SOUL){
-    console.log("MakePrayer HoraMenorSoul");
+  makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, SOUL){
+    console.log("MakePrayer HoraMenorSoul: " + llati);
     this.state = {
       salteriComuHora: TABLES.salteriComuHora,
       tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
@@ -117,21 +117,21 @@ export default class HoraMenorSoul {
       oracio: '',
     }
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia", CEL.TERCIA);
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia", CEL.TERCIA, llati);
     this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Tèrcia", CEL.TERCIA);
     this.lecturaBreuResp(liturgicProps.LT, "Tèrcia", CEL.TERCIA);
     this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia", CEL.TERCIA);
 
     SOUL.setSoul(HS, "tercia", this.TERCIA);
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA);
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA, llati);
     this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Sexta", CEL.SEXTA);
     this.lecturaBreuResp(liturgicProps.LT, "Sexta", CEL.SEXTA);
     this.oracio(liturgicProps.LT, date.getDay(), "Sexta", CEL.SEXTA);
 
     SOUL.setSoul(HS, "sexta", this.SEXTA);
 
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA);
+    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA, llati);
     this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Nona", CEL.NONA);
     this.lecturaBreuResp(liturgicProps.LT, "Nona", CEL.NONA);
     this.oracio(liturgicProps.LT, date.getDay(), "Nona", CEL.NONA);
@@ -139,11 +139,11 @@ export default class HoraMenorSoul {
     SOUL.setSoul(HS, "nona", this.NONA);
   }
 
-  himne(LT, weekDay, setmana, HM, CEL){
+  himne(LT, weekDay, setmana, HM, CEL, llati){
     if(CEL.himne === '-'){
       switch(LT){
         case GLOBAL.O_ORDINARI:
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             switch (HM) {
               case 'Tèrcia':
                 this.TERCIA.himne = this.state.himneTerciaOrdinariLlati;
@@ -172,7 +172,7 @@ export default class HoraMenorSoul {
           break;
         case GLOBAL.Q_CENDRA:
         case GLOBAL.Q_SETMANES:
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             switch (HM) {
               case 'Tèrcia':
                 this.TERCIA.himne = this.state.tempsQuaresmaComuFV.himneTerciaLlati;
@@ -201,7 +201,7 @@ export default class HoraMenorSoul {
           break;
         case GLOBAL.Q_DIUM_RAMS:
         case GLOBAL.Q_SET_SANTA:
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             this.TERCIA.himne = this.state.tempsQuaresmaComuSS.himneHoraLlati;
             this.SEXTA.himne = this.state.tempsQuaresmaComuSS.himneHoraLlati;
             this.NONA.himne = this.state.tempsQuaresmaComuSS.himneHoraLlati;
@@ -213,7 +213,7 @@ export default class HoraMenorSoul {
           }
           break;
         case GLOBAL.Q_TRIDU:
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             switch (HM) {
               case 'Tèrcia':
                 this.TERCIA.himne = this.state.tempsQuaresmaTridu.himneLlatiTercia;
@@ -241,7 +241,7 @@ export default class HoraMenorSoul {
           }
           break;
         case GLOBAL.P_OCTAVA:
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             switch (HM) {
               case 'Tèrcia':
                 this.TERCIA.himne = this.state.tempsPasquaAA.himneTerciaLlati;
@@ -270,7 +270,7 @@ export default class HoraMenorSoul {
           break;
         case GLOBAL.P_SETMANES:
         if(setmana === '7'){
-            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            if(llati === 'true'){
               switch (HM) {
                 case 'Tèrcia':
                   this.TERCIA.himne = this.state.tempsPasquaDA.himneTerciaLlati;
@@ -298,7 +298,7 @@ export default class HoraMenorSoul {
             }
           }
           else{
-            if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+            if(llati === 'true'){
               switch (HM) {
                 case 'Tèrcia':
                   this.TERCIA.himne = this.state.tempsPasquaAA.himneTerciaLlati;
@@ -330,7 +330,7 @@ export default class HoraMenorSoul {
         case GLOBAL.A_FERIES:
         case GLOBAL.N_OCTAVA:
         case GLOBAL.N_ABANS:
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){ //TODO: tenir en compte els ajustaments (llatí o català)
             switch (HM) {
               case 'Tèrcia':
                 this.TERCIA.himne = this.state.tempsAdventNadalComu.himneTerciaLlati;

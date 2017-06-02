@@ -5,10 +5,10 @@ import GLOBAL from '../Globals/Globals';
 export default class CompletesSoul{
   constructor(variables, liturgicProps, TABLES, HS, SOUL) {
     console.log("Constructor CompletesSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, HS, SOUL);
+    this.makePrayer(variables.date, liturgicProps, TABLES, variables.llati, HS, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, llati, HS, SOUL){
     console.log("MakePrayer CompletesSoul");
     this.state = {
       salteriComuCompletes: TABLES.salteriComuCompletes,
@@ -20,8 +20,7 @@ export default class CompletesSoul{
     }
 
     this.COMPLETES = { //24
-      himneLlati: '',
-      himneCat: '',
+      himne: '',
       antifones: '',
       ant1: '',
       titol1: '',
@@ -47,16 +46,16 @@ export default class CompletesSoul{
       antMare: this.state.antMare,
     }
 
-    this.completes(liturgicProps.LT, date.getDay());
+    this.completes(liturgicProps.LT, date.getDay(), llati);
 
     SOUL.setSoul(HS, "completes", this.COMPLETES);
   }
 
-  completes(LT, weekDay) {
+  completes(LT, weekDay, llati) {
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    this.COMPLETES.himneLlati = this.state.himneLlati;
-    this.COMPLETES.himneCat = this.state.himneCat;
+    if(llati === 'true') this.COMPLETES.himne = this.state.himneLlati;
+    else this.COMPLETES.himne = this.state.himneCat;
 
     this.COMPLETES.antifones = true;
     this.COMPLETES.ant1 = this.state.salteriComuCompletes.ant1;

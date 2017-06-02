@@ -3,10 +3,10 @@ import GLOBAL from '../Globals/Globals';
 export default class OficiSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
     console.log("Constructor OficiSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, HS, SOUL);
+    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, SOUL){
     console.log("MakePrayer OficiSoul");
         nit=false; //TODO: todo
         this.state = {
@@ -82,7 +82,7 @@ export default class OficiSoul {
         }
 
     this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
-    this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana, CEL);
+    this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana, CEL, llati);
     this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
     this.vers(liturgicProps.LT, CEL);
     this.lectures(liturgicProps.LT, CEL);
@@ -135,11 +135,11 @@ export default class OficiSoul {
     this.OFICI.salm94 = this.state.salm94;
   }
 
-  himne(LT, weekDay, nit, setmana, CEL){
+  himne(LT, weekDay, nit, setmana, CEL, llati){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(nit){
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.salteriComuOfici.himneNitLlati;
           }
           else{
@@ -147,7 +147,7 @@ export default class OficiSoul {
           }
         }
         else{//dia
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.salteriComuOfici.himneDiaLlati;
           }
           else{
@@ -158,7 +158,7 @@ export default class OficiSoul {
       case GLOBAL.Q_CENDRA:
       case GLOBAL.Q_SETMANES:
         if(weekDay===0){ //diumenge
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiDom;
           }
           else{
@@ -166,7 +166,7 @@ export default class OficiSoul {
           }
         }
         else{//ferial
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsQuaresmaComuFV.himneOficiLlatiFer;
           }
           else{
@@ -176,7 +176,7 @@ export default class OficiSoul {
         break;
       case GLOBAL.Q_DIUM_RAMS:
       case GLOBAL.Q_SET_SANTA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsQuaresmaComuSS.himneOficiLlati;
         }
         else{
@@ -184,7 +184,7 @@ export default class OficiSoul {
         }
         break;
       case GLOBAL.Q_TRIDU:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsQuaresmaTridu.himneDSOLLati;
         }
         else{
@@ -192,7 +192,7 @@ export default class OficiSoul {
         }
         break;
       case GLOBAL.P_OCTAVA:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsPasquaAA.himneOficiLlati1;
         }
         else{
@@ -201,7 +201,7 @@ export default class OficiSoul {
         break;
       case GLOBAL.P_SETMANES:
         if(setmana === '7'){
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsPasquaDA.himneOficiLlati;
           }
           else{
@@ -209,7 +209,7 @@ export default class OficiSoul {
           }
         }
         else{
-          if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             himne = this.state.tempsPasquaAA.himneOficiLlati2;
           }
           else{
@@ -221,7 +221,7 @@ export default class OficiSoul {
       case GLOBAL.A_FERIES:
       case GLOBAL.N_OCTAVA:
       case GLOBAL.N_ABANS:
-        if(false){ //TODO: tenir en compte els ajustaments (llatí o català)
+        if(llati === 'true'){
           himne = this.state.tempsAdventNadalComu.himneOficiLlati;
         }
         else{
@@ -340,13 +340,13 @@ export default class OficiSoul {
           ant1 = this.state.salteriComuOfici.ant1;
           ant2 = this.state.salteriComuOfici.ant2;
           ant3 = this.state.salteriComuOfici.ant3;
-          if(!(cicle === 3 && weekDay === 4) && !(cicle === 4 && weekDay === 2) && !(cicle === 2 && weekDay === 1) && !(cicle === 2 && weekDay === 3) && !(cicle === 2 && weekDay === 5)){
+          if(!(cicle === '3' && weekDay === 4) && !(cicle === '4' && weekDay === 2) && !(cicle === '2' && weekDay === 1) && !(cicle === '2' && weekDay === 3) && !(cicle === '2' && weekDay === 5)){
             ant1 += " Al·leluia.";
           }
-          if(!(cicle === 2 && weekDay === 3) && !(cicle === 2 && weekDay === 4) && !(cicle === 2 && weekDay === 6) && !(cicle === 3 && weekDay === 5) && !(cicle === 4 && weekDay === 1) && !(cicle === 4 && weekDay === 2)){
+          if(!(cicle === '2' && weekDay === 3) && !(cicle === '2' && weekDay === 4) && !(cicle === '2' && weekDay === 6) && !(cicle === '3' && weekDay === 5) && !(cicle === '4' && weekDay === 1) && !(cicle === '4' && weekDay === 2)){
             ant2 += " Al·leluia.";
           }
-          if(!(cicle === 4 && weekDay === 4)){
+          if(!(cicle === '4' && weekDay === 4)){
             ant3 += " Al·leluia.";
           }
         }

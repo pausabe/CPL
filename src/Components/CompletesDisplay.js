@@ -34,7 +34,7 @@ export default class CompletesDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
-        {false ? <Text style={GLOBAL.styles.black}>{this.props.COMPLETES.himneLlati}</Text> : <Text style={GLOBAL.styles.black}>{this.props.COMPLETES.himneCat}</Text>}
+        <Text style={GLOBAL.styles.black}>{this.props.COMPLETES.himne}</Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />

@@ -45,12 +45,11 @@ export default class HomeScreen extends Component {
     //today.setMonth(4); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
-    this.llati = false;
 
     this.variables = {
       diocesi: '',
       invitatori: '',
-      llati: this.llati,
+      llati: '',
       celType: '',
       date: today,
     }
@@ -91,7 +90,9 @@ export default class HomeScreen extends Component {
     Promise.all([
       SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = this.HCDiocesi/*r*/),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
+      SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
     ]).then(results => {
+      console.log("llati: " + this.variables.llati);
       this.refreshDate(date);
     });
   }
@@ -118,13 +119,12 @@ export default class HomeScreen extends Component {
       newDay.getMonth(),
       newDay.getDate(),
       (current, tomorrow, pentacosta) => {
-        var celType = this.getCelType(this.HCDiocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
-        var tomorrowCelType = this.getCelType(this.HCDiocesi, tomorrow); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
+        var celType = this.getCelType(this.variables.diocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
+        var tomorrowCelType = this.getCelType(this.variables.diocesi, tomorrow); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
         console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
 
         this.variables.celType = celType;
         this.variables.date = newDay;
-          this.variables.llati = this.llati,
 
         this.liturgicProps.LITURGIA = null;
 
