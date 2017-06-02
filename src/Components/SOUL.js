@@ -283,8 +283,13 @@ export default class SOUL {
     if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA && liturgicProps.LT !== GLOBAL.N_OCTAVA){
       c += 1;
       cicleAux = liturgicProps.cicle;
-      if(params.idTSF !== -1) cicleAux = 1;
-      if(params.idTSF === 2) cicleAux = 2;
+      if(params.idTSF !== -1) {
+        cicleAux = 1;
+      }
+      else {
+        if(params.idTSF === 2) cicleAux = 2;
+        if(celType === 'S' || celType === 'F') cicleAux = 1;
+      }
       idLaudes = (cicleAux-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("salteriComuLaudes", idLaudes, (result) => { this.queryRows.salteriComuLaudes = result; this.dataReceived(params); });
     }

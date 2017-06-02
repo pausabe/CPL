@@ -59,7 +59,7 @@ export default class LiturgiaDisplayScreen extends Component {
           break;
           case 'Vespres':
             var today = new Date();
-            if(this.props.weekDay !== 6){
+            //if(this.props.weekDay !== 6){
               return(
                 <Vespres
                   date={this.props.date}
@@ -70,8 +70,8 @@ export default class LiturgiaDisplayScreen extends Component {
                   ABC = {this.props.liturgicProps.ABC}
                   VESPRES = {this.props.liturgicProps.LITURGIA.vespres}/>
                 )
-            }
-            else{ //dissabte vespre = vespres de diumenge
+            //}
+            /*else{ //dissabte vespre = vespres de diumenge
               return(
                 <Vespres
                   date={this.props.date}
@@ -82,7 +82,7 @@ export default class LiturgiaDisplayScreen extends Component {
                   ABC={this.props.liturgicProps.ABC2}
                   VESPRES = {this.props.liturgicProps.LITURGIA.vespres}/>
                 )
-            }
+            }*/
             break;
             case 'Tèrcia':
               return(
