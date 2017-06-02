@@ -13,6 +13,7 @@ export default class SOUL {
     this.variables = variables;
     this.liturgicProps = liturgicProps;
     this.dataTomorrow = dataTomorrow;
+    this.pentacosta = pentacosta;
 
     this.queryRows = {
       salteriComuOfici: '', //1
@@ -501,7 +502,12 @@ export default class SOUL {
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
-          if(false/*determinar*/) vespresCelDEF = this.CEL.VESPRES1;
+          if(this.tomorrowCalVespres1CEL(this.dataTomorrow.date, this.variables.LT,
+            this.variables.setmana, this.pentacosta, this.dataTomorrow.celType)) {
+              //vespresCelDEF = this.CEL.VESPRES1;
+              console.log("YYYYYYYYYYYYYYYYYEEEEEEEEEEEEEEEEEEESSSSSSSSSS");
+              vespresCelDEF = this.CEL.VESPRES;
+            }
           else vespresCelDEF = this.CEL.VESPRES;
 
           if(this.firstAccess){
@@ -526,6 +532,18 @@ export default class SOUL {
       this.countLit = 7;
       HS.setSoul(this.LITURGIA);
     }
+  }
+
+  tomorrowCalVespres1CEL(date, LT, setmana, pentacosta){
+    idDE = this.findDiesEspecials(date, LT, setmana, pentacosta);
+    if(idDE !== -1 && idDE !== 1) return true;
+
+    if(this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta) !== -1)
+      return true;
+
+    if(this.dataTomorrow.celType === 'S') return true;
+
+    return false;
   }
 
   /*

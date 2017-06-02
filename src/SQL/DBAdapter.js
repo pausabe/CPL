@@ -44,22 +44,40 @@ export default class DBAdapter {
     //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
     var query = `SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day}`;
-    console.log("QUERY ANY: " + query);
+    //console.log("QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
-        this.getPentacosta(result.rows.item(0), year, callback);
+        console.log(">>Today: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        this.getTomorrow(result.rows.item(0), year, month, day, callback);
       });
   }
 
-  getPentacosta(r1, year, callback){
+  getTomorrow(r1, year, month, day, callback){
+    var tomorrow = new Date(year, month, day);
+    tomorrow.setDate(tomorrow.getDate()+1); //TODO: i si no existeix a la base de dades??!! (limitar el datapicker)
+    year2 = tomorrow.getFullYear();
+    month2 = tomorrow.getMonth();
+    day2 = tomorrow.getDate();
+    //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
+    //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
+    var query = `SELECT * FROM anyliturgic WHERE any = ${year2} AND mes = ${month2+1} AND dia = ${day2}`;
+    //console.log("QUERY ANY: " + query);
+    this.executeQuery(query,
+      result => {
+        console.log(">>Tomorrow: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        this.getPentacosta(r1, result.rows.item(0), year, callback);
+      });
+  }
+
+  getPentacosta(r1, r2, year, callback){
     this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND temps = '${GLOBAL.P_SETMANES}' AND NumSet = 8 AND DiadelaSetmana = 'Dg'`,
       result => {
         var pentacosta = new Date();
         pentacosta.setDate(result.rows.item(0).dia);
         auxMonth = result.rows.item(0).mes-1;
         pentacosta.setMonth(auxMonth);
-        //console.log("TESTING PENTA: " + result.rows.item(0).dia + " - " + auxMonth);
-        callback(r1, pentacosta);
+        console.log(">>Pentacosta: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        callback(r1, r2, pentacosta);
       });
   }
 

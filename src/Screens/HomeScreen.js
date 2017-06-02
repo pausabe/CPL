@@ -41,8 +41,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    today.setDate(9); //1-31
-    today.setMonth(11); //0-11
+    //today.setDate(9); //1-31
+    //today.setMonth(11); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
     this.llati = false;
@@ -74,6 +74,7 @@ export default class HomeScreen extends Component {
 
     this.dataTomorrow = {
       date: tomorrow,
+      celType: '',
     }
 
     this.acceso = new DBAdapter();
@@ -114,8 +115,11 @@ export default class HomeScreen extends Component {
       newDay.getFullYear(),
       newDay.getMonth(),
       newDay.getDate(),
-      (current, pentacosta) => {
+      (current, tomorrow, pentacosta) => {
         var celType = this.getCelType(this.HCDiocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
+        var tomorrowCelType = this.getCelType(this.HCDiocesi, tomorrow); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
+        console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
+
         this.variables.celType = celType;
         this.variables.date = newDay;
           this.variables.llati = this.llati,
@@ -127,6 +131,8 @@ export default class HomeScreen extends Component {
         this.liturgicProps.cicle = current.cicle; //1-4
         this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
         this.liturgicProps.ABC = current.anyABC;
+
+        this.dataTomorrow.celType = tomorrowCelType;
 
         /*this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
         this.liturgicProps.LT2 = tomorrow.temps;
