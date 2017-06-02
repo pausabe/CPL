@@ -41,8 +41,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(9); //1-31
-    //today.setMonth(11); //0-11
+    today.setDate(6); //1-31
+    today.setMonth(7); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
     this.llati = false;
@@ -75,6 +75,8 @@ export default class HomeScreen extends Component {
     this.dataTomorrow = {
       date: tomorrow,
       celType: '',
+      LT: '',
+      setmana: '',
     }
 
     this.acceso = new DBAdapter();
@@ -133,6 +135,10 @@ export default class HomeScreen extends Component {
         this.liturgicProps.ABC = current.anyABC;
 
         this.dataTomorrow.celType = tomorrowCelType;
+        this.dataTomorrow.LT = tomorrow.temps;
+        this.dataTomorrow.setmana = tomorrow.NumSet;
+
+        console.log("CHANGING TOMORROW DATE: " + this.dataTomorrow.date.getDate() + "/" + this.dataTomorrow.date.getMonth());
 
         /*this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
         this.liturgicProps.LT2 = tomorrow.temps;
@@ -160,6 +166,11 @@ export default class HomeScreen extends Component {
     newDay.setMonth(this.variables.date.getMonth());
     newDay.setFullYear(this.variables.date.getFullYear());
     newDay.setDate(this.variables.date.getDate()-1);
+
+    auxTomorrow = this.dataTomorrow.date;
+    auxTomorrow.setDate(auxTomorrow.getDate()-1);
+    this.dataTomorrow.date = auxTomorrow;
+
     this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 
@@ -169,6 +180,11 @@ export default class HomeScreen extends Component {
     newDay.setMonth(this.variables.date.getMonth());
     newDay.setFullYear(this.variables.date.getFullYear());
     newDay.setDate(this.variables.date.getDate()+1);
+
+    auxTomorrow = this.dataTomorrow.date;
+    auxTomorrow.setDate(auxTomorrow.getDate()+1);
+    this.dataTomorrow.date = auxTomorrow;
+
     this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 

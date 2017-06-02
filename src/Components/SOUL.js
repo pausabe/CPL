@@ -88,6 +88,12 @@ export default class SOUL {
     console.log("idTSF_aux: " + idTSF_aux);
     //idTSF_aux = -1;
 
+    this.tomorrowCal = '-';
+
+    this.tomorrowCal = this.tomorrowCalVespres1CEL(this.dataTomorrow.date, this.dataTomorrow.LT,
+      this.dataTomorrow.setmana, this.pentacosta, this.dataTomorrow.celType);
+
+      console.log("tomorrowCal --------> " + this.tomorrowCal);
 
     params = {
       date: date,
@@ -373,7 +379,7 @@ export default class SOUL {
     }
 
     //taula 30 (#31): -
-    if(params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU){
+    if(this.tomorrowCal !== '-' || params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU){
       c += 1;
       if(params.idTSF === -1){
         id = 1; //Només necessito Nadal (1) per N_OCTAVA
@@ -381,6 +387,10 @@ export default class SOUL {
       else{
         id = params.idTSF;
       }
+      if(this.tomorrowCal !== '-') {
+        id = this.idTSFTomorrow;
+      }
+      console.log("OOOOOOOOOOO " + id);
       this.acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => { this.queryRows.tempsSolemnitatsFestes = result; this.dataReceived(params); });
     }
 
@@ -451,10 +461,10 @@ export default class SOUL {
     if(this.count === 0){
       if(this.firstAccessCel){
         this.firstAccessCel = false;
-        this.CelebracioSoul = new CelebracioSoul(this.variables, params.liturgicProps, this.queryRows, params.idTSF, params.idDE, params.HS, this, params.llati);
+        this.CelebracioSoul = new CelebracioSoul(this.variables, params.liturgicProps, this.queryRows, params.idTSF, params.idDE, params.HS, this, params.llati, this.tomorrowCal);
       }
       else{
-        this.CelebracioSoul.makePrayer(this.variables.date, params.liturgicProps, this.queryRows, params.celType, params.diocesi, params.idTSF, params.idDE, params.HS, this, params.llati);
+        this.CelebracioSoul.makePrayer(this.variables.date, params.liturgicProps, this.queryRows, params.celType, params.diocesi, params.idTSF, params.idDE, params.HS, this, params.llati, this.tomorrowCal);
       }
     }
   }
@@ -475,7 +485,7 @@ export default class SOUL {
       case "vespres":
           this.countLit -= 1;
           this.LITURGIA.vespres = pregaria;
-          console.log("VESPRES");
+          console.log("VESPRES: " + this.LITURGIA.vespres.titol1);
         break;
       case "tercia":
           this.countLit -= 1;
@@ -502,12 +512,11 @@ export default class SOUL {
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
-          if(this.tomorrowCalVespres1CEL(this.dataTomorrow.date, this.variables.LT,
-            this.variables.setmana, this.pentacosta, this.dataTomorrow.celType)) {
-              //vespresCelDEF = this.CEL.VESPRES1;
-              console.log("YYYYYYYYYYYYYYYYYEEEEEEEEEEEEEEEEEEESSSSSSSSSS");
-              vespresCelDEF = this.CEL.VESPRES;
-            }
+          if(this.tomorrowCal !== '-') {
+              vespresCelDEF = this.CEL.VESPRES1;
+              console.log("YYYYYYYYYYYYYYYYYEEEEEEEEEEEEEEEEEEESSSSSSSSSS: " + vespresCelDEF.titol1);
+              //vespresCelDEF = this.CEL.VESPRES;
+          }
           else vespresCelDEF = this.CEL.VESPRES;
 
           if(this.firstAccess){
@@ -521,7 +530,7 @@ export default class SOUL {
           else{
             this.OficiSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.variables.invitatori, this.CEL.OFICI, HS, this);
             this.LaudesSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.variables.invitatori, this.CEL.LAUDES, HS, this);
-            this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.CEL.VESPRES, HS, this);
+            this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, vespresCelDEF, HS, this);
             this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.CEL.HORA_MENOR, HS, this);
             this.CompletesSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, HS, this);
           }
@@ -535,15 +544,16 @@ export default class SOUL {
   }
 
   tomorrowCalVespres1CEL(date, LT, setmana, pentacosta){
-    idDE = this.findDiesEspecials(date, LT, setmana, pentacosta);
-    if(idDE !== -1 && idDE !== 1) return true;
+    var idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
+    if(idDETomorrow !== -1 && idDETomorrow !== 1)
+      return 'DE';
 
-    if(this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta) !== -1)
-      return true;
+    this.idTSFTomorrow = this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta);
+    if(this.idTSFTomorrow !== -1) return 'TSF';
 
-    if(this.dataTomorrow.celType === 'S') return true;
+    if(this.dataTomorrow.celType === 'S') return 'S';
 
-    return false;
+    return '-';
   }
 
   /*

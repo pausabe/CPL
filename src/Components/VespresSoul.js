@@ -10,6 +10,7 @@ export default class VespresSoul {
 
   makePrayer(date, liturgicProps, TABLES, CEL, HS, SOUL){
       console.log("MakePrayer VespresSoul");
+      console.log("titol1 " + CEL.titol1);
         this.state = {
           salteriComuVespres: TABLES.salteriComuVespres,
           tempsOrdinariOracions: TABLES.tempsOrdinariOracions,
@@ -73,6 +74,8 @@ export default class VespresSoul {
           pregaries: '',
           oracio: '',
         }
+
+        console.log("CEL.titol1 INICI " + CEL.titol1);
 
     this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL);
     this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
@@ -182,6 +185,7 @@ export default class VespresSoul {
   }
 
   salmodia(LT, setmana, weekDay, CEL){
+    console.log("CEL.titol1 " + CEL.titol1);
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.Q_CENDRA:
@@ -388,6 +392,7 @@ export default class VespresSoul {
         gloria3 = "1";
         break;
     }
+    console.log("CEL.titol1 " + CEL.titol1);
     if(CEL.ant1 === '-')
       this.VESPRES.ant1 = ant1;
     else this.VESPRES.ant1 = CEL.ant1;
