@@ -262,7 +262,7 @@ export default class NavigatorController extends Component {
                           route={route}
                           title="Liturgia"
                           type={route.type}
-                          date={route.date}
+                          variables={route.variables}
                           liturgicProps={route.liturgicProps} />);
     }
   }

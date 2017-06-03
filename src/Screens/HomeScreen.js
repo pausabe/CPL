@@ -50,6 +50,7 @@ export default class HomeScreen extends Component {
       diocesi: '',
       invitatori: '',
       llati: '',
+      gloria: '',
       celType: '',
       date: today,
     }
@@ -91,8 +92,9 @@ export default class HomeScreen extends Component {
       SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = this.HCDiocesi/*r*/),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
+      SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
     ]).then(results => {
-      console.log("llati: " + this.variables.llati);
+      console.log("gloria: " + this.variables.gloria);
       this.refreshDate(date);
     });
   }
@@ -258,6 +260,7 @@ export default class HomeScreen extends Component {
              <Liturgia
                navigator={this.props.navigator}
                 date={this.variables.date}
+                variables={this.variables}
                 liturgicProps={this.liturgicProps}
              />
            </View>

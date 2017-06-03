@@ -10,50 +10,51 @@ import GLOBAL from '../Globals/Globals';
 
 export default class LaudesDisplay extends Component {
   render() {
+    LAUDES = this.props.liturgicProps.LITURGIA.laudes;
     return (
       <View>
-        {this.introduccio(this.props.LT, this.props.setmana)}
+        {this.introduccio(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, LAUDES)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.date.getDay(), this.props.setmana)}
+        {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, LAUDES)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.setmana, this.props.date.getDay())}
+        {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), LAUDES)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>LECTURA BREU</Text>
         <Text />
-        {this.lecturaBreu(this.props.LT)}
+        {this.lecturaBreu(this.props.liturgicProps.LT, LAUDES)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>RESPONSORI BREU</Text>
         <Text />
-        {this.responsori(this.props.LT)}
+        {this.responsori(this.props.liturgicProps.LT, LAUDES)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>CÀNTIC DE ZACARIES</Text>
         <Text />
-        {this.cantic(this.props.LT, this.props.date.getDay(), this.props.ABC)}
+        {this.cantic(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.ABC, LAUDES)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>PREGÀRIES</Text>
         <Text />
-        {this.pregaries(this.props.LT)}
+        {this.pregaries(this.props.liturgicProps.LT, LAUDES)}
         <Text />
         <Text style={GLOBAL.styles.red}>ORACIÓ</Text>
         <Text />
         <Text style={GLOBAL.styles.blackBold}>Preguem.</Text>
-        {this.oracio(this.props.LT, this.props.date.getDay())}
+        {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), LAUDES)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -88,10 +89,10 @@ export default class LaudesDisplay extends Component {
     }
   }
 
-  introduccio(LT, setmana){
+  introduccio(LT, setmana, LAUDES){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    if(this.props.LAUDES.invitatori !== "Laudes"){
+    if(LAUDES.invitatori !== "Laudes"){
       return(
         <View>
           <Text style={GLOBAL.styles.red}>V.
@@ -102,7 +103,7 @@ export default class LaudesDisplay extends Component {
           </Text>
           <Text />
           <Text style={GLOBAL.styles.black}>{gloriaStringIntro}
-            {this.props.LT !== GLOBAL.Q_CENDRA && this.props.LT !== GLOBAL.Q_SETMANES && this.props.LT !== GLOBAL.Q_DIUM_RAMS && this.props.LT !== GLOBAL.Q_SET_SANTA && this.props.LT !== GLOBAL.Q_TRIDU ?
+            {this.props.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.props.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.props.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.props.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.props.liturgicProps.LT !== GLOBAL.Q_TRIDU ?
               <Text style={GLOBAL.styles.black}> Al·leluia</Text> : null
             }
           </Text>
@@ -122,99 +123,99 @@ export default class LaudesDisplay extends Component {
           <Hr lineColor='#CFD8DC' />
           <Text />
           <Text style={GLOBAL.styles.red}>Ant.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.antInvitatori}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.antInvitatori}</Text>
           </Text>
           <Text />
           <Text style={GLOBAL.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
           <Text />
           <Text style={GLOBAL.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
           <Text />
-          <Text style={GLOBAL.styles.black}>{this.props.LAUDES.salm94}</Text>
+          <Text style={GLOBAL.styles.black}>{LAUDES.salm94}</Text>
           <Text />
           {this.gloria('1')}
           <Text />
           <Text style={GLOBAL.styles.red}>Ant.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.antInvitatori}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.antInvitatori}</Text>
           </Text>
         </View>
       )
     }
   }
 
-  himne(LT, weekDay, setmana){
-    return(<Text style={GLOBAL.styles.black}>{this.props.LAUDES.himne}</Text>);
+  himne(LT, weekDay, setmana, LAUDES){
+    return(<Text style={GLOBAL.styles.black}>{LAUDES.himne}</Text>);
   }
 
-  salmodia(LT, setmana, weekDay){
+  salmodia(LT, setmana, weekDay, LAUDES){
     return(
       <View>
         <Text style={GLOBAL.styles.red}>Ant. 1.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.ant1}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.ant1}</Text>
         </Text>
         <Text />
-        <Text style={GLOBAL.styles.redCenter}>{this.props.LAUDES.titol1}</Text>
+        <Text style={GLOBAL.styles.redCenter}>{LAUDES.titol1}</Text>
         <Text />
-        {this.props.LAUDES.com1 !== '-' ?
-          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{this.props.LAUDES.com1}</Text><Text /></View> : null}
-        <Text style={GLOBAL.styles.black}>{this.props.LAUDES.salm1}</Text>
+        {LAUDES.com1 !== '-' ?
+          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{LAUDES.com1}</Text><Text /></View> : null}
+        <Text style={GLOBAL.styles.black}>{LAUDES.salm1}</Text>
         <Text />
-        {this.gloria(this.props.LAUDES.gloria1)}
+        {this.gloria(LAUDES.gloria1)}
         <Text />
         <Text style={GLOBAL.styles.red}>Ant. 1.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.ant1}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.ant1}</Text>
         </Text>
         <Text />
         <Text style={GLOBAL.styles.red}>Ant. 2.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.ant2}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.ant2}</Text>
         </Text>
         <Text />
-        <Text style={GLOBAL.styles.redCenter}>{this.props.LAUDES.titol2}</Text>
+        <Text style={GLOBAL.styles.redCenter}>{LAUDES.titol2}</Text>
         <Text />
-        {this.props.LAUDES.com2 !== '-' ?
-          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{this.props.LAUDES.com2}</Text><Text /></View> : null}
-        <Text style={GLOBAL.styles.black}>{this.props.LAUDES.salm2}</Text>
+        {LAUDES.com2 !== '-' ?
+          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{LAUDES.com2}</Text><Text /></View> : null}
+        <Text style={GLOBAL.styles.black}>{LAUDES.salm2}</Text>
         <Text />
-        {this.gloria(this.props.LAUDES.gloria2)}
+        {this.gloria(LAUDES.gloria2)}
         <Text />
         <Text style={GLOBAL.styles.red}>Ant. 2.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.ant2}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.ant2}</Text>
         </Text>
         <Text />
         <Text style={GLOBAL.styles.red}>Ant. 3.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.ant3}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.ant3}</Text>
         </Text>
         <Text />
-        <Text style={GLOBAL.styles.redCenter}>{this.props.LAUDES.titol3}</Text>
+        <Text style={GLOBAL.styles.redCenter}>{LAUDES.titol3}</Text>
         <Text />
-        {this.props.LAUDES.com3 !== '-' ?
-          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{this.props.LAUDES.com3}</Text><Text /></View> : null}
-        <Text style={GLOBAL.styles.black}>{this.props.LAUDES.salm3}</Text>
+        {LAUDES.com3 !== '-' ?
+          <View><Text style={GLOBAL.styles.blackSmallItalicRight}>{LAUDES.com3}</Text><Text /></View> : null}
+        <Text style={GLOBAL.styles.black}>{LAUDES.salm3}</Text>
         <Text />
-        {this.gloria(this.props.LAUDES.gloria3)}
+        {this.gloria(LAUDES.gloria3)}
         <Text />
         <Text style={GLOBAL.styles.red}>Ant. 3.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.ant3}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.ant3}</Text>
         </Text>
       </View>
     );
   }
 
-  lecturaBreu(LT){
+  lecturaBreu(LT, LAUDES){
     return(
       <View>
-        <Text style={GLOBAL.styles.red}>{this.props.LAUDES.vers}</Text>
+        <Text style={GLOBAL.styles.red}>{LAUDES.vers}</Text>
         <Text />
-        <Text style={GLOBAL.styles.black}>{this.props.LAUDES.lecturaBreu}</Text>
+        <Text style={GLOBAL.styles.black}>{LAUDES.lecturaBreu}</Text>
       </View>
     )
   }
 
-  responsori(LT){
-    if(this.props.LAUDES.calAntEspecial){
+  responsori(LT, LAUDES){
+    if(LAUDES.calAntEspecial){
       return(
         <View>
           <Text style={GLOBAL.styles.red}>Ant.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.antEspecialLaudes}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.antEspecialLaudes}</Text>
           </Text>
         </View>
       )
@@ -223,56 +224,56 @@ export default class LaudesDisplay extends Component {
       return(
         <View>
           <Text style={GLOBAL.styles.red}>V.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.respBreu1} {this.props.LAUDES.respBreu2}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.respBreu1} {LAUDES.respBreu2}</Text>
           </Text>
           <Text style={GLOBAL.styles.red}>R.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.respBreu1} {this.props.LAUDES.respBreu2}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.respBreu1} {LAUDES.respBreu2}</Text>
           </Text>
           <Text />
           <Text style={GLOBAL.styles.red}>V.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.respBreu3}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.respBreu3}</Text>
           </Text>
           <Text style={GLOBAL.styles.red}>R.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.respBreu2}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.respBreu2}</Text>
           </Text>
           <Text />
           <Text style={GLOBAL.styles.red}>V.
             <Text style={GLOBAL.styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
           </Text>
           <Text style={GLOBAL.styles.red}>R.
-            <Text style={GLOBAL.styles.black}> {this.props.LAUDES.respBreu1} {this.props.LAUDES.respBreu2}</Text>
+            <Text style={GLOBAL.styles.black}> {LAUDES.respBreu1} {LAUDES.respBreu2}</Text>
           </Text>
         </View>
       )
     }
   }
 
-  cantic(LT, weekDay, litYear){
+  cantic(LT, weekDay, litYear, LAUDES){
     return(
       <View>
         <Text style={GLOBAL.styles.red}>Ant.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.antCantic}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.antCantic}</Text>
         </Text>
         <Text />
-        <Text style={GLOBAL.styles.black}>{this.props.LAUDES.cantic}</Text>
+        <Text style={GLOBAL.styles.black}>{LAUDES.cantic}</Text>
         <Text />
         {this.gloria('1')}
         <Text />
         <Text style={GLOBAL.styles.red}>Ant.
-          <Text style={GLOBAL.styles.black}> {this.props.LAUDES.antCantic}</Text>
+          <Text style={GLOBAL.styles.black}> {LAUDES.antCantic}</Text>
         </Text>
       </View>
     );
   }
 
-  pregaries(LT){
+  pregaries(LT, LAUDES){
     return(
-        <Text style={GLOBAL.styles.black}> {this.props.LAUDES.pregaries}</Text>
+        <Text style={GLOBAL.styles.black}> {LAUDES.pregaries}</Text>
     );
   }
 
-  oracio(LT, weekDay){
-    return(<Text style={GLOBAL.styles.black}>{this.props.LAUDES.oracio}</Text>);
+  oracio(LT, weekDay, LAUDES){
+    return(<Text style={GLOBAL.styles.black}>{LAUDES.oracio}</Text>);
   }
 }
 

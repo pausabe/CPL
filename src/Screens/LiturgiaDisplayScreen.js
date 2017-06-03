@@ -36,103 +36,56 @@ export default class LiturgiaDisplayScreen extends Component {
       case 'Ofici':
         return(
           <Ofici
-            date={this.props.date}
-
-            cicle = {this.props.liturgicProps.cicle}
-            setmana = {this.props.liturgicProps.setmana}
-            LT={this.props.liturgicProps.LT}
-            ABC={this.props.liturgicProps.ABC}
-            OFICI={this.props.liturgicProps.LITURGIA.ofici}/>
+            variables={this.props.variables}
+            liturgicProps = {this.props.liturgicProps}/>
           )
         break;
         case 'Laudes':
           return(
             <Laudes
-              date={this.props.date}
-
-              cicle = {this.props.liturgicProps.cicle}
-              setmana = {this.props.liturgicProps.setmana}
-              LT = {this.props.liturgicProps.LT}
-              ABC = {this.props.liturgicProps.ABC}
-              LAUDES = {this.props.liturgicProps.LITURGIA.laudes}/>
+              liturgicProps={this.props.liturgicProps}
+              variables={this.props.variables}/>
             )
           break;
           case 'Vespres':
-            var today = new Date();
-            //if(this.props.weekDay !== 6){
-              return(
-                <Vespres
-                  date={this.props.date}
-
-                  cicle = {this.props.liturgicProps.cicle}
-                  setmana = {this.props.liturgicProps.setmana}
-                  LT = {this.props.liturgicProps.LT}
-                  ABC = {this.props.liturgicProps.ABC}
-                  VESPRES = {this.props.liturgicProps.LITURGIA.vespres}/>
-                )
-            //}
-            /*else{ //dissabte vespre = vespres de diumenge
-              return(
-                <Vespres
-                  date={this.props.date}
-
-                  cicle = {this.props.liturgicProps.cicle2}
-                  setmana = {this.props.liturgicProps.setmana}
-                  LT={this.props.liturgicProps.LT2}
-                  ABC={this.props.liturgicProps.ABC2}
-                  VESPRES = {this.props.liturgicProps.LITURGIA.vespres}/>
-                )
-            }*/
+            return(
+              <Vespres
+                liturgicProps={this.props.liturgicProps}
+                variables={this.props.variables}/>
+              )
             break;
             case 'Tèrcia':
               return(
                 <HoraMenor
+                  variables={this.props.variables}
+                  liturgicProps={this.props.liturgicProps}
                   HM = {type}
-                  date={this.props.date}
-
-                  cicle = {this.props.liturgicProps.cicle}
-                  setmana = {this.props.liturgicProps.setmana}
-                  LT={this.props.liturgicProps.LT}
-                  ABC={this.props.liturgicProps.ABC}
                   HORA_MENOR = {this.props.liturgicProps.LITURGIA.tercia}/>
                 )
               break;
               case 'Sexta':
                 return(
                   <HoraMenor
+                    variables={this.props.variables}
+                    liturgicProps={this.props.liturgicProps}
                     HM = {type}
-                    date={this.props.date}
-
-                    cicle = {this.props.liturgicProps.cicle}
-                    setmana = {this.props.liturgicProps.setmana}
-                    LT={this.props.liturgicProps.LT}
-                    ABC={this.props.liturgicProps.ABC}
                     HORA_MENOR = {this.props.liturgicProps.LITURGIA.sexta}/>
                   )
                 break;
               case 'Nona':
                 return(
                   <HoraMenor
+                    variables={this.props.variables}
+                    liturgicProps={this.props.liturgicProps}
                     HM = {type}
-                    date={this.props.date}
-
-                    cicle = {this.props.liturgicProps.cicle}
-                    setmana = {this.props.liturgicProps.setmana}
-                    LT={this.props.liturgicProps.LT}
-                    ABC={this.props.liturgicProps.ABC}
                     HORA_MENOR = {this.props.liturgicProps.LITURGIA.nona}/>
                   )
                 break;
               case 'Completes':
                 return(
                   <Completes
-                    date={this.props.date}
-
-                    cicle = {this.props.liturgicProps.cicle}
-                    setmana = {this.props.liturgicProps.setmana}
-                    LT={this.props.liturgicProps.LT}
-                    ABC={this.props.liturgicProps.ABC}
-                    COMPLETES = {this.props.liturgicProps.LITURGIA.completes}/>
+                    variables={this.props.variables}
+                    liturgicProps = {this.props.liturgicProps}/>
                   )
                 break;
       default: return(<Text style={styles.normalText}>{this.props.type}</Text>)

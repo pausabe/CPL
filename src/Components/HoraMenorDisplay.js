@@ -21,7 +21,7 @@ export default class HoraMenorDisplay extends Component {
         </Text>
         <Text />
         <Text style={GLOBAL.styles.black}>{gloriaStringIntro}
-        {this.props.LT !== GLOBAL.Q_CENDRA && this.props.LT !== GLOBAL.Q_SETMANES && this.props.LT !== GLOBAL.Q_DIUM_RAMS && this.props.LT !== GLOBAL.Q_SET_SANTA && this.props.LT !== GLOBAL.Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
+        {this.props.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.props.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.props.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.props.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.props.liturgicProps.LT !== GLOBAL.Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
           <Text style={GLOBAL.styles.black}> Al·leluia</Text> : null
         }
         </Text>
@@ -30,26 +30,26 @@ export default class HoraMenorDisplay extends Component {
         <Text />
         <Text style={GLOBAL.styles.red}>HIMNE</Text>
         <Text />
-        {this.himne(this.props.LT, this.props.date.getDay(), this.props.setmana, this.props.HM)}
+        {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>SALMÒDIA</Text>
         <Text />
-        {this.salmodia(this.props.LT, this.props.setmana, this.props.date.getDay(), this.props.HM)}
+        {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>LECTURA BREU</Text>
         <Text />
-        {this.lecturaBreuResp(this.props.LT, this.props.HM)}
+        {this.lecturaBreuResp(this.props.liturgicProps.LT, this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
         <Text style={GLOBAL.styles.red}>ORACIÓ</Text>
         <Text />
         <Text style={GLOBAL.styles.blackBold}>Preguem.</Text>
-        {this.oracio(this.props.LT, this.props.date.getDay(), this.props.HM)}
+        {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.HM)}
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -69,7 +69,7 @@ export default class HoraMenorDisplay extends Component {
   gloria(g){
     const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
     if(g === '1'){
-      if(true === false){ //TODO: tenir en compte els ajustaments
+      if(this.props.variables.gloria === 'false'){
         return(<Text style={GLOBAL.styles.black}>Glòria.</Text>);
       }
       else{

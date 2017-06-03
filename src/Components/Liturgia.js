@@ -20,6 +20,7 @@ export default class Liturgia extends Component {
           passProps: {
             type: type,
             date: this.props.date,
+            variables: this.props.variables,
             liturgicProps: this.props.liturgicProps,
           },
           component: component
@@ -30,6 +31,7 @@ export default class Liturgia extends Component {
           id: idPressed,
           type: type,
           index: 1,
+          variables: this.props.variables,
           date: this.props.date,
           liturgicProps: this.props.liturgicProps,
         });
@@ -38,7 +40,10 @@ export default class Liturgia extends Component {
   }
 
   render() {
-    hour = this.props.date.getHours();
+    var nowDate = new Date();
+    var hour = nowDate.getHours();
+    console.log("Hour: " + hour);
+    //hour = this.props.date.getHours();
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.buttonContainer} onPress={
