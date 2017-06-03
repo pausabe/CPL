@@ -221,6 +221,8 @@ export default class SOUL {
       id = (parseInt(liturgicProps.setmana)-2)*7 + (date.getDay()+1);
       if(id === 43) //diumenge de pentacosta (no està dins tempsPasquaSetmanes). Apaño perquè no peti
         id = 1;
+
+      console.log("ID imbecil. " + id);
       this.acceso.getLiturgia("tempsPasquaSetmanes", id, (result) => { this.queryRows.tempsPasquaSetmanes = result; this.dataReceived(params); });
     }
 
