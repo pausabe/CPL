@@ -60,22 +60,23 @@ export default class OficiDisplay extends Component {
   convertTextSize(){
     switch (this.props.variables.textSize) {
       case '1':
-        return 14;
+        return GLOBAL.size1;
         break;
       case '2':
-        return 16;
+        return GLOBAL.size2;
         break;
       case '3':
-        return 18;
+        return GLOBAL.size3;
         break;
       case '4':
-        return 20;
+        return GLOBAL.size4;
         break;
       case '5':
-        return 22;
+        return GLOBAL.size5;
         break;
     }
   }
+
 
   render() {
     OFICI = this.props.liturgicProps.LITURGIA.ofici;

@@ -206,7 +206,7 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
-
+    auxPadding = 5;
     return (
       <View style={styles.container}>
        <Image source={require('../img/bg/currentbg.jpg')} style={styles.backgroundImage}>
@@ -245,11 +245,11 @@ export default class HomeScreen extends Component {
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
            <View style={styles.santContainer}>
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
-               <View style={{flex: 1, flexDirection: 'row', paddingRight: 10,}}>
-                 <View style={{flex: 20, justifyContent: 'center'}}>
+               <View style={{flex: 1, flexDirection: 'row', paddingRight: auxPadding}}>
+                 <View style={{flex: 20, justifyContent: 'center', paddingRight: (auxPadding*2)}}>
                    <Text style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
-                 <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
+                 <View style={{flex: 1, justifyContent: 'center'}}>
                  {this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
                   <View>
                   {this.state.santPressed ?
@@ -285,8 +285,8 @@ export default class HomeScreen extends Component {
            <View style={styles.liturgiaContainer}>
              <Liturgia
                navigator={this.props.navigator}
-                variables={this.variables}
-                liturgicProps={this.liturgicProps}
+               variables={this.variables}
+               liturgicProps={this.liturgicProps}
              />
            </View>
          }

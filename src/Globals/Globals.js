@@ -23,51 +23,14 @@ module.exports = {
   N_OCTAVA: 'N_OCTAVA',
   N_ABANS: 'N_ABANS',
 
+  size1: 15,
+  size2: 18,
+  size3: 21,
+  size4: 24,
+  size5: 27,
+
   DBName: 'lh_v8.db',
 
   paddingBar: Platform.OS === 'ios' ? 0 : 54,
 
-  styles: {
-    black: {
-      color: '#000000',
-      fontSize: normalTextSize,
-    },
-    blackBold: {
-      color: '#000000',
-      fontSize: normalTextSize,
-      fontWeight: 'bold',
-    },
-    blackSmallItalic:{
-      color: '#000000',
-      fontSize: normalTextSize,
-      fontStyle: 'italic'
-    },
-    blackSmallItalicRight: {
-      color: '#000000',
-      fontSize: normalTextSize,
-      fontStyle: 'italic',
-      textAlign: 'right'
-    },
-    red: {
-      color: '#FF0000',
-      fontSize: normalTextSize,
-    },
-    redCenter: {
-      color: '#FF0000',
-      fontSize: normalTextSize,
-      textAlign: 'center'
-    },
-    redCenterBold: {
-      color: '#FF0000',
-      fontSize: normalTextSize,
-      textAlign: 'center',
-      fontWeight: 'bold',
-    },
-    redSmallItalicRight: {
-      color: '#FF0000',
-      fontSize: normalTextSize,
-      fontStyle: 'italic',
-      textAlign: 'right'
-      }
-  }
 };
