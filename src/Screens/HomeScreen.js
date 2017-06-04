@@ -21,6 +21,7 @@ import SettingsManager from '../Settings/SettingsManager';
 *
 *
 Recorda que quan canvies de data s'ha de posar santPressed a false
+Solemnitat de santsSolemnitats en diumenge es fa? (tinc posat que no)
 *
 *
 *
@@ -231,10 +232,12 @@ export default class HomeScreen extends Component {
              <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.cicle)} </Text>
              del cicle litúrgic, any
                <Text style={{color: '#c0392b'}}> {this.liturgicProps.ABC}</Text></Text>
-            {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
-            <Text style={styles.celebracioType}>{this.liturgicProps.LITURGIA.info_cel.typeCel}</Text>
-            : null}
          </View>
+         {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
+         <View style={{paddingBottom: 5}}>
+           <Text style={styles.celebracioType}>{this.transfromCelTypeName(this.liturgicProps.LITURGIA.info_cel.typeCel)}</Text>
+         </View>
+         : null}
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
            <View style={styles.santContainer}>
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
@@ -416,6 +419,23 @@ export default class HomeScreen extends Component {
     }
 
     return(celType);
+  }
+
+  transfromCelTypeName(CT){
+    switch (CT) {
+      case 'F':
+        return 'Festivitat';
+        break;
+      case 'S':
+        return 'Solemnitat';
+        break;
+      case 'M':
+        return 'Memòria obligatòria';
+        break;
+      case 'L':
+        return 'Memòria lliure';
+        break;
+    }
   }
 
   romanize (num) {
