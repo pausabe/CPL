@@ -32,7 +32,7 @@ export default class SettingsComponentAdapter{
 
     static async getSettingComponentShowGlories(){
         let value = await SettingsManager.getSettingShowGlories() === "true" ? true : false;
-        let component = (<SettingComponent selectorComponent="switch" name="Mostrar Glòries" id="showGlories" key="showGlories" value={value} callback={(id, value) => {
+        let component = (<SettingComponent selectorComponent="switch" name="Mostrar glòria complet" id="showGlories" key="showGlories" value={value} callback={(id, value) => {
             SettingsManager.setSettingShowGlories(value ? "true" : "false");
         }}/>);
         return component;
@@ -40,7 +40,7 @@ export default class SettingsComponentAdapter{
 
     static async getSettingComponentUseLatin(){
         let value = await SettingsManager.getSettingUseLatin() === "true" ? true : false;
-        let component = (<SettingComponent selectorComponent="switch" name="Utilitza llatí en alguns textos" id="useLatin" key="useLatin" value={value} callback={(id, value) => {
+        let component = (<SettingComponent selectorComponent="switch" name="Himnes en llatí" id="useLatin" key="useLatin" value={value} callback={(id, value) => {
             SettingsManager.setSettingUseLatin(value ? "true" : "false");
         }}/>);
         return component;
@@ -58,7 +58,7 @@ export default class SettingsComponentAdapter{
     static async getSettingComponentDiocesis(){
         let value = await SettingsManager.getSettingDiocesis();
         value = _getKeyFromValue(diocesis, value);
-        let component = (<SettingComponent selectorComponent="picker" name="Selecciona diocesis" id="diocesis" key="diocesis"
+        let component = (<SettingComponent selectorComponent="picker" name="Diocesi de" id="diocesis" key="diocesis"
             value={value} options={diocesis} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
                 SettingsManager.setSettingDiocesis(diocesis[value]);
             }}/>);
@@ -67,7 +67,7 @@ export default class SettingsComponentAdapter{
 
     static async getSettingComponentDayStart(){
         let value = await SettingsManager.getSettingDayStart();
-        let component = (<SettingComponent selectorComponent="picker" name="Selecciona a quina hora comença el día" id="dayStart" key={"dayStart"/*+id*/} //Addes key+id for testing
+        let component = (<SettingComponent selectorComponent="picker" name="El dia comença a les" id="dayStart" key={"dayStart"/*+id*/} //Addes key+id for testing
             value={value} options={{0: "00:00 AM", 1: "01:00 AM", 2: "02:00 AM", 3: "03:00 AM"}} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
                 SettingsManager.setSettingDayStart(value);
             }}/>);
@@ -76,19 +76,19 @@ export default class SettingsComponentAdapter{
     }
 
     static async getSettingComponentInvitatori(){
-      console.log(this.aha);
+      //console.log(this.aha);
         let value = await SettingsManager.getSettingInvitatori();
         value = _getKeyFromValue(invitatori, value);
-        let component = (<SettingComponent selectorComponent="picker" name="Selecciona invitatori" id="invitatori" key="invitatori"
+        let component = (<SettingComponent selectorComponent="picker" name="Invitatori a" id="invitatori" key="invitatori"
             value={value} options={invitatori} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
-                SettingsManager.setSettingInvitatori(invitatori[value], this.aha);
+                SettingsManager.setSettingInvitatori(invitatori[value]/*, this.aha*/);
             }}/>);
         return component;
     }
 
-    static aha(){
+    /*static aha(){
       console.log("hola test");
-    }
+    }*/
 
 }
 

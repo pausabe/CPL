@@ -78,7 +78,7 @@ export default class SOUL {
 
   makeQueryies(date, liturgicProps, dataTomorrow, celType, diocesi, invitatori, pentacosta, HS, llati){
     console.log("makeQueryies SOUL");
-    
+
     this.CT = celType;
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
     idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
@@ -519,7 +519,8 @@ export default class SOUL {
     }
 
     //taula 33 (#??): Ofici(24)
-    if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA && liturgicProps.LT !== GLOBAL.N_OCTAVA){
+    if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA &&
+      liturgicProps.LT !== GLOBAL.N_OCTAVA){
       c += 1;
       id = (parseInt(liturgicProps.cicle)-1)*7 + (date.getDay()+1);
       this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => {
@@ -652,18 +653,27 @@ export default class SOUL {
 
           if(this.firstAccess){
             this.firstAccess = false;
-            this.OficiSoul = new OficiSoul(this.variables, this.liturgicProps, this.queryRows, this.CEL.OFICI, HS, this);
-            this.LaudesSoul = new LaudesSoul(this.variables, this.liturgicProps, this.queryRows, this.CEL.LAUDES, HS, this);
-            this.VespresSoul = new VespresSoul(this.variables, this.liturgicProps, this.queryRows, vespresCelDEF, HS, this);
-            this.HoraMenorSoul = new HoraMenorSoul(this.variables, this.liturgicProps, this.queryRows, this.CEL.HORA_MENOR, HS, this);
+            this.OficiSoul = new OficiSoul(this.variables, this.liturgicProps,
+              this.queryRows, this.CEL.OFICI, HS, this);
+            this.LaudesSoul = new LaudesSoul(this.variables, this.liturgicProps,
+              this.queryRows, this.CEL.LAUDES, HS, this);
+            this.VespresSoul = new VespresSoul(this.variables, this.liturgicProps,
+              this.queryRows, vespresCelDEF, HS, this);
+            this.HoraMenorSoul = new HoraMenorSoul(this.variables, this.liturgicProps,
+              this.queryRows, this.CEL.HORA_MENOR, HS, this);
             this.CompletesSoul = new CompletesSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
           }
           else{
-            this.OficiSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.variables.invitatori, this.CEL.OFICI, this.variables.llati, HS, this);
-            this.LaudesSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.variables.invitatori, this.CEL.LAUDES, this.variables.llati, HS, this);
-            this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, vespresCelDEF, this.variables.llati, HS, this);
-            this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.CEL.HORA_MENOR, this.variables.llati, HS, this);
-            this.CompletesSoul.makePrayer(this.variables.date, this.liturgicProps, this.queryRows, this.variables.llati, HS, this);
+            this.OficiSoul.makePrayer(this.variables.date, this.liturgicProps,
+              this.queryRows, this.variables.invitatori, this.CEL.OFICI, this.variables.llati, HS, this);
+            this.LaudesSoul.makePrayer(this.variables.date, this.liturgicProps,
+              this.queryRows, this.variables.invitatori, this.CEL.LAUDES, this.variables.llati, HS, this);
+            this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps, 
+              this.queryRows, vespresCelDEF, this.variables.llati, HS, this);
+            this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps,
+              this.queryRows, this.CEL.HORA_MENOR, this.variables.llati, HS, this);
+            this.CompletesSoul.makePrayer(this.variables.date, this.liturgicProps,
+              this.queryRows, this.variables.llati, HS, this);
           }
         break;
     }

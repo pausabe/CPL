@@ -95,7 +95,10 @@ export default class HomeScreen extends Component {
   refreshEverything(date){
     //settings > anyliturgic > soul > render
     Promise.all([
-      SettingsManager.getSettingDiocesis((r) => this.variables.diocesi = this.HCDiocesi/*r*/),
+      SettingsManager.getSettingDiocesis((r) => {
+        this.variables.diocesi = this.transformDiocesiName(r);
+        console.log(r+'-'+this.variables.diocesi);
+      }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
@@ -197,7 +200,6 @@ export default class HomeScreen extends Component {
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.typeCel !== '.')
       CT = this.liturgicProps.LITURGIA.info_cel.typeCel;
 
-    //return(false);
     return (
       <View style={styles.container}>
        <Image source={require('../img/bg/currentbg.jpg')} style={styles.backgroundImage}>
@@ -387,6 +389,25 @@ export default class HomeScreen extends Component {
         break;
       case "Andorra":
         celType = anyliturgic.Andorra;
+        break;
+    }
+
+    return(celType);
+  }
+
+  transformDiocesiName(diocesi){
+    switch (diocesi) {
+      case "Barcelona":
+        return 'BaD';
+        break;
+      case "Girona":
+        return 'GiD';
+        break;
+      case "Lleida":
+        return 'LlD';
+        break;
+      case "Tarragona":
+        return 'TaD';
         break;
     }
 

@@ -9,7 +9,7 @@ export const diocesis = {
 
 export const invitatori = {
     OFICI: "Ofici",
-    LAUDE: "Laudes"
+    LAUDES: "Laudes"
 };
 
 const defaultSettings = {
