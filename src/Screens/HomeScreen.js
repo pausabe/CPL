@@ -62,11 +62,6 @@ export default class HomeScreen extends Component {
       cicle: '',
       setmana: '',
       ABC: '',
-      /*tempsespecific2: '',
-      LT2: '',
-      cicle2: '',
-      setmana2: '',
-      ABC2: '',*/
     }
 
     var tomorrow = new Date(today.getFullYear(), today.getMonth());
@@ -121,8 +116,8 @@ export default class HomeScreen extends Component {
       newDay.getMonth(),
       newDay.getDate(),
       (current, tomorrow, pentacosta) => {
-        var celType = this.getCelType(this.variables.diocesi, current); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
-        var tomorrowCelType = this.getCelType(this.variables.diocesi, tomorrow); //TODO: HC, this.HCDiocesi cal agafarho de settings (diocesi)
+        var celType = this.getCelType(this.variables.diocesi, current);
+        var tomorrowCelType = this.getCelType(this.variables.diocesi, tomorrow);
         console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
 
         this.variables.celType = celType;
@@ -141,12 +136,6 @@ export default class HomeScreen extends Component {
         this.dataTomorrow.setmana = tomorrow.NumSet;
 
         console.log("CHANGING TOMORROW DATE: " + this.dataTomorrow.date.getDate() + "/" + this.dataTomorrow.date.getMonth());
-
-        /*this.liturgicProps.tempsespecific2 = tomorrow.tempsespecific;
-        this.liturgicProps.LT2 = tomorrow.temps;
-        this.liturgicProps.cicle2 = tomorrow.cicle; //1-4
-        this.liturgicProps.setmana2 = tomorrow.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-        this.liturgicProps.ABC2 = tomorrow.anyABC;*/
 
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
@@ -192,9 +181,10 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
+    //return(false);
     return (
       <View style={styles.container}>
-       <Image source={require('../img/bg/fons4.jpg')} style={styles.backgroundImage}>
+       <Image source={require('../img/bg/currentbg.jpg')} style={styles.backgroundImage}>
          <View style={styles.infoContainer}>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
               <View>
@@ -283,7 +273,7 @@ export default class HomeScreen extends Component {
   getCelType(diocesi, anyliturgic){
     switch (diocesi) {
       case "BaD":
-      console.log("???? " + anyliturgic.BaD);
+        console.log("???? " + anyliturgic.BaD);
         celType = anyliturgic.BaD;
         break;
       case "BaV":
@@ -434,7 +424,7 @@ const styles = StyleSheet.create({
    backgroundColor: 'transparent',
    width: null,
    height: null,
-   resizeMode: 'cover',
+   //resizeMode: 'cover',
  },
   diaLiturgicContainer: {
     flex: 3,

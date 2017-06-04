@@ -82,7 +82,7 @@ export default class NavigatorController extends Component {
                 ref={(popupDialog) => { this.popupDialog = popupDialog}}
                 dialogTitle={<DialogTitle title="Canvia el dia" />} >
                 <DatePickerIOS
-                  date={new Date}
+                  date={new Date()}
                   mode="date"
                   onDateChange={this.onDateChange.bind(this)}
                 />
