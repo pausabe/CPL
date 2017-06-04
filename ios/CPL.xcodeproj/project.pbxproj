@@ -45,8 +45,9 @@
 		5F157CE21E6B25B00071792D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F157CD81E6B25B00071792D /* Octicons.ttf */; };
 		5F157CE31E6B25B00071792D /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F157CD91E6B25B00071792D /* SimpleLineIcons.ttf */; };
 		5F157CE41E6B25B00071792D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F157CDA1E6B25B00071792D /* Zocial.ttf */; };
+		5F2329AC1EE494B500F97A73 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F2329AB1EE494B500F97A73 /* launch_screen.png */; };
+		5F2329AE1EE4959C00F97A73 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F2329AD1EE4959C00F97A73 /* Launch Screen.storyboard */; };
 		5F5924C11EE35882000AFFF5 /* pauLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F5924C01EE35882000AFFF5 /* pauLaunch.storyboard */; };
-		5F5924D31EE35F34000AFFF5 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F5924D21EE35F34000AFFF5 /* launch_screen.png */; };
 		5FB381BB1EE3079A0003BDE9 /* BauhausStd-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5FB381BA1EE3079A0003BDE9 /* BauhausStd-Heavy.otf */; };
 		5FB381CC1EE3097A0003BDE9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB381CB1EE3097A0003BDE9 /* Images.xcassets */; };
 		5FFD108C1E6F550C00081C16 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 5FFD108B1E6F550C00081C16 /* www */; };
@@ -306,8 +307,9 @@
 		5F157CD81E6B25B00071792D /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		5F157CD91E6B25B00071792D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		5F157CDA1E6B25B00071792D /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		5F2329AB1EE494B500F97A73 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = ../../../../Desktop/launch_screen.png; sourceTree = "<group>"; };
+		5F2329AD1EE4959C00F97A73 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5F5924C01EE35882000AFFF5 /* pauLaunch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = pauLaunch.storyboard; sourceTree = "<group>"; };
-		5F5924D21EE35F34000AFFF5 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = ../../../../Desktop/launch_screen.png; sourceTree = "<group>"; };
 		5FB381BA1EE3079A0003BDE9 /* BauhausStd-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BauhausStd-Heavy.otf"; path = "../../../../../../Desktop/BauhausStd-Heavy.otf"; sourceTree = "<group>"; };
 		5FB381CB1EE3097A0003BDE9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CPL/Images.xcassets; sourceTree = "<group>"; };
 		5FFD108B1E6F550C00081C16 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../www; sourceTree = "<group>"; };
@@ -464,10 +466,11 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				5F2329AB1EE494B500F97A73 /* launch_screen.png */,
 				5F5924C01EE35882000AFFF5 /* pauLaunch.storyboard */,
-				5F5924D21EE35F34000AFFF5 /* launch_screen.png */,
 				5FB381CB1EE3097A0003BDE9 /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				5F2329AD1EE4959C00F97A73 /* Launch Screen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = CPL;
@@ -1002,10 +1005,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F5924D31EE35F34000AFFF5 /* launch_screen.png in Resources */,
+				5F2329AC1EE494B500F97A73 /* launch_screen.png in Resources */,
 				5FFD108C1E6F550C00081C16 /* www in Resources */,
 				5F157CDE1E6B25B00071792D /* Foundation.ttf in Resources */,
 				5B2816E37E424C9E924A269D /* Entypo.ttf in Resources */,
+				5F2329AE1EE4959C00F97A73 /* Launch Screen.storyboard in Resources */,
 				5FB381CC1EE3097A0003BDE9 /* Images.xcassets in Resources */,
 				5F5924C11EE35882000AFFF5 /* pauLaunch.storyboard in Resources */,
 				5FB381BB1EE3079A0003BDE9 /* BauhausStd-Heavy.otf in Resources */,
@@ -1191,7 +1195,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 542WEU679H;
@@ -1218,7 +1221,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 542WEU679H;
 				HEADER_SEARCH_PATHS = (

@@ -245,7 +245,7 @@ export default class HomeScreen extends Component {
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
            <View style={styles.santContainer}>
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
-               <View style={{flex: 1, flexDirection: 'row'}}>
+               <View style={{flex: 1, flexDirection: 'row', paddingRight: 10,}}>
                  <View style={{flex: 20, justifyContent: 'center'}}>
                    <Text style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
@@ -527,6 +527,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F2F1',
     borderRadius: 15,
     marginHorizontal: 10,
+    paddingLeft: 10,
     opacity: 0.8,
   },
   buttonSantContainer: {

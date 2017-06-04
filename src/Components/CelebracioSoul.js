@@ -266,38 +266,39 @@ export default class CelebracioSoul {
         if(idTSF === -1){
           switch (celType) {
             case "S":
-              this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.');
+              this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
             case "F":
-              if(date.getDay() !== 0) this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.');
+              if(date.getDay() !== 0) this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
             case "L":
-              if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.');
+              if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
             case "M":
             case "V": //TODO: santsMemories entrada 457 o 458, alternativament
-              if(date.getDay() !== 0) this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.');
+              if(date.getDay() !== 0) this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
           }
         }
         else{
-          this.createCel(TABLES, "TSF", diocesi, llati, liturgicProps.ABC, '.');
+          this.createCel(TABLES, "TSF", diocesi, llati, liturgicProps.ABC, '.', variables);
         }
       }
       else{
-        this.createCel(TABLES, "DE", diocesi, llati, liturgicProps.ABC, '.');
+        this.createCel(TABLES, "DE", diocesi, llati, liturgicProps.ABC, '.', variables);
       }
     }
     else{
+      console.log("ASDFASDF " + celType + ", " + tomorrowCal);
       switch (tomorrowCal) {
         case "S":
-          this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, celType);
+          this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, celType, variables);
           break;
         case "TSF":
-          this.createCel(TABLES, "TSF", diocesi, llati, liturgicProps.ABC, celType);
+          this.createCel(TABLES, "TSF", diocesi, llati, liturgicProps.ABC, celType, variables);
           break;
         case "DE":
-          this.createCel(TABLES, "DE", diocesi, llati, liturgicProps.ABC, celType);
+          this.createCel(TABLES, "DE", diocesi, llati, liturgicProps.ABC, celType, variables);
           break;
         }
     }
@@ -321,7 +322,7 @@ export default class CelebracioSoul {
     SOUL.setSoul(HS, "celebracio", CEL);
   }
 
-  createCel(TABLES, type, diocesi, llati, anyABC, celType){
+  createCel(TABLES, type, diocesi, llati, anyABC, celType, variables){
     console.log("CelbracioSoul - createCel: " + type);
     //console.log("llati: " + llati + ", celtype: " + celType);
     switch (type) {
@@ -336,8 +337,10 @@ export default class CelebracioSoul {
               this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
               break;
             case 'M':
-            case 'L':
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              break;
+            case 'L':
+              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
           this.makeVespres1TSF(TABLES, type, diocesi, llati, anyABC, celType);
@@ -355,8 +358,10 @@ export default class CelebracioSoul {
               this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
               break;
             case 'M':
-            case 'L':
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              break;
+            case 'L':
+              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
           this.makeVespres1DE(TABLES, type, diocesi, llati, anyABC, celType);
@@ -371,8 +376,10 @@ export default class CelebracioSoul {
         else{
           switch (celType) {
             case 'M':
-            case 'L':
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              break;
+            case 'L':
+              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
           this.makeVespres1SF(TABLES, type, diocesi, llati, anyABC, celType);

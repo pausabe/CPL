@@ -59,6 +59,7 @@ export default class NavigatorController extends Component {
             <StatusBar
               barStyle="light-content"
               backgroundColor={GLOBAL.statusBarColor}
+              hidden={false}
             />
 
             <NavigatorIOS
