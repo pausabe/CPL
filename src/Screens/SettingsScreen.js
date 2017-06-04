@@ -13,7 +13,6 @@ export default class SettingsScreen extends Component {
     }
 
     render() {
-        console.log("I'm rendering settings.");
         if(!this.state || this.state && !this.state.options){
             return (<ScrollView style={styles.itemList}></ScrollView>);
         }
@@ -24,9 +23,6 @@ export default class SettingsScreen extends Component {
         );
       }
 
-      componentWillUnMount(){
-        console.log("tu puta madre se esta marchando! jejejej");
-      }
 }
 
 function callbackTest(id, value){

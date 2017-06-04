@@ -227,8 +227,8 @@ export default class NavigatorController extends Component {
   rightPress(nav){
     if(Platform.OS === 'ios'){
       this.refs.navi.push({
-        title: 'Settings',
-        passProps: {title: 'Settings'},
+        title: 'Configuració',
+        passProps: {title: 'Configuració'},
         component: SettingsScreen
       });
     }
@@ -255,7 +255,7 @@ export default class NavigatorController extends Component {
       case 'home':
         return (<HomeScreen navigator={nav} route={route} title="Home"/>);
       case 'settings':
-        return (<SettingsScreen navigator={nav} route={route} title="Settings"/>);
+        return (<SettingsScreen navigator={nav} route={route} title="Configuració"/>);
       case 'liturgia-display':
         return (<LiturgiaDisplayScreen
                           navigator={nav}

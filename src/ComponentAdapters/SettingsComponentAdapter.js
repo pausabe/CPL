@@ -13,7 +13,7 @@ export default class SettingsComponentAdapter{
         options.push(await SettingsComponentAdapter.getSettingComponentUseLatin());
         options.push(await SettingsComponentAdapter.getSettingComponentTextSize());
         options.push(await SettingsComponentAdapter.getSettingComponentDiocesis());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
+        //options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentInvitatori());
         //Added for testing
 
@@ -49,7 +49,7 @@ export default class SettingsComponentAdapter{
     static async getSettingComponentTextSize(){
         let value = parseInt(await SettingsManager.getSettingTextSize());
         let component = (<SettingComponent selectorComponent="slider" name="Tamany del text" id="textSize" key="textSize"
-            value={value} selectorProps={{minimumValue: 12, maximumValue: 25}} callback={(id, value) => {
+            value={value} selectorProps={{minimumValue: 1, maximumValue: 5}} callback={(id, value) => {
                 SettingsManager.setSettingTextSize(Math.trunc(value)+"");
             }}/>);
         return component;

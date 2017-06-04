@@ -59,10 +59,12 @@ export default class HomeScreen extends Component {
 
     this.variables = {
       diocesi: '',
+      diocesiName: '',
       invitatori: '',
       llati: '',
       gloria: '',
       lliures: '',
+      textSize: '',
       celType: '',
       date: today,
     }
@@ -98,12 +100,17 @@ export default class HomeScreen extends Component {
     Promise.all([
       SettingsManager.getSettingDiocesis((r) => {
         this.variables.diocesi = this.transformDiocesiName(r);
+        this.variables.diocesiName = r;
         console.log(r+'-'+this.variables.diocesi);
       }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
       SettingsManager.getSettingShowGlories((r) => this.variables.lliures = r),
+      SettingsManager.getSettingTextSize((r) => {
+        console.log("textSize: " + r);
+        this.variables.textSize = r;
+      }),
     ]).then(results => {
       console.log("gloria: " + this.variables.gloria);
       this.refreshDate(date);
@@ -199,9 +206,6 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
-    /*var CT = this.variables.celType;
-    if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.typeCel !== '.')
-      CT = this.liturgicProps.LITURGIA.info_cel.typeCel;*/
 
     return (
       <View style={styles.container}>
@@ -214,7 +218,7 @@ export default class HomeScreen extends Component {
                 </TouchableOpacity>
               </View>
               <View>
-                <Text style={styles.infoText}>Diòcesi de {this.variables.diocesi} - {this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+                <Text style={styles.infoText}>Diòcesi de {this.variables.diocesiName} - {this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
               </View>
               <View>
                 <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
@@ -537,7 +541,7 @@ const styles = StyleSheet.create({
   santExText: {
     textAlign: 'center',
     color: 'black',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '300'
   },
   celebracioType: {
