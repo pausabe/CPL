@@ -163,6 +163,8 @@ export default class HomeScreen extends Component {
   setSoul(liturgia){
     console.log("HomeScreen - setSoul");
     this.liturgicProps.LITURGIA = liturgia;
+    this.iWantRender = false;
+    this.setState({santPressed: false});
     this.forceUpdate();
   }
 
@@ -196,9 +198,9 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
-    var CT = this.variables.celType;
+    /*var CT = this.variables.celType;
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.typeCel !== '.')
-      CT = this.liturgicProps.LITURGIA.info_cel.typeCel;
+      CT = this.liturgicProps.LITURGIA.info_cel.typeCel;*/
 
     return (
       <View style={styles.container}>
@@ -229,13 +231,16 @@ export default class HomeScreen extends Component {
              <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.cicle)} </Text>
              del cicle litúrgic, any
                <Text style={{color: '#c0392b'}}> {this.liturgicProps.ABC}</Text></Text>
+            {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
+            <Text style={styles.celebracioType}>{this.liturgicProps.LITURGIA.info_cel.typeCel}</Text>
+            : null}
          </View>
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
            <View style={styles.santContainer}>
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
                <View style={{flex: 1, flexDirection: 'row'}}>
                  <View style={{flex: 20, justifyContent: 'center'}}>
-                   <Text style={styles.santText}>{CT} - {this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
+                   <Text style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
                  <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
                  {this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
@@ -297,7 +302,6 @@ export default class HomeScreen extends Component {
   getCelType(diocesi, anyliturgic){
     switch (diocesi) {
       case "BaD":
-        console.log("???? " + anyliturgic.BaD);
         celType = anyliturgic.BaD;
         break;
       case "BaV":
@@ -513,6 +517,13 @@ const styles = StyleSheet.create({
   santExText: {
     textAlign: 'center',
     color: 'black',
+    fontSize: 14,
+    fontWeight: '300'
+  },
+  celebracioType: {
+    textAlign: 'center',
+    color: '#333333',
+    //fontStyle: 'italic',
     fontSize: 14,
     fontWeight: '300'
   },

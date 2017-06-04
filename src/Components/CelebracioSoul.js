@@ -302,6 +302,8 @@ export default class CelebracioSoul {
         }
     }
 
+    if(this.INFO_CEL.typeCel === '.') this.INFO_CEL.typeCel = variables.celType;
+
     CEL = {
       INFO_CEL: this.INFO_CEL,
       OFICI: this.OFICI,

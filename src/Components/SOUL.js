@@ -643,6 +643,12 @@ export default class SOUL {
         console.log("CELEBRACIO");
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
+          console.log("--------------------------------------------------------------------");
+          console.log("pregaria.INFO_CEL - " + pregaria.INFO_CEL.typeCel);
+          console.log("this.CT - " + this.CT);
+          console.log("--------------------------------------------------------------------");
+
+          //if(pregaria.INFO_CEL.typeCel) this.LITURGIA.info_cel.typeCel = this.CT;
 
           if(this.tomorrowCal !== '-') {
               vespresCelDEF = this.CEL.VESPRES1;
@@ -668,7 +674,7 @@ export default class SOUL {
               this.queryRows, this.variables.invitatori, this.CEL.OFICI, this.variables.llati, HS, this);
             this.LaudesSoul.makePrayer(this.variables.date, this.liturgicProps,
               this.queryRows, this.variables.invitatori, this.CEL.LAUDES, this.variables.llati, HS, this);
-            this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps, 
+            this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps,
               this.queryRows, vespresCelDEF, this.variables.llati, HS, this);
             this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps,
               this.queryRows, this.CEL.HORA_MENOR, this.variables.llati, HS, this);

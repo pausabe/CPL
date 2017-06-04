@@ -62,7 +62,7 @@ export default class Liturgia extends Component {
          <View style={{flex:2, flexDirection: 'row'}}>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Tèrcia", LiturgiaDisplayScreen)}>
-             <Text style={styles.horaMenorText}>{hour > 8 && hour < 12 ? "* Tèrica *" : "Tèrica"}</Text>
+             <Text style={styles.horaMenorText}>{hour > 8 && hour < 12 ? "* Tèrcia *" : "Tèrcia"}</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Sexta", LiturgiaDisplayScreen)}>
