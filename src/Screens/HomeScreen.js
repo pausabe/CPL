@@ -16,6 +16,16 @@ import DBAdapter from '../SQL/DBAdapter';
 import SOUL from '../Components/SOUL';
 import SettingsManager from '../Settings/SettingsManager';
 
+/*
+*
+*
+*
+Recorda que quan canvies de data s'ha de posar santPressed a false
+*
+*
+*
+*/
+
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
@@ -51,6 +61,7 @@ export default class HomeScreen extends Component {
       invitatori: '',
       llati: '',
       gloria: '',
+      lliures: '',
       celType: '',
       date: today,
     }
@@ -88,6 +99,7 @@ export default class HomeScreen extends Component {
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
+      SettingsManager.getSettingShowGlories((r) => this.variables.lliures = r),
     ]).then(results => {
       console.log("gloria: " + this.variables.gloria);
       this.refreshDate(date);
@@ -181,6 +193,10 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
+    var CT = this.variables.celType;
+    if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.typeCel !== '.')
+      CT = this.liturgicProps.LITURGIA.info_cel.typeCel;
+
     //return(false);
     return (
       <View style={styles.container}>
@@ -217,30 +233,36 @@ export default class HomeScreen extends Component {
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
                <View style={{flex: 1, flexDirection: 'row'}}>
                  <View style={{flex: 20, justifyContent: 'center'}}>
-                   <Text style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.typeCel} - {this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
+                   <Text style={styles.santText}>{CT} - {this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
                  <View style={{flex: 1, paddingRight: 10, justifyContent: 'center'}}>
-                   {this.state.santPressed ?
-                     <Icon
-                       name="ios-arrow-down"
-                       size={25}
-                       color="#424242"
-                     />
-                     :
-                     <Icon
-                       name="ios-arrow-forward-outline"
-                       size={25}
-                       iconStyle={{padding: 50}}
-                       color="#424242"
-                     />
-                   }
+                 {this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
+                  <View>
+                  {this.state.santPressed ?
+                    <Icon
+                      name="ios-arrow-down"
+                      size={25}
+                      color="#424242"
+                    />
+                    :
+                    <Icon
+                      name="ios-arrow-forward-outline"
+                      size={25}
+                      iconStyle={{padding: 50}}
+                      color="#424242"
+                    />
+                  }
+                  </View>
+                  :
+                  null
+                 }
                  </View>
                </View>
              </TouchableOpacity>
            </View>
          : null}
 
-          {this.state.santPressed ?
+          {this.state.santPressed && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
            <View style={styles.liturgiaContainer}>
              <Text style={styles.santExText}>{this.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
              <Text style={styles.santExText}/>

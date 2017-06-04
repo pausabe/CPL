@@ -43,7 +43,6 @@ export default class Liturgia extends Component {
     var nowDate = new Date();
     var hour = nowDate.getHours();
     console.log("Hour: " + hour);
-    //hour = this.props.date.getHours();
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.buttonContainer} onPress={
@@ -83,7 +82,7 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Completes", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>{hour > 22 ? "* Completes *" : "Completes"}</Text>
+         <Text style={styles.buttonText}>{hour > 22  || hour < 2 ? "* Completes *" : "Completes"}</Text>
        </TouchableOpacity>
       </View>
     )

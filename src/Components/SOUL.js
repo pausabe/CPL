@@ -77,6 +77,7 @@ export default class SOUL {
   }
 
   makeQueryies(date, liturgicProps, dataTomorrow, celType, diocesi, invitatori, pentacosta, HS, llati){
+    this.CT = celType;
     console.log("makeQueryies SOUL");
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
     idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
@@ -471,7 +472,7 @@ export default class SOUL {
         this.CelebracioSoul = new CelebracioSoul(this.variables, params.liturgicProps, this.queryRows, params.idTSF, params.idDE, params.HS, this, params.llati, this.tomorrowCal);
       }
       else{
-        this.CelebracioSoul.makePrayer(this.variables.date, params.liturgicProps, this.queryRows, params.celType, params.diocesi, params.idTSF, params.idDE, params.HS, this, params.llati, this.tomorrowCal);
+        this.CelebracioSoul.makePrayer(this.variables, params.liturgicProps, this.queryRows, params.idTSF, params.idDE, params.HS, this, params.llati, this.tomorrowCal);
       }
     }
   }

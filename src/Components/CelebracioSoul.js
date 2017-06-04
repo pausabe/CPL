@@ -3,11 +3,15 @@ import GLOBAL from '../Globals/Globals';
 export default class CelebracioSoul {
   constructor(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal) {
     console.log("Constructor CelebracioSoul");
-    this.makePrayer(variabales.date, liturgicProps, TABLES, variabales.celType, variabales.diocesi, idTSF, idDE, HS, SOUL, llati, tomorrowCal);
+    this.makePrayer(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal);
   }
 
-  makePrayer(date, liturgicProps, TABLES, celType, diocesi, idTSF, idDE, HS, SOUL, llati, tomorrowCal){
+  makePrayer(variables, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal){
     console.log("MakePrayer CelebracioSoul");
+    date = variables.date;
+    celType = variables.celType;
+    diocesi = variables.diocesi;
+
     this.INFO_CEL = {
       nomCel: '-',
       infoCel: '-',
@@ -267,9 +271,11 @@ export default class CelebracioSoul {
             case "F":
               if(date.getDay() !== 0) this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.');
               break;
-            case "M":
             case "L":
-            case "V": //santsMemories entrada 457 o 458, alternativament
+              if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.');
+              break;
+            case "M":
+            case "V": //TODO: santsMemories entrada 457 o 458, alternativament
               if(date.getDay() !== 0) this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.');
               break;
           }
@@ -325,15 +331,10 @@ export default class CelebracioSoul {
           switch (celType) {
             case 'S':
             case 'F':
-              /*this.INFO_CEL.nomCel = TABLES.santsSolemnitats.nomMemoria;
-              this.INFO_CEL.infoCel = TABLES.santsSolemnitats.infoMemoria;
-              this.INFO_CEL.typeCel = TABLES.santsSolemnitats.Cat;*/
               this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
               break;
             case 'M':
             case 'L':
-              /*this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
-              this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;*/
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
@@ -349,15 +350,10 @@ export default class CelebracioSoul {
           switch (celType) {
             case 'S':
             case 'F':
-              /*this.INFO_CEL.nomCel = TABLES.santsSolemnitats.nomMemoria;
-              this.INFO_CEL.infoCel = TABLES.santsSolemnitats.infoMemoria;
-              this.INFO_CEL.typeCel = TABLES.santsSolemnitats.Cat;*/
               this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
               break;
             case 'M':
             case 'L':
-              /*this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
-              this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;*/
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
@@ -374,8 +370,6 @@ export default class CelebracioSoul {
           switch (celType) {
             case 'M':
             case 'L':
-              /*this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
-              this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;*/
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
@@ -641,6 +635,7 @@ export default class CelebracioSoul {
     //::::::DE-INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.diesespecials.nomMemoria;
     this.INFO_CEL.infoCel = TABLES.diesespecials.infoMemoria;
+    this.INFO_CEL.typeCel = celType;
 
     //::::::DE-OFICI::::::
     //DE-OFICI -> INVITATORI
@@ -1359,6 +1354,7 @@ export default class CelebracioSoul {
     //::::::INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
     this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
+    this.INFO_CEL.typeCel = celType;
 
 
 
