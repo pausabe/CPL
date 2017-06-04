@@ -17,14 +17,11 @@
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		16CA5E73F20341AD8A6D92B9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 599DD22BF09D4A04B6FB1244 /* libsqlite3.0.tbd */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation-tvOS.a */; };
 		2D02E4C31E0B4AEC006451C7 /* libRCTImage-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */; };
@@ -48,6 +45,10 @@
 		5F157CE21E6B25B00071792D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F157CD81E6B25B00071792D /* Octicons.ttf */; };
 		5F157CE31E6B25B00071792D /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F157CD91E6B25B00071792D /* SimpleLineIcons.ttf */; };
 		5F157CE41E6B25B00071792D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F157CDA1E6B25B00071792D /* Zocial.ttf */; };
+		5F5924C11EE35882000AFFF5 /* pauLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F5924C01EE35882000AFFF5 /* pauLaunch.storyboard */; };
+		5F5924D31EE35F34000AFFF5 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F5924D21EE35F34000AFFF5 /* launch_screen.png */; };
+		5FB381BB1EE3079A0003BDE9 /* BauhausStd-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5FB381BA1EE3079A0003BDE9 /* BauhausStd-Heavy.otf */; };
+		5FB381CC1EE3097A0003BDE9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB381CB1EE3097A0003BDE9 /* Images.xcassets */; };
 		5FFD108C1E6F550C00081C16 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 5FFD108B1E6F550C00081C16 /* www */; };
 		6F8B89BDE5FE40CDB79D48E8 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CA0667DEAD54584A0B3FF6E /* MaterialCommunityIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -285,8 +286,6 @@
 		13B07F961A680F5B00A75B9A /* CPL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CPL/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = CPL/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CPL/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CPL/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CPL/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
@@ -307,6 +306,10 @@
 		5F157CD81E6B25B00071792D /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		5F157CD91E6B25B00071792D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		5F157CDA1E6B25B00071792D /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		5F5924C01EE35882000AFFF5 /* pauLaunch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = pauLaunch.storyboard; sourceTree = "<group>"; };
+		5F5924D21EE35F34000AFFF5 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = ../../../../Desktop/launch_screen.png; sourceTree = "<group>"; };
+		5FB381BA1EE3079A0003BDE9 /* BauhausStd-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BauhausStd-Heavy.otf"; path = "../../../../../../Desktop/BauhausStd-Heavy.otf"; sourceTree = "<group>"; };
+		5FB381CB1EE3097A0003BDE9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CPL/Images.xcassets; sourceTree = "<group>"; };
 		5FFD108B1E6F550C00081C16 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../www; sourceTree = "<group>"; };
 		61146776A812458EABC684C3 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		6481380F80CF438E8642AE53 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -461,9 +464,10 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				5F5924C01EE35882000AFFF5 /* pauLaunch.storyboard */,
+				5F5924D21EE35F34000AFFF5 /* launch_screen.png */,
+				5FB381CB1EE3097A0003BDE9 /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = CPL;
@@ -505,6 +509,7 @@
 			isa = PBXGroup;
 			children = (
 				5F157CD11E6B25B00071792D /* Entypo.ttf */,
+				5FB381BA1EE3079A0003BDE9 /* BauhausStd-Heavy.otf */,
 				5F157CD21E6B25B00071792D /* EvilIcons.ttf */,
 				5F157CD31E6B25B00071792D /* FontAwesome.ttf */,
 				5F157CD41E6B25B00071792D /* Foundation.ttf */,
@@ -997,11 +1002,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F5924D31EE35F34000AFFF5 /* launch_screen.png in Resources */,
 				5FFD108C1E6F550C00081C16 /* www in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				5F157CDE1E6B25B00071792D /* Foundation.ttf in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				5B2816E37E424C9E924A269D /* Entypo.ttf in Resources */,
+				5FB381CC1EE3097A0003BDE9 /* Images.xcassets in Resources */,
+				5F5924C11EE35882000AFFF5 /* pauLaunch.storyboard in Resources */,
+				5FB381BB1EE3079A0003BDE9 /* BauhausStd-Heavy.otf in Resources */,
 				5F157CE11E6B25B00071792D /* MaterialIcons.ttf in Resources */,
 				5F157CE31E6B25B00071792D /* SimpleLineIcons.ttf in Resources */,
 				5F157CE41E6B25B00071792D /* Zocial.ttf in Resources */,
@@ -1027,7 +1034,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1121,18 +1127,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = CPL;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1197,6 +1191,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 542WEU679H;
@@ -1223,6 +1218,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 542WEU679H;
 				HEADER_SEARCH_PATHS = (

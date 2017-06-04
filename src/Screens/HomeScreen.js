@@ -259,7 +259,6 @@ export default class HomeScreen extends Component {
            <View style={styles.liturgiaContainer}>
              <Liturgia
                navigator={this.props.navigator}
-                date={this.variables.date}
                 variables={this.variables}
                 liturgicProps={this.liturgicProps}
              />
