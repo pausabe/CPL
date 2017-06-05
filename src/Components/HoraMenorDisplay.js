@@ -258,26 +258,6 @@ export default class HoraMenorDisplay extends Component {
   oracio(LT, weekDay, HM){
     return(<Text style={this.styles.black}>{this.props.HORA_MENOR.oracio}</Text>);
   }
-
-  convertTextSize(){
-    switch (this.props.variables.textSize) {
-      case '1':
-        return 14;
-        break;
-      case '2':
-        return 16;
-        break;
-      case '3':
-        return 18;
-        break;
-      case '4':
-        return 20;
-        break;
-      case '5':
-        return 22;
-        break;
-    }
-  }
 }
 
 AppRegistry.registerComponent('HoraMenorDisplay', () => HoraMenorDisplay);
