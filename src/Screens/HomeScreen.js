@@ -9,7 +9,7 @@ import {
   BackAndroid,
   TouchableOpacity,
  } from 'react-native';
-
+import SplashScreen from 'react-native-splash-screen'
 import Liturgia from '../Components/Liturgia';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DBAdapter from '../SQL/DBAdapter';
@@ -35,6 +35,12 @@ function paddingBar(){
 }
 
 export default class HomeScreen extends Component {
+  componentDidMount() {
+    if(Platform.OS==='android'){
+      setTimeout(() => { SplashScreen.hide(); }, 550);
+    }
+  }
+
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       this.props.navigator.pop();

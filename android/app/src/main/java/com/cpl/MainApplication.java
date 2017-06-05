@@ -11,6 +11,7 @@ import com.facebook.soloader.SoLoader;
 import org.pgsqlite.SQLitePluginPackage;
 import java.util.Arrays;
 import java.util.List;
+import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -23,8 +24,9 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new SQLitePluginPackage(),
           new MainReactPackage(),
+          new SplashScreenReactPackage(),
+          new SQLitePluginPackage(),
             new VectorIconsPackage()
       );
     }
