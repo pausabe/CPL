@@ -272,10 +272,10 @@ export default class CelebracioSoul {
               if(date.getDay() !== 0) this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
             case "L":
+            case "V":
               if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
             case "M":
-            case "V": //TODO: santsMemories entrada 457 o 458, alternativament
               if(date.getDay() !== 0) this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
           }
@@ -340,6 +340,7 @@ export default class CelebracioSoul {
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
             case 'L':
+            case 'V':
               if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
@@ -361,6 +362,7 @@ export default class CelebracioSoul {
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
             case 'L':
+            case 'V':
               if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }
@@ -379,6 +381,7 @@ export default class CelebracioSoul {
               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
             case 'L':
+            case 'V':
               if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
               break;
           }

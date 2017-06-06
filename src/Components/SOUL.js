@@ -545,10 +545,18 @@ export default class SOUL {
     //taula 35 (#31): -  i //taula 36
     if(params.idTSF === -1 && (celType === 'M' || celType === 'L' || celType === 'V')){
       c += 1;
-      this.acceso.getSolMem("santsMemories", date, diocesi, (result) => {
-        this.queryRows.santsMemories = result;
-        this.getOficisComuns(params, result);
-      });
+      if(celType === 'V'){
+        this.acceso.getV((result) => {
+          this.queryRows.santsMemories = result;
+          this.getOficisComuns(params, result);
+        });
+      }
+      else{
+        this.acceso.getSolMem("santsMemories", date, diocesi, (result) => {
+          this.queryRows.santsMemories = result;
+          this.getOficisComuns(params, result);
+        });
+      }
     }
 
     //taula 37 (#?): -

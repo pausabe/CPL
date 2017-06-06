@@ -47,8 +47,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    today.setDate(27); //1-31
-    today.setMonth(4); //0-11
+    //today.setDate(14); //1-31
+    //today.setMonth(0); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
 
@@ -293,7 +293,7 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
-    if(this.liturgicProps.LITURGIA){
+    if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
       this.iWantRender = true;
       this.setState({santPressed: !this.state.santPressed});
     }
@@ -433,6 +433,7 @@ export default class HomeScreen extends Component {
       case 'M':
         return 'Memòria obligatòria';
         break;
+      case 'V':
       case 'L':
         return 'Memòria lliure';
         break;

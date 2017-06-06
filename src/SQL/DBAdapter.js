@@ -36,11 +36,6 @@ export default class DBAdapter {
   }
 
   getAnyLiturgic(year, month, day, callback){
-    /*var tomorrow = new Date(year, month, day);
-    tomorrow.setDate(tomorrow.getDate()+1); //TODO: i si no existeix a la base de dades??!! (limitar el datapicker)
-    year2 = tomorrow.getFullYear();
-    month2 = tomorrow.getMonth();
-    day2 = tomorrow.getDate();*/
     //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
     var query = `SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day}`;
@@ -87,6 +82,13 @@ export default class DBAdapter {
     var query = `SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}'`;
 
     console.log("QUERY SOL_MEM: " + query);
+
+    this.executeQuery(query,
+      result => callback(result.rows.item(0)));
+  }
+
+  getV(callback){
+    var query = `SELECT * FROM santsMemories WHERE id = 457`;
 
     this.executeQuery(query,
       result => callback(result.rows.item(0)));
