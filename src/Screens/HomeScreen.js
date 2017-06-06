@@ -16,17 +16,6 @@ import DBAdapter from '../SQL/DBAdapter';
 import SOUL from '../Components/SOUL';
 import SettingsManager from '../Settings/SettingsManager';
 
-/*
-*
-*
-*
-Recorda que quan canvies de data s'ha de posar santPressed a false
-Solemnitat de santsSolemnitats en diumenge es fa? (tinc posat que no)
-*
-*
-*
-*/
-
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
