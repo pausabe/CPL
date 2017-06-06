@@ -194,7 +194,7 @@ export default class HoraMenorDisplay extends Component {
         <Text />
         {this.props.HORA_MENOR.com1 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com1}</Text><Text /></View> : null}
-        {this.salm(salm1)}
+        {this.salm(this.props.HORA_MENOR.salm1)}
         <Text />
         {this.gloria(this.props.HORA_MENOR.gloria1)}
         <Text />
@@ -214,7 +214,7 @@ export default class HoraMenorDisplay extends Component {
         <Text />
         {this.props.HORA_MENOR.com2 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com2}</Text><Text /></View> : null}
-        {this.salm(salm2)}
+        {this.salm(this.props.HORA_MENOR.salm2)}
         <Text />
         {this.gloria(this.props.HORA_MENOR.gloria2)}
         <Text />
@@ -234,7 +234,7 @@ export default class HoraMenorDisplay extends Component {
         <Text />
         {this.props.HORA_MENOR.com3 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com3}</Text><Text /></View> : null}
-        {this.salm(salm3)}
+        {this.salm(this.props.HORA_MENOR.salm3)}
         <Text />
         {this.gloria(this.props.HORA_MENOR.gloria3)}
         <Text />

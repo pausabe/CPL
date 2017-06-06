@@ -79,14 +79,21 @@ export default class LaudesSoul {
       oracio: '',
     }
 
-    this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
-    this.lecturaBreu(liturgicProps.LT, CEL);
-    this.responsori(liturgicProps.LT, CEL);
-    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
-    this.pregaries(liturgicProps.LT, CEL);
-    this.oracio(liturgicProps.LT, date.getDay(), CEL);
+    if(CEL.diumPasqua) {
+      this.LAUDES = CEL;
+      this.LAUDES.cantic = this.state.benedictus;
+      this.LAUDES.salm94 = this.state.salm94
+    }
+    else{
+      this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
+      this.lecturaBreu(liturgicProps.LT, CEL);
+      this.responsori(liturgicProps.LT, CEL);
+      this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
+      this.pregaries(liturgicProps.LT, CEL);
+      this.oracio(liturgicProps.LT, date.getDay(), CEL);
+    }
 
     SOUL.setSoul(HS, "laudes", this.LAUDES);
   }
@@ -138,7 +145,7 @@ export default class LaudesSoul {
   himne(LT, weekDay, setmana, CEL, llati){
     switch(LT){
       case GLOBAL.O_ORDINARI:
-        if(llati === 'true'){ 
+        if(llati === 'true'){
           himne = this.state.salteriComuLaudes.himneLlati;
         }
         else{
@@ -590,28 +597,33 @@ export default class LaudesSoul {
         respBreu3 = this.state.tempsNadalAbansEpifania.respBreuLaudes3
         break;
     }
-    if(CEL.respBreu1 === '-'){
-      if(LT === GLOBAL.Q_TRIDU){
-        this.LAUDES.calAntEspecial = true;
-        this.LAUDES.antEspecialLaudes = this.state.tempsQuaresmaTridu.antEspecialLaudes;
-      }
-      else if(LT === GLOBAL.P_OCTAVA){
-        console.log("RIGHT HERE");
-        this.LAUDES.calAntEspecial = true;
-        this.LAUDES.antEspecialLaudes = this.state.tempsPasquaOct.antEspecialLaudes;
-      }
-      else{
-        this.LAUDES.calAntEspecial = false;
-        this.LAUDES.respBreu1 = respBreu1;
-        this.LAUDES.respBreu2 = respBreu2;
-        this.LAUDES.respBreu3 = respBreu3;
-      }
+    if(CEL.diumPasqua){
+      this.LAUDES.calAntEspecial = true;
+      this.LAUDES.antEspecialLaudes = CEL.antEspecialLaudes;
     }
-    else {
-      this.LAUDES.calAntEspecial = false;
-      this.LAUDES.respBreu1 = CEL.respBreu1;
-      this.LAUDES.respBreu2 = CEL.respBreu2;
-      this.LAUDES.respBreu3 = CEL.respBreu3;
+    else{
+      if(CEL.respBreu1 === '-'){
+        if(LT === GLOBAL.Q_TRIDU){
+          this.LAUDES.calAntEspecial = true;
+          this.LAUDES.antEspecialLaudes = this.state.tempsQuaresmaTridu.antEspecialLaudes;
+        }
+        else if(LT === GLOBAL.P_OCTAVA){
+          this.LAUDES.calAntEspecial = true;
+          this.LAUDES.antEspecialLaudes = this.state.tempsPasquaOct.antEspecialLaudes;
+        }
+        else{
+          this.LAUDES.calAntEspecial = false;
+          this.LAUDES.respBreu1 = respBreu1;
+          this.LAUDES.respBreu2 = respBreu2;
+          this.LAUDES.respBreu3 = respBreu3;
+        }
+      }
+      else {
+        this.LAUDES.calAntEspecial = false;
+        this.LAUDES.respBreu1 = CEL.respBreu1;
+        this.LAUDES.respBreu2 = CEL.respBreu2;
+        this.LAUDES.respBreu3 = CEL.respBreu3;
+      }
     }
   }
 

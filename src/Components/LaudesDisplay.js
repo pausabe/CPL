@@ -179,7 +179,7 @@ export default class LaudesDisplay extends Component {
   introduccio(LT, setmana, LAUDES){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    if(LAUDES.invitatori !== "Laudes"){
+    if(!LAUDES.diumPasqua && LAUDES.invitatori !== "Laudes"){
       return(
         <View>
           <Text style={this.styles.red}>V.
@@ -244,7 +244,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         {LAUDES.com1 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{LAUDES.com1}</Text><Text /></View> : null}
-        {this.salm(salm1)}
+        {this.salm(LAUDES.salm1)}
         <Text />
         {this.gloria(LAUDES.gloria1)}
         <Text />
@@ -260,7 +260,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         {LAUDES.com2 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{LAUDES.com2}</Text><Text /></View> : null}
-        {this.salm(salm2)}
+        {this.salm(LAUDES.salm2)}
         <Text />
         {this.gloria(LAUDES.gloria2)}
         <Text />
@@ -276,7 +276,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         {LAUDES.com3 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{LAUDES.com3}</Text><Text /></View> : null}
-        {this.salm(salm3)}
+        {this.salm(LAUDES.salm3)}
         <Text />
         {this.gloria(LAUDES.gloria3)}
         <Text />

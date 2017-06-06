@@ -129,7 +129,7 @@ export default class CompletesDisplay extends Component {
             <Text />
             {COMPLETES.com1 !== '-' ?
               <View><Text style={this.styles.blackSmallItalicRight}>{COMPLETES.com1}</Text><Text /></View> : null}
-            {this.salm(salm1)}
+            {this.salm(COMPLETES.salm1)}
             <Text />
             {this.gloria(COMPLETES.gloria1)}
             <Text />
@@ -150,7 +150,7 @@ export default class CompletesDisplay extends Component {
             <Text />
             {COMPLETES.com2 !== '-' ?
               <View><Text style={this.styles.blackSmallItalicRight}>{COMPLETES.com2}</Text><Text /></View> : null}
-            {this.salm(salm2)}
+            {this.salm(COMPLETES.salm2)}
             <Text />
             {this.gloria(COMPLETES.gloria2)}
             <Text />

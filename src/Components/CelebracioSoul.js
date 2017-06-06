@@ -18,7 +18,8 @@ export default class CelebracioSoul {
       typeCel: '-',
     }
 
-    this.OFICI = { //40
+    this.OFICI = { //60
+      diumPasqua: false,
       invitatori: '-',
       antInvitatori: '-',
       salm94: '-',
@@ -56,12 +57,32 @@ export default class CelebracioSoul {
       resp2Part1: '-',
       resp2Part2: '-',
       resp2Part3: '-',
+      referencia3: '-',
+      cita3: '-',
+      titolLectura3: '-',
+      lectura3: '-',
+      versResp3: '-',
+      resp3Part1: '-',
+      resp3Part2: '-',
+      resp3Part3: '-',
+      referencia4: '-',
+      cita4: '-',
+      titolLectura4: '-',
+      lectura4: '-',
+      versResp4: '-',
+      resp4Part1: '-',
+      resp4Part2: '-',
+      resp4Part3: '-',
       himneOhDeu: '-',
       himneOhDeuBool: '-',
       oracio: '-',
+      oracio1: '-',
+      oracio2: '-',
+      oracio3: '-',
     }
 
-    this.LAUDES = { //30
+    this.LAUDES = { //31
+      diumPasqua: false,
       invitatori: '-',
       antInvitatori: '-',
       salm94: '-',
@@ -94,7 +115,8 @@ export default class CelebracioSoul {
       oracio: '-',
     }
 
-    this.TERCIA = { //23
+    this.TERCIA = { //24
+      diumPasqua: false,
       himne: '-',
       antifones: '-',
       ant: '-',
@@ -120,7 +142,8 @@ export default class CelebracioSoul {
       oracio: '-',
     }
 
-    this.SEXTA = { //23
+    this.SEXTA = { //24
+      diumPasqua: false,
       himne: '-',
       antifones: '-',
       ant: '-',
@@ -146,7 +169,8 @@ export default class CelebracioSoul {
       oracio: '-',
     }
 
-    this.NONA = { //23
+    this.NONA = { //24
+      diumPasqua: false,
       himne: '-',
       antifones: '-',
       ant: '-',
@@ -172,7 +196,8 @@ export default class CelebracioSoul {
       oracio: '-',
     }
 
-    this.VESPRES1 = { //27
+    this.VESPRES1 = { //28
+      diumPasqua: false,
       himne: '-',
       ant1: '-',
       titol1: '-',
@@ -202,7 +227,8 @@ export default class CelebracioSoul {
       oracio: '-',
     }
 
-    this.VESPRES = { //27
+    this.VESPRES = { //28
+      diumPasqua: false,
       himne: '-',
       ant1: '-',
       titol1: '-',
@@ -266,7 +292,9 @@ export default class CelebracioSoul {
         if(idTSF === -1){
           switch (celType) {
             case "S":
-              this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables);
+              if(liturgicProps.LT === GLOBAL.Q_DIUM_PASQUA)
+                this.createCel(TABLES, "DP", diocesi, llati, liturgicProps.ABC, '.', variables);
+              else this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables);
               break;
             case "F":
               if(date.getDay() !== 0) this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables);
@@ -326,6 +354,9 @@ export default class CelebracioSoul {
     console.log("CelbracioSoul - createCel: " + type);
     //console.log("llati: " + llati + ", celtype: " + celType);
     switch (type) {
+      case "DP":
+        this.makeDP(TABLES, type, diocesi, llati, anyABC, celType);
+      break;
       case "TSF":
         if(celType === '.'){
           this.makeTSF(TABLES, type, diocesi, llati, anyABC, celType);
@@ -393,6 +424,190 @@ export default class CelebracioSoul {
         this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
         break;
     }
+  }
+
+  makeDP(TABLES, type, diocesi, llati, anyABC, celType){
+    console.log("making Diumenge de Pasqua");
+    //::::::>>>>>DP<<<<<::::::
+    //::::::DP-INFO_CEL::::::
+    this.INFO_CEL.nomCel = 'Diumenge de Pasqua',
+    this.INFO_CEL.infoCel = '-',
+    this.INFO_CEL.typeCel = 'S',
+
+    //::::::DP-OFICI::::::
+    this.OFICI.diumPasqua = true;
+    //DP-OFICI -> LECTURES
+    //L1
+    this.OFICI.referencia1 = TABLES.tempsQuaresmaDiumPasq.referencia1;
+    this.OFICI.cita1 = TABLES.tempsQuaresmaDiumPasq.citaLect1Ofici;
+    this.OFICI.titolLectura1 = TABLES.tempsQuaresmaDiumPasq.titolLect1Ofici;
+    this.OFICI.lectura1 = TABLES.tempsQuaresmaDiumPasq.lectura1;
+    this.OFICI.ant1 = TABLES.tempsQuaresmaDiumPasq.ant1Ofici;
+    this.OFICI.titol1 = TABLES.tempsQuaresmaDiumPasq.citaSalm1Ofici;
+    this.OFICI.salm1 = TABLES.tempsQuaresmaDiumPasq.salm1Ofici;
+    this.OFICI.oracio1 = TABLES.tempsQuaresmaDiumPasq.oracioSalm1Ofici;
+    //L2
+    this.OFICI.referencia2 = TABLES.tempsQuaresmaDiumPasq.referencia2Ofici;
+    this.OFICI.cita2 = TABLES.tempsQuaresmaDiumPasq.citaLec2Ofici;
+    this.OFICI.titolLectura2 = TABLES.tempsQuaresmaDiumPasq.titolLect2Ofici;
+    this.OFICI.lectura2 = TABLES.tempsQuaresmaDiumPasq.lectura2;
+    this.OFICI.ant2 = TABLES.tempsQuaresmaDiumPasq.ant2Ofici;
+    this.OFICI.titol2 = TABLES.tempsQuaresmaDiumPasq.citaSalm2Ofici;
+    this.OFICI.salm2 = TABLES.tempsQuaresmaDiumPasq.salm2Ofici;
+    this.OFICI.oracio2 = TABLES.tempsQuaresmaDiumPasq.oracioSalm2Ofici;
+    //L3
+    this.OFICI.referencia3 = TABLES.tempsQuaresmaDiumPasq.referencia3Ofici;
+    this.OFICI.cita3 = TABLES.tempsQuaresmaDiumPasq.citaLect3Ofici;
+    this.OFICI.titolLectura3 = TABLES.tempsQuaresmaDiumPasq.titolLect3Ofici;
+    this.OFICI.lectura3 = TABLES.tempsQuaresmaDiumPasq.lectura3;
+    this.OFICI.ant3 = TABLES.tempsQuaresmaDiumPasq.ant3Ofici;
+    this.OFICI.titol3 = TABLES.tempsQuaresmaDiumPasq.citaSalm3Ofici;
+    this.OFICI.salm3 = TABLES.tempsQuaresmaDiumPasq.salm3Ofici;
+    //L4
+    this.OFICI.referencia4 = TABLES.tempsQuaresmaDiumPasq.referencia4Ofici;
+    this.OFICI.cita4 = TABLES.tempsQuaresmaDiumPasq.citaLec4Ofici;
+    this.OFICI.titolLectura4 = TABLES.tempsQuaresmaDiumPasq.titolLect4Ofici;
+    this.OFICI.lectura4 = TABLES.tempsQuaresmaDiumPasq.lectura4;
+    this.OFICI.oracio = TABLES.tempsQuaresmaDiumPasq.oracioSalm4Ofici;
+    //DP-OFICI -> HIMNE OH DÉU
+    this.OFICI.himneOhDeuBool = true;
+
+
+    //::::::DP-LAUDES::::::
+    this.LAUDES.diumPasqua = true;
+    //DP-LAUDES -> INVITATORI
+    this.LAUDES.antInvitatori = TABLES.tempsQuaresmaDiumPasq.antInvitatori;
+    //DP-LAUDES -> HIMNE
+    if(llati === 'true') this.LAUDES.himne = TABLES.tempsQuaresmaDiumPasq.himneLlatiLaudes;
+    else this.LAUDES.himne = TABLES.tempsQuaresmaDiumPasq.himneCatLaudes;
+    //DP-LAUDES -> SALMÒDIA
+    this.LAUDES.ant1 = TABLES.tempsQuaresmaDiumPasq.ant1Laudes;
+    this.LAUDES.titol1 = TABLES.tempsQuaresmaDiumPasq.titol1Laudes;
+    this.LAUDES.com1 = '.';
+    this.LAUDES.salm1 = TABLES.tempsQuaresmaDiumPasq.text1Laudes;
+    this.LAUDES.gloria1 = TABLES.tempsQuaresmaDiumPasq.gloria1Laudes;
+    this.LAUDES.ant2 = TABLES.tempsQuaresmaDiumPasq.ant2Laudes;
+    this.LAUDES.titol2 = TABLES.tempsQuaresmaDiumPasq.titol2Laudes;
+    this.LAUDES.com2 = '.';
+    this.LAUDES.salm2 = TABLES.tempsQuaresmaDiumPasq.text2Laudes;
+    this.LAUDES.gloria2 = TABLES.tempsQuaresmaDiumPasq.gloria2Laudes;
+    this.LAUDES.ant3 = TABLES.tempsQuaresmaDiumPasq.ant3Laudes;
+    this.LAUDES.titol3 = TABLES.tempsQuaresmaDiumPasq.titol3Laudes;
+    this.LAUDES.com3 = '.';
+    this.LAUDES.salm3 = TABLES.tempsQuaresmaDiumPasq.text3Laudes;
+    this.LAUDES.gloria3 = TABLES.tempsQuaresmaDiumPasq.gloria3Laudes;
+    //DP-LAUDES -> LECTURA BREU
+    this.LAUDES.vers = TABLES.tempsQuaresmaDiumPasq.citaLBLaudes;
+    this.LAUDES.lecturaBreu = TABLES.tempsQuaresmaDiumPasq.lecturaBreuLaudes;
+    //DP-LAUDES -> RESPONSORI
+    this.LAUDES.antEspecialLaudes = TABLES.tempsQuaresmaDiumPasq.antEspecialLaudes;
+    //DP-LAUDES -> CÀNTIC
+    this.LAUDES.antCantic = TABLES.tempsQuaresmaDiumPasq.antZacaries;
+    //DP-LAUDES -> PREGÀRIES
+    this.LAUDES.pregaries = TABLES.tempsQuaresmaDiumPasq.pregariesLaudes;
+    //DP-LAUDES -> ORACIÓ
+    this.LAUDES.oracio = TABLES.tempsQuaresmaDiumPasq.oraFiLaudes;
+
+
+    //::::::DP-TERCIA::::::
+    this.TERCIA.diumPasqua = true;
+    this.TERCIA.antifones = false;
+    if(llati === 'true') this.TERCIA.himne = TABLES.tempsQuaresmaDiumPasq.himneTerciaLlati;
+    else this.TERCIA.himne = TABLES.tempsQuaresmaDiumPasq.himneTerciaCat;
+    this.TERCIA.ant = TABLES.tempsQuaresmaDiumPasq.antMenorTercia;
+    this.TERCIA.titol1 = TABLES.tempsQuaresmaDiumPasq.titol1salm117;
+    this.TERCIA.com1 = '.';
+    this.TERCIA.salm1 = TABLES.tempsQuaresmaDiumPasq.part1Salm117;
+    this.TERCIA.gloria1 = TABLES.tempsQuaresmaDiumPasq.gloria1salm117;
+    this.TERCIA.titol2 = TABLES.tempsQuaresmaDiumPasq.titol2salm117;
+    this.TERCIA.com2 = '.';
+    this.TERCIA.salm2 = TABLES.tempsQuaresmaDiumPasq.part2Salm117;
+    this.TERCIA.gloria2 = TABLES.tempsQuaresmaDiumPasq.gloria2salm117;
+    this.TERCIA.titol3 = TABLES.tempsQuaresmaDiumPasq.titol3salm117;
+    this.TERCIA.com3 = '.';
+    this.TERCIA.salm3 = TABLES.tempsQuaresmaDiumPasq.part3Salm117;
+    this.TERCIA.gloria3 = TABLES.tempsQuaresmaDiumPasq.gloria3salm117;
+    this.TERCIA.vers = TABLES.tempsQuaresmaDiumPasq.citaLBTercia;
+    this.TERCIA.lecturaBreu = TABLES.tempsQuaresmaDiumPasq.lecturaBreuTercia;
+    this.TERCIA.respV = TABLES.tempsQuaresmaDiumPasq.responsoriMenorV;
+    this.TERCIA.respR = TABLES.tempsQuaresmaDiumPasq.responsoriMenorR;
+    this.TERCIA.oracio = TABLES.tempsQuaresmaDiumPasq.oraFiMenor;
+
+    //::::::DP-SEXTA::::::
+    this.SEXTA.diumPasqua = true;
+    this.SEXTA.antifones = false;
+    if(llati === 'true') this.SEXTA.himne = TABLES.tempsQuaresmaDiumPasq.himneSextaLlati;
+    else this.SEXTA.himne = TABLES.tempsQuaresmaDiumPasq.himneSextaCat;
+    this.SEXTA.ant = TABLES.tempsQuaresmaDiumPasq.antMenorSexta;
+    this.SEXTA.titol1 = TABLES.tempsQuaresmaDiumPasq.titol1salm117;
+    this.SEXTA.com1 = '.';
+    this.SEXTA.salm1 = TABLES.tempsQuaresmaDiumPasq.part1Salm117;
+    this.SEXTA.gloria1 = TABLES.tempsQuaresmaDiumPasq.gloria1salm117;
+    this.SEXTA.titol2 = TABLES.tempsQuaresmaDiumPasq.titol2salm117;
+    this.SEXTA.com2 = '.';
+    this.SEXTA.salm2 = TABLES.tempsQuaresmaDiumPasq.part2Salm117;
+    this.SEXTA.gloria2 = TABLES.tempsQuaresmaDiumPasq.gloria2salm117;
+    this.SEXTA.titol3 = TABLES.tempsQuaresmaDiumPasq.titol3salm117;
+    this.SEXTA.com3 = '.';
+    this.SEXTA.salm3 = TABLES.tempsQuaresmaDiumPasq.part3Salm117;
+    this.SEXTA.gloria3 = TABLES.tempsQuaresmaDiumPasq.gloria3salm117;
+    this.SEXTA.vers = TABLES.tempsQuaresmaDiumPasq.citaLBSexta;
+    this.SEXTA.lecturaBreu = TABLES.tempsQuaresmaDiumPasq.lecturaBreuSexta;
+    this.SEXTA.respV = TABLES.tempsQuaresmaDiumPasq.responsoriMenorV;
+    this.SEXTA.respR = TABLES.tempsQuaresmaDiumPasq.responsoriMenorR;
+    this.SEXTA.oracio = TABLES.tempsQuaresmaDiumPasq.oraFiMenor;
+
+
+    //::::::DP-NONA::::::
+    this.NONA.diumPasqua = true;
+    this.NONA.antifones = false;
+    if(llati === 'true') this.NONA.himne = TABLES.tempsQuaresmaDiumPasq.himneNonaLlati;
+    else this.NONA.himne = TABLES.tempsQuaresmaDiumPasq.himneNonaCat;
+    this.NONA.ant = TABLES.tempsQuaresmaDiumPasq.antMenorNona;
+    this.NONA.titol1 = TABLES.tempsQuaresmaDiumPasq.titol1salm117;
+    this.NONA.com1 = '.';
+    this.NONA.salm1 = TABLES.tempsQuaresmaDiumPasq.part1Salm117;
+    this.NONA.gloria1 = TABLES.tempsQuaresmaDiumPasq.gloria1salm117;
+    this.NONA.titol2 = TABLES.tempsQuaresmaDiumPasq.titol2salm117;
+    this.NONA.com2 = '.';
+    this.NONA.salm2 = TABLES.tempsQuaresmaDiumPasq.part2Salm117;
+    this.NONA.gloria2 = TABLES.tempsQuaresmaDiumPasq.gloria2salm117;
+    this.NONA.titol3 = TABLES.tempsQuaresmaDiumPasq.titol3salm117;
+    this.NONA.com3 = '.';
+    this.NONA.salm3 = TABLES.tempsQuaresmaDiumPasq.part3Salm117;
+    this.NONA.gloria3 = TABLES.tempsQuaresmaDiumPasq.gloria3salm117;
+    this.NONA.vers = TABLES.tempsQuaresmaDiumPasq.citaLBNona;
+    this.NONA.lecturaBreu = TABLES.tempsQuaresmaDiumPasq.lecturaBreuNona;
+    this.NONA.respV = TABLES.tempsQuaresmaDiumPasq.responsoriMenorV;
+    this.NONA.respR = TABLES.tempsQuaresmaDiumPasq.responsoriMenorR;
+    this.NONA.oracio = TABLES.tempsQuaresmaDiumPasq.oraFiMenor;
+
+
+    //::::::DP-VESPRES::::::
+    this.VESPRES.diumPasqua = true;
+    if(llati === 'true') this.VESPRES.himne = TABLES.tempsQuaresmaDiumPasq.himneLlatiVespres;
+    else this.VESPRES.himne = TABLES.tempsQuaresmaDiumPasq.himneCatVespres;
+    this.VESPRES.ant1 = TABLES.tempsQuaresmaDiumPasq.ant1Vespres;
+    this.VESPRES.titol1 = TABLES.tempsQuaresmaDiumPasq.titol1Vespres;
+    this.VESPRES.com1 = '.';
+    this.VESPRES.salm1 = TABLES.tempsQuaresmaDiumPasq.text1Vespres;
+    this.VESPRES.gloria1 = TABLES.tempsQuaresmaDiumPasq.gloria1Vespres;
+    this.VESPRES.ant2 = TABLES.tempsQuaresmaDiumPasq.ant2Vespres;
+    this.VESPRES.titol2 = TABLES.tempsQuaresmaDiumPasq.titol2Vespres;
+    this.VESPRES.com2 = '.';
+    this.VESPRES.salm2 = TABLES.tempsQuaresmaDiumPasq.text2Vespres;
+    this.VESPRES.gloria2 = TABLES.tempsQuaresmaDiumPasq.gloria2Vespres;
+    this.VESPRES.ant3 = TABLES.tempsQuaresmaDiumPasq.ant3Vespres;
+    this.VESPRES.titol3 = TABLES.tempsQuaresmaDiumPasq.titol3Vespres;
+    this.VESPRES.com3 = '.';
+    this.VESPRES.salm3 = TABLES.tempsQuaresmaDiumPasq.text3Vespres;
+    this.VESPRES.gloria3 = TABLES.tempsQuaresmaDiumPasq.gloria3Vespres;
+    this.VESPRES.vers = TABLES.tempsQuaresmaDiumPasq.citaLBVespres;
+    this.VESPRES.lecturaBreu = TABLES.tempsQuaresmaDiumPasq.lecturaBreuVespres;
+    this.VESPRES.antEspecialVespres = TABLES.tempsQuaresmaDiumPasq.antEspecialVespres;
+    this.VESPRES.antCantic = TABLES.tempsQuaresmaDiumPasq.antMaria;
+    this.VESPRES.pregaries = TABLES.tempsQuaresmaDiumPasq.pregariesVespres;
+    this.VESPRES.oracio = TABLES.tempsQuaresmaDiumPasq.oraFiVespres;
   }
 
   makeVespres1TSF(TABLES, type, diocesi, llati, anyABC, celType){
@@ -1475,10 +1690,10 @@ export default class CelebracioSoul {
     if(TABLES.santsMemories.resp2Part3Ofici !== '-')
       this.OFICI.resp2Part3 = TABLES.santsMemories.resp2Part3Ofici;
     else if(TABLES.OficisComuns !== null) this.OFICI.resp2Part3 = TABLES.OficisComuns.resp2Part3Ofici;
-    if(TABLES.santsMemories.oraFiOfici !== '-')
-      this.OFICI.himneOhDeu = TABLES.santsMemories.oraFiOfici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.himneOhDeu = TABLES.OficisComuns.oraFiOfici;
-    this.OFICI.himneOhDeuBool = true; //TODO: si??
+    /*if(TABLES.santsMemories.oraFiOfici !== '-')
+      this.OFICI.oracio = TABLES.santsMemories.oraFiOfici;
+    else if(TABLES.OficisComuns !== null) this.OFICI.oracio = TABLES.OficisComuns.oraFiOfici;*/
+    this.OFICI.himneOhDeuBool = false; //TODO: si??
 
 
     //:::::::ML LAUDES:::::::

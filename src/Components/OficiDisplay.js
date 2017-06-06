@@ -80,56 +80,86 @@ export default class OficiDisplay extends Component {
 
   render() {
     OFICI = this.props.liturgicProps.LITURGIA.ofici;
-    return (
-      <View>
-        {this.introduccio(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, OFICI)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={this.styles.red}>HIMNE</Text>
-        <Text />
-        {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), false, this.props.liturgicProps.setmana, OFICI)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={this.styles.red}>SALMÒDIA</Text>
-        <Text />
-        {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.cicle, OFICI)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={this.styles.red}>VERS</Text>
-        <Text />
-        {this.vers(this.props.liturgicProps.LT, OFICI)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={this.styles.red}>LECTURES</Text>
-        <Text />
-        {this.lectures(this.props.liturgicProps.LT, OFICI)}
-        <Text />
-        {this.himneOhDeu(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={this.styles.red}>ORACIÓ</Text>
-        <Text />
-        <Text style={this.styles.blackBold}>Preguem.</Text>
-        {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
-        <Text />
-        <Hr lineColor='#CFD8DC' />
-        <Text />
-        <Text style={this.styles.red}>CONCLUSIÓ</Text>
-        <Text />
-        <Text style={this.styles.red}>V.
-          <Text style={this.styles.black}> Beneïm al Senyor.</Text>
-        </Text>
-        <Text style={this.styles.red}>R.
-          <Text style={this.styles.black}> Donem gràcies a Déu.</Text>
-        </Text>
-        <Text />
-      </View>
-    );
+    if(!OFICI.diumPasqua){
+      return (
+        <View>
+          {this.introduccio(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>HIMNE</Text>
+          <Text />
+          {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), false, this.props.liturgicProps.setmana, OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>SALMÒDIA</Text>
+          <Text />
+          {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.cicle, OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>VERS</Text>
+          <Text />
+          {this.vers(this.props.liturgicProps.LT, OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>LECTURES</Text>
+          <Text />
+          {this.lectures(this.props.liturgicProps.LT, OFICI)}
+          <Text />
+          {this.himneOhDeu(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>ORACIÓ</Text>
+          <Text />
+          <Text style={this.styles.blackBold}>Preguem.</Text>
+          {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>CONCLUSIÓ</Text>
+          <Text />
+          <Text style={this.styles.red}>V.
+            <Text style={this.styles.black}> Beneïm al Senyor.</Text>
+          </Text>
+          <Text style={this.styles.red}>R.
+            <Text style={this.styles.black}> Donem gràcies a Déu.</Text>
+          </Text>
+          <Text />
+        </View>
+      );
+    }
+    else{
+      return (
+        <View>
+          {this.lecturesDiumPasqua(this.props.liturgicProps.LT, OFICI)}
+          <Text />
+          {this.himneOhDeu(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>ORACIÓ</Text>
+          <Text />
+          <Text style={this.styles.blackBold}>Preguem.</Text>
+          {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
+          <Text />
+          <Hr lineColor='#CFD8DC' />
+          <Text />
+          <Text style={this.styles.red}>CONCLUSIÓ</Text>
+          <Text />
+          <Text style={this.styles.red}>V.
+            <Text style={this.styles.black}> Beneïm al Senyor.</Text>
+          </Text>
+          <Text style={this.styles.red}>R.
+            <Text style={this.styles.black}> Donem gràcies a Déu.</Text>
+          </Text>
+          <Text />
+        </View>
+      );
+    }
   }
 
   salm(salm){
@@ -234,7 +264,7 @@ export default class OficiDisplay extends Component {
         <Text />
         {OFICI.com1 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com1}</Text><Text /></View> : null}
-        {this.salm(salm1)}
+        {this.salm(OFICI.salm1)}
         <Text />
         {this.gloria(OFICI.gloria1)}
         <Text />
@@ -250,7 +280,7 @@ export default class OficiDisplay extends Component {
         <Text />
         {OFICI.com2 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com2}</Text><Text /></View> : null}
-        {this.salm(salm2)}
+        {this.salm(OFICI.salm2)}
         <Text />
         {this.gloria(OFICI.gloria2)}
         <Text />
@@ -266,7 +296,7 @@ export default class OficiDisplay extends Component {
         <Text />
         {OFICI.com3 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com3}</Text><Text /></View> : null}
-        {this.salm(salm3)}
+        {this.salm(OFICI.salm3)}
         <Text />
         {this.gloria(OFICI.gloria3)}
         <Text />
@@ -328,6 +358,92 @@ export default class OficiDisplay extends Component {
         <Text style={this.styles.red}>V.
           <Text style={this.styles.black}>  {OFICI.resp2Part3} {OFICI.resp2Part2}</Text>
         </Text>
+      </View>
+    )
+  }
+
+  lecturesDiumPasqua(LT, OFICI){
+    return(
+      <View>
+        <Text style={this.styles.red}>Primera lectura</Text>
+        <Text style={this.styles.black}>{OFICI.referencia1}
+          <Text style={this.styles.red}> {OFICI.cita1}</Text></Text>
+        <Text />
+        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura1}</Text>
+        <Text />
+        <Text style={this.styles.black}>{OFICI.lectura1}</Text>
+        <Text />
+        <Text style={this.styles.red}>Ant.
+          <Text style={this.styles.black}> {OFICI.ant1}</Text>
+        </Text>
+        <Text />
+        <Text style={this.styles.redCenter}>{OFICI.titol1}</Text>
+        <Text />
+        {this.salm(OFICI.salm1)}
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={this.styles.red}>Ant.
+          <Text style={this.styles.black}> {OFICI.ant1}</Text>
+        </Text>
+        <Text />
+        <Text style={this.styles.blackBold}>Preguem.</Text>
+        <Text style={this.styles.black}>{OFICI.oracio1}</Text>
+        <Text />
+        <Text style={this.styles.red}>Segona lectura</Text>
+        <Text style={this.styles.black}>{OFICI.referencia2}
+          <Text style={this.styles.red}> {OFICI.cita2}</Text></Text>
+        <Text />
+        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
+        <Text />
+        <Text style={this.styles.black}>{OFICI.lectura2}</Text>
+        <Text />
+        <Text style={this.styles.red}>Ant.
+          <Text style={this.styles.black}> {OFICI.ant2}</Text>
+        </Text>
+        <Text />
+        <Text style={this.styles.redCenter}>{OFICI.titol2}</Text>
+        <Text />
+        {this.salm(OFICI.salm2)}
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={this.styles.red}>Ant.
+          <Text style={this.styles.black}> {OFICI.ant2}</Text>
+        </Text>
+        <Text />
+        <Text style={this.styles.blackBold}>Preguem.</Text>
+        <Text style={this.styles.black}>{OFICI.oracio2}</Text>
+        <Text />
+        <Text style={this.styles.red}>Tercera lectura</Text>
+        <Text style={this.styles.black}>{OFICI.referencia3}
+          <Text style={this.styles.red}> {OFICI.cita3}</Text></Text>
+        <Text />
+        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura3}</Text>
+        <Text />
+        <Text style={this.styles.black}>{OFICI.lectura3}</Text>
+        <Text />
+        <Text style={this.styles.red}>Ant.
+          <Text style={this.styles.black}> {OFICI.ant3}</Text>
+        </Text>
+        <Text />
+        <Text style={this.styles.redCenter}>{OFICI.titol3}</Text>
+        <Text />
+        {this.salm(OFICI.salm3)}
+        <Text />
+        {this.gloria('1')}
+        <Text />
+        <Text style={this.styles.red}>Ant.
+          <Text style={this.styles.black}> {OFICI.ant3}</Text>
+        </Text>
+        <Text />
+        <Text style={this.styles.red}>Quarta lectura</Text>
+        <Text style={this.styles.black}>{OFICI.referencia4}
+          <Text style={this.styles.red}> {OFICI.cita4}</Text></Text>
+        <Text />
+        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura4}</Text>
+        <Text />
+        <Text style={this.styles.black}>{OFICI.lectura4}</Text>
       </View>
     )
   }

@@ -436,7 +436,7 @@ export default class SOUL {
     }
 
     //taula 27 (#19): Laudes(24), Vespres(22)
-    if(liturgicProps.LT === GLOBAL.P_OCTAVA){
+    if(liturgicProps.LT === GLOBAL.P_OCTAVA || liturgicProps.LT === GLOBAL.Q_DIUM_PASQUA){
       c += 1;
       id = 1;
       this.acceso.getLiturgia("tempsQuaresmaDiumPasq", id, (result) => {
@@ -531,7 +531,7 @@ export default class SOUL {
     }
 
     //taula 34 (#32): - i //taula 36
-    if(this.tomorrowCal === 'S' || params.idTSF === -1 && (celType === 'S' || celType === 'F')){
+    if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || params.idTSF === -1 && (celType === 'S' || celType === 'F'))){
       c += 1;
       var auxDate = date;
       if(this.tomorrowCal === 'S') auxDate = this.dataTomorrow.date;
@@ -691,14 +691,16 @@ export default class SOUL {
   }
 
   tomorrowCalVespres1CEL(date, LT, setmana, pentacosta){
-    this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
-    if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)
-      return 'DE';
+    if(LT !== GLOBAL.Q_DIUM_PASQUA){
+      this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
+      if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)
+        return 'DE';
 
-    this.idTSFTomorrow = this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta);
-    if(this.idTSFTomorrow !== -1) return 'TSF';
+      this.idTSFTomorrow = this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta);
+      if(this.idTSFTomorrow !== -1) return 'TSF';
 
-    if(this.dataTomorrow.celType === 'S') return 'S';
+      if(this.dataTomorrow.celType === 'S') return 'S';
+    }
 
     return '-';
   }

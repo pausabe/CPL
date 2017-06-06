@@ -74,15 +74,19 @@ export default class VespresSoul {
           oracio: '',
         }
 
-        console.log("CEL.titol1 INICI " + CEL.titol1);
-
-    this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
-    this.lecturaBreu(liturgicProps.LT, CEL);
-    this.responsori(liturgicProps.LT, CEL);
-    this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
-    this.pregaries(liturgicProps.LT, CEL);
-    this.oracio(liturgicProps.LT, date.getDay(), CEL);
+    if(CEL.diumPasqua) {
+      this.VESPRES = CEL;
+      this.VESPRES.cantic = this.state.magnificat;
+;    }
+    else{
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
+      this.lecturaBreu(liturgicProps.LT, CEL);
+      this.responsori(liturgicProps.LT, CEL);
+      this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
+      this.pregaries(liturgicProps.LT, CEL);
+      this.oracio(liturgicProps.LT, date.getDay(), CEL);
+    }
 
     SOUL.setSoul(HS, "vespres", this.VESPRES);
   }
@@ -557,28 +561,33 @@ export default class VespresSoul {
         respBreu3 = this.state.tempsNadalAbansEpifania.respBreuVespres3
         break;
     }
-
-    if(CEL.respBreu1 === '-'){
-      if(LT === GLOBAL.Q_TRIDU){
-        this.VESPRES.calAntEspecial = true;
-        this.VESPRES.antEspecialVespres = this.state.tempsQuaresmaTridu.antEspecialVespres;
-      }
-      else if(LT === GLOBAL.P_OCTAVA){
-        this.VESPRES.calAntEspecial = true;
-        this.VESPRES.antEspecialVespres = this.state.tempsPasquaOct.antEspecialVespres;
+    if(CEL.diumPasqua){
+      this.VESPRES.calAntEspecial = true;
+      this.VESPRES.antEspecialLaudes = CEL.antEspecialLaudes;
+    }
+    else{
+      if(CEL.respBreu1 === '-'){
+        if(LT === GLOBAL.Q_TRIDU){
+          this.VESPRES.calAntEspecial = true;
+          this.VESPRES.antEspecialVespres = this.state.tempsQuaresmaTridu.antEspecialVespres;
+        }
+        else if(LT === GLOBAL.P_OCTAVA){
+          this.VESPRES.calAntEspecial = true;
+          this.VESPRES.antEspecialVespres = this.state.tempsPasquaOct.antEspecialVespres;
+        }
+        else{
+          this.VESPRES.calAntEspecial = false;
+          this.VESPRES.respBreu1 = respBreu1;
+          this.VESPRES.respBreu2 = respBreu2;
+          this.VESPRES.respBreu3 = respBreu3;
+        }
       }
       else{
         this.VESPRES.calAntEspecial = false;
-        this.VESPRES.respBreu1 = respBreu1;
-        this.VESPRES.respBreu2 = respBreu2;
-        this.VESPRES.respBreu3 = respBreu3;
+        this.VESPRES.respBreu1 = CEL.respBreu1;
+        this.VESPRES.respBreu2 = CEL.respBreu2;
+        this.VESPRES.respBreu3 = CEL.respBreu3;
       }
-    }
-    else{
-      this.VESPRES.calAntEspecial = false;
-      this.VESPRES.respBreu1 = CEL.respBreu1;
-      this.VESPRES.respBreu2 = CEL.respBreu2;
-      this.VESPRES.respBreu3 = CEL.respBreu3;
     }
   }
 

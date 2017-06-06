@@ -201,7 +201,7 @@ export default class VespresDisplay extends Component {
         <Text />
         {VESPRES.com1 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{VESPRES.com1}</Text><Text /></View> : null}
-        {this.salm(salm1)}
+        {this.salm(VESPRES.salm1)}
         <Text />
         {this.gloria(VESPRES.gloria1)}
         <Text />
@@ -217,7 +217,7 @@ export default class VespresDisplay extends Component {
         <Text />
         {VESPRES.com2 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{VESPRES.com2}</Text><Text /></View> : null}
-        {this.salm(salm2)}
+        {this.salm(VESPRES.salm2)}
         <Text />
         {this.gloria(VESPRES.gloria2)}
         <Text />
@@ -233,7 +233,7 @@ export default class VespresDisplay extends Component {
         <Text />
         {VESPRES.com3 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{VESPRES.com3}</Text><Text /></View> : null}
-        {this.salm(salm3)}
+        {this.salm(VESPRES.salm3)}
         <Text />
         {this.gloria(VESPRES.gloria3)}
         <Text />

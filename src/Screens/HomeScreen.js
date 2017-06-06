@@ -47,8 +47,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(14); //1-31
-    //today.setMonth(0); //0-11
+    //today.setDate(16); //1-31
+    //today.setMonth(3); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
 
@@ -103,13 +103,9 @@ export default class HomeScreen extends Component {
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
       SettingsManager.getSettingShowGlories((r) => this.variables.lliures = r),
-      SettingsManager.getSettingTextSize((r) => {
-        console.log("textSize: " + r);
-        this.variables.textSize = r;
-      }),
+      SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
       SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
     ]).then(results => {
-      console.log("gloria: " + this.variables.gloria);
       this.refreshDate(date);
     });
   }

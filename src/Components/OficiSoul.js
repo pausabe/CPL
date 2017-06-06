@@ -84,13 +84,19 @@ export default class OficiSoul {
           oracio: '',
         }
 
-    this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
-    this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana, CEL, llati);
-    this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
-    this.vers(liturgicProps.LT, CEL);
-    this.lectures(liturgicProps.LT, CEL);
-    this.himneOhDeu(liturgicProps.LT, date.getDay(), CEL);
-    this.oracio(liturgicProps.LT, date.getDay(), CEL);
+    if(CEL.diumPasqua) {
+      this.OFICI = CEL;
+      this.OFICI.himneOhDeu = this.state.ohDeu;
+    }
+    else {
+      this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
+      this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana, CEL, llati);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
+      this.vers(liturgicProps.LT, CEL);
+      this.lectures(liturgicProps.LT, CEL);
+      this.himneOhDeu(liturgicProps.LT, date.getDay(), CEL);
+      this.oracio(liturgicProps.LT, date.getDay(), CEL);
+    }
 
     SOUL.setSoul(HS, "ofici", this.OFICI);
   }
