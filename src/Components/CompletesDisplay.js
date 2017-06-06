@@ -129,7 +129,7 @@ export default class CompletesDisplay extends Component {
             <Text />
             {COMPLETES.com1 !== '-' ?
               <View><Text style={this.styles.blackSmallItalicRight}>{COMPLETES.com1}</Text><Text /></View> : null}
-            <Text style={this.styles.black}>{COMPLETES.salm1}</Text>
+            {this.salm(salm1)}
             <Text />
             {this.gloria(COMPLETES.gloria1)}
             <Text />
@@ -150,7 +150,7 @@ export default class CompletesDisplay extends Component {
             <Text />
             {COMPLETES.com2 !== '-' ?
               <View><Text style={this.styles.blackSmallItalicRight}>{COMPLETES.com2}</Text><Text /></View> : null}
-            <Text style={this.styles.black}>{salm2}</Text>
+            {this.salm(salm2)}
             <Text />
             {this.gloria(COMPLETES.gloria2)}
             <Text />
@@ -178,7 +178,7 @@ export default class CompletesDisplay extends Component {
             <Text />
             {COMPLETES.com1 !== '-' ?
               <View><Text style={this.styles.blackSmallItalicRight}>{COMPLETES.com1}</Text><Text /></View> : null}
-            <Text style={this.styles.black}>{COMPLETES.salm1}</Text>
+            <Text style={this.styles.black}>{this.salm(salm1)}</Text>
             <Text />
             {this.gloria(COMPLETES.gloria1)}
             <Text />
@@ -273,8 +273,25 @@ export default class CompletesDisplay extends Component {
     );
   }
 
+  salm(salm){
+    if(this.props.variables.cleanSalm === 'false'){
+      salm = salm.replace(/    [*]/g,'');
+      salm = salm.replace(/   [*]/g,'');
+      salm = salm.replace(/  [*]/g,'');
+      salm = salm.replace(/ [*]/g,'');
+      salm = salm.replace(/    [†]/g,'');
+      salm = salm.replace(/   [†]/g,'');
+      salm = salm.replace(/  [†]/g,'');
+      salm = salm.replace(/ [†]/g,'');
+    }
+    return (<Text style={this.styles.black}>{salm}</Text>);
+  }
+
   gloria(g){
-    const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    if(this.props.variables.cleanSalm === 'false')
+      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
+
     if(g === '1'){
       if(this.props.variables.gloria === 'false'){
         return(<Text style={this.styles.black}>Glòria.</Text>);

@@ -71,6 +71,7 @@ export default class HomeScreen extends Component {
       gloria: '',
       lliures: '',
       textSize: '',
+      cleanSalm: '',
       celType: '',
       date: today,
     }
@@ -117,6 +118,7 @@ export default class HomeScreen extends Component {
         console.log("textSize: " + r);
         this.variables.textSize = r;
       }),
+      SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
     ]).then(results => {
       console.log("gloria: " + this.variables.gloria);
       this.refreshDate(date);

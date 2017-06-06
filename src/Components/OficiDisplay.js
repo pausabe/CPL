@@ -132,8 +132,24 @@ export default class OficiDisplay extends Component {
     );
   }
 
+  salm(salm){
+    if(this.props.variables.cleanSalm === 'false'){
+      salm = salm.replace(/    [*]/g,'');
+      salm = salm.replace(/   [*]/g,'');
+      salm = salm.replace(/  [*]/g,'');
+      salm = salm.replace(/ [*]/g,'');
+      salm = salm.replace(/    [†]/g,'');
+      salm = salm.replace(/   [†]/g,'');
+      salm = salm.replace(/  [†]/g,'');
+      salm = salm.replace(/ [†]/g,'');
+    }
+    return (<Text style={this.styles.black}>{salm}</Text>);
+  }
+
   gloria(g){
-    const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    if(this.props.variables.cleanSalm === 'false')
+      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
       if(this.props.variables.gloria === 'false'){
@@ -191,7 +207,7 @@ export default class OficiDisplay extends Component {
           <Text />
           <Text style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
           <Text />
-          <Text style={this.styles.black}>{OFICI.salm94}</Text>
+          {this.salm(OFICI.salm94)}
           <Text />
           {this.gloria('1')}
           <Text />
@@ -218,7 +234,7 @@ export default class OficiDisplay extends Component {
         <Text />
         {OFICI.com1 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com1}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{OFICI.salm1}</Text>
+        {this.salm(salm1)}
         <Text />
         {this.gloria(OFICI.gloria1)}
         <Text />
@@ -234,7 +250,7 @@ export default class OficiDisplay extends Component {
         <Text />
         {OFICI.com2 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com2}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{OFICI.salm2}</Text>
+        {this.salm(salm2)}
         <Text />
         {this.gloria(OFICI.gloria2)}
         <Text />
@@ -250,7 +266,7 @@ export default class OficiDisplay extends Component {
         <Text />
         {OFICI.com3 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com3}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{OFICI.salm3}</Text>
+        {this.salm(salm3)}
         <Text />
         {this.gloria(OFICI.gloria3)}
         <Text />

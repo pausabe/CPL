@@ -142,8 +142,24 @@ export default class LaudesDisplay extends Component {
     );
   }
 
+  salm(salm){
+    if(this.props.variables.cleanSalm === 'false'){
+      salm = salm.replace(/    [*]/g,'');
+      salm = salm.replace(/   [*]/g,'');
+      salm = salm.replace(/  [*]/g,'');
+      salm = salm.replace(/ [*]/g,'');
+      salm = salm.replace(/    [†]/g,'');
+      salm = salm.replace(/   [†]/g,'');
+      salm = salm.replace(/  [†]/g,'');
+      salm = salm.replace(/ [†]/g,'');
+    }
+    return (<Text style={this.styles.black}>{salm}</Text>);
+  }
+
   gloria(g){
-    const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    if(this.props.variables.cleanSalm === 'false')
+      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
       if(true === true){ //TODO: tenir en compte els ajustaments
@@ -201,7 +217,7 @@ export default class LaudesDisplay extends Component {
           <Text />
           <Text style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
           <Text />
-          <Text style={this.styles.black}>{LAUDES.salm94}</Text>
+          {this.salm(LAUDES.salm94)}
           <Text />
           {this.gloria('1')}
           <Text />
@@ -228,7 +244,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         {LAUDES.com1 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{LAUDES.com1}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{LAUDES.salm1}</Text>
+        {this.salm(salm1)}
         <Text />
         {this.gloria(LAUDES.gloria1)}
         <Text />
@@ -244,7 +260,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         {LAUDES.com2 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{LAUDES.com2}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{LAUDES.salm2}</Text>
+        {this.salm(salm2)}
         <Text />
         {this.gloria(LAUDES.gloria2)}
         <Text />
@@ -260,7 +276,7 @@ export default class LaudesDisplay extends Component {
         <Text />
         {LAUDES.com3 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{LAUDES.com3}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{LAUDES.salm3}</Text>
+        {this.salm(salm3)}
         <Text />
         {this.gloria(LAUDES.gloria3)}
         <Text />
@@ -326,7 +342,7 @@ export default class LaudesDisplay extends Component {
           <Text style={this.styles.black}> {LAUDES.antCantic}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.black}>{LAUDES.cantic}</Text>
+        {this.salm(LAUDES.cantic)}
         <Text />
         {this.gloria('1')}
         <Text />

@@ -152,8 +152,24 @@ export default class VespresDisplay extends Component {
     );
   }
 
+  salm(salm){
+    if(this.props.variables.cleanSalm === 'false'){
+      salm = salm.replace(/    [*]/g,'');
+      salm = salm.replace(/   [*]/g,'');
+      salm = salm.replace(/  [*]/g,'');
+      salm = salm.replace(/ [*]/g,'');
+      salm = salm.replace(/    [†]/g,'');
+      salm = salm.replace(/   [†]/g,'');
+      salm = salm.replace(/  [†]/g,'');
+      salm = salm.replace(/ [†]/g,'');
+    }
+    return (<Text style={this.styles.black}>{salm}</Text>);
+  }
+
   gloria(g){
-    const gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
+    if(this.props.variables.cleanSalm === 'false')
+      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
       if(this.props.variables.gloria === 'false'){
@@ -185,7 +201,7 @@ export default class VespresDisplay extends Component {
         <Text />
         {VESPRES.com1 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{VESPRES.com1}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{VESPRES.salm1}</Text>
+        {this.salm(salm1)}
         <Text />
         {this.gloria(VESPRES.gloria1)}
         <Text />
@@ -201,7 +217,7 @@ export default class VespresDisplay extends Component {
         <Text />
         {VESPRES.com2 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{VESPRES.com2}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{VESPRES.salm2}</Text>
+        {this.salm(salm2)}
         <Text />
         {this.gloria(VESPRES.gloria2)}
         <Text />
@@ -217,7 +233,7 @@ export default class VespresDisplay extends Component {
         <Text />
         {VESPRES.com3 !== '-' ?
           <View><Text style={this.styles.blackSmallItalicRight}>{VESPRES.com3}</Text><Text /></View> : null}
-        <Text style={this.styles.black}>{VESPRES.salm3}</Text>
+        {this.salm(salm3)}
         <Text />
         {this.gloria(VESPRES.gloria3)}
         <Text />
@@ -277,7 +293,7 @@ export default class VespresDisplay extends Component {
           <Text style={this.styles.black}> {VESPRES.antCantic}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.black}>{VESPRES.cantic}</Text>
+        {this.salm(VESPRES.cantic)}
         <Text />
         {this.gloria('1')}
         <Text />
