@@ -89,6 +89,8 @@ export default class SOUL {
     else idTSF_aux = -1;
     console.log("idTSF_aux: " + idTSF_aux);
     //idTSF_aux = -1;
+    var idTF = this.findTF(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
+    console.log("idTF: " + idTF);
 
     this.tomorrowCal = '-';
 
@@ -519,10 +521,9 @@ export default class SOUL {
     }
 
     //taula 33 (#??): Ofici(24)
-    if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA &&
-      liturgicProps.LT !== GLOBAL.N_OCTAVA){
+    if(idTF !== -1){
       c += 1;
-      id = (parseInt(liturgicProps.cicle)-1)*7 + (date.getDay()+1);
+      id = idTF;
       this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => {
         this.queryRows.salteriComuOficiTF = result;
         this.dataReceived(params);
@@ -643,18 +644,9 @@ export default class SOUL {
         console.log("CELEBRACIO");
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
-          console.log("--------------------------------------------------------------------");
-          console.log("pregaria.INFO_CEL - " + pregaria.INFO_CEL.typeCel);
-          console.log("this.CT - " + this.CT);
-          console.log("--------------------------------------------------------------------");
 
-          //if(pregaria.INFO_CEL.typeCel) this.LITURGIA.info_cel.typeCel = this.CT;
-
-          if(this.tomorrowCal !== '-') {
+          if(this.tomorrowCal !== '-')
               vespresCelDEF = this.CEL.VESPRES1;
-              //console.log("YYYYYYYYYYYYYYYYYEEEEEEEEEEEEEEEEEEESSSSSSSSSS: " + vespresCelDEF.titol1);
-              //vespresCelDEF = this.CEL.VESPRES;
-          }
           else vespresCelDEF = this.CEL.VESPRES;
 
           if(this.firstAccess){
@@ -701,6 +693,148 @@ export default class SOUL {
     if(this.dataTomorrow.celType === 'S') return 'S';
 
     return '-';
+  }
+
+  /*
+    Return id of #salteriComuOficiTF or -1 if there isn't there
+  */
+  findTF(date, LT, setmana, pentacosta){
+    //1- Dissabte I Advent
+    if(LT === GLOBAL.A_SETMANES && setmana === '1' && date.getDay() === 6){
+      return 1;
+    }
+
+    //2- Dissabte II Advent
+    if(LT === GLOBAL.A_SETMANES && setmana === '2' && date.getDay() === 6){
+      return 2;
+    }
+
+    //3- Divendres IV Advent (si és el 23 de desembre)
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 23 && date.getMonth() == 11 && date.getDay() == 5){
+      return 3;
+    }
+
+    //4- Divendres IV Advent (si és el 24 de desembre)
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 24 && date.getMonth() == 11 && date.getDay() == 5){
+      return 4;
+    }
+
+    //5- Dissabte IV Advent (24 de desembre)
+    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 24 && date.getMonth() == 11 && date.getDay() == 6){
+      return 5;
+    }
+
+    //6- Dissabte I Nadal (si és el 2 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '1' && date.getDate() === 2 && date.getMonth() === 0 && date.getDay() == 6){
+      return 6;
+    }
+
+    //7- Dissabte I Nadal (si és el 3 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '1' && date.getDate() === 3 && date.getMonth() === 0 && date.getDay() == 6){
+      return 7;
+    }
+
+    //8- Dissabte I Nadal (si és el 4 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '1' && date.getDate() === 4 && date.getMonth() === 0 && date.getDay() == 6){
+      return 8;
+    }
+
+    //9- Dissabte I Nadal (si és el 5 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '1' && date.getDate() === 5 && date.getMonth() === 0 && date.getDay() == 6){
+      return 9;
+    }
+
+    //10- Dissabte II Nadal (si és el 7 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '2' && date.getDate() === 7 && date.getMonth() === 0 && date.getDay() == 6){
+      return 10;
+    }
+
+    //11- Dissabte II Nadal (si és el 8 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '2' && date.getDate() === 8 && date.getMonth() === 0 && date.getDay() == 6){
+      return 11;
+    }
+
+    //12- Dissabte II Nadal (si és el 9 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '2' && date.getDate() === 9 && date.getMonth() === 0 && date.getDay() == 6){
+      return 12;
+    }
+
+    //13- Dissabte II Nadal (si és el 10 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '2' && date.getDate() === 10 && date.getMonth() === 0 && date.getDay() == 6){
+      return 13;
+    }
+
+    //14- Dissabte II Nadal (si és el 11 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '2' && date.getDate() === 11 && date.getMonth() === 0 && date.getDay() == 6){
+      return 14;
+    }
+
+    //15- Dissabte II Nadal (si és el 12 de gener)
+    if(LT === GLOBAL.N_ABANS && setmana === '2' && date.getDate() === 12 && date.getMonth() === 0 && date.getDay() == 6){
+      return 15;
+    }
+
+    //16- Divendres després de Cendra, Quaresma
+    if(LT === GLOBAL.Q_CENDRA && date.getDay() === 5){
+      return 16;
+    }
+
+    //17- Dissabte després de Cendra, Quaresma
+    if(LT === GLOBAL.Q_CENDRA && date.getDay() === 6){
+      return 17;
+    }
+
+    //18- Dissabte I Quaresma
+    if(LT === GLOBAL.Q_SETMANES && setmana === '1' && date.getDay() === 6){
+      return 18;
+    }
+
+    //19- Dissabte II Quaresma
+    if(LT === GLOBAL.Q_SETMANES && setmana === '2' && date.getDay() === 6){
+      return 19;
+    }
+
+    //20- Divendres IV Quaresma
+    if(LT === GLOBAL.Q_SETMANES && setmana === '4' && date.getDay() === 5){
+      return 20;
+    }
+
+    //21- Dissabte IV Quaresma
+    if(LT === GLOBAL.Q_SETMANES && setmana === '4' && date.getDay() === 6){
+      return 21;
+    }
+
+    //22- Dissabte V Quaresma
+    if(LT === GLOBAL.Q_SETMANES && setmana === '5' && date.getDay() === 6){
+      return 22;
+    }
+
+    //23- Dissabte II Pasqua
+    if(LT === GLOBAL.P_SETMANES && setmana === '2' && date.getDay() === 6){
+      return 23;
+    }
+
+    //24- Divendres IV Pasqua
+    if(LT === GLOBAL.P_SETMANES && setmana === '4' && date.getDay() === 5){
+      return 24;
+    }
+
+    //25- Dissabte IV Pasqua
+    if(LT === GLOBAL.P_SETMANES && setmana === '4' && date.getDay() === 6){
+      return 25;
+    }
+
+    //26- Dissabte V Pasqua
+    if(LT === GLOBAL.P_SETMANES && setmana === '5' && date.getDay() === 6){
+      return 26;
+    }
+
+    //27- Dissabte VI Pasqua
+    if(LT === GLOBAL.P_SETMANES && setmana === '6' && date.getDay() === 6){
+      return 27;
+    }
+
+    return -1;
   }
 
   /*

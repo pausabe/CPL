@@ -47,8 +47,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(25); //1-31
-    //today.setMonth(4); //0-11
+    today.setDate(27); //1-31
+    today.setMonth(4); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
 
