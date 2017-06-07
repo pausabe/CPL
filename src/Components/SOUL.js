@@ -58,10 +58,11 @@ export default class SOUL {
       diesespecials: '', //37
     }
 
-    this.LITURGIA = { //7
+    this.LITURGIA = { //8
       info_cel: null,
       ofici: null,
       laudes: null,
+      vespres1: false,
       vespres: null,
       tercia: null,
       sexta: null,
@@ -653,9 +654,14 @@ export default class SOUL {
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
-          if(this.tomorrowCal !== '-')
+          if(this.tomorrowCal !== '-'){
+              this.LITURGIA.vespres1 = true;
               vespresCelDEF = this.CEL.VESPRES1;
-          else vespresCelDEF = this.CEL.VESPRES;
+          }
+          else {
+            this.LITURGIA.vespres1 = false;
+            vespresCelDEF = this.CEL.VESPRES;
+          }
 
           if(this.firstAccess){
             this.firstAccess = false;

@@ -88,7 +88,6 @@ export default class HomeScreen extends Component {
 
     this.refresh = false;
     this.refreshEverything(today);
-
   }
 
   refreshEverything(date){

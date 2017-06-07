@@ -78,6 +78,9 @@ export default class Liturgia extends Component {
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Vespres", LiturgiaDisplayScreen)}>
          <Text style={styles.buttonText}>{hour > 17 && hour < 23 ? "* Vespres *" : "Vespres"}</Text>
+         {this.props.liturgicProps.LITURGIA && (this.props.variables.date.getDay() === 6 || this.props.liturgicProps.LITURGIA.vespres1) ?
+            <Text style={styles.redCenter}>Primeres Vespres</Text>
+          : null }
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
@@ -115,5 +118,10 @@ const styles = StyleSheet.create({
   hrstyle: {
     backgroundColor: '#263238',
     height: 4
-  }
+  },
+  redCenter: {
+    color: '#FF0000',
+    fontSize: 15,
+    textAlign: 'center'
+  },
 })
