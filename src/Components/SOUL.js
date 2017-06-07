@@ -352,7 +352,7 @@ export default class SOUL {
     }
 
     //taula 20 (#29): Ofici(20), Laudes(18), Vespres(17), HoraMenor(17)
-    if(liturgicProps.LT === GLOBAL.N_OCTAVA){
+    if(liturgicProps.LT === GLOBAL.N_OCTAVA && date.getDate() !== 25){
       c += 1;
       id = date.getDate()-25;
       this.acceso.getLiturgia("tempsNadalOctava", id, (result) => {
@@ -766,6 +766,16 @@ export default class SOUL {
     }
     else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.P_OCTAVA){
       this.LITURGIA.info_cel.nomCel = "Octava de Pasqua";
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+    }
+    else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.N_OCTAVA){
+      this.LITURGIA.info_cel.nomCel = "Octava de Nadal";
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+    }
+    else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.Q_CENDRA){
+      this.LITURGIA.info_cel.nomCel = "Cendra";
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';
     }

@@ -33,6 +33,7 @@ export default class OficiSoul {
           tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
           salteriComuEspPasquaDium: TABLES.salteriComuEspPasquaDium,
           tempsAdventSetmanesDium: TABLES.tempsAdventSetmanesDium,
+          tempsSolemnitatsFestes: TABLES.tempsSolemnitatsFestes,
           diversos: TABLES.diversos,
           salm94: TABLES.diversos.item(0).oracio,
           ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
@@ -160,6 +161,7 @@ export default class OficiSoul {
         else{//dia
           if(llati === 'true'){
             himne = this.state.salteriComuOfici.himneDiaLlati;
+            console.log("himne " +himne);
           }
           else{
             himne = this.state.salteriComuOfici.himneDiaCat;
@@ -391,6 +393,7 @@ export default class OficiSoul {
         break;
       case GLOBAL.N_OCTAVA:
         ant1 = this.state.tempsNadalOctava.ant1Ofici;
+        console.log("ant1. " + ant1);
         titol1 = this.state.tempsNadalOctava.titolSalm1Ofici;
         com1 = "";
         salm1 = this.state.tempsNadalOctava.salm1Ofici;
