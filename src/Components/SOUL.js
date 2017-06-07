@@ -278,7 +278,8 @@ export default class SOUL {
 
     //taula 16 (#25): Ofici(16), Laudes(14), Vespres(13), HoraMenor(13)
     if(liturgicProps.LT === GLOBAL.A_SETMANES || liturgicProps.LT === GLOBAL.A_FERIES ||
-       liturgicProps.LT === GLOBAL.N_OCTAVA || liturgicProps.LT === GLOBAL.N_ABANS){
+       liturgicProps.LT === GLOBAL.N_OCTAVA || liturgicProps.LT === GLOBAL.N_ABANS ||
+       this.tomorrowCal === 'A'){
       c += 1;
       switch (liturgicProps.LT) {
         case GLOBAL.A_SETMANES:
@@ -303,11 +304,16 @@ export default class SOUL {
     }
 
     //taula 17 (#26): Ofici(17), Laudes(15), Vespres(14), HoraMenor(14)
-    if(liturgicProps.LT === GLOBAL.A_SETMANES){
+    if(liturgicProps.LT === GLOBAL.A_SETMANES || this.tomorrowCal === 'A'){
       c += 1;
       //Week begins with saturday
       {date.getDay() === 6 ? auxDay = 1 : auxDay = date.getDay() + 2}
-      id = (parseInt(liturgicProps.cicle)-1)*7 + auxDay;
+      auxCicle = liturgicProps.cicle;
+      if(this.tomorrowCal === 'A'){
+        auxCicle = 1;
+        auxDay = 1;
+      }
+      id = (parseInt(auxCicle)-1)*7 + auxDay;
       this.acceso.getLiturgia("tempsAdventSetmanes", id, (result) => {
         this.queryRows.tempsAdventSetmanes = result;
         this.dataReceived(params);
@@ -325,9 +331,10 @@ export default class SOUL {
     }
 
     //taula 18.2 (#27): Ofici(18), Laudes(16), Vespres(15), HoraMenor(15)
-    if(liturgicProps.LT === GLOBAL.A_SETMANES || liturgicProps.LT === GLOBAL.A_FERIES){
+    if(liturgicProps.LT === GLOBAL.A_SETMANES || liturgicProps.LT === GLOBAL.A_FERIES || this.tomorrowCal === 'A'){
       c += 1;
       id = parseInt(liturgicProps.cicle) + 1;
+      if(this.tomorrowCal === 'A') id=1;
       this.acceso.getLiturgia("tempsAdventSetmanesDium", id, (result) => {
         this.queryRows.tempsAdventSetmanesDiumVespres1 = result;
         this.dataReceived(params);
@@ -475,6 +482,7 @@ export default class SOUL {
       if(date.getDay() === 6){
         { cicle === 4 ? cicle = 1 : cicle += 1 }
       }
+      if(this.tomorrowCal === 'A') cicle = 1;
       id = (cicle-1)*7 + weekDayNormalVESPRES;
       //console.log("ID----------------------------> weekDayNormalVESPRES: " + weekDayNormalVESPRES + ", liturgicProps.cicle: " + parseInt(liturgicProps.cicle) +", id: " + id);
       this.acceso.getLiturgia("salteriComuVespres", id, (result) => {
@@ -768,6 +776,8 @@ export default class SOUL {
       if(LT === GLOBAL.Q_DIUM_RAMS) return 'DR';
 
       if(date.getDay() === 5 && LT === GLOBAL.Q_TRIDU) return 'T';
+
+      if(date.getDay() === 0 && setmana === '1' && LT === GLOBAL.A_SETMANES) return 'A';
 
       this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
       if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)

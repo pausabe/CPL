@@ -334,6 +334,9 @@ export default class CelebracioSoul {
         case "T":
           this.createCel(TABLES, "T", diocesi, llati, liturgicProps.ABC, celType, variables);
           break;
+        case "A":
+          this.createCel(TABLES, "A", diocesi, llati, liturgicProps.ABC, celType, variables);
+          break;
         }
     }
 
@@ -429,6 +432,28 @@ export default class CelebracioSoul {
           this.makeT(TABLES, type, diocesi, llati, anyABC, celType);
         }
         break;
+
+      case "A":
+         if(celType === '.'){
+           this.makeA(TABLES, type, diocesi, llati, anyABC, celType);
+         }
+         else{
+           switch (celType) {
+             case 'S':
+             case 'F':
+               this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
+               break;
+             case 'M':
+               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+               break;
+             case 'L':
+             case 'V':
+               if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+               break;
+           }
+           this.makeA(TABLES, type, diocesi, llati, anyABC, celType);
+         }
+         break;
 
       case "DE":
         if(celType === '.'){
@@ -2097,5 +2122,33 @@ export default class CelebracioSoul {
     this.VESPRES1.antCantic = TABLES.tempsQuaresmaTridu.antMaria;
     this.VESPRES1.pregaries = TABLES.tempsQuaresmaTridu.pregariesVespres;
     this.VESPRES1.oracio = TABLES.tempsQuaresmaTridu.oraFiVespres;
+  }
+
+  makeA(TABLES, type, diocesi, llati, anyABC, celType){
+    console.log("makeA ");
+    if(llati === 'true')
+      this.VESPRES1.himne = TABLES.tempsAdventNadalComu.himneVespresLlati;
+    else this.VESPRES1.himne = TABLES.tempsAdventNadalComu.himneVespresCat;
+    this.VESPRES1.ant1 = TABLES.tempsAdventSetmanesDiumVespres1.ant1Vespres;
+    this.VESPRES1.ant2 = TABLES.tempsAdventSetmanesDiumVespres1.ant2Vespres;
+    this.VESPRES1.ant3 = TABLES.tempsAdventSetmanesDiumVespres1.ant3Vespres;
+    this.VESPRES1.vers = TABLES.tempsAdventSetmanes.citaLBVespres;
+    this.VESPRES1.lecturaBreu = TABLES.tempsAdventSetmanes.lecturaBreuVespres;
+    this.VESPRES1.respBreu1 = TABLES.tempsAdventSetmanes.respBreuVespres1;
+    this.VESPRES1.respBreu2 = TABLES.tempsAdventSetmanes.respBreuVespres2;
+    this.VESPRES1.respBreu3 = TABLES.tempsAdventSetmanes.respBreuVespres3;
+    switch (anyABC) {
+      case 'C':
+        this.VESPRES1.antCantic = TABLES.tempsAdventSetmanesDiumVespres1.antMaria1A;
+        break;
+      case 'A':
+        this.VESPRES1.antCantic = TABLES.tempsAdventSetmanesDiumVespres1.antMaria1B;
+        break;
+      case 'B':
+        this.VESPRES1.antCantic = TABLES.tempsAdventSetmanesDiumVespres1.antMaria1C;
+        break;
+    }
+    this.VESPRES1.pregaries = TABLES.tempsAdventSetmanes.pregariesVespres;
+    this.VESPRES1.oracio = TABLES.tempsAdventSetmanes.oraFiVespres;
   }
 }
