@@ -77,7 +77,7 @@ export default class VespresSoul {
     if(CEL.diumPasqua) {
       this.VESPRES = CEL;
       this.VESPRES.cantic = this.state.magnificat;
-;    }
+    }
     else{
       this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
       this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
@@ -188,7 +188,6 @@ export default class VespresSoul {
   }
 
   salmodia(LT, setmana, weekDay, CEL){
-    console.log("CEL.titol1 " + CEL.titol1);
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.Q_CENDRA:
@@ -253,12 +252,12 @@ export default class VespresSoul {
         com3 = this.state.salteriComuVespres.com3;
         salm3 = this.state.salteriComuVespres.salm3;
         gloria3 = this.state.salteriComuVespres.gloria3;
-        if(weekDay === 6){ //primeres vespres de diumenge
+        /*if(weekDay === 6){ //primeres vespres de diumenge
           ant1 = this.state.tempsQuaresmaRams.ant1Vespres1;
           ant2 = this.state.tempsQuaresmaRams.ant2Vespres1;
           ant3 = this.state.tempsQuaresmaRams.ant3Vespres1;
         }
-        else if(weekDay === 0){ //segones vespres de diumenge
+        else */if(weekDay === 0){ //segones vespres de diumenge
           ant1 = this.state.tempsQuaresmaRams.ant1Vespres2;
           ant2 = this.state.tempsQuaresmaRams.ant2Vespres2;
           ant3 = this.state.tempsQuaresmaRams.ant3Vespres2;
@@ -451,14 +450,14 @@ export default class VespresSoul {
         lecturaBreu = this.state.tempsQuaresmaVSetmanes.lecturaBreuVespres;
         break;
       case GLOBAL.Q_DIUM_RAMS:
-        if(weekDay === 6){ //Primeres vespres
+        /*if(weekDay === 6){ //Primeres vespres
           vers = this.state.tempsQuaresmaRams.citaLBVespres;
           lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuVespres;
         }
-        else{ //Segones vespres
+        else{ //Segones vespres*/
           vers = this.state.tempsQuaresmaRams.citaLBVespres2;
           lecturaBreu = this.state.tempsQuaresmaRams.lecturaBreuVespres2;
-        }
+        //}
         break;
       case GLOBAL.Q_SET_SANTA:
         vers = this.state.tempsQuaresmaSetSanta.citaLBVespres;
@@ -519,16 +518,16 @@ export default class VespresSoul {
         respBreu3 = this.state.tempsQuaresmaVSetmanes.respBreuVespres3
         break;
       case GLOBAL.Q_DIUM_RAMS:
-        if(weekDay === 6){ //Primeres vespres
+        /*if(weekDay === 6){ //Primeres vespres
           respBreu1 = this.state.tempsQuaresmaRams.respBreuVespres1
           respBreu2 = this.state.tempsQuaresmaRams.respBreuVespres2
           respBreu3 = this.state.tempsQuaresmaRams.respBreuVespres3
         }
-        else{ //Segones vespres
+        else{ //Segones vespres*/
           respBreu1 = this.state.tempsQuaresmaRams.respBreuVespres12
           respBreu2 = this.state.tempsQuaresmaRams.respBreuVespres22
           respBreu3 = this.state.tempsQuaresmaRams.respBreuVespres32
-        }
+        //}
         break;
       case GLOBAL.Q_SET_SANTA:
         respBreu1 = this.state.tempsQuaresmaSetSanta.respBreuVespres1
@@ -567,19 +566,25 @@ export default class VespresSoul {
     }
     else{
       if(CEL.respBreu1 === '-'){
-        if(LT === GLOBAL.Q_TRIDU){
-          this.VESPRES.calAntEspecial = true;
-          this.VESPRES.antEspecialVespres = this.state.tempsQuaresmaTridu.antEspecialVespres;
-        }
-        else if(LT === GLOBAL.P_OCTAVA){
-          this.VESPRES.calAntEspecial = true;
-          this.VESPRES.antEspecialVespres = this.state.tempsPasquaOct.antEspecialVespres;
+        if(CEL.calAntEspecial === true){
+          this.VESPRES.calAntEspecial = CEL.calAntEspecial;
+          this.VESPRES.antEspecialVespres = CEL.antEspecialVespres;
         }
         else{
-          this.VESPRES.calAntEspecial = false;
-          this.VESPRES.respBreu1 = respBreu1;
-          this.VESPRES.respBreu2 = respBreu2;
-          this.VESPRES.respBreu3 = respBreu3;
+          if(LT === GLOBAL.Q_TRIDU){
+            this.VESPRES.calAntEspecial = true;
+            this.VESPRES.antEspecialVespres = this.state.tempsQuaresmaTridu.antifonaEspecialVespres;
+          }
+          else if(LT === GLOBAL.P_OCTAVA){
+            this.VESPRES.calAntEspecial = true;
+            this.VESPRES.antEspecialVespres = this.state.tempsPasquaOct.antEspecialVespres;
+          }
+          else{
+            this.VESPRES.calAntEspecial = false;
+            this.VESPRES.respBreu1 = respBreu1;
+            this.VESPRES.respBreu2 = respBreu2;
+            this.VESPRES.respBreu3 = respBreu3;
+          }
         }
       }
       else{
@@ -663,7 +668,7 @@ export default class VespresSoul {
         }
         break;
       case GLOBAL.Q_DIUM_RAMS:
-        if(weekDay === 6){ //dissabte, 1res Vespres
+        /*if(weekDay === 6){ //dissabte, 1res Vespres
           switch (litYear) {
             case 'A':
               antCantic = this.state.tempsQuaresmaRams.antMaria1A;
@@ -676,7 +681,7 @@ export default class VespresSoul {
               break;
           }
         }
-        else{ //diumnge, 2nes Vespres
+        else{ //diumnge, 2nes Vespres*/
           switch (litYear) {
             case 'A':
               antCantic = this.state.tempsQuaresmaRams.antMaria1A2;
@@ -687,7 +692,7 @@ export default class VespresSoul {
             case 'C':
               antCantic = this.state.tempsQuaresmaRams.antMaria1C2;
               break;
-          }
+          //}
         }
         break;
       case GLOBAL.Q_SET_SANTA:
@@ -794,12 +799,12 @@ export default class VespresSoul {
         pregaries = this.state.tempsQuaresmaVSetmanes.pregariesVespres;
         break;
       case GLOBAL.Q_DIUM_RAMS:
-          if(weekDay === 6){ //Primeres vespres
+          /*if(weekDay === 6){ //Primeres vespres
             pregaries = this.state.tempsQuaresmaRams.pregariesVespres1;
           }
-          else{ //Segones vespres
+          else{ //Segones vespres*/
             pregaries = this.state.tempsQuaresmaRams.pregariesVespres12;
-          }
+          //}
         break;
       case GLOBAL.Q_SET_SANTA:
           pregaries = this.state.tempsQuaresmaSetSanta.pregariesVespres;
@@ -851,12 +856,12 @@ export default class VespresSoul {
         oracio = this.state.tempsQuaresmaVSetmanes.oraFiVespres;
         break;
       case GLOBAL.Q_DIUM_RAMS:
-        if(weekDay === 6){ //Primeres vespres
+        /*if(weekDay === 6){ //Primeres vespres
           oracio = this.state.tempsQuaresmaRams.oraFiVespres1;
         }
-        else{ //Segones vespres
+        else{ //Segones vespres*/
           oracio = this.state.tempsQuaresmaRams.oraFiVespres12;
-        }
+        //}
         break;
       case GLOBAL.Q_SET_SANTA:
         oracio = this.state.tempsQuaresmaSetSanta.oraFiVespres;

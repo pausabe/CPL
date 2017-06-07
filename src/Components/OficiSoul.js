@@ -38,8 +38,10 @@ export default class OficiSoul {
           ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
         };
 
-        if(TABLES.salteriComuOficiTF !== '')
+        if(TABLES.salteriComuOficiTF !== ''){
+          console.log("catching TF: " + TABLES.salteriComuOficiTF);
           this.state.salteriComuOfici = TABLES.salteriComuOficiTF;
+        }
 
         this.OFICI = { //40
           invitatori: invitatori,

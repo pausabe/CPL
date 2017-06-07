@@ -25,7 +25,7 @@ export default class DBAdapter {
 
   getLiturgia(table, id, callback){
     if(id !== -1){
-      if(table === 'tempsAdventSetmanesDium') console.log(`tempsAdventSetmanesDium---> SELECT * FROM ${table} WHERE id = ${id}`);
+      //if(table === 'tempsAdventSetmanesDium') console.log(`tempsAdventSetmanesDium---> SELECT * FROM ${table} WHERE id = ${id}`);
       this.executeQuery(`SELECT * FROM ${table} WHERE id = ${id}`,
         result => callback(result.rows.item(0)));
     }
@@ -76,12 +76,21 @@ export default class DBAdapter {
       });
   }
 
-  getSolMem(table, date, diocesi, callback){
+  getSolMem(table, date, diocesi, temps, callback){
     dia = this.calculeDia(date);
 
-    var query = `SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}'`;
+    var query = `SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}' AND Temps = '${temps}'`;
 
     console.log("QUERY SOL_MEM: " + query);
+
+    this.executeQuery(query,
+      result => callback(result.rows.item(0)));
+  }
+
+  getSolMemDiesMov(table, id, callback){
+    var query = `SELECT * FROM ${table} WHERE id = '${id}'`;
+
+    console.log("QUERY SOL_MEM-Dies_Mov: " + query);
 
     this.executeQuery(query,
       result => callback(result.rows.item(0)));

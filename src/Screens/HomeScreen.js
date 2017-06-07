@@ -47,8 +47,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(16); //1-31
-    //today.setMonth(3); //0-11
+    today.setDate(1); //1-31
+    today.setMonth(11); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
 
@@ -231,7 +231,7 @@ export default class HomeScreen extends Component {
          </View>
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
          <View style={{paddingBottom: 5}}>
-           <Text style={styles.celebracioType}>{this.transfromCelTypeName(this.liturgicProps.LITURGIA.info_cel.typeCel)}</Text>
+           {this.transfromCelTypeName(this.liturgicProps.LITURGIA.info_cel.typeCel)}
          </View>
          : null}
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
@@ -420,19 +420,20 @@ export default class HomeScreen extends Component {
   transfromCelTypeName(CT){
     switch (CT) {
       case 'F':
-        return 'Festivitat';
+        return (<Text style={styles.celebracioType}>Festivitat</Text>);
         break;
       case 'S':
-        return 'Solemnitat';
+        return (<Text style={styles.celebracioType}>Solemnitat</Text>);
         break;
       case 'M':
-        return 'Memòria obligatòria';
+        return (<Text style={styles.celebracioType}>Memòria obligatòria</Text>);
         break;
       case 'V':
       case 'L':
-        return 'Memòria lliure';
+        return (<Text style={styles.celebracioType}>Memòria lliure</Text>);
         break;
     }
+    return null;
   }
 
   romanize (num) {

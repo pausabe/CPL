@@ -46,7 +46,8 @@ export default class SOUL {
       tempsPasquaSetmanesDium: '', //26.1
       tempsPasquaSetmanesDiumVespres1: '', //26.2
       tempsQuaresmaDiumPasq: '', //27
-      tempsQuaresmaVSetmanesDium: '', //28
+      tempsQuaresmaVSetmanesDium: '', //28.1
+      tempsQuaresmaVSetmanesDiumVespres1: '', //28.2
       salteriComuVespres: '', //29
       tempsSolemnitatsFestes: '', //30
       salteriComuHora: '', //31
@@ -196,7 +197,7 @@ export default class SOUL {
     }
 
     //taula 8 (#15): Ofici(8), Laudes(6), Vespres(5), HoraMenor(5)
-    if(liturgicProps.LT === GLOBAL.Q_DIUM_RAMS || liturgicProps.LT === GLOBAL.Q_SET_SANTA){
+    if(liturgicProps.LT === GLOBAL.Q_DIUM_RAMS || this.tomorrowCal === 'DR' || liturgicProps.LT === GLOBAL.Q_SET_SANTA){
       c += 1;
       id = 1;
       this.acceso.getLiturgia("tempsQuaresmaComuSS", id, (result) => {
@@ -204,7 +205,7 @@ export default class SOUL {
     }
 
     //taula 9 (#16): Ofici(9), Laudes(7), Vespres(6), HoraMenor(6)
-    if(liturgicProps.LT === GLOBAL.Q_DIUM_RAMS){
+    if(liturgicProps.LT === GLOBAL.Q_DIUM_RAMS || this.tomorrowCal === 'DR'){
       c += 1;
       id = 1;
       this.acceso.getLiturgia("tempsQuaresmaRams", id, (result) => {
@@ -222,7 +223,7 @@ export default class SOUL {
     }
 
     //taula 11 (#18): Ofici(11), Laudes(9), Vespres(8), HoraMenor(8)
-    if(liturgicProps.LT === GLOBAL.Q_TRIDU){
+    if(this.tomorrowCal === 'T' || liturgicProps.LT === GLOBAL.Q_TRIDU){
       c += 1;
       id = date.getDay()-3; //dijous = 1, divendres = 2 i dissabte = 3
       this.acceso.getLiturgia("tempsQuaresmaTridu", id, (result) => {
@@ -525,6 +526,7 @@ export default class SOUL {
     if(idTF !== -1){
       c += 1;
       id = idTF;
+      console.log("salteriComuOficiTF");
       this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => {
         this.queryRows.salteriComuOficiTF = result;
         this.dataReceived(params);
@@ -534,13 +536,29 @@ export default class SOUL {
     //taula 34 (#32): - i //taula 36
     if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || params.idTSF === -1 && (celType === 'S' || celType === 'F'))){
       c += 1;
-      var auxDate = date;
-      if(this.tomorrowCal === 'S') auxDate = this.dataTomorrow.date;
+
+      if(this.tomorrowCal === 'S') {
+        this.acceso.getSolMem("santsSolemnitats", this.dataTomorrow.date, diocesi, this.liturgicProps.tempsespecific, (result) => {
+          this.queryRows.santsSolemnitats = result;
+          this.getOficisComuns(params, result);
+        });
+      }
+      else{
+        idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
+        if(idDM === -1){
+          this.acceso.getSolMem("santsSolemnitats", date, diocesi, this.liturgicProps.tempsespecific, (result) => {
+            this.queryRows.santsSolemnitats = result;
+            this.getOficisComuns(params, result);
+          });
+        }
+        else{
+          this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
+            this.queryRows.santsSolemnitats = result;
+            this.getOficisComuns(params, result);
+          });
+        }
+      }
       //console.log("AAAAAAAAAAAAAAAAAAAAA: " + auxDate.getDate());
-      this.acceso.getSolMem("santsSolemnitats", auxDate, diocesi, (result) => {
-        this.queryRows.santsSolemnitats = result;
-        this.getOficisComuns(params, result);
-      });
     }
 
     //taula 35 (#31): -  i //taula 36
@@ -553,10 +571,20 @@ export default class SOUL {
         });
       }
       else{
-        this.acceso.getSolMem("santsMemories", date, diocesi, (result) => {
-          this.queryRows.santsMemories = result;
-          this.getOficisComuns(params, result);
-        });
+        idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
+        console.log("idDM: " + idDM);
+        if(idDM === -1){
+          this.acceso.getSolMem("santsMemories", date, diocesi, this.liturgicProps.tempsespecific, (result) => {
+            this.queryRows.santsMemories = result;
+            this.getOficisComuns(params, result);
+          });
+        }
+        else{
+          this.acceso.getSolMemDiesMov("santsMemories", idDM, (result) => {
+            this.queryRows.santsSolemnitats = result;
+            this.getOficisComuns(params, result);
+          });
+        }
       }
     }
 
@@ -591,7 +619,13 @@ export default class SOUL {
         this.dataReceived(params);
       }
     }
-    else console.log("Error OC? no result from DB");
+    else { //TODO: provisional!! TREURE
+      console.log("Error OC. No result from DB");
+      this.LITURGIA.info_cel.nomCel = '-';
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+      this.calls(params.HS);
+    }
   }
 
   dataReceived(params){
@@ -654,39 +688,7 @@ export default class SOUL {
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
-          if(this.tomorrowCal !== '-'){
-              this.LITURGIA.vespres1 = true;
-              vespresCelDEF = this.CEL.VESPRES1;
-          }
-          else {
-            this.LITURGIA.vespres1 = false;
-            vespresCelDEF = this.CEL.VESPRES;
-          }
-
-          if(this.firstAccess){
-            this.firstAccess = false;
-            this.OficiSoul = new OficiSoul(this.variables, this.liturgicProps,
-              this.queryRows, this.CEL.OFICI, HS, this);
-            this.LaudesSoul = new LaudesSoul(this.variables, this.liturgicProps,
-              this.queryRows, this.CEL.LAUDES, HS, this);
-            this.VespresSoul = new VespresSoul(this.variables, this.liturgicProps,
-              this.queryRows, vespresCelDEF, HS, this);
-            this.HoraMenorSoul = new HoraMenorSoul(this.variables, this.liturgicProps,
-              this.queryRows, this.CEL.HORA_MENOR, HS, this);
-            this.CompletesSoul = new CompletesSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
-          }
-          else{
-            this.OficiSoul.makePrayer(this.variables.date, this.liturgicProps,
-              this.queryRows, this.variables.invitatori, this.CEL.OFICI, this.variables.llati, HS, this);
-            this.LaudesSoul.makePrayer(this.variables.date, this.liturgicProps,
-              this.queryRows, this.variables.invitatori, this.CEL.LAUDES, this.variables.llati, HS, this);
-            this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps,
-              this.queryRows, vespresCelDEF, this.variables.llati, HS, this);
-            this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps,
-              this.queryRows, this.CEL.HORA_MENOR, this.variables.llati, HS, this);
-            this.CompletesSoul.makePrayer(this.variables.date, this.liturgicProps,
-              this.queryRows, this.variables.llati, HS, this);
-          }
+          this.calls(HS);
         break;
     }
 
@@ -696,8 +698,77 @@ export default class SOUL {
     }
   }
 
+  calls(HS){
+    this.setSomeInfo();
+
+    if(this.tomorrowCal === '-'){
+        this.LITURGIA.vespres1 = false;
+        vespresCelDEF = this.CEL.VESPRES;
+    }
+    else if(this.tomorrowCal === 'T'){
+      this.LITURGIA.vespres1 = false;
+      vespresCelDEF = this.CEL.VESPRES1;
+    }
+    else{
+      this.LITURGIA.vespres1 = true;
+      vespresCelDEF = this.CEL.VESPRES1;
+    }
+
+    if(this.firstAccess){
+      this.firstAccess = false;
+      this.OficiSoul = new OficiSoul(this.variables, this.liturgicProps,
+        this.queryRows, this.CEL.OFICI, HS, this);
+      this.LaudesSoul = new LaudesSoul(this.variables, this.liturgicProps,
+        this.queryRows, this.CEL.LAUDES, HS, this);
+      this.VespresSoul = new VespresSoul(this.variables, this.liturgicProps,
+        this.queryRows, vespresCelDEF, HS, this);
+      this.HoraMenorSoul = new HoraMenorSoul(this.variables, this.liturgicProps,
+        this.queryRows, this.CEL.HORA_MENOR, HS, this);
+      this.CompletesSoul = new CompletesSoul(this.variables, this.liturgicProps, this.queryRows, HS, this);
+    }
+    else{
+      this.OficiSoul.makePrayer(this.variables.date, this.liturgicProps,
+        this.queryRows, this.variables.invitatori, this.CEL.OFICI, this.variables.llati, HS, this);
+      this.LaudesSoul.makePrayer(this.variables.date, this.liturgicProps,
+        this.queryRows, this.variables.invitatori, this.CEL.LAUDES, this.variables.llati, HS, this);
+      this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps,
+        this.queryRows, vespresCelDEF, this.variables.llati, HS, this);
+      this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps,
+        this.queryRows, this.CEL.HORA_MENOR, this.variables.llati, HS, this);
+      this.CompletesSoul.makePrayer(this.variables.date, this.liturgicProps,
+        this.queryRows, this.variables.llati, HS, this);
+    }
+  }
+
+  setSomeInfo(){
+    if(this.liturgicProps.LT === GLOBAL.Q_DIUM_RAMS){
+      this.LITURGIA.info_cel.nomCel = "Diumenge de Rams";
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+    }
+    else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.Q_SET_SANTA){
+      this.LITURGIA.info_cel.nomCel = "Setmana Santa";
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+    }
+    else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.Q_TRIDU){
+      this.LITURGIA.info_cel.nomCel = "Tridu Pasqual";
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+    }
+    else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.P_OCTAVA){
+      this.LITURGIA.info_cel.nomCel = "Octava de Pasqua";
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+    }
+  }
+
   tomorrowCalVespres1CEL(date, LT, setmana, pentacosta){
     if(LT !== GLOBAL.Q_DIUM_PASQUA){
+      if(LT === GLOBAL.Q_DIUM_RAMS) return 'DR';
+
+      if(date.getDay() === 5 && LT === GLOBAL.Q_TRIDU) return 'T';
+
       this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
       if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)
         return 'DE';
@@ -709,6 +780,48 @@ export default class SOUL {
     }
 
     return '-';
+  }
+
+  /*
+    Return id of #santsMemories or #santsSolemnitats or -1 if there isn't there
+  */
+  diesMov(date, LT, setmana, pentacosta, celType){
+    //santsMemories M - Dissabte de la tercera setmana després de Pentecosta (COR IMMACULAT DE LA BENAURADA VERGE MARIA)
+    var corImmaculat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+20);
+    console.log("corImmaculat: "+corImmaculat);
+    if(date.getDate() === corImmaculat.getDate() && date.getMonth() === corImmaculat.getMonth() &&
+        date.getFullYear() === corImmaculat.getFullYear())
+        return 252;
+
+    //***santsMemories M - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
+    //santsSolemnitats S - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
+    var auxDay = new Date(date.getFullYear(), 8, 2);
+    var b = true;
+    var dies = 0;
+    while(b && dies < 7){
+      if(auxDay.getDay()===0){
+        b=false;
+      }
+      auxDay.setDate(auxDay.getDate()+1)
+      dies += 1;
+    }
+    var cinta = new Date(date.getFullYear(), 8, dies);
+    console.log(celType+" - CINTA: "+cinta);
+    if(date.getDate() === cinta.getDate() && date.getMonth() === cinta.getMonth() &&
+        date.getFullYear() === cinta.getFullYear()){
+          if(celType === 'M')
+            return -1; //encara per afegir a santsMemories, 462?
+          return 83;
+        }
+
+    //santsSolemnitats F - Dijous després de Pentecosta (Jesucrist, gran sacerdot per sempre)
+    var granSacerdot = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+4);
+    console.log("granSacerdot: "+granSacerdot);
+    if(date.getDate() === granSacerdot.getDate() && date.getMonth() === granSacerdot.getMonth() &&
+        date.getFullYear() === granSacerdot.getFullYear())
+        return 58;
+
+    return -1;
   }
 
   /*
