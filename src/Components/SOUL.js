@@ -75,11 +75,19 @@ export default class SOUL {
     this.countLit = 7;
     this.firstAccess = true;
     this.acceso = new DBAdapter();
-    this.makeQueryies(variables.date, liturgicProps, dataTomorrow, variables.celType, variables.diocesi, variables.invitatori, pentacosta, HS, variables.llati);
+    this.makeQueryies(variables, liturgicProps, dataTomorrow, pentacosta, HS);
   }
 
-  makeQueryies(date, liturgicProps, dataTomorrow, celType, diocesi, invitatori, pentacosta, HS, llati){
+  makeQueryies(variables, liturgicProps, dataTomorrow, pentacosta, HS){
+    celType = variables.celType;
+    date = variables.date;
+    diocesi = variables.diocesi;
+    invitatori = variables.invitatori;
+    llati = variables.llati;
+
     console.log("makeQueryies SOUL");
+
+    console.log("dataTomorrow.mogut: " + dataTomorrow.mogut);
 
     this.CT = celType;
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
@@ -545,8 +553,9 @@ export default class SOUL {
     if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || params.idTSF === -1 && (celType === 'S' || celType === 'F'))){
       c += 1;
 
-      if(this.tomorrowCal === 'S') {
-        this.acceso.getSolMem("santsSolemnitats", this.dataTomorrow.date, diocesi, this.liturgicProps.tempsespecific, (result) => {
+      if(this.tomorrowCal === 'S' && dataTomorrow.mogut === '-') {
+        var day = this.calculeDia(this.dataTomorrow.date, '-');
+        this.acceso.getSolMem("santsSolemnitats", day, diocesi, this.liturgicProps.tempsespecific, (result) => {
           this.queryRows.santsSolemnitats = result;
           this.getOficisComuns(params, result);
         });
@@ -555,7 +564,8 @@ export default class SOUL {
         idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
         console.log("idDM: " + idDM);
         if(idDM === -1){
-          this.acceso.getSolMem("santsSolemnitats", date, diocesi, this.liturgicProps.tempsespecific, (result) => {
+        var day = this.calculeDia(date, variables.mogut);
+          this.acceso.getSolMem("santsSolemnitats", day, diocesi, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsSolemnitats = result;
             this.getOficisComuns(params, result);
           });
@@ -583,7 +593,8 @@ export default class SOUL {
         idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
         console.log("idDM: " + idDM);
         if(idDM === -1){
-          this.acceso.getSolMem("santsMemories", date, diocesi, this.liturgicProps.tempsespecific, (result) => {
+          var day = this.calculeDia(date, variables.mogut);
+          this.acceso.getSolMem("santsMemories", day, diocesi, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsMemories = result;
             this.getOficisComuns(params, result);
           });
@@ -695,7 +706,7 @@ export default class SOUL {
           console.log("setSoul COMPLETES");
         break;
       case "celebracio":
-        console.log("CELEBRACIO");
+        console.log("setSoul CELEBRACIO - " + pregaria.INFO_CEL.nomCel);
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
@@ -712,7 +723,7 @@ export default class SOUL {
   calls(HS){
     this.setSomeInfo();
 
-    if(this.tomorrowCal === '-' || this.tomorrowCal === 'F'){
+    if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' || this.dataTomorrow.mogut !== '-'){
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;
     }
@@ -800,8 +811,6 @@ export default class SOUL {
       if(this.idTSFTomorrow !== -1) return 'TSF';
 
       if(this.dataTomorrow.celType === 'S') return 'S';
-
-      if(this.dataTomorrow.celType === 'F') return 'F';
     }
 
     return '-';
@@ -1221,5 +1230,60 @@ export default class SOUL {
     if(today.getDay() !== 0) return false;
     if(today.getDate() < 7 || today.getDate() > 13) return false;
     return true;
+  }
+
+  calculeDia(date, mogut){
+    if(mogut === '-'){
+      switch (date.getMonth()) {
+        case 0:
+          mes = "ene";
+          break;
+        case 1:
+          mes = "feb";
+          break;
+        case 2:
+          mes = "mar";
+          break;
+        case 3:
+          mes = "abr";
+          break;
+        case 4:
+          mes = "may";
+          break;
+        case 5:
+          mes = "jun";
+          break;
+        case 6:
+          mes = "jul";
+          break;
+        case 7:
+          mes = "ago";
+          break;
+        case 8:
+          mes = "sep";
+          break;
+        case 9:
+          mes = "oct";
+          break;
+        case 10:
+          mes = "nov";
+          break;
+        case 11:
+          mes = "dic";
+          break;
+      }
+      if(date.getDate() < 10)
+        dia = `0${date.getDate()}`;
+      else dia = date.getDate();
+
+      result = dia + "-" + mes;
+
+      console.log("Dia NORMAL: " + result);
+    }
+    else{
+      result = mogut;
+      console.log("Dia MOGUT: " + result);
+    }
+    return result;
   }
 }

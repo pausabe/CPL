@@ -76,8 +76,7 @@ export default class DBAdapter {
       });
   }
 
-  getSolMem(table, date, diocesi, temps, callback){
-    dia = this.calculeDia(date);
+  getSolMem(table, dia, diocesi, temps, callback){
 
     var query = `SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}' AND Temps = '${temps}'`;
 
@@ -106,53 +105,6 @@ export default class DBAdapter {
   getOC(categoria, callback){
     this.executeQuery(`SELECT * FROM OficisComuns WHERE Categoria = '${categoria}'`,
       result => callback(result.rows.item(0)));
-  }
-
-  calculeDia(date){
-    switch (date.getMonth()) {
-      case 0:
-        mes = "ene";
-        break;
-      case 1:
-        mes = "feb";
-        break;
-      case 2:
-        mes = "mar";
-        break;
-      case 3:
-        mes = "abr";
-        break;
-      case 4:
-        mes = "may";
-        break;
-      case 5:
-        mes = "jun";
-        break;
-      case 6:
-        mes = "jul";
-        break;
-      case 7:
-        mes = "ago";
-        break;
-      case 8:
-        mes = "sep";
-        break;
-      case 9:
-        mes = "oct";
-        break;
-      case 10:
-        mes = "nov";
-        break;
-      case 11:
-        mes = "dic";
-        break;
-    }
-    if(date.getDate() < 10)
-      dia = `0${date.getDate()}`;
-    else dia = date.getDate();
-
-    console.log("Dia: " + dia + "-" + mes);
-    return dia + "-" + mes;
   }
 
   errorCB(err) {

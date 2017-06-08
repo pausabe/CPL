@@ -47,7 +47,7 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    today.setDate(29); //1-31
+    today.setDate(24); //1-31
     today.setMonth(3); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
@@ -62,6 +62,7 @@ export default class HomeScreen extends Component {
       textSize: '',
       cleanSalm: '',
       celType: '',
+      mogut: '',
       date: today,
     }
 
@@ -82,6 +83,7 @@ export default class HomeScreen extends Component {
       celType: '',
       LT: '',
       setmana: '',
+      mogut: '',
     }
 
     this.acceso = new DBAdapter();
@@ -137,6 +139,7 @@ export default class HomeScreen extends Component {
 
         this.variables.celType = celType;
         this.variables.date = newDay;
+        this.variables.mogut = current.Mogut;
 
         this.liturgicProps.LITURGIA = null;
 
@@ -149,13 +152,14 @@ export default class HomeScreen extends Component {
         this.dataTomorrow.celType = tomorrowCelType;
         this.dataTomorrow.LT = tomorrow.temps;
         this.dataTomorrow.setmana = tomorrow.NumSet;
+        this.dataTomorrow.mogut = tomorrow.Mogut;
 
         console.log("CHANGING TOMORROW DATE: " + this.dataTomorrow.date.getDate() + "/" + this.dataTomorrow.date.getMonth());
 
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
         else
-          this.SOUL.makeQueryies(this.variables.date, this.liturgicProps, this.dataTomorrow, this.variables.celType, this.variables.diocesi, this.variables.invitatori, pentacosta, this,  this.variables.llati);
+          this.SOUL.makeQueryies(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
       }
     );
   }

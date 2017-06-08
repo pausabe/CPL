@@ -1520,7 +1520,7 @@ export default class CelebracioSoul {
     else if(TABLES.OficisComuns !== null) this.NONA.oracio = TABLES.OficisComuns.oraFiMenor;
 
 
-    if(F && F !== 'F'){
+    if(!F || F !== 'F'){
       //::::::SF-VESPRES2::::::
       //SF-VESPRES2 -> HIMNE
       if(TABLES.santsSolemnitats.himneVespres2Llati !== '-'){
