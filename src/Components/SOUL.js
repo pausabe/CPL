@@ -92,11 +92,13 @@ export default class SOUL {
     this.CT = celType;
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
     idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
+    this.idDE = idDE_aux;
     console.log("idDE_aux: " + idDE_aux);
     //idDE_aux = -1;
     if(idDE_aux === -1)
       idTSF_aux = this.findTempsSolemnitatsFestes(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
     else idTSF_aux = -1;
+    this.idTSF = idTSF_aux;
     console.log("idTSF_aux: " + idTSF_aux);
     //idTSF_aux = -1;
     var idTF = this.findTF(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
@@ -305,6 +307,7 @@ export default class SOUL {
         break;
         default: id = 1;
       }
+      console.log("himne " + id);
       this.acceso.getLiturgia("tempsAdventNadalComu", id, (result) => {
         this.queryRows.tempsAdventNadalComu = result;
         this.dataReceived(params);
@@ -723,16 +726,25 @@ export default class SOUL {
   calls(HS){
     this.setSomeInfo();
 
+    console.log("calls");
+    console.log("this.tomorrowCal: " + this.tomorrowCal);
+    console.log("this.dataTomorrow.mogut: " + this.dataTomorrow.mogut);
+    console.log("this.idTSF: " + this.idTSF);
+    console.log("this.idDE: " + this.idDE);
+
     if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' ||
       this.dataTomorrow.mogut !== '-' || this.idTSF !== -1 || this.idDE !== -1){
+        console.log("calls vespres1 - 1");
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;
     }
     else if(this.tomorrowCal === 'T'){
+      console.log("calls vespres1 - 2");
       this.LITURGIA.vespres1 = false;
       vespresCelDEF = this.CEL.VESPRES1;
     }
     else{
+      console.log("calls vespres1 - 3");
       this.LITURGIA.vespres1 = true;
       vespresCelDEF = this.CEL.VESPRES1;
     }

@@ -42,6 +42,7 @@ export default class VespresSoul {
           diversos: TABLES.diversos,
           magnificat: TABLES.diversos.item(5).oracio,
           diversos: TABLES.diversos,
+          canticPere: TABLES.diversos.item(33).oracio,
         };
 
         this.VESPRES = { //27
@@ -394,6 +395,15 @@ export default class VespresSoul {
         gloria3 = "1";
         break;
     }
+
+    if(LT === GLOBAL.Q_SET_SANTA || LT === GLOBAL.Q_SETMANES ||
+        LT === GLOBAL.Q_DIUM_RAMS){
+          titol3 = "Càntic 1Pe 2, 21-24\nLa passió voluntària del Crist, el servent de Déu";
+          com3 = '-';
+          salm3 = this.state.canticPere;
+          gloria3 = "1";
+    }
+
     console.log("CEL.titol1 " + CEL.titol1);
     if(CEL.ant1 === '-')
       this.VESPRES.ant1 = ant1;

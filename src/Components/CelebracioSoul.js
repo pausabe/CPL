@@ -1805,9 +1805,8 @@ export default class CelebracioSoul {
     if(TABLES.santsMemories.resp2Part3Ofici !== '-')
       this.OFICI.resp2Part3 = TABLES.santsMemories.resp2Part3Ofici;
     else if(TABLES.OficisComuns !== null) this.OFICI.resp2Part3 = TABLES.OficisComuns.resp2Part3Ofici;
-    /*if(TABLES.santsMemories.oraFiOfici !== '-')
-      this.OFICI.oracio = TABLES.santsMemories.oraFiOfici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.oracio = TABLES.OficisComuns.oraFiOfici;*/
+    if(TABLES.santsMemories.oraFiOfici !== '-')
+      this.OFICI.oracio = TABLES.santsMemories.oraFi;
     this.OFICI.himneOhDeuBool = false; //TODO: si??
 
 
