@@ -723,7 +723,8 @@ export default class SOUL {
   calls(HS){
     this.setSomeInfo();
 
-    if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' || this.dataTomorrow.mogut !== '-'){
+    if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' ||
+      this.dataTomorrow.mogut !== '-' || this.idTSF !== -1 || this.idDE !== -1){
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;
     }

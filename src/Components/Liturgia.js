@@ -79,7 +79,8 @@ export default class Liturgia extends Component {
        this.onButtonPress.bind(this, "liturgia-display", "Vespres", LiturgiaDisplayScreen)}>
          <Text style={styles.buttonText}>{hour > 17 && hour < 23 ? "* Vespres *" : "Vespres"}</Text>
          {this.props.liturgicProps.LITURGIA &&
-           ((this.props.variables.date.getDay() === 6 && this.props.variables.celType !== 'F')
+           ((this.props.variables.date.getDay() === 6 /*&& this.props.variables.celType !== 'F'*/
+              && this.props.variables.celType !== 'S')
             || this.props.liturgicProps.LITURGIA.vespres1) ?
             <Text style={styles.redCenter}>Primeres Vespres</Text>
           : null }
