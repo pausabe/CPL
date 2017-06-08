@@ -552,7 +552,8 @@ export default class SOUL {
         });
       }
       else{
-        idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
+        idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
+        console.log("idDM: " + idDM);
         if(idDM === -1){
           this.acceso.getSolMem("santsSolemnitats", date, diocesi, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsSolemnitats = result;
@@ -627,7 +628,9 @@ export default class SOUL {
         this.dataReceived(params);
       }
     }
-    else { //TODO: provisional!! TREURE
+    else { //Teòricament aquí van a parar aquelles Celebracions que no estaven contemplades
+            //En teoria perquè s'han mogut per manternir les prioritats
+            //Un exemple és Sant Jordi 2017. Pasa del dia 23 al 24 d'abril
       console.log("Error OC. No result from DB");
       this.LITURGIA.info_cel.nomCel = '-';
       this.LITURGIA.info_cel.infoCel = '-';
@@ -709,7 +712,7 @@ export default class SOUL {
   calls(HS){
     this.setSomeInfo();
 
-    if(this.tomorrowCal === '-'){
+    if(this.tomorrowCal === '-' || this.tomorrowCal === 'F'){
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;
     }
@@ -797,6 +800,8 @@ export default class SOUL {
       if(this.idTSFTomorrow !== -1) return 'TSF';
 
       if(this.dataTomorrow.celType === 'S') return 'S';
+
+      if(this.dataTomorrow.celType === 'F') return 'F';
     }
 
     return '-';
@@ -806,14 +811,17 @@ export default class SOUL {
     Return id of #santsMemories or #santsSolemnitats or -1 if there isn't there
   */
   diesMov(date, LT, setmana, pentacosta, celType){
+    console.log("diesMov " + celType);
     //santsMemories M - Dissabte de la tercera setmana després de Pentecosta (COR IMMACULAT DE LA BENAURADA VERGE MARIA)
-    var corImmaculat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+20);
-    console.log("corImmaculat: "+corImmaculat);
-    if(date.getDate() === corImmaculat.getDate() && date.getMonth() === corImmaculat.getMonth() &&
-        date.getFullYear() === corImmaculat.getFullYear())
-        return 252;
+    if(celType === 'M'){
+      var corImmaculat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+20);
+      console.log("corImmaculat: "+corImmaculat);
+      if(date.getDate() === corImmaculat.getDate() && date.getMonth() === corImmaculat.getMonth() &&
+          date.getFullYear() === corImmaculat.getFullYear())
+          return 252;
+    }
 
-    //***santsMemories M - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
+    //santsMemories M - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
     //santsSolemnitats S - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
     var auxDay = new Date(date.getFullYear(), 8, 2);
     var b = true;
@@ -829,17 +837,18 @@ export default class SOUL {
     console.log(celType+" - CINTA: "+cinta);
     if(date.getDate() === cinta.getDate() && date.getMonth() === cinta.getMonth() &&
         date.getFullYear() === cinta.getFullYear()){
-          if(celType === 'M')
-            return -1; //encara per afegir a santsMemories, 462?
-          return 83;
+          if(celType === 'M') return 472;
+          if(celType === 'S') return 83;
         }
 
     //santsSolemnitats F - Dijous després de Pentecosta (Jesucrist, gran sacerdot per sempre)
-    var granSacerdot = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+4);
-    console.log("granSacerdot: "+granSacerdot);
-    if(date.getDate() === granSacerdot.getDate() && date.getMonth() === granSacerdot.getMonth() &&
-        date.getFullYear() === granSacerdot.getFullYear())
-        return 58;
+    if(celType === 'F'){
+      var granSacerdot = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+4);
+      console.log("granSacerdot: "+granSacerdot);
+      if(date.getDate() === granSacerdot.getDate() && date.getMonth() === granSacerdot.getMonth() &&
+          date.getFullYear() === granSacerdot.getFullYear())
+          return 58;
+    }
 
     return -1;
   }
@@ -1041,7 +1050,7 @@ export default class SOUL {
     }
 
     //10- Exaltació Santa Creu (14 de setembre) quan cau en diumenge
-    if(date.getMonth() === 13 && date.getDate() === 14 && date.getDay() === 0){
+    if(date.getMonth() === 8 && date.getDate() === 14 && date.getDay() === 0){
       return 10;
     }
 
@@ -1091,37 +1100,38 @@ export default class SOUL {
     }
 
     //20- Diumenge IV d’Advent, dia 18
-    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 18){
+    if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 18 && date.getDay() === 0){
       return 20;
     }
 
     //21- Diumenge IV d’Advent, dia 19
-    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 19){
+    if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 19 && date.getDay() === 0){
       return 21;
     }
 
     //22- Diumenge IV d’Advent, dia 20
-    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 20){
+    if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 20 && date.getDay() === 0){
       return 22;
     }
 
     //23- Diumenge IV d’Advent, dia 21
-    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 21){
+    if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 21 && date.getDay() === 0){
       return 23;
     }
 
     //24- Diumenge IV d’Advent, dia 22
-    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 22){
+    if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 22 && date.getDay() === 0){
       return 24;
     }
 
     //25- Diumenge IV d’Advent, dia 23
-    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 23){
+    console.log("log: "  + LT);
+    if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 23 && date.getDay() === 0){
       return 25;
     }
 
     //26- Diumenge IV d’Advent, dia 24
-    if(LT === GLOBAL.A_SETMANES && setmana === '4' && date.getDate() === 24){
+    if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 24 && date.getDay() === 0){
       return 26;
     }
 

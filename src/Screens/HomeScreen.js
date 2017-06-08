@@ -47,8 +47,8 @@ export default class HomeScreen extends Component {
     }
 
     var today = new Date();
-    //today.setDate(3); //1-31
-    //today.setMonth(2); //0-11
+    today.setDate(29); //1-31
+    today.setMonth(3); //0-11
     //today.setFullYear(2017); //XXXX
     this.HCDiocesi = 'BaD';
 
@@ -420,7 +420,7 @@ export default class HomeScreen extends Component {
   transfromCelTypeName(CT){
     switch (CT) {
       case 'F':
-        return (<Text style={styles.celebracioType}>Festivitat</Text>);
+        return (<Text style={styles.celebracioType}>Festa</Text>);
         break;
       case 'S':
         return (<Text style={styles.celebracioType}>Solemnitat</Text>);
