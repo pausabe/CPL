@@ -126,6 +126,9 @@ export default class LaudesDisplay extends Component {
         <Text />
         <Text style={this.styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), LAUDES)}
+        <Text style={this.styles.red}>R.
+          <Text style={this.styles.black}> Amén.</Text>
+        </Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />

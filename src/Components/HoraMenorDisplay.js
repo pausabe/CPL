@@ -119,6 +119,9 @@ export default class HoraMenorDisplay extends Component {
         <Text />
         <Text style={this.styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.HM)}
+        <Text style={this.styles.red}>R.
+          <Text style={this.styles.black}> Amén.</Text>
+        </Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
