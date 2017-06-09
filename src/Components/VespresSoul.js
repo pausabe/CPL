@@ -396,8 +396,8 @@ export default class VespresSoul {
         break;
     }
 
-    if(LT === GLOBAL.Q_SET_SANTA || LT === GLOBAL.Q_SETMANES ||
-        LT === GLOBAL.Q_DIUM_RAMS){
+    if(weekDay === 0 && (LT === GLOBAL.Q_SET_SANTA || LT === GLOBAL.Q_SETMANES ||
+        LT === GLOBAL.Q_DIUM_RAMS)){
           titol3 = "Càntic 1Pe 2, 21-24\nLa passió voluntària del Crist, el servent de Déu";
           com3 = '-';
           salm3 = this.state.canticPere;

@@ -81,6 +81,26 @@ export default class CompletesDisplay extends Component {
 
   render() {
     COMPLETES = this.props.liturgicProps.LITURGIA.completes;
+
+    var form1 = "Per nostre Senyor Jesucrist";
+    var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
+    var form2 = "Vós, que viviu i regneu pels segles dels segles";
+    var bigf2 = "Vós, que viviu i regneu amb Déu Pare en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
+    var form3 = "Que viu i regna pels segles dels segles";
+    var form4 = "Ell, que viu i regna pels segles dels segles";
+    var bigf4 = "Ell, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
+
+    oAux = COMPLETES.oracio;
+    console.log(oAux);
+    if(oAux.search(form1) !== -1)
+      COMPLETES.oracio = oAux.replace(form1, bigf1);
+    if(oAux.search(form2) !== -1)
+      COMPLETES.oracio = oAux.replace(form2, bigf2);
+    if(oAux.search(form3) !== -1)
+      COMPLETES.oracio = oAux.replace(form3, bigf4);
+    if(oAux.search(form4) !== -1)
+      COMPLETES.oracio = oAux.replace(form4, bigf4);
+
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
     return (
       <View>
@@ -101,7 +121,7 @@ export default class CompletesDisplay extends Component {
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
-        <Text style={this.styles.redCenter}>És lloable que aquí es faci examen de consciència, que, en la celebració comunitària, pot integrar-se en un acte penitencial com els que figuren en l'Ordre de la missa.</Text>
+        <Text style={this.styles.redCenter}>{"És lloable que aquí es faci examen de consciència, que, en la celebració comunitària, pot integrar-se en un acte penitencial com els que figuren en l'Ordre de la missa."}</Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -253,6 +273,9 @@ export default class CompletesDisplay extends Component {
         <Text />
         <Text style={this.styles.blackBold}>Preguem.</Text>
         <Text style={this.styles.black}>{COMPLETES.oracio}</Text>
+        <Text style={this.styles.red}>R.
+          <Text style={this.styles.black}> Amén.</Text>
+        </Text>
         <Text />
         <Hr lineColor='#CFD8DC' />
         <Text />
@@ -272,6 +295,7 @@ export default class CompletesDisplay extends Component {
       </View>
     );
   }
+
 
   salm(salm){
     if(this.props.variables.cleanSalm === 'false'){

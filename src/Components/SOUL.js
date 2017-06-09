@@ -630,8 +630,9 @@ export default class SOUL {
   getOficisComuns(params, result){
     if(result){
       categoria = result.Categoria;
+      console.log("Categoria: " + "." + categoria + ".");
       if(categoria !== '0000'){
-        console.log("Més un accéss extra per OficisComuns. Categoria: " + categoria);
+        console.log("Més un accéss extra per OficisComuns");
 
         //taula 36 (#??): -
         this.acceso.getOC(categoria, (result) => {

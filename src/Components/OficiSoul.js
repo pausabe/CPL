@@ -791,7 +791,7 @@ export default class OficiSoul {
     else this.OFICI.resp2Part3 = CEL.resp2Part3;
   }
 
-  himneOhDeu(LT, weekDay, CEL){
+  himneOhDeu(LT, weekDay, CEL, tempsEspecific){
     var himneOhDeuBool = false;
     switch(LT){
       case GLOBAL.O_ORDINARI:

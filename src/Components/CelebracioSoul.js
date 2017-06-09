@@ -1349,6 +1349,8 @@ export default class CelebracioSoul {
       this.LAUDES.ant3 = TABLES.santsSolemnitats.ant3Laudes;
     else if(TABLES.OficisComuns !== null) this.LAUDES.ant3 = TABLES.OficisComuns.ant3Laudes;
     if(TABLES.OficisComuns !== null){
+      console.log("TABLES.OficisComuns:");
+      console.log(TABLES.OficisComuns.titol1Laudes);
       this.LAUDES.titol1 = TABLES.OficisComuns.titol1Laudes;
       this.LAUDES.com1 = '-';
       this.LAUDES.salm1 = TABLES.OficisComuns.Salm1Laudes;

@@ -83,7 +83,21 @@ export default class DBAdapter {
     console.log("QUERY SOL_MEM: " + query);
 
     this.executeQuery(query,
-      result => callback(result.rows.item(0)));
+      result => {
+        console.log("SolMem Result size: " + result.rows.length);
+        var index = this.findCorrect(result.rows, result.rows.length, diocesi);
+        callback(result.rows.item(index));
+      });
+  }
+
+  findCorrect(rows, length, diocesi){
+      if(length===1) return 0;
+      var i = 0;
+      while(i<length){
+        if(rows.item(i).Diocesis === diocesi) return i;
+        i += 1;
+      }
+      return 0;
   }
 
   getSolMemDiesMov(table, id, callback){
@@ -103,7 +117,9 @@ export default class DBAdapter {
   }
 
   getOC(categoria, callback){
-    this.executeQuery(`SELECT * FROM OficisComuns WHERE Categoria = '${categoria}'`,
+    var query = `SELECT * FROM OficisComuns WHERE Categoria = '${categoria}'`;
+    console.log("QUERY getOC: " + query);
+    this.executeQuery(query,
       result => callback(result.rows.item(0)));
   }
 
