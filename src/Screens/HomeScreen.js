@@ -226,7 +226,7 @@ export default class HomeScreen extends Component {
          <View style={styles.diaLiturgicContainer}>
            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== 0 ? " de la setmana" : null}
              {this.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.setmana)}</Text> : null }</Text>
-           <Text style={styles.diaLiturgicText}>Temps de
+           <Text style={styles.diaLiturgicText}>Temps -
               <Text style={{color: '#c0392b'}}> {this.liturgicProps.tempsespecific}</Text></Text>
            <Text style={styles.diaLiturgicText}>Setmana
              <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.cicle)} </Text>
