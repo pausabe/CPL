@@ -256,7 +256,11 @@ export default class VespresDisplay extends Component {
 
   responsori(LT, weekDay, VESPRES){
     if(VESPRES.calAntEspecial){
-      return(<Text style={this.styles.black}> {VESPRES.antEspecialVespres}</Text>)
+      return(
+        <Text style={this.styles.red}>Ant.
+          <Text style={this.styles.black}> {VESPRES.antEspecialVespres}</Text>
+        </Text>
+      )
     }
     else{
       return(

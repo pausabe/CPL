@@ -642,7 +642,18 @@ export default class VespresSoul {
         }
         break;
       case GLOBAL.Q_CENDRA:
-        antCantic = this.state.tempsQuaresmaCendra.antMaria;
+        switch (litYear) {
+          case 'A':
+            antCantic = this.state.tempsQuaresmaCendra.antMariaA;
+            break;
+          case 'B':
+            antCantic = this.state.tempsQuaresmaCendra.antMariaB;
+            break;
+          case 'C':
+            antCantic = this.state.tempsQuaresmaCendra.antMariaC;
+            break;
+        }
+        if(antCantic === '-') antCantic = this.state.tempsQuaresmaCendra.antMaria;
         break;
       case GLOBAL.Q_SETMANES:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge

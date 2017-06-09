@@ -535,6 +535,7 @@ export default class SOUL {
     if(true){
       c += 1;
       {date.getDay() === 6 ? id = 1 : id = date.getDay() + 2}
+      if(celType === 'S' || this.idTSF !== -1 || liturgicProps.LT === GLOBAL.P_OCTAVA) id = 2;
       this.acceso.getLiturgia("salteriComuCompletes", id, (result) => {
         this.queryRows.salteriComuCompletes = result;
         this.dataReceived(params);
@@ -772,7 +773,7 @@ export default class SOUL {
       this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps,
         this.queryRows, this.CEL.HORA_MENOR, this.variables.llati, HS, this);
       this.CompletesSoul.makePrayer(this.variables.date, this.liturgicProps,
-        this.queryRows, this.variables.llati, HS, this);
+        this.queryRows, this.variables, HS, this);
     }
   }
 
