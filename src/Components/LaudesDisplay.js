@@ -218,7 +218,9 @@ export default class LaudesDisplay extends Component {
           <Text />
           <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
           <Text />
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
+          <Text /></View></View>
           <Text />
           {this.salm(LAUDES.salm94)}
           <Text />
@@ -246,7 +248,9 @@ export default class LaudesDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol1}</Text>
         <Text />
         {LAUDES.com1 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com1}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com1}</Text>
+          <Text /></View></View> : null}
         {this.salm(LAUDES.salm1)}
         <Text />
         {this.gloria(LAUDES.gloria1)}
@@ -262,7 +266,9 @@ export default class LaudesDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol2}</Text>
         <Text />
         {LAUDES.com2 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com2}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com2}</Text>
+          <Text /></View></View> : null}
         {this.salm(LAUDES.salm2)}
         <Text />
         {this.gloria(LAUDES.gloria2)}
@@ -278,7 +284,9 @@ export default class LaudesDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol3}</Text>
         <Text />
         {LAUDES.com3 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com3}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com3}</Text>
+          <Text /></View></View> : null}
         {this.salm(LAUDES.salm3)}
         <Text />
         {this.gloria(LAUDES.gloria3)}

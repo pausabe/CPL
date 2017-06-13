@@ -243,7 +243,9 @@ export default class OficiDisplay extends Component {
           <Text />
           <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
           <Text />
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
+          <Text /></View></View>
           <Text />
           {this.salm(OFICI.salm94)}
           <Text />
@@ -271,7 +273,9 @@ export default class OficiDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol1}</Text>
         <Text />
         {OFICI.com1 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com1}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com1}</Text>
+          <Text /></View></View> : null}
         {this.salm(OFICI.salm1)}
         <Text />
         {this.gloria(OFICI.gloria1)}
@@ -287,7 +291,9 @@ export default class OficiDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol2}</Text>
         <Text />
         {OFICI.com2 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com2}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com2}</Text>
+          <Text /></View></View> : null}
         {this.salm(OFICI.salm2)}
         <Text />
         {this.gloria(OFICI.gloria2)}
@@ -303,7 +309,9 @@ export default class OficiDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol3}</Text>
         <Text />
         {OFICI.com3 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com3}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com3}</Text>
+          <Text /></View></View> : null}
         {this.salm(OFICI.salm3)}
         <Text />
         {this.gloria(OFICI.gloria3)}

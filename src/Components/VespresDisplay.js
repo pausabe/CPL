@@ -203,7 +203,9 @@ export default class VespresDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{VESPRES.titol1}</Text>
         <Text />
         {VESPRES.com1 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com1}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com1}</Text>
+          <Text /></View></View> : null}
         {this.salm(VESPRES.salm1)}
         <Text />
         {this.gloria(VESPRES.gloria1)}
@@ -219,7 +221,9 @@ export default class VespresDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{VESPRES.titol2}</Text>
         <Text />
         {VESPRES.com2 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com2}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com2}</Text>
+          <Text /></View></View> : null}
         {this.salm(VESPRES.salm2)}
         <Text />
         {this.gloria(VESPRES.gloria2)}
@@ -235,7 +239,9 @@ export default class VespresDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{VESPRES.titol3}</Text>
         <Text />
         {VESPRES.com3 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com3}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com3}</Text>
+          <Text /></View></View> : null}
         {this.salm(VESPRES.salm3)}
         <Text />
         {this.gloria(VESPRES.gloria3)}

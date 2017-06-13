@@ -127,7 +127,8 @@ export default class NavigatorController extends Component {
                   {
                     if (route.index === 0) {
                       return (
-                        <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
+                        <TouchableOpacity style={{flex: 1, alignItems: 'center',
+                            paddingLeft: 5, justifyContent: 'center',}}>
                           <Icon
                             name="ios-calendar-outline"
                             size={30}
@@ -141,7 +142,8 @@ export default class NavigatorController extends Component {
                       return (
                         <TouchableOpacity style={styles.barButton}
                                             onPress={this.backPress.bind(this, navigator)}>
-                          <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
+                          <View style={{flex:1, flexDirection: 'row', alignItems: 'center',
+                          paddingLeft: 5, justifyContent:'center'}}>
                             <View >
                               <Icon
                                 name="ios-arrow-back-outline"
@@ -164,7 +166,8 @@ export default class NavigatorController extends Component {
                       }
                       else{
                         return (
-                          <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
+                          <TouchableOpacity style={{flex: 1, alignItems: 'center',
+                            paddingRight: 5, justifyContent: 'center',}}>
                             <Icon
                               name="ios-settings-outline"
                               size={30}

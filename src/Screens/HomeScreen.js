@@ -71,7 +71,7 @@ export default class HomeScreen extends Component {
     else{
       var today = new Date();
       today.setDate(16); //1-31
-      today.setMonth(3); //0-11
+      today.setMonth(2); //0-11
       //today.setFullYear(2017); //XXXX
     }
 
@@ -100,6 +100,8 @@ export default class HomeScreen extends Component {
       ABC: '',
     }
 
+    this.refreshing = false;
+
     var tomorrow = new Date(today.getFullYear(), today.getMonth());
     tomorrow.setDate(today.getDate() + 1);
 
@@ -119,6 +121,7 @@ export default class HomeScreen extends Component {
 
   refreshEverything(date){
     //settings > anyliturgic > soul > render
+    this.refreshing = true;
     Promise.all([
       SettingsManager.getSettingDiocesis((r) => {
         this.variables.diocesi = this.HCDiocesi;//this.transformDiocesiName(r);
@@ -140,7 +143,7 @@ export default class HomeScreen extends Component {
     if(!this.iWantRender){
       console.log("should render here but I don't want it");
 
-      if(this.refresh){
+      if(this.refresh && !this.refreshing){
         this.refreshEverything(this.variables.date);
       }
 
@@ -192,6 +195,7 @@ export default class HomeScreen extends Component {
 
   setSoul(liturgia){
     console.log("HomeScreen - setSoul");
+    this.refreshing = false;
     if(!this.testing){
       this.liturgicProps.LITURGIA = liturgia;
       this.iWantRender = false;
@@ -217,31 +221,41 @@ export default class HomeScreen extends Component {
   }
 
   onMinusPress(){
-    var newDay = new Date();
-    newDay.setDate(this.variables.date.getDate());
-    newDay.setMonth(this.variables.date.getMonth());
-    newDay.setFullYear(this.variables.date.getFullYear());
-    newDay.setDate(this.variables.date.getDate()-1);
+    if(!this.refreshing){
+      var newDay = new Date();
+      newDay.setDate(this.variables.date.getDate());
+      newDay.setMonth(this.variables.date.getMonth());
+      newDay.setFullYear(this.variables.date.getFullYear());
+      newDay.setDate(this.variables.date.getDate()-1);
 
-    auxTomorrow = this.dataTomorrow.date;
-    auxTomorrow.setDate(auxTomorrow.getDate()-1);
-    this.dataTomorrow.date = auxTomorrow;
+      auxTomorrow = this.dataTomorrow.date;
+      auxTomorrow.setDate(auxTomorrow.getDate()-1);
+      this.dataTomorrow.date = auxTomorrow;
 
-    this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
+      this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
+    }
+    else {
+      console.log("Sorry, already refreshing");
+    }
   }
 
   onPlusPress(){
-    var newDay = new Date();
-    newDay.setDate(this.variables.date.getDate());
-    newDay.setMonth(this.variables.date.getMonth());
-    newDay.setFullYear(this.variables.date.getFullYear());
-    newDay.setDate(this.variables.date.getDate()+1);
+    if(!this.refreshing){
+      var newDay = new Date();
+      newDay.setDate(this.variables.date.getDate());
+      newDay.setMonth(this.variables.date.getMonth());
+      newDay.setFullYear(this.variables.date.getFullYear());
+      newDay.setDate(this.variables.date.getDate()+1);
 
-    auxTomorrow = this.dataTomorrow.date;
-    auxTomorrow.setDate(auxTomorrow.getDate()+1);
-    this.dataTomorrow.date = auxTomorrow;
+      auxTomorrow = this.dataTomorrow.date;
+      auxTomorrow.setDate(auxTomorrow.getDate()+1);
+      this.dataTomorrow.date = auxTomorrow;
 
-    this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
+      this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
+    }
+    else {
+      console.log("Sorry, already refreshing");
+    }
   }
 
   render() {
@@ -268,7 +282,7 @@ export default class HomeScreen extends Component {
             </View>
          </View>
          <View style={styles.diaLiturgicContainer}>
-           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== 0 ? " de la setmana" : null}
+           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== '0' ? " de la setmana" : null}
              {this.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.setmana)}</Text> : null }</Text>
            <Text style={styles.diaLiturgicText}>Temps -
               <Text style={{color: '#c0392b'}}> {this.liturgicProps.tempsespecific}</Text></Text>
@@ -570,6 +584,7 @@ const styles = StyleSheet.create({
   },
   santContainer: {
     flex: 1.5,
+    shadowOpacity: 0.0,
     justifyContent: 'center',
     backgroundColor: '#E0F2F1',
     borderRadius: 15,

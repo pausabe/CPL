@@ -29,7 +29,7 @@ export default class HoraMenorDisplay extends Component {
       },
       blackSmallItalicRight: {
         color: '#000000',
-        fontSize: this.convertTextSize(),
+        fontSize: this.convertTextSize()-2,
         fontStyle: 'italic',
         textAlign: 'right'
       },
@@ -196,7 +196,9 @@ export default class HoraMenorDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{this.props.HORA_MENOR.titol1}</Text>
         <Text />
         {this.props.HORA_MENOR.com1 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com1}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com1}</Text>
+          <Text /></View></View> : null}
         {this.salm(this.props.HORA_MENOR.salm1)}
         <Text />
         {this.gloria(this.props.HORA_MENOR.gloria1)}
@@ -216,7 +218,9 @@ export default class HoraMenorDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{this.props.HORA_MENOR.titol2}</Text>
         <Text />
         {this.props.HORA_MENOR.com2 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com2}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com2}</Text>
+          <Text /></View></View> : null}
         {this.salm(this.props.HORA_MENOR.salm2)}
         <Text />
         {this.gloria(this.props.HORA_MENOR.gloria2)}
@@ -236,7 +240,9 @@ export default class HoraMenorDisplay extends Component {
         <Text selectable={true} style={this.styles.redCenter}>{this.props.HORA_MENOR.titol3}</Text>
         <Text />
         {this.props.HORA_MENOR.com3 !== '-' ?
-          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com3}</Text><Text /></View> : null}
+          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com3}</Text>
+          <Text /></View></View> : null}
         {this.salm(this.props.HORA_MENOR.salm3)}
         <Text />
         {this.gloria(this.props.HORA_MENOR.gloria3)}

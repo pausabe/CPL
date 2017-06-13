@@ -52,7 +52,11 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Laudes", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>{hour > 5 && hour < 9 ? "* Laudes *" : "Laudes"}</Text>
+         {hour > 5 && hour < 9 ?
+           <Text style={styles.buttonTextBold}>{"Laudes"}</Text>
+           :
+           <Text style={styles.buttonText}>{"Laudes"}</Text>
+         }
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
        <View style={{flex:1, flexDirection: 'column'}}>
@@ -62,22 +66,38 @@ export default class Liturgia extends Component {
          <View style={{flex:2, flexDirection: 'row'}}>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Tèrcia", LiturgiaDisplayScreen)}>
-             <Text style={styles.horaMenorText}>{hour > 8 && hour < 12 ? "* Tèrcia *" : "Tèrcia"}</Text>
+             {hour > 8 && hour < 12 ?
+               <Text style={styles.buttonTextBold}>{"Tèrcia"}</Text>
+               :
+               <Text style={styles.horaMenorText}>{"Tèrcia"}</Text>
+             }
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Sexta", LiturgiaDisplayScreen)}>
-             <Text style={styles.horaMenorText}>{hour > 11 && hour < 15 ? "* Sexta *" : "Sexta"}</Text>
+             {hour > 11 && hour < 15 ?
+               <Text style={styles.buttonTextBold}>{"Sexta"}</Text>
+               :
+               <Text style={styles.horaMenorText}>{"Sexta"}</Text>
+             }
            </TouchableOpacity>
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Nona", LiturgiaDisplayScreen)}>
-             <Text style={styles.horaMenorText}>{hour > 14 && hour < 18 ? "* Nona *" : "Nona"}</Text>
+             {hour > 14 && hour < 18 ?
+               <Text style={styles.buttonTextBold}>{"Nona"}</Text>
+               :
+               <Text style={styles.horaMenorText}>{"Nona"}</Text>
+             }
            </TouchableOpacity>
          </View>
        </View>
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Vespres", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>{hour > 17 && hour < 23 ? "* Vespres *" : "Vespres"}</Text>
+        {hour > 17 && hour < 23 ?
+          <Text style={styles.buttonTextBold}>{"Vespres"}</Text>
+          :
+          <Text style={styles.buttonText}>{"Vespres"}</Text>
+        }
          {this.props.liturgicProps.LITURGIA &&
            ((this.props.variables.date.getDay() === 6 /*&& this.props.variables.celType !== 'F'*/
               && this.props.variables.celType !== 'S')
@@ -88,7 +108,11 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Completes", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>{hour > 22  || hour < 2 ? "* Completes *" : "Completes"}</Text>
+         {hour > 22 && hour < 2 ?
+           <Text style={styles.buttonTextBold}>{"Completes"}</Text>
+           :
+           <Text style={styles.buttonText}>{"Completes"}</Text>
+         }
        </TouchableOpacity>
       </View>
     )
@@ -98,6 +122,7 @@ export default class Liturgia extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    shadowOpacity: 0.0,
     backgroundColor: 'white',
     opacity: 0.75,
     borderRadius: 15
@@ -111,6 +136,12 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     fontWeight: '400'
+  },
+  buttonTextBold: {
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   horaMenorText: {
     textAlign: 'center',

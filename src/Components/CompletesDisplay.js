@@ -31,7 +31,7 @@ export default class CompletesDisplay extends Component {
       },
       blackSmallItalicRight: {
         color: '#000000',
-        fontSize: this.convertTextSize(),
+        fontSize: this.convertTextSize()-2,
         fontStyle: 'italic',
         textAlign: 'right'
       },
@@ -131,7 +131,9 @@ export default class CompletesDisplay extends Component {
             <Text selectable={true} style={this.styles.redCenter}>{COMPLETES.titol1}</Text>
             <Text />
             {COMPLETES.com1 !== '-' ?
-              <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{COMPLETES.com1}</Text><Text /></View> : null}
+              <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{COMPLETES.com1}</Text>
+              <Text /></View></View> : null}
             {this.salm(COMPLETES.salm1)}
             <Text />
             {this.gloria(COMPLETES.gloria1)}
@@ -152,7 +154,9 @@ export default class CompletesDisplay extends Component {
             <Text selectable={true} style={this.styles.redCenter}>{COMPLETES.titol2}</Text>
             <Text />
             {COMPLETES.com2 !== '-' ?
-              <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{COMPLETES.com2}</Text><Text /></View> : null}
+              <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{COMPLETES.com2}</Text>
+              <Text /></View></View> : null}
             {this.salm(COMPLETES.salm2)}
             <Text />
             {this.gloria(COMPLETES.gloria2)}
@@ -180,7 +184,9 @@ export default class CompletesDisplay extends Component {
             <Text selectable={true} style={this.styles.redCenter}>{COMPLETES.titol1}</Text>
             <Text />
             {COMPLETES.com1 !== '-' ?
-              <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{COMPLETES.com1}</Text><Text /></View> : null}
+              <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{COMPLETES.com1}</Text>
+              <Text /></View></View> : null}
             <Text selectable={true} style={this.styles.black}>{this.salm(COMPLETES.salm1)}</Text>
             <Text />
             {this.gloria(COMPLETES.gloria1)}
