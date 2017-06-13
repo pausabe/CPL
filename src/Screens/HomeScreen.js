@@ -46,10 +46,25 @@ export default class HomeScreen extends Component {
       santPressed: false,
     }
 
-    var today = new Date();
-    //today.setDate(17); //1-31
-    //today.setMonth(5); //0-11
-    //today.setFullYear(2017); //XXXX
+    this.testing = false;
+    this.finalDayTest = {
+      day: 29,
+      month: 11,
+      year: 2017,
+    }
+
+    if(this.testing){
+      var today = new Date(2017, 0, 2);
+      console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
+      console.log("-----------------------------------"+today+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
+    }
+    else{
+      var today = new Date();
+      today.setDate(12); //1-31
+      today.setMonth(1); //0-11
+      //today.setFullYear(2017); //XXXX
+    }
+
     this.HCDiocesi = 'BaD';
 
     this.variables = {
@@ -96,7 +111,7 @@ export default class HomeScreen extends Component {
     //settings > anyliturgic > soul > render
     Promise.all([
       SettingsManager.getSettingDiocesis((r) => {
-        this.variables.diocesi = this.transformDiocesiName(r);
+        this.variables.diocesi = this.HCDiocesi;//this.transformDiocesiName(r);
         this.variables.diocesiName = r;
         console.log(r+'-'+this.variables.diocesi);
       }),
@@ -135,6 +150,7 @@ export default class HomeScreen extends Component {
       (current, tomorrow, pentacosta) => {
         var celType = this.getCelType(this.variables.diocesi, current);
         var tomorrowCelType = this.getCelType(this.variables.diocesi, tomorrow);
+        console.log("until h");
         console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
 
         this.variables.celType = celType;
@@ -166,10 +182,28 @@ export default class HomeScreen extends Component {
 
   setSoul(liturgia){
     console.log("HomeScreen - setSoul");
-    this.liturgicProps.LITURGIA = liturgia;
-    this.iWantRender = false;
-    this.setState({santPressed: false});
-    this.forceUpdate();
+    if(!this.testing){
+      this.liturgicProps.LITURGIA = liturgia;
+      this.iWantRender = false;
+      this.setState({santPressed: false});
+      this.forceUpdate();
+    }
+    else{
+      var nextDay = this.variables.date;
+      nextDay.setDate(nextDay.getDate()+1);
+      if(nextDay.getFullYear() === this.finalDayTest.year &&
+        nextDay.getMonth() === this.finalDayTest.month &&
+        nextDay.getDate() === this.finalDayTest.day){
+          console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
+      }
+      else{
+        auxTomorrow = this.dataTomorrow.date;
+        auxTomorrow.setDate(auxTomorrow.getDate()+1);
+        this.dataTomorrow.date = auxTomorrow;
+        console.log("-----------------------------------NEXT DAY: "+nextDay+"-----------------------------------");
+        this.refreshEverything(nextDay);
+      }
+    }
   }
 
   onMinusPress(){
@@ -235,7 +269,7 @@ export default class HomeScreen extends Component {
          </View>
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
          <View style={{paddingBottom: 5}}>
-           {this.transfromCelTypeName(this.liturgicProps.LITURGIA.info_cel.typeCel)}
+           {this.transfromCelTypeName(this.liturgicProps.LITURGIA.info_cel.typeCel, this.liturgicProps.tempsespecific)}
          </View>
          : null}
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
@@ -303,6 +337,7 @@ export default class HomeScreen extends Component {
   }
 
   getCelType(diocesi, anyliturgic){
+    console.log("gettings celtype name: " + diocesi);
     switch (diocesi) {
       case "BaD":
         celType = anyliturgic.BaD;
@@ -421,7 +456,7 @@ export default class HomeScreen extends Component {
     return(celType);
   }
 
-  transfromCelTypeName(CT){
+  transfromCelTypeName(CT, t){
     switch (CT) {
       case 'F':
         return (<Text style={styles.celebracioType}>Festa</Text>);
@@ -430,10 +465,14 @@ export default class HomeScreen extends Component {
         return (<Text style={styles.celebracioType}>Solemnitat</Text>);
         break;
       case 'M':
+        if(t === 'Quaresma')
+          return (<Text style={styles.celebracioType}>Commemoració</Text>);
         return (<Text style={styles.celebracioType}>Memòria obligatòria</Text>);
         break;
       case 'V':
       case 'L':
+        if(t === 'Quaresma')
+          return (<Text style={styles.celebracioType}>Commemoració</Text>);
         return (<Text style={styles.celebracioType}>Memòria lliure</Text>);
         break;
     }

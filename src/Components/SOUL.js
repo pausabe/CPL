@@ -91,7 +91,7 @@ export default class SOUL {
 
     this.CT = celType;
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
-    idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
+    idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, variables.diocesi);
     this.idDE = idDE_aux;
     console.log("idDE_aux: " + idDE_aux);
     //idDE_aux = -1;
@@ -739,6 +739,7 @@ export default class SOUL {
         console.log("calls vespres1 - 1");
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;
+        //console.log("Magdalena: " + this.CEL.VESPRES.himne + "\n\n......\n\n" + this.CEL.VESPRES1.himne);
     }
     else if(this.tomorrowCal === 'T'){
       console.log("calls vespres1 - 2");
@@ -1022,7 +1023,7 @@ export default class SOUL {
   /*
     Return id of #diesespecials or -1 if there isn't there
   */
-  findDiesEspecials(date, LT, setmana, pentacosta){
+  findDiesEspecials(date, LT, setmana, pentacosta, diocesi){
     //1- Sagrada Família quan és el 30 de desembre
     if(this.isSagradaFamilia(date) && date.getDate() === 30){
       return 1;
@@ -1084,7 +1085,8 @@ export default class SOUL {
     }
 
     //12- Santa Eulàlia (12 de febrer) quan cau en diumenge i és temps de durant l’any
-    if(date.getMonth() === 1 && date.getDate() === 12 && date.getDay() === 0 && LT === GLOBAL.O_ORDINARI){
+    if((diocesi === 'BaV' || diocesi === 'BaC') && date.getMonth() === 1 &&
+      date.getDate() === 12 && date.getDay() === 0 && LT === GLOBAL.O_ORDINARI){
       return 12;
     }
 
@@ -1109,12 +1111,16 @@ export default class SOUL {
     }
 
     //17- Sta. Tecla (23 setembre) quan cau en diumenge
-    if(date.getMonth() === 8 && date.getDate() === 23 && date.getDay() === 0){
+    if((diocesi === 'TaV' || diocesi === 'TaD') && date.getMonth() === 8 &&
+      date.getDate() === 23 && date.getDay() === 0){
       return 17;
     }
 
     //18- Mare de Déu de la Mercè (24 de setembre) quan cau en diumenge
-    if(date.getMonth() === 8 && date.getDate() === 24 && date.getDay() === 0){
+    if((diocesi === 'BaD' || diocesi === 'SFD' || diocesi === 'TeD' ||
+      diocesi === 'GiD' || diocesi === 'LlD' || diocesi === 'SoD' || diocesi === 'TaD'
+       || diocesi === 'ToD' || diocesi === 'UrD' || diocesi === 'ViD') && 
+      date.getMonth() === 8 && date.getDate() === 24 && date.getDay() === 0){
       return 18;
     }
 

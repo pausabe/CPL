@@ -293,27 +293,27 @@ export default class CelebracioSoul {
           switch (celType) {
             case "S":
               if(liturgicProps.LT === GLOBAL.Q_DIUM_PASQUA)
-                this.createCel(TABLES, "DP", diocesi, llati, liturgicProps.ABC, '.', variables);
-              else this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables);
+                this.createCel(TABLES, "DP", liturgicProps, '.', variables, 'NF');
+              else this.createCel(TABLES, "SF", liturgicProps, '.', variables, 'NF');
               break;
             case "F":
-              if(date.getDay() !== 0 ) this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, '.', variables, 'F');
+              if(date.getDay() !== 0 ) this.createCel(TABLES, "SF", liturgicProps, '.', variables, 'F');
               break;
             case "L":
             case "V":
-              if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.', variables);
+              if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
               break;
             case "M":
-              if(date.getDay() !== 0) this.createCel(TABLES, "ML", diocesi, llati, liturgicProps.ABC, '.', variables);
+              if(date.getDay() !== 0) this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
               break;
           }
         }
         else{
-          this.createCel(TABLES, "TSF", diocesi, llati, liturgicProps.ABC, '.', variables);
+          this.createCel(TABLES, "TSF", liturgicProps, '.', variables, 'NF');
         }
       }
       else{
-        this.createCel(TABLES, "DE", diocesi, llati, liturgicProps.ABC, '.', variables);
+        this.createCel(TABLES, "DE", liturgicProps, '.', variables, 'NF');
       }
     }
     else{
@@ -323,22 +323,22 @@ export default class CelebracioSoul {
       console.log("tomorrowCal! " +celType + ", " + tomorrowCal);
       switch (tomorrowCal) {
         case "S":
-          this.createCel(TABLES, "SF", diocesi, llati, liturgicProps.ABC, celType, variables);
+          this.createCel(TABLES, "SF", liturgicProps, celType, variables, 'NF');
           break;
         case "TSF":
-          this.createCel(TABLES, "TSF", diocesi, llati, liturgicProps.ABC, celType, variables);
+          this.createCel(TABLES, "TSF", liturgicProps, celType, variables, 'NF');
           break;
         case "DE":
-          this.createCel(TABLES, "DE", diocesi, llati, liturgicProps.ABC, celType, variables);
+          this.createCel(TABLES, "DE", liturgicProps, celType, variables, 'NF');
           break;
         case "DR":
-          this.createCel(TABLES, "DR", diocesi, llati, liturgicProps.ABC, celType, variables);
+          this.createCel(TABLES, "DR", liturgicProps, celType, variables, 'NF');
           break;
         case "T":
-          this.createCel(TABLES, "T", diocesi, llati, liturgicProps.ABC, celType, variables);
+          this.createCel(TABLES, "T", liturgicProps, celType, variables, 'NF');
           break;
         case "A":
-          this.createCel(TABLES, "A", diocesi, llati, liturgicProps.ABC, celType, variables);
+          this.createCel(TABLES, "A", liturgicProps, celType, variables, 'NF');
           break;
         }
     }
@@ -362,180 +362,186 @@ export default class CelebracioSoul {
     SOUL.setSoul(HS, "celebracio", CEL);
   }
 
-  createCel(TABLES, type, diocesi, llati, anyABC, celType, variables){
+  createCel(TABLES, type, liturgicProps, tomCal, variables, F){
     console.log("CelbracioSoul - createCel: " + type);
-    //console.log("llati: " + llati + ", celtype: " + celType);
+
+    diocesi = variables.diocesi;
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
+
     switch (type) {
       case "DP":
-        this.makeDP(TABLES, type, diocesi, llati, anyABC, celType);
+        this.makeDP(TABLES, type, liturgicProps, variables, tomCal);
       break;
 
       case "TSF":
-        if(celType === '.'){
-          this.makeTSF(TABLES, type, diocesi, llati, anyABC, celType);
+        if(tomCal === '.'){
+          this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
         }
         else{
-          switch (celType) {
+          switch (tomCal) {
             case 'DE':
-              this.makeDE(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
-          this.makeVespres1TSF(TABLES, type, diocesi, llati, anyABC, celType);
+          this.makeVespres1TSF(TABLES, type, liturgicProps, variables, tomCal);
         }
         break;
 
       case "DR":
-        if(celType === '.'){
-          this.makeDR(TABLES, type, diocesi, llati, anyABC, celType);
+        if(tomCal === '.'){
+          this.makeDR(TABLES, type, liturgicProps, variables, tomCal);
         }
         else{
-          switch (celType) {
+          switch (tomCal) {
             case 'DE':
-              this.makeDE(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'TSF':
-              this.makeTSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
-          this.makeDR(TABLES, type, diocesi, llati, anyABC, celType);
+          this.makeDR(TABLES, type, liturgicProps, variables, tomCal);
         }
         break;
 
       case "T":
-        if(celType === '.'){
-          this.makeT(TABLES, type, diocesi, llati, anyABC, celType);
+        if(tomCal === '.'){
+          this.makeT(TABLES, type, liturgicProps, variables, tomCal);
         }
         else{
-          switch (celType) {
+          switch (tomCal) {
             case 'DE':
-              this.makeDE(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'TSF':
-              this.makeTSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeSF(TABLES, type, liturgicProps, variables, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
-          this.makeT(TABLES, type, diocesi, llati, anyABC, celType);
+          this.makeT(TABLES, type, liturgicProps, variables, tomCal);
         }
         break;
 
       case "A":
-         if(celType === '.'){
-           this.makeA(TABLES, type, diocesi, llati, anyABC, celType);
+         if(tomCal === '.'){
+           this.makeA(TABLES, type, liturgicProps, variables, tomCal);
          }
          else{
-           switch (celType) {
+           switch (tomCal) {
              case 'DE':
-               this.makeDE(TABLES, type, diocesi, llati, anyABC, celType);
+               this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
                break;
              case 'TSF':
-               this.makeTSF(TABLES, type, diocesi, llati, anyABC, celType);
+               this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
                break;
              case 'S':
              case 'F':
-               this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
+               this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
                break;
              case 'M':
-               this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+               this.makeML(TABLES, type, liturgicProps, variables, tomCal);
                break;
              case 'L':
              case 'V':
-               if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+               if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
                break;
            }
-           this.makeA(TABLES, type, diocesi, llati, anyABC, celType);
+           this.makeA(TABLES, type, liturgicProps, variables, tomCal);
          }
          break;
 
       case "DE":
-        if(celType === '.'){
-          this.makeDE(TABLES, type, diocesi, llati, anyABC, celType);
+        if(tomCal === '.'){
+          this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
         }
         else{
-          switch (celType) {
+          switch (tomCal) {
             case 'TSF':
-              this.makeTSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
-          this.makeVespres1DE(TABLES, type, diocesi, llati, anyABC, celType);
+          this.makeVespres1DE(TABLES, type, liturgicProps, variables, tomCal);
         }
         break;
 
 
       case "SF":
-        if(celType === '.'){
-          this.makeSF(TABLES, type, diocesi, llati, anyABC, celType);
+        if(tomCal === '.'){
+          this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
         }
         else{
-          switch (celType) {
+          switch (tomCal) {
             case 'DE':
-              this.makeDE(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'TSF':
-              this.makeTSF(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'M':
-              this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
-          this.makeVespres1SF(TABLES, type, diocesi, llati, anyABC, celType);
+          this.makeVespres1SF(TABLES, type, liturgicProps, variables, tomCal);
         }
         break;
 
       case  "ML":
-        this.makeML(TABLES, type, diocesi, llati, anyABC, celType);
+        this.makeML(TABLES, type, liturgicProps, variables, tomCal);
         break;
     }
   }
 
-  makeDP(TABLES, type, diocesi, llati, anyABC, celType){
+  makeDP(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("making Diumenge de Pasqua");
     //::::::>>>>>DP<<<<<::::::
     //::::::DP-INFO_CEL::::::
@@ -719,7 +725,9 @@ export default class CelebracioSoul {
     this.VESPRES.oracio = TABLES.tempsQuaresmaDiumPasq.oraFiVespres;
   }
 
-  makeVespres1TSF(TABLES, type, diocesi, llati, anyABC, celType){
+  makeVespres1TSF(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     //::::::TSF-VESPRES1::::::
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsSolemnitatsFestes.himneVespres1Llati;
     else this.VESPRES1.himne = TABLES.tempsSolemnitatsFestes.himneVespres1Cat;
@@ -759,7 +767,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.tempsSolemnitatsFestes.oraFiVespres1;
   }
 
-  makeTSF(TABLES, type, diocesi, llati, anyABC, celType){
+  makeTSF(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("makeTSF");
     //::::::>>>>>TSF<<<<<::::::
     //::::::TSF-INFO_CEL::::::
@@ -967,13 +977,15 @@ export default class CelebracioSoul {
     this.VESPRES.oracio = TABLES.tempsSolemnitatsFestes.oraFiVespres2;
   }
 
-  makeDE(TABLES, type, diocesi, llati, anyABC, celType){
+  makeDE(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("makeDE");
     //::::::>>>>>DE<<<<<::::::
     //::::::DE-INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.diesespecials.nomMemoria;
     this.INFO_CEL.infoCel = TABLES.diesespecials.infoMemoria;
-    this.INFO_CEL.typeCel = celType;
+    this.INFO_CEL.typeCel = tomCal;
 
     //::::::DE-OFICI::::::
     //DE-OFICI -> INVITATORI
@@ -1166,7 +1178,9 @@ export default class CelebracioSoul {
     this.VESPRES.oracio = TABLES.diesespecials.oraFi;
   }
 
-  makeVespres1DE(TABLES, type, diocesi, llati, anyABC, celType){
+  makeVespres1DE(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("makeVespres1DE");
     //::::::DE-VESPRES1::::::
     if(llati === 'true') this.VESPRES1.himne = TABLES.diesespecials.himneVespres1Llati;
@@ -1197,7 +1211,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.diesespecials.oraFiVespres1;
   }
 
-  makeSF(TABLES, type, diocesi, llati, anyABC, celType, F){
+  makeSF(TABLES, type, liturgicProps, variables, tomCal, F){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("makeSF");
     //::::::>>>>>SF<<<<<::::::
     //::::::SF-INFO_CEL::::::
@@ -1522,7 +1538,8 @@ export default class CelebracioSoul {
     else if(TABLES.OficisComuns !== null) this.NONA.oracio = TABLES.OficisComuns.oraFiMenor;
 
 
-    if(!F || F !== 'F'){
+    if(!(F === 'F' && variables.date.getDay() === 6)){
+      console.log("making vespres 2 celebracioSoul: " + F);
       //::::::SF-VESPRES2::::::
       //SF-VESPRES2 -> HIMNE
       if(TABLES.santsSolemnitats.himneVespres2Llati !== '-'){
@@ -1607,7 +1624,10 @@ export default class CelebracioSoul {
     }
   }
 
-  makeVespres1SF(TABLES, type, diocesi, llati, anyABC, celType){
+  makeVespres1SF(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
+    console.log("makeVespres1SF");
     //::::::SF-VESPRES1::::::
     //SF-VESPRES1 -> HIMNE
     if(this.VESPRES1.himne = TABLES.santsSolemnitats.himneVespres1Llati !== '-'){
@@ -1693,12 +1713,16 @@ export default class CelebracioSoul {
     else if(TABLES.OficisComuns !== null) this.VESPRES1.oracio = TABLES.OficisComuns.oraFiVespres1;
   }
 
-  makeML(TABLES, type, diocesi, llati, anyABC, celType){
+  makeML(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
+
+    console.log("makeML");
     //::::::>>>>>ML<<<<<::::::
     //::::::INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
     this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
-    this.INFO_CEL.typeCel = celType;
+    this.INFO_CEL.typeCel = tomCal;
 
 
 
@@ -2023,90 +2047,94 @@ export default class CelebracioSoul {
     this.NONA.oracio = TABLES.santsMemories.OracioNona;
 
 
-    //:::::::ML-VESPRES:::::::
-    //ML-VESPRES -> HIMNE
-    if(TABLES.santsMemories.himneVespresLlati !== '-'){
-      if(llati === 'true') this.VESPRES.himne = TABLES.santsMemories.himneVespresLlati;
-      else this.VESPRES.himne = TABLES.santsMemories.himneVespresCat;
+    if(variables.date.getDay() !== 6){
+      //:::::::ML-VESPRES:::::::
+      //ML-VESPRES -> HIMNE
+      if(TABLES.santsMemories.himneVespresLlati !== '-'){
+        if(llati === 'true') this.VESPRES.himne = TABLES.santsMemories.himneVespresLlati;
+        else this.VESPRES.himne = TABLES.santsMemories.himneVespresCat;
+      }
+      else if(TABLES.OficisComuns !== null){
+        if(llati === 'true') this.VESPRES.himne = TABLES.OficisComuns.himneVespresLlati;
+        else this.VESPRES.himne = TABLES.OficisComuns.himneVespresCat;
+      }
+      //ML-VESPRES -> SALMÒDIA
+      //S1
+      if(TABLES.santsMemories.ant1Vespres !== '-')
+        this.VESPRES.ant1 = TABLES.santsMemories.ant1Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.ant1 = TABLES.OficisComuns.ant1Vespres;
+      if(TABLES.santsMemories.titol1Vespres !== '-')
+        this.VESPRES.titol1 = TABLES.santsMemories.titol1Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.titol1 = TABLES.OficisComuns.titol1Vespres;
+      this.VESPRES.com1 = ".";
+      if(TABLES.santsMemories.Salm1Vespres !== '-')
+        this.VESPRES.salm1 = TABLES.santsMemories.Salm1Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.salm1 = TABLES.OficisComuns.Salm1Vespres;
+      if(TABLES.santsMemories.gloria1Vespres !== '-')
+        this.VESPRES.gloria1 = TABLES.santsMemories.gloria1Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.gloria1 = TABLES.OficisComuns.gloria1Vespres;
+      //S2
+      if(TABLES.santsMemories.ant2Vespres !== '-')
+        this.VESPRES.ant2 = TABLES.santsMemories.ant2Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.ant2 = TABLES.OficisComuns.ant2Vespres;
+      if(TABLES.santsMemories.titol2Vespres !== '-')
+        this.VESPRES.titol2 = TABLES.santsMemories.titol2Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.titol2 = TABLES.OficisComuns.titol2Vespres;
+      this.VESPRES.com2 = ".";
+      if(TABLES.santsMemories.Salm2Vespres !== '-')
+        this.VESPRES.salm2 = TABLES.santsMemories.Salm2Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.salm2 = TABLES.OficisComuns.Salm2Vespres;
+      if(TABLES.santsMemories.gloria2Vespres !== '-')
+        this.VESPRES.gloria2 = TABLES.santsMemories.gloria2Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.gloria2 = TABLES.OficisComuns.gloria2Vespres;
+      //s3
+      if(TABLES.santsMemories.ant3Vespres !== '-')
+        this.VESPRES.ant3 = TABLES.santsMemories.ant3Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.ant3 = TABLES.OficisComuns.ant3Vespres;
+      if(TABLES.santsMemories.titol3Vespres !== '-')
+        this.VESPRES.titol3 = TABLES.santsMemories.titol3Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.titol3 = TABLES.OficisComuns.titol3Vespres;
+      this.VESPRES.com3 = ".";
+      if(TABLES.santsMemories.Salm3Vespres !== '-')
+        this.VESPRES.salm3 = TABLES.santsMemories.Salm3Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.salm3 = TABLES.OficisComuns.Salm3Vespres;
+      if(TABLES.santsMemories.gloria3Vespres !== '-')
+        this.VESPRES.gloria3 = TABLES.santsMemories.gloria3Vespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.gloria3 = TABLES.OficisComuns.gloria3Vespres;
+      //ML-VESPRES -> LECTURA BREU
+      if(TABLES.santsMemories.citaLBVespres !== '-')
+        this.VESPRES.vers = TABLES.santsMemories.citaLBVespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.vers = TABLES.OficisComuns.citaLBVespres;
+      if(TABLES.santsMemories.lecturaBreuVespres !== '-')
+        this.VESPRES.lecturaBreu = TABLES.santsMemories.lecturaBreuVespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.lecturaBreu = TABLES.OficisComuns.lecturaBreuVespres;
+      //ML-VESPRES -> RESPONSORI
+      this.VESPRES.calAntEspecial = false;
+      if(TABLES.santsMemories.respBreuVespres1 !== '-')
+        this.VESPRES.respBreu1 = TABLES.santsMemories.respBreuVespres1;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.respBreu1 = TABLES.OficisComuns.respBreuVespres1;
+      if(TABLES.santsMemories.respBreuVespres2 !== '-')
+        this.VESPRES.respBreu2 = TABLES.santsMemories.respBreuVespres2;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.respBreu2 = TABLES.OficisComuns.respBreuVespres2;
+      if(TABLES.santsMemories.respBreuVespres3 !== '-')
+        this.VESPRES.respBreu3 = TABLES.santsMemories.respBreuVespres3;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.respBreu3 = TABLES.OficisComuns.respBreuVespres3;
+      //ML-VESPRES -> CÀNTIC
+      if(TABLES.santsMemories.antMaria !== '-')
+        this.VESPRES.antCantic = TABLES.santsMemories.antMaria;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.antCantic = TABLES.OficisComuns.antMaria;
+      //ML-VESPRES -> PREGÀRIES
+      if(TABLES.santsMemories.pregariesVespres2 !== '-')
+        this.VESPRES.pregaries = TABLES.santsMemories.pregariesVespres;
+      else if(TABLES.OficisComuns !== null) this.VESPRES.pregaries = TABLES.OficisComuns.pregariesVespres;
+      //ML-VESPRES -> ORACIÓ
+      this.VESPRES.oracio = TABLES.santsMemories.oraFi;
     }
-    else if(TABLES.OficisComuns !== null){
-      if(llati === 'true') this.VESPRES.himne = TABLES.OficisComuns.himneVespresLlati;
-      else this.VESPRES.himne = TABLES.OficisComuns.himneVespresCat;
-    }
-    //ML-VESPRES -> SALMÒDIA
-    //S1
-    if(TABLES.santsMemories.ant1Vespres !== '-')
-      this.VESPRES.ant1 = TABLES.santsMemories.ant1Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.ant1 = TABLES.OficisComuns.ant1Vespres;
-    if(TABLES.santsMemories.titol1Vespres !== '-')
-      this.VESPRES.titol1 = TABLES.santsMemories.titol1Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.titol1 = TABLES.OficisComuns.titol1Vespres;
-    this.VESPRES.com1 = ".";
-    if(TABLES.santsMemories.Salm1Vespres !== '-')
-      this.VESPRES.salm1 = TABLES.santsMemories.Salm1Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.salm1 = TABLES.OficisComuns.Salm1Vespres;
-    if(TABLES.santsMemories.gloria1Vespres !== '-')
-      this.VESPRES.gloria1 = TABLES.santsMemories.gloria1Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.gloria1 = TABLES.OficisComuns.gloria1Vespres;
-    //S2
-    if(TABLES.santsMemories.ant2Vespres !== '-')
-      this.VESPRES.ant2 = TABLES.santsMemories.ant2Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.ant2 = TABLES.OficisComuns.ant2Vespres;
-    if(TABLES.santsMemories.titol2Vespres !== '-')
-      this.VESPRES.titol2 = TABLES.santsMemories.titol2Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.titol2 = TABLES.OficisComuns.titol2Vespres;
-    this.VESPRES.com2 = ".";
-    if(TABLES.santsMemories.Salm2Vespres !== '-')
-      this.VESPRES.salm2 = TABLES.santsMemories.Salm2Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.salm2 = TABLES.OficisComuns.Salm2Vespres;
-    if(TABLES.santsMemories.gloria2Vespres !== '-')
-      this.VESPRES.gloria2 = TABLES.santsMemories.gloria2Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.gloria2 = TABLES.OficisComuns.gloria2Vespres;
-    //s3
-    if(TABLES.santsMemories.ant3Vespres !== '-')
-      this.VESPRES.ant3 = TABLES.santsMemories.ant3Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.ant3 = TABLES.OficisComuns.ant3Vespres;
-    if(TABLES.santsMemories.titol3Vespres !== '-')
-      this.VESPRES.titol3 = TABLES.santsMemories.titol3Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.titol3 = TABLES.OficisComuns.titol3Vespres;
-    this.VESPRES.com3 = ".";
-    if(TABLES.santsMemories.Salm3Vespres !== '-')
-      this.VESPRES.salm3 = TABLES.santsMemories.Salm3Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.salm3 = TABLES.OficisComuns.Salm3Vespres;
-    if(TABLES.santsMemories.gloria3Vespres !== '-')
-      this.VESPRES.gloria3 = TABLES.santsMemories.gloria3Vespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.gloria3 = TABLES.OficisComuns.gloria3Vespres;
-    //ML-VESPRES -> LECTURA BREU
-    if(TABLES.santsMemories.citaLBVespres !== '-')
-      this.VESPRES.vers = TABLES.santsMemories.citaLBVespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.vers = TABLES.OficisComuns.citaLBVespres;
-    if(TABLES.santsMemories.lecturaBreuVespres !== '-')
-      this.VESPRES.lecturaBreu = TABLES.santsMemories.lecturaBreuVespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.lecturaBreu = TABLES.OficisComuns.lecturaBreuVespres;
-    //ML-VESPRES -> RESPONSORI
-    this.VESPRES.calAntEspecial = false;
-    if(TABLES.santsMemories.respBreuVespres1 !== '-')
-      this.VESPRES.respBreu1 = TABLES.santsMemories.respBreuVespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.respBreu1 = TABLES.OficisComuns.respBreuVespres1;
-    if(TABLES.santsMemories.respBreuVespres2 !== '-')
-      this.VESPRES.respBreu2 = TABLES.santsMemories.respBreuVespres2;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.respBreu2 = TABLES.OficisComuns.respBreuVespres2;
-    if(TABLES.santsMemories.respBreuVespres3 !== '-')
-      this.VESPRES.respBreu3 = TABLES.santsMemories.respBreuVespres3;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.respBreu3 = TABLES.OficisComuns.respBreuVespres3;
-    //ML-VESPRES -> CÀNTIC
-    if(TABLES.santsMemories.antMaria !== '-')
-      this.VESPRES.antCantic = TABLES.santsMemories.antMaria;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.antCantic = TABLES.OficisComuns.antMaria;
-    //ML-VESPRES -> PREGÀRIES
-    if(TABLES.santsMemories.pregariesVespres2 !== '-')
-      this.VESPRES.pregaries = TABLES.santsMemories.pregariesVespres;
-    else if(TABLES.OficisComuns !== null) this.VESPRES.pregaries = TABLES.OficisComuns.pregariesVespres;
-    //ML-VESPRES -> ORACIÓ
-    this.VESPRES.oracio = TABLES.santsMemories.oraFi;
   }
 
-  makeDR(TABLES, type, diocesi, llati, anyABC, celType){
+  makeDR(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("makeDR");
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsQuaresmaComuSS.himneVespresLlati;
     else this.VESPRES1.himne = TABLES.tempsQuaresmaComuSS.himneVespresCat;
@@ -2133,7 +2161,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.tempsQuaresmaRams.oraFiVespres1;
   }
 
-  makeT(TABLES, type, diocesi, llati, anyABC, celType){
+  makeT(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("makeT");
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsQuaresmaTridu.himneDSOVespresllati;
     else this.VESPRES1.himne = TABLES.tempsQuaresmaTridu.himneDSOVespresCat;
@@ -2161,7 +2191,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.tempsQuaresmaTridu.oraFiVespres;
   }
 
-  makeA(TABLES, type, diocesi, llati, anyABC, celType){
+  makeA(TABLES, type, liturgicProps, variables, tomCal){
+    llati = variables.llati;
+    anyABC = liturgicProps.ABC;
     console.log("makeA ");
     if(llati === 'true')
       this.VESPRES1.himne = TABLES.tempsAdventNadalComu.himneVespresLlati;
