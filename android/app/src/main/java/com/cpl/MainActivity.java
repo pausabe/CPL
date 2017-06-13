@@ -1,6 +1,7 @@
 package com.cpl;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
+import com.horcrux.svg.SvgPackage;
 import com.cboy.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {

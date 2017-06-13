@@ -31,7 +31,7 @@ export default class LaudesDisplay extends Component {
       },
       blackSmallItalicRight: {
         color: '#000000',
-        fontSize: this.convertTextSize(),
+        fontSize: this.convertTextSize()-2,
         fontStyle: 'italic',
         textAlign: 'right'
       },
@@ -121,6 +121,8 @@ export default class LaudesDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>PREGÀRIES</Text>
         <Text />
         {this.pregaries(this.props.liturgicProps.LT, LAUDES)}
+        <Text />
+        <Hr lineColor='#CFD8DC' />
         <Text />
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
         <Text />

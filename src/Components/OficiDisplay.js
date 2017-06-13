@@ -34,7 +34,7 @@ export default class OficiDisplay extends Component {
       },
       blackSmallItalicRight: {
         color: '#000000',
-        fontSize: this.convertTextSize(),
+        fontSize: this.convertTextSize()-2,
         fontStyle: 'italic',
         textAlign: 'right'
       },

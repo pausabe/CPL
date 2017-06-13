@@ -93,7 +93,7 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Vespres", LiturgiaDisplayScreen)}>
-        {hour > 17 && hour < 23 ?
+        {hour > 17 && hour <= 23 ?
           <Text style={styles.buttonTextBold}>{"Vespres"}</Text>
           :
           <Text style={styles.buttonText}>{"Vespres"}</Text>
@@ -108,7 +108,7 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Completes", LiturgiaDisplayScreen)}>
-         {hour > 22 && hour < 2 ?
+         {hour > 0 && hour < 2 ?
            <Text style={styles.buttonTextBold}>{"Completes"}</Text>
            :
            <Text style={styles.buttonText}>{"Completes"}</Text>
@@ -133,19 +133,19 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    color: 'black',
+    color: '#000000',
     fontSize: 18,
     fontWeight: '400'
   },
   buttonTextBold: {
     textAlign: 'center',
-    color: 'black',
+    color: '#000000',
     fontSize: 18,
     fontWeight: 'bold',
   },
   horaMenorText: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#404040',
     fontSize: 18,
     fontWeight: '400'
   },

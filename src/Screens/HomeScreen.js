@@ -7,6 +7,7 @@ import {
   StatusBar,
   Image,
   BackAndroid,
+  ScrollView,
   TouchableOpacity,
  } from 'react-native';
 import SplashScreen from 'react-native-splash-screen'
@@ -70,8 +71,8 @@ export default class HomeScreen extends Component {
     }
     else{
       var today = new Date();
-      today.setDate(16); //1-31
-      today.setMonth(2); //0-11
+      //today.setDate(16); //1-31
+      //today.setMonth(11); //0-11
       //today.setFullYear(2017); //XXXX
     }
 
@@ -332,8 +333,10 @@ export default class HomeScreen extends Component {
 
           {this.state.santPressed && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
            <View style={styles.liturgiaContainer}>
+            <ScrollView>
              <Text style={styles.santExText}>{this.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
              <Text style={styles.santExText}/>
+            </ScrollView>
            </View>
            :
            <View style={styles.liturgiaContainer}>
