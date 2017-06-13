@@ -30,11 +30,21 @@ export default class HomeScreen extends Component {
     }
   }
 
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.backHandler.bind(this));
+  }
+
   componentWillMount() {
-    BackAndroid.addEventListener('hardwareBackPress', () => {
+    BackAndroid.addEventListener('hardwareBackPress', this.backHandler.bind(this));
+  }
+
+  backHandler(){
+    console.log("Android back: " + this.props.navigator.getCurrentRoutes().length);
+    if(this.props.navigator.getCurrentRoutes().length>1){
       this.props.navigator.pop();
       return true;
-    });
+    }
+    return false;
   }
 
   constructor(props) {
@@ -60,8 +70,8 @@ export default class HomeScreen extends Component {
     }
     else{
       var today = new Date();
-      today.setDate(12); //1-31
-      today.setMonth(1); //0-11
+      today.setDate(16); //1-31
+      today.setMonth(3); //0-11
       //today.setFullYear(2017); //XXXX
     }
 

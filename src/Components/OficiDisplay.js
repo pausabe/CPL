@@ -17,6 +17,11 @@ export default class OficiDisplay extends Component {
         color: '#000000',
         fontSize: this.convertTextSize(),
       },
+      blackJustified:{
+        color: '#000000',
+        fontSize: this.convertTextSize(),
+        textAlign: 'justify',
+      },
       blackBold: {
         color: '#000000',
         fontSize: this.convertTextSize(),
@@ -87,25 +92,25 @@ export default class OficiDisplay extends Component {
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>HIMNE</Text>
+          <Text selectable={true} style={this.styles.red}>HIMNE</Text>
           <Text />
           {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), false, this.props.liturgicProps.setmana, OFICI)}
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>SALMÒDIA</Text>
+          <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
           <Text />
           {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.cicle, OFICI)}
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>VERS</Text>
+          <Text selectable={true} style={this.styles.red}>VERS</Text>
           <Text />
           {this.vers(this.props.liturgicProps.LT, OFICI)}
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>LECTURES</Text>
+          <Text selectable={true} style={this.styles.red}>LECTURES</Text>
           <Text />
           {this.lectures(this.props.liturgicProps.LT, OFICI)}
           <Text />
@@ -113,23 +118,23 @@ export default class OficiDisplay extends Component {
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>ORACIÓ</Text>
+          <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
           <Text />
-          <Text style={this.styles.blackBold}>Preguem.</Text>
+          <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
           {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
-          <Text style={this.styles.red}>R.
-            <Text style={this.styles.black}> Amén.</Text>
+          <Text selectable={true} style={this.styles.red}>R.
+            <Text selectable={true} style={this.styles.black}> Amén.</Text>
           </Text>
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>CONCLUSIÓ</Text>
+          <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
           <Text />
-          <Text style={this.styles.red}>V.
-            <Text style={this.styles.black}> Beneïm al Senyor.</Text>
+          <Text selectable={true} style={this.styles.red}>V.
+            <Text selectable={true} style={this.styles.black}> Beneïm al Senyor.</Text>
           </Text>
-          <Text style={this.styles.red}>R.
-            <Text style={this.styles.black}> Donem gràcies a Déu.</Text>
+          <Text selectable={true} style={this.styles.red}>R.
+            <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>
           </Text>
           <Text />
         </View>
@@ -144,20 +149,20 @@ export default class OficiDisplay extends Component {
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>ORACIÓ</Text>
+          <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
           <Text />
-          <Text style={this.styles.blackBold}>Preguem.</Text>
+          <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
           {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>CONCLUSIÓ</Text>
+          <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
           <Text />
-          <Text style={this.styles.red}>V.
-            <Text style={this.styles.black}> Beneïm al Senyor.</Text>
+          <Text selectable={true} style={this.styles.red}>V.
+            <Text selectable={true} style={this.styles.black}> Beneïm al Senyor.</Text>
           </Text>
-          <Text style={this.styles.red}>R.
-            <Text style={this.styles.black}> Donem gràcies a Déu.</Text>
+          <Text selectable={true} style={this.styles.red}>R.
+            <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>
           </Text>
           <Text />
         </View>
@@ -176,7 +181,7 @@ export default class OficiDisplay extends Component {
       salm = salm.replace(/  [†]/g,'');
       salm = salm.replace(/ [†]/g,'');
     }
-    return (<Text style={this.styles.black}>{salm}</Text>);
+    return (<Text selectable={true} style={this.styles.black}>{salm}</Text>);
   }
 
   gloria(g){
@@ -186,15 +191,15 @@ export default class OficiDisplay extends Component {
 
     if(g === '1'){
       if(this.props.variables.gloria === 'false'){
-        return(<Text style={this.styles.black}>Glòria.</Text>);
+        return(<Text selectable={true} style={this.styles.black}>Glòria.</Text>);
       }
       else{
-        return(<Text style={this.styles.black}>{gloriaString}</Text>);
+        return(<Text selectable={true} style={this.styles.black}>{gloriaString}</Text>);
       }
     }
     else{
       if(g==='0'){
-        return(<Text style={this.styles.black}>S'omet el Glòria.</Text>);
+        return(<Text selectable={true} style={this.styles.black}>S'omet el Glòria.</Text>);
       }
     }
   }
@@ -205,16 +210,16 @@ export default class OficiDisplay extends Component {
     if(OFICI.invitatori !== "Ofici"){
       return(
         <View>
-          <Text style={this.styles.red}>V.
-            <Text style={this.styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
+          <Text selectable={true} style={this.styles.red}>V.
+            <Text selectable={true} style={this.styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
           </Text>
-          <Text style={this.styles.red}>R.
-            <Text style={this.styles.black}> Senyor, veniu a ajudar-nos.</Text>
+          <Text selectable={true} style={this.styles.red}>R.
+            <Text selectable={true} style={this.styles.black}> Senyor, veniu a ajudar-nos.</Text>
           </Text>
           <Text />
-          <Text style={this.styles.black}>{gloriaStringIntro}
+          <Text selectable={true} style={this.styles.black}>{gloriaStringIntro}
             {this.props.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.props.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.props.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.props.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.props.liturgicProps.LT !== GLOBAL.Q_TRIDU ?
-              <Text style={this.styles.black}> Al·leluia</Text> : null
+              <Text selectable={true} style={this.styles.black}> Al·leluia</Text> : null
             }
           </Text>
         </View>
@@ -223,29 +228,29 @@ export default class OficiDisplay extends Component {
     else{
       return(
         <View>
-          <Text style={this.styles.red}>V.
-            <Text style={this.styles.black}> Obriu-me els llavis, Senyor.</Text>
+          <Text selectable={true} style={this.styles.red}>V.
+            <Text selectable={true} style={this.styles.black}> Obriu-me els llavis, Senyor.</Text>
           </Text>
-          <Text style={this.styles.red}>R.
-            <Text style={this.styles.black}> I proclamaré la vostra lloança.</Text>
+          <Text selectable={true} style={this.styles.red}>R.
+            <Text selectable={true} style={this.styles.black}> I proclamaré la vostra lloança.</Text>
           </Text>
           <Text />
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>Ant.
-            <Text style={this.styles.black}> {OFICI.antInvitatori}</Text>
+          <Text selectable={true} style={this.styles.red}>Ant.
+            <Text selectable={true} style={this.styles.black}> {OFICI.antInvitatori}</Text>
           </Text>
           <Text />
-          <Text style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
+          <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
           <Text />
-          <Text style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
           <Text />
           {this.salm(OFICI.salm94)}
           <Text />
           {this.gloria('1')}
           <Text />
-          <Text style={this.styles.red}>Ant.
-            <Text style={this.styles.black}> {OFICI.antInvitatori}</Text>
+          <Text selectable={true} style={this.styles.red}>Ant.
+            <Text selectable={true} style={this.styles.black}> {OFICI.antInvitatori}</Text>
           </Text>
         </View>
       )
@@ -253,58 +258,58 @@ export default class OficiDisplay extends Component {
   }
 
   himne(LT, weekDay, nit, setmana, OFICI){
-    return(<Text style={this.styles.black}>{OFICI.himne}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{OFICI.himne}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, cicle, OFICI){
     return(
       <View>
-        <Text style={this.styles.red}>Ant. 1.
-          <Text style={this.styles.black}> {OFICI.ant1}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant. 1.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.redCenter}>{OFICI.titol1}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol1}</Text>
         <Text />
         {OFICI.com1 !== '-' ?
-          <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com1}</Text><Text /></View> : null}
+          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com1}</Text><Text /></View> : null}
         {this.salm(OFICI.salm1)}
         <Text />
         {this.gloria(OFICI.gloria1)}
         <Text />
-        <Text style={this.styles.red}>Ant. 1.
-          <Text style={this.styles.black}> {OFICI.ant1}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant. 1.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.red}>Ant. 2.
-          <Text style={this.styles.black}> {OFICI.ant2}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant. 2.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.redCenter}>{OFICI.titol2}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol2}</Text>
         <Text />
         {OFICI.com2 !== '-' ?
-          <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com2}</Text><Text /></View> : null}
+          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com2}</Text><Text /></View> : null}
         {this.salm(OFICI.salm2)}
         <Text />
         {this.gloria(OFICI.gloria2)}
         <Text />
-        <Text style={this.styles.red}>Ant. 2.
-          <Text style={this.styles.black}> {OFICI.ant2}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant. 2.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.red}>Ant. 3.
-          <Text style={this.styles.black}> {OFICI.ant3}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant. 3.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.redCenter}>{OFICI.titol3}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol3}</Text>
         <Text />
         {OFICI.com3 !== '-' ?
-          <View><Text style={this.styles.blackSmallItalicRight}>{OFICI.com3}</Text><Text /></View> : null}
+          <View><Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com3}</Text><Text /></View> : null}
         {this.salm(OFICI.salm3)}
         <Text />
         {this.gloria(OFICI.gloria3)}
         <Text />
-        <Text style={this.styles.red}>Ant. 3.
-          <Text style={this.styles.black}> {OFICI.ant3}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant. 3.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
         </Text>
       </View>
     );
@@ -313,11 +318,11 @@ export default class OficiDisplay extends Component {
   vers(LT, OFICI){
     return(
       <View>
-        <Text style={this.styles.red}>V.
-          <Text style={this.styles.black}> {OFICI.respV}</Text>
+        <Text selectable={true} style={this.styles.red}>V.
+          <Text selectable={true} style={this.styles.black}> {OFICI.respV}</Text>
         </Text>
-        <Text style={this.styles.red}>R.
-          <Text style={this.styles.black}> {OFICI.respR}</Text>
+        <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.black}> {OFICI.respR}</Text>
         </Text>
       </View>
     );
@@ -326,40 +331,40 @@ export default class OficiDisplay extends Component {
   lectures(LT, OFICI){
     return(
       <View>
-        <Text style={this.styles.red}>Primera lectura</Text>
-        <Text style={this.styles.black}>{OFICI.referencia1}
-          <Text style={this.styles.red}> {OFICI.cita1}</Text></Text>
+        <Text selectable={true} style={this.styles.red}>Primera lectura</Text>
+        <Text selectable={true} style={this.styles.black}>{OFICI.referencia1}
+          <Text selectable={true} style={this.styles.red}> {OFICI.cita1}</Text></Text>
         <Text />
-        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura1}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura1}</Text>
         <Text />
-        <Text style={this.styles.black}>{OFICI.lectura1}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura1}</Text>
         <Text />
-        <Text style={this.styles.red}>Responsori
-          <Text style={this.styles.redSmallItalicRight}> {OFICI.citaResp1}</Text>
+        <Text selectable={true} style={this.styles.red}>Responsori
+          <Text selectable={true} style={this.styles.redSmallItalicRight}> {OFICI.citaResp1}</Text>
         </Text>
-        <Text style={this.styles.red}>R.
-          <Text style={this.styles.black}> {OFICI.resp1Part1} {OFICI.resp1Part2}</Text>
+        <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.black}> {OFICI.resp1Part1} {OFICI.resp1Part2}</Text>
         </Text>
-        <Text style={this.styles.red}>V.
-          <Text style={this.styles.black}> {OFICI.resp1Part3} {OFICI.resp1Part2}</Text>
+        <Text selectable={true} style={this.styles.red}>V.
+          <Text selectable={true} style={this.styles.black}> {OFICI.resp1Part3} {OFICI.resp1Part2}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.red}>Segona lectura</Text>
-        <Text style={this.styles.black}>{OFICI.referencia2}
-          <Text style={this.styles.red}> {OFICI.cita2}</Text></Text>
+        <Text selectable={true} style={this.styles.red}>Segona lectura</Text>
+        <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}
+          <Text selectable={true} style={this.styles.red}> {OFICI.cita2}</Text></Text>
         <Text />
-        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
         <Text />
-        <Text style={this.styles.black}>{OFICI.lectura2}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura2}</Text>
         <Text />
-        <Text style={this.styles.red}>Responsori
-          <Text style={this.styles.redSmallItalicRight}>  {OFICI.versResp2}</Text>
+        <Text selectable={true} style={this.styles.red}>Responsori
+          <Text selectable={true} style={this.styles.redSmallItalicRight}>  {OFICI.versResp2}</Text>
         </Text>
-        <Text style={this.styles.red}>R.
-          <Text style={this.styles.black}> {OFICI.resp2Part1} {OFICI.resp2Part2}</Text>
+        <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.black}> {OFICI.resp2Part1} {OFICI.resp2Part2}</Text>
         </Text>
-        <Text style={this.styles.red}>V.
-          <Text style={this.styles.black}>  {OFICI.resp2Part3} {OFICI.resp2Part2}</Text>
+        <Text selectable={true} style={this.styles.red}>V.
+          <Text selectable={true} style={this.styles.black}>  {OFICI.resp2Part3} {OFICI.resp2Part2}</Text>
         </Text>
       </View>
     )
@@ -368,85 +373,91 @@ export default class OficiDisplay extends Component {
   lecturesDiumPasqua(LT, OFICI){
     return(
       <View>
-        <Text style={this.styles.red}>Primera lectura</Text>
-        <Text style={this.styles.black}>{OFICI.referencia1}
-          <Text style={this.styles.red}> {OFICI.cita1}</Text></Text>
+        <Text selectable={true} style={this.styles.red}>Primera lectura</Text>
+        <Text selectable={true} style={this.styles.black}>{OFICI.referencia1}
+          <Text selectable={true} style={this.styles.red}> {OFICI.cita1}</Text></Text>
         <Text />
-        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura1}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura1}</Text>
         <Text />
-        <Text style={this.styles.black}>{OFICI.lectura1}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura1}</Text>
         <Text />
-        <Text style={this.styles.red}>Ant.
-          <Text style={this.styles.black}> {OFICI.ant1}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.redCenter}>{OFICI.titol1}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol1}</Text>
         <Text />
         {this.salm(OFICI.salm1)}
         <Text />
         {this.gloria('1')}
         <Text />
-        <Text style={this.styles.red}>Ant.
-          <Text style={this.styles.black}> {OFICI.ant1}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.blackBold}>Preguem.</Text>
-        <Text style={this.styles.black}>{OFICI.oracio1}</Text>
-        <Text />
-        <Text style={this.styles.red}>Segona lectura</Text>
-        <Text style={this.styles.black}>{OFICI.referencia2}
-          <Text style={this.styles.red}> {OFICI.cita2}</Text></Text>
-        <Text />
-        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
-        <Text />
-        <Text style={this.styles.black}>{OFICI.lectura2}</Text>
-        <Text />
-        <Text style={this.styles.red}>Ant.
-          <Text style={this.styles.black}> {OFICI.ant2}</Text>
+        <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
+        <Text selectable={true} style={this.styles.black}>{this.completeOracio(OFICI.oracio1)}</Text>
+        <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         <Text />
-        <Text style={this.styles.redCenter}>{OFICI.titol2}</Text>
+        <Text selectable={true} style={this.styles.red}>Segona lectura</Text>
+        <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}
+          <Text selectable={true} style={this.styles.red}> {OFICI.cita2}</Text></Text>
+        <Text />
+        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
+        <Text />
+        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura2}</Text>
+        <Text />
+        <Text selectable={true} style={this.styles.red}>Ant.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
+        </Text>
+        <Text />
+        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol2}</Text>
         <Text />
         {this.salm(OFICI.salm2)}
         <Text />
         {this.gloria('1')}
         <Text />
-        <Text style={this.styles.red}>Ant.
-          <Text style={this.styles.black}> {OFICI.ant2}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.blackBold}>Preguem.</Text>
-        <Text style={this.styles.black}>{OFICI.oracio2}</Text>
-        <Text />
-        <Text style={this.styles.red}>Tercera lectura</Text>
-        <Text style={this.styles.black}>{OFICI.referencia3}
-          <Text style={this.styles.red}> {OFICI.cita3}</Text></Text>
-        <Text />
-        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura3}</Text>
-        <Text />
-        <Text style={this.styles.black}>{OFICI.lectura3}</Text>
-        <Text />
-        <Text style={this.styles.red}>Ant.
-          <Text style={this.styles.black}> {OFICI.ant3}</Text>
+        <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
+        <Text selectable={true} style={this.styles.black}>{this.completeOracio(OFICI.oracio2)}</Text>
+        <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         <Text />
-        <Text style={this.styles.redCenter}>{OFICI.titol3}</Text>
+        <Text selectable={true} style={this.styles.red}>Tercera lectura</Text>
+        <Text selectable={true} style={this.styles.black}>{OFICI.referencia3}
+          <Text selectable={true} style={this.styles.red}> {OFICI.cita3}</Text></Text>
+        <Text />
+        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura3}</Text>
+        <Text />
+        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura3}</Text>
+        <Text />
+        <Text selectable={true} style={this.styles.red}>Ant.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
+        </Text>
+        <Text />
+        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol3}</Text>
         <Text />
         {this.salm(OFICI.salm3)}
         <Text />
         {this.gloria('1')}
         <Text />
-        <Text style={this.styles.red}>Ant.
-          <Text style={this.styles.black}> {OFICI.ant3}</Text>
+        <Text selectable={true} style={this.styles.red}>Ant.
+          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
         </Text>
         <Text />
-        <Text style={this.styles.red}>Quarta lectura</Text>
-        <Text style={this.styles.black}>{OFICI.referencia4}
-          <Text style={this.styles.red}> {OFICI.cita4}</Text></Text>
+        <Text selectable={true} style={this.styles.red}>Quarta lectura</Text>
+        <Text selectable={true} style={this.styles.black}>{OFICI.referencia4}
+          <Text selectable={true} style={this.styles.red}> {OFICI.cita4}</Text></Text>
         <Text />
-        <Text style={this.styles.redCenterBold}>{OFICI.titolLectura4}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura4}</Text>
         <Text />
-        <Text style={this.styles.black}>{OFICI.lectura4}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura4}</Text>
       </View>
     )
   }
@@ -457,9 +468,9 @@ export default class OficiDisplay extends Component {
         <View>
           <Hr lineColor='#CFD8DC' />
           <Text />
-          <Text style={this.styles.red}>HIMNE</Text>
+          <Text selectable={true} style={this.styles.red}>HIMNE</Text>
           <Text />
-          <Text style={this.styles.black}>{OFICI.himneOhDeu}</Text>
+          <Text selectable={true} style={this.styles.black}>{OFICI.himneOhDeu}</Text>
           <Text />
         </View>
       )
@@ -467,7 +478,7 @@ export default class OficiDisplay extends Component {
   }
 
   oracio(LT, weekDay, OFICI){
-    return(<Text style={this.styles.black}>{this.completeOracio(OFICI.oracio)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(OFICI.oracio)}</Text>);
   }
 
   completeOracio(oracio){
@@ -476,7 +487,7 @@ export default class OficiDisplay extends Component {
     var form2 = "Vós, que viviu i regneu pels segles dels segles";
     var bigf2 = "Vós, que viviu i regneu amb Déu Pare en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
     var form3 = "Que viu i regna pels segles dels segles";
-    var form4 = "Ell, que viu i regna pels segles dels segles";
+    var form4 = "Ell, que viu i reg­na pels segles dels segles";
     var bigf4 = "Ell, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
 
     oAux = oracio;
