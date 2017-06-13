@@ -14,8 +14,9 @@ export const invitatori = {
 
 const defaultSettings = {
     showGlories: "false",
+    prayLliures: "false",
     useLatin: "false",
-    textSize: "3",
+    textSize: "3", //1-5
     diocesis: diocesis.BARCELONA,
     dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
     invitatori: invitatori.OFICI
@@ -71,6 +72,10 @@ export default class SettingsManager{
         return SettingsManager._getStorageValue("showGlories", callback, defaultSettings.showGlories);
     }
 
+    static getSettingPrayLliures(callback){
+        return SettingsManager._getStorageValue("prayLliures", callback, defaultSettings.prayLliures);
+    }
+
     static getSettingUseLatin(callback){
         return SettingsManager._getStorageValue("useLatin", callback, defaultSettings.useLatin);
     }
@@ -99,6 +104,13 @@ export default class SettingsManager{
 
     static setSettingUseLatin(value, callback){
         return SettingsManager._setValueIfValid("useLatin", value,
+            (val) => val === "true" || val === "false",
+            callback);
+    }
+
+    static setSettingPrayLliures(value, callback){
+      console.log("VALUE_ " + value);
+        return SettingsManager._setValueIfValid("prayLliures", value,
             (val) => val === "true" || val === "false",
             callback);
     }

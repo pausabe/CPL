@@ -72,10 +72,10 @@ export default class HomeScreen extends Component {
       diocesiName: '',
       invitatori: '',
       llati: '',
-      gloria: '',
+      gloria: 'true',
       lliures: '',
       textSize: '',
-      cleanSalm: '',
+      cleanSalm: 'false',
       celType: '',
       mogut: '',
       date: today,
@@ -117,10 +117,10 @@ export default class HomeScreen extends Component {
       }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
-      SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
-      SettingsManager.getSettingShowGlories((r) => this.variables.lliures = r),
+      //SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
+      SettingsManager.getSettingPrayLliures((r) => this.variables.lliures = r),
       SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
-      SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
+      //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
     ]).then(results => {
       this.refreshDate(date);
     });

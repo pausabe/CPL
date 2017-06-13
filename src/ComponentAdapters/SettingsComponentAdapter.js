@@ -9,39 +9,36 @@ export default class SettingsComponentAdapter{
 
     static async getSettingsOptions(){
         let options = [];
-        options.push(await SettingsComponentAdapter.getSettingComponentShowGlories());
+        //options.push(await SettingsComponentAdapter.getSettingComponentShowGlories());
+        options.push(await SettingsComponentAdapter.getSettingComponentPrayLliures());
         options.push(await SettingsComponentAdapter.getSettingComponentUseLatin());
         options.push(await SettingsComponentAdapter.getSettingComponentTextSize());
         options.push(await SettingsComponentAdapter.getSettingComponentDiocesis());
         //options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentInvitatori());
-        //Added for testing
-
-        /*options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingComponentDayStart());*/
         return options;
     }
 
-    static async getSettingComponentShowGlories(){
+    /*static async getSettingComponentShowGlories(){
         let value = await SettingsManager.getSettingShowGlories() === "true" ? true : false;
         let component = (<SettingComponent selectorComponent="switch" name="Mostrar glòria complet" id="showGlories" key="showGlories" value={value} callback={(id, value) => {
             SettingsManager.setSettingShowGlories(value ? "true" : "false");
         }}/>);
         return component;
-    }
+    }*/
 
     static async getSettingComponentUseLatin(){
         let value = await SettingsManager.getSettingUseLatin() === "true" ? true : false;
         let component = (<SettingComponent selectorComponent="switch" name="Himnes en llatí" id="useLatin" key="useLatin" value={value} callback={(id, value) => {
             SettingsManager.setSettingUseLatin(value ? "true" : "false");
+        }}/>);
+        return component;
+    }
+
+    static async getSettingComponentPrayLliures(){
+        let value = await SettingsManager.getSettingPrayLliures() === "true" ? true : false;
+        let component = (<SettingComponent selectorComponent="switch" name="Memòries lliures i commemoracions" id="prayLliures" key="prayLliures" value={value} callback={(id, value) => {
+            SettingsManager.setSettingPrayLliures(value ? "true" : "false");
         }}/>);
         return component;
     }

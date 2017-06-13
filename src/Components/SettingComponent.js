@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, Slider, Switch, Picker, StyleSheet} from 'react-native';
+import {View, Text, Slider, Switch, Picker, StyleSheet, Platform} from 'react-native';
 import Hr from 'react-native-hr';
 import GLOBAL from "../Globals/Globals";
 
@@ -77,9 +77,16 @@ export default class SettingComponent extends Component{
             onValueChange: this._updateSelectionStateCallback.bind(this),
             style: styles.selectorPicker
         });
-        return React.createElement(Picker, selectorProps,
-            this._generatePickerOptions()
-        );
+        if(Platform.OS === 'ios'){
+          return React.createElement(Picker, selectorProps,
+              this._generatePickerOptions()
+          );
+        }
+        else{
+          return React.createElement(Picker, selectorProps,
+              this._generatePickerOptions()
+          );
+        }
     }
 
     _generatePickerOptions(){
@@ -154,6 +161,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end"
     },
     selectorPicker: {
-        color: "gray"
+        //color: "gray"
     }
 });
