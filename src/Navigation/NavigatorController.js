@@ -128,7 +128,8 @@ export default class NavigatorController extends Component {
                     if (route.index === 0) {
                       return (
                         <TouchableOpacity style={{flex: 1, alignItems: 'center',
-                            paddingLeft: 5, justifyContent: 'center',}}>
+                            paddingLeft: 5, justifyContent: 'center',}}
+                            hitSlop={{top:35,bottom:35,right:45,left:35}}>
                           <Icon
                             name="ios-calendar-outline"
                             size={30}
@@ -141,7 +142,8 @@ export default class NavigatorController extends Component {
                     else {
                       return (
                         <TouchableOpacity style={styles.barButton}
-                                            onPress={this.backPress.bind(this, navigator)}>
+                                          hitSlop={{top:35,bottom:35,right:45,left:35}}
+                                          onPress={this.backPress.bind(this, navigator)}>
                           <View style={{flex:1, flexDirection: 'row', alignItems: 'center',
                           paddingLeft: 5, justifyContent:'center'}}>
                             <View >
@@ -152,7 +154,7 @@ export default class NavigatorController extends Component {
                               />
                             </View>
                             <View >
-                                <Text style={styles.barTextBack}>{'  '}</Text>
+                                <Text style={styles.barTextBack}>{'          '}</Text>
                             </View>
                           </View>
                         </TouchableOpacity>
@@ -167,7 +169,8 @@ export default class NavigatorController extends Component {
                       else{
                         return (
                           <TouchableOpacity style={{flex: 1, alignItems: 'center',
-                            paddingRight: 5, justifyContent: 'center',}}>
+                            paddingRight: 5, justifyContent: 'center',}}
+                            hitSlop={{top:35,bottom:35,right:45,left:35}}>
                             <Icon
                               name="ios-settings-outline"
                               size={30}

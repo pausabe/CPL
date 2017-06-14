@@ -24,7 +24,7 @@ export default class CompletesDisplay extends Component {
         fontSize: this.convertTextSize(),
         fontWeight: 'bold',
       },
-      blackSmallItalic:{
+      blackItalic:{
         color: '#000000',
         fontSize: this.convertTextSize(),
         fontStyle: 'italic'
@@ -330,15 +330,15 @@ export default class CompletesDisplay extends Component {
 
     if(g === '1'){
       if(this.props.variables.gloria === 'false'){
-        return(<Text selectable={true} style={this.styles.black}>Glòria.</Text>);
+        return(<Text selectable={true} style={this.styles.blackItalic}>Glòria.</Text>);
       }
       else{
-        return(<Text selectable={true} style={this.styles.black}>{gloriaString}</Text>);
+        return(<Text selectable={true} style={this.styles.blackItalic}>{gloriaString}</Text>);
       }
     }
     else{
       if(g==='0'){
-        return(<Text selectable={true} style={this.styles.black}>S'omet el Glòria.</Text>);
+        return(<Text selectable={true} style={this.styles.blackItalic}>S'omet el Glòria.</Text>);
       }
     }
   }

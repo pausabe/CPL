@@ -27,7 +27,7 @@ export default class OficiDisplay extends Component {
         fontSize: this.convertTextSize(),
         fontWeight: 'bold',
       },
-      blackSmallItalic:{
+      blackItalic:{
         color: '#000000',
         fontSize: this.convertTextSize(),
         fontStyle: 'italic'
@@ -190,15 +190,15 @@ export default class OficiDisplay extends Component {
 
     if(g === '1'){
       if(this.props.variables.gloria === 'false'){
-        return(<Text selectable={true} style={this.styles.black}>Glòria.</Text>);
+        return(<Text selectable={true} style={this.styles.blackItalic}>Glòria.</Text>);
       }
       else{
-        return(<Text selectable={true} style={this.styles.black}>{gloriaString}</Text>);
+        return(<Text selectable={true} style={this.styles.blackItalic}>{gloriaString}</Text>);
       }
     }
     else{
       if(g==='0'){
-        return(<Text selectable={true} style={this.styles.black}>S'omet el Glòria.</Text>);
+        return(<Text selectable={true} style={this.styles.blackItalic}>S'omet el Glòria.</Text>);
       }
     }
   }
@@ -243,8 +243,7 @@ export default class OficiDisplay extends Component {
           <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text></View></View>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.salm(OFICI.salm94)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
