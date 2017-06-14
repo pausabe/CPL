@@ -72,17 +72,21 @@ export default class SettingComponent extends Component{
     }
 
     _generatePicker(){
-        let selectorProps = this._mergeProps({
-            selectedValue: this.state.value,
-            onValueChange: this._updateSelectionStateCallback.bind(this),
-            style: styles.selectorPicker
-        });
         if(Platform.OS === 'ios'){
+          let selectorProps = this._mergeProps({
+              selectedValue: this.state.value,
+              onValueChange: this._updateSelectionStateCallback.bind(this)
+          });
           return React.createElement(Picker, selectorProps,
               this._generatePickerOptions()
           );
         }
         else{
+          let selectorProps = this._mergeProps({
+              selectedValue: this.state.value,
+              onValueChange: this._updateSelectionStateCallback.bind(this),
+              style: styles.selectorPicker
+          });
           return React.createElement(Picker, selectorProps,
               this._generatePickerOptions()
           );
@@ -161,6 +165,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end"
     },
     selectorPicker: {
-        //color: "gray"
+        color: "gray"
     }
 });

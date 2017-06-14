@@ -7,6 +7,8 @@ import Vespres from '../Components/VespresDisplay'
 import HoraMenor from '../Components/HoraMenorDisplay'
 import Completes from '../Components/CompletesDisplay'
 
+import GLOBAL from "../Globals/Globals";
+
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 1;
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: paddingBar(),
-    backgroundColor: '#E1F5FE',
+    backgroundColor: GLOBAL.backgroundColor,
   },
   normalText: {
     textAlign: 'center',

@@ -9,6 +9,8 @@ module.exports = {
   statusBarColor: '#00474a',
   hrColor: '#90A4AE',
 
+  backgroundColor: 'rgb(225, 245, 254)',
+
   O_ORDINARI: 'O_ORDINAR',
   Q_CENDRA:'Q_CENDRA',
   Q_SETMANES: 'Q_SETMANES',

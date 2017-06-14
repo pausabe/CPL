@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     itemList: {
         flex: 1,
         paddingTop: GLOBAL.paddingBar,
-        backgroundColor: '#E1F5FE',
+        backgroundColor: GLOBAL.backgroundColor,
     },
     normalText: {
         textAlign: 'center',

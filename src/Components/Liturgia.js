@@ -67,7 +67,7 @@ export default class Liturgia extends Component {
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Tèrcia", LiturgiaDisplayScreen)}>
              {hour > 8 && hour < 12 ?
-               <Text style={styles.buttonTextBold}>{"Tèrcia"}</Text>
+               <Text style={styles.horaMenorTextBold}>{"Tèrcia"}</Text>
                :
                <Text style={styles.horaMenorText}>{"Tèrcia"}</Text>
              }
@@ -75,7 +75,7 @@ export default class Liturgia extends Component {
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Sexta", LiturgiaDisplayScreen)}>
              {hour > 11 && hour < 15 ?
-               <Text style={styles.buttonTextBold}>{"Sexta"}</Text>
+               <Text style={styles.horaMenorTextBold}>{"Sexta"}</Text>
                :
                <Text style={styles.horaMenorText}>{"Sexta"}</Text>
              }
@@ -83,7 +83,7 @@ export default class Liturgia extends Component {
            <TouchableOpacity style={styles.buttonContainer} onPress={
            this.onButtonPress.bind(this, "liturgia-display", "Nona", LiturgiaDisplayScreen)}>
              {hour > 14 && hour < 18 ?
-               <Text style={styles.buttonTextBold}>{"Nona"}</Text>
+               <Text style={styles.horaMenorTextBold}>{"Nona"}</Text>
                :
                <Text style={styles.horaMenorText}>{"Nona"}</Text>
              }
@@ -108,7 +108,7 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
        this.onButtonPress.bind(this, "liturgia-display", "Completes", LiturgiaDisplayScreen)}>
-         {hour > 0 && hour < 2 ?
+         {hour >= 0 && hour < 2 ?
            <Text style={styles.buttonTextBold}>{"Completes"}</Text>
            :
            <Text style={styles.buttonText}>{"Completes"}</Text>
@@ -122,7 +122,8 @@ export default class Liturgia extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    shadowOpacity: 0.0,
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
     backgroundColor: 'white',
     opacity: 0.75,
     borderRadius: 15
@@ -134,8 +135,8 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: '#000000',
-    fontSize: 18,
-    fontWeight: '400'
+    fontSize: 19,
+    fontWeight: 'normal'
   },
   buttonTextBold: {
     textAlign: 'center',
@@ -145,9 +146,15 @@ const styles = StyleSheet.create({
   },
   horaMenorText: {
     textAlign: 'center',
-    color: '#404040',
-    fontSize: 18,
-    fontWeight: '400'
+    color: '#595959',
+    fontSize: 17,
+    fontWeight: 'normal'
+  },
+  horaMenorTextBold: {
+    textAlign: 'center',
+    color: '#595959',
+    fontSize: 17,
+    fontWeight: 'bold'
   },
   hrstyle: {
     backgroundColor: '#263238',

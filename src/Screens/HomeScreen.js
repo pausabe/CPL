@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DBAdapter from '../SQL/DBAdapter';
 import SOUL from '../Components/SOUL';
 import SettingsManager from '../Settings/SettingsManager';
+import GLOBAL from "../Globals/Globals";
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -83,12 +84,13 @@ export default class HomeScreen extends Component {
       diocesiName: '',
       invitatori: '',
       llati: '',
-      gloria: 'true',
+      gloria: 'false',
       lliures: '',
       textSize: '',
       cleanSalm: 'false',
       celType: '',
       mogut: '',
+      litColor: '',
       date: today,
     }
 
@@ -170,6 +172,7 @@ export default class HomeScreen extends Component {
         this.variables.celType = celType;
         this.variables.date = newDay;
         this.variables.mogut = current.Mogut;
+        this.variables.litColor = current.Color;
 
         this.liturgicProps.LITURGIA = null;
 
@@ -283,14 +286,11 @@ export default class HomeScreen extends Component {
             </View>
          </View>
          <View style={styles.diaLiturgicContainer}>
-           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== '0' ? " de la setmana" : null}
-             {this.liturgicProps.setmana !== 0 ? <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.setmana)}</Text> : null }</Text>
-           <Text style={styles.diaLiturgicText}>Temps -
-              <Text style={{color: '#c0392b'}}> {this.liturgicProps.tempsespecific}</Text></Text>
-           <Text style={styles.diaLiturgicText}>Setmana
-             <Text style={{color: '#c0392b'}}> {this.romanize(this.liturgicProps.cicle)} </Text>
-             del cicle litúrgic, any
-               <Text style={{color: '#c0392b'}}> {this.liturgicProps.ABC}</Text></Text>
+           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== '0' ? " de la setmana " : null}
+             {this.liturgicProps.setmana !== '0' ? this.liturgicPaint(this.romanize(this.liturgicProps.setmana), this.variables.litColor) : null }</Text>
+           <Text style={styles.diaLiturgicText}>{"Temps - "}{this.liturgicPaint(this.liturgicProps.tempsespecific, this.variables.litColor)}</Text>
+           <Text style={styles.diaLiturgicText}>{"Setmana "}{this.liturgicPaint(this.romanize(this.liturgicProps.cicle), this.variables.litColor)}
+            {" del cicle litúrgic, any "}{this.liturgicPaint(this.liturgicProps.ABC, this.variables.litColor)}</Text>
          </View>
          {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
          <View style={{paddingBottom: 5}}>
@@ -350,6 +350,26 @@ export default class HomeScreen extends Component {
        </Image>
      </View>
     )
+  }
+
+  liturgicPaint(string, color){
+    switch (color) {
+      case 'B':
+          return(<Text style={{color: 'rgb(242, 242, 242)'}}>{string}</Text>);
+        break;
+      case 'V':
+          return(<Text style={{color: 'rgb(0, 128, 40)'}}>{string}</Text>);
+        break;
+      case 'R':
+          return(<Text style={{color: 'rgb(192, 57, 43)'}}>{string}</Text>);
+        break;
+      case 'M':
+          return(<Text style={{color: 'rgb(134, 45, 134)'}}>{string}</Text>);
+        break;
+      default:
+        console.log("no color?");
+        return(<Text style={{color: '#c0392b'}}>{string}</Text>);
+    }
   }
 
   onSantPress(){
@@ -552,7 +572,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: paddingBar(),
-    backgroundColor: '#E1F5FE',
+    backgroundColor: GLOBAL.backgroundColor,
   },
   backgroundImage: {
    flex: 1,
@@ -564,6 +584,8 @@ const styles = StyleSheet.create({
   diaLiturgicContainer: {
     flex: 3,
     justifyContent: 'center',
+    shadowOpacity: 0.2,
+    shadowRadius: 7,
     //backgroundColor: 'silver',
   },
   diaLiturgicText: {
@@ -587,7 +609,8 @@ const styles = StyleSheet.create({
   },
   santContainer: {
     flex: 1.5,
-    shadowOpacity: 0.0,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
     justifyContent: 'center',
     backgroundColor: '#E0F2F1',
     borderRadius: 15,
