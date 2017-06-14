@@ -367,7 +367,6 @@ export default class HomeScreen extends Component {
           return(<Text style={{color: 'rgb(134, 45, 134)'}}>{string}</Text>);
         break;
       default:
-        console.log("no color?");
         return(<Text style={{color: '#c0392b'}}>{string}</Text>);
     }
   }

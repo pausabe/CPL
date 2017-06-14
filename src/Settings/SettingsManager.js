@@ -109,7 +109,7 @@ export default class SettingsManager{
     }
 
     static setSettingPrayLliures(value, callback){
-      console.log("VALUE_ " + value);
+      console.log("VALUE pray lliures:  " + value);
         return SettingsManager._setValueIfValid("prayLliures", value,
             (val) => val === "true" || val === "false",
             callback);
@@ -122,6 +122,7 @@ export default class SettingsManager{
     }
 
     static setSettingDiocesis(value, callback){
+      console.log("VALUE Diocesis: " + value);
         return SettingsManager._setValueIfValid("diocesis", value,
             (val) => {
                 return findValueInObject(diocesis, val);
@@ -135,10 +136,8 @@ export default class SettingsManager{
     }
 
     static setSettingInvitatori(value, callback){
-      console.log("here");
         return SettingsManager._setValueIfValid("invitatori", value,
             (val) => {
-                console.log("also here");
                 return findValueInObject(invitatori, val);
             }, callback);
     }
@@ -148,7 +147,7 @@ export default class SettingsManager{
 function findValueInObject(obj, value){
     let found = false;
     for(key in obj){
-        if(invitatori[key] == value){
+        if(obj[key] == value){
             found = true;
         }
     }
