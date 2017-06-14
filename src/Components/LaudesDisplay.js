@@ -85,64 +85,64 @@ export default class LaudesDisplay extends Component {
     return (
       <View>
         {this.introduccio(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, LAUDES)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>HIMNE</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, LAUDES)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), LAUDES)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.lecturaBreu(this.props.liturgicProps.LT, LAUDES)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>RESPONSORI BREU</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.responsori(this.props.liturgicProps.LT, LAUDES)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CÀNTIC DE ZACARIES</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.cantic(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.ABC, LAUDES)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>PREGÀRIES</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.pregaries(this.props.liturgicProps.LT, LAUDES)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), LAUDES)}
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>V.
           <Text selectable={true} style={this.styles.black}> Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
       </View>
     );
   }
@@ -193,7 +193,7 @@ export default class LaudesDisplay extends Component {
           <Text selectable={true} style={this.styles.red}>R.
             <Text selectable={true} style={this.styles.black}> Senyor, veniu a ajudar-nos.</Text>
           </Text>
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.black}>{gloriaStringIntro}
             {this.props.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.props.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.props.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.props.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.props.liturgicProps.LT !== GLOBAL.Q_TRIDU ?
               <Text selectable={true} style={this.styles.black}> Al·leluia</Text> : null
@@ -211,23 +211,23 @@ export default class LaudesDisplay extends Component {
           <Text selectable={true} style={this.styles.red}>R.
             <Text selectable={true} style={this.styles.black}> I proclamaré la vostra lloança.</Text>
           </Text>
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Hr lineColor='#CFD8DC' />
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
             <Text selectable={true} style={this.styles.black}> {LAUDES.antInvitatori}</Text>
           </Text>
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text>
-          <Text /></View></View>
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.salm(LAUDES.salm94)}
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.gloria('1')}
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
             <Text selectable={true} style={this.styles.black}> {LAUDES.antInvitatori}</Text>
           </Text>
@@ -246,53 +246,53 @@ export default class LaudesDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>Ant. 1.
           <Text selectable={true} style={this.styles.black}> {LAUDES.ant1}</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol1}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {LAUDES.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com1}</Text>
-          <Text /></View></View> : null}
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         {this.salm(LAUDES.salm1)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(LAUDES.gloria1)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 1.
           <Text selectable={true} style={this.styles.black}> {LAUDES.ant1}</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
           <Text selectable={true} style={this.styles.black}> {LAUDES.ant2}</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol2}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {LAUDES.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com2}</Text>
-          <Text /></View></View> : null}
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         {this.salm(LAUDES.salm2)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(LAUDES.gloria2)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
           <Text selectable={true} style={this.styles.black}> {LAUDES.ant2}</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
           <Text selectable={true} style={this.styles.black}> {LAUDES.ant3}</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol3}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {LAUDES.com3 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com3}</Text>
-          <Text /></View></View> : null}
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         {this.salm(LAUDES.salm3)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(LAUDES.gloria3)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
           <Text selectable={true} style={this.styles.black}> {LAUDES.ant3}</Text>
         </Text>
@@ -304,7 +304,7 @@ export default class LaudesDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>{LAUDES.vers}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{LAUDES.lecturaBreu}</Text>
       </View>
     )
@@ -329,14 +329,14 @@ export default class LaudesDisplay extends Component {
           <Text selectable={true} style={this.styles.red}>R.
             <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu1} {LAUDES.respBreu2}</Text>
           </Text>
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu3}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
             <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu2}</Text>
           </Text>
-          <Text />
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
           </Text>
@@ -354,11 +354,11 @@ export default class LaudesDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>Ant.
           <Text selectable={true} style={this.styles.black}> {LAUDES.antCantic}</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salm(LAUDES.cantic)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
           <Text selectable={true} style={this.styles.black}> {LAUDES.antCantic}</Text>
         </Text>

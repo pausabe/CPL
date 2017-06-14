@@ -122,8 +122,12 @@ export default class Liturgia extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.4,
     shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
     backgroundColor: 'white',
     opacity: 0.75,
     borderRadius: 15

@@ -72,8 +72,8 @@ export default class HomeScreen extends Component {
     }
     else{
       var today = new Date();
-      //today.setDate(16); //1-31
-      //today.setMonth(11); //0-11
+      //today.setDate(7); //1-31
+      //today.setMonth(3); //0-11
       //today.setFullYear(2017); //XXXX
     }
 
@@ -586,6 +586,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     shadowOpacity: 0.2,
     shadowRadius: 7,
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
     //backgroundColor: 'silver',
   },
   diaLiturgicText: {
@@ -609,8 +613,12 @@ const styles = StyleSheet.create({
   },
   santContainer: {
     flex: 1.5,
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
     justifyContent: 'center',
     backgroundColor: '#E0F2F1',
     borderRadius: 15,

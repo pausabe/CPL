@@ -88,52 +88,52 @@ export default class HoraMenorDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Senyor, veniu a ajudar-nos.</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{gloriaStringIntro}
         {this.props.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.props.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.props.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.props.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.props.liturgicProps.LT !== GLOBAL.Q_TRIDU ? //TODO: tenir en compte si és o no Quaresma
           <Text selectable={true} style={this.styles.black}> Al·leluia</Text> : null
         }
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>HIMNE</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, this.props.HM)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.HM)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.lecturaBreuResp(this.props.liturgicProps.LT, this.props.HM)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.HM)}
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>V.
           <Text selectable={true} style={this.styles.black}> Beneïm al Senyor.</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>
         </Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
       </View>
     );
   }
@@ -192,61 +192,61 @@ export default class HoraMenorDisplay extends Component {
             </Text>
           </View>
         }
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{this.props.HORA_MENOR.titol1}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com1}</Text>
-          <Text /></View></View> : null}
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         {this.salm(this.props.HORA_MENOR.salm1)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(this.props.HORA_MENOR.gloria1)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.antifones ?
           <View>
             <Text selectable={true} style={this.styles.red}>Ant. 1.
               <Text selectable={true} style={this.styles.black}> {this.props.HORA_MENOR.ant1}</Text>
             </Text>
-            <Text />
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>Ant. 2.
               <Text selectable={true} style={this.styles.black}> {this.props.HORA_MENOR.ant2}</Text>
             </Text>
-            <Text />
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
         : null }
         <Text selectable={true} style={this.styles.redCenter}>{this.props.HORA_MENOR.titol2}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com2}</Text>
-          <Text /></View></View> : null}
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         {this.salm(this.props.HORA_MENOR.salm2)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(this.props.HORA_MENOR.gloria2)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.antifones ?
           <View>
             <Text selectable={true} style={this.styles.red}>Ant. 2.
               <Text selectable={true} style={this.styles.black}> {this.props.HORA_MENOR.ant2}</Text>
             </Text>
-            <Text />
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>Ant. 3.
               <Text selectable={true} style={this.styles.black}> {this.props.HORA_MENOR.ant3}</Text>
             </Text>
-            <Text />
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
         : null }
         <Text selectable={true} style={this.styles.redCenter}>{this.props.HORA_MENOR.titol3}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.com3 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.props.HORA_MENOR.com3}</Text>
-          <Text /></View></View> : null}
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         {this.salm(this.props.HORA_MENOR.salm3)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(this.props.HORA_MENOR.gloria3)}
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.antifones ?
           <View>
             <Text selectable={true} style={this.styles.red}>Ant. 3.
@@ -268,9 +268,9 @@ export default class HoraMenorDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>{this.props.HORA_MENOR.vers}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{this.props.HORA_MENOR.lecturaBreu}</Text>
-        <Text />
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>V.
           <Text selectable={true} style={this.styles.black}> {this.props.HORA_MENOR.respV}</Text>
         </Text>
