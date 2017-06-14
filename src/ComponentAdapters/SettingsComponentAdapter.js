@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SettingsManager, {diocesis, invitatori} from '../Settings/SettingsManager';
+import SettingsManager, {diocesis, lloc, invitatori} from '../Settings/SettingsManager';
 import SettingComponent from '../Components/SettingComponent';
 
 //Id generating different keys for testing
@@ -14,6 +14,7 @@ export default class SettingsComponentAdapter{
         options.push(await SettingsComponentAdapter.getSettingComponentUseLatin());
         options.push(await SettingsComponentAdapter.getSettingComponentTextSize());
         options.push(await SettingsComponentAdapter.getSettingComponentDiocesis());
+        options.push(await SettingsComponentAdapter.getSettingComponentLloc());
         //options.push(await SettingsComponentAdapter.getSettingComponentDayStart());
         options.push(await SettingsComponentAdapter.getSettingComponentInvitatori());
         return options;
@@ -61,6 +62,17 @@ export default class SettingsComponentAdapter{
             }}/>);
         return component;
     }
+
+    static async getSettingComponentLloc(){
+        let value = await SettingsManager.getSettingLloc();
+        value = _getKeyFromValue(lloc, value);
+        let component = (<SettingComponent selectorComponent="picker" name="Lloc" id="lloc" key="lloc"
+            value={value} options={lloc} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
+                SettingsManager.setSettingLloc(lloc[value]);
+            }}/>);
+        return component;
+    }
+
 
     static async getSettingComponentDayStart(){
         let value = await SettingsManager.getSettingDayStart();

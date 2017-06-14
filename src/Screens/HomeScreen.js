@@ -77,11 +77,10 @@ export default class HomeScreen extends Component {
       //today.setFullYear(2017); //XXXX
     }
 
-    this.HCDiocesi = 'BaD';
-
     this.variables = {
       diocesi: '',
       diocesiName: '',
+      lloc: '',
       invitatori: '',
       llati: '',
       gloria: 'false',
@@ -126,10 +125,12 @@ export default class HomeScreen extends Component {
     //settings > anyliturgic > soul > render
     this.refreshing = true;
     Promise.all([
-      SettingsManager.getSettingDiocesis((r) => {
-        this.variables.diocesi = this.HCDiocesi;//this.transformDiocesiName(r);
-        this.variables.diocesiName = r;
-        console.log(r+'-'+this.variables.diocesi);
+      SettingsManager.getSettingLloc((r) => {
+        this.variables.lloc = r;
+        SettingsManager.getSettingDiocesis((r) => {
+          this.variables.diocesi = this.transformDiocesiName(r, this.variables.lloc);
+          this.variables.diocesiName = r;
+        })
       }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
@@ -276,7 +277,8 @@ export default class HomeScreen extends Component {
                 </TouchableOpacity>
               </View>
               <View>
-                <Text style={styles.infoText}>Diòcesi de {this.variables.diocesiName} - {this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+                <Text style={styles.infoText}>{"Diòcesi de "}{this.variables.diocesiName}{" ("}{this.variables.lloc}{")"}</Text>
+                <Text style={styles.infoText}>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
               </View>
               <View>
                 <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
@@ -483,23 +485,145 @@ export default class HomeScreen extends Component {
     return(celType);
   }
 
-  transformDiocesiName(diocesi){
+  transformDiocesiName(diocesi, lloc){
+    console.log("diocesi: " + diocesi + " - " + "lloc: " + lloc);
     switch (diocesi) {
       case "Barcelona":
-        return 'BaD';
+        switch (lloc) {
+          case "Diòcesi":
+            return 'BaD';
+            break;
+          case "Catedral":
+            return 'BaC';
+            break
+          case "Ciutat":
+            return 'BaV';
+            break;
+        }
         break;
       case "Girona":
-        return 'GiD';
+        switch (lloc) {
+          case "Diòcesi":
+            return 'GiD';
+            break;
+          case "Catedral":
+            return 'GiC';
+            break
+          case "Ciutat":
+            return 'GiV';
+            break;
+        }
         break;
       case "Lleida":
-        return 'LlD';
+        switch (lloc) {
+          case "Diòcesi":
+            return 'LlD';
+            break;
+          case "Catedral":
+            return 'LlC';
+            break
+          case "Ciutat":
+            return 'LlV';
+            break;
+        }
+        break;
+      case "Sant Feliu de Llobregat":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'SFD';
+            break;
+          case "Catedral":
+            return 'SFC';
+            break
+          case "Ciutat":
+            return 'SFV';
+            break;
+        }
+        break;
+      case "Solsona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'SoD';
+            break;
+          case "Catedral":
+            return 'SoC';
+            break
+          case "Ciutat":
+            return 'SoV';
+            break;
+        }
         break;
       case "Tarragona":
-        return 'TaD';
+        switch (lloc) {
+          case "Diòcesi":
+            return 'TaD';
+            break;
+          case "Catedral":
+            return 'TaC';
+            break
+          case "Ciutat":
+            return 'TaV';
+            break;
+        }
+        break;
+      case "Terrassa":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'TeD';
+            break;
+          case "Catedral":
+            return 'TeC';
+            break
+          case "Ciutat":
+            return 'TeV';
+            break;
+        }
+        break;
+      case "Tortosa":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'ToD';
+            break;
+          case "Catedral":
+            return 'ToC';
+            break
+          case "Ciutat":
+            return 'ToV';
+            break;
+        }
+        break;
+      case "Urgell":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'UrD';
+            break;
+          case "Catedral":
+            return 'UrC';
+            break
+          case "Ciutat":
+            return 'UrV';
+            break;
+        }
+        break;
+      case "Vic":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'ViD';
+            break;
+          case "Catedral":
+            return 'ViC';
+            break
+          case "Ciutat":
+            return 'ViV';
+            break;
+        }
+        break;
+      case "Andorra":
+        return 'Andorra';
         break;
     }
 
-    return(celType);
+    return('BaD');
   }
 
   transfromCelTypeName(CT, t){
@@ -581,7 +705,7 @@ const styles = StyleSheet.create({
    //resizeMode: 'cover',
  },
   diaLiturgicContainer: {
-    flex: 3,
+    flex: 2.5,
     justifyContent: 'center',
     shadowOpacity: 0.2,
     shadowRadius: 7,

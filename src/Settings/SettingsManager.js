@@ -2,9 +2,22 @@ import {AsyncStorage} from "react-native";
 
 export const diocesis = {
     BARCELONA: "Barcelona",
-    TARRAGONA: "Tarragona",
-    LLEIDA: "Lleida",
     GIRONA: "Girona",
+    LLEIDA: "Lleida",
+    SANT_FELIU: "Sant Feliu de Llobregat",
+    SOLSONA: "Solsona",
+    TARRAGONA: "Tarragona",
+    TERRASSA: "Terrassa",
+    TORTOSA: "Tortosa",
+    URGELL: "Urgell",
+    VIC: "Vic",
+    ANDORRA: "Andorra"
+};
+
+export const lloc = {
+    DIOCESI: "Diòcesi",
+    CIUTAT: "Ciutat",
+    CATEDRAL: "Catedral"
 };
 
 export const invitatori = {
@@ -18,6 +31,7 @@ const defaultSettings = {
     useLatin: "false",
     textSize: "3", //1-5
     diocesis: diocesis.BARCELONA,
+    lloc: lloc.DIOCESI,
     dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
     invitatori: invitatori.OFICI
 };
@@ -88,6 +102,10 @@ export default class SettingsManager{
         return SettingsManager._getStorageValue("diocesis", callback, defaultSettings.diocesis);
     }
 
+    static getSettingLloc(callback){
+        return SettingsManager._getStorageValue("lloc", callback, defaultSettings.lloc);
+    }
+
     static getSettingDayStart(callback){
         return SettingsManager._getStorageValue("dayStart", callback, defaultSettings.dayStart);
     }
@@ -126,6 +144,14 @@ export default class SettingsManager{
         return SettingsManager._setValueIfValid("diocesis", value,
             (val) => {
                 return findValueInObject(diocesis, val);
+            }, callback);
+    }
+
+    static setSettingLloc(value, callback){
+      console.log("VALUE Lloc: " + value);
+        return SettingsManager._setValueIfValid("lloc", value,
+            (val) => {
+                return findValueInObject(lloc, val);
             }, callback);
     }
 
