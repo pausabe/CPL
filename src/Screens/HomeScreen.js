@@ -71,9 +71,10 @@ export default class HomeScreen extends Component {
     }
 
     if(this.testing){
-      var today = new Date(2017, 0, 2);
+      var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       this.diocesiTest = 'BaD';
-      this.idTest = 0;
+      this.idTest = 0; //uns 10 min cada un (cada dia 1'30")
+      this.maxIdTest = 30;
       console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
       console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
       console.log("-----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
@@ -129,6 +130,10 @@ export default class HomeScreen extends Component {
     this.refreshEverything(today);
   }
 
+  error(){
+    this.testing = false;
+  }
+
   refreshEverything(date){
     //settings > anyliturgic > soul > render
     this.refreshing = true;
@@ -178,7 +183,6 @@ export default class HomeScreen extends Component {
       (current, tomorrow, pentacosta) => {
         var celType = this.getCelType(this.variables.diocesi, current);
         var tomorrowCelType = this.getCelType(this.variables.diocesi, tomorrow);
-        console.log("until h");
         console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
 
         this.variables.celType = celType;
@@ -198,8 +202,6 @@ export default class HomeScreen extends Component {
         this.dataTomorrow.LT = tomorrow.temps;
         this.dataTomorrow.setmana = tomorrow.NumSet;
         this.dataTomorrow.mogut = tomorrow.Mogut;
-
-        console.log("CHANGING TOMORROW DATE: " + this.dataTomorrow.date.getDate() + "/" + this.dataTomorrow.date.getMonth());
 
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
@@ -224,7 +226,7 @@ export default class HomeScreen extends Component {
       if(nextDay.getFullYear() === this.finalDayTest.year &&
         nextDay.getMonth() === this.finalDayTest.month &&
         nextDay.getDate() === this.finalDayTest.day){
-          if(this.idTest === 30){
+          if(this.idTest === this.maxIdTest){
             console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
           }
           else{
@@ -405,7 +407,6 @@ export default class HomeScreen extends Component {
   }
 
   getCelType(diocesi, anyliturgic){
-    console.log("gettings celtype name: " + diocesi);
     switch (diocesi) {
       case "BaD":
         celType = anyliturgic.BaD;

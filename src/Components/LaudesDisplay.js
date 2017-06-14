@@ -12,7 +12,7 @@ export default class LaudesDisplay extends Component {
   constructor(props){
     super(props);
 
-    console.log("testing Laudes: " + this.props.variables.textSize + " - " + this.convertTextSize() + " - " + GLOBAL.size2);
+    //console.log("testing Laudes: " + this.props.variables.textSize + " - " + this.convertTextSize() + " - " + GLOBAL.size2);
 
     this.styles = {
       black: {
@@ -396,7 +396,7 @@ export default class LaudesDisplay extends Component {
     var bigf4 = "Ell, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
 
     oAux = oracio;
-    console.log(oAux);
+    //console.log(oAux);
     if(oAux.search(form1) !== -1)
       return oAux.replace(form1, bigf1);
     if(oAux.search(form2) !== -1)

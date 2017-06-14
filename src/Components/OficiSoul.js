@@ -40,7 +40,7 @@ export default class OficiSoul {
         };
 
         if(TABLES.salteriComuOficiTF !== ''){
-          console.log("catching TF: " + TABLES.salteriComuOficiTF);
+          //console.log("catching TF: " + TABLES.salteriComuOficiTF);
           this.state.salteriComuOfici = TABLES.salteriComuOficiTF;
         }
 
@@ -161,7 +161,7 @@ export default class OficiSoul {
         else{//dia
           if(llati === 'true'){
             himne = this.state.salteriComuOfici.himneDiaLlati;
-            console.log("himne " +himne);
+            //console.log("himne " +himne);
           }
           else{
             himne = this.state.salteriComuOfici.himneDiaCat;
@@ -380,7 +380,7 @@ export default class OficiSoul {
         gloria3 = this.state.salteriComuOfici.gloria3;
 
         if(weekDay == 0){
-          console.log("WHAT: " + this.state.tempsAdventSetmanesDium);
+          //console.log("WHAT: " + this.state.tempsAdventSetmanesDium);
             ant1 = this.state.tempsAdventSetmanesDium.Ant1Ofici; //TODO: change the field! A to a
             ant2 = this.state.tempsAdventSetmanesDium.Ant2Ofici; //TODO: change the field! A to a
             ant3 = this.state.tempsAdventSetmanesDium.Ant3Ofici; //TODO: change the field! A to a
@@ -393,7 +393,7 @@ export default class OficiSoul {
         break;
       case GLOBAL.N_OCTAVA:
         ant1 = this.state.tempsNadalOctava.ant1Ofici;
-        console.log("ant1. " + ant1);
+        //console.log("ant1. " + ant1);
         titol1 = this.state.tempsNadalOctava.titolSalm1Ofici;
         com1 = "";
         salm1 = this.state.tempsNadalOctava.salm1Ofici;

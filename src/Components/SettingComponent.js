@@ -97,7 +97,7 @@ export default class SettingComponent extends Component{
     }
 
     _generatePickerOptions(){
-        console.log("Generating options...");
+        //console.log("Generating options...");
         let options = [];
         for(let key in this.options){
             options.push(

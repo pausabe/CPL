@@ -87,7 +87,7 @@ export default class SOUL {
 
     console.log("makeQueryies SOUL");
 
-    console.log("dataTomorrow.mogut: " + dataTomorrow.mogut);
+    //console.log("dataTomorrow.mogut: " + dataTomorrow.mogut);
 
     this.CT = celType;
     console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
@@ -307,7 +307,7 @@ export default class SOUL {
         break;
         default: id = 1;
       }
-      console.log("himne " + id);
+      //console.log("himne " + id);
       this.acceso.getLiturgia("tempsAdventNadalComu", id, (result) => {
         this.queryRows.tempsAdventNadalComu = result;
         this.dataReceived(params);
@@ -546,7 +546,7 @@ export default class SOUL {
     if(idTF !== -1){
       c += 1;
       id = idTF;
-      console.log("salteriComuOficiTF");
+      //console.log("salteriComuOficiTF");
       this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => {
         this.queryRows.salteriComuOficiTF = result;
         this.dataReceived(params);
@@ -648,6 +648,7 @@ export default class SOUL {
             //En teoria perquè s'han mogut per manternir les prioritats
             //Un exemple és Sant Jordi 2017. Pasa del dia 23 al 24 d'abril
       console.log("Error OC. No result from DB");
+      params.HS.error();
       this.LITURGIA.info_cel.nomCel = '-';
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';
@@ -840,7 +841,7 @@ export default class SOUL {
     //santsMemories M - Dissabte de la tercera setmana després de Pentecosta (COR IMMACULAT DE LA BENAURADA VERGE MARIA)
     if(celType === 'M'){
       var corImmaculat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+20);
-      console.log("corImmaculat: "+corImmaculat);
+      //console.log("corImmaculat: "+corImmaculat);
       if(date.getDate() === corImmaculat.getDate() && date.getMonth() === corImmaculat.getMonth() &&
           date.getFullYear() === corImmaculat.getFullYear())
           return 252;
@@ -859,7 +860,7 @@ export default class SOUL {
       dies += 1;
     }
     var cinta = new Date(date.getFullYear(), 8, dies);
-    console.log(celType+" - CINTA: "+cinta);
+    //console.log(celType+" - CINTA: "+cinta);
     if(date.getDate() === cinta.getDate() && date.getMonth() === cinta.getMonth() &&
         date.getFullYear() === cinta.getFullYear()){
           if(celType === 'M') return 472;
@@ -869,7 +870,7 @@ export default class SOUL {
     //santsSolemnitats F - Dijous després de Pentecosta (Jesucrist, gran sacerdot per sempre)
     if(celType === 'F'){
       var granSacerdot = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+4);
-      console.log("granSacerdot: "+granSacerdot);
+      //console.log("granSacerdot: "+granSacerdot);
       if(date.getDate() === granSacerdot.getDate() && date.getMonth() === granSacerdot.getMonth() &&
           date.getFullYear() === granSacerdot.getFullYear())
           return 58;
@@ -1119,7 +1120,7 @@ export default class SOUL {
     //18- Mare de Déu de la Mercè (24 de setembre) quan cau en diumenge
     if((diocesi === 'BaD' || diocesi === 'SFD' || diocesi === 'TeD' ||
       diocesi === 'GiD' || diocesi === 'LlD' || diocesi === 'SoD' || diocesi === 'TaD'
-       || diocesi === 'ToD' || diocesi === 'UrD' || diocesi === 'ViD') && 
+       || diocesi === 'ToD' || diocesi === 'UrD' || diocesi === 'ViD') &&
       date.getMonth() === 8 && date.getDate() === 24 && date.getDay() === 0){
       return 18;
     }
@@ -1155,7 +1156,7 @@ export default class SOUL {
     }
 
     //25- Diumenge IV d’Advent, dia 23
-    console.log("log: "  + LT);
+    //console.log("log: "  + LT);
     if(LT === GLOBAL.A_FERIES && setmana === '4' && date.getDate() === 23 && date.getDay() === 0){
       return 25;
     }

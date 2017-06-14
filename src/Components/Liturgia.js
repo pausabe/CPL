@@ -42,7 +42,7 @@ export default class Liturgia extends Component {
   render() {
     var nowDate = new Date();
     var hour = nowDate.getHours();
-    console.log("Hour: " + hour);
+    //console.log("Hour: " + hour);
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.buttonContainer} onPress={

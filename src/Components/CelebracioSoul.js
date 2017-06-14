@@ -286,7 +286,7 @@ export default class CelebracioSoul {
       antMare: '-',
     }
 
-    console.log("tomorrowCal: " + tomorrowCal + " celType: " + celType);
+    //console.log("tomorrowCal: " + tomorrowCal + " celType: " + celType);
     if(tomorrowCal === '-'){
       if(idDE === -1){
         if(idTSF === -1){
@@ -320,7 +320,7 @@ export default class CelebracioSoul {
       if(idTSF !== -1) celType = 'TSF';
       else if(idDE !== -1) celType = 'DE';
 
-      console.log("tomorrowCal! " +celType + ", " + tomorrowCal);
+      //console.log("tomorrowCal! " +celType + ", " + tomorrowCal);
       switch (tomorrowCal) {
         case "S":
           this.createCel(TABLES, "SF", liturgicProps, celType, variables, 'NF');
@@ -1366,7 +1366,6 @@ export default class CelebracioSoul {
     else if(TABLES.OficisComuns !== null) this.LAUDES.ant3 = TABLES.OficisComuns.ant3Laudes;
     if(TABLES.OficisComuns !== null){
       console.log("TABLES.OficisComuns:");
-      console.log(TABLES.OficisComuns.titol1Laudes);
       this.LAUDES.titol1 = TABLES.OficisComuns.titol1Laudes;
       this.LAUDES.com1 = '-';
       this.LAUDES.salm1 = TABLES.OficisComuns.Salm1Laudes;
