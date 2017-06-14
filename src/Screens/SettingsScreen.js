@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Platform, ScrollView, TouchableOpacity } from 'react-native';
 import GLOBAL from "../Globals/Globals";
 import SettingComponent from "../Components/SettingComponent";
 import SettingsComponentAdapter from "../ComponentAdapters/SettingsComponentAdapter";
+import PopupDialog, {
+  DialogTitle,
+} from 'react-native-popup-dialog';
 
 export default class SettingsScreen extends Component {
     componentWillMount(){
@@ -16,10 +19,41 @@ export default class SettingsScreen extends Component {
             return (<ScrollView style={styles.itemList}></ScrollView>);
         }
         return (
+          <View style={{flex:1}}>
             <ScrollView style={styles.itemList}>
                 {this.state.options}
             </ScrollView>
+            <PopupDialog
+              ref={(popupDialog) => { this.popupDialog = popupDialog}}
+              dialogTitle={<DialogTitle title="Sel·lecciona" />} >
+
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                  <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onCancel.bind(this)}>
+                    <Text>Cancel·lar</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                  <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onAcceptar.bind(this)}>
+                    <Text>Acceptar</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </PopupDialog>
+          </View>
         );
+      }
+
+      onTextPress(){
+        this.popupDialog.show();
+      }
+
+      onAcceptar(){
+        this.popupDialog.dismiss();
+      }
+
+      onCancel(){
+        this.popupDialog.dismiss();
       }
 
 }
@@ -31,7 +65,7 @@ function callbackTest(id, value){
 const styles = StyleSheet.create({
     itemList: {
         flex: 1,
-        paddingTop: GLOBAL.paddingBar,
+        paddingTop: 64,
         backgroundColor: GLOBAL.backgroundColor,
     },
     normalText: {

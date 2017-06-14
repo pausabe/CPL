@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import {View, Text, Slider, Switch, Picker, StyleSheet, Platform} from 'react-native';
+import {View, Text, Slider, Switch, Picker, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import Hr from 'react-native-hr';
 import GLOBAL from "../Globals/Globals";
+import PopupDialog, {
+  DialogTitle,
+} from 'react-native-popup-dialog';
 
 export default class SettingComponent extends Component{
 
@@ -41,17 +44,17 @@ export default class SettingComponent extends Component{
         }
 
         return(
-            <View>
-                <View style={styles.option}>
-                    <View style={styles.textView}>
-                        <Text style={styles.text}>{this.name}</Text>
-                    </View>
-                    <View style={styleSelectorView}>
-                        {selectorComponent}
-                    </View>
-                </View>
-                <Hr style={styles.separator} lineColor={GLOBAL.hrColor} />
-            </View>
+          <View>
+              <View style={styles.option}>
+                  <View style={styles.textView}>
+                      <Text style={styles.text}>{this.name}</Text>
+                  </View>
+                  <View style={styleSelectorView}>
+                      {selectorComponent}
+                  </View>
+              </View>
+              <Hr style={styles.separator} lineColor={GLOBAL.hrColor} />
+          </View>
         );
     }
 
