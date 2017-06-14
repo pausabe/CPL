@@ -58,7 +58,7 @@ export default class HomeScreen extends Component {
       santPressed: false,
     }
 
-    this.testing = true; //fer-ho amb iphone 7!
+    this.testing = false; //fer-ho amb iphone 7!
     this.initialDayTest = {
       day: 2,
       month: 7,
@@ -73,7 +73,7 @@ export default class HomeScreen extends Component {
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       this.diocesiTest = this.nextDiocesi(4);
-      this.idTest = 4; //0-30, checked: [0-3]
+      this.idTest = 4; //0-30, checked: [0-4]
       this.maxIdTest = 4; //0-30
       console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
       console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
@@ -81,8 +81,8 @@ export default class HomeScreen extends Component {
     }
     else{
       var today = new Date();
-      today.setDate(11); //1-31
-      today.setMonth(1); //0-11
+      //today.setDate(11); //1-31
+      //today.setMonth(1); //0-11
       //today.setFullYear(2017); //XXXX
     }
 
