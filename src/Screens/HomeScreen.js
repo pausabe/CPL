@@ -52,6 +52,8 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
+    console.log("Que pasa neng -------------------------45-4-5-45-458-4-584-85-458-478-478-748-748-78--87>>: "+props.naviDate);
+
     this.iWantRender = false;
 
     this.state = {
