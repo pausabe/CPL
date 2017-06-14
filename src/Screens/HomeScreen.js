@@ -59,6 +59,11 @@ export default class HomeScreen extends Component {
     }
 
     this.testing = false;
+    this.initialDayTest = {
+      day: 2,
+      month: 0,
+      year: 2017,
+    }
     this.finalDayTest = {
       day: 29,
       month: 11,
@@ -67,8 +72,11 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(2017, 0, 2);
+      this.diocesiTest = 'BaD';
+      this.idTest = 0;
       console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
-      console.log("-----------------------------------"+today+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
+      console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
+      console.log("-----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
     }
     else{
       var today = new Date();
@@ -128,7 +136,10 @@ export default class HomeScreen extends Component {
       SettingsManager.getSettingLloc((r) => {
         this.variables.lloc = r;
         SettingsManager.getSettingDiocesis((r) => {
-          this.variables.diocesi = this.transformDiocesiName(r, this.variables.lloc);
+          if(this.testing)
+            this.variables.diocesi = this.diocesiTest;
+          else
+            this.variables.diocesi = this.transformDiocesiName(r, this.variables.lloc);
           this.variables.diocesiName = r;
         })
       }),
@@ -213,13 +224,22 @@ export default class HomeScreen extends Component {
       if(nextDay.getFullYear() === this.finalDayTest.year &&
         nextDay.getMonth() === this.finalDayTest.month &&
         nextDay.getDate() === this.finalDayTest.day){
-          console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
+          if(this.idTest === 30){
+            console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
+          }
+          else{
+            firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
+            this.idTest += 1;
+            this.diocesiTest = this.nextDiocesi(this.idTest);
+            this.refreshEverything(firstDay);
+            console.log("--------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
+          }
       }
       else{
         auxTomorrow = this.dataTomorrow.date;
         auxTomorrow.setDate(auxTomorrow.getDate()+1);
         this.dataTomorrow.date = auxTomorrow;
-        console.log("-----------------------------------NEXT DAY: "+nextDay+"-----------------------------------");
+        console.log("-----------------------------------"+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
         this.refreshEverything(nextDay);
       }
     }
@@ -688,8 +708,104 @@ export default class HomeScreen extends Component {
         break;
     }
   }
+  nextDiocesi(index){
+    switch (index) {
+      case 0:
+        return 'BaD';
+        break;
+      case 1:
+        return 'BaV';
+        break;
+      case 2:
+        return 'BaC';
+        break;
+      case 3:
+        return 'GiD';
+        break;
+      case 4:
+        return 'GiV';
+        break;
+      case 5:
+        return 'GiC';
+        break;
+      case 6:
+        return 'LlD';
+        break;
+      case 7:
+        return 'LlV';
+        break;
+      case 8:
+        return 'LlC';
+        break;
+      case 9:
+        return 'SFD';
+        break;
+      case 10:
+        return 'SFV';
+        break;
+      case 11:
+        return 'SFC';
+        break;
+      case 12:
+        return 'SoD';
+        break;
+      case 13:
+        return 'SoV';
+        break;
+      case 14:
+        return 'SoC';
+        break;
+      case 15:
+        return 'TaD';
+        break;
+      case 16:
+        return 'TaV';
+        break;
+      case 17:
+        return 'TaC';
+        break;
+      case 18:
+        return 'TeD';
+        break;
+      case 19:
+        return 'TeV';
+        break;
+      case 20:
+        return 'TeC';
+        break;
+      case 21:
+        return 'ToD';
+        break;
+      case 22:
+        return 'ToV';
+        break;
+      case 23:
+        return 'ToC';
+        break;
+      case 24:
+        return 'UrD';
+        break;
+      case 25:
+        return 'UrV';
+        break;
+      case 26:
+        return 'UrC';
+        break;
+      case 27:
+        return 'ViD';
+        break;
+      case 28:
+        return 'ViV';
+        break;
+      case 29:
+        return 'ViC';
+        break;
+      case 30:
+        return 'Andorra';
+        break;
+      }
+  }
 }
-
 
 const styles = StyleSheet.create({
   container: {
