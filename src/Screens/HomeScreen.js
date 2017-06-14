@@ -58,10 +58,10 @@ export default class HomeScreen extends Component {
       santPressed: false,
     }
 
-    this.testing = false;
+    this.testing = true; //fer-ho amb iphone 7!
     this.initialDayTest = {
       day: 2,
-      month: 0,
+      month: 7,
       year: 2017,
     }
     this.finalDayTest = {
@@ -72,17 +72,17 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      this.diocesiTest = 'BaD';
-      this.idTest = 0; //uns 10 min cada un (cada dia 1'30")
-      this.maxIdTest = 30;
+      this.diocesiTest = this.nextDiocesi(4);
+      this.idTest = 4; //0-30, checked: [0-3]
+      this.maxIdTest = 4; //0-30
       console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
       console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
       console.log("-----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
     }
     else{
       var today = new Date();
-      //today.setDate(7); //1-31
-      //today.setMonth(3); //0-11
+      today.setDate(11); //1-31
+      today.setMonth(1); //0-11
       //today.setFullYear(2017); //XXXX
     }
 
@@ -146,6 +146,7 @@ export default class HomeScreen extends Component {
           else
             this.variables.diocesi = this.transformDiocesiName(r, this.variables.lloc);
           this.variables.diocesiName = r;
+          console.log("this.variables.diocesi: "+this.variables.diocesi);
         })
       }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
@@ -241,10 +242,59 @@ export default class HomeScreen extends Component {
         auxTomorrow = this.dataTomorrow.date;
         auxTomorrow.setDate(auxTomorrow.getDate()+1);
         this.dataTomorrow.date = auxTomorrow;
-        console.log("-----------------------------------"+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
+        while(this.passDayTest(nextDay)){
+          console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
+          nextDay.setDate(nextDay.getDate()+1);
+          auxTomorrow = this.dataTomorrow.date;
+          auxTomorrow.setDate(auxTomorrow.getDate()+1);
+          this.dataTomorrow.date = auxTomorrow;
+        }
+        console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
         this.refreshEverything(nextDay);
       }
     }
+  }
+
+  passDayTest(day){
+    if(day.getDate()===21 && day.getMonth()===0 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===25 && day.getMonth()===0 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===6 && day.getMonth()===2 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===23 && day.getMonth()===4 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===27 && day.getMonth()===6 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===1 && day.getMonth()===7 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===3 && day.getMonth()===7 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===17 && day.getMonth()===7 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===31 && day.getMonth()===7 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===8 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===18 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===22 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===24 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===25 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===25 && day.getMonth()===9 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===7 && day.getMonth()===10 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===18 && day.getMonth()===10 && day.getFullYear()===2017)
+      return true;
+    if(day.getDate()===16 && day.getMonth()===11 && day.getFullYear()===2017)
+      return true;
+    return false;
   }
 
   onMinusPress(){

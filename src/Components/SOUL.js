@@ -107,9 +107,9 @@ export default class SOUL {
     this.tomorrowCal = '-';
 
     this.tomorrowCal = this.tomorrowCalVespres1CEL(this.dataTomorrow.date, this.dataTomorrow.LT,
-      this.dataTomorrow.setmana, this.pentacosta, this.dataTomorrow.celType);
+      this.dataTomorrow.setmana, this.pentacosta, diocesi);
 
-      //console.log("tomorrowCal --------> " + this.tomorrowCal);
+    console.log("tomorrowCal --------> " + this.tomorrowCal);
 
     params = {
       date: date,
@@ -554,7 +554,7 @@ export default class SOUL {
     }
 
     //taula 34 (#32): - i //taula 36
-    if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || params.idTSF === -1 && (celType === 'S' || celType === 'F'))){
+    if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || ((params.idTSF === -1 && params.idDE === -1) && (celType === 'S' || celType === 'F')))){
       c += 1;
 
       if(this.tomorrowCal === 'S' && dataTomorrow.mogut === '-') {
@@ -812,7 +812,7 @@ export default class SOUL {
     }
   }
 
-  tomorrowCalVespres1CEL(date, LT, setmana, pentacosta){
+  tomorrowCalVespres1CEL(date, LT, setmana, pentacosta, diocesi){
     if(LT !== GLOBAL.Q_DIUM_PASQUA){
       if(LT === GLOBAL.Q_DIUM_RAMS) return 'DR';
 
@@ -820,7 +820,7 @@ export default class SOUL {
 
       if(date.getDay() === 0 && setmana === '1' && LT === GLOBAL.A_SETMANES) return 'A';
 
-      this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta);
+      this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta, diocesi);
       if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)
         return 'DE';
 
@@ -1085,9 +1085,11 @@ export default class SOUL {
       return 11;
     }
 
+    console.log("here1. " + diocesi + " " + date);
     //12- Santa Eulàlia (12 de febrer) quan cau en diumenge i és temps de durant l’any
     if((diocesi === 'BaV' || diocesi === 'BaC') && date.getMonth() === 1 &&
       date.getDate() === 12 && date.getDay() === 0 && LT === GLOBAL.O_ORDINARI){
+        console.log("not here");
       return 12;
     }
 

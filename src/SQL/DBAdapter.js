@@ -86,6 +86,7 @@ export default class DBAdapter {
       result => {
         console.log("SolMem Result size: " + result.rows.length);
         var index = this.findCorrect(result.rows, result.rows.length, diocesi);
+        console.log("index definitive: " + index);
         callback(result.rows.item(index));
       });
   }
