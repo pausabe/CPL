@@ -111,6 +111,7 @@ export default class NavigatorController extends Component {
             backgroundColor={GLOBAL.statusBarColor}
           />
           <Navigator
+            ref="navAndroid"
             initialRoute={{id: 'home', index: 0}}
             renderScene={this.renderScene}
 
@@ -208,8 +209,9 @@ export default class NavigatorController extends Component {
   };
 
   onAcceptar(){
-    //console.log("data final: " + this.state.date);
-    //this.refs.HS.changeDate();
+    console.log("data final: " + this.state.date);
+    console.log(this.refs.HS);
+    this.refs.HS.changeDate("Loagueame esto! 89898989898989989898989898");
     this.popupDialog.dismiss();
   }
 
@@ -223,7 +225,11 @@ export default class NavigatorController extends Component {
 
   handleDatePicked(date){
     console.log('A date has been picked: ' + date);
-    //this.refs.HS.changeDate();
+    this.refs.navAndroid.push({
+      id: 'home',
+      index: 0,
+      date: date
+    });
     this.hideDateTimePicker();
   }
 
@@ -257,10 +263,10 @@ export default class NavigatorController extends Component {
     }
   }
 
-  renderScene(route,nav){
+  renderScene(route,nav,date){
     switch (route.id) {
       case 'home':
-        return (<HomeScreen navigator={nav} route={route} title="Home"/>);
+        return (<HomeScreen naviDate={route.date} navigator={nav} route={route} title="Home"/>);
       case 'settings':
         return (<SettingsScreen navigator={nav} route={route} title="Configuració"/>);
       case 'liturgia-display':
