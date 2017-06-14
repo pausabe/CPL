@@ -72,9 +72,11 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      this.diocesiTest = this.nextDiocesi(4);
-      this.idTest = 4; //0-30, checked: [0-4]
-      this.maxIdTest = 4; //0-30
+      var initalIndex = 0; //0-30
+      var finalIndex = 4; //0-30
+      this.diocesiTest = this.nextDiocesi(initalIndex);
+      this.idTest = initalIndex;// checked: [0-4]
+      this.maxIdTest = finalIndex;
       console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
       console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
       console.log("-----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
