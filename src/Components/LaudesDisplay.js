@@ -366,9 +366,20 @@ export default class LaudesDisplay extends Component {
   }
 
   pregaries(LT, LAUDES){
-    return(
-        <Text selectable={true} style={this.styles.black}> {LAUDES.pregaries}</Text>
-    );
+    var pregaries = LAUDES.pregaries;
+    if(pregaries.search(": Pare nostre.") !== -1){
+      pregaries = pregaries.replace(": Pare nostre.",':');
+      return(
+          <View>
+            <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
+          </View>
+      );
+    }
+    else{
+      return(<Text selectable={true} style={this.styles.black}>{pregaries}</Text>);
+    }
   }
 
   oracio(LT, weekDay, LAUDES){

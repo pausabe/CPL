@@ -320,7 +320,20 @@ export default class VespresDisplay extends Component {
   }
 
   pregaries(LT, weekDay, VESPRES){
-    return(<Text selectable={true} style={this.styles.black}> {VESPRES.pregaries}</Text>);
+    var pregaries = VESPRES.pregaries;
+    if(pregaries.search(": Pare nostre.") !== -1){
+      pregaries = pregaries.replace(": Pare nostre.",':');
+      return(
+          <View>
+            <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
+          </View>
+      );
+    }
+    else{
+      return(<Text selectable={true} style={this.styles.black}>{pregaries}</Text>);
+    }
   }
 
   oracio(LT, weekDay, VESPRES){

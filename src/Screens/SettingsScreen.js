@@ -5,7 +5,6 @@ import SettingComponent from "../Components/SettingComponent";
 import SettingsComponentAdapter from "../ComponentAdapters/SettingsComponentAdapter";
 
 export default class SettingsScreen extends Component {
-
     componentWillMount(){
         SettingsComponentAdapter.getSettingsOptions().then(result =>{
             this.setState({options: result});
