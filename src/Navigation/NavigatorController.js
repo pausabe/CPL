@@ -37,7 +37,7 @@ export default class NavigatorController extends Component {
   constructor(props) {
     super(props)
 
-    this.date = new Date(2017,7,7);
+    this.date = new Date(/*2017,7,7*/);
     this.auxDate = this.date;
     this.minimumDate = new Date(2017,0,2);
     this.maximumDate = new Date(2017,11,29);
@@ -86,6 +86,7 @@ export default class NavigatorController extends Component {
 
             <PopupDialog
                 ref={(popupDialog) => { this.popupDialog = popupDialog}}
+                dialogStyle={{backgroundColor: 'white'}}
                 dialogTitle={<DialogTitle title="Canvia el dia" />} >
                 <DatePickerIOS
                   date={this.auxDate}
@@ -94,15 +95,15 @@ export default class NavigatorController extends Component {
                   mode="date"
                   onDateChange={this.onDateChangeIos.bind(this)}
                 />
-                <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'white'}}>
                   <View style={{flex: 1, alignItems: 'center'}}>
-                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.cancelDatePicker.bind(this)}>
-                      <Text>Cancel·lar</Text>
+                    <TouchableOpacity onPress={this.cancelDatePicker.bind(this)}>
+                      <Text style={styles.popupText}>Cancel·lar</Text>
                     </TouchableOpacity>
                   </View>
                   <View style={{flex: 1, alignItems: 'center'}}>
-                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.okDatePicker.bind(this)}>
-                      <Text>Acceptar</Text>
+                    <TouchableOpacity onPress={this.okDatePicker.bind(this)}>
+                      <Text style={styles.popupText}>Acceptar</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -337,6 +338,11 @@ const styles = StyleSheet.create({
   },
   bar: {
     backgroundColor: GLOBAL.barColor
+  },
+  popupText: {
+    color: 'rgb(0, 122, 204)',
+    fontSize: 17,
+    fontWeight: '400'
   }
 })
 
