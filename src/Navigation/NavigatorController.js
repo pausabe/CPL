@@ -98,12 +98,12 @@ export default class NavigatorController extends Component {
                 <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'white'}}>
                   <View style={{flex: 1, alignItems: 'center'}}>
                     <TouchableOpacity onPress={this.cancelDatePicker.bind(this)}>
-                      <Text style={styles.popupText}>Cancel·lar</Text>
+                      <Text style={styles.popupText}>Cancel·la</Text>
                     </TouchableOpacity>
                   </View>
                   <View style={{flex: 1, alignItems: 'center'}}>
                     <TouchableOpacity onPress={this.okDatePicker.bind(this)}>
-                      <Text style={styles.popupText}>Acceptar</Text>
+                      <Text style={styles.popupText}>D'acord</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
