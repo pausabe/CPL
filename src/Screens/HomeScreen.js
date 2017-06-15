@@ -17,6 +17,7 @@ import DBAdapter from '../SQL/DBAdapter';
 import SOUL from '../Components/SOUL';
 import SettingsManager from '../Settings/SettingsManager';
 import GLOBAL from "../Globals/Globals";
+var Subscribable = require('Subscribable');
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -30,6 +31,8 @@ export default class HomeScreen extends Component {
     if(Platform.OS==='android'){
       setTimeout(() => { SplashScreen.hide(); }, 550);
     }
+    console.log("this.props.events: " + this.props.events);
+    this.props.events.addListener('myEvent', this.eventManager.bind(this));
   }
 
   componentWillUnmount() {
@@ -52,9 +55,7 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
-    console.log("Que pasa neng -------------------------45-4-5-45-458-4-584-85-458-478-478-748-748-78--87>>: "+props.naviDate);
-
-    this.iWantRender = false;
+    //this.iWantRender = false;
 
     this.state = {
       santPressed: false,
@@ -84,10 +85,9 @@ export default class HomeScreen extends Component {
       console.log("-----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
     }
     else{
-      var today = new Date();
-      //today.setDate(11); //1-31
-      //today.setMonth(1); //0-11
-      //today.setFullYear(2017); //XXXX
+      console.log("Que pasa neng -------------------------45-4-5-45-458-4-584-85-458-478-478-748-748-78--87>>: "+props.naviDate);
+      if(props.naviDate === undefined) var today = new Date();
+      else var today = props.naviDate;
     }
 
     this.variables = {
@@ -116,6 +116,14 @@ export default class HomeScreen extends Component {
     }
 
     this.refreshing = false;
+    this.litPres = false;
+    this.refEv = false;
+    this.setPres = false;
+    this.santPress = 0;
+    this.inLit = false;
+    this.inSet = false;
+    this.picAcc = false;
+    //this.picPres = true;
 
     var tomorrow = new Date(today.getFullYear(), today.getMonth());
     tomorrow.setDate(today.getDate() + 1);
@@ -130,7 +138,7 @@ export default class HomeScreen extends Component {
 
     this.acceso = new DBAdapter();
 
-    this.refresh = false;
+    //this.refresh = false;
     this.refreshEverything(today);
   }
 
@@ -139,7 +147,7 @@ export default class HomeScreen extends Component {
   }
 
   refreshEverything(date){
-    //settings > anyliturgic > soul > render
+    console.log("REFRESHING EVERYTHING: settings > anyliturgic > soul > render");
     this.refreshing = true;
     Promise.all([
       SettingsManager.getSettingLloc((r) => {
@@ -165,19 +173,74 @@ export default class HomeScreen extends Component {
   }
 
   shouldComponentUpdate(){
-    if(!this.iWantRender){
-      console.log("should render here but I don't want it");
-
-      if(this.refresh && !this.refreshing){
-        this.refreshEverything(this.variables.date);
-      }
-
-      this.refresh = !this.refresh;
+    if(this.litPres){
+      console.log("Should. NO, estic anant a Liturgia");
+      this.inLit = true;
+      this.litPres = false;
       return false;
     }
-    console.log("should render here and I want it");
-    this.iWantRender = false;
-    return true;
+    else if(this.refEv){
+      console.log("Should. YES, després de refreshEverything");
+      this.refEv = false;
+      return true;
+    }
+    else if(this.setPres){
+      console.log("Should. NO, estic anant a Settings");
+      this.inSet = true;
+      this.setPres = false;
+      return false;
+    }
+    else if(this.santPress === 1){
+      console.log("Should. YES, estic obrint Sant");
+      return true;
+    }
+    else if(this.santPress === 2){
+      console.log("Should. YES, estic tancant Sant");
+      this.santPress = 0;
+      return true;
+    }
+    else if(this.inLit){
+      console.log("Should. YES, estic tornant de Liturgia");
+      this.inLit = false;
+      return true;
+    }
+    else if(this.inSet){
+      console.log("Should. NO, estic tornant de Settings");
+      this.inSet = false;
+      this.refreshEverything(this.variables.date);
+      return false;
+    }
+    else{
+      console.log("Should. NO, coses del Picker");
+      return false;
+    }
+  }
+
+  eventManager(args){
+    switch (args.type) {
+      case 'settingsPressed':
+        console.log("settingsPressed");
+        this.setPres = true;
+      break;
+      case 'pickerPressed':
+        console.log("pickerPressed");
+        //this.setState({ asdf: null}); //just for go to should
+        this.picPres = true;
+      break;
+      case 'okPicker':
+        console.log("pickerAccept: " + args.newDate);
+        this.picAcc = true;
+        if(args.newDate !== this.variables.date){
+          this.refreshEverything(args.newDate);
+        }
+      break;
+    }
+  }
+
+
+  liturgiaPressed(){
+    console.log("liturgiaPressed");
+    this.litPres = true;
   }
 
   refreshDate(newDay){
@@ -218,12 +281,13 @@ export default class HomeScreen extends Component {
 
   setSoul(liturgia){
     console.log("HomeScreen - setSoul");
-    this.refreshing = false;
+    //this.refreshing = false;
     if(!this.testing){
       this.liturgicProps.LITURGIA = liturgia;
-      this.iWantRender = false;
+      //this.iWantRender = false;
+      this.refEv = true;
       this.setState({santPressed: false});
-      this.forceUpdate();
+      //this.forceUpdate();
     }
     else{
       var nextDay = this.variables.date;
@@ -302,45 +366,35 @@ export default class HomeScreen extends Component {
   }
 
   onMinusPress(){
-    if(!this.refreshing){
-      var newDay = new Date();
-      newDay.setDate(this.variables.date.getDate());
-      newDay.setMonth(this.variables.date.getMonth());
-      newDay.setFullYear(this.variables.date.getFullYear());
-      newDay.setDate(this.variables.date.getDate()-1);
+    var newDay = new Date();
+    newDay.setDate(this.variables.date.getDate());
+    newDay.setMonth(this.variables.date.getMonth());
+    newDay.setFullYear(this.variables.date.getFullYear());
+    newDay.setDate(this.variables.date.getDate()-1);
 
-      auxTomorrow = this.dataTomorrow.date;
-      auxTomorrow.setDate(auxTomorrow.getDate()-1);
-      this.dataTomorrow.date = auxTomorrow;
+    auxTomorrow = this.dataTomorrow.date;
+    auxTomorrow.setDate(auxTomorrow.getDate()-1);
+    this.dataTomorrow.date = auxTomorrow;
 
-      this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
-    }
-    else {
-      console.log("Sorry, already refreshing");
-    }
+    this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 
   onPlusPress(){
-    if(!this.refreshing){
-      var newDay = new Date();
-      newDay.setDate(this.variables.date.getDate());
-      newDay.setMonth(this.variables.date.getMonth());
-      newDay.setFullYear(this.variables.date.getFullYear());
-      newDay.setDate(this.variables.date.getDate()+1);
+    var newDay = new Date();
+    newDay.setDate(this.variables.date.getDate());
+    newDay.setMonth(this.variables.date.getMonth());
+    newDay.setFullYear(this.variables.date.getFullYear());
+    newDay.setDate(this.variables.date.getDate()+1);
 
-      auxTomorrow = this.dataTomorrow.date;
-      auxTomorrow.setDate(auxTomorrow.getDate()+1);
-      this.dataTomorrow.date = auxTomorrow;
+    auxTomorrow = this.dataTomorrow.date;
+    auxTomorrow.setDate(auxTomorrow.getDate()+1);
+    this.dataTomorrow.date = auxTomorrow;
 
-      this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
-    }
-    else {
-      console.log("Sorry, already refreshing");
-    }
+    this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 
   render() {
-    console.log("RENDER!!!");
+    console.log("RENDER!!!" );
     auxPadding = 5;
     return (
       <View style={styles.container}>
@@ -419,6 +473,7 @@ export default class HomeScreen extends Component {
            :
            <View style={styles.liturgiaContainer}>
              <Liturgia
+               HS={this}
                navigator={this.props.navigator}
                variables={this.variables}
                liturgicProps={this.liturgicProps}
@@ -451,7 +506,8 @@ export default class HomeScreen extends Component {
 
   onSantPress(){
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
-      this.iWantRender = true;
+      if(this.santPress === 0) this.santPress = 1;
+      else if(this.santPress === 1) this.santPress = 2;
       this.setState({santPressed: !this.state.santPressed});
     }
   }

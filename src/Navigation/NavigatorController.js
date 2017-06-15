@@ -25,16 +25,22 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
+import EventEmitter from 'EventEmitter';
+
 export default class NavigatorController extends Component {
   componentWillMount() {
     Icon.getImageSource('ios-settings-outline', 30).then((source) => this.setState({ settingsIcon: source }));
     Icon.getImageSource('ios-calendar-outline', 30).then((source) => this.setState({ calendarIcon: source })); //md-calendar
+    this.eventEmitter = new EventEmitter();
   }
 
   constructor(props) {
     super(props)
 
-    //this.HS = <HomeScreen ref="HS" />;
+    this.date = new Date(2017,7,7);
+    this.auxDate = this.date;
+    this.minimumDate = new Date(2017,0,2);
+    this.maximumDate = new Date(2017,11,29);
 
     this.state = {
       isDateTimePickerVisible: false,
@@ -44,14 +50,12 @@ export default class NavigatorController extends Component {
     }
   }
 
-  anonimousFunction(nav){
-    return <HomeScreen ref="HS" navigator={nav}/>;
-  }
-
   render() {
     if (!this.state.settingsIcon || !this.state.calendarIcon) {
       return false;
     }
+
+    console.log("Navigator RENDER");
 
     if(Platform.OS === 'ios'){
       return (
@@ -63,10 +67,11 @@ export default class NavigatorController extends Component {
             />
 
             <NavigatorIOS
-              ref='navi'
+              ref='navIos'
               initialRoute={{
-                component: HomeScreen,//this.anonimousFunction.bind(this, navigator),
+                component: HomeScreen,
                 title: 'CPL',
+                passProps: {title: 'CPL', naviDate: this.date, events: this.eventEmitter},
                 rightButtonIcon: this.state.settingsIcon,
                 onRightButtonPress: () => this.rightPress(),
                 leftButtonIcon: this.state.calendarIcon,
@@ -83,18 +88,20 @@ export default class NavigatorController extends Component {
                 ref={(popupDialog) => { this.popupDialog = popupDialog}}
                 dialogTitle={<DialogTitle title="Canvia el dia" />} >
                 <DatePickerIOS
-                  date={new Date()}
+                  date={this.auxDate}
+                  minimumDate={this.minimumDate}
+                  maximumDate={this.maximumDate}
                   mode="date"
-                  onDateChange={this.onDateChange.bind(this)}
+                  onDateChange={this.onDateChangeIos.bind(this)}
                 />
                 <View style={{flex: 1, flexDirection: 'row'}}>
                   <View style={{flex: 1, alignItems: 'center'}}>
-                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onCancel.bind(this)}>
+                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.cancelDatePicker.bind(this)}>
                       <Text>Cancel·lar</Text>
                     </TouchableOpacity>
                   </View>
                   <View style={{flex: 1, alignItems: 'center'}}>
-                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onAcceptar.bind(this)}>
+                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.okDatePicker.bind(this)}>
                       <Text>Acceptar</Text>
                     </TouchableOpacity>
                   </View>
@@ -112,7 +119,7 @@ export default class NavigatorController extends Component {
           />
           <Navigator
             ref="navAndroid"
-            initialRoute={{id: 'home', index: 0}}
+            initialRoute={{id: 'home', index: 0, date: this.date, events: this.eventEmitter}}
             renderScene={this.renderScene}
 
             configureScene={(route, routeStack) =>
@@ -195,42 +202,58 @@ export default class NavigatorController extends Component {
           />
           <DateTimePicker
             isVisible={this.state.isDateTimePickerVisible}
-            onConfirm={this.handleDatePicked.bind(this)}
-            onCancel={this.hideDateTimePicker.bind(this)}
+            date={this.date}
+            onConfirm={this.okDatePicker.bind(this)}
+            onCancel={this.cancelDatePicker.bind(this)}
+            minimumDate={this.minimumDate}
+            maximumDate={this.maximumDate}
           />
         </View>
       );
     }
   }
 
-  onDateChange(date){
-    console.log('A date has been picked: ' + date);
-    //this.setState({date: date});
-  };
-
-  onAcceptar(){
-    console.log("data final: " + this.state.date);
-    console.log(this.refs.HS);
-    this.refs.HS.changeDate("Loagueame esto! 89898989898989989898989898");
-    this.popupDialog.dismiss();
+  onDateChangeIos(date){
+    console.log('IOS. A date has been picked: ' + date);
+    this.auxDate = date;
+    this.forceUpdate();
   }
 
-  onCancel(){
-    this.popupDialog.dismiss();
+  okDatePicker(androidDate){
+    if(Platform.OS === 'ios'){
+      this.popupDialog.dismiss();
+      this.date = this.auxDate;
+      console.log("IOS. Date definitive picked: " + this.date);
+      /*this.refs.navIos.replace({
+        component: HomeScreen,
+        title: 'CPL',
+        passProps: {title: 'CPL', naviDate: this.date},
+        rightButtonIcon: this.state.settingsIcon,
+        onRightButtonPress: () => this.rightPress(),
+        leftButtonIcon: this.state.calendarIcon,
+        onLeftButtonPress: () => this.leftPress(),
+      });*/
+    }
+    else{
+      console.log('ANDROID. Date definitive picked: ' + androidDate);
+      this.date = androidDate;
+      /*this.refs.navAndroid.replace({
+        id: 'home',
+        index: 0,
+        date: androidDate
+      });*/
+      this.setState({ isDateTimePickerVisible: false });
+    }
+    this.eventEmitter.emit('myEvent', { type: 'okPicker', newDate: this.date });
   }
 
-  hideDateTimePicker(){
-    this.setState({ isDateTimePickerVisible: false });
-  }
-
-  handleDatePicked(date){
-    console.log('A date has been picked: ' + date);
-    this.refs.navAndroid.push({
-      id: 'home',
-      index: 0,
-      date: date
-    });
-    this.hideDateTimePicker();
+  cancelDatePicker(){
+    if(Platform.OS === 'ios'){
+      this.popupDialog.dismiss();
+    }
+    else{
+      this.setState({ isDateTimePickerVisible: false });
+    }
   }
 
   backPress(nav){
@@ -238,8 +261,9 @@ export default class NavigatorController extends Component {
   }
 
   rightPress(nav){
+    this.eventEmitter.emit('myEvent', { type: 'settingsPressed'});
     if(Platform.OS === 'ios'){
-      this.refs.navi.push({
+      this.refs.navIos.push({
         title: 'Configuració',
         passProps: {title: 'Configuració'},
         component: SettingsScreen
@@ -254,8 +278,10 @@ export default class NavigatorController extends Component {
   }
 
   leftPress(){
+    this.eventEmitter.emit('myEvent', { type: 'pickerPressed'});
     if(Platform.OS === 'ios'){
-      console.log("pressed-Navigator");
+      this.auxDate = this.date;
+      this.forceUpdate();
       this.popupDialog.show();
     }
     else{
@@ -263,10 +289,14 @@ export default class NavigatorController extends Component {
     }
   }
 
-  renderScene(route,nav,date){
+  renderScene(route,nav){
     switch (route.id) {
       case 'home':
-        return (<HomeScreen naviDate={route.date} navigator={nav} route={route} title="Home"/>);
+        return (
+          <HomeScreen naviDate={route.date}
+                      events={route.events}
+                      navigator={nav} route={route}
+                      title="Home" />);
       case 'settings':
         return (<SettingsScreen navigator={nav} route={route} title="Configuració"/>);
       case 'liturgia-display':
