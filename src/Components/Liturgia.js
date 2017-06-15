@@ -61,7 +61,7 @@ export default class Liturgia extends Component {
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
        <View style={{flex:1, flexDirection: 'column'}}>
-         <View style={{flex:1, paddingTop: 10}}>
+         <View style={{flex:1, paddingTop: 5}}>
           <Text style={styles.buttonText}>Hora menor</Text>
          </View>
          <View style={{flex:2, flexDirection: 'row'}}>
@@ -140,25 +140,25 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: '#000000',
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: 'normal'
   },
   buttonTextBold: {
     textAlign: 'center',
     color: '#000000',
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
   },
   horaMenorText: {
     textAlign: 'center',
     color: '#595959',
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 'normal'
   },
   horaMenorTextBold: {
     textAlign: 'center',
     color: '#595959',
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   hrstyle: {
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   redCenter: {
     color: '#FF0000',
-    fontSize: 15,
+    fontSize: 14,
     textAlign: 'center'
   },
 })

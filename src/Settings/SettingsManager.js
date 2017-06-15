@@ -4,7 +4,7 @@ export const diocesis = {
     BARCELONA: "Barcelona",
     GIRONA: "Girona",
     LLEIDA: "Lleida",
-    SANT_FELIU: "Sant Feliu de Llobregat",
+    SANT_FELIU: "Sant Feliu",
     SOLSONA: "Solsona",
     TARRAGONA: "Tarragona",
     TERRASSA: "Terrassa",

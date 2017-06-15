@@ -192,7 +192,7 @@ export default class NavigatorController extends Component {
                   Title: (route, navigator, index, navState) =>
                     { return (
                       <View style={styles.container}>
-                        <Text style={styles.barText}>CPL</Text>
+                        <Text style={styles.barText}>{"CPL"}</Text>
                       </View>
                     );},
                 }}
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    marginLeft: 90,
   },
   barButton: {
     flex: 1,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: GLOBAL.itemsBarColor,
     fontSize: 20,
-    fontWeight: '600'
+    fontWeight: '500'
   },
   barTextBack: {
     color: GLOBAL.itemsBarColor,

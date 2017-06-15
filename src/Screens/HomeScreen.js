@@ -61,6 +61,8 @@ export default class HomeScreen extends Component {
       santPressed: false,
     }
 
+    this.arrows = false;
+
     this.testing = false; //fer-ho amb iphone 7!
     this.initialDayTest = {
       day: 2,
@@ -401,20 +403,23 @@ export default class HomeScreen extends Component {
        <Image source={require('../img/bg/currentbg.jpg')} style={styles.backgroundImage}>
          <View style={styles.infoContainer}>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+              {this.arrows ?
+                <View>
+                  <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onMinusPress.bind(this)}>
+                     <Text>{"<<<     "}</Text>
+                  </TouchableOpacity>
+                </View> : null}
               <View>
-                <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onMinusPress.bind(this)}>
-                   <Text>{"<<<     "}</Text>
-                </TouchableOpacity>
+                <Text style={styles.infoText}>{"Diòcesi de "}{this.variables.diocesiName}{" ("}{this.variables.lloc}{")"}
+                  {" - "}<Text style={styles.infoText}>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+                </Text>
               </View>
-              <View>
-                <Text style={styles.infoText}>{"Diòcesi de "}{this.variables.diocesiName}{" ("}{this.variables.lloc}{")"}</Text>
-                <Text style={styles.infoText}>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
-              </View>
-              <View>
-                <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
-                   <Text>{"     >>>"}</Text>
-                </TouchableOpacity>
-              </View>
+              {this.arrows ?
+                <View>
+                  <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
+                     <Text>{"     >>>"}</Text>
+                  </TouchableOpacity>
+                </View> : null}
             </View>
          </View>
          <View style={styles.diaLiturgicContainer}>
@@ -434,7 +439,7 @@ export default class HomeScreen extends Component {
              <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
                <View style={{flex: 1, flexDirection: 'row', paddingRight: auxPadding}}>
                  <View style={{flex: 20, justifyContent: 'center', paddingRight: (auxPadding*2)}}>
-                   <Text style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
+                   <Text numberOfLines={2} style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
                  </View>
                  <View style={{flex: 1, justifyContent: 'center'}}>
                  {this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
@@ -932,7 +937,7 @@ const styles = StyleSheet.create({
    //resizeMode: 'cover',
  },
   diaLiturgicContainer: {
-    flex: 2.5,
+    flex: 1.7,
     justifyContent: 'center',
     shadowOpacity: 0.2,
     shadowRadius: 7,
@@ -945,24 +950,24 @@ const styles = StyleSheet.create({
   diaLiturgicText: {
     textAlign: 'center',
     color: 'black',
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '300'
   },
   infoContainer: {
-    flex: 0.5,
+    flex: 0.4,
     justifyContent: 'flex-end',
     paddingTop: 5,
-    //backgroundColor: '#E1F5FE',
+    //backgroundColor: 'red',
   },
   infoText: {
     textAlign: 'center',
     color: '#424242',
-    fontSize: 14,
+    fontSize: 13,
     fontStyle: 'italic',
     fontWeight: '300'
   },
   santContainer: {
-    flex: 1.5,
+    flex: 1.1,
     shadowOpacity: 0.1,
     shadowRadius: 5,
     shadowOffset: {
@@ -973,6 +978,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F2F1',
     borderRadius: 15,
     marginHorizontal: 10,
+    marginBottom: 10,
     paddingLeft: 10,
     opacity: 0.8,
   },
@@ -982,8 +988,8 @@ const styles = StyleSheet.create({
   santText: {
     textAlign: 'center',
     color: 'black',
-    fontSize: 18,
-    fontWeight: '300'
+    fontSize: 16,
+    fontWeight: '300',
   },
   santExText: {
     textAlign: 'center',
@@ -995,12 +1001,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     //fontStyle: 'italic',
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '300'
   },
   liturgiaContainer: {
-    flex: 9,
-    marginVertical: 10,
+    flex: 6,
+    marginBottom: 10,
     marginHorizontal: 10,
   },
 })
