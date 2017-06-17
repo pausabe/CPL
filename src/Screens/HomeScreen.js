@@ -149,7 +149,7 @@ export default class HomeScreen extends Component {
   }
 
   refreshEverything(date){
-    console.log("REFRESHING EVERYTHING: settings > anyliturgic > soul > render");
+    console.log("REFRESHING EVERYTHING: settings > anyliturgic > soul > render " + date);
     this.refreshing = true;
     Promise.all([
       SettingsManager.getSettingLloc((r) => {
@@ -236,6 +236,7 @@ export default class HomeScreen extends Component {
           var tomorrow = new Date(args.newDate.getFullYear(), args.newDate.getMonth());
           tomorrow.setDate(args.newDate.getDate() + 1);
           this.dataTomorrow.date = tomorrow;
+          console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
           this.refreshEverything(args.newDate);
         }
       break;
@@ -276,6 +277,7 @@ export default class HomeScreen extends Component {
         this.dataTomorrow.setmana = tomorrow.NumSet;
         this.dataTomorrow.mogut = tomorrow.Mogut;
 
+        console.log("VDATE1  "   + this.variables.date);
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
         else
@@ -286,6 +288,7 @@ export default class HomeScreen extends Component {
 
   setSoul(liturgia){
     console.log("HomeScreen - setSoul");
+    console.log("VDATE3  "   + this.variables.date);
     //this.refreshing = false;
     if(!this.testing){
       this.liturgicProps.LITURGIA = liturgia;
@@ -399,7 +402,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    console.log("RENDER!!!" );
+    console.log("RENDER!!! " + this.variables.date);
     auxPadding = 5;
     return (
       <View style={styles.container}>
