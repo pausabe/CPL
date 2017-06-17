@@ -320,7 +320,7 @@ export default class CelebracioSoul {
       if(idTSF !== -1) celType = 'TSF';
       else if(idDE !== -1) celType = 'DE';
 
-      //console.log("tomorrowCal! " +celType + ", " + tomorrowCal);
+      console.log("tomorrowCal! "+celType + ", " + tomorrowCal);
       switch (tomorrowCal) {
         case "S":
           this.createCel(TABLES, "SF", liturgicProps, celType, variables, 'NF');
@@ -363,7 +363,7 @@ export default class CelebracioSoul {
   }
 
   createCel(TABLES, type, liturgicProps, tomCal, variables, F){
-    console.log("CelbracioSoul - createCel: " + type);
+    console.log("CelbracioSoul - createCel: " + type+", "+tomCal);
 
     diocesi = variables.diocesi;
     llati = variables.llati;
@@ -514,6 +514,7 @@ export default class CelebracioSoul {
           this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
         }
         else{
+          console.log("ASDFASDFASDFASDFASFASDDS ------------> " + tomCal);
           switch (tomCal) {
             case 'DE':
               this.makeDE(TABLES, type, liturgicProps, variables, tomCal);

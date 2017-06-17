@@ -559,7 +559,7 @@ export default class SOUL {
 
       if(this.tomorrowCal === 'S' && dataTomorrow.mogut === '-') {
         var day = this.calculeDia(this.dataTomorrow.date, '-');
-        this.acceso.getSolMem("santsSolemnitats", day, diocesi, this.liturgicProps.tempsespecific, (result) => {
+        this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
           this.queryRows.santsSolemnitats = result;
           this.getOficisComuns(params, result);
         });
@@ -569,7 +569,7 @@ export default class SOUL {
         console.log("idDM: " + idDM);
         if(idDM === -1){
         var day = this.calculeDia(date, variables.mogut);
-          this.acceso.getSolMem("santsSolemnitats", day, diocesi, this.liturgicProps.tempsespecific, (result) => {
+          this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsSolemnitats = result;
             this.getOficisComuns(params, result);
           });
@@ -598,7 +598,7 @@ export default class SOUL {
         console.log("idDM: " + idDM);
         if(idDM === -1){
           var day = this.calculeDia(date, variables.mogut);
-          this.acceso.getSolMem("santsMemories", day, diocesi, this.liturgicProps.tempsespecific, (result) => {
+          this.acceso.getSolMem("santsMemories", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsMemories = result;
             this.getOficisComuns(params, result);
           });
@@ -825,7 +825,10 @@ export default class SOUL {
         return 'DE';
 
       this.idTSFTomorrow = this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta);
-      if(this.idTSFTomorrow !== -1) return 'TSF';
+      if(this.idTSFTomorrow !== -1) {
+        console.log("TOMORROW IS: " + this.idTSFTomorrow);
+        return 'TSF';
+      }
 
       if(this.dataTomorrow.celType === 'S') return 'S';
     }

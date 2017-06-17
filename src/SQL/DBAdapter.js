@@ -76,29 +76,62 @@ export default class DBAdapter {
       });
   }
 
-  getSolMem(table, dia, diocesi, temps, callback){
-
-    var query = `SELECT * FROM ${table} WHERE (Diocesis = '${diocesi}' OR Diocesis = '-') AND dia = '${dia}' AND Temps = '${temps}'`;
+  getSolMem(table, dia, diocesi, lloc, diocesiName, temps, callback){
+    var auxDiocesi = `'${diocesi}'`;
+    if(lloc === 'Ciutat'){
+      auxDiocesi = `'${diocesi}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Diòcesi')}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Catedral')}'`;
+    }
+    else if(lloc === 'Catedral'){
+      auxDiocesi = `'${diocesi}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Diòcesi')}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Ciutat')}'`;
+    }
+    else if (lloc === 'Diòcesi'){
+      auxDiocesi = `'${diocesi}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Catedral')}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Ciutat')}'`;
+    }
+    var query = `SELECT * FROM ${table} WHERE (Diocesis = ${auxDiocesi} OR Diocesis = '-') AND dia = '${dia}' AND Temps = '${temps}'`;
 
     console.log("QUERY SOL_MEM: " + query);
 
     this.executeQuery(query,
       result => {
         console.log("SolMem Result size: " + result.rows.length);
-        var index = this.findCorrect(result.rows, result.rows.length, diocesi);
+        var index = this.findCorrect(result.rows, result.rows.length, diocesi, diocesiName, lloc);
         console.log("index definitive: " + index);
         callback(result.rows.item(index));
       });
   }
 
-  findCorrect(rows, length, diocesi){
+  findCorrect(rows, length, diocesi, diocesiName, lloc){
+    //Catedral < Ciutat < Diòcesi < -
       if(length===1) return 0;
       var i = 0;
+      auxDiocesi = diocesi;
       while(i<length){
-        if(rows.item(i).Diocesis === diocesi) return i;
+        if(rows.item(i).Diocesis === auxDiocesi) return i;
         i += 1;
       }
-      return 0;
+      if(lloc === 'Ciutat'){
+        auxDiocesi = this.transformDiocesiName(diocesiName, 'Diòcesi');
+        i = 0;
+        while(i<length){
+          if(rows.item(i).Diocesis === auxDiocesi) return i;
+          i += 1;
+        }
+      }
+      if(lloc === 'Catedral'){
+        auxDiocesi = this.transformDiocesiName(diocesiName, 'Ciutat');
+        i = 0;
+        while(i<length){
+          if(rows.item(i).Diocesis === auxDiocesi) return i;
+          i += 1;
+        }
+        auxDiocesi = this.transformDiocesiName(diocesiName, 'Diòcesi');
+        i = 0;
+        while(i<length){
+          if(rows.item(i).Diocesis === auxDiocesi) return i;
+          i += 1;
+        }
+      }
+      return 0; //-
   }
 
   getSolMemDiesMov(table, id, callback){
@@ -122,6 +155,147 @@ export default class DBAdapter {
     console.log("QUERY getOC: " + query);
     this.executeQuery(query,
       result => callback(result.rows.item(0)));
+  }
+
+  transformDiocesiName(diocesi, lloc){
+    console.log("diocesi: " + diocesi + " - " + "lloc: " + lloc);
+    switch (diocesi) {
+      case "Barcelona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'BaD';
+            break;
+          case "Catedral":
+            return 'BaC';
+            break
+          case "Ciutat":
+            return 'BaV';
+            break;
+        }
+        break;
+      case "Girona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'GiD';
+            break;
+          case "Catedral":
+            return 'GiC';
+            break
+          case "Ciutat":
+            return 'GiV';
+            break;
+        }
+        break;
+      case "Lleida":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'LlD';
+            break;
+          case "Catedral":
+            return 'LlC';
+            break
+          case "Ciutat":
+            return 'LlV';
+            break;
+        }
+        break;
+      case "Sant Feliu de Llobregat":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'SFD';
+            break;
+          case "Catedral":
+            return 'SFC';
+            break
+          case "Ciutat":
+            return 'SFV';
+            break;
+        }
+        break;
+      case "Solsona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'SoD';
+            break;
+          case "Catedral":
+            return 'SoC';
+            break
+          case "Ciutat":
+            return 'SoV';
+            break;
+        }
+        break;
+      case "Tarragona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'TaD';
+            break;
+          case "Catedral":
+            return 'TaC';
+            break
+          case "Ciutat":
+            return 'TaV';
+            break;
+        }
+        break;
+      case "Terrassa":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'TeD';
+            break;
+          case "Catedral":
+            return 'TeC';
+            break
+          case "Ciutat":
+            return 'TeV';
+            break;
+        }
+        break;
+      case "Tortosa":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'ToD';
+            break;
+          case "Catedral":
+            return 'ToC';
+            break
+          case "Ciutat":
+            return 'ToV';
+            break;
+        }
+        break;
+      case "Urgell":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'UrD';
+            break;
+          case "Catedral":
+            return 'UrC';
+            break
+          case "Ciutat":
+            return 'UrV';
+            break;
+        }
+        break;
+      case "Vic":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'ViD';
+            break;
+          case "Catedral":
+            return 'ViC';
+            break
+          case "Ciutat":
+            return 'ViV';
+            break;
+        }
+        break;
+      case "Andorra":
+        return 'Andorra';
+        break;
+    }
+
+    return('BaD');
   }
 
   errorCB(err) {

@@ -70,7 +70,7 @@ export default class HomeScreen extends Component {
       year: 2017,
     }
     this.finalDayTest = {
-      day: 29,
+      day: 28,
       month: 11,
       year: 2017,
     }
@@ -233,6 +233,9 @@ export default class HomeScreen extends Component {
         console.log("pickerAccept: " + args.newDate);
         this.picAcc = true;
         if(args.newDate !== this.variables.date){
+          var tomorrow = new Date(args.newDate.getFullYear(), args.newDate.getMonth());
+          tomorrow.setDate(args.newDate.getDate() + 1);
+          this.dataTomorrow.date = tomorrow;
           this.refreshEverything(args.newDate);
         }
       break;
@@ -326,7 +329,7 @@ export default class HomeScreen extends Component {
   }
 
   passDayTest(day){
-    if(day.getDate()===21 && day.getMonth()===0 && day.getFullYear()===2017)
+    /*if(day.getDate()===21 && day.getMonth()===0 && day.getFullYear()===2017)
       return true;
     if(day.getDate()===25 && day.getMonth()===0 && day.getFullYear()===2017)
       return true;
@@ -363,7 +366,7 @@ export default class HomeScreen extends Component {
     if(day.getDate()===18 && day.getMonth()===10 && day.getFullYear()===2017)
       return true;
     if(day.getDate()===16 && day.getMonth()===11 && day.getFullYear()===2017)
-      return true;
+      return true;*/
     return false;
   }
 
@@ -410,7 +413,7 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>
                 </View> : null}
               <View>
-                <Text style={styles.infoText}>{"Diòcesi de "}{this.variables.diocesiName}{" ("}{this.variables.lloc}{")"}
+                <Text style={styles.infoText}>{this.variables.diocesiName}{" ("}{this.variables.lloc}{")"}
                   {" - "}<Text style={styles.infoText}>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
                 </Text>
               </View>

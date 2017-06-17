@@ -40,7 +40,7 @@ export default class NavigatorController extends Component {
     this.date = new Date(/*2017,7,7*/);
     this.auxDate = this.date;
     this.minimumDate = new Date(2017,0,2);
-    this.maximumDate = new Date(2017,11,29);
+    this.maximumDate = new Date(2017,11,28);
 
     this.state = {
       isDateTimePickerVisible: false,
