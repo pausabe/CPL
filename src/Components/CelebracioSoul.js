@@ -514,8 +514,10 @@ export default class CelebracioSoul {
           this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
         }
         else{
-          console.log("ASDFASDFASDFASDFASFASDDS ------------> " + tomCal);
           switch (tomCal) {
+            case 'F':
+             //?????
+              break;
             case 'DE':
               this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
               break;
