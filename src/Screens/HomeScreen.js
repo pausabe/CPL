@@ -63,10 +63,10 @@ export default class HomeScreen extends Component {
 
     this.arrows = false;
 
-    this.testing = false; //fer-ho amb iphone 7!
+    this.testing = true; //fer-ho amb iphone 7!
     this.initialDayTest = {
       day: 2,
-      month: 7,
+      month: 0,
       year: 2017,
     }
     this.finalDayTest = {
@@ -77,10 +77,12 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 0; //0-30
-      var finalIndex = 4; //0-30
+      var initalIndex = 5; //0-30
+      var finalIndex = 10; //0-30
       this.diocesiTest = this.nextDiocesi(initalIndex);
-      this.idTest = initalIndex;// checked: [0-4]
+      this.diocesiNameTest = this.nextDiocesiName(initalIndex);
+      this.llocTest = this.nextLloc(initalIndex);
+      this.idTest = initalIndex;
       this.maxIdTest = finalIndex;
       console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
       console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
@@ -155,18 +157,27 @@ export default class HomeScreen extends Component {
       SettingsManager.getSettingLloc((r) => {
         this.variables.lloc = r;
         SettingsManager.getSettingDiocesis((r) => {
-          if(this.testing)
+          if(this.testing){
             this.variables.diocesi = this.diocesiTest;
-          else
+            this.variables.diocesiName = this.diocesiNameTest;
+            this.variables.lloc = this.llocTest;
+          }
+          else{
             this.variables.diocesi = this.transformDiocesiName(r, this.variables.lloc);
-          this.variables.diocesiName = r;
+            this.variables.diocesiName = r;
+          }
           console.log("this.variables.diocesi: "+this.variables.diocesi);
         })
       }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
-      SettingsManager.getSettingPrayLliures((r) => this.variables.lliures = r),
+      SettingsManager.getSettingPrayLliures((r) => {
+        if(this.testing)
+          this.variables.lliures = 'true';
+        else
+        this.variables.lliures = r;
+      }),
       SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
     ]).then(results => {
@@ -308,13 +319,22 @@ export default class HomeScreen extends Component {
             firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
             this.idTest += 1;
             this.diocesiTest = this.nextDiocesi(this.idTest);
+            this.diocesiNameTest = this.nextDiocesiName(this.idTest);
+            this.llocTest = this.nextLloc(this.idTest);
+            auxTomorrow = new Date();
+            auxTomorrow.setFullYear(this.initialDayTest.year);
+            auxTomorrow.setMonth(this.initialDayTest.month);
+            auxTomorrow.setDate(this.initialDayTest.day+1);
+            this.dataTomorrow.date = auxTomorrow;
             this.refreshEverything(firstDay);
             console.log("--------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
           }
       }
       else{
-        auxTomorrow = this.dataTomorrow.date;
-        auxTomorrow.setDate(auxTomorrow.getDate()+1);
+        auxTomorrow = new Date();
+        auxTomorrow.setFullYear(this.dataTomorrow.date.getFullYear());
+        auxTomorrow.setMonth(this.dataTomorrow.date.getMonth());
+        auxTomorrow.setDate(this.dataTomorrow.date.getDate()+1);
         this.dataTomorrow.date = auxTomorrow;
         while(this.passDayTest(nextDay)){
           console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
@@ -929,6 +949,106 @@ export default class HomeScreen extends Component {
         break;
       case 30:
         return 'Andorra';
+        break;
+      }
+  }
+
+  nextDiocesiName(index){
+    switch (index) {
+      case 0:
+      case 1:
+      case 2:
+        return 'Barcelona';
+        break;
+      case 3:
+      case 4:
+      case 5:
+        return 'Girona';
+        break;
+      case 6:
+      case 7:
+      case 8:
+        return 'Lleida';
+        break;
+      case 9:
+      case 10:
+      case 11:
+        return 'Sant Feliu de llobregat';
+        break;
+      case 12:
+      case 13:
+      case 14:
+        return 'Solsona';
+        break;
+      case 15:
+      case 16:
+      case 17:
+        return 'Tarragona';
+        break;
+      case 18:
+      case 19:
+      case 20:
+        return 'Terrassa';
+        break;
+      case 21:
+      case 22:
+      case 23:
+        return 'Tortosa';
+        break;
+      case 24:
+      case 25:
+      case 26:
+        return 'Urgell';
+        break;
+      case 27:
+      case 28:
+      case 29:
+        return 'Vic';
+        break;
+      case 30:
+        return 'Andorra';
+        break;
+      }
+  }
+
+  nextLloc(index){
+    switch (index) {
+      case 0:
+      case 3:
+      case 6:
+      case 9:
+      case 12:
+      case 15:
+      case 18:
+      case 21:
+      case 24:
+      case 27:
+      case 30:
+        return 'Diòcesi';
+        break;
+      case 1:
+      case 4:
+      case 7:
+      case 10:
+      case 13:
+      case 16:
+      case 19:
+      case 22:
+      case 25:
+      case 28:
+        return 'Ciutat';
+        break;
+      case 2:
+      case 5:
+      case 8:
+      case 11:
+      case 14:
+      case 17:
+      case 20:
+      case 23:
+      case 26:
+      case 29:
+        return 'Catedral';
         break;
       }
   }

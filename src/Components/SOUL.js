@@ -108,6 +108,7 @@ export default class SOUL {
 
     this.tomorrowCal = '-';
 
+    console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
     this.tomorrowCal = this.tomorrowCalVespres1CEL(this.dataTomorrow.date, this.dataTomorrow.LT,
       this.dataTomorrow.setmana, this.pentacosta, diocesi);
 
@@ -844,6 +845,8 @@ export default class SOUL {
       if(date.getDay() === 5 && LT === GLOBAL.Q_TRIDU) return 'T';
 
       if(date.getDay() === 0 && setmana === '1' && LT === GLOBAL.A_SETMANES) return 'A';
+
+      console.log("date1 " + date);
 
       this.idDETomorrow = this.findDiesEspecials(date, LT, setmana, pentacosta, diocesi);
       if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)
