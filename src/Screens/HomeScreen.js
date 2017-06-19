@@ -277,7 +277,6 @@ export default class HomeScreen extends Component {
         this.dataTomorrow.setmana = tomorrow.NumSet;
         this.dataTomorrow.mogut = tomorrow.Mogut;
 
-        console.log("VDATE1  "   + this.variables.date);
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
         else
@@ -288,7 +287,6 @@ export default class HomeScreen extends Component {
 
   setSoul(liturgia){
     console.log("HomeScreen - setSoul");
-    console.log("VDATE3  "   + this.variables.date);
     //this.refreshing = false;
     if(!this.testing){
       this.liturgicProps.LITURGIA = liturgia;
@@ -431,7 +429,7 @@ export default class HomeScreen extends Component {
          <View style={styles.diaLiturgicContainer}>
            <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== '0' ? " de la setmana " : null}
              {this.liturgicProps.setmana !== '0' ? this.liturgicPaint(this.romanize(this.liturgicProps.setmana), this.variables.litColor) : null }</Text>
-           <Text style={styles.diaLiturgicText}>{"Temps - "}{this.liturgicPaint(this.liturgicProps.tempsespecific, this.variables.litColor)}</Text>
+           <Text style={styles.diaLiturgicText}>{"Temps - "}{this.liturgicPaint(this.tempsName(this.liturgicProps.tempsespecific), this.variables.litColor)}</Text>
            <Text style={styles.diaLiturgicText}>{"Setmana "}{this.liturgicPaint(this.romanize(this.liturgicProps.cicle), this.variables.litColor)}
             {" del cicle litúrgic, any "}{this.liturgicPaint(this.liturgicProps.ABC, this.variables.litColor)}</Text>
          </View>
@@ -494,6 +492,13 @@ export default class HomeScreen extends Component {
        </Image>
      </View>
     )
+  }
+
+  tempsName(t){
+    if(t === 'Ordinari'){
+      return "Durant l'any";
+    }
+    return t;
   }
 
   liturgicPaint(string, color){

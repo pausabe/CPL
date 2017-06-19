@@ -38,7 +38,7 @@ export default class SettingsComponentAdapter{
 
     static async getSettingComponentPrayLliures(){
         let value = await SettingsManager.getSettingPrayLliures() === "true" ? true : false;
-        let component = (<SettingComponent selectorComponent="switch" name="Memòries lliures i commemoracions" id="prayLliures" key="prayLliures" value={value} callback={(id, value) => {
+        let component = (<SettingComponent selectorComponent="switch" name="Memòries lliures" id="prayLliures" key="prayLliures" value={value} callback={(id, value) => {
             SettingsManager.setSettingPrayLliures(value ? "true" : "false");
         }}/>);
         return component;
@@ -56,7 +56,7 @@ export default class SettingsComponentAdapter{
     static async getSettingComponentDiocesis(){
         let value = await SettingsManager.getSettingDiocesis();
         value = _getKeyFromValue(diocesis, value);
-        let component = (<SettingComponent selectorComponent="picker" name="Diocesi de" id="diocesis" key="diocesis"
+        let component = (<SettingComponent selectorComponent="picker" name="Diocesi" id="diocesis" key="diocesis"
             value={value} options={diocesis} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
                 SettingsManager.setSettingDiocesis(diocesis[value]);
             }}/>);
@@ -88,7 +88,7 @@ export default class SettingsComponentAdapter{
       //console.log(this.aha);
         let value = await SettingsManager.getSettingInvitatori();
         value = _getKeyFromValue(invitatori, value);
-        let component = (<SettingComponent selectorComponent="picker" name="Invitatori a" id="invitatori" key="invitatori"
+        let component = (<SettingComponent selectorComponent="picker" name="Invitatori" id="invitatori" key="invitatori"
             value={value} options={invitatori} selectorProps={{mode: "dropdown"}} callback={(id, value) => {
                 SettingsManager.setSettingInvitatori(invitatori[value]/*, this.aha*/);
             }}/>);

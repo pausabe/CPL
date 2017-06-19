@@ -356,8 +356,7 @@ export default class OficiDisplay extends Component {
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura Segona</Text>
-        <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}
-          <Text selectable={true} style={this.styles.red}> {OFICI.cita2}</Text></Text>
+        <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}

@@ -600,10 +600,8 @@ export default class SOUL {
       c += 1;
       console.log("santsSolemnitatsFVespres1");
       //TODO: conteplar dies movibles?
-      console.log("VDATE2.0 " + this.variables.date);
       var auxDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       auxDay.setDate(date.getDate()+1);
-      console.log("VDATE2.1 " + this.variables.date);
       var day = this.calculeDia(auxDay, '-');
       this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
         this.queryRows.santsSolemnitatsFVespres1 = result;
