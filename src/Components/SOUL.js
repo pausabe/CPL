@@ -613,15 +613,18 @@ export default class SOUL {
     //taula 35 (#31): -  i //taula 36
     if(params.idTSF === -1 && (celType === 'M' || celType === 'L' || celType === 'V')){
       c += 1;
-      if(celType === 'V'){
+
+      idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
+      console.log("idDM: " + idDM);
+
+
+      if(celType === 'V' && idDM === -1){
         this.acceso.getV((result) => {
           this.queryRows.santsMemories = result;
           this.getOficisComuns(params, result);
         });
       }
       else{
-        idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
-        console.log("idDM: " + idDM);
         if(idDM === -1){
           var day = this.calculeDia(date, variables.mogut);
           this.acceso.getSolMem("santsMemories", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
@@ -891,7 +894,7 @@ export default class SOUL {
       dies += 1;
     }
     var cinta = new Date(date.getFullYear(), 8, dies);
-    //console.log(celType+" - CINTA: "+cinta);
+    console.log(celType+" - CINTA: "+cinta);
     if(date.getDate() === cinta.getDate() && date.getMonth() === cinta.getMonth() &&
         date.getFullYear() === cinta.getFullYear()){
           if(celType === 'M') return 472;

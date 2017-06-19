@@ -63,7 +63,7 @@ export default class HomeScreen extends Component {
 
     this.arrows = false;
 
-    this.testing = true; //fer-ho amb iphone 7!
+    this.testing = false; //fer-ho amb iphone 7!
     this.initialDayTest = {
       day: 2,
       month: 0,
@@ -77,8 +77,8 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 5; //0-30
-      var finalIndex = 10; //0-30
+      var initalIndex = 10; //0-30
+      var finalIndex = 15; //0-30
       this.diocesiTest = this.nextDiocesi(initalIndex);
       this.diocesiNameTest = this.nextDiocesiName(initalIndex);
       this.llocTest = this.nextLloc(initalIndex);
@@ -350,44 +350,12 @@ export default class HomeScreen extends Component {
   }
 
   passDayTest(day){
-    /*if(day.getDate()===21 && day.getMonth()===0 && day.getFullYear()===2017)
+    if(this.diocesiTest === 'LlV' && day.getDate()===2 && day.getMonth()===9 && day.getFullYear()===2017)
       return true;
-    if(day.getDate()===25 && day.getMonth()===0 && day.getFullYear()===2017)
+    if(this.diocesiTest === 'LlV' && day.getDate()===1 && day.getMonth()===9 && day.getFullYear()===2017)
       return true;
-    if(day.getDate()===6 && day.getMonth()===2 && day.getFullYear()===2017)
+    if((this.diocesiTest === 'SFD' || this.diocesiTest === 'SFV' || this.diocesiTest === 'SFC') && day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
       return true;
-    if(day.getDate()===23 && day.getMonth()===4 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===27 && day.getMonth()===6 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===1 && day.getMonth()===7 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===3 && day.getMonth()===7 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===17 && day.getMonth()===7 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===31 && day.getMonth()===7 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===8 && day.getMonth()===8 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===18 && day.getMonth()===8 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===22 && day.getMonth()===8 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===24 && day.getMonth()===8 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===25 && day.getMonth()===8 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===25 && day.getMonth()===9 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===7 && day.getMonth()===10 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===18 && day.getMonth()===10 && day.getFullYear()===2017)
-      return true;
-    if(day.getDate()===16 && day.getMonth()===11 && day.getFullYear()===2017)
-      return true;*/
     return false;
   }
 
@@ -973,7 +941,7 @@ export default class HomeScreen extends Component {
       case 9:
       case 10:
       case 11:
-        return 'Sant Feliu de llobregat';
+        return 'Sant Feliu de Llobregat';
         break;
       case 12:
       case 13:
