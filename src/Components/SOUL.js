@@ -607,11 +607,14 @@ export default class SOUL {
       c += 1;
       console.log("santsSolemnitatsFVespres1");
       //TODO: conteplar dies movibles?
-      var auxDay = new Date();
-      auxDay.setFullYear(date.getFullYear());
-      auxDay.setMonth(date.getMonth());
-      auxDay.setDate(date.getDate()+1);
-      var day = this.calculeDia(auxDay, '-');
+      day = this.dataTomorrow.mogut;
+      if(this.dataTomorrow.mogut === '-'){
+        var auxDay = new Date();
+        auxDay.setFullYear(date.getFullYear());
+        auxDay.setMonth(date.getMonth());
+        auxDay.setDate(date.getDate()+1);
+        day = this.calculeDia(auxDay, '-');
+      }
       this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
         this.queryRows.santsSolemnitatsFVespres1 = result;
         this.getOficisComuns(params, result);

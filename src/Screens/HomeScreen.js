@@ -78,7 +78,7 @@ export default class HomeScreen extends Component {
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       var initalIndex = 0; //0-30
-      var finalIndex = 30; //0-30
+      var finalIndex = 15; //0-30
       this.diocesiTest = this.nextDiocesi(initalIndex);
       this.diocesiNameTest = this.nextDiocesiName(initalIndex);
       this.llocTest = this.nextLloc(initalIndex);
@@ -352,7 +352,7 @@ export default class HomeScreen extends Component {
   }
 
   passDayTest(day){
-    if(day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
+    /*if(day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
       return true;
     if(this.diocesiTest === 'LlV' && day.getDate()===2 && day.getMonth()===9 && day.getFullYear()===2017)
       return true;
@@ -365,7 +365,7 @@ export default class HomeScreen extends Component {
     if((this.diocesiTest === 'ToD' || this.diocesiTest === 'ToV' || this.diocesiTest === 'ToC') && day.getDate()===31 && day.getMonth()===7 && day.getFullYear()===2017)
       return true;
     if((this.diocesiTest === 'ToD' || this.diocesiTest === 'ToV' || this.diocesiTest === 'ToC') && day.getDate()===1 && day.getMonth()===8 && day.getFullYear()===2017)
-      return true;
+      return true;*/
     return false;
   }
 
