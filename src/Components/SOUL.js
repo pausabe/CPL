@@ -306,7 +306,7 @@ export default class SOUL {
           id = 3;
         break;
         case GLOBAL.N_ABANS:
-          if(date.getDate() < 5){ id = 3; }
+          if(date.getDate() < 6){ id = 3; }
           else{ id = 4; }
         break;
         default: id = 1;
@@ -540,8 +540,11 @@ export default class SOUL {
     if(true){
       c += 1;
       {date.getDay() === 6 ? id = 1 : id = date.getDay() + 2}
-      if(this.tomorrowCal !== '-') id = 8;
-      if(celType === 'S' || this.idTSF !== -1 || liturgicProps.LT === GLOBAL.P_OCTAVA) id = 9;
+      if(this.tomorrowCal !== '-' && (date.getDay() !== 6 || date.getDay() !== 0)) id = 8;
+      if((celType === 'S' || this.idTSF !== -1) && (date.getDay() !== 6 || date.getDay() !== 0)) id = 9;
+      if(liturgicProps.LT === GLOBAL.P_OCTAVA) id = 2;
+      if(liturgicProps.LT === GLOBAL.N_OCTAVA) id = 9;
+      if(liturgicProps.LT === GLOBAL.Q_SET_SANTA && (date.getDay() !== 4 || date.getDay() !== 5 || date.getDay() !== 6)) id = 9;
       this.acceso.getLiturgia("salteriComuCompletes", id, (result) => {
         this.queryRows.salteriComuCompletes = result;
         this.dataReceived(params);
@@ -565,60 +568,77 @@ export default class SOUL {
     //taula 34.1 (#32): - i //taula 36
     if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || ((params.idTSF === -1 && params.idDE === -1) && (celType === 'S' || celType === 'F')))){
       c += 1;
-
-      if(this.tomorrowCal === 'S' && dataTomorrow.mogut === '-') {
-        if(celType === 'F'){
-          var day = this.calculeDia(date, variables.mogut);
-          this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-            this.queryRows.santsSolemnitats = result;
-            this.getOficisComuns(params, result);
-          });
-        }
-        else{
-          var day = this.calculeDia(this.dataTomorrow.date, '-');
-          this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-            this.queryRows.santsSolemnitats = result;
-            this.getOficisComuns(params, result);
-          });
-        }
+      idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
+      console.log("idDM tomorrow: " + idDM);
+      if(idDM !== -1){
+        this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
+          this.queryRows.santsSolemnitats = result;
+          this.getOficisComuns(params, result);
+        });
       }
       else{
-        idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
-        console.log("idDM: " + idDM);
-        if(idDM === -1){
-          var day = this.calculeDia(date, variables.mogut);
-          this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-            this.queryRows.santsSolemnitats = result;
-            this.getOficisComuns(params, result);
-          });
+        if(this.tomorrowCal === 'S' && dataTomorrow.mogut === '-') {
+          if(celType === 'F'){
+            var day = this.calculeDia(date, variables.mogut);
+            this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
+              this.queryRows.santsSolemnitats = result;
+              this.getOficisComuns(params, result);
+            });
+          }
+          else{
+            var day = this.calculeDia(this.dataTomorrow.date, '-');
+            this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
+              this.queryRows.santsSolemnitats = result;
+              this.getOficisComuns(params, result);
+            });
+          }
         }
         else{
-          this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
-            this.queryRows.santsSolemnitats = result;
-            this.getOficisComuns(params, result);
-          });
+          idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
+          console.log("idDM today: " + idDM);
+          if(idDM === -1){
+            var day = this.calculeDia(date, variables.mogut);
+            this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
+              this.queryRows.santsSolemnitats = result;
+              this.getOficisComuns(params, result);
+            });
+          }
+          else{
+            this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
+              this.queryRows.santsSolemnitats = result;
+              this.getOficisComuns(params, result);
+            });
+          }
         }
       }
-      //console.log("AAAAAAAAAAAAAAAAAAAAA: " + auxDate.getDate());
     }
 
     //taula 34.2 (#32): - i //taula 36
     if(this.tomorrowCal === 'S'){
       c += 1;
       console.log("santsSolemnitatsFVespres1");
-      //TODO: conteplar dies movibles?
-      day = this.dataTomorrow.mogut;
-      if(this.dataTomorrow.mogut === '-'){
-        var auxDay = new Date();
-        auxDay.setFullYear(date.getFullYear());
-        auxDay.setMonth(date.getMonth());
-        auxDay.setDate(date.getDate()+1);
-        day = this.calculeDia(auxDay, '-');
+      idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
+      console.log("idDM tomorrow: " + idDM);
+      if(idDM !== -1){
+        this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
+          this.queryRows.santsSolemnitatsFVespres1 = result;
+          this.getOficisComuns(params, result);
+        });
       }
-      this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-        this.queryRows.santsSolemnitatsFVespres1 = result;
-        this.getOficisComuns(params, result);
-      });
+      else{
+        day = this.dataTomorrow.mogut;
+        if(this.dataTomorrow.mogut === '-'){
+          var auxDay = new Date();
+          auxDay.setFullYear(date.getFullYear());
+          auxDay.setMonth(date.getMonth());
+          auxDay.setDate(date.getDate()+1);
+          day = this.calculeDia(auxDay, '-');
+        }
+        this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
+          this.queryRows.santsSolemnitatsFVespres1 = result;
+          this.getOficisComuns(params, result);
+        });
+      }
     }
 
     //taula 35 (#31): -  i //taula 36

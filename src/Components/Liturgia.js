@@ -48,7 +48,7 @@ export default class Liturgia extends Component {
       <View style={styles.container}>
         <TouchableOpacity style={styles.buttonContainer} onPress={
         this.onButtonPress.bind(this, "liturgia-display", "Ofici", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>Ofici</Text>
+         <Text style={styles.buttonText}>Ofici de lectura</Text>
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
        <TouchableOpacity style={styles.buttonContainer} onPress={
