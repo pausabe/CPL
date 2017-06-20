@@ -337,7 +337,7 @@ export default class HoraMenorSoul {
         case GLOBAL.A_FERIES:
         case GLOBAL.N_OCTAVA:
         case GLOBAL.N_ABANS:
-          if(llati === 'true'){ //TODO: tenir en compte els ajustaments (llatí o català)
+          if(llati === 'true'){
             switch (HM) {
               case 'Tèrcia':
                 this.TERCIA.himne = this.state.tempsAdventNadalComu.himneTerciaLlati;
@@ -1120,19 +1120,19 @@ export default class HoraMenorSoul {
         case GLOBAL.N_ABANS:
           switch (HM) {
             case 'Tèrcia':
-              this.TERCIA.vers = this.state.tempsNadalAbansEpifania.citaLectBreuTercia;
+              this.TERCIA.vers = this.state.tempsNadalAbansEpifania.citaLBTercia;
               this.TERCIA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuTercia;
               this.TERCIA.respV = this.state.tempsNadalAbansEpifania.respVTercia;
               this.TERCIA.respR = this.state.tempsNadalAbansEpifania.respRTercia;
               break;
             case 'Sexta':
-              this.SEXTA.vers = this.state.tempsNadalAbansEpifania.citaLectBreuSexta;
+              this.SEXTA.vers = this.state.tempsNadalAbansEpifania.citaLBSexta;
               this.SEXTA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuSexta;
               this.SEXTA.respV = this.state.tempsNadalAbansEpifania.respVSexta;
               this.SEXTA.respR = this.state.tempsNadalAbansEpifania.respRSexta;
               break;
             case 'Nona':
-              this.NONA.vers = this.state.tempsNadalAbansEpifania.citaLectBreuNona;
+              this.NONA.vers = this.state.tempsNadalAbansEpifania.citaLBNona;
               this.NONA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuNona;
               this.NONA.respV = this.state.tempsNadalAbansEpifania.respVNona;
               this.NONA.respR = this.state.tempsNadalAbansEpifania.respRNona;

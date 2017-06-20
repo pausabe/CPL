@@ -575,7 +575,7 @@ export default class CelebracioSoul {
     this.OFICI.oracio2 = TABLES.tempsQuaresmaDiumPasq.oracioSalm2Ofici;
     //L3
     this.OFICI.referencia3 = TABLES.tempsQuaresmaDiumPasq.referencia3Ofici;
-    this.OFICI.cita3 = TABLES.tempsQuaresmaDiumPasq.citaLect3Ofici;
+    this.OFICI.cita3 = TABLES.tempsQuaresmaDiumPasq.citaLec3Ofici;
     this.OFICI.titolLectura3 = TABLES.tempsQuaresmaDiumPasq.titolLect3Ofici;
     this.OFICI.lectura3 = TABLES.tempsQuaresmaDiumPasq.lectura3;
     this.OFICI.ant3 = TABLES.tempsQuaresmaDiumPasq.ant3Ofici;
@@ -1652,6 +1652,7 @@ export default class CelebracioSoul {
     if(TABLES.santsSolemnitatsFVespres1.text1Vespres1 !== '-')
       this.VESPRES1.salm1 = TABLES.santsSolemnitatsFVespres1.text1Vespres1;
     else if(TABLES.OficisComuns !== null) this.VESPRES1.salm1 = TABLES.OficisComuns.text1Vespres1;
+    console.log("super log: " + TABLES.santsSolemnitatsFVespres1);
     if(TABLES.santsSolemnitatsFVespres1.gloria1Vespres1 !== '-')
       this.VESPRES1.gloria1 = TABLES.santsSolemnitatsFVespres1.gloria1Vespres1;
     else if(TABLES.OficisComuns !== null) this.VESPRES1.gloria1 = TABLES.OficisComuns.gloria1Vespres1;

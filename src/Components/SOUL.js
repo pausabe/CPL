@@ -203,6 +203,7 @@ export default class SOUL {
     if(liturgicProps.LT === GLOBAL.Q_SETMANES){
       c += 1;
       id = (parseInt(liturgicProps.setmana)-1)*7 + (date.getDay()+1);
+      console.log("super day: " + date + " -> " + id);
       this.acceso.getLiturgia("tempsQuaresmaVSetmanes", id, (result) => {
         this.queryRows.tempsQuaresmaVSetmanes = result;
         this.dataReceived(params);
@@ -305,7 +306,7 @@ export default class SOUL {
           id = 3;
         break;
         case GLOBAL.N_ABANS:
-          if(date.getDate() <= 7){ id = 3; }
+          if(date.getDate() < 5){ id = 3; }
           else{ id = 4; }
         break;
         default: id = 1;
@@ -410,14 +411,13 @@ export default class SOUL {
       liturgicProps.LT !== GLOBAL.N_OCTAVA){
       c += 1;
       cicleAux = parseInt(liturgicProps.cicle);
-      if(params.idTSF !== -1) {
+      auxDay = date.getDay();
+      if(params.idTSF !== -1 || celType === 'S' || celType === 'F') {
         cicleAux = 1;
+        auxDay = 0;
       }
-      else {
-        if(params.idTSF === 2) cicleAux = 2;
-        if(celType === 'S' || celType === 'F') cicleAux = 1;
-      }
-      idLaudes = (cicleAux-1)*7 + (date.getDay()+1);
+      else if(params.idTSF === 2) cicleAux = 2;
+      idLaudes = (cicleAux-1)*7 + (auxDay+1);
       this.acceso.getLiturgia("salteriComuLaudes", idLaudes, (result) => {
         this.queryRows.salteriComuLaudes = result;
         this.dataReceived(params);
@@ -479,9 +479,11 @@ export default class SOUL {
     }
 
     //taula 28.2 (#13): Laudes(26), Vespres(23)
-    if(liturgicProps.LT === GLOBAL.Q_SETMANES){
+    if(liturgicProps.LT === GLOBAL.Q_SETMANES || liturgicProps.LT === GLOBAL.Q_CENDRA){
       c += 1;
-      id = parseInt(liturgicProps.setmana) + 1;
+      if(liturgicProps.LT === GLOBAL.Q_CENDRA) id = 1;
+      else id = parseInt(liturgicProps.setmana) + 1;
+      console.log("hello?1");
       this.acceso.getLiturgia("tempsQuaresmaVSetmanesDium", id, (result) => {
         this.queryRows.tempsQuaresmaVSetmanesDiumVespres1 = result;
         this.dataReceived(params);
@@ -538,7 +540,8 @@ export default class SOUL {
     if(true){
       c += 1;
       {date.getDay() === 6 ? id = 1 : id = date.getDay() + 2}
-      if(celType === 'S' || this.idTSF !== -1 || liturgicProps.LT === GLOBAL.P_OCTAVA) id = 2;
+      if(this.tomorrowCal !== '-') id = 8;
+      if(celType === 'S' || this.idTSF !== -1 || liturgicProps.LT === GLOBAL.P_OCTAVA) id = 9;
       this.acceso.getLiturgia("salteriComuCompletes", id, (result) => {
         this.queryRows.salteriComuCompletes = result;
         this.dataReceived(params);
@@ -549,11 +552,14 @@ export default class SOUL {
     if(idTF !== -1){
       c += 1;
       id = idTF;
-      //console.log("salteriComuOficiTF");
+      console.log("salteriComuOficiTF");
       this.acceso.getLiturgia("salteriComuOficiTF", id, (result) => {
         this.queryRows.salteriComuOficiTF = result;
         this.dataReceived(params);
       });
+    }
+    else{
+      this.queryRows.salteriComuOficiTF = '';
     }
 
     //taula 34.1 (#32): - i //taula 36
@@ -597,11 +603,13 @@ export default class SOUL {
     }
 
     //taula 34.2 (#32): - i //taula 36
-    if(this.tomorrowCal === 'S' && celType === 'F'){
+    if(this.tomorrowCal === 'S'){
       c += 1;
       console.log("santsSolemnitatsFVespres1");
       //TODO: conteplar dies movibles?
-      var auxDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      var auxDay = new Date();
+      auxDay.setFullYear(date.getFullYear());
+      auxDay.setMonth(date.getMonth());
       auxDay.setDate(date.getDate()+1);
       var day = this.calculeDia(auxDay, '-');
       this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
@@ -708,7 +716,7 @@ export default class SOUL {
       case "ofici":
           this.countLit -= 1;
           this.LITURGIA.ofici = pregaria;
-          console.log("setSoul OFICI");
+          console.log("setSoul OFICI " + this.LITURGIA.ofici.ant1);
         break;
       case "laudes":
           this.countLit -= 1;
@@ -815,7 +823,7 @@ export default class SOUL {
       this.LITURGIA.info_cel.typeCel = '-';
     }
     else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.Q_SET_SANTA){
-      this.LITURGIA.info_cel.nomCel = "Setmana Santa";
+      this.LITURGIA.info_cel.nomCel = this.weekDayName(this.variables.date.getDay()) + " Sant";
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';
     }
@@ -838,6 +846,32 @@ export default class SOUL {
       this.LITURGIA.info_cel.nomCel = "Cendra";
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';
+    }
+  }
+
+  weekDayName(num){
+    switch (num) {
+      case 0:
+        return("Diumenge");
+        break;
+      case 1:
+        return("Dilluns");
+        break;
+      case 2:
+        return("Dimarts");
+        break;
+      case 3:
+        return("Dimecres");
+        break;
+      case 4:
+        return("Dijous");
+        break;
+      case 5:
+        return("Divendres");
+        break;
+      case 6:
+        return("Dissabte");
+        break;
     }
   }
 
@@ -883,7 +917,10 @@ export default class SOUL {
 
     //santsMemories M - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
     //santsSolemnitats S - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
-    var auxDay = new Date(date.getFullYear(), 8, 2);
+    var auxDay = new Date();
+    auxDay.setFullYear(date.getFullYear());
+    auxDay.setMonth(8);
+    auxDay.setDate(2);
     var b = true;
     var dies = 0;
     while(b && dies < 7){

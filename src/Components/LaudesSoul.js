@@ -206,11 +206,21 @@ export default class LaudesSoul {
           }
         }
         else{
-          if(llati === 'true'){
-            himne = this.state.tempsPasquaAA.himneLaudesLlati2;
+          if(weekDay === 6 || weekDay === 0){
+            if(llati === 'true'){
+              himne = this.state.tempsPasquaAA.himneLaudesLlati1;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneLaudesCat1;
+            }
           }
           else{
-            himne = this.state.tempsPasquaAA.himneLaudesCat2;
+            if(llati === 'true'){
+              himne = this.state.tempsPasquaAA.himneLaudesLlati2;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneLaudesCat2;
+            }
           }
         }
         break;

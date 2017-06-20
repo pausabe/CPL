@@ -52,7 +52,7 @@ export default class LaudesDisplay extends Component {
       },
       redSmallItalicRight: {
         color: '#FF0000',
-        fontSize: this.convertTextSize(),
+        fontSize: this.convertTextSize()-2,
         fontStyle: 'italic',
         textAlign: 'right'
       }

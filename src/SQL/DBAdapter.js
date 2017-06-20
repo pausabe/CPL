@@ -49,7 +49,7 @@ export default class DBAdapter {
 
   getTomorrow(r1, year, month, day, callback){
     var tomorrow = new Date(year, month, day);
-    tomorrow.setDate(tomorrow.getDate()+1); //TODO: i si no existeix a la base de dades??!! (limitar el datapicker)
+    tomorrow.setDate(tomorrow.getDate()+1);
     year2 = tomorrow.getFullYear();
     month2 = tomorrow.getMonth();
     day2 = tomorrow.getDate();
@@ -77,24 +77,30 @@ export default class DBAdapter {
   }
 
   getSolMem(table, dia, diocesi, lloc, diocesiName, temps, callback){
-    var auxDiocesi = `'${diocesi}'`;
+    var auxDiocesiName = diocesiName;
+    var auxDiocesi = diocesi;
+    if(diocesi === 'Andorra' && dia !== '08-sep'){
+      var auxDiocesiName = 'Urgell';
+      var auxDiocesi = this.transformDiocesiName('Urgell', lloc);
+    }
+    var auxDiocesiQuery = `'${auxDiocesi}'`;
     if(lloc === 'Ciutat'){
-      auxDiocesi = `'${diocesi}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Diòcesi')}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Catedral')}'`;
+      auxDiocesiQuery = `'${auxDiocesi}' OR Diocesis = '${this.transformDiocesiName(auxDiocesiName, 'Diòcesi')}' OR Diocesis = '${this.transformDiocesiName(auxDiocesiName, 'Catedral')}'`;
     }
     else if(lloc === 'Catedral'){
-      auxDiocesi = `'${diocesi}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Diòcesi')}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Ciutat')}'`;
+      auxDiocesiQuery = `'${auxDiocesi}' OR Diocesis = '${this.transformDiocesiName(auxDiocesiName, 'Diòcesi')}' OR Diocesis = '${this.transformDiocesiName(auxDiocesiName, 'Ciutat')}'`;
     }
     else if (lloc === 'Diòcesi'){
-      auxDiocesi = `'${diocesi}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Catedral')}' OR Diocesis = '${this.transformDiocesiName(diocesiName, 'Ciutat')}'`;
+      auxDiocesiQuery = `'${auxDiocesi}' OR Diocesis = '${this.transformDiocesiName(auxDiocesiName, 'Catedral')}' OR Diocesis = '${this.transformDiocesiName(auxDiocesiName, 'Ciutat')}'`;
     }
-    var query = `SELECT * FROM ${table} WHERE (Diocesis = ${auxDiocesi} OR Diocesis = '-') AND dia = '${dia}' AND Temps = '${temps}'`;
+    var query = `SELECT * FROM ${table} WHERE (Diocesis = ${auxDiocesiQuery} OR Diocesis = '-') AND dia = '${dia}' AND Temps = '${temps}'`;
 
     console.log("QUERY SOL_MEM: " + query);
 
     this.executeQuery(query,
       result => {
         console.log("SolMem Result size: " + result.rows.length);
-        var index = this.findCorrect(result.rows, result.rows.length, diocesi, diocesiName, lloc);
+        var index = this.findCorrect(result.rows, result.rows.length, auxDiocesi, auxDiocesiName, lloc);
         console.log("index definitive: " + index);
         callback(result.rows.item(index));
       });
@@ -102,36 +108,37 @@ export default class DBAdapter {
 
   findCorrect(rows, length, diocesi, diocesiName, lloc){
     //Catedral < Ciutat < Diòcesi < -
-      if(length===1) return 0;
-      var i = 0;
-      auxDiocesi = diocesi;
+    if(length===1) return 0;
+    auxDiocesiName = diocesiName;
+    auxDiocesi = diocesi;
+    var i = 0;
+    while(i<length){
+      if(rows.item(i).Diocesis === auxDiocesi) return i;
+      i += 1;
+    }
+    if(lloc === 'Ciutat'){
+      auxDiocesi = this.transformDiocesiName(auxDiocesiName, 'Diòcesi');
+      i = 0;
       while(i<length){
         if(rows.item(i).Diocesis === auxDiocesi) return i;
         i += 1;
       }
-      if(lloc === 'Ciutat'){
-        auxDiocesi = this.transformDiocesiName(diocesiName, 'Diòcesi');
-        i = 0;
-        while(i<length){
-          if(rows.item(i).Diocesis === auxDiocesi) return i;
-          i += 1;
-        }
+    }
+    if(lloc === 'Catedral'){
+      auxDiocesi = this.transformDiocesiName(auxDiocesiName, 'Ciutat');
+      i = 0;
+      while(i<length){
+        if(rows.item(i).Diocesis === auxDiocesi) return i;
+        i += 1;
       }
-      if(lloc === 'Catedral'){
-        auxDiocesi = this.transformDiocesiName(diocesiName, 'Ciutat');
-        i = 0;
-        while(i<length){
-          if(rows.item(i).Diocesis === auxDiocesi) return i;
-          i += 1;
-        }
-        auxDiocesi = this.transformDiocesiName(diocesiName, 'Diòcesi');
-        i = 0;
-        while(i<length){
-          if(rows.item(i).Diocesis === auxDiocesi) return i;
-          i += 1;
-        }
+      auxDiocesi = this.transformDiocesiName(auxDiocesiName, 'Diòcesi');
+      i = 0;
+      while(i<length){
+        if(rows.item(i).Diocesis === auxDiocesi) return i;
+        i += 1;
       }
-      return 0; //-
+    }
+    return 0; //-
   }
 
   getSolMemDiesMov(table, id, callback){

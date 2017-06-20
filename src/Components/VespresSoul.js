@@ -156,11 +156,21 @@ export default class VespresSoul {
           }
         }
         else{
-          if(llati === 'true'){
-            himne = this.state.tempsPasquaAA.himneVespresLlati2;
+          if(weekDay === 6 || weekDay === 0){
+            if(llati === 'true'){
+              himne = this.state.tempsPasquaAA.himneVespresLlati1;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneVespresCat1;
+            }
           }
           else{
-            himne = this.state.tempsPasquaAA.himneVespresCat2;
+            if(llati === 'true'){
+              himne = this.state.tempsPasquaAA.himneVespresLlati2;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneVespresCat2;
+            }
           }
         }
         break;
@@ -191,7 +201,6 @@ export default class VespresSoul {
   salmodia(LT, setmana, weekDay, CEL){
     switch(LT){
       case GLOBAL.O_ORDINARI:
-      case GLOBAL.Q_CENDRA:
       case GLOBAL.A_FERIES:
       case GLOBAL.N_ABANS:
         ant1 = this.state.salteriComuVespres.ant1;
@@ -211,6 +220,7 @@ export default class VespresSoul {
         gloria3 = this.state.salteriComuVespres.gloria3;
         break;
         case GLOBAL.Q_SETMANES:
+        case GLOBAL.Q_CENDRA:
           ant1 = this.state.salteriComuVespres.ant1;
           titol1 = this.state.salteriComuVespres.titol1;
           com1 = this.state.salteriComuVespres.com1;

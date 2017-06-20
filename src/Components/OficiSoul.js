@@ -40,7 +40,7 @@ export default class OficiSoul {
         };
 
         if(TABLES.salteriComuOficiTF !== ''){
-          //console.log("catching TF: " + TABLES.salteriComuOficiTF);
+          console.log("catching TF: " + TABLES.salteriComuOficiTF);
           this.state.salteriComuOfici = TABLES.salteriComuOficiTF;
         }
 
@@ -222,11 +222,21 @@ export default class OficiSoul {
           }
         }
         else{
-          if(llati === 'true'){
-            himne = this.state.tempsPasquaAA.himneOficiLlati2;
+          if(weekDay === 6 || weekDay === 0){
+            if(llati === 'true'){
+              himne = this.state.tempsPasquaAA.himneOficiLlati1;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneOficiCat1;
+            }
           }
           else{
-            himne = this.state.tempsPasquaAA.himneOficiCat2;
+            if(llati === 'true'){
+              himne = this.state.tempsPasquaAA.himneOficiLlati2;
+            }
+            else{
+              himne = this.state.tempsPasquaAA.himneOficiCat2;
+            }
           }
         }
         break;
@@ -257,6 +267,7 @@ export default class OficiSoul {
       case GLOBAL.Q_SET_SANTA:
       case GLOBAL.N_ABANS:
         ant1 = this.state.salteriComuOfici.ant1;
+        console.log("ANT 1 Ofici Soul: " + ant1);
         titol1 = this.state.salteriComuOfici.titol1;
         com1 = this.state.salteriComuOfici.com1;
         salm1 = this.state.salteriComuOfici.salm1;
@@ -753,12 +764,14 @@ export default class OficiSoul {
     if(CEL.lectura1 === '-')
       this.OFICI.lectura1 = lectura1;
     else this.OFICI.lectura1 = CEL.lectura1;
-    if(CEL.citaResp1 === '-')
-      this.OFICI.citaResp1 = citaResp1;
-    else this.OFICI.citaResp1 = CEL.citaResp1;
-    if(CEL.resp1Part1 === '-')
+    if(CEL.resp1Part1 === '-'){
       this.OFICI.resp1Part1 = resp1Part1;
-    else this.OFICI.resp1Part1 = CEL.resp1Part1;
+      this.OFICI.citaResp1 = citaResp1;
+    }
+    else {
+      this.OFICI.resp1Part1 = CEL.resp1Part1;
+      this.OFICI.citaResp1 = CEL.citaResp1;
+    }
     if(CEL.resp1Part2 === '-')
       this.OFICI.resp1Part2 = resp1Part2;
     else this.OFICI.resp1Part2 = CEL.resp1Part2;
@@ -777,12 +790,14 @@ export default class OficiSoul {
     if(CEL.lectura2 === '-')
       this.OFICI.lectura2 = lectura2;
     else this.OFICI.lectura2 = CEL.lectura2;
-    if(CEL.versResp2 === '-')
-      this.OFICI.versResp2 = versResp2;
-    else this.OFICI.versResp2 = CEL.versResp2;
-    if(CEL.resp2Part1 === '-')
+    if(CEL.resp2Part1 === '-'){
       this.OFICI.resp2Part1 = resp2Part1;
-    else this.OFICI.resp2Part1 = CEL.resp2Part1;
+      this.OFICI.versResp2 = versResp2;
+    }
+    else {
+      this.OFICI.resp2Part1 = CEL.resp2Part1;
+      this.OFICI.versResp2 = CEL.versResp2;
+    }
     if(CEL.resp2Part2 === '-')
       this.OFICI.resp2Part2 = resp2Part2;
     else this.OFICI.resp2Part2 = CEL.resp2Part2;

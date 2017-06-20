@@ -77,8 +77,8 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 10; //0-30
-      var finalIndex = 15; //0-30
+      var initalIndex = 0; //0-30
+      var finalIndex = 30; //0-30
       this.diocesiTest = this.nextDiocesi(initalIndex);
       this.diocesiNameTest = this.nextDiocesiName(initalIndex);
       this.llocTest = this.nextLloc(initalIndex);
@@ -244,7 +244,9 @@ export default class HomeScreen extends Component {
         console.log("pickerAccept: " + args.newDate);
         this.picAcc = true;
         if(args.newDate !== this.variables.date){
-          var tomorrow = new Date(args.newDate.getFullYear(), args.newDate.getMonth());
+          var tomorrow = new Date();
+          tomorrow.setFullYear(args.newDate.getFullYear());
+          tomorrow.setMonth(args.newDate.getMonth());
           tomorrow.setDate(args.newDate.getDate() + 1);
           this.dataTomorrow.date = tomorrow;
           console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
@@ -350,11 +352,19 @@ export default class HomeScreen extends Component {
   }
 
   passDayTest(day){
+    if(day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
     if(this.diocesiTest === 'LlV' && day.getDate()===2 && day.getMonth()===9 && day.getFullYear()===2017)
       return true;
     if(this.diocesiTest === 'LlV' && day.getDate()===1 && day.getMonth()===9 && day.getFullYear()===2017)
       return true;
     if((this.diocesiTest === 'SFD' || this.diocesiTest === 'SFV' || this.diocesiTest === 'SFC') && day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
+      return true;
+    if((this.diocesiTest === 'SoD' || this.diocesiTest === 'SoV' || this.diocesiTest === 'SoC') && day.getDate()===14 && day.getMonth()===10 && day.getFullYear()===2017)
+      return true;
+    if((this.diocesiTest === 'ToD' || this.diocesiTest === 'ToV' || this.diocesiTest === 'ToC') && day.getDate()===31 && day.getMonth()===7 && day.getFullYear()===2017)
+      return true;
+    if((this.diocesiTest === 'ToD' || this.diocesiTest === 'ToV' || this.diocesiTest === 'ToC') && day.getDate()===1 && day.getMonth()===8 && day.getFullYear()===2017)
       return true;
     return false;
   }
