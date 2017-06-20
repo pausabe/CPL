@@ -77,8 +77,8 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 0; //0-30
-      var finalIndex = 15; //0-30
+      var initalIndex = 8; //0-30
+      var finalIndex = 30; //0-30
       this.diocesiTest = this.nextDiocesi(initalIndex);
       this.diocesiNameTest = this.nextDiocesiName(initalIndex);
       this.llocTest = this.nextLloc(initalIndex);
@@ -352,6 +352,8 @@ export default class HomeScreen extends Component {
   }
 
   passDayTest(day){
+    if((day.getDate()===29 || day.getDate()===30) && day.getMonth()===4 && day.getFullYear()===2017)
+      return true;
     /*if(day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
       return true;
     if(this.diocesiTest === 'LlV' && day.getDate()===2 && day.getMonth()===9 && day.getFullYear()===2017)
