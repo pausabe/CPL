@@ -1,4 +1,4 @@
-package com.cpl;
+package cpl.cpl;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package com.cpl;
+package cpl.cpl;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.horcrux.svg.SvgPackage;
