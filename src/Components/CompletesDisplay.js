@@ -84,8 +84,6 @@ export default class CompletesDisplay extends Component {
   render() {
     COMPLETES = this.props.liturgicProps.LITURGIA.completes;
 
-    COMPLETES.oracio = this.completeOracio(COMPLETES.oracio);
-
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
     return (
       <View>
@@ -286,30 +284,6 @@ export default class CompletesDisplay extends Component {
       </View>
     );
   }
-
-  completeOracio(oracio){
-    var form1 = "Per nostre Senyor Jesucrist";
-    var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
-    var form2 = "Vós, que viviu i regneu pels segles dels segles";
-    var bigf2 = "Vós, que viviu i regneu amb Déu Pare en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
-    var form3 = "Que viu i regna pels segles dels segles";
-    var form4 = "Ell, que viu i regna pels segles dels segles";
-    var bigf4 = "Ell, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
-
-    oAux = oracio;
-    //console.log(oAux);
-    if(oAux.search(form1) !== -1)
-      return oAux.replace(form1, bigf1);
-    if(oAux.search(form2) !== -1)
-      return oAux.replace(form2, bigf2);
-    if(oAux.search(form3) !== -1)
-      return oAux.replace(form3, bigf4);
-    if(oAux.search(form4) !== -1)
-      return oAux.replace(form4, bigf4);
-
-    return oracio;
-  }
-
 
   salm(salm){
     if(this.props.variables.cleanSalm === 'false'){

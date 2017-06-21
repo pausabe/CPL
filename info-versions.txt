@@ -1,2 +1,3 @@
-v0.0(20.06.2017)[A1.0] - Primera pujada al mercat
-v0.1(20.06.2017)[A1.0] - Some bugs fixed
+v0.0(20.06.2017)[1] - Primera pujada al mercat
+v0.1(20.06.2017)[2] - Some bugs fixed
+v0.11(21.06.2017)[3] - Android button hits improved

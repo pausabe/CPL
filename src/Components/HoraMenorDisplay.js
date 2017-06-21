@@ -284,30 +284,7 @@ export default class HoraMenorDisplay extends Component {
   }
 
   oracio(LT, weekDay, HM){
-    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(this.props.HORA_MENOR.oracio)}</Text>);
-  }
-
-  completeOracio(oracio){
-    var form1 = "Per nostre Senyor Jesucrist";
-    var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
-    var form2 = "Vós, que viviu i regneu pels segles dels segles";
-    var bigf2 = "Vós, que viviu i regneu amb Déu Pare en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
-    var form3 = "Que viu i regna pels segles dels segles";
-    var form4 = "Ell, que viu i regna pels segles dels segles";
-    var bigf4 = "Ell, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
-
-    oAux = oracio;
-    //console.log(oAux);
-    if(oAux.search(form1) !== -1)
-      return oAux.replace(form1, bigf1);
-    if(oAux.search(form2) !== -1)
-      return oAux.replace(form2, bigf2);
-    if(oAux.search(form3) !== -1)
-      return oAux.replace(form3, bigf4);
-    if(oAux.search(form4) !== -1)
-      return oAux.replace(form4, bigf4);
-
-    return oracio;
+    return(<Text selectable={true} style={this.styles.black}>{this.props.HORA_MENOR.oracio}</Text>);
   }
 }
 

@@ -61,11 +61,13 @@ export default class HomeScreen extends Component {
 
     this.state = {
       santPressed: false,
+      testInfo: 'testing correctly'
     }
 
     this.arrows = false;
 
-    this.testing = false; //fer-ho amb iphone 7!
+    this.testing = false; //fer-ho amb iphone 7 sense console
+    this.renderTest = this.testing;
     this.initialDayTest = {
       day: 2,
       month: 0,
@@ -79,8 +81,8 @@ export default class HomeScreen extends Component {
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 28; //0-30
-      var finalIndex = 30; //0-30
+      var initalIndex = 12; //0-30
+      var finalIndex = 12; //0-30
       this.diocesiTest = this.nextDiocesi(initalIndex);
       this.diocesiNameTest = this.nextDiocesiName(initalIndex);
       this.llocTest = this.nextLloc(initalIndex);
@@ -149,6 +151,7 @@ export default class HomeScreen extends Component {
   }
 
   error(){
+    this.setState({testInfo: "something went wrong"});
     this.testing = false;
   }
 
@@ -188,7 +191,10 @@ export default class HomeScreen extends Component {
   }
 
   shouldComponentUpdate(){
-    if(this.litPres){
+    if(this.testing){
+      return true;
+    }
+    else if(this.litPres){
       console.log("Should. NO, estic anant a Liturgia");
       this.inLit = true;
       this.litPres = false;
@@ -317,6 +323,7 @@ export default class HomeScreen extends Component {
         nextDay.getMonth() === this.finalDayTest.month &&
         nextDay.getDate() === this.finalDayTest.day){
           if(this.idTest === this.maxIdTest){
+            this.setState({testInfo: "Test ended correctly"});
             console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
           }
           else{
@@ -331,6 +338,7 @@ export default class HomeScreen extends Component {
             auxTomorrow.setDate(this.initialDayTest.day+1);
             this.dataTomorrow.date = auxTomorrow;
             this.refreshEverything(firstDay);
+            this.setState({testInfo: "Testing correctly"});
             console.log("--------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
           }
       }
@@ -349,12 +357,13 @@ export default class HomeScreen extends Component {
         }
         console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
         this.refreshEverything(nextDay);
+        this.setState({testInfo: "Testing correctly"});
       }
     }
   }
 
   passDayTest(day){
-    if((day.getDate()===28 || day.getDate()===29) && day.getMonth()===4 && day.getFullYear()===2017)
+    if((this.diocesiNameTest==='Solsona' || this.diocesiNameTest==='Urgell' || this.diocesiNameTest==='Tortosa') && (day.getDate()===28 || day.getDate()===29) && day.getMonth()===4 && day.getFullYear()===2017)
       return true;
     /*if(day.getDate()===23 && day.getMonth()===8 && day.getFullYear()===2017)
       return true;
@@ -402,99 +411,111 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    console.log("RENDER!!! " + this.variables.date);
-    auxPadding = 5;
-    return (
-      <View style={styles.container}>
-       <Image source={require('../img/bg/currentbg.jpg')} style={styles.backgroundImage}>
-         <View style={styles.infoContainer}>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
-              {this.arrows ?
-                <View>
-                  <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onMinusPress.bind(this)}>
-                     <Text>{"<<<     "}</Text>
-                  </TouchableOpacity>
-                </View> : null}
-              <View>
-                <Text style={styles.infoText}>{this.variables.diocesiName}{" ("}{this.variables.lloc}{")"}
-                  {" - "}<Text style={styles.infoText}>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
-                </Text>
-              </View>
-              {this.arrows ?
-                <View>
-                  <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
-                     <Text>{"     >>>"}</Text>
-                  </TouchableOpacity>
-                </View> : null}
-            </View>
-         </View>
-         <View style={styles.diaLiturgicContainer}>
-           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== '0' ? " de la setmana " : null}
-             {this.liturgicProps.setmana !== '0' ? this.liturgicPaint(this.romanize(this.liturgicProps.setmana), this.variables.litColor) : null }</Text>
-           <Text style={styles.diaLiturgicText}>{"Temps - "}{this.liturgicPaint(this.tempsName(this.liturgicProps.tempsespecific), this.variables.litColor)}</Text>
-           <Text style={styles.diaLiturgicText}>{"Setmana "}{this.liturgicPaint(this.romanize(this.liturgicProps.cicle), this.variables.litColor)}
-            {" del cicle litúrgic, any "}{this.liturgicPaint(this.liturgicProps.ABC, this.variables.litColor)}</Text>
-         </View>
-         {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
-         <View style={{paddingBottom: 5}}>
-           {this.transfromCelTypeName(this.liturgicProps.LITURGIA.info_cel.typeCel, this.liturgicProps.tempsespecific)}
-         </View>
-         : null}
-         {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
-           <View style={styles.santContainer}>
-             <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
-               <View style={{flex: 1, flexDirection: 'row', paddingRight: auxPadding}}>
-                 <View style={{flex: 20, justifyContent: 'center', paddingRight: (auxPadding*2)}}>
-                   <Text numberOfLines={2} style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
-                 </View>
-                 <View style={{flex: 1, justifyContent: 'center'}}>
-                 {this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
+    console.log("RENDER!!!");
+    if(!this.renderTest){
+      auxPadding = 5;
+      return (
+        <View style={styles.container}>
+         <Image source={require('../img/bg/currentbg.jpg')} style={styles.backgroundImage}>
+           <View style={styles.infoContainer}>
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+                {this.arrows ?
                   <View>
-                  {this.state.santPressed ?
-                    <Icon
-                      name="ios-arrow-down"
-                      size={25}
-                      color="#424242"
-                    />
+                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onMinusPress.bind(this)}>
+                       <Text>{"<<<     "}</Text>
+                    </TouchableOpacity>
+                  </View> : null}
+                <View>
+                  <Text style={styles.infoText}>{this.variables.diocesiName}{" ("}{this.variables.lloc}{")"}
+                    {" - "}<Text style={styles.infoText}>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+                  </Text>
+                </View>
+                {this.arrows ?
+                  <View>
+                    <TouchableOpacity style={styles.buttonSantContainer} onPress={this.onPlusPress.bind(this)}>
+                       <Text>{"     >>>"}</Text>
+                    </TouchableOpacity>
+                  </View> : null}
+              </View>
+           </View>
+           <View style={styles.diaLiturgicContainer}>
+             <Text style={styles.diaLiturgicText}>{this.weekDayName(this.variables.date.getDay())}{this.liturgicProps.setmana !== '0' ? " de la setmana " : null}
+               {this.liturgicProps.setmana !== '0' ? this.liturgicPaint(this.romanize(this.liturgicProps.setmana), this.variables.litColor) : null }</Text>
+             <Text style={styles.diaLiturgicText}>{"Temps - "}{this.liturgicPaint(this.tempsName(this.liturgicProps.tempsespecific), this.variables.litColor)}</Text>
+             <Text style={styles.diaLiturgicText}>{"Setmana "}{this.liturgicPaint(this.romanize(this.liturgicProps.cicle), this.variables.litColor)}
+              {" del cicle litúrgic, any "}{this.liturgicPaint(this.liturgicProps.ABC, this.variables.litColor)}</Text>
+           </View>
+           {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
+           <View style={{paddingBottom: 5}}>
+             {this.transfromCelTypeName(this.liturgicProps.LITURGIA.info_cel.typeCel, this.liturgicProps.tempsespecific)}
+           </View>
+           : null}
+           {this.liturgicProps.LITURGIA !== null && this.liturgicProps.LITURGIA.info_cel.nomCel !== '-' ?
+             <View style={styles.santContainer}>
+               <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.onSantPress.bind(this)}>
+                 <View style={{flex: 1, flexDirection: 'row', paddingRight: auxPadding}}>
+                   <View style={{flex: 20, justifyContent: 'center', paddingRight: (auxPadding*2)}}>
+                     <Text numberOfLines={2} style={styles.santText}>{this.liturgicProps.LITURGIA.info_cel.nomCel}</Text>
+                   </View>
+                   <View style={{flex: 1, justifyContent: 'center'}}>
+                   {this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
+                    <View>
+                    {this.state.santPressed ?
+                      <Icon
+                        name="ios-arrow-down"
+                        size={25}
+                        color="#424242"
+                      />
+                      :
+                      <Icon
+                        name="ios-arrow-forward-outline"
+                        size={25}
+                        iconStyle={{padding: 50}}
+                        color="#424242"
+                      />
+                    }
+                    </View>
                     :
-                    <Icon
-                      name="ios-arrow-forward-outline"
-                      size={25}
-                      iconStyle={{padding: 50}}
-                      color="#424242"
-                    />
-                  }
-                  </View>
-                  :
-                  null
-                 }
+                    null
+                   }
+                   </View>
                  </View>
-               </View>
-             </TouchableOpacity>
-           </View>
-         : null}
+               </TouchableOpacity>
+             </View>
+           : null}
 
-          {this.state.santPressed && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
-           <View style={styles.liturgiaContainer}>
-            <ScrollView>
-             <Text style={styles.santExText}>{this.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
-             <Text style={styles.santExText}/>
-            </ScrollView>
-           </View>
-           :
-           <View style={styles.liturgiaContainer}>
-             <Liturgia
-               HS={this}
-               navigator={this.props.navigator}
-               variables={this.variables}
-               liturgicProps={this.liturgicProps}
-               events={this.eventEmitter}
-             />
-           </View>
-         }
-       </Image>
-     </View>
-    )
+            {this.state.santPressed && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-' ?
+             <View style={styles.liturgiaContainer}>
+              <ScrollView>
+               <Text style={styles.santExText}>{this.liturgicProps.LITURGIA.info_cel.infoCel}</Text>
+               <Text style={styles.santExText}/>
+              </ScrollView>
+             </View>
+             :
+             <View style={styles.liturgiaContainer}>
+               <Liturgia
+                 HS={this}
+                 navigator={this.props.navigator}
+                 variables={this.variables}
+                 liturgicProps={this.liturgicProps}
+                 events={this.eventEmitter}
+               />
+             </View>
+           }
+         </Image>
+       </View>
+      )
+    }
+    else{
+      return(
+        <View style={styles.container}>
+          <Text>{this.state.testInfo}</Text>
+          <Text>{this.idTest}</Text>
+          <Text>{this.diocesiTest}</Text>
+          <Text>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+        </View>
+      )
+    }
   }
 
   tempsName(t){

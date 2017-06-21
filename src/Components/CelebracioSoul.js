@@ -1301,12 +1301,14 @@ export default class CelebracioSoul {
     if(TABLES.santsSolemnitats.lectura1 !== '-')
       this.OFICI.lectura1 = TABLES.santsSolemnitats.lectura1;
     else if(TABLES.OficisComuns !== null) this.OFICI.lectura1 = TABLES.OficisComuns.lectura1;
-    if(TABLES.santsSolemnitats.citaResp1Ofici !== '-')
+    if(TABLES.santsSolemnitats.resp1Part1Ofici !== '-'){
       this.OFICI.citaResp1 = TABLES.santsSolemnitats.citaResp1Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.citaResp1 = TABLES.OficisComuns.citaResp1Ofici;
-    if(TABLES.santsSolemnitats.resp1Part1Ofici !== '-')
       this.OFICI.resp1Part1 = TABLES.santsSolemnitats.resp1Part1Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.resp1Part1 = TABLES.OficisComuns.resp1Part1Ofici;
+    }
+    else if(TABLES.OficisComuns !== null) {
+      this.OFICI.citaResp1 = TABLES.OficisComuns.citaResp1Ofici;
+      this.OFICI.resp1Part1 = TABLES.OficisComuns.resp1Part1Ofici;
+    }
     if(TABLES.santsSolemnitats.resp1Part2Ofici !== '-')
       this.OFICI.resp1Part2 = TABLES.santsSolemnitats.resp1Part2Ofici;
     else if(TABLES.OficisComuns !== null) this.OFICI.resp1Part2 = TABLES.OficisComuns.resp1Part2Ofici;
@@ -1326,12 +1328,14 @@ export default class CelebracioSoul {
     if(TABLES.santsSolemnitats.lectura2 !== '-')
       this.OFICI.lectura2 = TABLES.santsSolemnitats.lectura2;
     else if(TABLES.OficisComuns !== null) this.OFICI.lectura2 = TABLES.OficisComuns.lectura2;
-    if(TABLES.santsSolemnitats.citaResp2Ofici !== '-')
-      this.OFICI.versResp2 = TABLES.santsSolemnitats.citaResp2Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.versResp2 = TABLES.OficisComuns.citaResp2Ofici;
-    if(TABLES.santsSolemnitats.resp2Part1Ofici !== '-')
+    if(TABLES.santsSolemnitats.resp2Part1Ofici !== '-'){
+      this.OFICI.resp2Part1 = TABLES.santsSolemnitats.citaResp2Ofici;
       this.OFICI.resp2Part1 = TABLES.santsSolemnitats.resp2Part1Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.resp2Part1 = TABLES.OficisComuns.resp2Part1Ofici;
+    }
+    else if(TABLES.OficisComuns !== null) {
+      this.OFICI.versResp2 = TABLES.OficisComuns.citaResp2Ofici;
+      this.OFICI.resp2Part1 = TABLES.OficisComuns.resp2Part1Ofici;
+    }
     if(TABLES.santsSolemnitats.resp2Part2Ofici !== '-')
       this.OFICI.resp2Part2 = TABLES.santsSolemnitats.resp2Part2Ofici;
     else if(TABLES.OficisComuns !== null) this.OFICI.resp2Part2 = TABLES.OficisComuns.resp2Part2Ofici;
@@ -1798,12 +1802,14 @@ export default class CelebracioSoul {
     if(TABLES.santsMemories.lectura1 !== '-')
       this.OFICI.lectura1 = TABLES.santsMemories.lectura1;
     else if(TABLES.OficisComuns !== null) this.OFICI.lectura1 = TABLES.OficisComuns.lectura1;
-    if(TABLES.santsMemories.citaResp1Ofici !== '-')
+    if(TABLES.santsMemories.resp1Part1Ofici !== '-'){
       this.OFICI.citaResp1 = TABLES.santsMemories.citaResp1Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.citaResp1 = TABLES.OficisComuns.citaResp1Ofici;
-    if(TABLES.santsMemories.resp1Part1Ofici !== '-')
       this.OFICI.resp1Part1 = TABLES.santsMemories.resp1Part1Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.resp1Part1 = TABLES.OficisComuns.resp1Part1Ofici;
+    }
+    else if(TABLES.OficisComuns !== null) {
+      this.OFICI.citaResp1 = TABLES.OficisComuns.citaResp1Ofici;
+      this.OFICI.resp1Part1 = TABLES.OficisComuns.resp1Part1Ofici;
+    }
     if(TABLES.santsMemories.resp1Part2Ofici !== '-')
       this.OFICI.resp1Part2 = TABLES.santsMemories.resp1Part2Ofici;
     else if(TABLES.OficisComuns !== null) this.OFICI.resp1Part2 = TABLES.OficisComuns.resp1Part2Ofici;
@@ -1822,12 +1828,14 @@ export default class CelebracioSoul {
     if(TABLES.santsMemories.lectura2 !== '-')
       this.OFICI.lectura2 = TABLES.santsMemories.lectura2;
     else if(TABLES.OficisComuns !== null) this.OFICI.lectura2 = TABLES.OficisComuns.lectura2;
-    if(TABLES.santsMemories.citaResp2Ofici !== '-')
+    if(TABLES.santsMemories.resp2Part1Ofici !== '-'){
       this.OFICI.versResp2 = TABLES.santsMemories.citaResp2Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.versResp2 = TABLES.OficisComuns.citaResp2Ofici;
-    if(TABLES.santsMemories.resp2Part1Ofici !== '-')
       this.OFICI.resp2Part1 = TABLES.santsMemories.resp2Part1Ofici;
-    else if(TABLES.OficisComuns !== null) this.OFICI.resp2Part1 = TABLES.OficisComuns.resp2Part1Ofici;
+    }
+    else if(TABLES.OficisComuns !== null) {
+      this.OFICI.versResp2 = TABLES.OficisComuns.citaResp2Ofici;
+      this.OFICI.resp2Part1 = TABLES.OficisComuns.resp2Part1Ofici;
+    }
     if(TABLES.santsMemories.resp2Part2Ofici !== '-')
       this.OFICI.resp2Part2 = TABLES.santsMemories.resp2Part2Ofici;
     else if(TABLES.OficisComuns !== null) this.OFICI.resp2Part2 = TABLES.OficisComuns.resp2Part2Ofici;
