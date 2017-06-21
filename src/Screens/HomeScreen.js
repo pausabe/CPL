@@ -18,6 +18,7 @@ import SOUL from '../Components/SOUL';
 import SettingsManager from '../Settings/SettingsManager';
 import GLOBAL from "../Globals/Globals";
 var Subscribable = require('Subscribable');
+import EventEmitter from 'EventEmitter';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -41,6 +42,7 @@ export default class HomeScreen extends Component {
 
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', this.backHandler.bind(this));
+    //this.eventEmitter = new EventEmitter();
   }
 
   backHandler(){
@@ -486,6 +488,7 @@ export default class HomeScreen extends Component {
                navigator={this.props.navigator}
                variables={this.variables}
                liturgicProps={this.liturgicProps}
+               events={this.eventEmitter}
              />
            </View>
          }
@@ -507,7 +510,7 @@ export default class HomeScreen extends Component {
           return(<Text style={{color: 'rgb(242, 242, 242)'}}>{string}</Text>);
         break;
       case 'V':
-          return(<Text style={{color: 'rgb(0, 128, 40)'}}>{string}</Text>);
+          return(<Text style={{color: 'rgb(0, 102, 0)'}}>{string}</Text>);
         break;
       case 'R':
           return(<Text style={{color: 'rgb(192, 57, 43)'}}>{string}</Text>);
@@ -521,6 +524,8 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
+    //this.eventEmitter.emit('litEvent', {id: 0});
+    //this.eventEmitter.emit('litEvent', {id: 1});
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
       if(this.santPress === 0) this.santPress = 1;
       else if(this.santPress === 1) this.santPress = 2;

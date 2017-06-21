@@ -12,6 +12,8 @@ export default class CompletesDisplay extends Component {
   constructor(props){
     super(props);
 
+    console.log("CompletesDisplay");
+
     //console.log("testing Completes: " + this.convertTextSize());
 
     this.styles = {

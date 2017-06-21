@@ -12,6 +12,8 @@ export default class HoraMenorDisplay extends Component {
   constructor(props){
     super(props);
 
+    console.log("HoraMenorDisplay");
+
     this.styles = {
       black: {
         color: '#000000',

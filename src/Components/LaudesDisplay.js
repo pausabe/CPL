@@ -12,7 +12,7 @@ export default class LaudesDisplay extends Component {
   constructor(props){
     super(props);
 
-    //console.log("testing Laudes: " + this.props.variables.textSize + " - " + this.convertTextSize() + " - " + GLOBAL.size2);
+    console.log("LaudesDisplay");
 
     this.styles = {
       black: {

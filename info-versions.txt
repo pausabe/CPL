@@ -1,1 +1,2 @@
-v0.0(20.06.2017) - Primera pujada al mercat
+v0.0(20.06.2017)[A1.0] - Primera pujada al mercat
+v0.1(20.06.2017)[A1.0] - Some bugs fixed

@@ -12,6 +12,89 @@ import Hr from 'react-native-hr';
 import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen'
 
 export default class Liturgia extends Component {
+  componentDidMount() {
+    //this.props.events.addListener('litEvent', this.openTest.bind(this));
+  }
+
+  /*openTest(args){
+    console.log("open test");
+    if(args.id === 0){
+      this.props.navigator.push({
+        title: 'testing - Ofici',
+        passProps: {
+          type: 'Ofici',
+          date: this.props.date,
+          variables: this.props.variables,
+          liturgicProps: this.props.liturgicProps,
+        },
+        component: LiturgiaDisplayScreen
+      });
+    }
+    else if(args.id === 1){
+      this.props.navigator.push({
+        title: 'testing - Laudes',
+        passProps: {
+          type: 'Laudes',
+          date: this.props.date,
+          variables: this.props.variables,
+          liturgicProps: this.props.liturgicProps,
+        },
+        component: LiturgiaDisplayScreen
+      });
+    }
+
+    this.props.navigator.push({
+      title: 'testing - Tèrcia',
+      passProps: {
+        type: 'Tèrcia',
+        date: this.props.date,
+        variables: this.props.variables,
+        liturgicProps: this.props.liturgicProps,
+      },
+      component: LiturgiaDisplayScreen
+    });
+    this.props.navigator.push({
+      title: 'testing - Tèrcia',
+      passProps: {
+        type: 'Tèrcia',
+        date: this.props.date,
+        variables: this.props.variables,
+        liturgicProps: this.props.liturgicProps,
+      },
+      component: LiturgiaDisplayScreen
+    });
+    this.props.navigator.push({
+      title: 'testing - Sexta',
+      passProps: {
+        type: 'Sexta',
+        date: this.props.date,
+        variables: this.props.variables,
+        liturgicProps: this.props.liturgicProps,
+      },
+      component: LiturgiaDisplayScreen
+    });
+    this.props.navigator.push({
+      title: 'testing - Nona',
+      passProps: {
+        type: 'Nona',
+        date: this.props.date,
+        variables: this.props.variables,
+        liturgicProps: this.props.liturgicProps,
+      },
+      component: LiturgiaDisplayScreen
+    });
+    this.props.navigator.push({
+      title: 'testing - Completes',
+      passProps: {
+        type: 'Completes',
+        date: this.props.date,
+        variables: this.props.variables,
+        liturgicProps: this.props.liturgicProps,
+      },
+      component: LiturgiaDisplayScreen
+    });
+  }*/
+
   onButtonPress(idPressed, type, component){
     this.props.HS.liturgiaPressed();
     if(this.props.liturgicProps.LITURGIA !== null){

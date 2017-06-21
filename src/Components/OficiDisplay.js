@@ -12,6 +12,8 @@ export default class OficiDisplay extends Component {
   constructor(props){
     super(props);
 
+    console.log("OficiDisplay");
+
     this.styles = {
       black: {
         color: '#000000',

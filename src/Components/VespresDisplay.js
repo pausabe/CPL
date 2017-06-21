@@ -12,6 +12,8 @@ export default class VespresDisplay extends Component {
   constructor(props){
     super(props);
 
+    console.log("VespresDisplay");
+
     this.styles = {
       black: {
         color: '#000000',

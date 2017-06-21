@@ -30,7 +30,7 @@ import EventEmitter from 'EventEmitter';
 export default class NavigatorController extends Component {
   componentWillMount() {
     Icon.getImageSource('ios-settings-outline', 30).then((source) => this.setState({ settingsIcon: source }));
-    Icon.getImageSource('ios-calendar-outline', 30).then((source) => this.setState({ calendarIcon: source })); //md-calendar
+    Icon.getImageSource('ios-calendar-outline', 30).then((source) => this.setState({ calendarIcon: source }));
     this.eventEmitter = new EventEmitter();
   }
 
@@ -137,13 +137,12 @@ export default class NavigatorController extends Component {
                     if (route.index === 0) {
                       return (
                         <TouchableOpacity style={{flex: 1, alignItems: 'center',
-                            paddingLeft: 5, justifyContent: 'center',}}
-                            hitSlop={{top:35,bottom:35,right:45,left:35}}>
+                            paddingLeft: 5, paddingRight: 5, justifyContent: 'center',}}
+                            onPress={this.leftPress.bind(this)}>
                           <Icon
                             name="ios-calendar-outline"
                             size={30}
                             color="#FFFFFF"
-                            onPress={this.leftPress.bind(this)}
                           />
                         </TouchableOpacity>
                       );
@@ -177,15 +176,16 @@ export default class NavigatorController extends Component {
                       }
                       else{
                         return (
-                          <TouchableOpacity style={{flex: 1, alignItems: 'center',
-                            paddingRight: 5, justifyContent: 'center',}}
-                            hitSlop={{top:35,bottom:35,right:45,left:35}}>
-                            <Icon
-                              name="ios-settings-outline"
-                              size={30}
-                              color="#FFFFFF"
-                              onPress={this.rightPress.bind(this, navigator)}
-                            />
+                          <TouchableOpacity
+                              style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
+                              onPress={this.rightPress.bind(this, navigator)}>
+                            <View style={{flex:1, paddingRight: 5, paddingLeft: 5, flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
+                              <Icon
+                                name="ios-settings-outline"
+                                size={30}
+                                color="#FFFFFF"
+                              />
+                            </View>
                           </TouchableOpacity>
                         );
                       }
