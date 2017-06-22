@@ -490,10 +490,10 @@ export default class OficiDisplay extends Component {
   }
 
   oracio(LT, weekDay, OFICI){
-    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(OFICI.oracio)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{OFICI.oracio}</Text>);
   }
 
-  completeOracio(oracio){
+  /*completeOracio(oracio){
     var form1 = "Per nostre Senyor Jesucrist";
     var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
     var form2 = "Vós, que viviu i regneu pels segles dels segles";
@@ -514,7 +514,7 @@ export default class OficiDisplay extends Component {
       return oAux.replace(form4, bigf4);
 
     return oracio;
-  }
+  }*/
 }
 
 AppRegistry.registerComponent('OficiDisplay', () => OficiDisplay);

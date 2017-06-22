@@ -81,7 +81,7 @@ export default class VespresSoul {
     }
     else{
       this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL, date);
       this.lecturaBreu(liturgicProps.LT, CEL);
       this.responsori(liturgicProps.LT, CEL);
       this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
@@ -198,10 +198,9 @@ export default class VespresSoul {
     else this.VESPRES.himne = CEL.himne;
   }
 
-  salmodia(LT, setmana, weekDay, CEL){
+  salmodia(LT, setmana, weekDay, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
-      case GLOBAL.A_FERIES:
       case GLOBAL.N_ABANS:
         ant1 = this.state.salteriComuVespres.ant1;
         titol1 = this.state.salteriComuVespres.titol1;
@@ -218,6 +217,28 @@ export default class VespresSoul {
         com3 = this.state.salteriComuVespres.com3;
         salm3 = this.state.salteriComuVespres.salm3;
         gloria3 = this.state.salteriComuVespres.gloria3;
+        break;
+      case GLOBAL.A_FERIES:
+        ant1 = this.state.salteriComuVespres.ant1;
+        titol1 = this.state.salteriComuVespres.titol1;
+        com1 = this.state.salteriComuVespres.com1;
+        salm1 = this.state.salteriComuVespres.salm1;
+        gloria1 = this.state.salteriComuVespres.gloria1;
+        ant2 = this.state.salteriComuVespres.ant2;
+        titol2 = this.state.salteriComuVespres.titol2;
+        com2 = this.state.salteriComuVespres.com2;
+        salm2 = this.state.salteriComuVespres.salm2;
+        gloria2 = this.state.salteriComuVespres.gloria2;
+        ant3 = this.state.salteriComuVespres.ant3;
+        titol3 = this.state.salteriComuVespres.titol3;
+        com3 = this.state.salteriComuVespres.com3;
+        salm3 = this.state.salteriComuVespres.salm3;
+        gloria3 = this.state.salteriComuVespres.gloria3;
+        if(weekDay === 0 && date.getDate() === 17){
+          ant1 = this.state.tempsAdventSetmanesDium.ant1Vespres2;
+          ant2 = this.state.tempsAdventSetmanesDium.ant2Vespres2;
+          ant3 = this.state.tempsAdventSetmanesDium.ant3Vespres2;
+        }
         break;
         case GLOBAL.Q_SETMANES:
         case GLOBAL.Q_CENDRA:

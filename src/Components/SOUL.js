@@ -322,13 +322,15 @@ export default class SOUL {
     if(liturgicProps.LT === GLOBAL.A_SETMANES || this.tomorrowCal === 'A'){
       c += 1;
       //Week begins with saturday
-      {date.getDay() === 6 ? auxDay = 1 : auxDay = date.getDay() + 2}
+      //{date.getDay() === 6 ? auxDay = 1 : auxDay = date.getDay() + 2}
       auxCicle = liturgicProps.cicle;
       if(this.tomorrowCal === 'A'){
         auxCicle = 1;
         auxDay = 1;
       }
-      id = (parseInt(auxCicle)-1)*7 + auxDay;
+      if(liturgicProps.LT === GLOBAL.O_ORDINARI && dataTomorrow.LT === GLOBAL.A_SETMANES) id = 1;
+      else id = (parseInt(auxCicle)-1)*7 + date.getDay()+2;
+      console.log("tempsAdventSetmanes ID " + id);
       this.acceso.getLiturgia("tempsAdventSetmanes", id, (result) => {
         this.queryRows.tempsAdventSetmanes = result;
         this.dataReceived(params);
@@ -407,8 +409,7 @@ export default class SOUL {
     }
 
     //taula 24 (#3): Laudes(21)
-    if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA &&
-      liturgicProps.LT !== GLOBAL.N_OCTAVA){
+    if(liturgicProps.LT !== GLOBAL.Q_TRIDU && liturgicProps.LT !== GLOBAL.P_OCTAVA){
       c += 1;
       cicleAux = parseInt(liturgicProps.cicle);
       auxDay = date.getDay();
@@ -540,11 +541,12 @@ export default class SOUL {
     if(true){
       c += 1;
       {date.getDay() === 6 ? id = 1 : id = date.getDay() + 2}
-      if(this.tomorrowCal !== '-' && (date.getDay() !== 6 || date.getDay() !== 0)) id = 8;
+      if((dataTomorrow.LT === GLOBAL.Q_DIUM_PASQUA || this.tomorrowCal === 'TSF' || this.tomorrowCal === 'S') && (date.getDay() !== 6 || date.getDay() !== 0)) id = 8;
       if((celType === 'S' || this.idTSF !== -1) && (date.getDay() !== 6 || date.getDay() !== 0)) id = 9;
       if(liturgicProps.LT === GLOBAL.P_OCTAVA) id = 2;
       if(liturgicProps.LT === GLOBAL.N_OCTAVA) id = 9;
       if(liturgicProps.LT === GLOBAL.Q_SET_SANTA && (date.getDay() !== 4 || date.getDay() !== 5 || date.getDay() !== 6)) id = 9;
+      console.log("COMPLETES ID: " + id);
       this.acceso.getLiturgia("salteriComuCompletes", id, (result) => {
         this.queryRows.salteriComuCompletes = result;
         this.dataReceived(params);
@@ -771,7 +773,7 @@ export default class SOUL {
           console.log("setSoul COMPLETES");
         break;
       case "celebracio":
-        console.log("setSoul CELEBRACIO - " + pregaria.INFO_CEL.nomCel);
+        console.log("setSoul CELEBRACIO");
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
@@ -795,7 +797,7 @@ export default class SOUL {
     console.log("this.idDE: " + this.idDE);
 
     if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' ||
-      this.dataTomorrow.mogut !== '-' || this.idTSF !== -1 || this.idDE !== -1){
+      this.dataTomorrow.mogut !== '-' || this.idTSF !== -1 || (this.idDE !== -1 && this.tomorrowCal === '-')){
         console.log("calls vespres1 - 1");
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;

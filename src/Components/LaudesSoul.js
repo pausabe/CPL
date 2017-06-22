@@ -87,7 +87,7 @@ export default class LaudesSoul {
     else{
       this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
       this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL, date);
       this.lecturaBreu(liturgicProps.LT, CEL);
       this.responsori(liturgicProps.LT, CEL);
       this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
@@ -252,23 +252,44 @@ export default class LaudesSoul {
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.Q_CENDRA:
-      case GLOBAL.A_FERIES:
       case GLOBAL.N_ABANS:
-        ant1 = this.state.salteriComuLaudes.ant1;
-        titol1 = this.state.salteriComuLaudes.titol1;
-        com1 = this.state.salteriComuLaudes.com1;
-        salm1 = this.state.salteriComuLaudes.salm1;
-        gloria1 = this.state.salteriComuLaudes.gloria1;
-        ant2 = this.state.salteriComuLaudes.ant2;
-        titol2 = this.state.salteriComuLaudes.titol2;
-        com2 = this.state.salteriComuLaudes.com2;
-        salm2 = this.state.salteriComuLaudes.salm2;
-        gloria2 = this.state.salteriComuLaudes.gloria2;
-        ant3 = this.state.salteriComuLaudes.ant3;
-        titol3 = this.state.salteriComuLaudes.titol3;
-        com3 = this.state.salteriComuLaudes.com3;
-        salm3 = this.state.salteriComuLaudes.salm3;
-        gloria3 = this.state.salteriComuLaudes.gloria3;
+          ant1 = this.state.salteriComuLaudes.ant1;
+          titol1 = this.state.salteriComuLaudes.titol1;
+          com1 = this.state.salteriComuLaudes.com1;
+          salm1 = this.state.salteriComuLaudes.salm1;
+          gloria1 = this.state.salteriComuLaudes.gloria1;
+          ant2 = this.state.salteriComuLaudes.ant2;
+          titol2 = this.state.salteriComuLaudes.titol2;
+          com2 = this.state.salteriComuLaudes.com2;
+          salm2 = this.state.salteriComuLaudes.salm2;
+          gloria2 = this.state.salteriComuLaudes.gloria2;
+          ant3 = this.state.salteriComuLaudes.ant3;
+          titol3 = this.state.salteriComuLaudes.titol3;
+          com3 = this.state.salteriComuLaudes.com3;
+          salm3 = this.state.salteriComuLaudes.salm3;
+          gloria3 = this.state.salteriComuLaudes.gloria3;
+        break;
+        case GLOBAL.A_FERIES:
+          ant1 = this.state.salteriComuLaudes.ant1;
+          titol1 = this.state.salteriComuLaudes.titol1;
+          com1 = this.state.salteriComuLaudes.com1;
+          salm1 = this.state.salteriComuLaudes.salm1;
+          gloria1 = this.state.salteriComuLaudes.gloria1;
+          ant2 = this.state.salteriComuLaudes.ant2;
+          titol2 = this.state.salteriComuLaudes.titol2;
+          com2 = this.state.salteriComuLaudes.com2;
+          salm2 = this.state.salteriComuLaudes.salm2;
+          gloria2 = this.state.salteriComuLaudes.gloria2;
+          ant3 = this.state.salteriComuLaudes.ant3;
+          titol3 = this.state.salteriComuLaudes.titol3;
+          com3 = this.state.salteriComuLaudes.com3;
+          salm3 = this.state.salteriComuLaudes.salm3;
+          gloria3 = this.state.salteriComuLaudes.gloria3;
+          if(weekDay === 0 && date.getDate() === 17){
+            ant1 = this.state.tempsAdventSetmanesDium.ant1Laudes;
+            ant2 = this.state.tempsAdventSetmanesDium.ant2Laudes;
+            ant3 = this.state.tempsAdventSetmanesDium.ant3Laudes;
+          }
         break;
         case GLOBAL.Q_SETMANES:
           ant1 = this.state.salteriComuLaudes.ant1;
@@ -437,9 +458,16 @@ export default class LaudesSoul {
         salm3 = this.state.salteriComuLaudes.salm3;
         gloria3 = this.state.salteriComuLaudes.gloria3;
 
-        ant1 = this.state.tempsSolemnitatsFestes.ant1Laudes;
-        ant2 = this.state.tempsSolemnitatsFestes.ant2Laudes;
-        ant3 = this.state.tempsSolemnitatsFestes.ant3Laudes;
+        if(date.getDate() === 25 && date.getMonth() === 11){
+          ant1 = this.state.salteriComuLaudes.ant1;
+          ant2 = this.state.salteriComuLaudes.ant2;
+          ant3 = this.state.salteriComuLaudes.ant3;
+        }
+        else{
+          ant1 = this.state.tempsSolemnitatsFestes.ant1Laudes;
+          ant2 = this.state.tempsSolemnitatsFestes.ant2Laudes;
+          ant3 = this.state.tempsSolemnitatsFestes.ant3Laudes;
+        }
         break;
     }
     if(CEL.ant1 === '-')

@@ -1105,8 +1105,8 @@ export default class CelebracioSoul {
 
 
     //::::::DE-SEXTA::::::
-    if(llati === 'true') this.SEXTA.himne = TABLES.diesespecials.HimneMenorLlat;
-    else this.SEXTA.himne = TABLES.diesespecials.HimneMenorCat;
+    if(llati === 'true') this.SEXTA.himne = TABLES.diesespecials.HimneMenorLlatSexta;
+    else this.SEXTA.himne = TABLES.diesespecials.HimneMenorCatSexta;
     this.SEXTA.antifones = false;
     this.SEXTA.ant = TABLES.diesespecials.antMenorSextA;
     this.SEXTA.titol1 = TABLES.diesespecials.titol1Menor;
@@ -1129,8 +1129,8 @@ export default class CelebracioSoul {
 
 
     //::::::DE-NONA::::::
-    if(llati === 'true') this.NONA.himne = TABLES.diesespecials.HimneMenorLlat;
-    else this.NONA.himne = TABLES.diesespecials.HimneMenorCat;
+    if(llati === 'true') this.NONA.himne = TABLES.diesespecials.HimneMenorCatNona;
+    else this.NONA.himne = TABLES.diesespecials.HimneMenorLlatNona;
     this.NONA.antifones = false;
     this.NONA.ant = TABLES.diesespecials.antMenorNona;
     this.NONA.titol1 = TABLES.diesespecials.titol1Menor;
