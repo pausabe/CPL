@@ -113,7 +113,7 @@ export default class CompletesSoul{
     this.COMPLETES.lecturaBreu = this.state.salteriComuCompletes.lecturaBreu;
 
     this.COMPLETES.antRespEspecial = "-";
-    this.COMPLETES.respBreu1 = "A les vostes mans, Senyor,";
+    this.COMPLETES.respBreu1 = "A les vostres mans, Senyor,";
     this.COMPLETES.respBreu2 = "Encomano el meu esperit.";
     this.COMPLETES.respBreu3 = "Vós, Déu fidel, ens heu redimit.";
 
@@ -126,7 +126,7 @@ export default class CompletesSoul{
       case GLOBAL.P_SETMANES:
         this.COMPLETES.antifones = false;
         this.COMPLETES.ant1 = "Al·leluia, al·leluia, al·leluia.";
-        this.COMPLETES.respBreu1 = "A les vostes mans, Senyor, encomano el meu esperit,";
+        this.COMPLETES.respBreu1 = "A les vostres mans, Senyor, encomano el meu esperit,";
         this.COMPLETES.respBreu2 = "Al·leluia, al·leluia.";
         this.COMPLETES.respBreu3 = "Vós, Déu fidel, ens heu redimit.";
         this.COMPLETES.antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans. Al·leluia.";

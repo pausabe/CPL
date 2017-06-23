@@ -339,7 +339,7 @@ export default class OficiDisplay extends Component {
   lectures(LT, OFICI){
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>Lectura Primera</Text>
+        <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
         <Text selectable={true} style={this.styles.black}>{OFICI.referencia1}</Text>
         <Text selectable={true} style={this.styles.red}>{OFICI.cita1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -359,7 +359,7 @@ export default class OficiDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> {OFICI.resp1Part2}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Lectura Segona</Text>
+        <Text selectable={true} style={this.styles.red}>Lectura segona</Text>
         <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
@@ -384,7 +384,7 @@ export default class OficiDisplay extends Component {
   lecturesDiumPasqua(LT, OFICI){
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>Lectura Primera</Text>
+        <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
         <Text selectable={true} style={this.styles.black}>{OFICI.referencia1}</Text>
         <Text selectable={true} style={this.styles.red}>{OFICI.cita1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -412,7 +412,7 @@ export default class OficiDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Lectura Segona</Text>
+        <Text selectable={true} style={this.styles.red}>Lectura segona</Text>
         <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}</Text>
         <Text selectable={true} style={this.styles.red}>{OFICI.cita2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -440,7 +440,7 @@ export default class OficiDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Lectura Tercera</Text>
+        <Text selectable={true} style={this.styles.red}>Lectura tercera</Text>
         <Text selectable={true} style={this.styles.black}>{OFICI.referencia3}</Text>
         <Text selectable={true} style={this.styles.red}>{OFICI.cita3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -462,7 +462,7 @@ export default class OficiDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Lectura Quarta</Text>
+        <Text selectable={true} style={this.styles.red}>Lectura quarta</Text>
         <Text selectable={true} style={this.styles.black}>{OFICI.referencia4}</Text>
         <Text selectable={true} style={this.styles.red}>{OFICI.cita4}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
