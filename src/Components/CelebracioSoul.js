@@ -1640,84 +1640,84 @@ export default class CelebracioSoul {
       if(llati === 'true') this.VESPRES1.himne = TABLES.santsSolemnitatsFVespres1.himneVespres1Llati;
       else this.VESPRES1.himne = TABLES.santsSolemnitatsFVespres1.himneVespres1Cat;
     }
-    else if(TABLES.OficisComuns !== null){
-      if(llati === 'true') this.VESPRES1.himne = TABLES.OficisComuns.himneVespres1Llati;
-      else this.VESPRES1.himne = TABLES.OficisComuns.himneVespres1Cat;
+    else if(TABLES.OficisComunsVespres1 !== null){
+      if(llati === 'true') this.VESPRES1.himne = TABLES.OficisComunsVespres1.himneVespres1Llati;
+      else this.VESPRES1.himne = TABLES.OficisComunsVespres1.himneVespres1Cat;
     }
     //SF-VESPRES1 -> SALMÒDIA
     //S1
     if(TABLES.santsSolemnitatsFVespres1.ant1Vespres1 !== '-')
       this.VESPRES1.ant1 = TABLES.santsSolemnitatsFVespres1.ant1Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.ant1 = TABLES.OficisComuns.ant1Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.ant1 = TABLES.OficisComunsVespres1.ant1Vespres1;
     if(TABLES.santsSolemnitatsFVespres1.titol1Vespres1 !== '-')
       this.VESPRES1.titol1 = TABLES.santsSolemnitatsFVespres1.titol1Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.titol1 = TABLES.OficisComuns.titol1Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.titol1 = TABLES.OficisComunsVespres1.titol1Vespres1;
     this.VESPRES1.com1 = ".";
     if(TABLES.santsSolemnitatsFVespres1.text1Vespres1 !== '-')
       this.VESPRES1.salm1 = TABLES.santsSolemnitatsFVespres1.text1Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.salm1 = TABLES.OficisComuns.text1Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.salm1 = TABLES.OficisComunsVespres1.text1Vespres1;
     console.log("super log: " + TABLES.santsSolemnitatsFVespres1);
     if(TABLES.santsSolemnitatsFVespres1.gloria1Vespres1 !== '-')
       this.VESPRES1.gloria1 = TABLES.santsSolemnitatsFVespres1.gloria1Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.gloria1 = TABLES.OficisComuns.gloria1Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.gloria1 = TABLES.OficisComunsVespres1.gloria1Vespres1;
     //S2
     if(TABLES.santsSolemnitatsFVespres1.ant2Vespres1 !== '-')
       this.VESPRES1.ant2 = TABLES.santsSolemnitatsFVespres1.ant2Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.ant2 = TABLES.OficisComuns.ant2Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.ant2 = TABLES.OficisComunsVespres1.ant2Vespres1;
     if(TABLES.santsSolemnitatsFVespres1.titol2Vespres1 !== '-')
       this.VESPRES1.titol2 = TABLES.santsSolemnitatsFVespres1.titol2Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.titol2 = TABLES.OficisComuns.titol2Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.titol2 = TABLES.OficisComunsVespres1.titol2Vespres1;
     this.VESPRES1.com2 = ".";
     if(TABLES.santsSolemnitatsFVespres1.text2Vespres1 !== '-')
       this.VESPRES1.salm2 = TABLES.santsSolemnitatsFVespres1.text2Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.salm2 = TABLES.OficisComuns.text2Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.salm2 = TABLES.OficisComunsVespres1.text2Vespres1;
     if(TABLES.santsSolemnitatsFVespres1.gloria2Vespres1 !== '-')
       this.VESPRES1.gloria2 = TABLES.santsSolemnitatsFVespres1.gloria2Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.gloria2 = TABLES.OficisComuns.gloria2Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.gloria2 = TABLES.OficisComunsVespres1.gloria2Vespres1;
     //S3
     if(TABLES.santsSolemnitatsFVespres1.ant3Vespres1 !== '-')
       this.VESPRES1.ant3 = TABLES.santsSolemnitatsFVespres1.ant3Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.ant3 = TABLES.OficisComuns.ant3Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.ant3 = TABLES.OficisComunsVespres1.ant3Vespres1;
     if(TABLES.santsSolemnitatsFVespres1.titol3Vespres1 !== '-')
       this.VESPRES1.titol3 = TABLES.santsSolemnitatsFVespres1.titol3Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.titol3 = TABLES.OficisComuns.titol3Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.titol3 = TABLES.OficisComunsVespres1.titol3Vespres1;
     this.VESPRES1.com3 = ".";
     if(TABLES.santsSolemnitatsFVespres1.text3Vespres1 !== '-')
       this.VESPRES1.salm3 = TABLES.santsSolemnitatsFVespres1.text3Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.salm3 = TABLES.OficisComuns.text3Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.salm3 = TABLES.OficisComunsVespres1.text3Vespres1;
     if(TABLES.santsSolemnitatsFVespres1.gloria3Vespres1 !== '-')
       this.VESPRES1.gloria3 = TABLES.santsSolemnitatsFVespres1.gloria3Vespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.gloria3 = TABLES.OficisComuns.gloria3Vespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.gloria3 = TABLES.OficisComunsVespres1.gloria3Vespres1;
     //SF-VESPRES1 -> LECTURA BREU
     if(TABLES.santsSolemnitatsFVespres1.citaLBVespres1 !== '-')
       this.VESPRES1.vers = TABLES.santsSolemnitatsFVespres1.citaLBVespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.vers = TABLES.OficisComuns.citaLBVespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.vers = TABLES.OficisComunsVespres1.citaLBVespres1;
     if(TABLES.santsSolemnitatsFVespres1.lecturaBreuVespres1 !== '-')
       this.VESPRES1.lecturaBreu = TABLES.santsSolemnitatsFVespres1.lecturaBreuVespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.lecturaBreu = TABLES.OficisComuns.lecturaBreuVespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.lecturaBreu = TABLES.OficisComunsVespres1.lecturaBreuVespres1;
     //SF-VESPRES1 -> RESPONSORI
     this.VESPRES1.calAntEspecial = false;
     if(TABLES.santsSolemnitatsFVespres1.respBreuVespres1Part1 !== '-')
       this.VESPRES1.respBreu1 = TABLES.santsSolemnitatsFVespres1.respBreuVespres1Part1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.respBreu1 = TABLES.OficisComuns.respBreuVespres1Part1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.respBreu1 = TABLES.OficisComunsVespres1.respBreuVespres1Part1;
     if(TABLES.santsSolemnitatsFVespres1.respBreuVespres1Part2 !== '-')
       this.VESPRES1.respBreu2 = TABLES.santsSolemnitatsFVespres1.respBreuVespres1Part2;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.respBreu2 = TABLES.OficisComuns.respBreuVespres1Part2;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.respBreu2 = TABLES.OficisComunsVespres1.respBreuVespres1Part2;
     if(TABLES.santsSolemnitatsFVespres1.respBreuVespres1Part3 !== '-')
       this.VESPRES1.respBreu3 = TABLES.santsSolemnitatsFVespres1.respBreuVespres1Part3;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.respBreu3 = TABLES.OficisComuns.respBreuVespres1Part3;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.respBreu3 = TABLES.OficisComunsVespres1.respBreuVespres1Part3;
     //SF-VESPRES1 -> CÀNTIC
     if(TABLES.santsSolemnitatsFVespres1.antMaria1 !== '-')
       this.VESPRES1.antCantic = TABLES.santsSolemnitatsFVespres1.antMaria1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.antCantic = TABLES.OficisComuns.antMaria1A;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.antCantic = TABLES.OficisComunsVespres1.antMaria1A;
     //SF-VESPRES1 -> PREGÀRIES
     if(TABLES.santsSolemnitatsFVespres1.pregariesVespres1 !== '-')
       this.VESPRES1.pregaries = TABLES.santsSolemnitatsFVespres1.pregariesVespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.pregaries = TABLES.OficisComuns.pregariesVespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.pregaries = TABLES.OficisComunsVespres1.pregariesVespres1;
     //SF-VESPRES1 -> ORACIÓ
     if(TABLES.santsSolemnitatsFVespres1.oraFiVespres1 !== '-')
       this.VESPRES1.oracio = TABLES.santsSolemnitatsFVespres1.oraFiVespres1;
-    else if(TABLES.OficisComuns !== null) this.VESPRES1.oracio = TABLES.OficisComuns.oraFiVespres1;
+    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.oracio = TABLES.OficisComunsVespres1.oraFiVespres1;
   }
 
   makeML(TABLES, type, liturgicProps, variables, tomCal){

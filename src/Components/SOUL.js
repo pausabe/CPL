@@ -56,7 +56,8 @@ export default class SOUL {
       santsSolemnitats: '', //34.1
       santsSolemnitatsFVespres1: '', //34.2
       santsMemories: '', //35
-      OficisComuns: null, //36
+      OficisComuns: null, //36.1
+      OficisComunsVespres1: null,
       diesespecials: '', //37
     }
 
@@ -117,6 +118,7 @@ export default class SOUL {
     params = {
       date: date,
       liturgicProps: liturgicProps,
+      vespres1: false,
       celType: celType,
       diocesi: diocesi,
       invitatori: invitatori,
@@ -622,6 +624,7 @@ export default class SOUL {
       idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
       console.log("idDM tomorrow: " + idDM);
       if(idDM !== -1){
+        params.vespres1 = true;
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
           this.getOficisComuns(params, result);
@@ -636,6 +639,7 @@ export default class SOUL {
           auxDay.setDate(date.getDate()+1);
           day = this.calculeDia(auxDay, '-');
         }
+        params.vespres1 = true;
         this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
           this.getOficisComuns(params, result);
@@ -699,7 +703,10 @@ export default class SOUL {
 
         //taula 36 (#??): -
         this.acceso.getOC(categoria, (result) => {
-          this.queryRows.OficisComuns = result; this.dataReceived(params);
+          if(params.vespres1)
+            this.queryRows.OficisComunsVespres1 = result;
+          else this.queryRows.OficisComuns = result;
+          this.dataReceived(params);
         });
       }
       else{

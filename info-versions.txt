@@ -4,3 +4,4 @@ v0.11(21.06.2017)[3] - Android button hits improved
 v0.12(21.06.2017)[4] - 1.2 Bugs fixed
 v0.14(22.06.2017)[5] - 1.4 Bugs fixed
 v0.15(23.06.2017)[6] - 1.5 Bugs fixed
+v0.16(28.06.2017)[7] - Si hi ha Vespres 1 de solemnitats, ja no influeix en les altres oracions l'ofici comú

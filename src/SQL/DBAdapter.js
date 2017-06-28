@@ -39,7 +39,7 @@ export default class DBAdapter {
     //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
     var query = `SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day}`;
-    //console.log("QUERY ANY: " + query);
+    console.log("QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
         console.log(">>Today: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
