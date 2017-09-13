@@ -359,6 +359,7 @@ export default class CelebracioSoul {
       COMPLETES: this.COMPLETES,
     }
 
+    TABLES.OficisComuns = null;
     SOUL.setSoul(HS, "celebracio", CEL);
   }
 
@@ -731,6 +732,7 @@ export default class CelebracioSoul {
   makeVespres1TSF(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
+    console.log("makeVespres1TSF");
     //::::::TSF-VESPRES1::::::
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsSolemnitatsFestes.himneVespres1Llati;
     else this.VESPRES1.himne = TABLES.tempsSolemnitatsFestes.himneVespres1Cat;
@@ -1217,6 +1219,7 @@ export default class CelebracioSoul {
   makeSF(TABLES, type, liturgicProps, variables, tomCal, F){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
+
     console.log("makeSF");
     //::::::>>>>>SF<<<<<::::::
     //::::::SF-INFO_CEL::::::
@@ -1329,7 +1332,7 @@ export default class CelebracioSoul {
       this.OFICI.lectura2 = TABLES.santsSolemnitats.lectura2;
     else if(TABLES.OficisComuns !== null) this.OFICI.lectura2 = TABLES.OficisComuns.lectura2;
     if(TABLES.santsSolemnitats.resp2Part1Ofici !== '-'){
-      this.OFICI.resp2Part1 = TABLES.santsSolemnitats.citaResp2Ofici;
+      this.OFICI.versResp2 = TABLES.santsSolemnitats.citaResp2Ofici;
       this.OFICI.resp2Part1 = TABLES.santsSolemnitats.resp2Part1Ofici;
     }
     else if(TABLES.OficisComuns !== null) {
@@ -1422,9 +1425,17 @@ export default class CelebracioSoul {
     //SF-TÈRCIA -> SALMÒDIA
     //ANT
     this.TERCIA.antifones = false;
-    if(TABLES.santsSolemnitats.antMenorTercia !== '-')
+    if(TABLES.santsSolemnitats.antMenorTercia !== '-'){
       this.TERCIA.ant = TABLES.santsSolemnitats.antMenorTercia;
-    else if(TABLES.OficisComuns !== null) this.TERCIA.ant = TABLES.OficisComuns.antMenorTer;
+      console.log("antifona LOG1: " + this.TERCIA.ant);
+    }
+    else if(TABLES.OficisComuns !== null) {
+      this.TERCIA.ant = TABLES.OficisComuns.antMenorTer;
+      console.log("antifona LOG2: " + this.TERCIA.ant);
+    }
+    else{
+      console.log("antifona LOG3: -");
+    }
     //S1
     this.TERCIA.titol1 = TABLES.santsSolemnitats.titolSalm1;
     this.TERCIA.com1 = ".";
@@ -1466,7 +1477,13 @@ export default class CelebracioSoul {
     this.SEXTA.antifones = false;
     if(TABLES.santsSolemnitats.antMenorSexta !== '-')
       this.SEXTA.ant = TABLES.santsSolemnitats.antMenorSexta;
-    else if(TABLES.OficisComuns !== null) this.SEXTA.ant = TABLES.OficisComuns.antMenorSextA;
+    else if(TABLES.OficisComuns !== null) {
+      console.log("hello log1 - " + TABLES.OficisComuns.antMenorSextA);
+      this.SEXTA.ant = TABLES.OficisComuns.antMenorSextA;
+    }
+    else{
+      console.log("hello log2");
+    }
     //S1
     this.SEXTA.titol1 = TABLES.santsSolemnitats.titolSalm1;
     this.SEXTA.com1 = ".";

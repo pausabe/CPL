@@ -128,6 +128,8 @@ export default class SOUL {
       HS: HS,
     }
 
+    this.oficiComuCount = 0;
+
     var c = 0;
 
     //taula 1 (#2): Ofici(1)
@@ -374,6 +376,7 @@ export default class SOUL {
     if(liturgicProps.LT === GLOBAL.N_OCTAVA && date.getDate() !== 25){
       c += 1;
       id = date.getDate()-25;
+      console.log("im here");
       this.acceso.getLiturgia("tempsNadalOctava", id, (result) => {
         this.queryRows.tempsNadalOctava = result;
         this.dataReceived(params);
@@ -511,9 +514,10 @@ export default class SOUL {
     }
 
     //taula 30 (#31): -
-    if(this.tomorrowCal === 'TSF' || params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU){
+    if(this.tomorrowCal === 'TSF' || params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU || liturgicProps.LT === GLOBAL.N_OCTAVA){
       c += 1;
-      if(params.idTSF === -1){
+      console.log("hereeee");
+      if(params.idTSF === -1 || liturgicProps.LT === GLOBAL.N_OCTAVA){
         id = 1; //Només necessito Nadal (1) per N_OCTAVA
       }
       else{
@@ -543,11 +547,11 @@ export default class SOUL {
     if(true){
       c += 1;
       {date.getDay() === 6 ? id = 1 : id = date.getDay() + 2}
-      if((dataTomorrow.LT === GLOBAL.Q_DIUM_PASQUA || this.tomorrowCal === 'TSF' || this.tomorrowCal === 'S') && (date.getDay() !== 6 || date.getDay() !== 0)) id = 8;
-      if((celType === 'S' || this.idTSF !== -1) && (date.getDay() !== 6 || date.getDay() !== 0)) id = 9;
+      if((dataTomorrow.LT === GLOBAL.Q_DIUM_PASQUA || this.tomorrowCal === 'TSF' || this.tomorrowCal === 'S') && !(date.getDay() === 6 || date.getDay() === 0)) id = 8;
+      if((celType === 'S' || this.idTSF !== -1) && !(date.getDay() === 6 || date.getDay() === 0)) id = 9;
       if(liturgicProps.LT === GLOBAL.P_OCTAVA) id = 2;
       if(liturgicProps.LT === GLOBAL.N_OCTAVA) id = 9;
-      if(liturgicProps.LT === GLOBAL.Q_SET_SANTA && (date.getDay() !== 4 || date.getDay() !== 5 || date.getDay() !== 6)) id = 9;
+      if(liturgicProps.LT === GLOBAL.Q_SET_SANTA && !(date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6)) id = 9;
       console.log("COMPLETES ID: " + id);
       this.acceso.getLiturgia("salteriComuCompletes", id, (result) => {
         this.queryRows.salteriComuCompletes = result;
@@ -577,7 +581,7 @@ export default class SOUL {
       if(idDM !== -1){
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitats = result;
-          this.getOficisComuns(params, result);
+          this.getOficisComuns(params, result, false);
         });
       }
       else{
@@ -586,14 +590,14 @@ export default class SOUL {
             var day = this.calculeDia(date, variables.mogut);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
-              this.getOficisComuns(params, result);
+              this.getOficisComuns(params, result, false);
             });
           }
           else{
             var day = this.calculeDia(this.dataTomorrow.date, '-');
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
-              this.getOficisComuns(params, result);
+              this.getOficisComuns(params, result, false);
             });
           }
         }
@@ -604,13 +608,13 @@ export default class SOUL {
             var day = this.calculeDia(date, variables.mogut);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
-              this.getOficisComuns(params, result);
+              this.getOficisComuns(params, result, false);
             });
           }
           else{
             this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
               this.queryRows.santsSolemnitats = result;
-              this.getOficisComuns(params, result);
+              this.getOficisComuns(params, result, false);
             });
           }
         }
@@ -627,7 +631,7 @@ export default class SOUL {
         params.vespres1 = true;
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
-          this.getOficisComuns(params, result);
+          this.getOficisComuns(params, result, true);
         });
       }
       else{
@@ -642,7 +646,7 @@ export default class SOUL {
         params.vespres1 = true;
         this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
-          this.getOficisComuns(params, result);
+          this.getOficisComuns(params, result, true);
         });
       }
     }
@@ -658,7 +662,7 @@ export default class SOUL {
       if(celType === 'V' && idDM === -1){
         this.acceso.getV((result) => {
           this.queryRows.santsMemories = result;
-          this.getOficisComuns(params, result);
+          this.getOficisComuns(params, result, false);
         });
       }
       else{
@@ -666,13 +670,13 @@ export default class SOUL {
           var day = this.calculeDia(date, variables.mogut);
           this.acceso.getSolMem("santsMemories", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsMemories = result;
-            this.getOficisComuns(params, result);
+            this.getOficisComuns(params, result, false);
           });
         }
         else{
           this.acceso.getSolMemDiesMov("santsMemories", idDM, (result) => {
             this.queryRows.santsMemories = result;
-            this.getOficisComuns(params, result);
+            this.getOficisComuns(params, result, false);
           });
         }
       }
@@ -694,24 +698,31 @@ export default class SOUL {
     console.log(c + " accessos.");
   }
 
-  getOficisComuns(params, result){
+  getOficisComuns(params, result, isForVespres1){
     if(result){
       categoria = result.Categoria;
       console.log("Categoria: " + "." + categoria + ".");
+
       if(categoria !== '0000'){
         console.log("Més un accéss extra per OficisComuns");
-
         //taula 36 (#??): -
-        this.acceso.getOC(categoria, (result) => {
-          if(params.vespres1)
+        this.acceso.getOC(categoria, (result, cat) => {
+          if(params.vespres1 && isForVespres1){
             this.queryRows.OficisComunsVespres1 = result;
-          else this.queryRows.OficisComuns = result;
+            console.log("oficis comuns log 1 - " + cat);
+          }
+          else {
+            this.queryRows.OficisComuns = result;
+            console.log("oficis comuns log 2 - " + cat);
+          }
           this.dataReceived(params);
         });
       }
+
       else{
         this.dataReceived(params);
       }
+
     }
     else {
       console.log("Error OC. No result from DB");

@@ -160,8 +160,9 @@ export default class DBAdapter {
   getOC(categoria, callback){
     var query = `SELECT * FROM OficisComuns WHERE Categoria = '${categoria}'`;
     console.log("QUERY getOC: " + query);
+    console.log("oficis comuns log -1 - " + categoria);
     this.executeQuery(query,
-      result => callback(result.rows.item(0)));
+      result => callback(result.rows.item(0), categoria));
   }
 
   transformDiocesiName(diocesi, lloc){

@@ -160,6 +160,7 @@ export default class VespresDisplay extends Component {
 
   salm(salm){
     if(this.props.variables.cleanSalm === 'false'){
+      //console.log("super salm: " + salm);
       salm = salm.replace(/    [*]/g,'');
       salm = salm.replace(/   [*]/g,'');
       salm = salm.replace(/  [*]/g,'');

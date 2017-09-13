@@ -10,6 +10,9 @@ export default class VespresSoul {
 
   makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, SOUL){
       console.log("MakePrayer VespresSoul");
+
+console.log("N_OCT log - " + TABLES.tempsSolemnitatsFestes);
+
         this.state = {
           salteriComuVespres: TABLES.salteriComuVespres,
           tempsOrdinariOracions: TABLES.tempsOrdinariOracions,

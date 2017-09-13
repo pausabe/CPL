@@ -743,6 +743,7 @@ export default class HoraMenorSoul {
           this.NONA.gloria3 = this.state.salteriComuHora.gloria3;
 
           if(CEL.ant === '-'){
+            //console.log("Aleluia log");
             this.TERCIA.ant = "Al·leluia, al·leluia, al·leluia."
             this.SEXTA.ant = "Al·leluia, al·leluia, al·leluia."
             this.NONA.ant = "Al·leluia, al·leluia, al·leluia."
