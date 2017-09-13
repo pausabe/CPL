@@ -130,7 +130,7 @@ export default class HoraMenorDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> Beneïm al Senyor.</Text>
+          <Text selectable={true} style={this.styles.black}> Beneïm el Senyor.</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>

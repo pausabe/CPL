@@ -887,7 +887,7 @@ export default class CelebracioSoul {
     this.TERCIA.titol3 = TABLES.tempsSolemnitatsFestes.titolSalm3;
     this.TERCIA.com3 = ".";
     this.TERCIA.salm3 = TABLES.tempsSolemnitatsFestes.salm3Menor;
-    this.TERCIA.gloria3 = TABLES.tempsSolemnitatsFestes.gloriaSalm3;
+    this.TERCIA.gloria3 = TABLES.tempsSolemnitatsFestes.gloriaSaml3;
     this.TERCIA.vers = TABLES.tempsSolemnitatsFestes.citaLBTercia;
     this.TERCIA.lecturaBreu = TABLES.tempsSolemnitatsFestes.lecturaBreuTercia;
     this.TERCIA.respV = TABLES.tempsSolemnitatsFestes.responsoriVTercia;
@@ -910,7 +910,7 @@ export default class CelebracioSoul {
     this.SEXTA.titol3 = TABLES.tempsSolemnitatsFestes.titolSalm3;
     this.SEXTA.com3 = ".";
     this.SEXTA.salm3 = TABLES.tempsSolemnitatsFestes.salm3Menor;
-    this.SEXTA.gloria3 = TABLES.tempsSolemnitatsFestes.gloriaSalm3;
+    this.SEXTA.gloria3 = TABLES.tempsSolemnitatsFestes.gloriaSaml3;
     this.SEXTA.vers = TABLES.tempsSolemnitatsFestes.citaLBSexta;
     this.SEXTA.lecturaBreu = TABLES.tempsSolemnitatsFestes.lecturaBreuSexta;
     this.SEXTA.respV = TABLES.tempsSolemnitatsFestes.responsoriVSexta;
@@ -933,7 +933,7 @@ export default class CelebracioSoul {
     this.NONA.titol3 = TABLES.tempsSolemnitatsFestes.titolSalm3;
     this.NONA.com3 = ".";
     this.NONA.salm3 = TABLES.tempsSolemnitatsFestes.salm3Menor;
-    this.NONA.gloria3 = TABLES.tempsSolemnitatsFestes.gloriaSalm3;
+    this.NONA.gloria3 = TABLES.tempsSolemnitatsFestes.gloriaSaml3;
     this.NONA.vers = TABLES.tempsSolemnitatsFestes.citaLBNona;
     this.NONA.lecturaBreu = TABLES.tempsSolemnitatsFestes.lecturaBreuNona;
     this.NONA.respV = TABLES.tempsSolemnitatsFestes.responsoriVNona;
@@ -1439,7 +1439,7 @@ export default class CelebracioSoul {
     this.TERCIA.titol3 = TABLES.santsSolemnitats.titolSalm3;
     this.TERCIA.com3 = ".";
     this.TERCIA.salm3 = TABLES.santsSolemnitats.salm3Menor;
-    this.TERCIA.gloria3 = TABLES.santsSolemnitats.gloriaSalm3;
+    this.TERCIA.gloria3 = TABLES.santsSolemnitats.gloriaSaml3;
     //SF-TÈRCIA -> LECTURA BREU
     if(TABLES.santsSolemnitats.citaLBTercia !== '-')
       this.TERCIA.vers = TABLES.santsSolemnitats.citaLBTercia;
@@ -1481,7 +1481,7 @@ export default class CelebracioSoul {
     this.SEXTA.titol3 = TABLES.santsSolemnitats.titolSalm3;
     this.SEXTA.com3 = ".";
     this.SEXTA.salm3 = TABLES.santsSolemnitats.salm3Menor;
-    this.SEXTA.gloria3 = TABLES.santsSolemnitats.gloriaSalm3;
+    this.SEXTA.gloria3 = TABLES.santsSolemnitats.gloriaSaml3;
     //SF-SEXTA -> LECTURA BREU
     if(TABLES.santsSolemnitats.citaLBSexta !== '-')
       this.SEXTA.vers = TABLES.santsSolemnitats.citaLBSexta;
@@ -1523,7 +1523,7 @@ export default class CelebracioSoul {
     this.NONA.titol3 = TABLES.santsSolemnitats.titolSalm3;
     this.NONA.com3 = ".";
     this.NONA.salm3 = TABLES.santsSolemnitats.salm3Menor;
-    this.NONA.gloria3 = TABLES.santsSolemnitats.gloriaSalm3;
+    this.NONA.gloria3 = TABLES.santsSolemnitats.gloriaSaml3;
     //SF-NONA -> LECTURA BREU
     if(TABLES.santsSolemnitats.citaLBNona !== '-')
       this.NONA.vers = TABLES.santsSolemnitats.citaLBNona;

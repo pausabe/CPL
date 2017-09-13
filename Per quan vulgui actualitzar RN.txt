@@ -1,0 +1,7 @@
+- Pren-te un dia sencer.. mínim. molta calma!
+- Crear projecte nou de 0 (hi ha dos maneres, nhi ha una de nova. Veure diferencies)
+- Copiar arxius del projecte antic
+- Instal·lar tots els components externs (hr, sqlite, splash…)
+- Surt error raro?? Ara cal anar poc a poc
+	- Eliminar tot i anar afegint poc a poc. A veure d’on ve lerror.
+	- Anar fent…

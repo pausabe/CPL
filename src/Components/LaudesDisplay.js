@@ -126,7 +126,6 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
         {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), LAUDES)}
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
@@ -383,10 +382,10 @@ export default class LaudesDisplay extends Component {
   }
 
   oracio(LT, weekDay, LAUDES){
-    return(<Text selectable={true} style={this.styles.black}>{LAUDES.oracio}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(LAUDES.oracio)}</Text>);
   }
 
-  /*completeOracio(oracio){
+  completeOracio(oracio){
     var form1 = "Per nostre Senyor Jesucrist";
     var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
     var form2 = "Vós, que viviu i regneu pels segles dels segles";
@@ -407,7 +406,7 @@ export default class LaudesDisplay extends Component {
       return oAux.replace(form4, bigf4);
 
     return oracio;
-  }*/
+  }
 }
 
 AppRegistry.registerComponent('LaudesDisplay', () => LaudesDisplay);
