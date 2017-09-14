@@ -1613,8 +1613,8 @@ export default class CelebracioSoul {
       if(TABLES.santsSolemnitats.text3Vespres2 !== '-')
         this.VESPRES.salm3 = TABLES.santsSolemnitats.text3Vespres2;
       else if(TABLES.OficisComuns !== null) this.VESPRES.salm3 = TABLES.OficisComuns.Salm3Vespres;
-      if(TABLES.santsSolemnitats.gloria3Vespres !== '-')
-        this.VESPRES.gloria3 = TABLES.santsSolemnitats.gloria3Vespres;
+      if(TABLES.santsSolemnitats.gloria3Vespres2 !== '-')
+        this.VESPRES.gloria3 = TABLES.santsSolemnitats.gloria3Vespres2;
       else if(TABLES.OficisComuns !== null) this.VESPRES.gloria3 = TABLES.OficisComuns.gloria3Vespres;
       //SF-VESPRES2 -> LECTURA BREU
       if(TABLES.santsSolemnitats.citaLBVespres2 !== '-')
