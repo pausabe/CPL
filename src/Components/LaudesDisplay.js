@@ -386,12 +386,14 @@ export default class LaudesDisplay extends Component {
   }
 
   completeOracio(oracio){
+    console.log("oracio!: " + oracio);
     var form1 = "Per nostre Senyor Jesucrist";
     var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
     var form2 = "Vós, que viviu i regneu pels segles dels segles";
     var bigf2 = "Vós, que viviu i regneu amb Déu Pare en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
     var form3 = "Que viu i regna pels segles dels segles";
     var form4 = "Ell, que viu i regna pels segles dels segles";
+    var form5 = "Ell, que amb vós viu i regna";
     var bigf4 = "Ell, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
 
     oAux = oracio;
@@ -404,6 +406,8 @@ export default class LaudesDisplay extends Component {
       return oAux.replace(form3, bigf4);
     if(oAux.search(form4) !== -1)
       return oAux.replace(form4, bigf4);
+    if(oAux.search(form5) !== -1)
+      return oAux.replace(form5, bigf4);
 
     return oracio;
   }
