@@ -26,7 +26,7 @@ export default class LiturgiaDisplayScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={{padding: 10,}}>
+        <ScrollView automaticallyAdjustContentInsets={false} style={{padding: 10,}}>
           {this.liturgicComponent(this.props.type)}
         </ScrollView>
       </View>

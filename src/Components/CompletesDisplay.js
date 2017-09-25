@@ -318,6 +318,26 @@ export default class CompletesDisplay extends Component {
       }
     }
   }
+
+  rs(text){
+    var length = text.length;
+    if(text.charAt(length-1) === ' ') return text.slice(0,length-1);
+    return text;
+  }
+
+  respTogether(r1,r2){
+    r1=this.rs(r1);
+
+    var lastCharacter = r1.charAt(r1.length-1);
+    var firstWord = r2.split(" ")[0];
+
+    var result = r1 + ' ' + r2;
+
+    if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu')
+      result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
+
+    return result;
+  }
 }
 
 AppRegistry.registerComponent('CompletesDisplay', () => CompletesDisplay);

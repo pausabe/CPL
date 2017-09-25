@@ -214,7 +214,7 @@ export default class LaudesDisplay extends Component {
           <Hr lineColor='#CFD8DC' />
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.antInvitatori}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.antInvitatori)}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
@@ -222,12 +222,12 @@ export default class LaudesDisplay extends Component {
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text></View></View>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.salm(LAUDES.salm94)}
+          {this.salm(this.rs(LAUDES.salm94))}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.gloria('1')}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.antInvitatori}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.antInvitatori)}</Text>
           </Text>
         </View>
       )
@@ -235,64 +235,64 @@ export default class LaudesDisplay extends Component {
   }
 
   himne(LT, weekDay, setmana, LAUDES){
-    return(<Text selectable={true} style={this.styles.black}>{LAUDES.himne}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.rs(LAUDES.himne)}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, LAUDES){
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol1}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(LAUDES.titol1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {LAUDES.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com1}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(LAUDES.com1)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(LAUDES.salm1)}
+        {this.salm(this.rs(LAUDES.salm1))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(LAUDES.gloria1)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol2}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(LAUDES.titol2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {LAUDES.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com2}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(LAUDES.com2)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(LAUDES.salm2)}
+        {this.salm(this.rs(LAUDES.salm2))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(LAUDES.gloria2)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.ant3)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{LAUDES.titol3}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(LAUDES.titol3)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {LAUDES.com3 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{LAUDES.com3}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(LAUDES.com3)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(LAUDES.salm3)}
+        {this.salm(this.rs(LAUDES.salm3))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(LAUDES.gloria3)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.ant3)}</Text>
         </Text>
       </View>
     );
@@ -301,9 +301,9 @@ export default class LaudesDisplay extends Component {
   lecturaBreu(LT, LAUDES){
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>{LAUDES.vers}</Text>
+        <Text selectable={true} style={this.styles.red}>{this.rs(LAUDES.vers)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{LAUDES.lecturaBreu}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(LAUDES.lecturaBreu)}</Text>
       </View>
     )
   }
@@ -313,7 +313,7 @@ export default class LaudesDisplay extends Component {
       return(
         <View>
           <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.antEspecialLaudes}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.antEspecialLaudes)}</Text>
           </Text>
         </View>
       )
@@ -322,10 +322,10 @@ export default class LaudesDisplay extends Component {
       return(
         <View>
           <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu1} {LAUDES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(LAUDES.respBreu1,LAUDES.respBreu2)}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu1} {LAUDES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(LAUDES.respBreu1,LAUDES.respBreu2)}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
@@ -350,7 +350,7 @@ export default class LaudesDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.antCantic}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salm(LAUDES.cantic)}
@@ -358,7 +358,7 @@ export default class LaudesDisplay extends Component {
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {LAUDES.antCantic}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.antCantic)}</Text>
         </Text>
       </View>
     );
@@ -382,7 +382,7 @@ export default class LaudesDisplay extends Component {
   }
 
   oracio(LT, weekDay, LAUDES){
-    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(LAUDES.oracio)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(this.rs(LAUDES.oracio))}</Text>);
   }
 
   completeOracio(oracio){
@@ -410,6 +410,28 @@ export default class LaudesDisplay extends Component {
       return oAux.replace(form5, bigf4);
 
     return oracio;
+  }
+
+  rs(text){
+    var length = text.length;
+    var lastChar = text.charAt(length-1);
+    if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    return text;
+  }
+
+  respTogether(r1,r2){
+    r1=this.rs(r1);
+
+    var lastCharacter = r1.charAt(r1.length-1);
+    var firstWord = r2.split(" ")[0];
+
+    var result = r1 + ' ' + r2;
+
+    if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
+      && firstWord !== 'Vós')
+      result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
+
+    return result;
   }
 }
 
