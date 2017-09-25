@@ -96,11 +96,13 @@ export default class Liturgia extends Component {
   }*/
 
   onButtonPress(idPressed, type, component){
+    var title = type;
+    if(type === 'Ofici') title = 'Ofici de lectura';
     this.props.HS.liturgiaPressed();
     if(this.props.liturgicProps.LITURGIA !== null){
       if(Platform.OS === 'ios'){
         this.props.navigator.push({
-          title: type,
+          title: title,
           passProps: {
             type: type,
             date: this.props.date,

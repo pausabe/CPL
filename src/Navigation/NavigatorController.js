@@ -71,7 +71,7 @@ export default class NavigatorController extends Component {
               initialRoute={{
                 component: HomeScreen,
                 title: 'CPL',
-                passProps: {title: 'CPL', naviDate: this.date, events: this.eventEmitter},
+                passProps: {naviDate: this.date, events: this.eventEmitter},
                 rightButtonIcon: this.state.settingsIcon,
                 onRightButtonPress: () => this.rightPress(),
                 leftButtonIcon: this.state.calendarIcon,
