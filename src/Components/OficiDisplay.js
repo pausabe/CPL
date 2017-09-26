@@ -239,7 +239,7 @@ export default class OficiDisplay extends Component {
           <Hr lineColor='#CFD8DC' />
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {OFICI.antInvitatori}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.antInvitatori)}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
@@ -247,12 +247,12 @@ export default class OficiDisplay extends Component {
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text></View></View>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.salm(OFICI.salm94)}
+          {this.salm(this.rs(OFICI.salm94))}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.gloria('1')}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {OFICI.antInvitatori}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.antInvitatori)}</Text>
           </Text>
         </View>
       )
@@ -260,64 +260,64 @@ export default class OficiDisplay extends Component {
   }
 
   himne(LT, weekDay, nit, setmana, OFICI){
-    return(<Text selectable={true} style={this.styles.black}>{OFICI.himne}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.rs(OFICI.himne)}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, cicle, OFICI){
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol1}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(OFICI.titol1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {OFICI.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com1}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(OFICI.com1)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(OFICI.salm1)}
+        {this.salm(this.rs(OFICI.salm1))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(OFICI.gloria1)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol2}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(OFICI.titol2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {OFICI.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com2}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(OFICI.com2)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(OFICI.salm2)}
+        {this.salm(this.rs(OFICI.salm2))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(OFICI.gloria2)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant3)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol3}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(OFICI.titol3)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {OFICI.com3 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{OFICI.com3}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(OFICI.com3)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(OFICI.salm3)}
+        {this.salm(this.rs(OFICI.salm3))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(OFICI.gloria3)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant3)}</Text>
         </Text>
       </View>
     );
@@ -327,10 +327,10 @@ export default class OficiDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {OFICI.respV}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.respV)}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {OFICI.respR}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.respR)}</Text>
         </Text>
       </View>
     );
@@ -340,42 +340,42 @@ export default class OficiDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
-        <Text selectable={true} style={this.styles.black}>{OFICI.referencia1}</Text>
-        <Text selectable={true} style={this.styles.red}>{OFICI.cita1}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(OFICI.referencia1)}</Text>
+        <Text selectable={true} style={this.styles.red}>{this.rs(OFICI.cita1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura1}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{this.rs(OFICI.titolLectura1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura1}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{this.rs(OFICI.lectura1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Responsori</Text>
-        {OFICI.citaResp1 !== '-' ? <Text selectable={true} style={this.styles.red}>{OFICI.citaResp1}</Text> : null}
+        {OFICI.citaResp1 !== '-' ? <Text selectable={true} style={this.styles.red}>{this.rs(OFICI.citaResp1)}</Text> : null}
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {OFICI.resp1Part1} {OFICI.resp1Part2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(OFICI.resp1Part1),this.rs(OFICI.resp1Part2))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {OFICI.resp1Part3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.resp1Part3)}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {OFICI.resp1Part2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.resp1Part2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura segona</Text>
-        <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(OFICI.referencia2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{this.rs(OFICI.titolLectura2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura2}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{this.rs(OFICI.lectura2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Responsori</Text>
-        {OFICI.versResp2 !== '-' ? <Text selectable={true} style={this.styles.red}>{OFICI.versResp2}</Text> : null}
+        {OFICI.versResp2 !== '-' ? <Text selectable={true} style={this.styles.red}>{this.rs(OFICI.versResp2)}</Text> : null}
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {OFICI.resp2Part1} {OFICI.resp2Part2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(OFICI.resp2Part1),this.rs(OFICI.resp2Part2))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {OFICI.resp2Part3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.resp2Part3)}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {OFICI.resp2Part2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.resp2Part2)}</Text>
         </Text>
       </View>
     )
@@ -385,90 +385,90 @@ export default class OficiDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
-        <Text selectable={true} style={this.styles.black}>{OFICI.referencia1}</Text>
-        <Text selectable={true} style={this.styles.red}>{OFICI.cita1}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(OFICI.referencia1)}</Text>
+        <Text selectable={true} style={this.styles.red}>{this.rs(OFICI.cita1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura1}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{this.rs(OFICI.titolLectura1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura1}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{this.rs(OFICI.lectura1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol1}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(OFICI.titol1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(OFICI.salm1)}
+        {this.salm(this.rs(OFICI.salm1))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{this.completeOracio(OFICI.oracio1)}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.completeOracio(this.rs(OFICI.oracio1))}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura segona</Text>
-        <Text selectable={true} style={this.styles.black}>{OFICI.referencia2}</Text>
-        <Text selectable={true} style={this.styles.red}>{OFICI.cita2}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(OFICI.referencia2)}</Text>
+        <Text selectable={true} style={this.styles.red}>{this.rs(OFICI.cita2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura2}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{this.rs(OFICI.titolLectura2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura2}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{this.rs(OFICI.lectura2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol2}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(OFICI.titol2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(OFICI.salm2)}
+        {this.salm(this.rs(OFICI.salm2))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{this.completeOracio(OFICI.oracio2)}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.completeOracio(this.rs(OFICI.oracio2))}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura tercera</Text>
-        <Text selectable={true} style={this.styles.black}>{OFICI.referencia3}</Text>
-        <Text selectable={true} style={this.styles.red}>{OFICI.cita3}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(OFICI.referencia3)}</Text>
+        <Text selectable={true} style={this.styles.red}>{this.rs(OFICI.cita3)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura3}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{this.rs(OFICI.titolLectura3)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura3}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{this.rs(OFICI.lectura3)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant3)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{OFICI.titol3}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(OFICI.titol3)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(OFICI.salm3)}
+        {this.salm(this.rs(OFICI.salm3))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {OFICI.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(OFICI.ant3)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura quarta</Text>
-        <Text selectable={true} style={this.styles.black}>{OFICI.referencia4}</Text>
-        <Text selectable={true} style={this.styles.red}>{OFICI.cita4}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(OFICI.referencia4)}</Text>
+        <Text selectable={true} style={this.styles.red}>{this.rs(OFICI.cita4)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{OFICI.titolLectura4}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{this.rs(OFICI.titolLectura4)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{OFICI.lectura4}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{this.rs(OFICI.lectura4)}</Text>
       </View>
     )
   }
@@ -490,7 +490,7 @@ export default class OficiDisplay extends Component {
   }
 
   oracio(LT, weekDay, OFICI){
-    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(OFICI.oracio)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(this.rs(OFICI.oracio))}</Text>);
   }
 
   completeOracio(oracio){
@@ -518,19 +518,19 @@ export default class OficiDisplay extends Component {
 
   rs(text){
     var length = text.length;
-    if(text.charAt(length-1) === ' ') return text.slice(0,length-1);
+    var lastChar = text.charAt(length-1);
+    if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
     return text;
   }
 
   respTogether(r1,r2){
-    r1=this.rs(r1);
-
     var lastCharacter = r1.charAt(r1.length-1);
     var firstWord = r2.split(" ")[0];
 
     var result = r1 + ' ' + r2;
 
-    if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu')
+    if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
+      && firstWord !== 'Vós')
       result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
 
     return result;

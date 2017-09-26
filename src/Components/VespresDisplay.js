@@ -194,64 +194,60 @@ export default class VespresDisplay extends Component {
   }
 
   himne(LT, weekDay, setmana, VESPRES){
-    return(<Text selectable={true} style={this.styles.black}>{VESPRES.himne}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.rs(VESPRES.himne)}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, VESPRES){
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{VESPRES.titol1}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(VESPRES.titol1)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {VESPRES.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com1}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(VESPRES.com1)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(VESPRES.salm1)}
+        {this.salm(this.rs(VESPRES.salm1))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(VESPRES.gloria1)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.ant1}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.ant1)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{VESPRES.titol2}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(VESPRES.titol2)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {VESPRES.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com2}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(VESPRES.com2)}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(VESPRES.salm2)}
+        {this.salm(this.rs(VESPRES.salm2))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(VESPRES.gloria2)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.ant2}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.ant3)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{VESPRES.titol3}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.canticSpace(this.rs(VESPRES.titol3))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {VESPRES.com3 !== '-' ?
-          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{VESPRES.com3}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(VESPRES.salm3)}
+        {this.salm(this.rs(VESPRES.salm3))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(VESPRES.gloria3)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.ant3}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.ant3)}</Text>
         </Text>
       </View>
     );
@@ -260,9 +256,9 @@ export default class VespresDisplay extends Component {
   lecturaBreu(LT, VESPRES){
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>{VESPRES.vers}</Text>
+        <Text selectable={true} style={this.styles.red}>{this.rs(VESPRES.vers)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{VESPRES.lecturaBreu}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.rs(VESPRES.lecturaBreu)}</Text>
       </View>
     )
   }
@@ -271,7 +267,7 @@ export default class VespresDisplay extends Component {
     if(VESPRES.calAntEspecial){
       return(
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.antEspecialVespres}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.antEspecialVespres)}</Text>
         </Text>
       )
     }
@@ -279,24 +275,24 @@ export default class VespresDisplay extends Component {
       return(
         <View>
           <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> {VESPRES.respBreu1} {VESPRES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(VESPRES.respBreu1),this.rs(VESPRES.respBreu2))}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {VESPRES.respBreu1} {VESPRES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(VESPRES.respBreu1),this.rs(VESPRES.respBreu2))}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> {VESPRES.respBreu3}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.respBreu3)}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {VESPRES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.respBreu2)}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {VESPRES.respBreu1} {VESPRES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(VESPRES.respBreu1),this.rs(VESPRES.respBreu2))}</Text>
           </Text>
         </View>
       )
@@ -307,22 +303,22 @@ export default class VespresDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.antCantic}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(VESPRES.cantic)}
+        {this.salm(this.rs(VESPRES.cantic))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {VESPRES.antCantic}</Text>
+          <Text selectable={true} style={this.styles.black}> {this.rs(VESPRES.antCantic)}</Text>
         </Text>
       </View>
     );
   }
 
   pregaries(LT, weekDay, VESPRES){
-    var pregaries = VESPRES.pregaries;
+    var pregaries = this.rs(VESPRES.pregaries);
     if(pregaries.search(": Pare nostre.") !== -1){
       pregaries = pregaries.replace(": Pare nostre.",':');
       return(
@@ -339,7 +335,7 @@ export default class VespresDisplay extends Component {
   }
 
   oracio(LT, weekDay, VESPRES){
-    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(VESPRES.oracio)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{this.completeOracio(this.rs(VESPRES.oracio))}</Text>);
   }
 
   completeOracio(oracio){
@@ -369,15 +365,24 @@ export default class VespresDisplay extends Component {
     return oracio;
   }
 
+  canticSpace(titolCantic){
+    titolCantic = titolCantic.replace("Càntic	","Càntic\n");
+    return titolCantic;
+  }
+
   rs(text){
-    var length = text.length;
-    if(text.charAt(length-1) === ' ') return text.slice(0,length-1);
-    return text;
+    if(text){
+      //console.log("all ok: " + text);
+      var length = text.length;
+      if(text.charAt(length-1) === ' ') return text.slice(0,length-1);
+      return text;
+    }
+    else{
+      console.log("something went wrong!");
+    }
   }
 
   respTogether(r1,r2){
-    r1=this.rs(r1);
-
     var lastCharacter = r1.charAt(r1.length-1);
     var firstWord = r2.split(" ")[0];
 

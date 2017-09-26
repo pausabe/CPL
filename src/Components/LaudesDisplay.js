@@ -263,7 +263,7 @@ export default class LaudesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.ant2)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{this.rs(LAUDES.titol2)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{this.rs(this.canticSpace(LAUDES.titol2))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {LAUDES.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
@@ -322,24 +322,24 @@ export default class LaudesDisplay extends Component {
       return(
         <View>
           <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> {this.respTogether(LAUDES.respBreu1,LAUDES.respBreu2)}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(LAUDES.respBreu1),this.rs(LAUDES.respBreu2))}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {this.respTogether(LAUDES.respBreu1,LAUDES.respBreu2)}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(LAUDES.respBreu1),this.rs(LAUDES.respBreu2))}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu3}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.respBreu3)}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.rs(LAUDES.respBreu2)}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {LAUDES.respBreu1} {LAUDES.respBreu2}</Text>
+            <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(LAUDES.respBreu1),this.rs(LAUDES.respBreu2))}</Text>
           </Text>
         </View>
       )
@@ -365,7 +365,7 @@ export default class LaudesDisplay extends Component {
   }
 
   pregaries(LT, LAUDES){
-    var pregaries = LAUDES.pregaries;
+    var pregaries = this.rs(LAUDES.pregaries);
     if(pregaries.search(": Pare nostre.") !== -1){
       pregaries = pregaries.replace(": Pare nostre.",':');
       return(
@@ -412,6 +412,11 @@ export default class LaudesDisplay extends Component {
     return oracio;
   }
 
+  canticSpace(titolCantic){
+    titolCantic = titolCantic.replace("Càntic	","Càntic\n");
+    return titolCantic;
+  }
+
   rs(text){
     var length = text.length;
     var lastChar = text.charAt(length-1);
@@ -420,8 +425,6 @@ export default class LaudesDisplay extends Component {
   }
 
   respTogether(r1,r2){
-    r1=this.rs(r1);
-
     var lastCharacter = r1.charAt(r1.length-1);
     var firstWord = r2.split(" ")[0];
 

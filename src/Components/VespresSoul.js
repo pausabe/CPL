@@ -217,7 +217,7 @@ console.log("N_OCT log - " + TABLES.tempsSolemnitatsFestes);
         gloria2 = this.state.salteriComuVespres.gloria2;
         ant3 = this.state.salteriComuVespres.ant3;
         titol3 = this.state.salteriComuVespres.titol3;
-        com3 = this.state.salteriComuVespres.com3;
+        //com3 = this.state.salteriComuVespres.com3;
         salm3 = this.state.salteriComuVespres.salm3;
         gloria3 = this.state.salteriComuVespres.gloria3;
         break;
