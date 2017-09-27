@@ -13,7 +13,7 @@ import {
   Platform,
   DatePickerIOS
 } from 'react-native';
-
+import { NavStack } from '../Navigation/router'
 import CustomTransitions from '../CustomTransitions/CustomTransitions';
 import HomeScreen from '../Screens/HomeScreen'
 import SettingsScreen from '../Screens/SettingsScreen'
@@ -63,8 +63,7 @@ export default class NavigatorController extends Component {
             <StatusBar
               barStyle="light-content"
               backgroundColor={GLOBAL.statusBarColor}
-              hidden={false}
-            />
+              hidden={false}/>
 
             <NavigatorIOS
               ref='navIos'
@@ -81,8 +80,7 @@ export default class NavigatorController extends Component {
               style={{flex: 1}}
               barTintColor={GLOBAL.barColor}
               tintColor={GLOBAL.itemsBarColor}
-              titleTextColor={GLOBAL.itemsBarColor}
-            />
+              titleTextColor={GLOBAL.itemsBarColor}/>
 
             <PopupDialog
                 ref={(popupDialog) => { this.popupDialog = popupDialog}}
@@ -93,8 +91,8 @@ export default class NavigatorController extends Component {
                   minimumDate={this.minimumDate}
                   maximumDate={this.maximumDate}
                   mode="date"
-                  onDateChange={this.onDateChangeIos.bind(this)}
-                />
+                  onDateChange={this.onDateChangeIos.bind(this)}/>
+
                 <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'white'}}>
                   <View style={{flex: 1, alignItems: 'center'}}>
                     <TouchableOpacity onPress={this.cancelDatePicker.bind(this)}>
@@ -103,7 +101,7 @@ export default class NavigatorController extends Component {
                   </View>
                   <View style={{flex: 1, alignItems: 'center'}}>
                     <TouchableOpacity onPress={this.okDatePicker.bind(this)}>
-                      <Text style={styles.popupText}>D'acord</Text>
+                      <Text style={styles.popupText}>{"D'acord"}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -112,6 +110,9 @@ export default class NavigatorController extends Component {
       );
     }
     else{
+      return(<NavStack />);
+    }
+    /*else{
       return (
         <View style={{flex: 1}}>
           <StatusBar
@@ -211,7 +212,7 @@ export default class NavigatorController extends Component {
           />
         </View>
       );
-    }
+    }*/
   }
 
   onDateChangeIos(date){
@@ -290,7 +291,7 @@ export default class NavigatorController extends Component {
     }
   }
 
-  renderScene(route,nav){
+  /*renderScene(route,nav){
     switch (route.id) {
       case 'home':
         return (
@@ -309,7 +310,7 @@ export default class NavigatorController extends Component {
                           variables={route.variables}
                           liturgicProps={route.liturgicProps} />);
     }
-  }
+  }*/
 }
 
 const styles = StyleSheet.create({

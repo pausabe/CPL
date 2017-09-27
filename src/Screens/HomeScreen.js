@@ -20,11 +20,15 @@ import GLOBAL from "../Globals/Globals";
 var Subscribable = require('Subscribable');
 import EventEmitter from 'EventEmitter';
 
+import {
+  StackNavigator,
+} from 'react-navigation';
+
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
   }
-  return 54;
+  return 0;//54;
 }
 
 export default class HomeScreen extends Component {
@@ -412,6 +416,7 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
+    return(null);
     if(!this.renderTest){
       auxPadding = 5;
       return (
@@ -495,7 +500,7 @@ export default class HomeScreen extends Component {
              <View style={styles.liturgiaContainer}>
                <Liturgia
                  HS={this}
-                 navigator={this.props.navigator}
+                 navigation={this.props.navigation}
                  variables={this.variables}
                  liturgicProps={this.liturgicProps}
                  events={this.eventEmitter}
@@ -1146,4 +1151,4 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 10,
   },
-})
+});

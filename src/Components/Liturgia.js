@@ -113,6 +113,9 @@ export default class Liturgia extends Component {
         });
       }
       else{
+        this.props.navigation.navigate('LiturgiaDisplay', 'YEAH');
+      }
+      /*else{
         this.props.navigator.push({
           id: idPressed,
           type: type,
@@ -121,7 +124,7 @@ export default class Liturgia extends Component {
           date: this.props.date,
           liturgicProps: this.props.liturgicProps,
         });
-      }
+      }*/
     }
   }
 
