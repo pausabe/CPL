@@ -229,6 +229,8 @@ export default class CompletesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 2, 29-32\nCrist, llum de les nacions i glòria d'Israel"}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(COMPLETES.cantic))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}

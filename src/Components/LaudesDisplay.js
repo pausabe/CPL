@@ -335,6 +335,8 @@ export default class LaudesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> {GF.rs(LAUDES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 1, 68-79\nEl Messies i el seu Precursor"}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salm(LAUDES.cantic)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}

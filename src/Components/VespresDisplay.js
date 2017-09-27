@@ -288,6 +288,8 @@ export default class VespresDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 1, 46-55\nLa meva ànima magnifica el Senyor"}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salm(GF.rs(VESPRES.cantic))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
@@ -299,22 +301,6 @@ export default class VespresDisplay extends Component {
     );
   }
 
-  /*pregaries(LT, weekDay, VESPRES){
-    var pregaries = GF.rs(VESPRES.pregaries);
-    if(pregaries.search(": Pare nostre.") !== -1){
-      pregaries = pregaries.replace(": Pare nostre.",':');
-      return(
-          <View>
-            <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
-            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
-          </View>
-      );
-    }
-    else{
-      return(<Text selectable={true} style={this.styles.black}>{pregaries}</Text>);
-    }
-  }*/
   pregaries(LT, weekDay, VESPRES){
     var allPregs = GF.rs(VESPRES.pregaries);
     var wrong = false;
