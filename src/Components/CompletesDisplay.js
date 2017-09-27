@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Hr from 'react-native-hr';
 import GLOBAL from '../Globals/Globals';
+import GF from '../Globals/GlobalFunctions';
 
 export default class CompletesDisplay extends Component {
   constructor(props){
@@ -14,85 +15,50 @@ export default class CompletesDisplay extends Component {
 
     console.log("CompletesDisplay");
 
-    //console.log("testing Completes: " + this.convertTextSize());
+    var textSize = this.props.variables.textSize;
 
     this.styles = {
       black: {
         color: '#000000',
-        fontSize: this.convertTextSize(),
+        fontSize: GF.convertTextSize(textSize),
       },
       blackBold: {
         color: '#000000',
-        fontSize: this.convertTextSize(),
+        fontSize: GF.convertTextSize(textSize),
         fontWeight: 'bold',
       },
       blackItalic:{
         color: '#000000',
-        fontSize: this.convertTextSize(),
+        fontSize: GF.convertTextSize(textSize),
         fontStyle: 'italic'
       },
       blackSmallItalicRight: {
         color: '#000000',
-        fontSize: this.convertTextSize()-2,
+        fontSize: GF.convertTextSize(textSize)-2,
         fontStyle: 'italic',
         textAlign: 'right'
       },
       red: {
         color: '#FF0000',
-        fontSize: this.convertTextSize(),
+        fontSize: GF.convertTextSize(textSize),
       },
       redCenter: {
         color: '#FF0000',
-        fontSize: this.convertTextSize(),
+        fontSize: GF.convertTextSize(textSize),
         textAlign: 'center'
       },
       redCenterBold: {
         color: '#FF0000',
-        fontSize: this.convertTextSize(),
+        fontSize: GF.convertTextSize(textSize),
         textAlign: 'center',
         fontWeight: 'bold',
       },
       redSmallItalicRight: {
         color: '#FF0000',
-        fontSize: this.convertTextSize()-2,
+        fontSize: GF.convertTextSize(textSize)-2,
         fontStyle: 'italic',
         textAlign: 'right'
       }
-    }
-  }
-
-  convertTextSize(){
-    switch (this.props.variables.textSize) {
-      case '1':
-        return GLOBAL.size1;
-        break;
-      case '2':
-        return GLOBAL.size2;
-        break;
-      case '3':
-        return GLOBAL.size3;
-        break;
-      case '4':
-        return GLOBAL.size4;
-        break;
-      case '5':
-        return GLOBAL.size5;
-        break;
-      case '6':
-        return GLOBAL.size6;
-        break;
-      case '7':
-        return GLOBAL.size7;
-        break;
-      case '8':
-        return GLOBAL.size8;
-        break;
-      case '9':
-        return GLOBAL.size9;
-        break;
-      case '10':
-        return GLOBAL.size10;
-        break;
     }
   }
 
@@ -125,7 +91,7 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>HIMNE</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{this.rs(COMPLETES.himne)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.himne)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -135,57 +101,57 @@ export default class CompletesDisplay extends Component {
           <View>
             {COMPLETES.antifones ?
               <Text selectable={true} style={this.styles.red}>Ant. 1.
-                <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant1)}</Text>
+                <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
               </Text>
             :
               <Text selectable={true} style={this.styles.red}>Ant.
-                <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant1)}</Text>
+                <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
               </Text>
             }
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.redCenter}>{this.rs(COMPLETES.titol1)}</Text>
+            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol1)}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.com1 !== '-' ?
               <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(COMPLETES.com1)}</Text>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com1)}</Text>
               {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-            {this.salm(this.rs(COMPLETES.salm1))}
+            {this.salm(GF.rs(COMPLETES.salm1))}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {this.gloria(COMPLETES.gloria1)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.antifones ?
               <View>
                 <Text selectable={true} style={this.styles.red}>Ant. 1.
-                  <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant1)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
                 </Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>Ant. 2.
-                  <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant2)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant2)}</Text>
                 </Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
               </View>
             : null
             }
-            <Text selectable={true} style={this.styles.redCenter}>{this.rs(COMPLETES.titol2)}</Text>
+            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol2)}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.com2 !== '-' ?
               <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(COMPLETES.com2)}</Text>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com2)}</Text>
               {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-            {this.salm(this.rs(COMPLETES.salm2))}
+            {this.salm(GF.rs(COMPLETES.salm2))}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {this.gloria(COMPLETES.gloria2)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.antifones ?
               <View>
                 <Text selectable={true} style={this.styles.red}>Ant. 2.
-                  <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant2)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant2)}</Text>
                 </Text>
               </View>
             :
               <View>
                 <Text selectable={true} style={this.styles.red}>Ant.
-                  <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant1)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
                 </Text>
               </View>
             }
@@ -193,21 +159,21 @@ export default class CompletesDisplay extends Component {
         :
           <View>
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant1)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.redCenter}>{this.rs(COMPLETES.titol1)}</Text>
+            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol1)}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.com1 !== '-' ?
               <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{this.rs(COMPLETES.com1)}</Text>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com1)}</Text>
               {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-            <Text selectable={true} style={this.styles.black}>{this.salm(this.rs(COMPLETES.salm1))}</Text>
+            <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(COMPLETES.salm1))}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {this.gloria(COMPLETES.gloria1)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.ant1)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
             </Text>
           </View>
         }
@@ -216,9 +182,9 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{this.rs(COMPLETES.vers)}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(COMPLETES.vers)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{this.rs(COMPLETES.lecturaBreu)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.lecturaBreu)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -227,30 +193,30 @@ export default class CompletesDisplay extends Component {
         {COMPLETES.antRespEspecial === "-" ?
           <View>
             <Text selectable={true} style={this.styles.red}>V.
-              <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(COMPLETES.respBreu1),this.rs(COMPLETES.respBreu2))}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1),GF.rs(COMPLETES.respBreu2))}</Text>
             </Text>
             <Text selectable={true} style={this.styles.red}>R.
-              <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(COMPLETES.respBreu1),this.rs(COMPLETES.respBreu2))}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1),GF.rs(COMPLETES.respBreu2))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>V.
-              <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.respBreu3)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.respBreu3)}</Text>
             </Text>
             <Text selectable={true} style={this.styles.red}>R.
-              <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.respBreu2)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.respBreu2)}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>V.
               <Text selectable={true} style={this.styles.black}>{" Glòria al Pare i al Fill i a l'Esperit Sant."}</Text>
             </Text>
             <Text selectable={true} style={this.styles.red}>R.
-              <Text selectable={true} style={this.styles.black}> {this.respTogether(this.rs(COMPLETES.respBreu1),this.rs(COMPLETES.respBreu2))}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1),GF.rs(COMPLETES.respBreu2))}</Text>
             </Text>
           </View>
         :
           <View>
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.antRespEspecial)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antRespEspecial)}</Text>
             </Text>
           </View>
         }
@@ -260,15 +226,15 @@ export default class CompletesDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>CÀNTIC SIMEÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.antCantic)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{this.salm(this.rs(COMPLETES.cantic))}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(COMPLETES.cantic))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {this.rs(COMPLETES.antCantic)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
@@ -276,7 +242,7 @@ export default class CompletesDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{this.rs(COMPLETES.oracio)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.oracio)}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
@@ -294,7 +260,7 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{this.rs(COMPLETES.antMare)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.antMare)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
       </View>
     );
@@ -332,36 +298,6 @@ export default class CompletesDisplay extends Component {
         return(<Text selectable={true} style={this.styles.blackItalic}>S'omet el Glòria.</Text>);
       }
     }
-  }
-
-  rs(text){
-    if(text){
-      var length = text.length;
-      var lastChar = text.charAt(length-1);
-      if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
-    }
-    else{
-      console.log("rs NOT possible. Something went wrong!");
-    }
-    return text;
-  }
-
-  respTogether(r1,r2){
-    var result = r1 + ' ' + r2;
-
-    if(r1 && r2){
-      var lastCharacter = r1.charAt(r1.length-1);
-      var firstWord = r2.split(" ")[0];
-
-      if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
-        && firstWord !== 'Vós')
-        result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
-    }
-    else{
-      console.log("respTogether NOT possible. Something went wrong!");
-    }
-
-    return result;
   }
 }
 
