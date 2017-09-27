@@ -47,7 +47,7 @@ export default class SettingsComponentAdapter{
     static async getSettingComponentTextSize(){
         let value = parseInt(await SettingsManager.getSettingTextSize());
         let component = (<SettingComponent selectorComponent="slider" name="Mida del text" id="textSize" key="textSize"
-            value={value} selectorProps={{minimumValue: 1, maximumValue: 5}} callback={(id, value) => {
+            value={value} selectorProps={{minimumValue: 1, maximumValue: 10}} callback={(id, value) => {
                 SettingsManager.setSettingTextSize(Math.trunc(value)+"");
             }}/>);
         return component;

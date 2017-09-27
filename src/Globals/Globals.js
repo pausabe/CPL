@@ -25,11 +25,22 @@ module.exports = {
   N_OCTAVA: 'N_OCTAVA',
   N_ABANS: 'N_ABANS',
 
+  /*size1: 15,
+  size2: 18,
+  size3: 21,
+  size4: 24,
+  size5: 27,*/
+
   size1: 15,
   size2: 18,
   size3: 21,
   size4: 24,
   size5: 27,
+  size6: 30,
+  size7: 33,
+  size8: 36,
+  size9: 39,
+  size10: 42,
 
   DBName: 'lh_v16.db',
 

@@ -76,6 +76,21 @@ export default class HoraMenorDisplay extends Component {
       case '5':
         return GLOBAL.size5;
         break;
+      case '6':
+        return GLOBAL.size6;
+        break;
+      case '7':
+        return GLOBAL.size7;
+        break;
+      case '8':
+        return GLOBAL.size8;
+        break;
+      case '9':
+        return GLOBAL.size9;
+        break;
+      case '10':
+        return GLOBAL.size10;
+        break;
     }
   }
 

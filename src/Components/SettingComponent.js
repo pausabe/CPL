@@ -22,7 +22,8 @@ export default class SettingComponent extends Component{
 
     componentWillMount(){
         this.setState({
-            value: this.value
+            value: this.value,
+            Aa: this.convertTextSize(this.value),
         });
     }
 
@@ -35,6 +36,7 @@ export default class SettingComponent extends Component{
                 selectorComponent = this._generateSwitch();
                 break;
             case "slider":
+                styleSelectorView = styles.selectorViewSlider;
                 selectorComponent = this._generateSlider();
                 break;
             case "picker":
@@ -71,7 +73,21 @@ export default class SettingComponent extends Component{
             value: this.state.value,
             onValueChange: this._selectionCallback.bind(this)
         });
-        return React.createElement(Slider, selectorProps);
+        return (
+           <View style={{flex: 1, flexDirection: 'row',}}>
+            <View style={{flex: 3, paddingRight: 10, justifyContent: 'center'}}>
+              {React.createElement(Slider, selectorProps)}
+            </View>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Text style={{textAlign: 'center',
+                            color: 'black',
+                            fontSize: this.state.Aa,
+                            fontWeight: '300'}}>
+                  {'Aa'}
+              </Text>
+            </View>
+          </View>
+        );
     }
 
     _generatePicker(){
@@ -115,7 +131,49 @@ export default class SettingComponent extends Component{
     }
 
     _selectionCallback(value){
+      var textSize = this.convertTextSize(Math.trunc(value));
+      console.log("size!: " + textSize);
+        this.setState({
+            Aa: textSize,
+        });
         this.callback(this.id, value);
+    }
+
+    convertTextSize(value){
+      console.log("converting: " + value);
+      switch (value) {
+        case 1:
+          return GLOBAL.size1;
+          break;
+        case 2:
+          return GLOBAL.size2;
+          break;
+        case 3:
+          return GLOBAL.size3;
+          break;
+        case 4:
+          return GLOBAL.size4;
+          break;
+        case 5:
+          return GLOBAL.size5;
+          break;
+        case 6:
+          return GLOBAL.size6;
+          break;
+        case 7:
+          return GLOBAL.size7;
+          break;
+        case 8:
+          return GLOBAL.size8;
+          break;
+        case 9:
+          return GLOBAL.size9;
+          break;
+        case 10:
+          return GLOBAL.size10;
+          break;
+      }
+      console.log("no one");
     }
 
     _mergeProps(properties){
@@ -151,7 +209,8 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     textView: {
-        flex: 5,
+        flex: 3,
+        paddingRight: 15,
         justifyContent: "center"
     },
     selectorView: {
@@ -167,7 +226,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-end"
     },
+    selectorViewSlider: {
+        flex: 7,
+        justifyContent: "center"
+    },
     selectorPicker: {
         color: "gray"
-    }
+    },
 });
