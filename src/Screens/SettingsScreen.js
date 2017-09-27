@@ -32,14 +32,12 @@ export default class SettingsScreen extends Component {
 
   render() {
       if(!this.state || this.state && !this.state.options){
-          return (<ScrollView style={styles.itemList}></ScrollView>);
+          return (<ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}></ScrollView>);
       }
       return (
-        <View style={{flex:1}}>
-          <ScrollView style={styles.itemList}>
-              {this.state.options}
-          </ScrollView>
-        </View>
+        <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}>
+            {this.state.options}
+        </ScrollView>
       );
     }
 }
@@ -48,10 +46,16 @@ function callbackTest(id, value){
     console.log("ID: "+id+" - VALUE: "+value)
 }
 
+function paddingBar(){
+  if(Platform.OS === 'ios'){
+    return 0;
+  }
+  return 64;
+}
+
 const styles = StyleSheet.create({
     itemList: {
-        flex: 1,
-        paddingTop: 64,
+        paddingTop: paddingBar(),
         backgroundColor: GLOBAL.backgroundColor,
     },
     normalText: {
