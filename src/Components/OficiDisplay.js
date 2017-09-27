@@ -532,21 +532,31 @@ export default class OficiDisplay extends Component {
   }
 
   rs(text){
-    var length = text.length;
-    var lastChar = text.charAt(length-1);
-    if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    if(text){
+      var length = text.length;
+      var lastChar = text.charAt(length-1);
+      if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    }
+    else{
+      console.log("rs NOT possible. Something went wrong!");
+    }
     return text;
   }
 
   respTogether(r1,r2){
-    var lastCharacter = r1.charAt(r1.length-1);
-    var firstWord = r2.split(" ")[0];
-
     var result = r1 + ' ' + r2;
 
-    if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
-      && firstWord !== 'Vós')
-      result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
+    if(r1 && r2){
+      var lastCharacter = r1.charAt(r1.length-1);
+      var firstWord = r2.split(" ")[0];
+
+      if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
+        && firstWord !== 'Vós')
+        result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
+    }
+    else{
+      console.log("respTogether NOT possible. Something went wrong!");
+    }
 
     return result;
   }

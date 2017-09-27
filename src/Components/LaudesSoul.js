@@ -690,7 +690,7 @@ export default class LaudesSoul {
         break;
       case GLOBAL.Q_SETMANES:
         if(weekDay !== 0){ ///no diumenge
-          antCantic = this.state.tempsQuaresmaVSetmanesDium.antZacaries;
+          antCantic = this.state.tempsQuaresmaVSetmanes.antZacaries;
         }
         else{ //diumenge
           switch (litYear) {

@@ -303,9 +303,14 @@ export default class HoraMenorDisplay extends Component {
   }
 
   rs(text){
-    var length = text.length;
-    var lastChar = text.charAt(length-1);
-    if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    if(text){
+      var length = text.length;
+      var lastChar = text.charAt(length-1);
+      if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    }
+    else{
+      console.log("rs NOT possible. Something went wrong!");
+    }
     return text;
   }
 }

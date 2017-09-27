@@ -380,19 +380,83 @@ export default class LaudesDisplay extends Component {
   }
 
   pregaries(LT, LAUDES){
-    var pregaries = this.rs(LAUDES.pregaries);
-    if(pregaries.search(": Pare nostre.") !== -1){
-      pregaries = pregaries.replace(": Pare nostre.",':');
+    var allPregs = this.rs(LAUDES.pregaries);
+    var wrong = false;
+
+    var numGuio = allPregs.match(/—/g, "").length;
+    var numEnter = allPregs.match(/\n/g, "").length;
+
+    if(numEnter !== numGuio*3+3){//every prayer have 3 spaces and intro have 3 more
+      wrong = true;
+      console.log("incorrect spaces in pregaries");
+    }
+    else{
+      var introPregs = allPregs.split(":")[0];
+      if(allPregs.search(introPregs+':\n') !== -1){
+        var pregsNoIntro = allPregs.replace(introPregs+':\n','');
+      }
+      else{
+        wrong = true;
+        console.log("something incorrect. Pregaries 1");
+      }
+
+      var respPregs = pregsNoIntro.split("\n")[0];
+      if(pregsNoIntro.search(respPregs+'\n\n') !== -1){
+        var pregaries = pregsNoIntro.replace(respPregs+'\n\n','');
+      }
+      else{
+        wrong = true;
+        console.log("something incorrect. Pregaries 2");
+      }
+
+      if(pregaries.search(": Pare nostre.") !== -1){
+        pregaries = pregaries.replace(": Pare nostre.",':');
+      }
+      else{
+        wrong = true;
+        console.log("something incorrect. Pregaries 3");
+      }
+
+      var pregsFinalPart = pregaries.split("—")[numGuio].split(".\n\n")[1];
+      if(pregaries.search('\n\n'+pregsFinalPart) !== -1){
+        pregaries = pregaries.replace('\n\n'+pregsFinalPart,'');
+      }
+      else{
+        wrong = true;
+        console.log("something incorrect. Pregaries 4");
+      }
+
+      if(!wrong){
+        console.log("numGuio: " + numGuio);
+        console.log("numEnter: " + numEnter);
+        console.log("allPregs:\n"+allPregs);
+        console.log("introPregs:\n"+introPregs);
+        console.log("pregsNoIntro:\n"+pregsNoIntro);
+        console.log("respPregs:\n"+respPregs);
+        console.log("pregaries:\n"+pregaries);
+        console.log("pregsFinalPart:\n"+pregsFinalPart);
+      }
+    }
+
+    if(!wrong){
       return(
-          <View>
-            <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
-            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
-          </View>
+        <View>
+          <Text selectable={true} style={this.styles.black}>{introPregs}{':'}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.blackItalic}>{respPregs}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.blackItalic}>{"Aquí es poden afegir altres intencions."}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.black}>{pregsFinalPart}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
+        </View>
       );
     }
     else{
-      return(<Text selectable={true} style={this.styles.black}>{pregaries}</Text>);
+      return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
     }
   }
 
@@ -401,7 +465,6 @@ export default class LaudesDisplay extends Component {
   }
 
   completeOracio(oracio){
-    console.log("oracio!: " + oracio);
     var form1 = "Per nostre Senyor Jesucrist";
     var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
     var form2 = "Vós, que viviu i regneu pels segles dels segles";
@@ -433,21 +496,31 @@ export default class LaudesDisplay extends Component {
   }
 
   rs(text){
-    var length = text.length;
-    var lastChar = text.charAt(length-1);
-    if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    if(text){
+      var length = text.length;
+      var lastChar = text.charAt(length-1);
+      if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    }
+    else{
+      console.log("rs NOT possible. Something went wrong!");
+    }
     return text;
   }
 
   respTogether(r1,r2){
-    var lastCharacter = r1.charAt(r1.length-1);
-    var firstWord = r2.split(" ")[0];
-
     var result = r1 + ' ' + r2;
 
-    if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
-      && firstWord !== 'Vós')
-      result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
+    if(r1 && r2){
+      var lastCharacter = r1.charAt(r1.length-1);
+      var firstWord = r2.split(" ")[0];
+
+      if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
+        && firstWord !== 'Vós')
+        result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
+    }
+    else{
+      console.log("respTogether NOT possible. Something went wrong!");
+    }
 
     return result;
   }
