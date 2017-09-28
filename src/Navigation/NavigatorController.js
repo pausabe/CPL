@@ -278,15 +278,15 @@ export default class NavigatorController extends Component {
   }
 
   leftPress(){
-    this.eventEmitter.emit('myEvent', { type: 'pickerPressed'});
-    if(Platform.OS === 'ios'){
+    this.eventEmitter.emit('calendarPressed');
+    /*if(Platform.OS === 'ios'){
       this.auxDate = this.date;
       this.forceUpdate();
       this.popupDialog.show();
     }
     else{
       this.setState({ isDateTimePickerVisible: true });
-    }
+    }*/
   }
 
   renderScene(route,nav){

@@ -35,6 +35,7 @@ export default class HomeScreen extends Component {
     }
     if(Platform.OS === 'ios'){
       this.props.events.addListener('myEvent', this.eventManager.bind(this));
+      this.props.events.addListener('calendarPressed', this.calendarPressed.bind(this));
     }
     else{
       this.props.navigation.setParams({
@@ -289,9 +290,14 @@ export default class HomeScreen extends Component {
         this.refreshEverything(this.variables.date);
         return false;
       }
+      else if(this.calPres){
+        console.log("Should. YES, obrint Picker");
+        this.calPres = false;
+        return true;
+      }
       else{
-        console.log("Should. NO, coses del Picker");
-        return false;
+        console.log("Should. YES, coses del Picker");
+        return true;
       }
     }
     else{
@@ -567,6 +573,9 @@ export default class HomeScreen extends Component {
          </Image>
          <DateTimePicker
            isVisible={this.state.isDateTimePickerVisible}
+           titleIOS={'Canvia el dia'}
+           cancelTextIOS={'Cancel·la'}
+           confirmTextIOS={"D'acord"}
            date={this.date}
            minimumDate={this.minimumDate}
            maximumDate={this.maximumDate}
@@ -633,7 +642,6 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
-    // this.setState({isDateTimePickerVisible: true});
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
       if(this.santPress === 0) this.santPress = 1;
       else if(this.santPress === 1) this.santPress = 2;
