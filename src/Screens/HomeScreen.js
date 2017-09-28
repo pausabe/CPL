@@ -28,6 +28,20 @@ function paddingBar(){
 }
 
 export default class HomeScreen extends Component {
+  componentDidMount() {
+    if(Platform.OS==='android'){
+      setTimeout(() => { SplashScreen.hide(); }, 550);
+    }
+    if(Platform.OS === 'ios'){
+      this.props.events.addListener('myEvent', this.eventManager.bind(this));
+    }
+    else{
+      this.props.screenProps.events.addListener('myEvent', this.eventManager.bind(this));
+      this.props.navigation.setParams({
+            calPres: this.calendarPressed.bind(this),
+        });
+    }
+  }
 
   static navigationOptions = ({ navigation }) => ({
       headerTitle: <View style={{paddingLeft: 100}}>
@@ -43,7 +57,7 @@ export default class HomeScreen extends Component {
       },
       headerLeft: <TouchableOpacity
                       style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
-                      onPress={() => navigation.navigate('Calendar')}>
+                      onPress={ () => navigation.state.params.calPres() }>
                       <View style={{flex:1, paddingLeft: 10, alignItems: 'center', justifyContent:'center'}}>
                         <Icon
                           name="ios-calendar-outline"
@@ -63,16 +77,8 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>,
   });
 
-  componentDidMount() {
-    if(Platform.OS==='android'){
-      setTimeout(() => { SplashScreen.hide(); }, 550);
-    }
-    if(Platform.OS === 'ios'){
-      this.props.events.addListener('myEvent', this.eventManager.bind(this));
-    }
-    else{
-      this.props.screenProps.events.addListener('myEvent', this.eventManager.bind(this));
-    }
+  calendarPressed(){
+    this.setState({isDateTimePickerVisible: true})
   }
 
   /*componentWillUnmount() {
@@ -100,7 +106,8 @@ export default class HomeScreen extends Component {
 
     this.state = {
       santPressed: false,
-      testInfo: 'testing correctly'
+      testInfo: 'testing correctly',
+      isDateTimePickerVisible: false,
     }
 
     this.arrows = false;
@@ -230,6 +237,7 @@ export default class HomeScreen extends Component {
   }
 
   shouldComponentUpdate(){
+    return true;
     if(this.testing){
       return true;
     }
@@ -452,8 +460,6 @@ export default class HomeScreen extends Component {
     this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 
-  aha(){console.log("aha");}
-
   render() {
     console.log("RENDER!!!");
 
@@ -550,9 +556,9 @@ export default class HomeScreen extends Component {
            }
          </Image>
          <DateTimePicker
-           isVisible={true}
-           onConfirm={this.aha.bind(this)}
-           onCancel={this.aha.bind(this)}/>
+           isVisible={this.state.isDateTimePickerVisible}
+           onConfirm={this.dateOK.bind(this)}
+           onCancel={this.dateCANCEL.bind(this)}/>
        </View>
       )
     }
@@ -566,6 +572,14 @@ export default class HomeScreen extends Component {
         </View>
       )
     }
+  }
+
+  dateOK(){
+    this.setState({isDateTimePickerVisible: false});
+  }
+
+  dateCANCEL(){
+    this.setState({isDateTimePickerVisible: false});
   }
 
   tempsName(t){
@@ -595,8 +609,6 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
-    //this.eventEmitter.emit('litEvent', {id: 0});
-    //this.eventEmitter.emit('litEvent', {id: 1});
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
       if(this.santPress === 0) this.santPress = 1;
       else if(this.santPress === 1) this.santPress = 2;
