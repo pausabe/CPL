@@ -1,26 +1,54 @@
 import React from 'react';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import HomeScreen from '../Screens/HomeScreen';
 import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen';
-import SettingsScreen from '../Screens/SettingsScreen'
+import SettingsScreen from '../Screens/SettingsScreen';
+import GLOBAL from "../Globals/Globals";
+import Icon from 'react-native-vector-icons/Ionicons';
+import EventEmitter from 'EventEmitter';
+import CalendarPopUp from '../Screens/CalendarPopUp';
+
+const styles = StyleSheet.create({
+  titleText: {
+    textAlign: 'center',
+    color: GLOBAL.itemsBarColor,
+    fontSize: 20,
+    fontWeight: '600',
+  },
+});
 
 export const NavStack = StackNavigator({
   Home: {
     screen: HomeScreen,
-    navigationOptions: {
-      title: 'CPL',
-    },
   },
+
+
+  Calendar: {
+    screen: CalendarPopUp,
+  },
+
+
   Settings: {
     screen: SettingsScreen,
     navigationOptions: {
-      title: 'Configuració',
+      headerTitle: <Text style={styles.titleText}>{'Configuració'}</Text>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerTintColor: GLOBAL.itemsBarColor,
     },
   },
+
+
   LiturgiaDisplay: {
     screen: LiturgiaDisplayScreen,
     navigationOptions: ({ navigation }) => ({
-      title: navigation.state.params.title,
+      headerTitle: <Text style={styles.titleText}>{navigation.state.params.title}</Text>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerTintColor: GLOBAL.itemsBarColor,
     }),
   }
 });

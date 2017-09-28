@@ -56,7 +56,7 @@ function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
   }
-  return 64;
+  return 0;//64;
 }
 
 const styles = StyleSheet.create({

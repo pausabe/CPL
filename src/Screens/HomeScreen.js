@@ -17,8 +17,8 @@ import DBAdapter from '../SQL/DBAdapter';
 import SOUL from '../Components/SOUL';
 import SettingsManager from '../Settings/SettingsManager';
 import GLOBAL from "../Globals/Globals";
-var Subscribable = require('Subscribable');
 import EventEmitter from 'EventEmitter';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -28,12 +28,50 @@ function paddingBar(){
 }
 
 export default class HomeScreen extends Component {
+
+  static navigationOptions = ({ navigation }) => ({
+      headerTitle: <View style={{paddingLeft: 100}}>
+                      <Text style={{
+                        textAlign: 'center',
+                        color: GLOBAL.itemsBarColor,
+                        fontSize: 20,
+                        fontWeight: '600',
+                      }}>CPL</Text>
+                    </View>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerLeft: <TouchableOpacity
+                      style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
+                      onPress={() => navigation.navigate('Calendar')}>
+                      <View style={{flex:1, paddingLeft: 10, alignItems: 'center', justifyContent:'center'}}>
+                        <Icon
+                          name="ios-calendar-outline"
+                          size={30}
+                          color="#FFFFFF"/>
+                      </View>
+                  </TouchableOpacity>,
+      headerRight: <TouchableOpacity
+                      style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
+                      onPress={() => navigation.navigate('Settings')}>
+                      <View style={{flex:1, paddingRight: 10, alignItems: 'center', justifyContent:'center'}}>
+                        <Icon
+                          name="ios-settings-outline"
+                          size={30}
+                          color="#FFFFFF"/>
+                      </View>
+                  </TouchableOpacity>,
+  });
+
   componentDidMount() {
     if(Platform.OS==='android'){
       setTimeout(() => { SplashScreen.hide(); }, 550);
     }
     if(Platform.OS === 'ios'){
       this.props.events.addListener('myEvent', this.eventManager.bind(this));
+    }
+    else{
+      this.props.screenProps.events.addListener('myEvent', this.eventManager.bind(this));
     }
   }
 
@@ -262,6 +300,9 @@ export default class HomeScreen extends Component {
           this.refreshEverything(args.newDate);
         }
       break;
+      case 'calendarPressd':
+        console.log("YEAH calendar");
+      break;
     }
   }
 
@@ -411,6 +452,8 @@ export default class HomeScreen extends Component {
     this.refreshDate(newDay, this.variables.diocesi, this.variables.liturgia);
   }
 
+  aha(){console.log("aha");}
+
   render() {
     console.log("RENDER!!!");
 
@@ -506,6 +549,10 @@ export default class HomeScreen extends Component {
              </View>
            }
          </Image>
+         <DateTimePicker
+           isVisible={true}
+           onConfirm={this.aha.bind(this)}
+           onCancel={this.aha.bind(this)}/>
        </View>
       )
     }
