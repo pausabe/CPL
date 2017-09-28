@@ -110,9 +110,6 @@ export default class NavigatorController extends Component {
       );
     }
     else{
-      return(<NavStack />);
-    }
-    /*else{
       return (
         <View style={{flex: 1}}>
           <StatusBar
@@ -212,7 +209,7 @@ export default class NavigatorController extends Component {
           />
         </View>
       );
-    }*/
+    }
   }
 
   onDateChangeIos(date){
@@ -291,7 +288,7 @@ export default class NavigatorController extends Component {
     }
   }
 
-  /*renderScene(route,nav){
+  renderScene(route,nav){
     switch (route.id) {
       case 'home':
         return (
@@ -310,7 +307,7 @@ export default class NavigatorController extends Component {
                           variables={route.variables}
                           liturgicProps={route.liturgicProps} />);
     }
-  }*/
+  }
 }
 
 const styles = StyleSheet.create({

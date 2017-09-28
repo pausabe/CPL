@@ -20,10 +20,6 @@ import GLOBAL from "../Globals/Globals";
 var Subscribable = require('Subscribable');
 import EventEmitter from 'EventEmitter';
 
-import {
-  StackNavigator,
-} from 'react-navigation';
-
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
@@ -36,27 +32,28 @@ export default class HomeScreen extends Component {
     if(Platform.OS==='android'){
       setTimeout(() => { SplashScreen.hide(); }, 550);
     }
-    console.log("this.props.events: " + this.props.events);
-    this.props.events.addListener('myEvent', this.eventManager.bind(this));
+    if(Platform.OS === 'ios'){
+      this.props.events.addListener('myEvent', this.eventManager.bind(this));
+    }
   }
 
-  componentWillUnmount() {
+  /*componentWillUnmount() {
     BackAndroid.removeEventListener('hardwareBackPress', this.backHandler.bind(this));
   }
 
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', this.backHandler.bind(this));
     //this.eventEmitter = new EventEmitter();
-  }
+  }*/
 
-  backHandler(){
+  /*backHandler(){
     console.log("Android back: " + this.props.navigator.getCurrentRoutes().length);
     if(this.props.navigator.getCurrentRoutes().length>1){
       this.props.navigator.pop();
       return true;
     }
     return false;
-  }
+  }*/
 
   constructor(props) {
     super(props)
@@ -416,7 +413,7 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
-    return(null);
+
     if(!this.renderTest){
       auxPadding = 5;
       return (
@@ -501,6 +498,7 @@ export default class HomeScreen extends Component {
                <Liturgia
                  HS={this}
                  navigation={this.props.navigation}
+                 navigator={this.props.navigator}
                  variables={this.variables}
                  liturgicProps={this.liturgicProps}
                  events={this.eventEmitter}

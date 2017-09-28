@@ -1,7 +1,8 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import HomeScreen from '../Screens/HomeScreen';
-//import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen';
+import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen';
+import SettingsScreen from '../Screens/SettingsScreen'
 
 export const NavStack = StackNavigator({
   Home: {
@@ -10,10 +11,16 @@ export const NavStack = StackNavigator({
       title: 'CPL',
     },
   },
-  /*LiturgiaDisplay: {
+  Settings: {
+    screen: SettingsScreen,
+    navigationOptions: {
+      title: 'Configuració',
+    },
+  },
+  LiturgiaDisplay: {
     screen: LiturgiaDisplayScreen,
     navigationOptions: ({ navigation }) => ({
-      title: navigation.state.params,
+      title: navigation.state.params.title,
     }),
-  }*/
+  }
 });
