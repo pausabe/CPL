@@ -59,6 +59,10 @@ module.exports = {
     if(r1 && r2){
       var lastCharacter = r1.charAt(r1.length-1);
       var firstWord = r2.split(" ")[0];
+      firstWord=firstWord.replace(",", '');
+      firstWord=firstWord.replace(".", '');
+      firstWord=firstWord.replace(":", '');
+      firstWord=firstWord.replace(";", '');
 
       if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
         && firstWord !== 'Vós')
