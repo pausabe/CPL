@@ -113,6 +113,22 @@ export default class Liturgia extends Component {
         });
       }
       else{
+        var title = type;
+        if(type==='Ofici') title = 'Ofici de lectura';
+        var params = {
+          title: title,
+          props: {
+            // id: idPressed,
+            type: type,
+            // index: 1,
+            variables: this.props.variables,
+            date: this.props.date,
+            liturgicProps: this.props.liturgicProps,
+          },
+        }
+        this.props.navigation.navigate('LiturgiaDisplay', params);
+      }
+      /*else{
         this.props.navigator.push({
           id: idPressed,
           type: type,
@@ -121,7 +137,7 @@ export default class Liturgia extends Component {
           date: this.props.date,
           liturgicProps: this.props.liturgicProps,
         });
-      }
+      }*/
     }
   }
 

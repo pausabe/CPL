@@ -13,7 +13,7 @@ import {
   Platform,
   DatePickerIOS
 } from 'react-native';
-
+import { NavStack } from '../Navigation/router'
 import CustomTransitions from '../CustomTransitions/CustomTransitions';
 import HomeScreen from '../Screens/HomeScreen'
 import SettingsScreen from '../Screens/SettingsScreen'
@@ -37,6 +37,7 @@ export default class NavigatorController extends Component {
   constructor(props) {
     super(props)
 
+    //this is just for ios. You must change for android in HomeScreen as well
     this.date = new Date(/*2017,7,7*/);
     this.auxDate = this.date;
     this.minimumDate = new Date(2017,0,2);
@@ -63,8 +64,7 @@ export default class NavigatorController extends Component {
             <StatusBar
               barStyle="light-content"
               backgroundColor={GLOBAL.statusBarColor}
-              hidden={false}
-            />
+              hidden={false}/>
 
             <NavigatorIOS
               ref='navIos'
@@ -81,37 +81,12 @@ export default class NavigatorController extends Component {
               style={{flex: 1}}
               barTintColor={GLOBAL.barColor}
               tintColor={GLOBAL.itemsBarColor}
-              titleTextColor={GLOBAL.itemsBarColor}
-            />
-
-            <PopupDialog
-                ref={(popupDialog) => { this.popupDialog = popupDialog}}
-                dialogStyle={{backgroundColor: 'white'}}
-                dialogTitle={<DialogTitle title="Canvia el dia" />} >
-                <DatePickerIOS
-                  date={this.auxDate}
-                  minimumDate={this.minimumDate}
-                  maximumDate={this.maximumDate}
-                  mode="date"
-                  onDateChange={this.onDateChangeIos.bind(this)}
-                />
-                <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'white'}}>
-                  <View style={{flex: 1, alignItems: 'center'}}>
-                    <TouchableOpacity onPress={this.cancelDatePicker.bind(this)}>
-                      <Text style={styles.popupText}>Cancel·la</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{flex: 1, alignItems: 'center'}}>
-                    <TouchableOpacity onPress={this.okDatePicker.bind(this)}>
-                      <Text style={styles.popupText}>D'acord</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </PopupDialog>
+              titleTextColor={GLOBAL.itemsBarColor}/>
+              {this.popup}
         </View>
       );
     }
-    else{
+    /*else{
       return (
         <View style={{flex: 1}}>
           <StatusBar
@@ -211,20 +186,49 @@ export default class NavigatorController extends Component {
           />
         </View>
       );
-    }
+    }*/
   }
 
-  onDateChangeIos(date){
+  /*popup(){
+    return(
+      <PopupDialog
+          ref={(popupDialog) => { this.popupDialog = popupDialog}}
+          dialogStyle={{backgroundColor: 'white'}}
+          dialogTitle={<DialogTitle title="Canvia el dia" />} >
+          <DatePickerIOS
+            date={this.auxDate}
+            minimumDate={this.minimumDate}
+            maximumDate={this.maximumDate}
+            mode="date"
+            onDateChange={this.onDateChangeIos.bind(this)}/>
+
+          <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'white'}}>
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <TouchableOpacity onPress={this.cancelDatePicker.bind(this)}>
+                <Text style={styles.popupText}>Cancel·la</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <TouchableOpacity onPress={this.okDatePicker.bind(this)}>
+                <Text style={styles.popupText}>{"D'acord"}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </PopupDialog>
+    )
+  }*/
+
+  /*onDateChangeIos(date){
     console.log('IOS. A date has been picked: ' + date);
     this.auxDate = date;
     this.forceUpdate();
-  }
+  }*/
 
-  okDatePicker(androidDate){
+  /*okDatePicker(androidDate){
     if(Platform.OS === 'ios'){
       this.popupDialog.dismiss();
       this.date = this.auxDate;
-      console.log("IOS. Date definitive picked: " + this.date);
+      console.log("IOS. Date definitive picked: " + this.date);*/
       /*this.refs.navIos.replace({
         component: HomeScreen,
         title: 'CPL',
@@ -234,28 +238,28 @@ export default class NavigatorController extends Component {
         leftButtonIcon: this.state.calendarIcon,
         onLeftButtonPress: () => this.leftPress(),
       });*/
-    }
+    /*}
     else{
       console.log('ANDROID. Date definitive picked: ' + androidDate);
-      this.date = androidDate;
+      this.date = androidDate;*/
       /*this.refs.navAndroid.replace({
         id: 'home',
         index: 0,
         date: androidDate
       });*/
-      this.setState({ isDateTimePickerVisible: false });
+      /*this.setState({ isDateTimePickerVisible: false });
     }
     this.eventEmitter.emit('myEvent', { type: 'okPicker', newDate: this.date });
-  }
+  }*/
 
-  cancelDatePicker(){
+  /*cancelDatePicker(){
     if(Platform.OS === 'ios'){
       this.popupDialog.dismiss();
     }
     else{
       this.setState({ isDateTimePickerVisible: false });
     }
-  }
+  }*/
 
   backPress(nav){
     nav.pop();
@@ -263,34 +267,34 @@ export default class NavigatorController extends Component {
 
   rightPress(nav){
     this.eventEmitter.emit('myEvent', { type: 'settingsPressed'});
-    if(Platform.OS === 'ios'){
+    // if(Platform.OS === 'ios'){
       this.refs.navIos.push({
         title: 'Configuració',
         passProps: {title: 'Configuració'},
         component: SettingsScreen
       });
-    }
-    else{
+    // }
+    /*else{
       nav.push({
         id: 'settings',
         index: 1
       });
-    }
+    }*/
   }
 
   leftPress(){
-    this.eventEmitter.emit('myEvent', { type: 'pickerPressed'});
-    if(Platform.OS === 'ios'){
+    this.eventEmitter.emit('calendarPressed');
+    /*if(Platform.OS === 'ios'){
       this.auxDate = this.date;
       this.forceUpdate();
       this.popupDialog.show();
     }
     else{
       this.setState({ isDateTimePickerVisible: true });
-    }
+    }*/
   }
 
-  renderScene(route,nav){
+  /*renderScene(route,nav){
     switch (route.id) {
       case 'home':
         return (
@@ -309,7 +313,7 @@ export default class NavigatorController extends Component {
                           variables={route.variables}
                           liturgicProps={route.liturgicProps} />);
     }
-  }
+  }*/
 }
 
 const styles = StyleSheet.create({

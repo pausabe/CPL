@@ -17,14 +17,15 @@ import DBAdapter from '../SQL/DBAdapter';
 import SOUL from '../Components/SOUL';
 import SettingsManager from '../Settings/SettingsManager';
 import GLOBAL from "../Globals/Globals";
-var Subscribable = require('Subscribable');
 import EventEmitter from 'EventEmitter';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import { NavigationActions } from 'react-navigation';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
   }
-  return 54;
+  return 0;//54;
 }
 
 export default class HomeScreen extends Component {
@@ -32,36 +33,92 @@ export default class HomeScreen extends Component {
     if(Platform.OS==='android'){
       setTimeout(() => { SplashScreen.hide(); }, 550);
     }
-    console.log("this.props.events: " + this.props.events);
-    this.props.events.addListener('myEvent', this.eventManager.bind(this));
+    if(Platform.OS === 'ios'){
+      this.props.events.addListener('myEvent', this.eventManager.bind(this));
+      this.props.events.addListener('calendarPressed', this.calendarPressed.bind(this));
+    }
+    else{
+      this.props.navigation.setParams({
+            calPres: this.calendarPressed.bind(this),
+            refreshFunction: this.refreshFunction.bind(this),
+        });
+    }
   }
 
-  componentWillUnmount() {
+  static navigationOptions = ({ navigation }) => ({
+      headerTitle: <View style={{paddingLeft: 100}}>
+                      <Text style={{
+                        textAlign: 'center',
+                        color: GLOBAL.itemsBarColor,
+                        fontSize: 20,
+                        fontWeight: '600',
+                      }}>CPL</Text>
+                    </View>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerLeft: <TouchableOpacity
+                      style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
+                      onPress={ () => navigation.state.params.calPres() }>
+                      <View style={{flex:1, paddingLeft: 10, alignItems: 'center', justifyContent:'center'}}>
+                        <Icon
+                          name="ios-calendar-outline"
+                          size={30}
+                          color="#FFFFFF"/>
+                      </View>
+                  </TouchableOpacity>,
+      headerRight: <TouchableOpacity
+                      style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
+                      onPress={() => navigation.navigate('Settings', { refresh: navigation.state.params.refreshFunction})}>
+                      <View style={{flex:1, paddingRight: 10, alignItems: 'center', justifyContent:'center'}}>
+                        <Icon
+                          name="ios-settings-outline"
+                          size={30}
+                          color="#FFFFFF"/>
+                      </View>
+                  </TouchableOpacity>,
+  });
+
+  refreshFunction(){
+    this.refreshEverything(this.variables.date);
+  }
+
+  calendarPressed(){
+    this.calPres = true;
+    this.setState({isDateTimePickerVisible: true})
+  }
+
+  /*componentWillUnmount() {
     BackAndroid.removeEventListener('hardwareBackPress', this.backHandler.bind(this));
   }
 
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', this.backHandler.bind(this));
     //this.eventEmitter = new EventEmitter();
-  }
+  }*/
 
-  backHandler(){
+  /*backHandler(){
     console.log("Android back: " + this.props.navigator.getCurrentRoutes().length);
     if(this.props.navigator.getCurrentRoutes().length>1){
       this.props.navigator.pop();
       return true;
     }
     return false;
-  }
+  }*/
 
   constructor(props) {
     super(props)
 
-    //this.iWantRender = false;
+    //this is just for android. You must change for ios in NavigatorController as well
+    this.date = new Date(/*2017,7,7*/);
+    // this.auxDate = this.date;
+    this.minimumDate = new Date(2017,0,2);
+    this.maximumDate = new Date(2017,11,28);
 
     this.state = {
       santPressed: false,
-      testInfo: 'testing correctly'
+      testInfo: 'testing correctly',
+      isDateTimePickerVisible: false,
     }
 
     this.arrows = false;
@@ -131,6 +188,7 @@ export default class HomeScreen extends Component {
     this.inLit = false;
     this.inSet = false;
     this.picAcc = false;
+    this.calPres = false;
     //this.picPres = true;
 
     var tomorrow = new Date(today.getFullYear(), today.getMonth());
@@ -191,49 +249,59 @@ export default class HomeScreen extends Component {
   }
 
   shouldComponentUpdate(){
-    if(this.testing){
-      return true;
-    }
-    else if(this.litPres){
-      console.log("Should. NO, estic anant a Liturgia");
-      this.inLit = true;
-      this.litPres = false;
-      return false;
-    }
-    else if(this.refEv){
-      console.log("Should. YES, després de refreshEverything");
-      this.refEv = false;
-      return true;
-    }
-    else if(this.setPres){
-      console.log("Should. NO, estic anant a Settings");
-      this.inSet = true;
-      this.setPres = false;
-      return false;
-    }
-    else if(this.santPress === 1){
-      console.log("Should. YES, estic obrint Sant");
-      return true;
-    }
-    else if(this.santPress === 2){
-      console.log("Should. YES, estic tancant Sant");
-      this.santPress = 0;
-      return true;
-    }
-    else if(this.inLit){
-      console.log("Should. YES, estic tornant de Liturgia");
-      this.inLit = false;
-      return true;
-    }
-    else if(this.inSet){
-      console.log("Should. NO, estic tornant de Settings");
-      this.inSet = false;
-      this.refreshEverything(this.variables.date);
-      return false;
+    if(Platform.OS === 'ios'){
+      if(this.testing){
+        return true;
+      }
+      else if(this.litPres){
+        console.log("Should. NO, estic anant a Liturgia");
+        this.inLit = true;
+        this.litPres = false;
+        return false;
+      }
+      else if(this.refEv){
+        console.log("Should. YES, després de refreshEverything");
+        this.refEv = false;
+        return true;
+      }
+      else if(this.setPres){
+        console.log("Should. NO, estic anant a Settings");
+        this.inSet = true;
+        this.setPres = false;
+        return false;
+      }
+      else if(this.santPress === 1){
+        console.log("Should. YES, estic obrint Sant");
+        return true;
+      }
+      else if(this.santPress === 2){
+        console.log("Should. YES, estic tancant Sant");
+        this.santPress = 0;
+        return true;
+      }
+      else if(this.inLit){
+        console.log("Should. YES, estic tornant de Liturgia");
+        this.inLit = false;
+        return true;
+      }
+      else if(this.inSet){
+        console.log("Should. NO, estic tornant de Settings");
+        this.inSet = false;
+        this.refreshEverything(this.variables.date);
+        return false;
+      }
+      else if(this.calPres){
+        console.log("Should. YES, obrint Picker");
+        this.calPres = false;
+        return true;
+      }
+      else{
+        console.log("Should. YES, coses del Picker");
+        return true;
+      }
     }
     else{
-      console.log("Should. NO, coses del Picker");
-      return false;
+      return true;
     }
   }
 
@@ -412,6 +480,7 @@ export default class HomeScreen extends Component {
 
   render() {
     console.log("RENDER!!!");
+
     if(!this.renderTest){
       auxPadding = 5;
       return (
@@ -464,15 +533,13 @@ export default class HomeScreen extends Component {
                       <Icon
                         name="ios-arrow-down"
                         size={25}
-                        color="#424242"
-                      />
+                        color="#424242"/>
                       :
                       <Icon
                         name="ios-arrow-forward-outline"
                         size={25}
                         iconStyle={{padding: 50}}
-                        color="#424242"
-                      />
+                        color="#424242"/>
                     }
                     </View>
                     :
@@ -495,6 +562,7 @@ export default class HomeScreen extends Component {
              <View style={styles.liturgiaContainer}>
                <Liturgia
                  HS={this}
+                 navigation={this.props.navigation}
                  navigator={this.props.navigator}
                  variables={this.variables}
                  liturgicProps={this.liturgicProps}
@@ -503,6 +571,16 @@ export default class HomeScreen extends Component {
              </View>
            }
          </Image>
+         <DateTimePicker
+           isVisible={this.state.isDateTimePickerVisible}
+           titleIOS={'Canvia el dia'}
+           cancelTextIOS={'Cancel·la'}
+           confirmTextIOS={"D'acord"}
+           date={this.date}
+           minimumDate={this.minimumDate}
+           maximumDate={this.maximumDate}
+           onConfirm={this.dateOK.bind(this)}
+           onCancel={this.dateCANCEL.bind(this)}/>
        </View>
       )
     }
@@ -516,6 +594,25 @@ export default class HomeScreen extends Component {
         </View>
       )
     }
+  }
+
+  dateOK(newDate){
+    this.date = newDate;
+    this.setState({isDateTimePickerVisible: false});
+    console.log("pickerAccept: " + newDate);
+    if(newDate !== this.variables.date){
+      var tomorrow = new Date();
+      tomorrow.setFullYear(newDate.getFullYear());
+      tomorrow.setMonth(newDate.getMonth());
+      tomorrow.setDate(newDate.getDate() + 1);
+      this.dataTomorrow.date = tomorrow;
+      console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
+      this.refreshEverything(newDate);
+    }
+  }
+
+  dateCANCEL(){
+    this.setState({isDateTimePickerVisible: false});
   }
 
   tempsName(t){
@@ -545,8 +642,6 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
-    //this.eventEmitter.emit('litEvent', {id: 0});
-    //this.eventEmitter.emit('litEvent', {id: 1});
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
       if(this.santPress === 0) this.santPress = 1;
       else if(this.santPress === 1) this.santPress = 2;
@@ -1146,4 +1241,4 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 10,
   },
-})
+});

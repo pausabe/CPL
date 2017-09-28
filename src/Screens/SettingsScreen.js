@@ -6,26 +6,13 @@ import SettingsComponentAdapter from "../ComponentAdapters/SettingsComponentAdap
 import HomeScreen from '../Screens/HomeScreen'
 
 export default class SettingsScreen extends Component {
-  /*constructor(props, context){
-    super(props, context);
-    this._onForward = this._onForward.bind(this);
+  refreshHome(){
+    // console.log("fuck yeah");
+    this.props.navigation.state.params.refresh();
   }
 
-  _onForward() {
-    console.log("_onForward");
-    this.props.navigator.replace({
-      component: HomeScreen,
-      title: 'CPL',
-      passProps: {title: 'CPL', naviDate: this.date, setPres: false},
-      rightButtonIcon: this.state.settingsIcon,
-      onRightButtonPress: () => this.rightPress(),
-      leftButtonIcon: this.state.calendarIcon,
-      onLeftButtonPress: () => this.leftPress(),
-    });
-  }*/
-
   componentWillMount(){
-      SettingsComponentAdapter.getSettingsOptions().then(result =>{
+      SettingsComponentAdapter.getSettingsOptions(this.refreshHome.bind(this)).then(result =>{
           this.setState({options: result});
       }).catch(error => console.log(error));
   }
@@ -48,15 +35,11 @@ export default class SettingsScreen extends Component {
     }
 }
 
-function callbackTest(id, value){
-    console.log("ID: "+id+" - VALUE: "+value)
-}
-
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
   }
-  return 64;
+  return 0;//64;
 }
 
 const styles = StyleSheet.create({

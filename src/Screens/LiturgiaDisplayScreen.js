@@ -13,7 +13,7 @@ function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
   }
-  return 55;
+  return 0//55;
 }
 
 export default class LiturgiaDisplayScreen extends Component {
@@ -21,9 +21,15 @@ export default class LiturgiaDisplayScreen extends Component {
     if(Platform.OS === 'ios'){
       barPad = 0;
     }
+
+    if(Platform.OS === 'android'){
+      this.props = this.props.navigation.state.params.props;
+    }
+
   }
 
   render() {
+    console.log("YEY!");
     return (
       <View style={styles.container}>
         <ScrollView automaticallyAdjustContentInsets={false} style={{padding: 10,}}>
