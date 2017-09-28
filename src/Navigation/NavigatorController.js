@@ -37,6 +37,7 @@ export default class NavigatorController extends Component {
   constructor(props) {
     super(props)
 
+    //this is just for ios. You must change for android in HomeScreen as well
     this.date = new Date(/*2017,7,7*/);
     this.auxDate = this.date;
     this.minimumDate = new Date(2017,0,2);

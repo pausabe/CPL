@@ -108,7 +108,11 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
-    //this.iWantRender = false;
+    //this is just for android. You must change for ios in NavigatorController as well
+    this.date = new Date(/*2017,7,7*/);
+    // this.auxDate = this.date;
+    this.minimumDate = new Date(2017,0,2);
+    this.maximumDate = new Date(2017,11,28);
 
     this.state = {
       santPressed: false,
@@ -563,6 +567,9 @@ export default class HomeScreen extends Component {
          </Image>
          <DateTimePicker
            isVisible={this.state.isDateTimePickerVisible}
+           date={this.date}
+           minimumDate={this.minimumDate}
+           maximumDate={this.maximumDate}
            onConfirm={this.dateOK.bind(this)}
            onCancel={this.dateCANCEL.bind(this)}/>
        </View>
@@ -580,9 +587,20 @@ export default class HomeScreen extends Component {
     }
   }
 
-  dateOK(){
+  dateOK(newDate){
+    this.date = newDate;
     this.setState({isDateTimePickerVisible: false});
-    //like event manager okPicker
+    console.log("pickerAccept: " + newDate);
+    // this.picAcc = true;
+    if(newDate !== this.variables.date){
+      var tomorrow = new Date();
+      tomorrow.setFullYear(newDate.getFullYear());
+      tomorrow.setMonth(newDate.getMonth());
+      tomorrow.setDate(newDate.getDate() + 1);
+      this.dataTomorrow.date = tomorrow;
+      console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
+      this.refreshEverything(newDate);
+    }
   }
 
   dateCANCEL(){
