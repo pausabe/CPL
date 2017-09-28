@@ -591,7 +591,6 @@ export default class HomeScreen extends Component {
     this.date = newDate;
     this.setState({isDateTimePickerVisible: false});
     console.log("pickerAccept: " + newDate);
-    // this.picAcc = true;
     if(newDate !== this.variables.date){
       var tomorrow = new Date();
       tomorrow.setFullYear(newDate.getFullYear());
@@ -634,6 +633,7 @@ export default class HomeScreen extends Component {
   }
 
   onSantPress(){
+    // this.setState({isDateTimePickerVisible: true});
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
       if(this.santPress === 0) this.santPress = 1;
       else if(this.santPress === 1) this.santPress = 2;
