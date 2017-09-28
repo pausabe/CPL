@@ -6,14 +6,18 @@ import SettingsComponentAdapter from "../ComponentAdapters/SettingsComponentAdap
 import HomeScreen from '../Screens/HomeScreen'
 
 export default class SettingsScreen extends Component {
+  refreshHome(){
+    // console.log("fuck yeah");
+    this.props.navigation.state.params.refresh();
+  }
+
   componentWillMount(){
-      SettingsComponentAdapter.getSettingsOptions().then(result =>{
+      SettingsComponentAdapter.getSettingsOptions(this.refreshHome.bind(this)).then(result =>{
           this.setState({options: result});
       }).catch(error => console.log(error));
   }
 
   render() {
-    //this.props.navigation.state.params.refresh();
       if(!this.state || this.state && !this.state.options){
           return (
             <View style={styles.scrollContainer}>
@@ -29,10 +33,6 @@ export default class SettingsScreen extends Component {
         </View>
       );
     }
-}
-
-function callBack(){
-    console.log("super callback!");
 }
 
 function paddingBar(){

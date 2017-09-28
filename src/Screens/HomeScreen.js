@@ -244,57 +244,55 @@ export default class HomeScreen extends Component {
   }
 
   shouldComponentUpdate(){
-    if(this.testing){
-      return true;
-    }
-    else if(this.litPres){
-      console.log("Should. NO, estic anant a Liturgia");
-      this.inLit = true;
-      this.litPres = false;
-      return false;
-    }
-    else if(this.refEv){
-      console.log("Should. YES, després de refreshEverything");
-      this.refEv = false;
-      return true;
-    }
-    else if(this.setPres){
-      console.log("Should. NO, estic anant a Settings");
-      this.inSet = true;
-      this.setPres = false;
-      return false;
-    }
-    else if(this.santPress === 1){
-      console.log("Should. YES, estic obrint Sant");
-      return true;
-    }
-    else if(this.santPress === 2){
-      console.log("Should. YES, estic tancant Sant");
-      this.santPress = 0;
-      return true;
-    }
-    else if(this.inLit){
-      console.log("Should. YES, estic tornant de Liturgia");
-      this.inLit = false;
-      return true;
-    }
-    else if(this.inSet){
-      console.log("Should. NO, estic tornant de Settings");
-      this.inSet = false;
-      this.refreshEverything(this.variables.date);
-      return false;
-    }
-    console.log("Should. YES, nse...");
-    return true;
-    /*else if(this.calPres){
-      console.log("Should. YES, estic obrint Calendari");
-      //this.calPres = false;
-      return true;
+    if(Platform.OS === 'ios'){
+      if(this.testing){
+        return true;
+      }
+      else if(this.litPres){
+        console.log("Should. NO, estic anant a Liturgia");
+        this.inLit = true;
+        this.litPres = false;
+        return false;
+      }
+      else if(this.refEv){
+        console.log("Should. YES, després de refreshEverything");
+        this.refEv = false;
+        return true;
+      }
+      else if(this.setPres){
+        console.log("Should. NO, estic anant a Settings");
+        this.inSet = true;
+        this.setPres = false;
+        return false;
+      }
+      else if(this.santPress === 1){
+        console.log("Should. YES, estic obrint Sant");
+        return true;
+      }
+      else if(this.santPress === 2){
+        console.log("Should. YES, estic tancant Sant");
+        this.santPress = 0;
+        return true;
+      }
+      else if(this.inLit){
+        console.log("Should. YES, estic tornant de Liturgia");
+        this.inLit = false;
+        return true;
+      }
+      else if(this.inSet){
+        console.log("Should. NO, estic tornant de Settings");
+        this.inSet = false;
+        this.refreshEverything(this.variables.date);
+        return false;
+      }
+      else{
+        console.log("Should. NO, coses del Picker");
+        return false;
+      }
     }
     else{
-      console.log("Should. NO, coses del Picker");
-      return false;
-    }*/
+      return true;
+    }
   }
 
   eventManager(args){

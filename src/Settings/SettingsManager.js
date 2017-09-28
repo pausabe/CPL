@@ -63,7 +63,7 @@ export default class SettingsManager{
 
     static _setStorageValue(key, value, callback){
         let savePromise = AsyncStorage.setItem(key, value);
-        console.log(callback);
+        // console.log("CBBBB. "+callback);
         savePromise.then(callback);
         return savePromise;
     }
@@ -162,6 +162,7 @@ export default class SettingsManager{
     }
 
     static setSettingInvitatori(value, callback){
+      // console.log("calllll? " + callback);
         return SettingsManager._setValueIfValid("invitatori", value,
             (val) => {
                 return findValueInObject(invitatori, val);
