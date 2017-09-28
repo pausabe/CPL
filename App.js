@@ -8,13 +8,8 @@ import {
 import { NavStack } from './src/Navigation/router'
 import NavigatorController from './src/Navigation/NavigatorController'
 import GLOBAL from "./src/Globals/Globals";
-import EventEmitter from 'EventEmitter';
 
 export default class CPL extends Component {
-  componentWillMount(){
-    this.eventEmitter = new EventEmitter();
-  }
-
   render() {
     if(Platform.OS === 'ios'){
       return(
@@ -27,7 +22,7 @@ export default class CPL extends Component {
           <StatusBar
             barStyle="light-content"
             backgroundColor={GLOBAL.statusBarColor}/>
-          <NavStack screenProps={{events: this.eventEmitter}} />
+          <NavStack />
         </View>
       );
     }

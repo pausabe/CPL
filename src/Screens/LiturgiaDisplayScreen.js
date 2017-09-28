@@ -25,10 +25,11 @@ export default class LiturgiaDisplayScreen extends Component {
     if(Platform.OS === 'android'){
       this.props = this.props.navigation.state.params.props;
     }
+
   }
 
   render() {
-    console.log("YEY: " + this.props.type);
+    console.log("YEY!");
     return (
       <View style={styles.container}>
         <ScrollView automaticallyAdjustContentInsets={false} style={{padding: 10,}}>

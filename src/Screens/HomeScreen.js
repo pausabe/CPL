@@ -19,6 +19,7 @@ import SettingsManager from '../Settings/SettingsManager';
 import GLOBAL from "../Globals/Globals";
 import EventEmitter from 'EventEmitter';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { NavigationActions } from 'react-navigation';
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
@@ -36,9 +37,9 @@ export default class HomeScreen extends Component {
       this.props.events.addListener('myEvent', this.eventManager.bind(this));
     }
     else{
-      this.props.screenProps.events.addListener('myEvent', this.eventManager.bind(this));
       this.props.navigation.setParams({
             calPres: this.calendarPressed.bind(this),
+            refreshFunction: this.refreshFunction.bind(this),
         });
     }
   }
@@ -67,7 +68,7 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>,
       headerRight: <TouchableOpacity
                       style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
-                      onPress={() => navigation.navigate('Settings')}>
+                      onPress={() => navigation.navigate('Settings', { refresh: navigation.state.params.refreshFunction})}>
                       <View style={{flex:1, paddingRight: 10, alignItems: 'center', justifyContent:'center'}}>
                         <Icon
                           name="ios-settings-outline"
@@ -77,7 +78,12 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>,
   });
 
+  refreshFunction(){
+    this.refreshEverything(this.variables.date);
+  }
+
   calendarPressed(){
+    this.calPres = true;
     this.setState({isDateTimePickerVisible: true})
   }
 
@@ -177,6 +183,7 @@ export default class HomeScreen extends Component {
     this.inLit = false;
     this.inSet = false;
     this.picAcc = false;
+    this.calPres = false;
     //this.picPres = true;
 
     var tomorrow = new Date(today.getFullYear(), today.getMonth());
@@ -237,7 +244,6 @@ export default class HomeScreen extends Component {
   }
 
   shouldComponentUpdate(){
-    return true;
     if(this.testing){
       return true;
     }
@@ -278,10 +284,17 @@ export default class HomeScreen extends Component {
       this.refreshEverything(this.variables.date);
       return false;
     }
+    console.log("Should. YES, nse...");
+    return true;
+    /*else if(this.calPres){
+      console.log("Should. YES, estic obrint Calendari");
+      //this.calPres = false;
+      return true;
+    }
     else{
       console.log("Should. NO, coses del Picker");
       return false;
-    }
+    }*/
   }
 
   eventManager(args){
@@ -307,9 +320,6 @@ export default class HomeScreen extends Component {
           console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
           this.refreshEverything(args.newDate);
         }
-      break;
-      case 'calendarPressd':
-        console.log("YEAH calendar");
       break;
     }
   }
@@ -515,15 +525,13 @@ export default class HomeScreen extends Component {
                       <Icon
                         name="ios-arrow-down"
                         size={25}
-                        color="#424242"
-                      />
+                        color="#424242"/>
                       :
                       <Icon
                         name="ios-arrow-forward-outline"
                         size={25}
                         iconStyle={{padding: 50}}
-                        color="#424242"
-                      />
+                        color="#424242"/>
                     }
                     </View>
                     :
@@ -576,6 +584,7 @@ export default class HomeScreen extends Component {
 
   dateOK(){
     this.setState({isDateTimePickerVisible: false});
+    //like event manager okPicker
   }
 
   dateCANCEL(){

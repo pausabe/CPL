@@ -6,8 +6,6 @@ import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen';
 import SettingsScreen from '../Screens/SettingsScreen';
 import GLOBAL from "../Globals/Globals";
 import Icon from 'react-native-vector-icons/Ionicons';
-import EventEmitter from 'EventEmitter';
-import CalendarPopUp from '../Screens/CalendarPopUp';
 
 const styles = StyleSheet.create({
   titleText: {
@@ -22,12 +20,6 @@ export const NavStack = StackNavigator({
   Home: {
     screen: HomeScreen,
   },
-
-
-  Calendar: {
-    screen: CalendarPopUp,
-  },
-
 
   Settings: {
     screen: SettingsScreen,
