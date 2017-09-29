@@ -1,10 +1,23 @@
-v0.0(20.06.2017)[1] - [?] Primera pujada al mercat
-v0.1(20.06.2017)[2] - [?] Some bugs fixed
-v0.11(21.06.2017)[3] - [?] Android button hits improved
-v0.12(21.06.2017)[4] - [?] 1.2 Bugs fixed
-v0.14(22.06.2017)[5] - [?] 1.4 Bugs fixed
-v0.15(23.06.2017)[6] - [?] 1.5 Bugs fixed
-v0.16(28.06.2017)[7] - [?] Si hi ha Vespres 1 de solemnitats, ja no influeix en les altres oracions l'ofici comú
+v0.0(20.06.2017)[An1] - [?] Primera pujada al mercat
+v0.1(20.06.2017)[An2] - [?] Some bugs fixed
+v0.11(21.06.2017)[An3] - [?] Android button hits improved
+v0.12(21.06.2017)[An4] - [?] 1.2 Bugs fixed
+v0.14(22.06.2017)[An5] - [?] 1.4 Bugs fixed
+v0.15(23.06.2017)[An6] - [?] 1.5 Bugs fixed
+v0.16(28.06.2017)[An7] - [?] Si hi ha Vespres 1 de solemnitats, ja no influeix en les altres oracions l'ofici comú
 //PUBLICACIÓ OFICIAL
-v1.0(14.09.2017)[8] - [698ecf9] Errors ortogràfics i litúrgics corregits.
-v1.1(?) [9] - [?] ????
+v1.0(14.09.2017)[An8,Ap1] - [698ecf9] Errors ortogràfics i litúrgics corregits.
+v1.1(29.09.2017)[An9,Ap2] - [?]
+  - Arreglat quan algunes conclusions de les oracions finals no sortien bé.
+  - Afegit un espai de línia en els títols dels càntics.
+  - Les segones parts dels responsoris tenen la lletra minúscula quan s’ajunten amb la primera.
+  - Cap espai de línia al final de les oracions i textos de les oracions.
+  - Més mides per als textos i una nova visualització “Aa” per guiar-te.
+  - Les respostes a les pregàries queden separades i en cursiva així com una frase que s’introdueix enmig indicant quan pots fer les pregàries personals.
+  - Millores significatives en el codi, més estructurat i modular (cap canvi per l’usuari).
+  - Afegits els títols dels càntics evangèlics.
+  - iOs: Nom “Ofici” per “Ofici de lectura” com a títol de la secció d’aquesta pregària.
+  - iOs: Ja no es pot utilitzar en mode horitzontal.
+  - iOs: Nou selector per al canvi de dia, més estètic.
+  - Android: Nova estètica en els títols dels diferents apartats. La barra superior és diferent i també les transicions entre pantalles. A més ara apareix el nom de cada pantalla (Configuració, Ofici de lectura, ...).
+v1.2(?)[An10,Ap3] - [?]
