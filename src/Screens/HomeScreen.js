@@ -123,7 +123,7 @@ export default class HomeScreen extends Component {
 
     this.arrows = false;
 
-    this.testing = false; //fer-ho amb iphone 7 sense console
+    this.testing = false; //fer-ho amb iphone 8 sense console i memories lliures actives
     this.renderTest = this.testing;
     this.initialDayTest = {
       day: 2,
@@ -411,11 +411,33 @@ export default class HomeScreen extends Component {
           }
       }
       else{
-        auxTomorrow = new Date();
+        dtDay = this.dataTomorrow.date.getDate();
+        dtMonth = this.dataTomorrow.date.getMonth();
+        dtYear = this.dataTomorrow.date.getFullYear();
+        console.log("TEST. Error");
+        console.log("this.dataTomorrow.date NO SET: " + this.dataTomorrow.date);
+        console.log("dtDay: " + dtDay);
+        console.log("dtMonth: " + dtMonth);
+        console.log("dtYear: " + dtYear);
+        auxTomorrow = new Date(dtYear,dtMonth,dtDay);
+        console.log("auxTomorrow NO SET: " + auxTomorrow);
+        auxTomorrow.setDate(auxTomorrow.getDate()+1);
+        console.log("auxTomorrow SET: " + auxTomorrow);
+        this.dataTomorrow.date = auxTomorrow;
+        console.log("this.dataTomorrow.date SET: " + this.dataTomorrow.date);
+        /*console.log("DAYDAYDAY: " + this.dataTomorrow.date + '\n' + auxTomorrow);
         auxTomorrow.setFullYear(this.dataTomorrow.date.getFullYear());
-        auxTomorrow.setMonth(this.dataTomorrow.date.getMonth());
+        var numMonth = this.dataTomorrow.date.getMonth();
+        auxTomorrow.setMonth(numMonth);
+        console.log("dont unertand: " + this.dataTomorrow.date.getMonth() + ' / ' + auxTomorrow.getMonth());
+        aha = new Date(2017, 1, 1);
+        console.log("vamo a vers1: " + aha);
+        aha.setDate(aha.getDate()+1);
+        console.log("vamo a vers2: " + aha);
         auxTomorrow.setDate(this.dataTomorrow.date.getDate()+1);
         this.dataTomorrow.date = auxTomorrow;
+        console.log("auxTomorrow: " + auxTomorrow);
+        console.log("this.dataTomorrow.date TEST: " + this.dataTomorrow.date);*/
         while(this.passDayTest(nextDay)){
           console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
           nextDay.setDate(nextDay.getDate()+1);
