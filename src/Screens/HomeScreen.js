@@ -31,17 +31,18 @@ function paddingBar(){
 export default class HomeScreen extends Component {
   componentDidMount() {
     if(Platform.OS==='android'){
-      setTimeout(() => { SplashScreen.hide(); }, 550);
-    }
-    if(Platform.OS === 'ios'){
-      this.props.events.addListener('myEvent', this.eventManager.bind(this));
-      this.props.events.addListener('calendarPressed', this.calendarPressed.bind(this));
-    }
-    else{
+      setTimeout(() => { SplashScreen.hide(); }, 400);
+
       this.props.navigation.setParams({
             calPres: this.calendarPressed.bind(this),
             refreshFunction: this.refreshFunction.bind(this),
         });
+    }
+    else{
+      setTimeout(() => { SplashScreen.hide(); }, 50);
+
+      this.props.events.addListener('myEvent', this.eventManager.bind(this));
+      this.props.events.addListener('calendarPressed', this.calendarPressed.bind(this));
     }
   }
 
@@ -588,8 +589,7 @@ export default class HomeScreen extends Component {
                  navigator={this.props.navigator}
                  variables={this.variables}
                  liturgicProps={this.liturgicProps}
-                 events={this.eventEmitter}
-               />
+                 events={this.eventEmitter} />
              </View>
            }
          </Image>
@@ -638,6 +638,7 @@ export default class HomeScreen extends Component {
   }
 
   tempsName(t){
+    if(!t) return "";
     if(t === 'Ordinari'){
       return "Durant l'any";
     }
@@ -677,6 +678,9 @@ export default class HomeScreen extends Component {
 
   getCelType(diocesi, anyliturgic){
     switch (diocesi) {
+      default:
+        celType = anyliturgic.BaD;
+        break;
       case "BaD":
         celType = anyliturgic.BaD;
         break;

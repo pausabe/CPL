@@ -154,6 +154,8 @@ export default class OficiDisplay extends Component {
   }
 
   salm(salm){
+    if(!salm) return null;
+
     if(this.props.variables.cleanSalm === 'false'){
       salm = salm.replace(/    [*]/g,'');
       salm = salm.replace(/   [*]/g,'');
@@ -168,6 +170,7 @@ export default class OficiDisplay extends Component {
   }
 
   gloria(g){
+    if(!g) return null;
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
     if(this.props.variables.cleanSalm === 'false')
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";

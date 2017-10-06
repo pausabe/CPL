@@ -141,6 +141,8 @@ export default class VespresDisplay extends Component {
   }
 
   salm(salm){
+    if(!salm) return null;
+
     if(this.props.variables.cleanSalm === 'false'){
       //console.log("super salm: " + salm);
       salm = salm.replace(/    [*]/g,'');
@@ -156,6 +158,7 @@ export default class VespresDisplay extends Component {
   }
 
   gloria(g){
+    if(!g) return null;
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
     if(this.props.variables.cleanSalm === 'false')
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
@@ -303,14 +306,15 @@ export default class VespresDisplay extends Component {
 
   pregaries(LT, weekDay, VESPRES){
     var allPregs = GF.rs(VESPRES.pregaries);
-    var wrong = false;
+
+    if(allPregs === undefined) return "";
 
     var numGuio = allPregs.match(/—/g, "").length;
     var numEnter = allPregs.match(/\n/g, "").length;
 
     if(numEnter !== numGuio*3+3){//every prayer have 3 spaces and intro have 3 more
-      wrong = true;
       console.log("incorrect spaces in pregaries");
+      return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
     }
     else{
       var introPregs = allPregs.split(":")[0];
@@ -318,8 +322,8 @@ export default class VespresDisplay extends Component {
         var pregsNoIntro = allPregs.replace(introPregs+':\n','');
       }
       else{
-        wrong = true;
         console.log("something incorrect. Pregaries 1");
+        return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
       var respPregs = pregsNoIntro.split("\n")[0];
@@ -327,16 +331,16 @@ export default class VespresDisplay extends Component {
         var pregaries = pregsNoIntro.replace(respPregs+'\n\n','');
       }
       else{
-        wrong = true;
         console.log("something incorrect. Pregaries 2");
+        return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
       if(pregaries.search(": Pare nostre.") !== -1){
         pregaries = pregaries.replace(": Pare nostre.",':');
       }
       else{
-        wrong = true;
         console.log("something incorrect. Pregaries 3");
+        return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
       var pregsFinalPart = (pregaries.split("—")[numGuio-1]).split(".\n\n")[1]+'—'+pregaries.split("—")[numGuio];
@@ -344,11 +348,11 @@ export default class VespresDisplay extends Component {
         pregaries = pregaries.replace('\n\n'+pregsFinalPart,'');
       }
       else{
-        wrong = true;
         console.log("something incorrect. Pregaries 4");
+        return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
-      if(!wrong){
+      /*if(!wrong){
         console.log("numGuio: " + numGuio);
         console.log("numEnter: " + numEnter);
         console.log("allPregs:\n"+allPregs);
@@ -357,10 +361,10 @@ export default class VespresDisplay extends Component {
         console.log("respPregs:\n"+respPregs);
         console.log("pregaries:\n"+pregaries);
         console.log("pregsFinalPart:\n"+pregsFinalPart);
-      }
+      }*/
     }
 
-    if(!wrong){
+    // if(!wrong){
       return(
         <View>
           <Text selectable={true} style={this.styles.black}>{introPregs}{':'}</Text>
@@ -376,10 +380,10 @@ export default class VespresDisplay extends Component {
           <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
         </View>
       );
-    }
-    else{
-      return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
-    }
+    // }
+    // else{
+      // return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
+    // }
   }
 
   oracio(LT, weekDay, VESPRES){
