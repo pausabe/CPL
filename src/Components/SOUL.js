@@ -1281,6 +1281,11 @@ export default class SOUL {
       return 26;
     }
 
+    //27- Diumenge III d'Advent, quan és fèria
+    if(LT === GLOBAL.A_FERIES && setmana === '3' && date.getDay() === 0){
+      return 27;
+    }
+
     return -1;
   }
 

@@ -38,7 +38,7 @@ export default class DBAdapter {
   getAnyLiturgic(year, month, day, callback){
     //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
-    var query = `SELECT * FROM anyliturgic WHERE any = ${year} AND mes = ${month+1} AND dia = ${day}`;
+    var query = `SELECT * FROM anyliturgic WHERE any = '${year}' AND mes = '${month+1}' AND dia = '${day}'`;
     console.log("QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
@@ -55,7 +55,7 @@ export default class DBAdapter {
     day2 = tomorrow.getDate();
     //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
-    var query = `SELECT * FROM anyliturgic WHERE any = ${year2} AND mes = ${month2+1} AND dia = ${day2}`;
+    var query = `SELECT * FROM anyliturgic WHERE any = '${year2}' AND mes = '${month2+1}' AND dia = '${day2}'`;
     //console.log("QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
@@ -65,7 +65,7 @@ export default class DBAdapter {
   }
 
   getPentacosta(r1, r2, year, callback){
-    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = ${year} AND temps = '${GLOBAL.P_SETMANES}' AND NumSet = 8 AND DiadelaSetmana = 'Dg'`,
+    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = '${year}' AND temps = '${GLOBAL.P_SETMANES}' AND NumSet = '8' AND DiadelaSetmana = 'Dg'`,
       result => {
         var pentacosta = new Date();
         pentacosta.setDate(result.rows.item(0).dia);
