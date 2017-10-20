@@ -6,7 +6,7 @@ import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
 
-export default class SettingComponent extends Component{
+export default class SettingsComponent extends Component{
 
     constructor(props){
         super();

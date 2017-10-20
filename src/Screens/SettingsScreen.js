@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, ScrollView, TouchableOpacity } from 'react-native';
 import GLOBAL from "../Globals/Globals";
-import SettingComponent from "../Components/SettingComponent";
-import SettingsComponentAdapter from "../ComponentAdapters/SettingsComponentAdapter";
+import SettingsComponentAdapter from "../Adapters/SettingsComponentAdapter";
 import HomeScreen from '../Screens/HomeScreen'
 
 export default class SettingsScreen extends Component {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
 
-import Ofici from '../Components/OficiDisplay'
-import Laudes from '../Components/LaudesDisplay'
-import Vespres from '../Components/VespresDisplay'
-import HoraMenor from '../Components/HoraMenorDisplay'
-import Completes from '../Components/CompletesDisplay'
+import Ofici from '../LitugiaHores/OficiDisplay'
+import Laudes from '../LitugiaHores/LaudesDisplay'
+import Vespres from '../LitugiaHores/VespresDisplay'
+import HoraMenor from '../LitugiaHores/HoraMenorDisplay'
+import Completes from '../LitugiaHores/CompletesDisplay'
 
 import GLOBAL from "../Globals/Globals";
 

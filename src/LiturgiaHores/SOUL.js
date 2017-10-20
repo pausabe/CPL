@@ -1,10 +1,10 @@
-import OficiSoul from '../Components/OficiSoul';
-import LaudesSoul from '../Components/LaudesSoul';
-import VespresSoul from '../Components/VespresSoul';
-import HoraMenorSoul from '../Components/HoraMenorSoul';
-import CompletesSoul from '../Components/CompletesSoul';
-import CelebracioSoul from '../Components/CelebracioSoul';
-import DBAdapter from '../SQL/DBAdapter';
+import OficiSoul from '../LitugiaHores/OficiSoul';
+import LaudesSoul from '../LitugiaHores/LaudesSoul';
+import VespresSoul from '../LitugiaHores/VespresSoul';
+import HoraMenorSoul from '../LitugiaHores/HoraMenorSoul';
+import CompletesSoul from '../LitugiaHores/CompletesSoul';
+import CelebracioSoul from '../LitugiaHores/CelebracioSoul';
+import DBAdapter from '../Adapters/DBAdapter';
 import GLOBAL from '../Globals/Globals';
 
 export default class SOUL {

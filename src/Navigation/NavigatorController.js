@@ -24,7 +24,6 @@ import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-
 import EventEmitter from 'EventEmitter';
 
 export default class NavigatorController extends Component {
