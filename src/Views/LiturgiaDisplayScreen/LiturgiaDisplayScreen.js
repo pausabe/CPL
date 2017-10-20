@@ -29,7 +29,6 @@ export default class LiturgiaDisplayScreen extends Component {
   }
 
   render() {
-    console.log("YEY!");
     return (
       <View style={styles.container}>
         <ScrollView automaticallyAdjustContentInsets={false} style={{padding: 10,}}>

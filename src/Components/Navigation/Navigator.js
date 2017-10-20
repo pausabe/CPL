@@ -26,7 +26,7 @@ import PopupDialog, {
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import EventEmitter from 'EventEmitter';
 
-export default class NavigatorController extends Component {
+export default class Navigator extends Component {
   componentWillMount() {
     Icon.getImageSource('ios-settings-outline', 30).then((source) => this.setState({ settingsIcon: source }));
     Icon.getImageSource('ios-calendar-outline', 30).then((source) => this.setState({ calendarIcon: source }));
@@ -349,4 +349,4 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('NavigatorController', () => NavigatorController);
+AppRegistry.registerComponent('Navigator', () => NavigatorController);
