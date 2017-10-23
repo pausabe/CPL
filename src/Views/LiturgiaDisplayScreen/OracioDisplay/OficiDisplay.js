@@ -6,8 +6,8 @@ import {
   Platform
 } from 'react-native';
 import Hr from 'react-native-hr';
-import GLOBAL from '../Globals/Globals';
-import GF from '../Globals/GlobalFunctions';
+import GLOBAL from '../../../Globals/Globals';
+import GF from '../../../Globals/GlobalFunctions';
 
 export default class OficiDisplay extends Component {
   constructor(props){

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
-import SettingsManager, {diocesis, lloc, invitatori} from '../Settings/SettingsManager';
+
+import SettingsManager, {diocesis, lloc, invitatori} from '../Controllers/Classes/SettingsManager';
 import SettingsComponent from '../Components/SettingsComponent';
 
 //Id generating different keys for testing

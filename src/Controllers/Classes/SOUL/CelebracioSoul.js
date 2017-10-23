@@ -1,4 +1,4 @@
-import GLOBAL from '../Globals/Globals';
+import GLOBAL from '../../../Globals/Globals';
 
 export default class CelebracioSoul {
   constructor(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal) {

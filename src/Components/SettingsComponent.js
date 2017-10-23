@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {View, Text, Slider, Switch, Picker, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import Hr from 'react-native-hr';
-import GLOBAL from "../Globals/Globals";
 import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
+
+import GLOBAL from "../Globals/Globals";
 
 export default class SettingsComponent extends Component{
 

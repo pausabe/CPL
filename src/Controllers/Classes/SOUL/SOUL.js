@@ -1,11 +1,11 @@
-import OficiSoul from '../LitugiaHores/OficiSoul';
-import LaudesSoul from '../LitugiaHores/LaudesSoul';
-import VespresSoul from '../LitugiaHores/VespresSoul';
-import HoraMenorSoul from '../LitugiaHores/HoraMenorSoul';
-import CompletesSoul from '../LitugiaHores/CompletesSoul';
-import CelebracioSoul from '../LitugiaHores/CelebracioSoul';
-import DBAdapter from '../Adapters/DBAdapter';
-import GLOBAL from '../Globals/Globals';
+import OficiSoul from './OficiSoul';
+import LaudesSoul from './LaudesSoul';
+import VespresSoul from './VespresSoul';
+import HoraMenorSoul from './HoraMenorSoul';
+import CompletesSoul from './CompletesSoul';
+import CelebracioSoul from './CelebracioSoul';
+import DBAdapter from '../../../Adapters/DBAdapter';
+import GLOBAL from '../../../Globals/Globals';
 
 export default class SOUL {
   constructor(variables, liturgicProps, dataTomorrow, pentacosta, HS) {

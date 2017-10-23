@@ -1,11 +1,12 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import HomeScreen from '../Screens/HomeScreen';
-import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen';
-import SettingsScreen from '../Screens/SettingsScreen';
-import GLOBAL from "../Globals/Globals";
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import HomeScreenController from '../../Controllers/HomeScreen/HomeScreenController';
+import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
+import SettingsScreen from '../../Views/SettingsScreen';
+import GLOBAL from "../../Globals/Globals";
 
 const styles = StyleSheet.create({
   titleText: {
@@ -16,9 +17,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export const NavStack = StackNavigator({
+export const NavigatorAndroid = StackNavigator({
   Home: {
-    screen: HomeScreen,
+    screen: HomeScreenController,
   },
 
   Settings: {

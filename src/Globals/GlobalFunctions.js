@@ -1,4 +1,4 @@
-import GLOBAL from '../Globals/Globals';
+import GLOBAL from './Globals';
 
 module.exports = {
   convertTextSize(value){
@@ -77,7 +77,7 @@ module.exports = {
 
   completeOracio(oracio){
     if(!oracio) return "";
-    
+
     var form1 = "Per nostre Senyor Jesucrist";
     var bigf1 = "Per nostre Senyor Jesucrist, el vostre Fill, que amb vós viu i regna en la unitat de l'Esperit Sant, Déu, pels segles dels segles";
     var form6 = "Vós, que viviu i regneu";

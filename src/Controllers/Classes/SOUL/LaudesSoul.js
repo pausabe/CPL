@@ -5,7 +5,8 @@ import {
   Platform
 } from 'react-native';
 import Hr from 'react-native-hr';
-import GLOBAL from '../Globals/Globals';
+
+import GLOBAL from '../../../Globals/Globals';
 
 export default class LaudesSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {

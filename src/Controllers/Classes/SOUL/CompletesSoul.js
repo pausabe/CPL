@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import Hr from 'react-native-hr';
-import GLOBAL from '../Globals/Globals';
+
+import GLOBAL from '../../../Globals/Globals';
 
 export default class CompletesSoul{
   constructor(variables, liturgicProps, TABLES, HS, SOUL) {

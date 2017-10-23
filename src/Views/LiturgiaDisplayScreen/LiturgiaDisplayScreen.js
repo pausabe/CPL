@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
 
-import Ofici from '../LitugiaHores/OficiDisplay'
-import Laudes from '../LitugiaHores/LaudesDisplay'
-import Vespres from '../LitugiaHores/VespresDisplay'
-import HoraMenor from '../LitugiaHores/HoraMenorDisplay'
-import Completes from '../LitugiaHores/CompletesDisplay'
-
-import GLOBAL from "../Globals/Globals";
+import Ofici from './OracioDisplay/OficiDisplay'
+import Laudes from './OracioDisplay/LaudesDisplay'
+import Vespres from './OracioDisplay/VespresDisplay'
+import HoraMenor from './OracioDisplay/HoraMenorDisplay'
+import Completes from './OracioDisplay/CompletesDisplay'
+import GLOBAL from "../../Globals/Globals";
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
     return 64;
   }
-  return 0//55;
+  return 0; //55;
 }
 
 export default class LiturgiaDisplayScreen extends Component {

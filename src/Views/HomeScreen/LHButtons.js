@@ -7,153 +7,23 @@ import {
   Button,
   Platform
  } from 'react-native';
-
 import Hr from 'react-native-hr';
-import LiturgiaDisplayScreen from '../Screens/LiturgiaDisplayScreen'
 
-export default class Liturgia extends Component {
-  componentDidMount() {
-    //this.props.events.addListener('litEvent', this.openTest.bind(this));
-  }
+import LiturgiaDisplayScreen from '../../Screens/LiturgiaDisplayScreen';
+import HomeScreenController from '../../Controllers/HomeScreenController';
 
-  /*openTest(args){
-    console.log("open test");
-    if(args.id === 0){
-      this.props.navigator.push({
-        title: 'testing - Ofici',
-        passProps: {
-          type: 'Ofici',
-          date: this.props.date,
-          variables: this.props.variables,
-          liturgicProps: this.props.liturgicProps,
-        },
-        component: LiturgiaDisplayScreen
-      });
-    }
-    else if(args.id === 1){
-      this.props.navigator.push({
-        title: 'testing - Laudes',
-        passProps: {
-          type: 'Laudes',
-          date: this.props.date,
-          variables: this.props.variables,
-          liturgicProps: this.props.liturgicProps,
-        },
-        component: LiturgiaDisplayScreen
-      });
-    }
-
-    this.props.navigator.push({
-      title: 'testing - Tèrcia',
-      passProps: {
-        type: 'Tèrcia',
-        date: this.props.date,
-        variables: this.props.variables,
-        liturgicProps: this.props.liturgicProps,
-      },
-      component: LiturgiaDisplayScreen
-    });
-    this.props.navigator.push({
-      title: 'testing - Tèrcia',
-      passProps: {
-        type: 'Tèrcia',
-        date: this.props.date,
-        variables: this.props.variables,
-        liturgicProps: this.props.liturgicProps,
-      },
-      component: LiturgiaDisplayScreen
-    });
-    this.props.navigator.push({
-      title: 'testing - Sexta',
-      passProps: {
-        type: 'Sexta',
-        date: this.props.date,
-        variables: this.props.variables,
-        liturgicProps: this.props.liturgicProps,
-      },
-      component: LiturgiaDisplayScreen
-    });
-    this.props.navigator.push({
-      title: 'testing - Nona',
-      passProps: {
-        type: 'Nona',
-        date: this.props.date,
-        variables: this.props.variables,
-        liturgicProps: this.props.liturgicProps,
-      },
-      component: LiturgiaDisplayScreen
-    });
-    this.props.navigator.push({
-      title: 'testing - Completes',
-      passProps: {
-        type: 'Completes',
-        date: this.props.date,
-        variables: this.props.variables,
-        liturgicProps: this.props.liturgicProps,
-      },
-      component: LiturgiaDisplayScreen
-    });
-  }*/
-
-  onButtonPress(idPressed, type, component){
-    var title = type;
-    if(type === 'Ofici') title = 'Ofici de lectura';
-    this.props.HS.liturgiaPressed();
-    if(this.props.liturgicProps.LITURGIA !== null){
-      if(Platform.OS === 'ios'){
-        this.props.navigator.push({
-          title: title,
-          passProps: {
-            type: type,
-            date: this.props.date,
-            variables: this.props.variables,
-            liturgicProps: this.props.liturgicProps,
-          },
-          component: component
-        });
-      }
-      else{
-        var title = type;
-        if(type==='Ofici') title = 'Ofici de lectura';
-        var params = {
-          title: title,
-          props: {
-            // id: idPressed,
-            type: type,
-            // index: 1,
-            variables: this.props.variables,
-            date: this.props.date,
-            liturgicProps: this.props.liturgicProps,
-          },
-        }
-        this.props.navigation.navigate('LiturgiaDisplay', params);
-      }
-      /*else{
-        this.props.navigator.push({
-          id: idPressed,
-          type: type,
-          index: 1,
-          variables: this.props.variables,
-          date: this.props.date,
-          liturgicProps: this.props.liturgicProps,
-        });
-      }*/
-    }
-  }
-
+export default class LHButtons extends Component {
   render() {
     var nowDate = new Date();
     var hour = nowDate.getHours();
     //console.log("Hour: " + hour);
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.buttonContainer} onPress={
-        this.onButtonPress.bind(this, "liturgia-display", "Ofici", LiturgiaDisplayScreen)}>
-         <Text style={styles.buttonText}>Ofici de lectura</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={this.props.oficiCB}>
+         <Text style={styles.buttonText}>{"Ofici de lectura"}</Text>
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
-       <TouchableOpacity style={styles.buttonContainer} onPress={
-       this.onButtonPress.bind(this, "liturgia-display", "Laudes", LiturgiaDisplayScreen)}>
+       <TouchableOpacity style={styles.buttonContainer} onPress={this.props.laudesCB}>
          {hour > 5 && hour < 9 ?
            <Text style={styles.buttonTextBold}>{"Laudes"}</Text>
            :
@@ -163,27 +33,24 @@ export default class Liturgia extends Component {
        <Hr lineColor='#90A4AE' />
        <View style={{flex:1, flexDirection: 'column'}}>
          <View style={{flex:1, paddingTop: 5}}>
-          <Text style={styles.buttonText}>Hora menor</Text>
+          <Text style={styles.buttonText}>{"Hora menor"}</Text>
          </View>
          <View style={{flex:2, flexDirection: 'row'}}>
-           <TouchableOpacity style={styles.buttonContainer} onPress={
-           this.onButtonPress.bind(this, "liturgia-display", "Tèrcia", LiturgiaDisplayScreen)}>
+           <TouchableOpacity style={styles.buttonContainer} onPress={this.props.terciaCB}>
              {hour > 8 && hour < 12 ?
                <Text style={styles.horaMenorTextBold}>{"Tèrcia"}</Text>
                :
                <Text style={styles.horaMenorText}>{"Tèrcia"}</Text>
              }
            </TouchableOpacity>
-           <TouchableOpacity style={styles.buttonContainer} onPress={
-           this.onButtonPress.bind(this, "liturgia-display", "Sexta", LiturgiaDisplayScreen)}>
+           <TouchableOpacity style={styles.buttonContainer} onPress={this.props.sextaCB}>
              {hour > 11 && hour < 15 ?
                <Text style={styles.horaMenorTextBold}>{"Sexta"}</Text>
                :
                <Text style={styles.horaMenorText}>{"Sexta"}</Text>
              }
            </TouchableOpacity>
-           <TouchableOpacity style={styles.buttonContainer} onPress={
-           this.onButtonPress.bind(this, "liturgia-display", "Nona", LiturgiaDisplayScreen)}>
+           <TouchableOpacity style={styles.buttonContainer} onPress={this.props.nonaCB}>
              {hour > 14 && hour < 18 ?
                <Text style={styles.horaMenorTextBold}>{"Nona"}</Text>
                :
@@ -193,23 +60,18 @@ export default class Liturgia extends Component {
          </View>
        </View>
        <Hr lineColor='#90A4AE' />
-       <TouchableOpacity style={styles.buttonContainer} onPress={
-       this.onButtonPress.bind(this, "liturgia-display", "Vespres", LiturgiaDisplayScreen)}>
+       <TouchableOpacity style={styles.buttonContainer} onPress={this.props.vespresCB}>
         {hour > 17 && hour <= 23 ?
           <Text style={styles.buttonTextBold}>{"Vespres"}</Text>
           :
           <Text style={styles.buttonText}>{"Vespres"}</Text>
         }
-         {this.props.liturgicProps.LITURGIA &&
-           ((this.props.variables.date.getDay() === 6 /*&& this.props.variables.celType !== 'F'*/
-              && this.props.variables.celType !== 'S')
-            || this.props.liturgicProps.LITURGIA.vespres1) ?
-            <Text style={styles.redCenter}>Primeres Vespres</Text>
+         {this.props.primVespres !== '-' ?
+            <Text style={styles.redCenter}>{this.props.primVespres}</Text>
           : null }
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />
-       <TouchableOpacity style={styles.buttonContainer} onPress={
-       this.onButtonPress.bind(this, "liturgia-display", "Completes", LiturgiaDisplayScreen)}>
+       <TouchableOpacity style={styles.buttonContainer} onPress={this.props.completesCB}>
          {hour >= 0 && hour < 2 ?
            <Text style={styles.buttonTextBold}>{"Completes"}</Text>
            :

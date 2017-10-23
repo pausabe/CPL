@@ -1,4 +1,4 @@
-import GLOBAL from '../Globals/Globals';
+import GLOBAL from '../../../Globals/Globals';
 
 export default class OficiSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {

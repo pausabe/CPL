@@ -1,4 +1,5 @@
 import {Platform} from 'react-native';
+
 import GLOBAL from '../Globals/Globals';
 
 export default class DBAdapter {

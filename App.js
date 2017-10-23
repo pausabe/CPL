@@ -5,15 +5,15 @@ import {
   View,
   StatusBar
 } from 'react-native';
-import { NavStack } from './src/Navigation/router'
-import NavigatorController from './src/Navigation/NavigatorController'
+import { NavigatorAndroid } from './src/Components/Navigation/NavigatorAndroid'
+import NavigatorIos from './src/Components/Navigation/NavigatorIos'
 import GLOBAL from "./src/Globals/Globals";
 
 export default class CPL extends Component {
   render() {
     if(Platform.OS === 'ios'){
       return(
-        <NavigatorController />
+        <NavigatorIos />
       );
     }
     else{
@@ -22,7 +22,7 @@ export default class CPL extends Component {
           <StatusBar
             barStyle="light-content"
             backgroundColor={GLOBAL.statusBarColor}/>
-          <NavStack />
+          <NavigatorAndroid />
         </View>
       );
     }
