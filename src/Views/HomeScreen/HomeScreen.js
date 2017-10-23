@@ -15,7 +15,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import LHButtons from './LHButtons';
 import GLOBAL from "../../Globals/Globals";
-import TEST from "../../Tests/Test";
 
 function paddingBar(){
   if(Platform.OS === 'ios'){

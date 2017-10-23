@@ -15,7 +15,6 @@ import SOUL from './Classes/SOUL/SOUL';
 import SettingsManager from './Classes/SettingsManager';
 import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
-import TEST from "../Tests/Test";
 import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 
 export default class HomeScreenController extends Component {
@@ -89,6 +88,7 @@ export default class HomeScreenController extends Component {
     this.maxDatePicker = new Date(2017,11,28);
 
     this.state = {
+      testInfo: 'testing correctly',
       santPressed: false,
       isDateTimePickerVisible: false,
 
@@ -114,10 +114,36 @@ export default class HomeScreenController extends Component {
       }
     }
 
-    this.testing = TEST.testState; //false; //fer-ho amb iphone 8 sense console i memories lliures actives
-
-    if(props.naviDate === undefined) var today = new Date();
-    else var today = props.naviDate;
+    /*************** TEST THINGS - START *******************/
+    this.testing = true; //fer-ho amb iphone 8 sense console i memories lliures actives
+    this.initialDayTest = {
+      day: 2,
+      month: 10,
+      year: 2017,
+    }
+    this.finalDayTest = {
+      day: 28,
+      month: 11,
+      year: 2017,
+    }
+    if(this.testing){
+      var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
+      var initalIndex = 0; //0-30
+      var finalIndex = 30; //0-30
+      this.diocesiTest = GF.nextDiocesi(initalIndex);
+      this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
+      this.llocTest = GF.nextLloc(initalIndex);
+      this.idTest = initalIndex;
+      this.maxIdTest = finalIndex;
+      console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
+      console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
+      console.log("-----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
+    }
+    /*************** TEST THINGS - END *******************/
+    else{
+      if(props.naviDate === undefined) var today = new Date();
+      else var today = props.naviDate;
+    }
 
     this.variables = {
       diocesi: '',
@@ -170,7 +196,7 @@ export default class HomeScreenController extends Component {
     this.refreshEverything(today);
   }
 
-
+  /*************** CREATING THE LITURGIA - START ***************/
   refreshEverything(date){
     console.log("REFRESHING EVERYTHING: settings > anyliturgic > soul > render " + date);
     this.refreshing = true;
@@ -178,11 +204,13 @@ export default class HomeScreenController extends Component {
       SettingsManager.getSettingLloc((r) => {
         this.variables.lloc = r;
         SettingsManager.getSettingDiocesis((r) => {
+          /*************** TEST THINGS - START *******************/
           if(this.testing){
             this.variables.diocesi = this.diocesiTest;
             this.variables.diocesiName = this.diocesiNameTest;
             this.variables.lloc = this.llocTest;
           }
+          /*************** TEST THINGS - END *******************/
           else{
             this.variables.diocesi = GF.transformDiocesiName(r, this.variables.lloc);
             this.variables.diocesiName = r;
@@ -194,8 +222,10 @@ export default class HomeScreenController extends Component {
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
       SettingsManager.getSettingPrayLliures((r) => {
+        /*************** TEST THINGS - START *******************/
         if(this.testing)
           this.variables.lliures = 'true';
+        /*************** TEST THINGS - END *******************/
         else
         this.variables.lliures = r;
       }),
@@ -205,6 +235,210 @@ export default class HomeScreenController extends Component {
       this.refreshDate(date);
     });
   }
+
+  refreshDate(newDay){
+    this.acceso.getAnyLiturgic(
+      newDay.getFullYear(),
+      newDay.getMonth(),
+      newDay.getDate(),
+      (current, tomorrow, pentacosta) => {
+        var celType = GF.getCelType(this.variables.diocesi, current);
+        var tomorrowCelType = GF.getCelType(this.variables.diocesi, tomorrow);
+        console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
+
+        this.variables.celType = celType;
+        this.variables.date = newDay;
+        this.variables.mogut = current.Mogut;
+        this.variables.litColor = current.Color;
+
+        this.liturgicProps.LITURGIA = null;
+
+        this.liturgicProps.tempsespecific = current.tempsespecific;
+        this.liturgicProps.LT = current.temps;
+        this.liturgicProps.cicle = current.cicle; //1-4
+        this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
+        this.liturgicProps.ABC = current.anyABC;
+
+        this.dataTomorrow.celType = tomorrowCelType;
+        this.dataTomorrow.LT = tomorrow.temps;
+        this.dataTomorrow.setmana = tomorrow.NumSet;
+        this.dataTomorrow.mogut = tomorrow.Mogut;
+
+        if(this.SOUL === undefined)
+          this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
+        else
+          this.SOUL.makeQueryies(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
+      }
+    );
+  }
+
+  setSoul(liturgia){
+    console.log("HomeScreen - setSoul");
+
+    this.liturgicProps.LITURGIA = liturgia;
+    if(!this.testing){
+      this.refEv = true;
+
+      this.setState({
+        santPressed: false,
+        ViewData: {
+          ready: true,
+          lloc: {
+            diocesiName: this.variables.diocesiName,
+            lloc: this.variables.lloc,
+          },
+          data: this.variables.date,
+          setmana: this.liturgicProps.setmana,
+          temps: this.liturgicProps.tempsespecific,
+          setCicle: this.liturgicProps.cicle,
+          anyABC: this.liturgicProps.ABC,
+          color: this.variables.litColor,
+          celebracio: {
+            type: this.liturgicProps.LITURGIA.info_cel.typeCel,
+            titol: this.liturgicProps.LITURGIA.info_cel.nomCel,
+            text: this.liturgicProps.LITURGIA.info_cel.infoCel,
+          },
+          primVespres: this.primVespres(),
+        }
+      });
+    }
+    /*************** TEST THINGS - START *******************/
+    else{
+     var nextDay = this.variables.date;
+     nextDay.setDate(nextDay.getDate()+1);
+     if(nextDay.getFullYear() === this.finalDayTest.year &&
+       nextDay.getMonth() === this.finalDayTest.month &&
+       nextDay.getDate() === this.finalDayTest.day){
+       if(this.idTest === this.maxIdTest){
+         this.setState({testInfo: "Test ended correctly"});
+         console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
+       }
+       else{
+         firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
+         this.idTest += 1;
+         this.diocesiTest = this.nextDiocesi(this.idTest);
+         this.diocesiNameTest = this.nextDiocesiName(this.idTest);
+         this.llocTest = this.nextLloc(this.idTest);
+         auxTomorrow = new Date();
+         auxTomorrow.setFullYear(this.initialDayTest.year);
+         auxTomorrow.setMonth(this.initialDayTest.month);
+         auxTomorrow.setDate(this.initialDayTest.day+1);
+         this.dataTomorrow.date = auxTomorrow;
+         this.refreshEverything(firstDay);
+         this.setState({testInfo: "Testing correctly"});
+         console.log("--------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
+       }
+     }
+     else{
+       dtDay = this.dataTomorrow.date.getDate();
+       dtMonth = this.dataTomorrow.date.getMonth();
+       dtYear = this.dataTomorrow.date.getFullYear();
+       console.log("TEST. Error");
+       console.log("this.dataTomorrow.date NO SET: " + this.dataTomorrow.date);
+       console.log("dtDay: " + dtDay);
+       console.log("dtMonth: " + dtMonth);
+       console.log("dtYear: " + dtYear);
+       auxTomorrow = new Date(dtYear,dtMonth,dtDay);
+       console.log("auxTomorrow NO SET: " + auxTomorrow);
+       auxTomorrow.setDate(auxTomorrow.getDate()+1);
+       console.log("auxTomorrow SET: " + auxTomorrow);
+       this.dataTomorrow.date = auxTomorrow;
+       console.log("this.dataTomorrow.date SET: " + this.dataTomorrow.date);
+       /*console.log("DAYDAYDAY: " + this.dataTomorrow.date + '\n' + auxTomorrow);
+       auxTomorrow.setFullYear(this.dataTomorrow.date.getFullYear());
+       var numMonth = this.dataTomorrow.date.getMonth();
+       auxTomorrow.setMonth(numMonth);
+       console.log("dont unertand: " + this.dataTomorrow.date.getMonth() + ' / ' + auxTomorrow.getMonth());
+       aha = new Date(2017, 1, 1);
+       console.log("vamo a vers1: " + aha);
+       aha.setDate(aha.getDate()+1);
+       console.log("vamo a vers2: " + aha);
+       auxTomorrow.setDate(this.dataTomorrow.date.getDate()+1);
+       this.dataTomorrow.date = auxTomorrow;
+       console.log("auxTomorrow: " + auxTomorrow);
+       console.log("this.dataTomorrow.date TEST: " + this.dataTomorrow.date);*/
+       while(GF.passDayTest(nextDay)){
+         console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
+         nextDay.setDate(nextDay.getDate()+1);
+         auxTomorrow = this.dataTomorrow.date;
+         auxTomorrow.setDate(auxTomorrow.getDate()+1);
+         this.dataTomorrow.date = auxTomorrow;
+       }
+       console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
+       this.refreshEverything(nextDay);
+       this.setState({testInfo: "Testing correctly"});
+     }
+    }
+    /*************** TEST THINGS - END*******************/
+  }
+
+  primVespres(){
+    if((this.variables.date.getDay() === 6 && this.variables.celType !== 'S') ||
+        this.liturgicProps.LITURGIA.vespres1) return true;
+    return false;
+  }
+ /*************** CREATING THE LITURGIA - END ***************/
+
+ /*************** TEST THINGS - START *******************/
+ error(){
+  this.setState({testInfo: "something went wrong"});
+  console.log("super error");
+  this.testing = false;
+  }
+
+ testThisDay(variables, cbRefresh){
+   var nextDay = variables.date;
+   nextDay.setDate(nextDay.getDate()+1);
+   if(nextDay.getFullYear() === this.finalDayTest.year &&
+     nextDay.getMonth() === this.finalDayTest.month &&
+     nextDay.getDate() === this.finalDayTest.day){
+       if(this.idTest === this.maxIdTest){
+         this.setState({testInfo: "Test ended correctly"});
+         console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
+       }
+       else{
+         firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
+         this.idTest += 1;
+         this.diocesiTest = this.nextDiocesi(this.idTest);
+         this.diocesiNameTest = this.nextDiocesiName(this.idTest);
+         this.llocTest = this.nextLloc(this.idTest);
+         auxTomorrow = new Date();
+         auxTomorrow.setFullYear(this.initialDayTest.year);
+         auxTomorrow.setMonth(this.initialDayTest.month);
+         auxTomorrow.setDate(this.initialDayTest.day+1);
+         this.dataTomorrow.date = auxTomorrow;
+         this.refreshEverything(firstDay);
+         this.setState({testInfo: "Testing correctly"});
+         console.log("--------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
+       }
+   }
+   else{
+     dtDay = this.dataTomorrow.date.getDate();
+     dtMonth = this.dataTomorrow.date.getMonth();
+     dtYear = this.dataTomorrow.date.getFullYear();
+     console.log("TEST. Error");
+     console.log("this.dataTomorrow.date NO SET: " + this.dataTomorrow.date);
+     console.log("dtDay: " + dtDay);
+     console.log("dtMonth: " + dtMonth);
+     console.log("dtYear: " + dtYear);
+     auxTomorrow = new Date(dtYear,dtMonth,dtDay);
+     console.log("auxTomorrow NO SET: " + auxTomorrow);
+     auxTomorrow.setDate(auxTomorrow.getDate()+1);
+     console.log("auxTomorrow SET: " + auxTomorrow);
+     this.dataTomorrow.date = auxTomorrow;
+     while(GF.passDayTest(nextDay)){
+       console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
+       nextDay.setDate(nextDay.getDate()+1);
+       auxTomorrow = this.dataTomorrow.date;
+       auxTomorrow.setDate(auxTomorrow.getDate()+1);
+       this.dataTomorrow.date = auxTomorrow;
+     }
+     console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
+     this.refreshEverything(nextDay);
+     this.setState({testInfo: "Testing correctly"});
+   }
+ }
+ /*************** TEST THINGS - END *******************/
 
   shouldComponentUpdate(){
     if(Platform.OS === 'ios'){
@@ -296,84 +530,6 @@ export default class HomeScreenController extends Component {
     this.litPres = true;
   }
 
-  refreshDate(newDay){
-    this.acceso.getAnyLiturgic(
-      newDay.getFullYear(),
-      newDay.getMonth(),
-      newDay.getDate(),
-      (current, tomorrow, pentacosta) => {
-        var celType = GF.getCelType(this.variables.diocesi, current);
-        var tomorrowCelType = GF.getCelType(this.variables.diocesi, tomorrow);
-        console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
-
-        this.variables.celType = celType;
-        this.variables.date = newDay;
-        this.variables.mogut = current.Mogut;
-        this.variables.litColor = current.Color;
-
-        this.liturgicProps.LITURGIA = null;
-
-        this.liturgicProps.tempsespecific = current.tempsespecific;
-        this.liturgicProps.LT = current.temps;
-        this.liturgicProps.cicle = current.cicle; //1-4
-        this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-        this.liturgicProps.ABC = current.anyABC;
-
-        this.dataTomorrow.celType = tomorrowCelType;
-        this.dataTomorrow.LT = tomorrow.temps;
-        this.dataTomorrow.setmana = tomorrow.NumSet;
-        this.dataTomorrow.mogut = tomorrow.Mogut;
-
-        if(this.SOUL === undefined)
-          this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
-        else
-          this.SOUL.makeQueryies(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
-      }
-    );
-  }
-
-  setSoul(liturgia){
-    console.log("HomeScreen - setSoul");
-
-    this.liturgicProps.LITURGIA = liturgia;
-    this.refEv = true;
-
-    this.setState({
-      santPressed: false,
-      ViewData: {
-        ready: true,
-        lloc: {
-          diocesiName: this.variables.diocesiName,
-          lloc: this.variables.lloc,
-        },
-        data: this.variables.date,
-        setmana: this.liturgicProps.setmana,
-        temps: this.liturgicProps.tempsespecific,
-        setCicle: this.liturgicProps.cicle,
-        anyABC: this.liturgicProps.ABC,
-        color: this.variables.litColor,
-        celebracio: {
-          type: this.liturgicProps.LITURGIA.info_cel.typeCel,
-          titol: this.liturgicProps.LITURGIA.info_cel.nomCel,
-          text: this.liturgicProps.LITURGIA.info_cel.infoCel,
-        },
-        primVespres: this.primVespres(),
-      }
-    });
-  }
-
-  primVespres(){
-    if((this.variables.date.getDay() === 6 && this.variables.celType !== 'S') ||
-        this.liturgicProps.LITURGIA.vespres1) return true;
-    return false;
-  }
-
-  passDayTest(day){
-    if((this.diocesiNameTest==='Solsona' || this.diocesiNameTest==='Urgell' || this.diocesiNameTest==='Tortosa') && (day.getDate()===28 || day.getDate()===29) && day.getMonth()===4 && day.getFullYear()===2017)
-      return true;
-    return false;
-  }
-
   datePickerOK(newDate){
     this.date = newDate;
     this.setState({isDateTimePickerVisible: false});
@@ -439,30 +595,45 @@ export default class HomeScreenController extends Component {
   }
 
   render(){
-    return(
-      <View style={{flex: 1}}>
-        <HomeScreen
-          ViewData={this.state.ViewData}
-          santPressed={this.state.santPressed}
-          santCB={this.onSantPressCB.bind(this)}
-          oficiCB={this.LHButtonCB.bind(this, "Ofici")}
-          laudesCB={this.LHButtonCB.bind(this, "Laudes")}
-          terciaCB={this.LHButtonCB.bind(this, "Tèrcia")}
-          sextaCB={this.LHButtonCB.bind(this, "Sexta")}
-          nonaCB={this.LHButtonCB.bind(this, "Nona")}
-          vespresCB={this.LHButtonCB.bind(this, "Vespres")}
-          completesCB={this.LHButtonCB.bind(this, "Completes")}/>
-        <DateTimePicker
-          isVisible={this.state.isDateTimePickerVisible}
-          titleIOS={'Canvia el dia'}
-          cancelTextIOS={'Cancel·la'}
-          confirmTextIOS={this.dacordString()}
-          date={this.date}
-          minimumDate={this.minDatePicker}
-          maximumDate={this.maxDatePicker}
-          onConfirm={this.datePickerOK.bind(this)}
-          onCancel={this.datePickerCANCEL.bind(this)}/>
-      </View>
-    )
+    if(!this.testing){
+      return(
+        <View style={{flex: 1}}>
+          <HomeScreen
+            ViewData={this.state.ViewData}
+            santPressed={this.state.santPressed}
+            santCB={this.onSantPressCB.bind(this)}
+            oficiCB={this.LHButtonCB.bind(this, "Ofici")}
+            laudesCB={this.LHButtonCB.bind(this, "Laudes")}
+            terciaCB={this.LHButtonCB.bind(this, "Tèrcia")}
+            sextaCB={this.LHButtonCB.bind(this, "Sexta")}
+            nonaCB={this.LHButtonCB.bind(this, "Nona")}
+            vespresCB={this.LHButtonCB.bind(this, "Vespres")}
+            completesCB={this.LHButtonCB.bind(this, "Completes")}/>
+          <DateTimePicker
+            isVisible={this.state.isDateTimePickerVisible}
+            titleIOS={'Canvia el dia'}
+            cancelTextIOS={'Cancel·la'}
+            confirmTextIOS={this.dacordString()}
+            date={this.date}
+            minimumDate={this.minDatePicker}
+            maximumDate={this.maxDatePicker}
+            onConfirm={this.datePickerOK.bind(this)}
+            onCancel={this.datePickerCANCEL.bind(this)}/>
+        </View>
+      );
+    }
+    /*************** TEST THINGS - START *******************/
+    else{
+      return(
+        <View >
+          <Text>{"\n\n\n\n\n\n"}</Text>
+          <Text>{this.state.testInfo}</Text>
+          <Text>{this.idTest}</Text>
+          <Text>{this.diocesiTest}</Text>
+          <Text>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+        </View>
+      );
+    }
+    /*************** TEST THINGS - END *******************/
   }
 }
