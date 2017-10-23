@@ -66,8 +66,8 @@ export default class LHButtons extends Component {
           :
           <Text style={styles.buttonText}>{"Vespres"}</Text>
         }
-         {this.props.primVespres !== '-' ?
-            <Text style={styles.redCenter}>{this.props.primVespres}</Text>
+         {this.props.ViewData.primVespres ?
+            <Text style={styles.redCenter}>Primeres vespres</Text>
           : null }
        </TouchableOpacity>
        <Hr lineColor='#90A4AE' />

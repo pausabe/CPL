@@ -1,19 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
   Platform,
-  StatusBar,
-  Image,
-  BackAndroid,
-  ScrollView,
   TouchableOpacity,
  } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
-import EventEmitter from 'EventEmitter';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import { NavigationActions } from 'react-navigation';
 
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
@@ -23,13 +17,6 @@ import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
 import TEST from "../Tests/Test";
 import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
-
-function paddingBar(){
-  if(Platform.OS === 'ios'){
-    return 64;
-  }
-  return 0;//54;
-}
 
 export default class HomeScreenController extends Component {
   componentDidMount() {
@@ -97,13 +84,12 @@ export default class HomeScreenController extends Component {
 
     //this is just for android. You must change for ios in NavigatorController as well
     this.date = new Date(/*2017,7,7*/);
-    // this.auxDate = this.date;
-    this.minimumDate = new Date(2017,0,2);
-    this.maximumDate = new Date(2017,11,28);
+
+    this.minDatePicker = new Date(2017,0,2);
+    this.maxDatePicker = new Date(2017,11,28);
 
     this.state = {
       santPressed: false,
-      testInfo: 'testing correctly',
       isDateTimePickerVisible: false,
 
       ViewData: {
@@ -123,31 +109,15 @@ export default class HomeScreenController extends Component {
           titol: '',
           text: '',
         },
-        primVespres: '',
+        primVespres: false,
         santPressed: false,
       }
     }
 
-    /*primeres vespres setter
-    this.props.liturgicProps.LITURGIA &&
-      if((this.props.variables.date.getDay() === 6
-         && this.props.variables.celType !== 'S')
-       || this.props.liturgicProps.LITURGIA.vespres1) //YES else //NO
-    */
-
-    this.arrows = false;
-
     this.testing = TEST.testState; //false; //fer-ho amb iphone 8 sense console i memories lliures actives
-    this.renderTest = this.testing;
-    console.log("here1");
-    if(this.testing){
-      console.log("here2");
-    }
-    else{
-      console.log("Que pasa neng ------------------->>: "+props.naviDate);
-      if(props.naviDate === undefined) var today = new Date();
-      else var today = props.naviDate;
-    }
+
+    if(props.naviDate === undefined) var today = new Date();
+    else var today = props.naviDate;
 
     this.variables = {
       diocesi: '',
@@ -183,7 +153,6 @@ export default class HomeScreenController extends Component {
     this.inSet = false;
     this.picAcc = false;
     this.calPres = false;
-    //this.picPres = true;
 
     var tomorrow = new Date(today.getFullYear(), today.getMonth());
     tomorrow.setDate(today.getDate() + 1);
@@ -198,14 +167,9 @@ export default class HomeScreenController extends Component {
 
     this.acceso = new DBAdapter();
 
-    //this.refresh = false;
     this.refreshEverything(today);
   }
 
-  error(){
-    this.setState({testInfo: "something went wrong"});
-    this.testing = false;
-  }
 
   refreshEverything(date){
     console.log("REFRESHING EVERYTHING: settings > anyliturgic > soul > render " + date);
@@ -370,37 +334,38 @@ export default class HomeScreenController extends Component {
 
   setSoul(liturgia){
     console.log("HomeScreen - setSoul");
-    //this.refreshing = false;
-    if(!this.testing){
-      this.liturgicProps.LITURGIA = liturgia;
-      //this.iWantRender = false;
-      this.refEv = true;
-      this.setState({
-        santPressed: false,
-        ViewData: {
-          ready: true,
-          lloc: {
-            diocesiName: this.variables.diocesiName,
-            lloc: this.variables.lloc,
-          },
-          data: this.variables.date,
-          setmana: this.liturgicProps.setmana,
-          temps: this.liturgicProps.tempsespecific,
-          setCicle: this.liturgicProps.cicle,
-          anyABC: this.liturgicProps.ABC,
-          color: this.variables.litColor,
-          celebracio: {
-            type: this.liturgicProps.LITURGIA.info_cel.typeCel,
-            titol: this.liturgicProps.LITURGIA.info_cel.nomCel,
-            text: this.liturgicProps.LITURGIA.info_cel.infoCel,
-          },
-          primVespres: 'Priemeres vespres',
-      }});
-      //this.forceUpdate();
-    }
-    else{
-      // TEST.testThisDay();
-    }
+
+    this.liturgicProps.LITURGIA = liturgia;
+    this.refEv = true;
+
+    this.setState({
+      santPressed: false,
+      ViewData: {
+        ready: true,
+        lloc: {
+          diocesiName: this.variables.diocesiName,
+          lloc: this.variables.lloc,
+        },
+        data: this.variables.date,
+        setmana: this.liturgicProps.setmana,
+        temps: this.liturgicProps.tempsespecific,
+        setCicle: this.liturgicProps.cicle,
+        anyABC: this.liturgicProps.ABC,
+        color: this.variables.litColor,
+        celebracio: {
+          type: this.liturgicProps.LITURGIA.info_cel.typeCel,
+          titol: this.liturgicProps.LITURGIA.info_cel.nomCel,
+          text: this.liturgicProps.LITURGIA.info_cel.infoCel,
+        },
+        primVespres: this.primVespres(),
+      }
+    });
+  }
+
+  primVespres(){
+    if((this.variables.date.getDay() === 6 && this.variables.celType !== 'S') ||
+        this.liturgicProps.LITURGIA.vespres1) return true;
+    return false;
   }
 
   passDayTest(day){
@@ -409,7 +374,7 @@ export default class HomeScreenController extends Component {
     return false;
   }
 
-  dateOK(newDate){
+  datePickerOK(newDate){
     this.date = newDate;
     this.setState({isDateTimePickerVisible: false});
     console.log("pickerAccept: " + newDate);
@@ -424,7 +389,7 @@ export default class HomeScreenController extends Component {
     }
   }
 
-  dateCANCEL(){
+  datePickerCANCEL(){
     this.setState({isDateTimePickerVisible: false});
   }
 
@@ -435,10 +400,6 @@ export default class HomeScreenController extends Component {
       else if(this.santPress === 1) this.santPress = 2;
       this.setState({santPressed: !this.state.santPressed});
     }
-  }
-
-  changeDate(testtt){
-    console.log(testtt);
   }
 
   LHButtonCB(type){
@@ -497,10 +458,10 @@ export default class HomeScreenController extends Component {
           cancelTextIOS={'Cancel·la'}
           confirmTextIOS={this.dacordString()}
           date={this.date}
-          minimumDate={this.minimumDate}
-          maximumDate={this.maximumDate}
-          onConfirm={this.dateOK.bind(this)}
-          onCancel={this.dateCANCEL.bind(this)}/>
+          minimumDate={this.minDatePicker}
+          maximumDate={this.maxDatePicker}
+          onConfirm={this.datePickerOK.bind(this)}
+          onCancel={this.datePickerCANCEL.bind(this)}/>
       </View>
     )
   }
