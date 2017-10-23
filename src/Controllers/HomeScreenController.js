@@ -19,7 +19,7 @@ import { NavigationActions } from 'react-navigation';
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
 import SOUL from './Classes/SOUL/SOUL';
-import SettingsManager from '../Views/SettingsManager';
+import SettingsManager from './Classes/SettingsManager';
 import GLOBAL from "../Globals/Globals";
 import TEST from "../Tests/Test";
 import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
@@ -31,7 +31,7 @@ function paddingBar(){
   return 0;//54;
 }
 
-export default class HomeScreen extends Component {
+export default class HomeScreenController extends Component {
   componentDidMount() {
     if(Platform.OS==='android'){
       setTimeout(() => { SplashScreen.hide(); }, 400);
@@ -105,7 +105,7 @@ export default class HomeScreen extends Component {
       santPressed: false,
       testInfo: 'testing correctly',
       isDateTimePickerVisible: false,
-      
+
       ViewData: {
         ready: null,
         lloc: {

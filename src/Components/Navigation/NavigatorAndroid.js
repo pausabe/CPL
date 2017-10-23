@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import HomeScreenController from '../../Controllers/HomeScreen/HomeScreenController';
+import HomeScreenController from '../../Controllers/HomeScreenController';
 import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 import SettingsScreen from '../../Views/SettingsScreen';
 import GLOBAL from "../../Globals/Globals";

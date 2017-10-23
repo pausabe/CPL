@@ -20,7 +20,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import EventEmitter from 'EventEmitter';
 
 import CustomTransitions from '../../Globals/CustomTransitions';
-import HomeScreenController from '../../Controllers/HomeScreen/HomeScreenController';
+import HomeScreenController from '../../Controllers/HomeScreenController';
 import SettingsScreen from '../../Views/SettingsScreen';
 import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 import GLOBAL from '../../Globals/Globals';
