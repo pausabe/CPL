@@ -105,4 +105,247 @@ module.exports = {
 
     return oracio;
   },
+
+  getCelType(diocesi, anyliturgic){
+    switch (diocesi) {
+      default:
+        celType = anyliturgic.BaD;
+        break;
+      case "BaD":
+        celType = anyliturgic.BaD;
+        break;
+      case "BaV":
+        celType = anyliturgic.BaV;
+        break;
+      case "BaC":
+        celType = anyliturgic.BaC;
+        break;
+      case "GiD":
+        celType = anyliturgic.GiD;
+        break;
+      case "GiV":
+        celType = anyliturgic.GiV;
+        break;
+      case "GiC":
+        celType = anyliturgic.GiC;
+        break;
+      case "LlD":
+        celType = anyliturgic.LlD;
+        break;
+      case "LlV":
+        celType = anyliturgic.LlV;
+        break;
+      case "LlC":
+        celType = anyliturgic.LlC;
+        break;
+      case "SFD":
+        celType = anyliturgic.SFD;
+        break;
+      case "SFV":
+        celType = anyliturgic.SFV;
+        break;
+      case "SFC":
+        celType = anyliturgic.SFC;
+        break;
+      case "SoD":
+        celType = anyliturgic.SoD;
+        break;
+      case "SoV":
+        celType = anyliturgic.SoV;
+        break;
+      case "SoC":
+        celType = anyliturgic.SoC;
+        break;
+      case "TaD":
+        celType = anyliturgic.TaD;
+        break;
+      case "TaV":
+        celType = anyliturgic.TaV;
+        break;
+      case "TaC":
+        celType = anyliturgic.TaC;
+        break;
+      case "TeD":
+        celType = anyliturgic.TeD;
+        break;
+      case "TeV":
+        celType = anyliturgic.TeV;
+        break;
+      case "TeC":
+        celType = anyliturgic.TeC;
+        break;
+      case "ToD":
+        celType = anyliturgic.ToD;
+        break;
+      case "ToV":
+        celType = anyliturgic.ToV;
+        break;
+      case "ToC":
+        celType = anyliturgic.ToC;
+        break;
+      case "UrD":
+        celType = anyliturgic.UrD;
+        break;
+      case "UrV":
+        celType = anyliturgic.UrV;
+        break;
+      case "UrC":
+        celType = anyliturgic.UrC;
+        break;
+      case "ViD":
+        celType = anyliturgic.ViD;
+        break;
+      case "ViV":
+        celType = anyliturgic.ViV;
+        break;
+      case "ViC":
+        celType = anyliturgic.ViC;
+        break;
+      case "Andorra":
+        celType = anyliturgic.Andorra;
+        break;
+    }
+
+    return(celType);
+  },
+
+  transformDiocesiName(diocesi, lloc){
+    switch (diocesi) {
+      case "Barcelona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'BaD';
+            break;
+          case "Catedral":
+            return 'BaC';
+            break
+          case "Ciutat":
+            return 'BaV';
+            break;
+        }
+        break;
+      case "Girona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'GiD';
+            break;
+          case "Catedral":
+            return 'GiC';
+            break
+          case "Ciutat":
+            return 'GiV';
+            break;
+        }
+        break;
+      case "Lleida":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'LlD';
+            break;
+          case "Catedral":
+            return 'LlC';
+            break
+          case "Ciutat":
+            return 'LlV';
+            break;
+        }
+        break;
+      case "Sant Feliu de Llobregat":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'SFD';
+            break;
+          case "Catedral":
+            return 'SFC';
+            break
+          case "Ciutat":
+            return 'SFV';
+            break;
+        }
+        break;
+      case "Solsona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'SoD';
+            break;
+          case "Catedral":
+            return 'SoC';
+            break
+          case "Ciutat":
+            return 'SoV';
+            break;
+        }
+        break;
+      case "Tarragona":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'TaD';
+            break;
+          case "Catedral":
+            return 'TaC';
+            break
+          case "Ciutat":
+            return 'TaV';
+            break;
+        }
+        break;
+      case "Terrassa":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'TeD';
+            break;
+          case "Catedral":
+            return 'TeC';
+            break
+          case "Ciutat":
+            return 'TeV';
+            break;
+        }
+        break;
+      case "Tortosa":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'ToD';
+            break;
+          case "Catedral":
+            return 'ToC';
+            break
+          case "Ciutat":
+            return 'ToV';
+            break;
+        }
+        break;
+      case "Urgell":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'UrD';
+            break;
+          case "Catedral":
+            return 'UrC';
+            break
+          case "Ciutat":
+            return 'UrV';
+            break;
+        }
+        break;
+      case "Vic":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'ViD';
+            break;
+          case "Catedral":
+            return 'ViC';
+            break
+          case "Ciutat":
+            return 'ViV';
+            break;
+        }
+        break;
+      case "Andorra":
+        return 'Andorra';
+        break;
+    }
+
+    return('BaD');
+  },
 };

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Platform,
   StatusBar,
   Image,
@@ -21,6 +20,7 @@ import DBAdapter from '../Adapters/DBAdapter';
 import SOUL from './Classes/SOUL/SOUL';
 import SettingsManager from './Classes/SettingsManager';
 import GLOBAL from "../Globals/Globals";
+import GF from "../Globals/GlobalFunctions";
 import TEST from "../Tests/Test";
 import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 
@@ -107,12 +107,12 @@ export default class HomeScreenController extends Component {
       isDateTimePickerVisible: false,
 
       ViewData: {
-        ready: null,
+        ready: false,
         lloc: {
           diocesiName: '',
           lloc: '',
         },
-        data: '',
+        data: this.date,
         setmana: '',
         temps: '',
         setCicle: '',
@@ -124,6 +124,7 @@ export default class HomeScreenController extends Component {
           text: '',
         },
         primVespres: '',
+        santPressed: false,
       }
     }
 
@@ -219,7 +220,7 @@ export default class HomeScreenController extends Component {
             this.variables.lloc = this.llocTest;
           }
           else{
-            this.variables.diocesi = this.transformDiocesiName(r, this.variables.lloc);
+            this.variables.diocesi = GF.transformDiocesiName(r, this.variables.lloc);
             this.variables.diocesiName = r;
           }
           console.log("this.variables.diocesi: "+this.variables.diocesi);
@@ -337,8 +338,8 @@ export default class HomeScreenController extends Component {
       newDay.getMonth(),
       newDay.getDate(),
       (current, tomorrow, pentacosta) => {
-        var celType = this.getCelType(this.variables.diocesi, current);
-        var tomorrowCelType = this.getCelType(this.variables.diocesi, tomorrow);
+        var celType = GF.getCelType(this.variables.diocesi, current);
+        var tomorrowCelType = GF.getCelType(this.variables.diocesi, tomorrow);
         console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
 
         this.variables.celType = celType;
@@ -374,7 +375,27 @@ export default class HomeScreenController extends Component {
       this.liturgicProps.LITURGIA = liturgia;
       //this.iWantRender = false;
       this.refEv = true;
-      this.setState({santPressed: false});
+      this.setState({
+        santPressed: false,
+        ViewData: {
+          ready: true,
+          lloc: {
+            diocesiName: this.variables.diocesiName,
+            lloc: this.variables.lloc,
+          },
+          data: this.variables.date,
+          setmana: this.liturgicProps.setmana,
+          temps: this.liturgicProps.tempsespecific,
+          setCicle: this.liturgicProps.cicle,
+          anyABC: this.liturgicProps.ABC,
+          color: this.variables.litColor,
+          celebracio: {
+            type: this.liturgicProps.LITURGIA.info_cel.typeCel,
+            titol: this.liturgicProps.LITURGIA.info_cel.nomCel,
+            text: this.liturgicProps.LITURGIA.info_cel.infoCel,
+          },
+          primVespres: 'Priemeres vespres',
+      }});
       //this.forceUpdate();
     }
     else{
@@ -424,15 +445,15 @@ export default class HomeScreenController extends Component {
     var title = type;
     if(type === 'Ofici') title = 'Ofici de lectura';
     this.liturgiaPressed();
-    if(this.props.liturgicProps.LITURGIA !== null){
+    if(this.liturgicProps.LITURGIA !== null){
       if(Platform.OS === 'ios'){
         this.props.navigator.push({
           title: title,
           passProps: {
             type: type,
-            date: this.props.date,
-            variables: this.props.variables,
-            liturgicProps: this.props.liturgicProps,
+            date: this.date,
+            variables: this.variables,
+            liturgicProps: this.liturgicProps,
           },
           component: LiturgiaDisplayScreen
         });
@@ -442,9 +463,9 @@ export default class HomeScreenController extends Component {
           title: title,
           props: {
             type: type,
-            variables: this.props.variables,
-            date: this.props.date,
-            liturgicProps: this.props.liturgicProps,
+            variables: this.variables,
+            date: this.date,
+            liturgicProps: this.liturgicProps,
           },
         }
         this.props.navigation.navigate('LiturgiaDisplay', params);
@@ -452,448 +473,35 @@ export default class HomeScreenController extends Component {
     }
   }
 
+  dacordString(){
+    return "D'acord";
+  }
+
   render(){
     return(
-      <HomeScreen
-        ViewData={this.state.ViewData}
-        santCB={this.onSantPressCB.bind(this)}
-        oficiCB={this.LHButtonCB.bind(this, "Ofici")}
-        laudesCB={this.LHButtonCB.bind(this, "Laudes")}
-        terciaCB={this.LHButtonCB.bind(this, "Tèrcia")}
-        sextaCB={this.LHButtonCB.bind(this, "Sexta")}
-        nonaCB={this.LHButtonCB.bind(this, "Nona")}
-        vespresCB={this.LHButtonCB.bind(this, "Vespres")}
-        completesCB={this.LHButtonCB.bind(this, "Completes")}/>
+      <View style={{flex: 1}}>
+        <HomeScreen
+          ViewData={this.state.ViewData}
+          santPressed={this.state.santPressed}
+          santCB={this.onSantPressCB.bind(this)}
+          oficiCB={this.LHButtonCB.bind(this, "Ofici")}
+          laudesCB={this.LHButtonCB.bind(this, "Laudes")}
+          terciaCB={this.LHButtonCB.bind(this, "Tèrcia")}
+          sextaCB={this.LHButtonCB.bind(this, "Sexta")}
+          nonaCB={this.LHButtonCB.bind(this, "Nona")}
+          vespresCB={this.LHButtonCB.bind(this, "Vespres")}
+          completesCB={this.LHButtonCB.bind(this, "Completes")}/>
+        <DateTimePicker
+          isVisible={this.state.isDateTimePickerVisible}
+          titleIOS={'Canvia el dia'}
+          cancelTextIOS={'Cancel·la'}
+          confirmTextIOS={this.dacordString()}
+          date={this.date}
+          minimumDate={this.minimumDate}
+          maximumDate={this.maximumDate}
+          onConfirm={this.dateOK.bind(this)}
+          onCancel={this.dateCANCEL.bind(this)}/>
+      </View>
     )
   }
-
-
-
-
-
-
-
-
-  /*MAKE GLOBALS*/
-  tempsName(t){
-    if(!t) return "";
-    if(t === 'Ordinari'){
-      return "Durant l'any";
-    }
-    return t;
-  }
-
-  liturgicPaint(string, color){
-    switch (color) {
-      case 'B':
-          return(<Text style={{color: 'rgb(242, 242, 242)'}}>{string}</Text>);
-        break;
-      case 'V':
-          return(<Text style={{color: 'rgb(0, 102, 0)'}}>{string}</Text>);
-        break;
-      case 'R':
-          return(<Text style={{color: 'rgb(192, 57, 43)'}}>{string}</Text>);
-        break;
-      case 'M':
-          return(<Text style={{color: 'rgb(134, 45, 134)'}}>{string}</Text>);
-        break;
-      default:
-        return(<Text style={{color: '#c0392b'}}>{string}</Text>);
-    }
-  }
-
-  getCelType(diocesi, anyliturgic){
-    switch (diocesi) {
-      default:
-        celType = anyliturgic.BaD;
-        break;
-      case "BaD":
-        celType = anyliturgic.BaD;
-        break;
-      case "BaV":
-        celType = anyliturgic.BaV;
-        break;
-      case "BaC":
-        celType = anyliturgic.BaC;
-        break;
-      case "GiD":
-        celType = anyliturgic.GiD;
-        break;
-      case "GiV":
-        celType = anyliturgic.GiV;
-        break;
-      case "GiC":
-        celType = anyliturgic.GiC;
-        break;
-      case "LlD":
-        celType = anyliturgic.LlD;
-        break;
-      case "LlV":
-        celType = anyliturgic.LlV;
-        break;
-      case "LlC":
-        celType = anyliturgic.LlC;
-        break;
-      case "SFD":
-        celType = anyliturgic.SFD;
-        break;
-      case "SFV":
-        celType = anyliturgic.SFV;
-        break;
-      case "SFC":
-        celType = anyliturgic.SFC;
-        break;
-      case "SoD":
-        celType = anyliturgic.SoD;
-        break;
-      case "SoV":
-        celType = anyliturgic.SoV;
-        break;
-      case "SoC":
-        celType = anyliturgic.SoC;
-        break;
-      case "TaD":
-        celType = anyliturgic.TaD;
-        break;
-      case "TaV":
-        celType = anyliturgic.TaV;
-        break;
-      case "TaC":
-        celType = anyliturgic.TaC;
-        break;
-      case "TeD":
-        celType = anyliturgic.TeD;
-        break;
-      case "TeV":
-        celType = anyliturgic.TeV;
-        break;
-      case "TeC":
-        celType = anyliturgic.TeC;
-        break;
-      case "ToD":
-        celType = anyliturgic.ToD;
-        break;
-      case "ToV":
-        celType = anyliturgic.ToV;
-        break;
-      case "ToC":
-        celType = anyliturgic.ToC;
-        break;
-      case "UrD":
-        celType = anyliturgic.UrD;
-        break;
-      case "UrV":
-        celType = anyliturgic.UrV;
-        break;
-      case "UrC":
-        celType = anyliturgic.UrC;
-        break;
-      case "ViD":
-        celType = anyliturgic.ViD;
-        break;
-      case "ViV":
-        celType = anyliturgic.ViV;
-        break;
-      case "ViC":
-        celType = anyliturgic.ViC;
-        break;
-      case "Andorra":
-        celType = anyliturgic.Andorra;
-        break;
-    }
-
-    return(celType);
-  }
-
-  transformDiocesiName(diocesi, lloc){
-    console.log("diocesi: " + diocesi + " - " + "lloc: " + lloc);
-    switch (diocesi) {
-      case "Barcelona":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'BaD';
-            break;
-          case "Catedral":
-            return 'BaC';
-            break
-          case "Ciutat":
-            return 'BaV';
-            break;
-        }
-        break;
-      case "Girona":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'GiD';
-            break;
-          case "Catedral":
-            return 'GiC';
-            break
-          case "Ciutat":
-            return 'GiV';
-            break;
-        }
-        break;
-      case "Lleida":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'LlD';
-            break;
-          case "Catedral":
-            return 'LlC';
-            break
-          case "Ciutat":
-            return 'LlV';
-            break;
-        }
-        break;
-      case "Sant Feliu de Llobregat":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'SFD';
-            break;
-          case "Catedral":
-            return 'SFC';
-            break
-          case "Ciutat":
-            return 'SFV';
-            break;
-        }
-        break;
-      case "Solsona":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'SoD';
-            break;
-          case "Catedral":
-            return 'SoC';
-            break
-          case "Ciutat":
-            return 'SoV';
-            break;
-        }
-        break;
-      case "Tarragona":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'TaD';
-            break;
-          case "Catedral":
-            return 'TaC';
-            break
-          case "Ciutat":
-            return 'TaV';
-            break;
-        }
-        break;
-      case "Terrassa":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'TeD';
-            break;
-          case "Catedral":
-            return 'TeC';
-            break
-          case "Ciutat":
-            return 'TeV';
-            break;
-        }
-        break;
-      case "Tortosa":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'ToD';
-            break;
-          case "Catedral":
-            return 'ToC';
-            break
-          case "Ciutat":
-            return 'ToV';
-            break;
-        }
-        break;
-      case "Urgell":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'UrD';
-            break;
-          case "Catedral":
-            return 'UrC';
-            break
-          case "Ciutat":
-            return 'UrV';
-            break;
-        }
-        break;
-      case "Vic":
-        switch (lloc) {
-          case "Diòcesi":
-            return 'ViD';
-            break;
-          case "Catedral":
-            return 'ViC';
-            break
-          case "Ciutat":
-            return 'ViV';
-            break;
-        }
-        break;
-      case "Andorra":
-        return 'Andorra';
-        break;
-    }
-
-    return('BaD');
-  }
-
-  transfromCelTypeName(CT, t){
-    switch (CT) {
-      case 'F':
-        return (<Text style={styles.celebracioType}>Festa</Text>);
-        break;
-      case 'S':
-        return (<Text style={styles.celebracioType}>Solemnitat</Text>);
-        break;
-      case 'M':
-        if(t === 'Quaresma')
-          return (<Text style={styles.celebracioType}>Commemoració</Text>);
-        return (<Text style={styles.celebracioType}>Memòria obligatòria</Text>);
-        break;
-      case 'V':
-      case 'L':
-        if(t === 'Quaresma')
-          return (<Text style={styles.celebracioType}>Commemoració</Text>);
-        return (<Text style={styles.celebracioType}>Memòria lliure</Text>);
-        break;
-    }
-    return null;
-  }
-
-  romanize (num) {
-      if (!+num)
-          return false;
-      var digits = String(+num).split(""),
-          key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-                 "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-                 "","I","II","III","IV","V","VI","VII","VIII","IX"],
-          roman = "",
-          i = 3;
-      while (i--)
-          roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-      return Array(+digits.join("") + 1).join("M") + roman;
-  }
-
-  weekDayName(num){
-    switch (num) {
-      case 0:
-        return("Diumenge");
-        break;
-      case 1:
-        return("Dilluns");
-        break;
-      case 2:
-        return("Dimarts");
-        break;
-      case 3:
-        return("Dimecres");
-        break;
-      case 4:
-        return("Dijous");
-        break;
-      case 5:
-        return("Divendres");
-        break;
-      case 6:
-        return("Dissabte");
-        break;
-    }
-  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: paddingBar(),
-    backgroundColor: GLOBAL.backgroundColor,
-  },
-  backgroundImage: {
-   flex: 1,
-   backgroundColor: 'transparent',
-   width: null,
-   height: null,
-   //resizeMode: 'cover',
- },
-  diaLiturgicContainer: {
-    flex: 1.7,
-    justifyContent: 'center',
-    shadowOpacity: 0.2,
-    shadowRadius: 7,
-    shadowOffset: {
-      width: 0,
-      height: 10
-    },
-    //backgroundColor: 'silver',
-  },
-  diaLiturgicText: {
-    textAlign: 'center',
-    color: 'black',
-    fontSize: 17,
-    fontWeight: '300'
-  },
-  infoContainer: {
-    flex: 0.4,
-    justifyContent: 'flex-end',
-    paddingTop: 5,
-    //backgroundColor: 'red',
-  },
-  infoText: {
-    textAlign: 'center',
-    color: '#424242',
-    fontSize: 13,
-    fontStyle: 'italic',
-    fontWeight: '300'
-  },
-  santContainer: {
-    flex: 1.1,
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    shadowOffset: {
-      width: 0,
-      height: 10
-    },
-    justifyContent: 'center',
-    backgroundColor: '#E0F2F1',
-    borderRadius: 15,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    paddingLeft: 10,
-    opacity: 0.8,
-  },
-  buttonSantContainer: {
-    flex: 1,
-  },
-  santText: {
-    textAlign: 'center',
-    color: 'black',
-    fontSize: 16,
-    fontWeight: '300',
-  },
-  santExText: {
-    textAlign: 'center',
-    color: 'black',
-    fontSize: 16,
-    fontWeight: '300'
-  },
-  celebracioType: {
-    textAlign: 'center',
-    color: '#333333',
-    //fontStyle: 'italic',
-    fontSize: 13,
-    fontWeight: '300'
-  },
-  liturgiaContainer: {
-    flex: 6,
-    marginBottom: 10,
-    marginHorizontal: 10,
-  },
-});
