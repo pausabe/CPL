@@ -128,23 +128,23 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = false; //fer-ho amb iphone 8 sense console i memories lliures actives
+    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
     this.superTest = this.testing && false; //complements opening every oracio
     // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = {
-      day: 2, //1-31
+      day: 10, //1-31
       month: 0, //0-12
-      year: 2017,
+      year: 2018,
     }
     this.finalDayTest = {
-      day: 29, //1-31
+      day: 27, //1-31
       month: 11, //0-12
-      year: 2017,
+      year: 2018,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       var initalIndex = 0; //0-30
-      var finalIndex = 30; //0-30
+      var finalIndex = 10; //0-30
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
       this.llocTest = GF.nextLloc(initalIndex);

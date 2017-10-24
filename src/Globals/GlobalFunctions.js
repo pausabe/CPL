@@ -44,7 +44,7 @@ module.exports = {
   },
 
   passDayTest(diocesiNameTest, day){
-    if((diocesiNameTest==='Solsona' || diocesiNameTest==='Urgell' || diocesiNameTest==='Tortosa') && (day.getDate()===28 || day.getDate()===29) && day.getMonth()===4 && day.getFullYear()===2017)
+    if((diocesiNameTest==='Solsona' || diocesiNameTest==='Urgell' || diocesiNameTest==='Tortosa') && (day.getDate()===28 || day.getDate()===29) && day.getMonth()===4 && (day.getFullYear()===2017 || day.getFullYear()===2018))
       return true;
     return false;
   },

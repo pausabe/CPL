@@ -523,9 +523,9 @@ export default class SOUL {
       if(params.idTSF === -1 && liturgicProps.LT === GLOBAL.N_OCTAVA){
         id = 1; //Només necessito Nadal (1) per N_OCTAVA
       }
-      /*else{
+      else{
         id = params.idTSF;
-      }*/
+      }
       console.log("OOOOOOOOOOO1 " + id);
       this.acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => {
         this.queryRows.tempsSolemnitatsFestes = result;
@@ -615,6 +615,7 @@ export default class SOUL {
           }
           else{
             var day = this.calculeDia(this.dataTomorrow.date, '-');
+            console.log("HEREE2 - " + day);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
               this.getOficisComuns(params, result, false);
@@ -622,10 +623,13 @@ export default class SOUL {
           }
         }
         else{
+          //hi ha algun error aqui. Jo compovaria (utilitzant el test) quins dies es fa servir
+          //aquest "else" i despres determinaria què és el que està malament
           idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
           console.log("idDM today: " + idDM);
           if(idDM === -1){
             var day = this.calculeDia(date, variables.mogut);
+            console.log("HEREE1 - " + day);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
               this.getOficisComuns(params, result, false);
