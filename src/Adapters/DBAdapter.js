@@ -26,7 +26,7 @@ export default class DBAdapter {
 
   getLiturgia(table, id, callback){
     if(id !== -1){
-      //if(table === 'tempsAdventSetmanesDium') console.log(`tempsAdventSetmanesDium---> SELECT * FROM ${table} WHERE id = ${id}`);
+      // if(table === 'tempsNadalOctava') console.log(`tempsAdventSetmanesDium---> SELECT * FROM ${table} WHERE id = ${id}`);
       this.executeQuery(`SELECT * FROM ${table} WHERE id = ${id}`,
         result => callback(result.rows.item(0)));
     }

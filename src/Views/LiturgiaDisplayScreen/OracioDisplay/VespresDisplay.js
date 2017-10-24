@@ -307,7 +307,10 @@ export default class VespresDisplay extends Component {
   pregaries(LT, weekDay, VESPRES){
     var allPregs = GF.rs(VESPRES.pregaries);
 
-    if(allPregs === undefined) return "";
+    if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
+      return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
+
+    console.log("ASDF '" + allPregs + "'");
 
     var numGuio = allPregs.match(/—/g, "").length;
     var numEnter = allPregs.match(/\n/g, "").length;

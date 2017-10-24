@@ -380,7 +380,11 @@ export default class CelebracioSoul {
           this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
         }
         else{
+          // console.log("right here broh");
           switch (tomCal) {
+            case 'TSF':
+              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+              break;
             case 'DE':
               this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
               break;
@@ -734,48 +738,48 @@ export default class CelebracioSoul {
     anyABC = liturgicProps.ABC;
     console.log("makeVespres1TSF");
     //::::::TSF-VESPRES1::::::
-    if(llati === 'true') this.VESPRES1.himne = TABLES.tempsSolemnitatsFestes.himneVespres1Llati;
-    else this.VESPRES1.himne = TABLES.tempsSolemnitatsFestes.himneVespres1Cat;
-    this.VESPRES1.ant1 = TABLES.tempsSolemnitatsFestes.ant1Vespres1;
-    this.VESPRES1.titol1 = TABLES.tempsSolemnitatsFestes.titol1Vespres1;
+    if(llati === 'true') this.VESPRES1.himne = TABLES.tempsSolemnitatsFestesVespres1.himneVespres1Llati;
+    else this.VESPRES1.himne = TABLES.tempsSolemnitatsFestesVespres1.himneVespres1Cat;
+    this.VESPRES1.ant1 = TABLES.tempsSolemnitatsFestesVespres1.ant1Vespres1;
+    this.VESPRES1.titol1 = TABLES.tempsSolemnitatsFestesVespres1.titol1Vespres1;
     this.VESPRES1.com1 = ".";
-    this.VESPRES1.salm1 = TABLES.tempsSolemnitatsFestes.text1Vespres1;
-    this.VESPRES1.gloria1 = TABLES.tempsSolemnitatsFestes.gloria1Vespres1;
-    this.VESPRES1.ant2 = TABLES.tempsSolemnitatsFestes.ant2Vespres1;
-    this.VESPRES1.titol2 = TABLES.tempsSolemnitatsFestes.titol2Vespres1;
+    this.VESPRES1.salm1 = TABLES.tempsSolemnitatsFestesVespres1.text1Vespres1;
+    this.VESPRES1.gloria1 = TABLES.tempsSolemnitatsFestesVespres1.gloria1Vespres1;
+    this.VESPRES1.ant2 = TABLES.tempsSolemnitatsFestesVespres1.ant2Vespres1;
+    this.VESPRES1.titol2 = TABLES.tempsSolemnitatsFestesVespres1.titol2Vespres1;
     this.VESPRES1.com2 = ".";
-    this.VESPRES1.salm2 = TABLES.tempsSolemnitatsFestes.text2Vespres1;
-    this.VESPRES1.gloria2 = TABLES.tempsSolemnitatsFestes.gloria2Vespres1;
-    this.VESPRES1.ant3 = TABLES.tempsSolemnitatsFestes.ant3Vespres1;
-    this.VESPRES1.titol3 = TABLES.tempsSolemnitatsFestes.titol3Vespres1;
+    this.VESPRES1.salm2 = TABLES.tempsSolemnitatsFestesVespres1.text2Vespres1;
+    this.VESPRES1.gloria2 = TABLES.tempsSolemnitatsFestesVespres1.gloria2Vespres1;
+    this.VESPRES1.ant3 = TABLES.tempsSolemnitatsFestesVespres1.ant3Vespres1;
+    this.VESPRES1.titol3 = TABLES.tempsSolemnitatsFestesVespres1.titol3Vespres1;
     this.VESPRES1.com3 = ".";
-    this.VESPRES1.salm3 = TABLES.tempsSolemnitatsFestes.text3Vespres1;
-    this.VESPRES1.gloria3 = TABLES.tempsSolemnitatsFestes.gloria3Vespres1;
-    this.VESPRES1.vers = TABLES.tempsSolemnitatsFestes.citaLBVespres1;
-    this.VESPRES1.lecturaBreu = TABLES.tempsSolemnitatsFestes.lecturaBreuVespres1;
+    this.VESPRES1.salm3 = TABLES.tempsSolemnitatsFestesVespres1.text3Vespres1;
+    this.VESPRES1.gloria3 = TABLES.tempsSolemnitatsFestesVespres1.gloria3Vespres1;
+    this.VESPRES1.vers = TABLES.tempsSolemnitatsFestesVespres1.citaLBVespres1;
+    this.VESPRES1.lecturaBreu = TABLES.tempsSolemnitatsFestesVespres1.lecturaBreuVespres1;
     this.VESPRES1.calAntEspecial = false;
-    this.VESPRES1.respBreu1 = TABLES.tempsSolemnitatsFestes.respBreuVespres1Part1;
-    this.VESPRES1.respBreu2 = TABLES.tempsSolemnitatsFestes.respBreuVespres1Part2;
-    this.VESPRES1.respBreu3 = TABLES.tempsSolemnitatsFestes.respBreuVespres1Part3;
+    this.VESPRES1.respBreu1 = TABLES.tempsSolemnitatsFestesVespres1.respBreuVespres1Part1;
+    this.VESPRES1.respBreu2 = TABLES.tempsSolemnitatsFestesVespres1.respBreuVespres1Part2;
+    this.VESPRES1.respBreu3 = TABLES.tempsSolemnitatsFestesVespres1.respBreuVespres1Part3;
     switch (anyABC) {
       case "A":
-        this.VESPRES1.antCantic = TABLES.tempsSolemnitatsFestes.antMaria1A;
+        this.VESPRES1.antCantic = TABLES.tempsSolemnitatsFestesVespres1.antMaria1A;
         break;
       case "B":
-        this.VESPRES1.antCantic = TABLES.tempsSolemnitatsFestes.antMaria1B;
+        this.VESPRES1.antCantic = TABLES.tempsSolemnitatsFestesVespres1.antMaria1B;
         break;
       case "C":
-        this.VESPRES1.antCantic = TABLES.tempsSolemnitatsFestes.antMaria1C;
+        this.VESPRES1.antCantic = TABLES.tempsSolemnitatsFestesVespres1.antMaria1C;
         break;
     }
-    this.VESPRES1.pregaries = TABLES.tempsSolemnitatsFestes.pregariesVespres1;
-    this.VESPRES1.oracio = TABLES.tempsSolemnitatsFestes.oraFiVespres1;
+    this.VESPRES1.pregaries = TABLES.tempsSolemnitatsFestesVespres1.pregariesVespres1;
+    this.VESPRES1.oracio = TABLES.tempsSolemnitatsFestesVespres1.oraFiVespres1;
   }
 
   makeTSF(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeTSF");
+    console.log("makeTSF - " + TABLES.tempsSolemnitatsFestes.nomMemoria);
     //::::::>>>>>TSF<<<<<::::::
     //::::::TSF-INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.tempsSolemnitatsFestes.nomMemoria;

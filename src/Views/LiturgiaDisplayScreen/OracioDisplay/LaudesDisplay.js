@@ -354,7 +354,8 @@ export default class LaudesDisplay extends Component {
   pregaries(LT, LAUDES){
     var allPregs = GF.rs(LAUDES.pregaries);
 
-    if(allPregs === undefined) return "";
+    if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
+      return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
 
     var numGuio = allPregs.match(/—/g, "").length;
     var numEnter = allPregs.match(/\n/g, "").length;

@@ -49,7 +49,8 @@ export default class SOUL {
       tempsQuaresmaVSetmanesDium: '', //28.1
       tempsQuaresmaVSetmanesDiumVespres1: '', //28.2
       salteriComuVespres: '', //29
-      tempsSolemnitatsFestes: '', //30
+      tempsSolemnitatsFestes: '', //30.1
+      tempsSolemnitatsFestesVespres1: '', //30.2
       salteriComuHora: '', //31
       salteriComuCompletes: '', //32
       salteriComuOficiTF: '', //33
@@ -376,9 +377,11 @@ export default class SOUL {
     if(liturgicProps.LT === GLOBAL.N_OCTAVA && date.getDate() !== 25){
       c += 1;
       id = date.getDate()-25;
+      if(date.getDate() === 1) id = 1; //poso 1 per posar algo, no importa. No llegirà res
       console.log("im here");
       this.acceso.getLiturgia("tempsNadalOctava", id, (result) => {
         this.queryRows.tempsNadalOctava = result;
+        // console.log("what? + " + result.ant1Ofici);
         this.dataReceived(params);
       });
     }
@@ -513,11 +516,28 @@ export default class SOUL {
       });
     }
 
-    //taula 30 (#31): -
+    //taula 30.1 (#31): -
+    if(/*this.tomorrowCal === 'TSF' ||*/ params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU || liturgicProps.LT === GLOBAL.N_OCTAVA){
+      c += 1;
+      console.log("hereeee1");
+      if(params.idTSF === -1 && liturgicProps.LT === GLOBAL.N_OCTAVA){
+        id = 1; //Només necessito Nadal (1) per N_OCTAVA
+      }
+      /*else{
+        id = params.idTSF;
+      }*/
+      console.log("OOOOOOOOOOO1 " + id);
+      this.acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => {
+        this.queryRows.tempsSolemnitatsFestes = result;
+        this.dataReceived(params);
+      });
+    }
+
+    //taula 30.2 (#31): -
     if(this.tomorrowCal === 'TSF' || params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU || liturgicProps.LT === GLOBAL.N_OCTAVA){
       c += 1;
-      console.log("hereeee");
-      if(params.idTSF === -1 || liturgicProps.LT === GLOBAL.N_OCTAVA){
+      console.log("hereeee2");
+      if(params.idTSF === -1 && liturgicProps.LT === GLOBAL.N_OCTAVA){
         id = 1; //Només necessito Nadal (1) per N_OCTAVA
       }
       else{
@@ -526,9 +546,9 @@ export default class SOUL {
       if(this.tomorrowCal === 'TSF') {
         id = this.idTSFTomorrow;
       }
-      //console.log("OOOOOOOOOOO " + id);
+      console.log("OOOOOOOOOOO2 " + id);
       this.acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => {
-        this.queryRows.tempsSolemnitatsFestes = result;
+        this.queryRows.tempsSolemnitatsFestesVespres1 = result;
         this.dataReceived(params);
       });
     }
@@ -879,7 +899,9 @@ export default class SOUL {
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';
     }
-    else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.N_OCTAVA){
+    else if(this.LITURGIA.info_cel.nomCel === '-'
+      && this.liturgicProps.LT === GLOBAL.N_OCTAVA
+      && this.idTSF === -1 && this.idDE === -1){
       this.LITURGIA.info_cel.nomCel = "Octava de Nadal";
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';

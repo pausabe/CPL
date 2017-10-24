@@ -98,7 +98,7 @@ export default class HomeScreenController extends Component {
     this.date = new Date(/*2017,7,7*/);
 
     this.minDatePicker = new Date(2017,0,2);
-    this.maxDatePicker = new Date(2017,11,28);
+    this.maxDatePicker = new Date(2018,11,28);
 
     this.state = {
       testInfo: 'testing correctly',
@@ -129,7 +129,7 @@ export default class HomeScreenController extends Component {
 
     /*************** TEST THINGS - START *******************/
     this.testing = false; //fer-ho amb iphone 8 sense console i memories lliures actives
-    this.superTest = this.testing && true; //complements opening every oracio
+    this.superTest = this.testing && false; //complements opening every oracio
     // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = {
       day: 2, //1-31
@@ -137,7 +137,7 @@ export default class HomeScreenController extends Component {
       year: 2017,
     }
     this.finalDayTest = {
-      day: 27, //1-31
+      day: 29, //1-31
       month: 11, //0-12
       year: 2017,
     }
@@ -389,7 +389,8 @@ export default class HomeScreenController extends Component {
      this.dataTomorrow.date = auxTomorrow;
      console.log("auxTomorrow: " + auxTomorrow);
      console.log("this.dataTomorrow.date TEST: " + this.dataTomorrow.date);*/
-     while(GF.passDayTest(nextDay)){
+     console.log("pass: " + GF.passDayTest(this.diocesiNameTest, nextDay));
+     while(GF.passDayTest(this.diocesiNameTest, nextDay)){
        console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
        nextDay.setDate(nextDay.getDate()+1);
        auxTomorrow = this.dataTomorrow.date;
@@ -403,9 +404,9 @@ export default class HomeScreenController extends Component {
  }
 
  error(){
-  this.setState({testInfo: "something went wrong"});
-  console.log("super error");
-  this.testing = false;
+    this.setState({testInfo: "something went wrong"});
+    console.log("super error");
+    this.testing = false;
   }
 
  openOracions(oracioType){
