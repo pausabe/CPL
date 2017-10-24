@@ -25,13 +25,39 @@ export default class LiturgiaDisplayScreen extends Component {
       this.props = this.props.navigation.state.params.props;
     }
 
+    this.setState({type: this.props.type})
+  }
+
+  componentDidMount(){
+    if(this.props.superTestMode){
+      setTimeout(() => {
+        this.setState({type: 'Laudes'});
+      }, 1000);
+    }
+  }
+
+  componentDidUpdate(){
+    console.log("LITDISPLAY updated");
+    if(this.props.superTestMode){
+      console.log("TESTING OPEN - " + this.state.type);
+      if(this.state.type === 'Laudes') this.setState({type: 'Tèrcia'});
+      else if(this.state.type === 'Tèrcia') this.setState({type: 'Sexta'});
+      else if(this.state.type === 'Sexta') this.setState({type: 'Nona'});
+      else if(this.state.type === 'Nona') this.setState({type: 'Vespres'});
+      else if(this.state.type === 'Vespres') this.setState({type: 'Completes'});
+      else if(this.state.type === 'Completes') {
+        this.props.nextDayTestCB();
+        this.props.navigator.pop();
+      }
+    }
   }
 
   render() {
+    console.log("litdisplay render - " + this.props.superTestMode);
     return (
       <View style={styles.container}>
         <ScrollView automaticallyAdjustContentInsets={false} style={{padding: 10,}}>
-          {this.liturgicComponent(this.props.type)}
+          {this.liturgicComponent(this.state.type)}
         </ScrollView>
       </View>
     )

@@ -10,6 +10,7 @@ import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
 export default class OficiDisplay extends Component {
+
   constructor(props){
     super(props);
 

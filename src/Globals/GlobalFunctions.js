@@ -48,7 +48,7 @@ module.exports = {
       return true;
     return false;
   },
-  
+
   nextDiocesi(index){
     switch (index) {
       case 0:

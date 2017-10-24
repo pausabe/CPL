@@ -200,16 +200,6 @@ export default class HomeScreen extends Component {
      </View>
     )
   }
-  /*else{
-    return(
-      <View style={styles.container}>
-        <Text>{this.state.testInfo}</Text>
-        <Text>{this.idTest}</Text>
-        <Text>{this.diocesiTest}</Text>
-        <Text>{this.props.ViewData.data.getDate() < 10 ? `0${this.props.ViewData.data.getDate()}` : this.props.ViewData.data.getDate()}/{this.props.ViewData.data.getMonth()+1 < 10 ? `0${this.props.ViewData.data.getMonth()+1}` : this.props.ViewData.data.getMonth()+1}/{this.props.ViewData.data.getFullYear()}</Text>
-      </View>
-    )
-  }*/
 
 }
 
