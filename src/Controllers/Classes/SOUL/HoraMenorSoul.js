@@ -5,12 +5,12 @@ import GLOBAL from '../../../Globals/Globals';
 
 export default class HoraMenorSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
-    console.log("Constructor HoraMenorSoul: " + variables.llati);
+    console.log("PlaceLog. Constructor HoraMenorSoul: " + variables.llati);
     this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, SOUL){
-    console.log("MakePrayer HoraMenorSoul: " + llati);
+    console.log("PlaceLog. MakePrayer HoraMenorSoul: " + llati);
     this.state = {
       salteriComuHora: TABLES.salteriComuHora,
       tempsOrdinariOracions: TABLES.tempsOrdinariOracions,

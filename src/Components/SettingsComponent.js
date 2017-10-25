@@ -133,7 +133,7 @@ export default class SettingsComponent extends Component{
 
     _selectionCallback(value){
       var textSize = this.convertTextSize(Math.trunc(value));
-      console.log("size!: " + textSize);
+      // console.log("size!: " + textSize);
         this.setState({
             Aa: textSize,
         });
@@ -141,7 +141,7 @@ export default class SettingsComponent extends Component{
     }
 
     convertTextSize(value){
-      console.log("converting: " + value);
+      // console.log("converting: " + value);
       switch (value) {
         case 1:
           return GLOBAL.size1;
@@ -174,7 +174,7 @@ export default class SettingsComponent extends Component{
           return GLOBAL.size10;
           break;
       }
-      console.log("no one");
+      // console.log("no one");
     }
 
     _mergeProps(properties){

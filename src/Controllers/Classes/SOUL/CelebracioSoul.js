@@ -2,12 +2,12 @@ import GLOBAL from '../../../Globals/Globals';
 
 export default class CelebracioSoul {
   constructor(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal) {
-    console.log("Constructor CelebracioSoul");
+    console.log("PlaceLog. Constructor CelebracioSoul");
     this.makePrayer(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal);
   }
 
   makePrayer(variables, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal){
-    console.log("MakePrayer CelebracioSoul");
+    console.log("PlaceLog. MakePrayer CelebracioSoul");
     date = variables.date;
     celType = variables.celType;
     diocesi = variables.diocesi;
@@ -320,7 +320,7 @@ export default class CelebracioSoul {
       if(idTSF !== -1) celType = 'TSF';
       else if(idDE !== -1) celType = 'DE';
 
-      console.log("tomorrowCal! "+celType + ", " + tomorrowCal);
+      // console.log("tomorrowCal! "+celType + ", " + tomorrowCal);
       switch (tomorrowCal) {
         case "S":
           this.createCel(TABLES, "SF", liturgicProps, celType, variables, 'NF');
@@ -364,7 +364,7 @@ export default class CelebracioSoul {
   }
 
   createCel(TABLES, type, liturgicProps, tomCal, variables, F){
-    console.log("CelbracioSoul - createCel: " + type+", "+tomCal);
+    console.log("PlaceLog. CelbracioSoul - createCel: " + type+", "+tomCal);
 
     diocesi = variables.diocesi;
     llati = variables.llati;
@@ -550,7 +550,7 @@ export default class CelebracioSoul {
   makeDP(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("making Diumenge de Pasqua");
+    console.log("PlaceLog. making Diumenge de Pasqua");
     //::::::>>>>>DP<<<<<::::::
     //::::::DP-INFO_CEL::::::
     this.INFO_CEL.nomCel = 'Diumenge de Pasqua',
@@ -736,7 +736,7 @@ export default class CelebracioSoul {
   makeVespres1TSF(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeVespres1TSF");
+    console.log("PlaceLog. makeVespres1TSF");
     //::::::TSF-VESPRES1::::::
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsSolemnitatsFestesVespres1.himneVespres1Llati;
     else this.VESPRES1.himne = TABLES.tempsSolemnitatsFestesVespres1.himneVespres1Cat;
@@ -779,7 +779,7 @@ export default class CelebracioSoul {
   makeTSF(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeTSF - " + TABLES.tempsSolemnitatsFestes.nomMemoria);
+    console.log("PlaceLog. makeTSF");
     //::::::>>>>>TSF<<<<<::::::
     //::::::TSF-INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.tempsSolemnitatsFestes.nomMemoria;
@@ -989,7 +989,7 @@ export default class CelebracioSoul {
   makeDE(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeDE");
+    console.log("PlaceLog. makeDE");
     //::::::>>>>>DE<<<<<::::::
     //::::::DE-INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.diesespecials.nomMemoria;
@@ -1190,7 +1190,7 @@ export default class CelebracioSoul {
   makeVespres1DE(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeVespres1DE");
+    console.log("PlaceLog. makeVespres1DE");
     //::::::DE-VESPRES1::::::
     if(llati === 'true') this.VESPRES1.himne = TABLES.diesespecials.himneVespres1Llati;
     else this.VESPRES1.himne = TABLES.diesespecials.himneVespres1Cat;
@@ -1224,7 +1224,7 @@ export default class CelebracioSoul {
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
 
-    console.log("makeSF");
+    console.log("PlaceLog. makeSF");
     //::::::>>>>>SF<<<<<::::::
     //::::::SF-INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.santsSolemnitats.nomMemoria;
@@ -1379,7 +1379,7 @@ export default class CelebracioSoul {
       this.LAUDES.ant3 = TABLES.santsSolemnitats.ant3Laudes;
     else if(TABLES.OficisComuns !== null) this.LAUDES.ant3 = TABLES.OficisComuns.ant3Laudes;
     if(TABLES.OficisComuns !== null){
-      console.log("TABLES.OficisComuns:");
+      // console.log("TABLES.OficisComuns:");
       this.LAUDES.titol1 = TABLES.OficisComuns.titol1Laudes;
       this.LAUDES.com1 = '-';
       this.LAUDES.salm1 = TABLES.OficisComuns.Salm1Laudes;
@@ -1431,14 +1431,14 @@ export default class CelebracioSoul {
     this.TERCIA.antifones = false;
     if(TABLES.santsSolemnitats.antMenorTercia !== '-'){
       this.TERCIA.ant = TABLES.santsSolemnitats.antMenorTercia;
-      console.log("antifona LOG1: " + this.TERCIA.ant);
+      // console.log("antifona LOG1: " + this.TERCIA.ant);
     }
     else if(TABLES.OficisComuns !== null) {
       this.TERCIA.ant = TABLES.OficisComuns.antMenorTer;
-      console.log("antifona LOG2: " + this.TERCIA.ant);
+      // console.log("antifona LOG2: " + this.TERCIA.ant);
     }
     else{
-      console.log("antifona LOG3: -");
+      // console.log("antifona LOG3: -");
     }
     //S1
     this.TERCIA.titol1 = TABLES.santsSolemnitats.titolSalm1;
@@ -1482,11 +1482,11 @@ export default class CelebracioSoul {
     if(TABLES.santsSolemnitats.antMenorSexta !== '-')
       this.SEXTA.ant = TABLES.santsSolemnitats.antMenorSexta;
     else if(TABLES.OficisComuns !== null) {
-      console.log("hello log1 - " + TABLES.OficisComuns.antMenorSextA);
+      // console.log("hello log1 - " + TABLES.OficisComuns.antMenorSextA);
       this.SEXTA.ant = TABLES.OficisComuns.antMenorSextA;
     }
     else{
-      console.log("hello log2");
+      // console.log("hello log2");
     }
     //S1
     this.SEXTA.titol1 = TABLES.santsSolemnitats.titolSalm1;
@@ -1566,7 +1566,7 @@ export default class CelebracioSoul {
 
 
     if(!(F === 'F' && variables.date.getDay() === 6)){
-      console.log("making vespres 2 celebracioSoul: " + F);
+      console.log("PlaceLog. making vespres 2 celebracioSoul: " + F);
       //::::::SF-VESPRES2::::::
       //SF-VESPRES2 -> HIMNE
       if(TABLES.santsSolemnitats.himneVespres2Llati !== '-'){
@@ -1654,7 +1654,7 @@ export default class CelebracioSoul {
   makeVespres1SF(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeVespres1SF");
+    console.log("PlaceLog. makeVespres1SF");
     //::::::SF-VESPRES1::::::
     //SF-VESPRES1 -> HIMNE
     if(this.VESPRES1.himne = TABLES.santsSolemnitatsFVespres1.himneVespres1Llati !== '-'){
@@ -1677,7 +1677,7 @@ export default class CelebracioSoul {
     if(TABLES.santsSolemnitatsFVespres1.text1Vespres1 !== '-')
       this.VESPRES1.salm1 = TABLES.santsSolemnitatsFVespres1.text1Vespres1;
     else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.salm1 = TABLES.OficisComunsVespres1.text1Vespres1;
-    console.log("super log: " + TABLES.santsSolemnitatsFVespres1);
+    // console.log("super log: " + TABLES.santsSolemnitatsFVespres1);
     if(TABLES.santsSolemnitatsFVespres1.gloria1Vespres1 !== '-')
       this.VESPRES1.gloria1 = TABLES.santsSolemnitatsFVespres1.gloria1Vespres1;
     else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.gloria1 = TABLES.OficisComunsVespres1.gloria1Vespres1;
@@ -1745,7 +1745,7 @@ export default class CelebracioSoul {
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
 
-    console.log("makeML");
+    console.log("PlaceLog. makeML");
     //::::::>>>>>ML<<<<<::::::
     //::::::INFO_CEL::::::
     this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
@@ -2167,7 +2167,7 @@ export default class CelebracioSoul {
   makeDR(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeDR");
+    console.log("PlaceLog. makeDR");
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsQuaresmaComuSS.himneVespresLlati;
     else this.VESPRES1.himne = TABLES.tempsQuaresmaComuSS.himneVespresCat;
     this.VESPRES1.ant1 = TABLES.tempsQuaresmaRams.ant1Vespres1;
@@ -2196,7 +2196,7 @@ export default class CelebracioSoul {
   makeT(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeT");
+    console.log("PlaceLog. makeT");
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsQuaresmaTridu.himneDSOVespresllati;
     else this.VESPRES1.himne = TABLES.tempsQuaresmaTridu.himneDSOVespresCat;
     this.VESPRES1.ant1 = TABLES.tempsQuaresmaTridu.ant1Vespres;
@@ -2226,7 +2226,7 @@ export default class CelebracioSoul {
   makeA(TABLES, type, liturgicProps, variables, tomCal){
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("makeA ");
+    console.log("PlaceLog. makeA");
     if(llati === 'true')
       this.VESPRES1.himne = TABLES.tempsAdventNadalComu.himneVespresLlati;
     else this.VESPRES1.himne = TABLES.tempsAdventNadalComu.himneVespresCat;

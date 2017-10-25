@@ -54,7 +54,7 @@ export default class NavigatorIos extends Component {
       return false;
     }
 
-    console.log("Navigator RENDER");
+    // console.log("Navigator RENDER");
     return (
         <View style={{flex: 1}}>
           <StatusBar

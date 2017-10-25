@@ -13,7 +13,7 @@ export default class VespresDisplay extends Component {
   constructor(props){
     super(props);
 
-    console.log("VespresDisplay");
+    console.log("PlaceLog. VespresDisplay");
 
     var textSize = this.props.variables.textSize;
 
@@ -310,13 +310,13 @@ export default class VespresDisplay extends Component {
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
 
-    console.log("ASDF '" + allPregs + "'");
+    // console.log("ASDF '" + allPregs + "'");
 
     var numGuio = allPregs.match(/—/g, "").length;
     var numEnter = allPregs.match(/\n/g, "").length;
 
     if(numEnter !== numGuio*3+3){//every prayer have 3 spaces and intro have 3 more
-      console.log("incorrect spaces in pregaries");
+      console.log("InfoLog. incorrect spaces in pregaries");
       return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
     }
     else{
@@ -325,7 +325,7 @@ export default class VespresDisplay extends Component {
         var pregsNoIntro = allPregs.replace(introPregs+':\n','');
       }
       else{
-        console.log("something incorrect. Pregaries 1");
+        console.log("InfoLog. something incorrect. Pregaries 1");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
@@ -334,7 +334,7 @@ export default class VespresDisplay extends Component {
         var pregaries = pregsNoIntro.replace(respPregs+'\n\n','');
       }
       else{
-        console.log("something incorrect. Pregaries 2");
+        console.log("InfoLog. something incorrect. Pregaries 2");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
@@ -342,7 +342,7 @@ export default class VespresDisplay extends Component {
         pregaries = pregaries.replace(": Pare nostre.",':');
       }
       else{
-        console.log("something incorrect. Pregaries 3");
+        console.log("InfoLog. something incorrect. Pregaries 3");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
@@ -351,7 +351,7 @@ export default class VespresDisplay extends Component {
         pregaries = pregaries.replace('\n\n'+pregsFinalPart,'');
       }
       else{
-        console.log("something incorrect. Pregaries 4");
+        console.log("InfoLog. something incorrect. Pregaries 4");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 

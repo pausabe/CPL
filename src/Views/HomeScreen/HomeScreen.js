@@ -119,7 +119,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    console.log("RENDER!!!");
+    // console.log("RENDER!!!");
 
     auxPadding = 5;
     return (

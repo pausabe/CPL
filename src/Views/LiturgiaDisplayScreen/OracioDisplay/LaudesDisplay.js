@@ -13,7 +13,7 @@ export default class LaudesDisplay extends Component {
   constructor(props){
     super(props);
 
-    console.log("LaudesDisplay");
+    console.log("PlaceLog. LaudesDisplay");
 
     var textSize = this.props.variables.textSize;
 
@@ -362,7 +362,7 @@ export default class LaudesDisplay extends Component {
 
     if(numEnter !== numGuio*3+3){//every prayer have 3 spaces and intro have 3 more
       wrong = true;
-      console.log("incorrect spaces in pregaries");
+      console.log("InfoLog. incorrect spaces in pregaries");
     }
     else{
       var introPregs = allPregs.split(":")[0];
@@ -370,7 +370,7 @@ export default class LaudesDisplay extends Component {
         var pregsNoIntro = allPregs.replace(introPregs+':\n','');
       }
       else{
-        console.log("something incorrect. Pregaries 1");
+        console.log("InfoLog. something incorrect. Pregaries 1");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
@@ -379,7 +379,7 @@ export default class LaudesDisplay extends Component {
         var pregaries = pregsNoIntro.replace(respPregs+'\n\n','');
       }
       else{
-        console.log("something incorrect. Pregaries 2");
+        console.log("InfoLog. something incorrect. Pregaries 2");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
@@ -387,7 +387,7 @@ export default class LaudesDisplay extends Component {
         pregaries = pregaries.replace(": Pare nostre.",':');
       }
       else{
-        console.log("something incorrect. Pregaries 3");
+        console.log("InfoLog. something incorrect. Pregaries 3");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 
@@ -396,7 +396,7 @@ export default class LaudesDisplay extends Component {
         pregaries = pregaries.replace('\n\n'+pregsFinalPart,'');
       }
       else{
-        console.log("something incorrect. Pregaries 4");
+        console.log("InfoLog. something incorrect. Pregaries 4");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
 

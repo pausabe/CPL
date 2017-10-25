@@ -13,7 +13,7 @@ export default class SettingsScreen extends Component {
   componentWillMount(){
       SettingsComponentAdapter.getSettingsOptions(this.refreshHome.bind(this)).then(result =>{
           this.setState({options: result});
-      }).catch(error => console.log(error));
+      }).catch(error => console.log("InfoLog. " + error));
   }
 
   render() {

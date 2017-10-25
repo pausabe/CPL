@@ -40,10 +40,10 @@ export default class DBAdapter {
     //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
     //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
     var query = `SELECT * FROM anyliturgic WHERE any = '${year}' AND mes = '${month+1}' AND dia = '${day}'`;
-    console.log("QUERY ANY: " + query);
+    console.log("QueryLog. QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
-        console.log(">>Today: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        // console.log(">>Today: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
         this.getTomorrow(result.rows.item(0), year, month, day, callback);
       });
   }
@@ -60,7 +60,7 @@ export default class DBAdapter {
     //console.log("QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
-        console.log(">>Tomorrow: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        // console.log(">>Tomorrow: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
         this.getPentacosta(r1, result.rows.item(0), year, callback);
       });
   }
@@ -72,7 +72,7 @@ export default class DBAdapter {
         pentacosta.setDate(result.rows.item(0).dia);
         auxMonth = result.rows.item(0).mes-1;
         pentacosta.setMonth(auxMonth);
-        console.log(">>Pentacosta: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        // console.log(">>Pentacosta: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
         callback(r1, r2, pentacosta);
       });
   }
@@ -96,13 +96,13 @@ export default class DBAdapter {
     }
     var query = `SELECT * FROM ${table} WHERE (Diocesis = ${auxDiocesiQuery} OR Diocesis = '-') AND dia = '${dia}' AND Temps = '${temps}'`;
 
-    console.log("QUERY SOL_MEM: " + query);
+    console.log("QueryLog. QUERY SOL_MEM: " + query);
 
     this.executeQuery(query,
       result => {
-        console.log("SolMem Result size: " + result.rows.length);
+        console.log("InfoLog. SolMem Result size: " + result.rows.length);
         var index = this.findCorrect(result.rows, result.rows.length, auxDiocesi, auxDiocesiName, lloc);
-        console.log("index definitive: " + index);
+        console.log("InfoLog. Index definitive: " + index);
         callback(result.rows.item(index));
       });
   }
@@ -145,7 +145,7 @@ export default class DBAdapter {
   getSolMemDiesMov(table, id, callback){
     var query = `SELECT * FROM ${table} WHERE id = '${id}'`;
 
-    console.log("QUERY SOL_MEM-Dies_Mov: " + query);
+    console.log("QueryLog. QUERY SOL_MEM-Dies_Mov: " + query);
 
     this.executeQuery(query,
       result => callback(result.rows.item(0)));
@@ -160,14 +160,14 @@ export default class DBAdapter {
 
   getOC(categoria, callback){
     var query = `SELECT * FROM OficisComuns WHERE Categoria = '${categoria}'`;
-    console.log("QUERY getOC: " + query);
-    console.log("oficis comuns log -1 - " + categoria);
+    console.log("QueryLog. QUERY getOC: " + query);
+    console.log("InfoLog. Oficis comuns log -1 - " + categoria);
     this.executeQuery(query,
       result => callback(result.rows.item(0), categoria));
   }
 
   transformDiocesiName(diocesi, lloc){
-    console.log("diocesi: " + diocesi + " - " + "lloc: " + lloc);
+    // console.log("diocesi: " + diocesi + " - " + "lloc: " + lloc);
     switch (diocesi) {
       case "Barcelona":
         switch (lloc) {
@@ -308,14 +308,14 @@ export default class DBAdapter {
   }
 
   errorCB(err) {
-    console.log("SQL Error: " + err);
+    console.log("SqlLog. SQL Error: " + err);
   }
 
   successCB() {
-    console.log("SQL executed fine");
+    console.log("SqlLog. SQL executed fine");
   }
 
   openCB() {
-    console.log("Database OPENED");
+    console.log("SqlLog. Database OPENED");
   }
 }

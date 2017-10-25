@@ -14,7 +14,7 @@ export default class OficiDisplay extends Component {
   constructor(props){
     super(props);
 
-    console.log("OficiDisplay");
+    console.log("PlaceLog. OficiDisplay");
 
     var textSize = this.props.variables.textSize;
 

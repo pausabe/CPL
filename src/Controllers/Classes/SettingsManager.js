@@ -48,7 +48,7 @@ export default class SettingsManager{
         let settingsPromise = new Promise((resolve, reject) => {
             getPromise.then(
                 value => {
-                    console.log("LOADED OPTION: " + key + " - " + value);
+                    // console.log("LOADED OPTION: " + key + " - " + value);
                     resolve(value == null ? defaultValue : value);
                 }
             ).catch(
@@ -69,12 +69,12 @@ export default class SettingsManager{
     }
 
     static _setValueIfValid(key, value, validateFunc, callback){
-        console.log(key + " - " + value)
+        // console.log(key + " - " + value)
         if(!(validateFunc instanceof Function) || validateFunc(value)){
-            console.log("VALID");
+            // console.log("VALID");
             return SettingsManager._setStorageValue(key, value, callback);
         }else{
-            console.log("NOT VALID");
+            // console.log("NOT VALID");
             let wrongValuePromise = new Promise((resolve, reject) => {
                 reject(new Error("Invalid value"));
             });
@@ -127,7 +127,7 @@ export default class SettingsManager{
     }
 
     static setSettingPrayLliures(value, callback){
-      console.log("VALUE pray lliures:  " + value);
+      // console.log("VALUE pray lliures:  " + value);
         return SettingsManager._setValueIfValid("prayLliures", value,
             (val) => val === "true" || val === "false",
             callback);
@@ -140,7 +140,7 @@ export default class SettingsManager{
     }
 
     static setSettingDiocesis(value, callback){
-      console.log("VALUE Diocesis: " + value);
+      // console.log("VALUE Diocesis: " + value);
         return SettingsManager._setValueIfValid("diocesis", value,
             (val) => {
                 return findValueInObject(diocesis, val);
@@ -148,7 +148,7 @@ export default class SettingsManager{
     }
 
     static setSettingLloc(value, callback){
-      console.log("VALUE Lloc: " + value);
+      // console.log("VALUE Lloc: " + value);
         return SettingsManager._setValueIfValid("lloc", value,
             (val) => {
                 return findValueInObject(lloc, val);

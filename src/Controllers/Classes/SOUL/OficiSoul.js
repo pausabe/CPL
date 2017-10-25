@@ -2,12 +2,12 @@ import GLOBAL from '../../../Globals/Globals';
 
 export default class OficiSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
-    console.log("Constructor OficiSoul");
+    console.log("PlaceLog. Constructor OficiSoul");
     this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, SOUL){
-    console.log("MakePrayer OficiSoul");
+    console.log("PlaceLog. MakePrayer OficiSoul");
         nit=false; //TODO: todo
         this.state = {
           nit: nit,
@@ -40,7 +40,7 @@ export default class OficiSoul {
         };
 
         if(TABLES.salteriComuOficiTF !== ''){
-          console.log("catching TF: " + TABLES.salteriComuOficiTF);
+          // console.log("catching TF: " + TABLES.salteriComuOficiTF);
           this.state.salteriComuOfici = TABLES.salteriComuOficiTF;
         }
 
@@ -267,7 +267,7 @@ export default class OficiSoul {
       case GLOBAL.Q_SET_SANTA:
       case GLOBAL.N_ABANS:
         ant1 = this.state.salteriComuOfici.ant1;
-        console.log("ANT 1 Ofici Soul: " + ant1);
+        // console.log("ANT 1 Ofici Soul: " + ant1);
         titol1 = this.state.salteriComuOfici.titol1;
         com1 = this.state.salteriComuOfici.com1;
         salm1 = this.state.salteriComuOfici.salm1;

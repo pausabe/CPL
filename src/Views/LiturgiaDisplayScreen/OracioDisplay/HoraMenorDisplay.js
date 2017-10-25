@@ -13,7 +13,7 @@ export default class HoraMenorDisplay extends Component {
   constructor(props){
     super(props);
 
-    console.log("HoraMenorDisplay");
+    console.log("PlaceLog. HoraMenorDisplay");
 
     var textSize = this.props.variables.textSize;
 

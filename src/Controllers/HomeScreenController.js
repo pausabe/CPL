@@ -128,31 +128,31 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
+    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
     this.superTest = this.testing && false; //complements opening every oracio
     // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = {
       day: 10, //1-31
       month: 0, //0-12
-      year: 2018,
+      year: 2017,
     }
     this.finalDayTest = {
       day: 27, //1-31
       month: 11, //0-12
-      year: 2018,
+      year: 2017,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       var initalIndex = 0; //0-30
-      var finalIndex = 10; //0-30
+      var finalIndex = 1; //0-30
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
       this.llocTest = GF.nextLloc(initalIndex);
       this.idTest = initalIndex;
       this.maxIdTest = finalIndex;
-      console.log("-------------------------------->>>TEST BEGINS<<<--------------------------------");
-      console.log("--------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
-      console.log("-----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
+      console.log("TestLog. -------------------------------->>>TEST BEGINS<<<--------------------------------");
+      console.log("TestLog. --------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
+      console.log("TestLog. -----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
     }
     /*************** TEST THINGS - END *******************/
     else{
@@ -213,7 +213,7 @@ export default class HomeScreenController extends Component {
 
   /*************** CREATING THE LITURGIA - START ***************/
   refreshEverything(date){
-    console.log("REFRESHING EVERYTHING: settings > anyliturgic > soul > render " + date);
+    console.log("PlaceLog. REFRESHING EVERYTHING: settings > anyliturgic > soul > render " + date);
     this.refreshing = true;
     Promise.all([
       SettingsManager.getSettingLloc((r) => {
@@ -230,7 +230,7 @@ export default class HomeScreenController extends Component {
             this.variables.diocesi = GF.transformDiocesiName(r, this.variables.lloc);
             this.variables.diocesiName = r;
           }
-          console.log("this.variables.diocesi: "+this.variables.diocesi);
+          // console.log("this.variables.diocesi: "+this.variables.diocesi);
         })
       }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
@@ -259,7 +259,7 @@ export default class HomeScreenController extends Component {
       (current, tomorrow, pentacosta) => {
         var celType = GF.getCelType(this.variables.diocesi, current);
         var tomorrowCelType = GF.getCelType(this.variables.diocesi, tomorrow);
-        console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
+        // console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
 
         this.variables.celType = celType;
         this.variables.date = newDay;
@@ -288,7 +288,7 @@ export default class HomeScreenController extends Component {
   }
 
   setSoul(liturgia){
-    console.log("HomeScreen - setSoul");
+    console.log("PlaceLog. HomeScreen - setSoul");
 
     this.liturgicProps.LITURGIA = liturgia;
     if(!this.testing){
@@ -319,7 +319,7 @@ export default class HomeScreenController extends Component {
     }
     /*************** TEST THINGS - START *******************/
     else{
-      console.log("setting state test");
+      // console.log("setting state test");
      if(this.superTest) this.openOracions('Ofici');
      else{
        this.nextDayTest();
@@ -337,7 +337,7 @@ export default class HomeScreenController extends Component {
 
  /*************** TEST THINGS - START *******************/
  nextDayTest(){
-   console.log("NEXT DAY");
+   console.log("PlaceLog. NEXT DAY");
    var nextDay = this.variables.date;
    nextDay.setDate(nextDay.getDate()+1);
    if(nextDay.getFullYear() === this.finalDayTest.year &&
@@ -345,7 +345,7 @@ export default class HomeScreenController extends Component {
      nextDay.getDate() === this.finalDayTest.day){
      if(this.idTest === this.maxIdTest){
        this.setState({testInfo: "Test ended correctly"});
-       console.log("-------------------------------->>>TEST ENDS<<<--------------------------------");
+       console.log("TestLog. -------------------------------->>>TEST ENDS<<<--------------------------------");
      }
      else{
        firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
@@ -360,22 +360,22 @@ export default class HomeScreenController extends Component {
        this.dataTomorrow.date = auxTomorrow;
        this.refreshEverything(firstDay);
        this.setState({testInfo: "Testing correctly"});
-       console.log("--------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
+       console.log("TestLog. --------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
      }
    }
    else{
      dtDay = this.dataTomorrow.date.getDate();
      dtMonth = this.dataTomorrow.date.getMonth();
      dtYear = this.dataTomorrow.date.getFullYear();
-     console.log("dtDay: " + dtDay);
-     console.log("dtMonth: " + dtMonth);
-     console.log("dtYear: " + dtYear);
+    //  console.log("dtDay: " + dtDay);
+    //  console.log("dtMonth: " + dtMonth);
+    //  console.log("dtYear: " + dtYear);
      auxTomorrow = new Date(dtYear,dtMonth,dtDay);
-     console.log("auxTomorrow NO SET: " + auxTomorrow);
+    //  console.log("auxTomorrow NO SET: " + auxTomorrow);
      auxTomorrow.setDate(auxTomorrow.getDate()+1);
-     console.log("auxTomorrow SET: " + auxTomorrow);
+    //  console.log("auxTomorrow SET: " + auxTomorrow);
      this.dataTomorrow.date = auxTomorrow;
-     console.log("this.dataTomorrow.date SET: " + this.dataTomorrow.date);
+    //  console.log("this.dataTomorrow.date SET: " + this.dataTomorrow.date);
      /*console.log("DAYDAYDAY: " + this.dataTomorrow.date + '\n' + auxTomorrow);
      auxTomorrow.setFullYear(this.dataTomorrow.date.getFullYear());
      var numMonth = this.dataTomorrow.date.getMonth();
@@ -389,15 +389,15 @@ export default class HomeScreenController extends Component {
      this.dataTomorrow.date = auxTomorrow;
      console.log("auxTomorrow: " + auxTomorrow);
      console.log("this.dataTomorrow.date TEST: " + this.dataTomorrow.date);*/
-     console.log("pass: " + GF.passDayTest(this.diocesiNameTest, nextDay));
+    //  console.log("pass: " + GF.passDayTest(this.diocesiNameTest, nextDay));
      while(GF.passDayTest(this.diocesiNameTest, nextDay)){
-       console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
+       console.log("TestLog. -----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
        nextDay.setDate(nextDay.getDate()+1);
        auxTomorrow = this.dataTomorrow.date;
        auxTomorrow.setDate(auxTomorrow.getDate()+1);
        this.dataTomorrow.date = auxTomorrow;
      }
-     console.log("-----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
+     console.log("TestLog. -----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
      this.refreshEverything(nextDay);
      this.setState({testInfo: "Testing correctly"});
    }
@@ -405,7 +405,7 @@ export default class HomeScreenController extends Component {
 
  error(){
     this.setState({testInfo: "something went wrong"});
-    console.log("super error");
+    console.log("InfoLog. super error");
     this.testing = false;
   }
 
@@ -423,49 +423,49 @@ export default class HomeScreenController extends Component {
       }
       /*************** TEST THINGS - END *******************/
       else if(this.litPres){
-        console.log("Should. NO, estic anant a Liturgia");
+        console.log("ShouldLog. NO, estic anant a Liturgia");
         this.inLit = true;
         this.litPres = false;
         return false;
       }
       else if(this.refEv){
-        console.log("Should. YES, després de refreshEverything");
+        console.log("ShouldLog. YES, després de refreshEverything");
         this.refEv = false;
         return true;
       }
       else if(this.setPres){
-        console.log("Should. NO, estic anant a Settings");
+        console.log("ShouldLog. NO, estic anant a Settings");
         this.inSet = true;
         this.setPres = false;
         return false;
       }
       else if(this.santPress === 1){
-        console.log("Should. YES, estic obrint Sant");
+        console.log("ShouldLog. YES, estic obrint Sant");
         return true;
       }
       else if(this.santPress === 2){
-        console.log("Should. YES, estic tancant Sant");
+        console.log("ShouldLog. YES, estic tancant Sant");
         this.santPress = 0;
         return true;
       }
       else if(this.inLit){
-        console.log("Should. YES, estic tornant de Liturgia");
+        console.log("ShouldLog. YES, estic tornant de Liturgia");
         this.inLit = false;
         return true;
       }
       else if(this.inSet){
-        console.log("Should. NO, estic tornant de Settings");
+        console.log("ShouldLog. NO, estic tornant de Settings");
         this.inSet = false;
         this.refreshEverything(this.variables.date);
         return false;
       }
       else if(this.calPres){
-        console.log("Should. YES, obrint Picker");
+        console.log("ShouldLog. YES, obrint Picker");
         this.calPres = false;
         return true;
       }
       else{
-        console.log("Should. YES, coses del Picker");
+        console.log("ShouldLog. YES, coses del Picker");
         return true;
       }
     }
@@ -477,16 +477,16 @@ export default class HomeScreenController extends Component {
   eventManager(args){
     switch (args.type) {
       case 'settingsPressed':
-        console.log("settingsPressed");
+        // console.log("settingsPressed");
         this.setPres = true;
       break;
       case 'pickerPressed':
-        console.log("pickerPressed");
+        // console.log("pickerPressed");
         //this.setState({ asdf: null}); //just for go to should
         this.picPres = true;
       break;
       case 'okPicker':
-        console.log("pickerAccept: " + args.newDate);
+        // console.log("pickerAccept: " + args.newDate);
         this.picAcc = true;
         if(args.newDate !== this.variables.date){
           var tomorrow = new Date();
@@ -494,7 +494,7 @@ export default class HomeScreenController extends Component {
           tomorrow.setMonth(args.newDate.getMonth());
           tomorrow.setDate(args.newDate.getDate() + 1);
           this.dataTomorrow.date = tomorrow;
-          console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
+          // console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
           this.refreshEverything(args.newDate);
         }
       break;
@@ -503,21 +503,21 @@ export default class HomeScreenController extends Component {
 
 
   liturgiaPressed(){
-    console.log("liturgiaPressed");
+    // console.log("liturgiaPressed");
     this.litPres = true;
   }
 
   datePickerOK(newDate){
     this.date = newDate;
     this.setState({isDateTimePickerVisible: false});
-    console.log("pickerAccept: " + newDate);
+    // console.log("pickerAccept: " + newDate);
     if(newDate !== this.variables.date){
       var tomorrow = new Date();
       tomorrow.setFullYear(newDate.getFullYear());
       tomorrow.setMonth(newDate.getMonth());
       tomorrow.setDate(newDate.getDate() + 1);
       this.dataTomorrow.date = tomorrow;
-      console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
+      // console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
       this.refreshEverything(newDate);
     }
   }

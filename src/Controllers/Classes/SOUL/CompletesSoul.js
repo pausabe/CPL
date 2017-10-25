@@ -5,12 +5,12 @@ import GLOBAL from '../../../Globals/Globals';
 
 export default class CompletesSoul{
   constructor(variables, liturgicProps, TABLES, HS, SOUL) {
-    console.log("Constructor CompletesSoul");
+    console.log("PlaceLog. Constructor CompletesSoul");
     this.makePrayer(variables.date, liturgicProps, TABLES, variables, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, variables, HS, SOUL){
-    console.log("MakePrayer CompletesSoul");
+    console.log("PlaceLog. MakePrayer CompletesSoul");
     this.state = {
       salteriComuCompletes: TABLES.salteriComuCompletes,
       diversos: TABLES.diversos,

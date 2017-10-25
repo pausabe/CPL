@@ -5,14 +5,14 @@ import GLOBAL from '../../../Globals/Globals';
 
 export default class VespresSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
-    console.log("Constructor VesprsSoul");
+    console.log("PlaceLog. Constructor VesprsSoul");
     this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, SOUL)
   }
 
   makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, SOUL){
-      console.log("MakePrayer VespresSoul");
+      console.log("PlaceLog. MakePrayer VespresSoul");
 
-console.log("N_OCT log - " + TABLES.tempsSolemnitatsFestes);
+// console.log("N_OCT log - " + TABLES.tempsSolemnitatsFestes);
 
         this.state = {
           salteriComuVespres: TABLES.salteriComuVespres,

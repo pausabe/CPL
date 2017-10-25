@@ -252,7 +252,7 @@ module.exports = {
       if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
     }
     else{
-      console.log("rs NOT possible. Something went wrong!");
+      console.log("InfoLog. rs NOT possible. Something went wrong!");
     }
     return text;
   },
@@ -273,7 +273,7 @@ module.exports = {
         result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
     }
     else{
-      console.log("respTogether NOT possible. Something went wrong!");
+      console.log("InfoLog. respTogether NOT possible. Something went wrong!");
     }
 
     return result;

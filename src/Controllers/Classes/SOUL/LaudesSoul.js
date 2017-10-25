@@ -10,12 +10,12 @@ import GLOBAL from '../../../Globals/Globals';
 
 export default class LaudesSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
-    console.log("Constructor LaudesSoul");
+    console.log("PlaceLog. Constructor LaudesSoul");
     this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, SOUL);
   }
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, SOUL){
-    console.log("MakePrayer LaudesSoul");
+    console.log("PlaceLog. MakePrayer LaudesSoul");
     this.state = {
       salteriComuLaudes: TABLES.salteriComuLaudes,
       salteriComuInvitatori: TABLES.salteriComuInvitatori,
