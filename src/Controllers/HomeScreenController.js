@@ -128,8 +128,8 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && true; //complements opening every oracio
+    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
+    this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis
     this.renderTest = this.testing;
     // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
@@ -144,7 +144,7 @@ export default class HomeScreenController extends Component {
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 0; //0-30 (s'inclou en el test)
+      var initalIndex = 26; //0-30 (s'inclou en el test)
       var finalIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);

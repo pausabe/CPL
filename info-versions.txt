@@ -23,3 +23,8 @@ v1.1(29.09.2017)[An9,Ap3] - [e18bcc]
 v1.2(06.10.2017)[An10,Ap4] - [0dc90e]
   - Bug tractament de text quan pot ser undefined
   - iOs: Slpash Screen correcte
+v1.3(25.10.2017)[An11,Ap5] - []
+  - Corregits alguns errors en els textos
+  - Millores del codi, cap efecte per l'usuari (under the hood)
+  - Solucionats errors que causaven l'apagament de l'aplicació en certes condicions
+  - Opció de l'any 2018 ja disponible, en fase de proves

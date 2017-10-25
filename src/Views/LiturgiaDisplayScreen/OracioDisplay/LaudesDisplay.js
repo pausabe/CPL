@@ -357,8 +357,10 @@ export default class LaudesDisplay extends Component {
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
 
-    var numGuio = allPregs.match(/—/g, "").length;
-    var numEnter = allPregs.match(/\n/g, "").length;
+      if(allPregs.match(/—/g, "")) var numGuio = allPregs.match(/—/g, "").length;
+      else return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
+      if(allPregs.match(/\n/g, "")) var numEnter = allPregs.match(/\n/g, "").length;
+      else return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
 
     if(numEnter !== numGuio*3+3){//every prayer have 3 spaces and intro have 3 more
       wrong = true;
