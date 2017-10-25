@@ -95,7 +95,7 @@ export default class HomeScreenController extends Component {
     super(props)
 
     //this is just for android. You must change for ios in NavigatorController as well
-    this.date = new Date(/*2017,7,7*/);
+    this.date = new Date(/*2018,4,19*/);
 
     this.minDatePicker = new Date(2017,0,2);
     this.maxDatePicker = new Date(2018,11,28);
@@ -129,22 +129,23 @@ export default class HomeScreenController extends Component {
 
     /*************** TEST THINGS - START *******************/
     this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && false; //complements opening every oracio
+    this.superTest = this.testing && true; //complements opening every oracio
+    this.renderTest = this.testing;
     // this.superTestOracioActual = 'Ofici';
-    this.initialDayTest = {
-      day: 10, //1-31
-      month: 0, //0-12
+    this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
+      day: 25, //1-31 (s'inclou en el test)
+      month: 9, //0-12
       year: 2017,
     }
     this.finalDayTest = {
-      day: 27, //1-31
-      month: 11, //0-12
+      day: 25, //1-31 (s'inclou en el test)
+      month: 10, //0-12
       year: 2017,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 0; //0-30
-      var finalIndex = 1; //0-30
+      var initalIndex = 0; //0-30 (s'inclou en el test)
+      var finalIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
       this.llocTest = GF.nextLloc(initalIndex);
@@ -340,6 +341,10 @@ export default class HomeScreenController extends Component {
    console.log("PlaceLog. NEXT DAY");
    var nextDay = this.variables.date;
    nextDay.setDate(nextDay.getDate()+1);
+   /*console.log("TestLog. nextDay vs finalDayTest: " + nextDay.getFullYear() +
+        "/" + nextDay.getMonth() + "/" + nextDay.getDate() + " - " +
+        this.finalDayTest.year + "/" + this.finalDayTest.month + "/" +
+        this.finalDayTest.day + "/");*/
    if(nextDay.getFullYear() === this.finalDayTest.year &&
      nextDay.getMonth() === this.finalDayTest.month &&
      nextDay.getDate() === this.finalDayTest.day){
@@ -587,7 +592,7 @@ export default class HomeScreenController extends Component {
   }
 
   render(){
-    if(!this.testing){
+    if(!this.renderTest){
       return(
         <View style={{flex: 1}}>
           <HomeScreen

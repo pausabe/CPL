@@ -46,6 +46,22 @@ module.exports = {
   passDayTest(diocesiNameTest, day){
     if((diocesiNameTest==='Solsona' || diocesiNameTest==='Urgell' || diocesiNameTest==='Tortosa') && (day.getDate()===28 || day.getDate()===29) && day.getMonth()===4 && (day.getFullYear()===2017 || day.getFullYear()===2018))
       return true;
+
+    /*Correu possibles errors*/
+    if((day.getDate()===19 || day.getDate()===20) && day.getMonth()===4 && day.getFullYear()===2018)
+      return true;
+    if(day.getDate()===24 && day.getMonth()===4 && day.getFullYear()===2018)
+      return true;
+    if((day.getDate()===26 || day.getDate()===27) && day.getMonth()===4 && day.getFullYear()===2018)
+      return true;
+    if((day.getDate()===2 || day.getDate()===3) && day.getMonth()===5 && day.getFullYear()===2018)
+      return true;
+    if((day.getDate()===7 || day.getDate()===8) && day.getMonth()===5 && day.getFullYear()===2018)
+      return true;
+    if(diocesiNameTest==='Tortosa' && (day.getDate()===8 || day.getDate()===9) && day.getMonth()===5 && day.getFullYear()===2018)
+      return true;
+    if(day.getDate()===15 && day.getMonth()===9 && day.getFullYear()===2018)
+      return true;
     return false;
   },
 

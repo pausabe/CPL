@@ -595,24 +595,23 @@ export default class SOUL {
 
     //taula 34.1 (#32): - i //taula 36
     if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || ((params.idTSF === -1 && params.idDE === -1) && (celType === 'S' || celType === 'F')))){
-      console.log("#32. Inici: avui no és Q_DIUM_PASQUA i demà és S o avui no és TSF ni DE i avui és S o F");
+      // console.log("#32. Inici: avui no és Q_DIUM_PASQUA i (o demà és S o avui no és TSF ni DE i avui és o S o F)");
       c += 1;
       idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
-      // console.log("idDM tomorrow: " + idDM);
-      console.log("#32. idDM tomorrow: " + idDM);
+      // console.log("#32. idDM tomorrow: " + idDM);
       if(idDM !== -1){
-        console.log("#32. És un dia movible");
+        // console.log("#32. És un dia movible");
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitats = result;
           this.getOficisComuns(params, result, false);
         });
       }
       else{
-        console.log("#32. No és un dia movible");
+        // console.log("#32. No és un dia movible");
         if(this.tomorrowCal === 'S' && dataTomorrow.mogut === '-') {
-          console.log("#32. Demà és S i no hi ha dia mogut");
+          // console.log("#32. Demà és S i no hi ha dia mogut");
           if(celType === 'F'){
-            console.log("#32. Avui és F");
+            // console.log("#32. Avui és F");
             var day = this.calculeDia(date, variables.mogut);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
@@ -620,10 +619,9 @@ export default class SOUL {
             });
           }
           else{
-            console.log("#32. Avui no és F");
+            // console.log("#32. Avui no és F");
             var day = this.calculeDia(this.dataTomorrow.date, '-');
-            console.log("#32. day: " + day);
-            // console.log("HEREE2 - " + day);
+            // console.log("#32. day: " + day);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
               this.getOficisComuns(params, result, false);
@@ -631,24 +629,36 @@ export default class SOUL {
           }
         }
         else{
-          console.log("#32. Demà no és S o no hi ha dia mogut");
-          console.log("#32. this.tomorrowCal: " + this.tomorrowCal + ", dataTomorrow.mogut: " + dataTomorrow.mogut);
-          //hi ha algun error aqui. Jo compovaria (utilitzant el test) quins dies es fa servir
-          //aquest "else" i despres determinaria què és el que està malament
+          var tomMog = false;
+          if(dataTomorrow.mogut !== '-') tomMog = true;
+          // console.log("#32. Demà no és S o hi ha dia. tomMog: " + tomMog);
+          // console.log("#32. this.tomorrowCal: " + this.tomorrowCal + ", dataTomorrow.mogut: " + dataTomorrow.mogut);
           idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
-          console.log("#32. idDM avui: " + idDM);
+          // console.log("#32. idDM avui: " + idDM);
           if(idDM === -1){
-            console.log("#32. Avui no és dia movible");
-            var day = this.calculeDia(date, variables.mogut);
-            console.log("#32. day: " + day);
-            // console.log("HEREE1 - " + day);
-            this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
+            // console.log("#32. Avui no és dia movible");
+            // console.log("#32. (avui) day: " + day + " -vs- " + " dataTomorrow.mogut: " + dataTomorrow.mogut);
+            if(dataTomorrow.mogut !== '-'){
+              // console.log("#32. Demà hi ha mogut");
+              var day = this.calculeDia(date, dataTomorrow.mogut);
+              // console.log("#32. day: " + day);
+              this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
               this.getOficisComuns(params, result, false);
-            });
+              });
+            }
+            else{
+              // console.log("#32. Demà no hi ha mogut");
+              var day = this.calculeDia(date, variables.mogut);
+              // console.log("#32. day: " + day);
+              this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
+              this.queryRows.santsSolemnitats = result;
+              this.getOficisComuns(params, result, false);
+              });
+            }
           }
           else{
-            console.log("#32. Avui és dia movible");
+            // console.log("#32. Avui és dia movible");
             this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
               this.queryRows.santsSolemnitats = result;
               this.getOficisComuns(params, result, false);
@@ -661,10 +671,11 @@ export default class SOUL {
     //taula 34.2 (#32): - i //taula 36
     if(this.tomorrowCal === 'S'){
       c += 1;
-      // console.log("santsSolemnitatsFVespres1");
+      // console.log("#32. [Extra] Demà cal S");
       idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
-      // console.log("idDM tomorrow: " + idDM);
+      // console.log("#32. [Extra] idDM de demà: " + idDM);
       if(idDM !== -1){
+        // console.log("#32. [Extra] Demà hi ha dia movible");
         params.vespres1 = true;
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
@@ -672,14 +683,18 @@ export default class SOUL {
         });
       }
       else{
+        // console.log("#32. [Extra] Demà no hi ha dia movible");
         day = this.dataTomorrow.mogut;
+
         if(this.dataTomorrow.mogut === '-'){
+          // console.log("#32. [Extra] Demà hi ha mogut i cal fer uns ajustaments");
           var auxDay = new Date();
           auxDay.setFullYear(date.getFullYear());
           auxDay.setMonth(date.getMonth());
           auxDay.setDate(date.getDate()+1);
           day = this.calculeDia(auxDay, '-');
         }
+        // console.log("#32. [Extra] day definitiu: " + day);
         params.vespres1 = true;
         this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
