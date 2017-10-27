@@ -66,13 +66,16 @@ export default class DBAdapter {
   }
 
   getPentacosta(r1, r2, year, callback){
-    this.executeQuery(`SELECT * FROM anyliturgic WHERE any = '${year}' AND temps = '${GLOBAL.P_SETMANES}' AND NumSet = '8' AND DiadelaSetmana = 'Dg'`,
+    var query = `SELECT * FROM anyliturgic WHERE any = '${year}' AND temps = '${GLOBAL.P_SETMANES}' AND NumSet = '8' AND DiadelaSetmana = 'Dg'`;
+    console.log("QueryLog. getPentacosta: " + query);
+    this.executeQuery(query,
       result => {
         var pentacosta = new Date();
         pentacosta.setDate(result.rows.item(0).dia);
         auxMonth = result.rows.item(0).mes-1;
         pentacosta.setMonth(auxMonth);
-        // console.log(">>Pentacosta: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        pentacosta.setFullYear(year);
+        console.log("InfoLog. Pentacosta: " + pentacosta.getDate() + '/' + pentacosta.getMonth() + '/' + pentacosta.getFullYear());
         callback(r1, r2, pentacosta);
       });
   }

@@ -48,7 +48,7 @@ module.exports = {
       return true;
 
     /*Correu possibles errors*/
-    if((day.getDate()===19 || day.getDate()===20) && day.getMonth()===4 && day.getFullYear()===2018)
+    /*if((day.getDate()===19 || day.getDate()===20) && day.getMonth()===4 && day.getFullYear()===2018)
       return true;
     if(day.getDate()===24 && day.getMonth()===4 && day.getFullYear()===2018)
       return true;
@@ -57,7 +57,7 @@ module.exports = {
     if((day.getDate()===2 || day.getDate()===3) && day.getMonth()===5 && day.getFullYear()===2018)
       return true;
     if((day.getDate()===7 || day.getDate()===8) && day.getMonth()===5 && day.getFullYear()===2018)
-      return true;
+      return true;*/
     if(diocesiNameTest==='Tortosa' && (day.getDate()===8 || day.getDate()===9) && day.getMonth()===5 && day.getFullYear()===2018)
       return true;
     if(day.getDate()===15 && day.getMonth()===9 && day.getFullYear()===2018)
@@ -285,7 +285,8 @@ module.exports = {
       firstWord=firstWord.replace(";", '');
 
       if(lastCharacter !== '.' && firstWord !== 'Senyor' && firstWord !== 'Déu'
-        && firstWord !== 'Vós')
+        && firstWord !== 'Vós' && firstWord !== 'Mare' && firstWord !== 'Verge'
+        && firstWord !== 'Maria' && firstWord !== 'Sant')
         result = r1 + ' ' + r2.charAt(0).toLowerCase() + r2.slice(1);
     }
     else{

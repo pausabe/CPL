@@ -128,24 +128,24 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis
+    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
+    this.superTest = this.testing && true; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     this.renderTest = this.testing;
     // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 25, //1-31 (s'inclou en el test)
-      month: 9, //0-12
+      day: 27, //1-31 (s'inclou en el test)
+      month: 11, //0-12
       year: 2017,
     }
     this.finalDayTest = {
-      day: 25, //1-31 (s'inclou en el test)
-      month: 10, //0-12
-      year: 2017,
+      day: 27, //1-31 (s'inclou en el test)
+      month: 11, //0-12
+      year: 2018,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 26; //0-30 (s'inclou en el test)
-      var finalIndex = 30; //0-30 (s'inclou en el test)
+      var initalIndex = 0; //0-30 (s'inclou en el test)
+      var finalIndex = 5; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
       this.llocTest = GF.nextLloc(initalIndex);
@@ -409,8 +409,14 @@ export default class HomeScreenController extends Component {
  }
 
  error(){
-    this.setState({testInfo: "something went wrong"});
-    console.log("InfoLog. super error");
+    this.setState({testInfo: "something went wrong (db calls)"});
+    console.log("InfoLog. super error calls");
+    this.testing = false;
+  }
+
+  testErrorCallBack(){
+    this.setState({testInfo: "something went wrong (no text found)"});
+    console.log("InfoLog. super error no text found");
     this.testing = false;
   }
 
@@ -575,6 +581,7 @@ export default class HomeScreenController extends Component {
           title: title,
           props: {
             superTestMode: superTestMode,
+            testErrorCallBack: this.testErrorCallBack.bind(this),
             nextDayTestCB: this.nextDayTest.bind(this),
             type: type,
             variables: this.variables,

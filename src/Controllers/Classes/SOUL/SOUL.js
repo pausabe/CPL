@@ -90,6 +90,7 @@ export default class SOUL {
     llati = variables.llati;
 
     console.log("PlaceLog. makeQueryies SOUL");
+    console.log("InfoLog. pentacosta: " + pentacosta);
 
     //console.log("dataTomorrow.mogut: " + dataTomorrow.mogut);
 
@@ -112,7 +113,7 @@ export default class SOUL {
 
     // console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
     this.tomorrowCal = this.tomorrowCalVespres1CEL(this.dataTomorrow.date, this.dataTomorrow.LT,
-      this.dataTomorrow.setmana, this.pentacosta, diocesi);
+      this.dataTomorrow.setmana, pentacosta, diocesi);
 
     console.log("InfoLog. tomorrowCal: " + this.tomorrowCal);
 
@@ -972,12 +973,21 @@ export default class SOUL {
   }
 
   tomorrowCalVespres1CEL(date, LT, setmana, pentacosta, diocesi){
+    console.log("PlaceLog. tomorrowCalVespres1CEL");
+    console.log("InfoLog. pentacosta: " + pentacosta);
     if(LT !== GLOBAL.Q_DIUM_PASQUA){
+      console.log("InfoLog. tomorrowCalVespres1CEL: No és dium pasqua");
       if(LT === GLOBAL.Q_DIUM_RAMS) return 'DR';
+
+      console.log("InfoLog. tomorrowCalVespres1CEL: No és dium rams");
 
       if(date.getDay() === 5 && LT === GLOBAL.Q_TRIDU) return 'T';
 
+      console.log("InfoLog. tomorrowCalVespres1CEL: No és tridu");
+
       if(date.getDay() === 0 && setmana === '1' && LT === GLOBAL.A_SETMANES) return 'A';
+
+      console.log("InfoLog. tomorrowCalVespres1CEL: No és dium de set 1 d'advent");
 
       // console.log("date1 " + date);
 
@@ -985,14 +995,19 @@ export default class SOUL {
       if(this.idDETomorrow !== -1 && this.idDETomorrow !== 1)
         return 'DE';
 
+      console.log("InfoLog. tomorrowCalVespres1CEL: No és dia especial");
+
       this.idTSFTomorrow = this.findTempsSolemnitatsFestes(date, LT, setmana, pentacosta);
+      console.log("InfoLog. tomorrowCalVespres1CEL: TOMORROW IS: " + this.idTSFTomorrow);
       if(this.idTSFTomorrow !== -1) {
-        // console.log("TOMORROW IS: " + this.idTSFTomorrow);
         return 'TSF';
       }
 
+      console.log("InfoLog. tomorrowCalVespres1CEL: No és TSF.. per tan és S (si demà realment és S)");
+
       if(this.dataTomorrow.celType === 'S') return 'S';
     }
+    console.log("InfoLog. tomorrowCalVespres1CEL: És dium pasqua o demà no és re (ni S)");
 
     return '-';
   }
@@ -1037,10 +1052,11 @@ export default class SOUL {
     //santsSolemnitats F - Dijous després de Pentecosta (Jesucrist, gran sacerdot per sempre)
     if(celType === 'F'){
       var granSacerdot = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+4);
-      //console.log("granSacerdot: "+granSacerdot);
+      console.log("InfoLog. granSacerdot: "+granSacerdot);
       if(date.getDate() === granSacerdot.getDate() && date.getMonth() === granSacerdot.getMonth() &&
-          date.getFullYear() === granSacerdot.getFullYear())
-          return 58;
+          date.getFullYear() === granSacerdot.getFullYear()){
+            return 52;
+          }
     }
 
     return -1;
@@ -1347,6 +1363,8 @@ export default class SOUL {
     Return id of #tempsSolemnitatsFestes or -1 if there isnt there
   */
   findTempsSolemnitatsFestes(date, LT, setmana, pentacosta){
+    console.log("PlaceLog. findTempsSolemnitatsFestes");
+    console.log("InfoLog. pentacosta: " + pentacosta);
     //1- Nadal
     if(date.getDate() === 25 && date.getMonth() === 11){
       return 1;
