@@ -13,7 +13,6 @@ export default class SOUL {
     this.variables = variables;
     this.liturgicProps = liturgicProps;
     this.dataTomorrow = dataTomorrow;
-    this.pentacosta = pentacosta;
 
     this.queryRows = {
       salteriComuOfici: '', //1
@@ -91,8 +90,6 @@ export default class SOUL {
 
     console.log("PlaceLog. makeQueryies SOUL");
     console.log("InfoLog. pentacosta: " + pentacosta);
-
-    //console.log("dataTomorrow.mogut: " + dataTomorrow.mogut);
 
     this.CT = celType;
     // console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
@@ -609,11 +606,11 @@ export default class SOUL {
       }
       else{
         // console.log("#32. No és un dia movible");
-        if(this.tomorrowCal === 'S' && dataTomorrow.mogut === '-') {
+        if(this.tomorrowCal === 'S' && dataTomorrow.diaMogut === '-') {
           // console.log("#32. Demà és S i no hi ha dia mogut");
           if(celType === 'F'){
             // console.log("#32. Avui és F");
-            var day = this.calculeDia(date, variables.mogut);
+            var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
               this.getOficisComuns(params, result, false);
@@ -621,7 +618,7 @@ export default class SOUL {
           }
           else{
             // console.log("#32. Avui no és F");
-            var day = this.calculeDia(this.dataTomorrow.date, '-');
+            var day = this.calculeDia(this.dataTomorrow.date, diocesi, "-", variables.diocesiMogut);
             // console.log("#32. day: " + day);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
@@ -630,18 +627,13 @@ export default class SOUL {
           }
         }
         else{
-          var tomMog = false;
-          if(dataTomorrow.mogut !== '-') tomMog = true;
-          // console.log("#32. Demà no és S o hi ha dia. tomMog: " + tomMog);
-          // console.log("#32. this.tomorrowCal: " + this.tomorrowCal + ", dataTomorrow.mogut: " + dataTomorrow.mogut);
           idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
           // console.log("#32. idDM avui: " + idDM);
           if(idDM === -1){
             // console.log("#32. Avui no és dia movible");
-            // console.log("#32. (avui) day: " + day + " -vs- " + " dataTomorrow.mogut: " + dataTomorrow.mogut);
-            if(dataTomorrow.mogut !== '-'){
+            if(dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, dataTomorrow.diocesiMogut)){
               // console.log("#32. Demà hi ha mogut");
-              var day = this.calculeDia(date, dataTomorrow.mogut);
+              var day = this.calculeDia(date, diocesi, dataTomorrow.diaMogut, variables.diocesiMogut);
               // console.log("#32. day: " + day);
               this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
@@ -650,7 +642,7 @@ export default class SOUL {
             }
             else{
               // console.log("#32. Demà no hi ha mogut");
-              var day = this.calculeDia(date, variables.mogut);
+              var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
               // console.log("#32. day: " + day);
               this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
@@ -685,15 +677,17 @@ export default class SOUL {
       }
       else{
         // console.log("#32. [Extra] Demà no hi ha dia movible");
-        day = this.dataTomorrow.mogut;
+        var day = '-';
+        if(this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut))
+          day = this.dataTomorrow.diaMogut;
 
-        if(this.dataTomorrow.mogut === '-'){
-          // console.log("#32. [Extra] Demà hi ha mogut i cal fer uns ajustaments");
+        if(day === '-'){
+          // console.log("#32. [Extra] Demà no hi ha mogut i cal fer uns ajustaments");
           var auxDay = new Date();
           auxDay.setFullYear(date.getFullYear());
           auxDay.setMonth(date.getMonth());
           auxDay.setDate(date.getDate()+1);
-          day = this.calculeDia(auxDay, '-');
+          day = this.calculeDia(auxDay, diocesi, '-', variables.diocesiMogut);
         }
         // console.log("#32. [Extra] day definitiu: " + day);
         params.vespres1 = true;
@@ -708,9 +702,8 @@ export default class SOUL {
     if(params.idTSF === -1 && (celType === 'M' || celType === 'L' || celType === 'V')){
       c += 1;
 
-      idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
-      // console.log("idDM: " + idDM);
-
+      // idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
+      idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
 
       if(celType === 'V' && idDM === -1){
         this.acceso.getV((result) => {
@@ -720,7 +713,7 @@ export default class SOUL {
       }
       else{
         if(idDM === -1){
-          var day = this.calculeDia(date, variables.mogut);
+          var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
           this.acceso.getSolMem("santsMemories", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsMemories = result;
             this.getOficisComuns(params, result, false);
@@ -863,12 +856,12 @@ export default class SOUL {
 
     console.log("PlaceLog. Calls");
     // console.log("this.tomorrowCal: " + this.tomorrowCal);
-    // console.log("this.dataTomorrow.mogut: " + this.dataTomorrow.mogut);
     // console.log("this.idTSF: " + this.idTSF);
     // console.log("this.idDE: " + this.idDE);
 
     if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' ||
-      this.dataTomorrow.mogut !== '-' || this.idTSF !== -1 || (this.idDE !== -1 && this.tomorrowCal === '-')){
+      (this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut))
+      || this.idTSF !== -1 || (this.idDE !== -1 && this.tomorrowCal === '-')){
         // console.log("calls vespres1 - 1");
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;
@@ -1016,11 +1009,11 @@ export default class SOUL {
     Return id of #santsMemories or #santsSolemnitats or -1 if there isn't there
   */
   diesMov(date, LT, setmana, pentacosta, celType){
-    // console.log("diesMov " + celType);
+    console.log("diesMov " + celType);
     //santsMemories M - Dissabte de la tercera setmana després de Pentecosta (COR IMMACULAT DE LA BENAURADA VERGE MARIA)
     if(celType === 'M'){
       var corImmaculat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+20);
-      //console.log("corImmaculat: "+corImmaculat);
+      console.log("corImmaculat: "+corImmaculat);
       if(date.getDate() === corImmaculat.getDate() && date.getMonth() === corImmaculat.getMonth() &&
           date.getFullYear() === corImmaculat.getFullYear())
           return 252;
@@ -1446,58 +1439,64 @@ export default class SOUL {
     return true;
   }
 
-  calculeDia(date, mogut){
-    if(mogut === '-'){
-      switch (date.getMonth()) {
-        case 0:
-          mes = "ene";
-          break;
-        case 1:
-          mes = "feb";
-          break;
-        case 2:
-          mes = "mar";
-          break;
-        case 3:
-          mes = "abr";
-          break;
-        case 4:
-          mes = "may";
-          break;
-        case 5:
-          mes = "jun";
-          break;
-        case 6:
-          mes = "jul";
-          break;
-        case 7:
-          mes = "ago";
-          break;
-        case 8:
-          mes = "sep";
-          break;
-        case 9:
-          mes = "oct";
-          break;
-        case 10:
-          mes = "nov";
-          break;
-        case 11:
-          mes = "dic";
-          break;
-      }
-      if(date.getDate() < 10)
-        dia = `0${date.getDate()}`;
-      else dia = date.getDate();
+  isDiocesiMogut(diocesi, diocesiMogut){
+    if(!diocesi || diocesi === '' || diocesiMogut === '-' || diocesi === undefined)
+      return false;
+    if(diocesiMogut === '*') return true;
+    if(diocesi === diocesiMogut) return true;
+    if(diocesi.charAt(0) === diocesiMogut.charAt(0) &&
+       diocesi.charAt(1) === diocesiMogut.charAt(1))
+       return true;
+    return false;
+  }
 
-      result = dia + "-" + mes;
+  calculeDia(date, diocesi, diaMogut, diocesiMogut){
+    if(diaMogut !== '-' && this.isDiocesiMogut(diocesi, diocesiMogut))
+      return diaMogut;
 
-      // console.log("Dia NORMAL: " + result);
+    switch (date.getMonth()) {
+      case 0:
+        mes = "ene";
+        break;
+      case 1:
+        mes = "feb";
+        break;
+      case 2:
+        mes = "mar";
+        break;
+      case 3:
+        mes = "abr";
+        break;
+      case 4:
+        mes = "may";
+        break;
+      case 5:
+        mes = "jun";
+        break;
+      case 6:
+        mes = "jul";
+        break;
+      case 7:
+        mes = "ago";
+        break;
+      case 8:
+        mes = "sep";
+        break;
+      case 9:
+        mes = "oct";
+        break;
+      case 10:
+        mes = "nov";
+        break;
+      case 11:
+        mes = "dic";
+        break;
     }
-    else{
-      result = mogut;
-      // console.log("Dia MOGUT: " + result);
-    }
+    if(date.getDate() < 10)
+      dia = `0${date.getDate()}`;
+    else dia = date.getDate();
+
+    result = dia + "-" + mes;
     return result;
   }
 

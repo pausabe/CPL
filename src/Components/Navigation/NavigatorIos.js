@@ -78,7 +78,6 @@ export default class NavigatorIos extends Component {
             barTintColor={GLOBAL.barColor}
             tintColor={GLOBAL.itemsBarColor}
             titleTextColor={GLOBAL.itemsBarColor}/>
-            {this.popup}
       </View>
     );
   }

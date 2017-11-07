@@ -128,13 +128,13 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && true; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
+    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
+    this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     this.renderTest = this.testing;
     // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
       day: 27, //1-31 (s'inclou en el test)
-      month: 11, //0-12
+      month: 10, //0-12
       year: 2017,
     }
     this.finalDayTest = {
@@ -145,7 +145,7 @@ export default class HomeScreenController extends Component {
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       var initalIndex = 0; //0-30 (s'inclou en el test)
-      var finalIndex = 5; //0-30 (s'inclou en el test)
+      var finalIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
       this.llocTest = GF.nextLloc(initalIndex);
@@ -264,7 +264,9 @@ export default class HomeScreenController extends Component {
 
         this.variables.celType = celType;
         this.variables.date = newDay;
-        this.variables.mogut = current.Mogut;
+        // this.variables.mogut = current.Mogut;
+        this.variables.diaMogut = current.diaMogut;
+        this.variables.diocesiMogut = current.diocesiMogut;
         this.variables.litColor = current.Color;
 
         this.liturgicProps.LITURGIA = null;
@@ -278,7 +280,9 @@ export default class HomeScreenController extends Component {
         this.dataTomorrow.celType = tomorrowCelType;
         this.dataTomorrow.LT = tomorrow.temps;
         this.dataTomorrow.setmana = tomorrow.NumSet;
-        this.dataTomorrow.mogut = tomorrow.Mogut;
+        // this.dataTomorrow.mogut = tomorrow.Mogut;
+        this.dataTomorrow.diaMogut = tomorrow.diaMogut;
+        this.dataTomorrow.diocesiMogut = tomorrow.diocesiMogut;
 
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);

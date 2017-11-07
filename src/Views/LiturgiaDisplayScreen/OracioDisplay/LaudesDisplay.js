@@ -363,8 +363,8 @@ export default class LaudesDisplay extends Component {
       else return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
 
     if(numEnter !== numGuio*3+3){//every prayer have 3 spaces and intro have 3 more
-      wrong = true;
       console.log("InfoLog. incorrect spaces in pregaries");
+      return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
     }
     else{
       var introPregs = allPregs.split(":")[0];
@@ -401,39 +401,23 @@ export default class LaudesDisplay extends Component {
         console.log("InfoLog. something incorrect. Pregaries 4");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
-
-      /*if(!wrong){
-        console.log("numGuio: " + numGuio);
-        console.log("numEnter: " + numEnter);
-        console.log("allPregs:\n"+allPregs);
-        console.log("introPregs:\n"+introPregs);
-        console.log("pregsNoIntro:\n"+pregsNoIntro);
-        console.log("respPregs:\n"+respPregs);
-        console.log("pregaries:\n"+pregaries);
-        console.log("pregsFinalPart:\n"+pregsFinalPart);
-      }*/
     }
 
-    //if(!wrong){
-      return(
-        <View>
-          <Text selectable={true} style={this.styles.black}>{introPregs}{':'}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.blackItalic}>{respPregs}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.blackItalic}>{"Aquí es poden afegir altres intencions."}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{pregsFinalPart}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
-        </View>
-      );
-    /*}
-    else{
-      return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
-    }*/
+    return(
+      <View>
+        <Text selectable={true} style={this.styles.black}>{introPregs}{':'}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.blackItalic}>{respPregs}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.blackItalic}>{"Aquí es poden afegir altres intencions."}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.black}>{pregsFinalPart}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
+      </View>
+    );
   }
 
   oracio(LT, weekDay, LAUDES){
