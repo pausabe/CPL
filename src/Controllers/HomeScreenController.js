@@ -33,7 +33,7 @@ export default class HomeScreenController extends Component {
 
   componentDidMount() {
     if(Platform.OS==='android'){
-      setTimeout(() => { SplashScreen.hide(); }, 400);
+      // setTimeout(() => { SplashScreen.hide(); }, 400);
 
       this.props.navigation.setParams({
             calPres: this.calendarPressed.bind(this),
@@ -41,7 +41,7 @@ export default class HomeScreenController extends Component {
         });
     }
     else{
-      setTimeout(() => { SplashScreen.hide(); }, 50);
+      // setTimeout(() => { SplashScreen.hide(); }, 50);
 
       this.props.events.addListener('myEvent', this.eventManager.bind(this));
       this.props.events.addListener('calendarPressed', this.calendarPressed.bind(this));
@@ -94,6 +94,8 @@ export default class HomeScreenController extends Component {
   constructor(props) {
     super(props)
 
+    this.evReady = false;
+
     //this is just for android. You must change for ios in NavigatorController as well
     this.date = new Date(/*2018,4,19*/);
 
@@ -128,24 +130,23 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && true; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
+    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
+    this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     this.renderTest = this.testing;
-    // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 9, //1-31 (s'inclou en el test)
-      month: 10, //0-12
+      day: 2, //1-31 (s'inclou en el test)
+      month: 0, //0-12
       year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 13, //1-31 (s'inclou en el test)
-      month: 10, //0-12
-      year: 2017,
+      day: 27, //1-31 (s'inclou en el test)
+      month: 11, //0-12
+      year: 2018,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 0; //0-30 (s'inclou en el test)
-      var finalIndex = 0; //0-30 (s'inclou en el test)
+      var initalIndex = 5; //0-30 (s'inclou en el test)
+      var finalIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
       this.llocTest = GF.nextLloc(initalIndex);
@@ -319,6 +320,10 @@ export default class HomeScreenController extends Component {
           primVespres: this.primVespres(),
         }
       });
+      if(!this.evReady) {
+        SplashScreen.hide();
+        this.evReady = true;
+      }
     }
     /*************** TEST THINGS - START *******************/
     else{

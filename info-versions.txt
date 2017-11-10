@@ -28,3 +28,12 @@ v1.3(25.10.2017)[An11,Ap5] - [7625c5a]
   - Millores del codi, cap efecte per l'usuari (under the hood)
   - Solucionats errors que causaven l'apagament de l'aplicació en certes condicions
   - Opció de l'any 2018 ja disponible, en fase de proves
+v1.4(10.11.2017)[An12,Ap6] - [????]
+  - Solucionats alguns errors
+      - amb solemnitats que depenien del dia de Pentacosta del 2018
+      - en les pregàries de Laudes i Vespres
+      - en dies de Nadal
+  - Millorat quan alguna solemnitat moguda és només d'una diòcesi concreta
+  - Text que corrobora que els textos són els oficials a l'apartat de Configuració
+  - Nou test que garanteix la qualitat dels textos (under the hood)
+  - iOs: Als iPads només es podrà fer servir en mode Portrait
