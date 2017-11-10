@@ -179,60 +179,60 @@ export default class VespresDisplay extends Component {
   }
 
   himne(LT, weekDay, setmana, VESPRES){
-    return(<Text selectable={true} style={this.styles.black}>{GF.rs(VESPRES.himne)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.rs(VESPRES.himne, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, VESPRES){
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant1)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(VESPRES.titol1)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(VESPRES.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {VESPRES.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(VESPRES.com1)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(VESPRES.com1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(VESPRES.salm1))}
+        {this.salm(GF.rs(VESPRES.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(VESPRES.gloria1)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant1)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(VESPRES.titol2)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(VESPRES.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {VESPRES.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(VESPRES.com2)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(VESPRES.com2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(VESPRES.salm2))}
+        {this.salm(GF.rs(VESPRES.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(VESPRES.gloria2)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.canticSpace(GF.rs(VESPRES.titol3))}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.canticSpace(GF.rs(VESPRES.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(GF.rs(VESPRES.salm3))}
+        {this.salm(GF.rs(VESPRES.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(VESPRES.gloria3)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
       </View>
     );
@@ -241,9 +241,9 @@ export default class VespresDisplay extends Component {
   lecturaBreu(LT, VESPRES){
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(VESPRES.vers)}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(VESPRES.vers, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{GF.rs(VESPRES.lecturaBreu)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(VESPRES.lecturaBreu, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
       </View>
     )
   }
@@ -252,7 +252,7 @@ export default class VespresDisplay extends Component {
     if(VESPRES.calAntEspecial){
       return(
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.antEspecialVespres)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.antEspecialVespres, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
       )
     }
@@ -260,24 +260,24 @@ export default class VespresDisplay extends Component {
       return(
         <View>
           <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(VESPRES.respBreu1),GF.rs(VESPRES.respBreu2))}</Text>
+            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(VESPRES.respBreu1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(VESPRES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(VESPRES.respBreu1),GF.rs(VESPRES.respBreu2))}</Text>
+            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(VESPRES.respBreu1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(VESPRES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.respBreu3)}</Text>
+            <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.respBreu3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.respBreu2)}</Text>
+            <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(VESPRES.respBreu1),GF.rs(VESPRES.respBreu2))}</Text>
+            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(VESPRES.respBreu1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(VESPRES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
           </Text>
         </View>
       )
@@ -288,24 +288,24 @@ export default class VespresDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.antCantic)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.antCantic, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 1, 46-55\nLa meva ànima magnifica el Senyor"}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(GF.rs(VESPRES.cantic))}
+        {this.salm(GF.rs(VESPRES.cantic, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.antCantic)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(VESPRES.antCantic, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
       </View>
     );
   }
 
   pregaries(LT, weekDay, VESPRES){
-    var allPregs = GF.rs(VESPRES.pregaries);
+    var allPregs = GF.rs(VESPRES.pregaries, this.props.superTestMode, this.props.testErrorCB.bind(this));
 
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
@@ -392,7 +392,7 @@ export default class VespresDisplay extends Component {
   }
 
   oracio(LT, weekDay, VESPRES){
-    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(VESPRES.oracio))}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(VESPRES.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>);
   }
 }
 

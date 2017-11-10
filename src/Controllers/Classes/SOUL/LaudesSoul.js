@@ -464,7 +464,7 @@ export default class LaudesSoul {
           ant2 = this.state.salteriComuLaudes.ant2;
           ant3 = this.state.salteriComuLaudes.ant3;
         }
-        else{
+        else {
           ant1 = this.state.tempsSolemnitatsFestes.ant1Laudes;
           ant2 = this.state.tempsSolemnitatsFestes.ant2Laudes;
           ant3 = this.state.tempsSolemnitatsFestes.ant3Laudes;

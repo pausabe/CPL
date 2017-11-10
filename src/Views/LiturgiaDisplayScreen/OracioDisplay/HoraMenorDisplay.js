@@ -160,7 +160,7 @@ export default class HoraMenorDisplay extends Component {
   }
 
   himne(LT, weekDay, setmana, HM){
-    return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.himne)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.himne, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, HM){
@@ -169,81 +169,81 @@ export default class HoraMenorDisplay extends Component {
         {this.props.HORA_MENOR.antifones ?
           <View>
             <Text selectable={true} style={this.styles.red}>Ant. 1.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant1)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
           </View>
         :
           <View>
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
           </View>
         }
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.props.HORA_MENOR.titol1)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.props.HORA_MENOR.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.props.HORA_MENOR.com1)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.props.HORA_MENOR.com1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(this.props.HORA_MENOR.salm1))}
+        {this.salm(GF.rs(this.props.HORA_MENOR.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(this.props.HORA_MENOR.gloria1)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.antifones ?
           <View>
             <Text selectable={true} style={this.styles.red}>Ant. 1.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant1)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>Ant. 2.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant2)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
         : null }
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.props.HORA_MENOR.titol2)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.props.HORA_MENOR.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.props.HORA_MENOR.com2)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.props.HORA_MENOR.com2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(this.props.HORA_MENOR.salm2))}
+        {this.salm(GF.rs(this.props.HORA_MENOR.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(this.props.HORA_MENOR.gloria2)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.antifones ?
           <View>
             <Text selectable={true} style={this.styles.red}>Ant. 2.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant2)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>Ant. 3.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant3)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
         : null }
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.props.HORA_MENOR.titol3)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.props.HORA_MENOR.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.com3 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.props.HORA_MENOR.com3)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.props.HORA_MENOR.com3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(this.props.HORA_MENOR.salm3))}
+        {this.salm(GF.rs(this.props.HORA_MENOR.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(this.props.HORA_MENOR.gloria3)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.props.HORA_MENOR.antifones ?
           <View>
             <Text selectable={true} style={this.styles.red}>Ant. 3.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant3)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
           </View>
         :
           <View>
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.ant, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
           </View>
         }
@@ -254,22 +254,22 @@ export default class HoraMenorDisplay extends Component {
   lecturaBreuResp(LT, HM){
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(this.props.HORA_MENOR.vers)}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(this.props.HORA_MENOR.vers, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.lecturaBreu)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.lecturaBreu, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.respV)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.respV, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.respR)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.respR, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
       </View>
     )
   }
 
   oracio(LT, weekDay, HM){
-    return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.oracio)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>);
   }
 }
 

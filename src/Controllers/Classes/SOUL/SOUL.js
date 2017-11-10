@@ -419,9 +419,12 @@ export default class SOUL {
       c += 1;
       cicleAux = parseInt(liturgicProps.cicle);
       auxDay = date.getDay();
-      if(params.idTSF !== -1 || celType === 'S' || celType === 'F') {
-        cicleAux = 1;
-        auxDay = 0;
+      if(params.idTSF !== -1 || celType === 'S' || celType === 'F' ||
+        (date.getMonth() === 11 && (date.getDate() === 29 || date.getDate() === 30 || date.getDate() === 31)) ||
+        (date.getMonth() === 0 && date.getDate() === 6)) {
+          console.log("tempLog1");
+          cicleAux = 1;
+          auxDay = 0;
       }
       else if(params.idTSF === 2) cicleAux = 2;
       idLaudes = (cicleAux-1)*7 + (auxDay+1);
@@ -1009,7 +1012,6 @@ export default class SOUL {
     Return id of #santsMemories or #santsSolemnitats or -1 if there isn't there
   */
   diesMov(date, LT, setmana, pentacosta, celType){
-    console.log("diesMov " + celType);
     //santsMemories M - Dissabte de la tercera setmana després de Pentecosta (COR IMMACULAT DE LA BENAURADA VERGE MARIA)
     if(celType === 'M'){
       var corImmaculat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+20);

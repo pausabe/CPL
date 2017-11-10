@@ -91,7 +91,7 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>HIMNE</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.himne)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.himne, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -101,57 +101,57 @@ export default class CompletesDisplay extends Component {
           <View>
             {COMPLETES.antifones ?
               <Text selectable={true} style={this.styles.red}>Ant. 1.
-                <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
+                <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
               </Text>
             :
               <Text selectable={true} style={this.styles.red}>Ant.
-                <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
+                <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
               </Text>
             }
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol1)}</Text>
+            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.com1 !== '-' ?
               <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com1)}</Text>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
               {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-            {this.salm(GF.rs(COMPLETES.salm1))}
+            {this.salm(GF.rs(COMPLETES.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {this.gloria(COMPLETES.gloria1)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.antifones ?
               <View>
                 <Text selectable={true} style={this.styles.red}>Ant. 1.
-                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
                 </Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>Ant. 2.
-                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant2)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
                 </Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
               </View>
             : null
             }
-            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol2)}</Text>
+            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.com2 !== '-' ?
               <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com2)}</Text>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
               {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-            {this.salm(GF.rs(COMPLETES.salm2))}
+            {this.salm(GF.rs(COMPLETES.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {this.gloria(COMPLETES.gloria2)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.antifones ?
               <View>
                 <Text selectable={true} style={this.styles.red}>Ant. 2.
-                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant2)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
                 </Text>
               </View>
             :
               <View>
                 <Text selectable={true} style={this.styles.red}>Ant.
-                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
+                  <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
                 </Text>
               </View>
             }
@@ -159,21 +159,21 @@ export default class CompletesDisplay extends Component {
         :
           <View>
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol1)}</Text>
+            <Text selectable={true} style={this.styles.redCenter}>{GF.rs(COMPLETES.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {COMPLETES.com1 !== '-' ?
               <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com1)}</Text>
+              <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(COMPLETES.com1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
               {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-            <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(COMPLETES.salm1))}</Text>
+            <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(COMPLETES.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {this.gloria(COMPLETES.gloria1)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
           </View>
         }
@@ -182,9 +182,9 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{GF.rs(COMPLETES.vers)}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(COMPLETES.vers, this.props.superTestMode, this.props.testErrorCB.bind(this), this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.lecturaBreu)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.lecturaBreu, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -193,30 +193,30 @@ export default class CompletesDisplay extends Component {
         {COMPLETES.antRespEspecial === "-" ?
           <View>
             <Text selectable={true} style={this.styles.red}>V.
-              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1),GF.rs(COMPLETES.respBreu2))}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(COMPLETES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
             </Text>
             <Text selectable={true} style={this.styles.red}>R.
-              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1),GF.rs(COMPLETES.respBreu2))}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(COMPLETES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>V.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.respBreu3)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.respBreu3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
             <Text selectable={true} style={this.styles.red}>R.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.respBreu2)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>V.
               <Text selectable={true} style={this.styles.black}>{" Glòria al Pare i al Fill i a l'Esperit Sant."}</Text>
             </Text>
             <Text selectable={true} style={this.styles.red}>R.
-              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1),GF.rs(COMPLETES.respBreu2))}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(COMPLETES.respBreu1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(COMPLETES.respBreu2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
             </Text>
           </View>
         :
           <View>
             <Text selectable={true} style={this.styles.red}>Ant.
-              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antRespEspecial)}</Text>
+              <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antRespEspecial, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
             </Text>
           </View>
         }
@@ -226,12 +226,12 @@ export default class CompletesDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>CÀNTIC SIMEÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antCantic)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antCantic, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 2, 29-32\nCrist, llum de les nacions i glòria d'Israel"}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(COMPLETES.cantic))}</Text>
+        <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(COMPLETES.cantic, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -244,7 +244,7 @@ export default class CompletesDisplay extends Component {
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.oracio)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
@@ -262,7 +262,7 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Hr lineColor='#CFD8DC' />
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.antMare)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.antMare, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
       </View>
     );

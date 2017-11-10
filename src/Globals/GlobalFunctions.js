@@ -59,9 +59,9 @@ module.exports = {
     if((day.getDate()===7 || day.getDate()===8) && day.getMonth()===5 && day.getFullYear()===2018)
       return true;*/
     /*if(diocesiNameTest==='Tortosa' && (day.getDate()===8 || day.getDate()===9) && day.getMonth()===5 && day.getFullYear()===2018)
-      return true;*/ 
-    if(day.getDate()===15 && day.getMonth()===9 && day.getFullYear()===2018)
-      return true;
+      return true;*/
+    /*if(day.getDate()===15 && day.getMonth()===9 && day.getFullYear()===2018)
+      return true;*/
     return false;
   },
 
@@ -261,7 +261,13 @@ module.exports = {
     return titolCantic;
   },
 
-  rs(text){
+  rs(text, superTestMode, error){
+    if(superTestMode) {
+      if(!text||text===undefined||text===''||text==='-'||text===' '||text===':'){
+        error();
+        return text;
+      }
+    }
     if(text){
       var length = text.length;
       var lastChar = text.charAt(length-1);

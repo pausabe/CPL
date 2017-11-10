@@ -28,6 +28,9 @@ export default class SettingsScreen extends Component {
         <View style={styles.scrollContainer}>
           <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}>
               {this.state.options}
+              <View style={{padding: 5, paddingTop: 10}}>
+                <Text style={{textAlign:'center', color:'grey', fontSize:11}}>{"Text oficial de la Comissió Interdiocesana de Litúrgia de la Conferència Episcopal Tarraconense, aprovat pels bisbes de les diòcesis de parla catalana i confirmat per la Congregació per al Culte Diví i la Disciplina dels Sagraments: Prot. N. 312/15, 27 d'abril de 2016"}</Text>
+              </View>
           </ScrollView>
         </View>
       );

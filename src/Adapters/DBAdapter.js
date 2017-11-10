@@ -37,8 +37,6 @@ export default class DBAdapter {
   }
 
   getAnyLiturgic(year, month, day, callback){
-    //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
-    //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
     var query = `SELECT * FROM anyliturgic WHERE any = '${year}' AND mes = '${month+1}' AND dia = '${day}'`;
     console.log("QueryLog. QUERY ANY: " + query);
     this.executeQuery(query,
@@ -54,10 +52,9 @@ export default class DBAdapter {
     year2 = tomorrow.getFullYear();
     month2 = tomorrow.getMonth();
     day2 = tomorrow.getDate();
-    //console.log(day+'/'+(month+1)+'/'+year+' - '+day2+'/'+(month2+1)+'/'+year2);
-    //console.log("year: " + year + " month: " + (month+1) + " day: " + day + " / year2: " + year2 + " month2: " + (month2+1) + " day2: " + day2);
+
     var query = `SELECT * FROM anyliturgic WHERE any = '${year2}' AND mes = '${month2+1}' AND dia = '${day2}'`;
-    //console.log("QUERY ANY: " + query);
+    console.log("QUERY AnyTom: " + query);
     this.executeQuery(query,
       result => {
         // console.log(">>Tomorrow: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);

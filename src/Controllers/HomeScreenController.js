@@ -128,24 +128,24 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
+    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
+    this.superTest = this.testing && true; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     this.renderTest = this.testing;
     // this.superTestOracioActual = 'Ofici';
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 27, //1-31 (s'inclou en el test)
+      day: 9, //1-31 (s'inclou en el test)
       month: 10, //0-12
       year: 2017,
     }
-    this.finalDayTest = {
-      day: 27, //1-31 (s'inclou en el test)
-      month: 11, //0-12
-      year: 2018,
+    this.finalDayTest = { //no pot ser el mateix qe l'initial
+      day: 13, //1-31 (s'inclou en el test)
+      month: 10, //0-12
+      year: 2017,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       var initalIndex = 0; //0-30 (s'inclou en el test)
-      var finalIndex = 30; //0-30 (s'inclou en el test)
+      var finalIndex = 0; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
       this.llocTest = GF.nextLloc(initalIndex);
@@ -264,7 +264,6 @@ export default class HomeScreenController extends Component {
 
         this.variables.celType = celType;
         this.variables.date = newDay;
-        // this.variables.mogut = current.Mogut;
         this.variables.diaMogut = current.diaMogut;
         this.variables.diocesiMogut = current.diocesiMogut;
         this.variables.litColor = current.Color;
@@ -280,7 +279,6 @@ export default class HomeScreenController extends Component {
         this.dataTomorrow.celType = tomorrowCelType;
         this.dataTomorrow.LT = tomorrow.temps;
         this.dataTomorrow.setmana = tomorrow.NumSet;
-        // this.dataTomorrow.mogut = tomorrow.Mogut;
         this.dataTomorrow.diaMogut = tomorrow.diaMogut;
         this.dataTomorrow.diocesiMogut = tomorrow.diocesiMogut;
 
@@ -342,85 +340,87 @@ export default class HomeScreenController extends Component {
 
  /*************** TEST THINGS - START *******************/
  nextDayTest(){
-   console.log("PlaceLog. NEXT DAY");
-   var nextDay = this.variables.date;
-   nextDay.setDate(nextDay.getDate()+1);
-   /*console.log("TestLog. nextDay vs finalDayTest: " + nextDay.getFullYear() +
-        "/" + nextDay.getMonth() + "/" + nextDay.getDate() + " - " +
-        this.finalDayTest.year + "/" + this.finalDayTest.month + "/" +
-        this.finalDayTest.day + "/");*/
-   if(nextDay.getFullYear() === this.finalDayTest.year &&
-     nextDay.getMonth() === this.finalDayTest.month &&
-     nextDay.getDate() === this.finalDayTest.day){
-     if(this.idTest === this.maxIdTest){
-       this.setState({testInfo: "Test ended correctly"});
-       console.log("TestLog. -------------------------------->>>TEST ENDS<<<--------------------------------");
+   if(this.testing){
+     console.log("PlaceLog. NEXT DAY");
+     var nextDay = this.variables.date;
+     nextDay.setDate(nextDay.getDate()+1);
+     /*console.log("TestLog. nextDay vs finalDayTest: " + nextDay.getFullYear() +
+          "/" + nextDay.getMonth() + "/" + nextDay.getDate() + " - " +
+          this.finalDayTest.year + "/" + this.finalDayTest.month + "/" +
+          this.finalDayTest.day + "/");*/
+     if(nextDay.getFullYear() === this.finalDayTest.year &&
+       nextDay.getMonth() === this.finalDayTest.month &&
+       nextDay.getDate() === this.finalDayTest.day){
+       if(this.idTest === this.maxIdTest){
+         this.setState({testInfo: "Test ended correctly"});
+         console.log("TestLog. -------------------------------->>>TEST ENDS<<<--------------------------------");
+       }
+       else{
+         firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
+         this.idTest += 1;
+         this.diocesiTest = GF.nextDiocesi(this.idTest);
+         this.diocesiNameTest = GF.nextDiocesiName(this.idTest);
+         this.llocTest = GF.nextLloc(this.idTest);
+         auxTomorrow = new Date();
+         auxTomorrow.setFullYear(this.initialDayTest.year);
+         auxTomorrow.setMonth(this.initialDayTest.month);
+         auxTomorrow.setDate(this.initialDayTest.day+1);
+         this.dataTomorrow.date = auxTomorrow;
+         this.refreshEverything(firstDay);
+         this.setState({testInfo: "Testing correctly"});
+         console.log("TestLog. --------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
+       }
      }
      else{
-       firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
-       this.idTest += 1;
-       this.diocesiTest = GF.nextDiocesi(this.idTest);
-       this.diocesiNameTest = GF.nextDiocesiName(this.idTest);
-       this.llocTest = GF.nextLloc(this.idTest);
-       auxTomorrow = new Date();
-       auxTomorrow.setFullYear(this.initialDayTest.year);
-       auxTomorrow.setMonth(this.initialDayTest.month);
-       auxTomorrow.setDate(this.initialDayTest.day+1);
-       this.dataTomorrow.date = auxTomorrow;
-       this.refreshEverything(firstDay);
-       this.setState({testInfo: "Testing correctly"});
-       console.log("TestLog. --------------------------------:::NEXT DIÒCESI: "+this.idTest+" -> "+this.diocesiTest+" - "+firstDay+":::--------------------------------");
-     }
-   }
-   else{
-     dtDay = this.dataTomorrow.date.getDate();
-     dtMonth = this.dataTomorrow.date.getMonth();
-     dtYear = this.dataTomorrow.date.getFullYear();
-    //  console.log("dtDay: " + dtDay);
-    //  console.log("dtMonth: " + dtMonth);
-    //  console.log("dtYear: " + dtYear);
-     auxTomorrow = new Date(dtYear,dtMonth,dtDay);
-    //  console.log("auxTomorrow NO SET: " + auxTomorrow);
-     auxTomorrow.setDate(auxTomorrow.getDate()+1);
-    //  console.log("auxTomorrow SET: " + auxTomorrow);
-     this.dataTomorrow.date = auxTomorrow;
-    //  console.log("this.dataTomorrow.date SET: " + this.dataTomorrow.date);
-     /*console.log("DAYDAYDAY: " + this.dataTomorrow.date + '\n' + auxTomorrow);
-     auxTomorrow.setFullYear(this.dataTomorrow.date.getFullYear());
-     var numMonth = this.dataTomorrow.date.getMonth();
-     auxTomorrow.setMonth(numMonth);
-     console.log("dont unertand: " + this.dataTomorrow.date.getMonth() + ' / ' + auxTomorrow.getMonth());
-     aha = new Date(2017, 1, 1);
-     console.log("vamo a vers1: " + aha);
-     aha.setDate(aha.getDate()+1);
-     console.log("vamo a vers2: " + aha);
-     auxTomorrow.setDate(this.dataTomorrow.date.getDate()+1);
-     this.dataTomorrow.date = auxTomorrow;
-     console.log("auxTomorrow: " + auxTomorrow);
-     console.log("this.dataTomorrow.date TEST: " + this.dataTomorrow.date);*/
-    //  console.log("pass: " + GF.passDayTest(this.diocesiNameTest, nextDay));
-     while(GF.passDayTest(this.diocesiNameTest, nextDay)){
-       console.log("TestLog. -----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
-       nextDay.setDate(nextDay.getDate()+1);
-       auxTomorrow = this.dataTomorrow.date;
+       dtDay = this.dataTomorrow.date.getDate();
+       dtMonth = this.dataTomorrow.date.getMonth();
+       dtYear = this.dataTomorrow.date.getFullYear();
+      //  console.log("dtDay: " + dtDay);
+      //  console.log("dtMonth: " + dtMonth);
+      //  console.log("dtYear: " + dtYear);
+       auxTomorrow = new Date(dtYear,dtMonth,dtDay);
+      //  console.log("auxTomorrow NO SET: " + auxTomorrow);
        auxTomorrow.setDate(auxTomorrow.getDate()+1);
+      //  console.log("auxTomorrow SET: " + auxTomorrow);
        this.dataTomorrow.date = auxTomorrow;
+      //  console.log("this.dataTomorrow.date SET: " + this.dataTomorrow.date);
+       /*console.log("DAYDAYDAY: " + this.dataTomorrow.date + '\n' + auxTomorrow);
+       auxTomorrow.setFullYear(this.dataTomorrow.date.getFullYear());
+       var numMonth = this.dataTomorrow.date.getMonth();
+       auxTomorrow.setMonth(numMonth);
+       console.log("dont unertand: " + this.dataTomorrow.date.getMonth() + ' / ' + auxTomorrow.getMonth());
+       aha = new Date(2017, 1, 1);
+       console.log("vamo a vers1: " + aha);
+       aha.setDate(aha.getDate()+1);
+       console.log("vamo a vers2: " + aha);
+       auxTomorrow.setDate(this.dataTomorrow.date.getDate()+1);
+       this.dataTomorrow.date = auxTomorrow;
+       console.log("auxTomorrow: " + auxTomorrow);
+       console.log("this.dataTomorrow.date TEST: " + this.dataTomorrow.date);*/
+      //  console.log("pass: " + GF.passDayTest(this.diocesiNameTest, nextDay));
+       while(GF.passDayTest(this.diocesiNameTest, nextDay)){
+         console.log("TestLog. -----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - PASS DAY: "+nextDay+"-----------------------------------");
+         nextDay.setDate(nextDay.getDate()+1);
+         auxTomorrow = this.dataTomorrow.date;
+         auxTomorrow.setDate(auxTomorrow.getDate()+1);
+         this.dataTomorrow.date = auxTomorrow;
+       }
+       console.log("TestLog. -----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
+       this.refreshEverything(nextDay);
+       this.setState({testInfo: "Testing correctly"});
      }
-     console.log("TestLog. -----------------------------------"+this.idTest+" -> "+this.diocesiTest+" - NEXT DAY: "+nextDay+"-----------------------------------");
-     this.refreshEverything(nextDay);
-     this.setState({testInfo: "Testing correctly"});
    }
  }
 
  error(){
-    this.setState({testInfo: "something went wrong (db calls)"});
-    console.log("InfoLog. super error calls");
+    this.setState({testInfo: "something went wrong (bad calls)"});
+    console.log("InfoLog. super error (bad calls)");
     this.testing = false;
   }
 
   testErrorCallBack(){
-    this.setState({testInfo: "something went wrong (no text found)"});
-    console.log("InfoLog. super error no text found");
+    this.setState({testInfo: "something went wrong (bad text)"});
+    console.log("InfoLog. super error (bad text))");
     this.testing = false;
   }
 
@@ -555,6 +555,7 @@ export default class HomeScreenController extends Component {
       title: title,
       passProps: {
         superTestMode: superTestMode,
+        testErrorCallBack: this.testErrorCallBack.bind(this),
         nextDayTestCB: this.nextDayTest.bind(this),
         type: type,
         date: this.date,

@@ -225,7 +225,7 @@ export default class OficiDisplay extends Component {
           <Hr lineColor='#CFD8DC' />
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.antInvitatori)}</Text>
+            <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.antInvitatori, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
@@ -233,12 +233,12 @@ export default class OficiDisplay extends Component {
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text></View></View>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.salm(GF.rs(OFICI.salm94))}
+          {this.salm(GF.rs(OFICI.salm94, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.gloria('1')}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.antInvitatori)}</Text>
+            <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.antInvitatori, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           </Text>
         </View>
       )
@@ -246,64 +246,64 @@ export default class OficiDisplay extends Component {
   }
 
   himne(LT, weekDay, nit, setmana, OFICI){
-    return(<Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.himne)}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.himne, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>);
   }
 
   salmodia(LT, setmana, weekDay, cicle, OFICI){
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol1)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {OFICI.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(OFICI.com1)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(OFICI.com1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(OFICI.salm1))}
+        {this.salm(GF.rs(OFICI.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(OFICI.gloria1)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol2)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {OFICI.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(OFICI.com2)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(OFICI.com2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(OFICI.salm2))}
+        {this.salm(GF.rs(OFICI.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(OFICI.gloria2)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol3)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {OFICI.com3 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(OFICI.com3)}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(OFICI.com3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(OFICI.salm3))}
+        {this.salm(GF.rs(OFICI.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria(OFICI.gloria3)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
       </View>
     );
@@ -313,10 +313,10 @@ export default class OficiDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.respV)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.respV, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.respR)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.respR, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
       </View>
     );
@@ -326,42 +326,42 @@ export default class OficiDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia1)}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura1)}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura1)}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Responsori</Text>
-        {OFICI.citaResp1 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.citaResp1)}</Text> : null}
+        {OFICI.citaResp1 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.citaResp1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text> : null}
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(OFICI.resp1Part1),GF.rs(OFICI.resp1Part2))}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(OFICI.resp1Part1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(OFICI.resp1Part2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp1Part3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp1Part3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp1Part2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp1Part2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura segona</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia2)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura2)}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura2)}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Responsori</Text>
-        {OFICI.versResp2 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.versResp2)}</Text> : null}
+        {OFICI.versResp2 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.versResp2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text> : null}
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(OFICI.resp2Part1),GF.rs(OFICI.resp2Part2))}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(OFICI.resp2Part1, this.props.superTestMode, this.props.testErrorCB.bind(this)),GF.rs(OFICI.resp2Part2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp2Part3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp2Part3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp2Part2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.resp2Part2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
       </View>
     )
@@ -371,90 +371,90 @@ export default class OficiDisplay extends Component {
     return(
       <View>
         <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia1)}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura1)}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura1)}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol1)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(GF.rs(OFICI.salm1))}
+        {this.salm(GF.rs(OFICI.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio1))}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura segona</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia2)}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita2)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura2)}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura2)}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol2)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(GF.rs(OFICI.salm2))}
+        {this.salm(GF.rs(OFICI.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio2))}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura tercera</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia3)}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita3)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura3)}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura3)}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol3)}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(OFICI.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(GF.rs(OFICI.salm3))}
+        {this.salm(GF.rs(OFICI.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)))}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.gloria('1')}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Ant.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3)}</Text>
+          <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura quarta</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia4)}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita4)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura4)}</Text>
+        <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura4)}</Text>
+        <Text selectable={true} style={this.styles.blackJustified}>{GF.rs(OFICI.lectura4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
       </View>
     )
   }
@@ -476,7 +476,7 @@ export default class OficiDisplay extends Component {
   }
 
   oracio(LT, weekDay, OFICI){
-    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio))}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>);
   }
 }
 
