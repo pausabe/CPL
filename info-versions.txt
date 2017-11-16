@@ -28,7 +28,7 @@ v1.3(25.10.2017)[An11,Ap5] - [7625c5a]
   - Millores del codi, cap efecte per l'usuari (under the hood)
   - Solucionats errors que causaven l'apagament de l'aplicació en certes condicions
   - Opció de l'any 2018 ja disponible, en fase de proves
-v1.4(10.11.2017)[An12,Ap6] - [????]
+v1.4(10.11.2017)[An12,Ap6] - [a94cc00]
   - Solucionats alguns errors
       - amb solemnitats que depenien del dia de Pentacosta del 2018
       - en les pregàries de Laudes i Vespres

@@ -9,6 +9,9 @@ import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
+import PopupDialog, {
+  DialogTitle,
+} from 'react-native-popup-dialog';
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
 import SOUL from './Classes/SOUL/SOUL';
@@ -97,7 +100,7 @@ export default class HomeScreenController extends Component {
     this.evReady = false;
 
     //this is just for android. You must change for ios in NavigatorController as well
-    this.date = new Date(/*2018,4,19*/);
+    this.date = new Date(/*2018,0,1*/);
 
     this.minDatePicker = new Date(2017,0,2);
     this.maxDatePicker = new Date(2018,11,28);
@@ -321,8 +324,9 @@ export default class HomeScreenController extends Component {
         }
       });
       if(!this.evReady) {
-        SplashScreen.hide();
         this.evReady = true;
+        SplashScreen.hide();
+        if(this.isLatePray()) this.popupDialog.show();
       }
     }
     /*************** TEST THINGS - START *******************/
@@ -334,6 +338,15 @@ export default class HomeScreenController extends Component {
      }
     }
     /*************** TEST THINGS - END*******************/
+  }
+
+  isLatePray(){
+    var today = new Date();
+    var h = today.getHours();
+    if(this.evReady && h >= 0 && h < 5){
+      return true;
+    }
+    return false;
   }
 
   primVespres(){
@@ -532,14 +545,17 @@ export default class HomeScreenController extends Component {
     this.setState({isDateTimePickerVisible: false});
     // console.log("pickerAccept: " + newDate);
     if(newDate !== this.variables.date){
-      var tomorrow = new Date();
-      tomorrow.setFullYear(newDate.getFullYear());
-      tomorrow.setMonth(newDate.getMonth());
-      tomorrow.setDate(newDate.getDate() + 1);
-      this.dataTomorrow.date = tomorrow;
-      // console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
-      this.refreshEverything(newDate);
+      this.showThisDate(newDate)
     }
+  }
+
+  showThisDate(date){
+    var tomorrow = new Date();
+    tomorrow.setFullYear(date.getFullYear());
+    tomorrow.setMonth(date.getMonth());
+    tomorrow.setDate(date.getDate() + 1);
+    this.dataTomorrow.date = tomorrow;
+    this.refreshEverything(date);
   }
 
   datePickerCANCEL(){
@@ -553,6 +569,11 @@ export default class HomeScreenController extends Component {
       else if(this.santPress === 1) this.santPress = 2;
       this.setState({santPressed: !this.state.santPressed});
     }
+  }
+
+  onYestPress(yesterday){
+    this.showThisDate(yesterday);
+    this.popupDialog.dismiss();
   }
 
   jumpDisplay(type, superTestMode, title){
@@ -610,6 +631,8 @@ export default class HomeScreenController extends Component {
 
   render(){
     if(!this.renderTest){
+      var yesterday = new Date(this.date.getFullYear(),this.date.getMonth());
+      yesterday.setDate(this.date.getDate()-1);
       return(
         <View style={{flex: 1}}>
           <HomeScreen
@@ -633,6 +656,31 @@ export default class HomeScreenController extends Component {
             maximumDate={this.maxDatePicker}
             onConfirm={this.datePickerOK.bind(this)}
             onCancel={this.datePickerCANCEL.bind(this)}/>
+          <PopupDialog
+            ref={(popupDialog) => { this.popupDialog = popupDialog}}
+            width={0.9}
+            height={250}
+            dialogStyle={{backgroundColor: 'white'}}
+            dialogTitle={<DialogTitle titleTextStyle={{fontSize: 19, color: 'black'}} title="És més tard de les 12 de la nit!" />} >
+            <View style={{flex:1,paddingHorizontal:10,justifyContent: 'center'}}>
+              <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Ja estem a dia "+this.date.getDate()+" de "+GF.getMonthText(this.date.getMonth())+"."}</Text>
+              <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Voldries la litúrgia d'ahir dia "+yesterday.getDate()+" de "+GF.getMonthText(yesterday.getMonth())+"?"}</Text>
+            </View>
+            <View style={{justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom:10, flexDirection: 'row', backgroundColor: 'white'}}>
+              <View style={{flex: 1, alignItems: 'center'}}>
+                <TouchableOpacity onPress={this.onYestPress.bind(this, yesterday)}>
+                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,fontWeight: '600',textAlign: 'center',}}>{"Sí, la d'ahir dia"}</Text>
+                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,fontWeight: '600',textAlign: 'center',}}>{yesterday.getDate()+"/"+(yesterday.getMonth()+1)+"/"+yesterday.getFullYear()}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{flex: 1, alignItems: 'center'}}>
+                <TouchableOpacity onPress={() => this.popupDialog.dismiss()}>
+                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{"No, la d'avui dia"}</Text>
+                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </PopupDialog>
         </View>
       );
     }

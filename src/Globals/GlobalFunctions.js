@@ -1,6 +1,47 @@
 import GLOBAL from './Globals';
 
 module.exports = {
+  getMonthText(monthNum){
+    switch (monthNum) {
+      case 0:
+      return "gener"
+        break;
+      case 1:
+      return "febrer"
+        break;
+      case 2:
+      return "març"
+        break;
+      case 3:
+      return "abril"
+        break;
+      case 4:
+      return "maig"
+        break;
+      case 5:
+      return "juny"
+        break;
+      case 6:
+      return "juliol"
+        break;
+      case 7:
+      return "agost"
+        break;
+      case 8:
+      return "setembre"
+        break;
+      case 9:
+      return "octubre"
+        break;
+      case 10:
+      return "novembre"
+        break;
+      case 11:
+      return "desembre"
+        break;
+    }
+  },
+
   nextLloc(index){
     switch (index) {
       case 0:
