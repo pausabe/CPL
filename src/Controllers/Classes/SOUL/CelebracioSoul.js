@@ -819,9 +819,7 @@ export default class CelebracioSoul {
     this.OFICI.cita1 = TABLES.tempsSolemnitatsFestes.citaLect1Ofici;
     this.OFICI.titolLectura1 = TABLES.tempsSolemnitatsFestes.titolLect1Ofici;
     this.OFICI.lectura1 = TABLES.tempsSolemnitatsFestes.lectura1;
-    if(TABLES.tempsSolemnitatsFestes.citaResp1Ofici !== '-')
-      this.OFICI.citaResp1 = TABLES.tempsSolemnitatsFestes.citaResp1Ofici;
-    else this.OFICI.citaResp1 = '';
+    this.OFICI.citaResp1 = TABLES.tempsSolemnitatsFestes.citaResp1Ofici;
     this.OFICI.resp1Part1 = TABLES.tempsSolemnitatsFestes.resp1Part1Ofici;
     this.OFICI.resp1Part2 = TABLES.tempsSolemnitatsFestes.resp1Part2Ofici;
     this.OFICI.resp1Part3 = TABLES.tempsSolemnitatsFestes.resp1Part3Ofici;

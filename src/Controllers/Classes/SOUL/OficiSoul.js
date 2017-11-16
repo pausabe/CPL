@@ -404,9 +404,8 @@ export default class OficiSoul {
         break;
       case GLOBAL.N_OCTAVA:
         ant1 = this.state.tempsNadalOctava.ant1Ofici;
-        // console.log("ant1. " + ant1);
         titol1 = this.state.tempsNadalOctava.titolSalm1Ofici;
-        com1 = "";
+        com1 = "-";
         salm1 = this.state.tempsNadalOctava.salm1Ofici;
         gloria1 = this.state.tempsNadalOctava.gloriaOfici1;
         ant2 = this.state.tempsNadalOctava.ant2Ofici;

@@ -133,22 +133,22 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
+    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
+    this.superTest = this.testing && true; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 2, //1-31 (s'inclou en el test)
-      month: 0, //0-12
+      day: 10, //1-31 (s'inclou en el test)
+      month: 11, //0-12
       year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 27, //1-31 (s'inclou en el test)
-      month: 11, //0-12
+      day: 10, //1-31 (s'inclou en el test)
+      month: 0, //0-12
       year: 2018,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 5; //0-30 (s'inclou en el test)
+      var initalIndex = 11; //0-30 (s'inclou en el test)
       var finalIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(initalIndex);
       this.diocesiNameTest = GF.nextDiocesiName(initalIndex);

@@ -415,17 +415,17 @@ export default class VespresSoul {
       case GLOBAL.N_OCTAVA:
         ant1 = this.state.tempsSolemnitatsFestes.ant1Vespres2;
         titol1 = this.state.tempsSolemnitatsFestes.titol1Vespres2;
-        com1 = this.state.tempsSolemnitatsFestes.cita1Vespres2;
+        com1 = "-";
         salm1 = this.state.tempsSolemnitatsFestes.text1Vespres2;
         gloria1 = "1";
         ant2 = this.state.tempsSolemnitatsFestes.ant2Vespres2;
         titol2 = this.state.tempsSolemnitatsFestes.titol2Vespres2;
-        com2 = this.state.tempsSolemnitatsFestes.cita2Vespres2;
+        com2 = "-";
         salm2 = this.state.tempsSolemnitatsFestes.text2Vespres2;
         gloria2 = "1";
         ant3 = this.state.tempsSolemnitatsFestes.ant3Vespres2;
         titol3 = this.state.tempsSolemnitatsFestes.titol3Vespres2;
-        com3 = this.state.tempsSolemnitatsFestes.cita3Vespres2;
+        com3 = "-";
         salm3 = this.state.tempsSolemnitatsFestes.text3Vespres2;
         gloria3 = "1";
         break;
