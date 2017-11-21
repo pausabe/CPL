@@ -142,7 +142,7 @@ export default class HomeScreenController extends Component {
       this.TA = new TA();
       this.stateArr = [];
       this.stateArrIndex=0;
-      this.maxStateIndex=2500;
+      this.maxStateIndex=500;//36.300 caracters per LITURGIA, 0,0375MB per LITURGIA
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
@@ -151,9 +151,9 @@ export default class HomeScreenController extends Component {
       year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 30, //1-31 (no s'inclou en el test)
+      day: 28, //1-31 (no s'inclou en el test)
       month: 11, //0-11
-      year: 2017,
+      year: 2018,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);

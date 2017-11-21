@@ -43,8 +43,6 @@ export default class testAdapter {
   }
 
   _transformData(SA){
-    //36.300 caracters per LITURGIA
-    //0,0375MB per LITURGIA (un any, 365, 13,6MB)
     console.log("FileLog. SA.length: "+SA.length);
     var TD = "";
     var x;
