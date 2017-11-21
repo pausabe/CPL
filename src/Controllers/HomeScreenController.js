@@ -14,6 +14,7 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
+import TA from '../Tests/testAdapter';
 import SOUL from './Classes/SOUL/SOUL';
 import SettingsManager from './Classes/SettingsManager';
 import GLOBAL from "../Globals/Globals";
@@ -107,6 +108,7 @@ export default class HomeScreenController extends Component {
 
     this.state = {
       testInfo: 'testing correctly',
+      stateTestInfo: '',
       santPressed: false,
       isDateTimePickerVisible: false,
 
@@ -133,28 +135,35 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true; //fer-ho amb iphone X sense console i memories lliures actives
-    this.superTest = this.testing && true; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
+    this.testing = true //fer-ho amb iphone X sense console i memories lliures actives
+    this.stateTest = this.testing && true; //guarda l'estat. Mem lliures actives (MB x any)
+    this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
+    if(this.stateTest){
+      this.TA = new TA();
+      this.stateArr = [];
+      this.stateArrIndex=0;
+      this.maxStateIndex=2500;
+    }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 10, //1-31 (s'inclou en el test)
-      month: 11, //0-12
+      day: 2, //1-31 (s'inclou en el test)
+      month: 0, //0-11
       year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 10, //1-31 (s'inclou en el test)
-      month: 0, //0-12
-      year: 2018,
+      day: 30, //1-31 (no s'inclou en el test)
+      month: 11, //0-11
+      year: 2017,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      var initalIndex = 11; //0-30 (s'inclou en el test)
-      var finalIndex = 30; //0-30 (s'inclou en el test)
-      this.diocesiTest = GF.nextDiocesi(initalIndex);
-      this.diocesiNameTest = GF.nextDiocesiName(initalIndex);
-      this.llocTest = GF.nextLloc(initalIndex);
-      this.idTest = initalIndex;
-      this.maxIdTest = finalIndex;
+      this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
+      this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
+      this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
+      this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
+      this.llocTest = GF.nextLloc(this.initalDiocesiIndex);
+      this.idTest = this.initalDiocesiIndex;
+      this.maxIdTest = this.finalDiocesiIndex;
       console.log("TestLog. -------------------------------->>>TEST BEGINS<<<--------------------------------");
       console.log("TestLog. --------------------------------:::"+this.idTest+" -> "+this.diocesiTest+":::--------------------------------");
       console.log("TestLog. -----------------------------------"+this.initialDayTest.day+"/"+this.initialDayTest.month+"/"+this.initialDayTest.year+" -> "+this.finalDayTest.day+"/"+this.finalDayTest.month+"/"+this.finalDayTest.year+"-----------------------------------");
@@ -331,9 +340,12 @@ export default class HomeScreenController extends Component {
     }
     /*************** TEST THINGS - START *******************/
     else{
-      // console.log("setting state test");
+      SplashScreen.hide();
      if(this.superTest) this.openOracions('Ofici');
      else{
+       if(this.stateTest){
+         this.setLiturgiaStateTest();
+       }
        this.nextDayTest();
      }
     }
@@ -343,7 +355,7 @@ export default class HomeScreenController extends Component {
   isLatePray(){
     var today = new Date();
     var h = today.getHours();
-    if(this.evReady && h >= 0 && h < 5){
+    if(this.evReady && h >= 0 && h < 3){
       return true;
     }
     return false;
@@ -370,6 +382,11 @@ export default class HomeScreenController extends Component {
        nextDay.getMonth() === this.finalDayTest.month &&
        nextDay.getDate() === this.finalDayTest.day){
        if(this.idTest === this.maxIdTest){
+         if(this.stateTest) {
+           setTimeout(() => {
+             this.TA.writeState(this.stateArr,this.initialDayTest,this.finalDayTest,this.initalDiocesiIndex,this.finalDiocesiIndex,this.saveStateCB.bind(this),true);
+           }, 1000);
+         }
          this.setState({testInfo: "Test ended correctly"});
          console.log("TestLog. -------------------------------->>>TEST ENDS<<<--------------------------------");
        }
@@ -428,6 +445,35 @@ export default class HomeScreenController extends Component {
        this.setState({testInfo: "Testing correctly"});
      }
    }
+ }
+
+ setLiturgiaStateTest(){
+   var auxLIT = Object.assign({}, this.liturgicProps.LITURGIA);
+   stateDayStructure = {
+     date: {
+       day: this.variables.date.getDate(),
+       month: (this.variables.date.getMonth()+1),
+       year: this.variables.date.getFullYear(),
+     },
+     diocesi: this.variables.diocesi,
+     LIT: auxLIT,
+   }
+   this.stateArr[this.stateArrIndex] = stateDayStructure;
+   this.stateArrIndex += 1;
+
+   if(this.stateArrIndex===this.maxStateIndex){
+     console.log("whatda1: "+this.stateArr.length);
+     var auxArr = Object.assign({}, this.stateArr)
+     setTimeout(() => {
+       this.TA.writeState(auxArr,this.initialDayTest,this.finalDayTest,this.initalDiocesiIndex,this.finalDiocesiIndex,this.saveStateCB.bind(this),false);
+     }, 1000);
+     this.stateArr = [];
+     this.stateArrIndex=0;
+   }
+ }
+
+ saveStateCB(text){
+   this.setState({stateTestInfo:text});
  }
 
  error(){
@@ -664,7 +710,7 @@ export default class HomeScreenController extends Component {
             dialogTitle={<DialogTitle titleTextStyle={{fontSize: 19, color: 'black'}} title="És més tard de les 12 de la nit!" />} >
             <View style={{flex:1,paddingHorizontal:10,justifyContent: 'center'}}>
               <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Ja estem a dia "+this.date.getDate()+" de "+GF.getMonthText(this.date.getMonth())+"."}</Text>
-              <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Voldries la litúrgia d'ahir dia "+yesterday.getDate()+" de "+GF.getMonthText(yesterday.getMonth())+"?"}</Text>
+              <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Vols la litúrgia d’ahir dia "+yesterday.getDate()+" de "+GF.getMonthText(yesterday.getMonth())+"?"}</Text>
             </View>
             <View style={{justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom:10, flexDirection: 'row', backgroundColor: 'white'}}>
               <View style={{flex: 1, alignItems: 'center'}}>
@@ -693,6 +739,7 @@ export default class HomeScreenController extends Component {
           <Text>{this.idTest}</Text>
           <Text>{this.diocesiTest}</Text>
           <Text>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth()+1 < 10 ? `0${this.variables.date.getMonth()+1}` : this.variables.date.getMonth()+1}/{this.variables.date.getFullYear()}</Text>
+          <Text>{this.state.stateTestInfo}</Text>
         </View>
       );
     }

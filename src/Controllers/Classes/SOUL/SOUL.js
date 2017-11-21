@@ -1039,11 +1039,10 @@ export default class SOUL {
       dies += 1;
     }
     var cinta = new Date(date.getFullYear(), 8, dies);
-    // console.log(celType+" - CINTA: "+cinta);
     if(date.getDate() === cinta.getDate() && date.getMonth() === cinta.getMonth() &&
         date.getFullYear() === cinta.getFullYear()){
           if(celType === 'M') return 472;
-          if(celType === 'S') return 83;
+          if(celType === 'S') return 77;
         }
 
     //santsSolemnitats F - Dijous després de Pentecosta (Jesucrist, gran sacerdot per sempre)
