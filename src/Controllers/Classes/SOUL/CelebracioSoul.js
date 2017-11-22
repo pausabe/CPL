@@ -380,7 +380,6 @@ export default class CelebracioSoul {
           this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
         }
         else{
-          // console.log("right here broh");
           switch (tomCal) {
             case 'TSF':
               this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
@@ -945,7 +944,7 @@ export default class CelebracioSoul {
     this.NONA.oracio = TABLES.tempsSolemnitatsFestes.oraFiMenor;
 
 
-    //::::::TSF-NONA::::::
+    //::::::TSF-VESPRES::::::
     if(llati === 'true') this.VESPRES.himne = TABLES.tempsSolemnitatsFestes.himneVespres2Llati;
     else this.VESPRES.himne = TABLES.tempsSolemnitatsFestes.himneVespres2Cat;
     this.VESPRES.ant1 = TABLES.tempsSolemnitatsFestes.ant1Vespres2;

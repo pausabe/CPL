@@ -143,7 +143,10 @@ export default class HomeScreenController extends Component {
       this.TA = new TA();
       this.stateArr = [];
       this.stateArrIndex=0;
-      this.maxStateIndex=500;//NO TOCAR (500)! 36.300 caracters per LITURGIA, 0,0375MB per LITURGIA
+
+      //NO TOCAR (500)! 36.300 caracters per LITURGIA, 0,0375MB per LITURGIA
+      //Si poso -1 es farà un arxiu per cada diòcesi
+      this.maxStateIndex=-1;//500;
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
@@ -153,13 +156,13 @@ export default class HomeScreenController extends Component {
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
       day: 28, //1-31 (no s'inclou en el test)
-      month: 11, //0-11
-      year: 2018,
+      month: 0, //0-11
+      year: 2017,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
-      this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
+      this.finalDiocesiIndex = 2; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
       this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
       this.llocTest = GF.nextLloc(this.initalDiocesiIndex);
@@ -397,6 +400,7 @@ export default class HomeScreenController extends Component {
            console.log("TestLog. -------------------------------->>>TEST ENDS<<<--------------------------------");
          }
          else{
+           if(this.maxStateIndex===-1)this.writePart();
            firstDay = new Date(this.initialDayTest.year,this.initialDayTest.month,this.initialDayTest.day);
            this.idTest += 1;
            this.diocesiTest = GF.nextDiocesi(this.idTest);
@@ -448,15 +452,16 @@ export default class HomeScreenController extends Component {
    this.stateArr[this.stateArrIndex] = stateDayStructure;
    this.stateArrIndex += 1;
 
-   if(this.stateArrIndex===this.maxStateIndex){
-     console.log("whatda1: "+this.stateArr.length);
-     var auxArr = Object.assign({}, this.stateArr)
-     setTimeout(() => {
-       this.TA.writeState(auxArr,this.initialDayTest,this.finalDayTest,this.initalDiocesiIndex,this.finalDiocesiIndex,this.saveStateCB.bind(this),false);
-     }, 1000);
-     this.stateArr = [];
-     this.stateArrIndex=0;
-   }
+   if(this.stateArrIndex===this.maxStateIndex) this.writePart();
+ }
+
+ writePart(){
+   var auxArr = Object.assign({}, this.stateArr)
+   setTimeout(() => {
+     this.TA.writeState(auxArr,this.initialDayTest,this.finalDayTest,this.initalDiocesiIndex,this.finalDiocesiIndex,this.saveStateCB.bind(this),false);
+   }, 1000);
+   this.stateArr = [];
+   this.stateArrIndex=0;
  }
 
  saveStateCB(text){

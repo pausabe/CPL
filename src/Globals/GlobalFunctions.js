@@ -1,6 +1,78 @@
 import GLOBAL from './Globals';
 
 module.exports = {
+  getPrecNum(prec){
+    switch (prec) {
+      case "1":
+        return 1;
+        break;
+      case "2":
+        return 2;
+        break;
+      case "3":
+        return 3;
+        break;
+      case "4a":
+        return 4;
+        break;
+      case "4b":
+        return 5;
+        break;
+      case "4c":
+        return 6;
+        break;
+      case "4d":
+        return 7;
+        break;
+      case "5":
+        return 8;
+        break;
+      case "6":
+        return 9;
+        break;
+      case "7":
+        return 10;
+        break;
+      case "8a":
+        return 11;
+        break;
+      case "8b":
+        return 12;
+        break;
+      case "8c":
+        return 13;
+        break;
+      case "8d":
+        return 14;
+        break;
+      case "8e":
+        return 15;
+        break;
+      case "8f":
+        return 16;
+        break;
+      case "9":
+        return 17;
+        break;
+      case "10":
+        return 18;
+        break;
+      case "11a":
+        return 19;
+        break;
+      case "11b":
+        return 20;
+        break;
+      case "12":
+        return 21;
+        break;
+      case "13":
+        return 22;
+      default:
+      return 22;
+    }
+  },
+
   getMonthText(monthNum){
     switch (monthNum) {
       case 0:

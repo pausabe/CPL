@@ -6,6 +6,7 @@ import CompletesSoul from './CompletesSoul';
 import CelebracioSoul from './CelebracioSoul';
 import DBAdapter from '../../../Adapters/DBAdapter';
 import GLOBAL from '../../../Globals/Globals';
+import GF from '../../../Globals/GlobalFunctions';
 
 export default class SOUL {
   constructor(variables, liturgicProps, dataTomorrow, pentacosta, HS) {
@@ -81,28 +82,40 @@ export default class SOUL {
   }
 
   makeQueryies(variables, liturgicProps, dataTomorrow, pentacosta, HS){
+    console.log("PlaceLog. makeQueryies SOUL");
+
     celType = variables.celType;
     date = variables.date;
-    // console.log("datedate "+date);
     diocesi = variables.diocesi;
     invitatori = variables.invitatori;
     llati = variables.llati;
 
-    console.log("PlaceLog. makeQueryies SOUL");
-    console.log("InfoLog. pentacosta: " + pentacosta);
+
+    this.prec = 22;
+    if(date.getDay()===0){//diumenge
+      this.prec = 9;
+      if(liturgicProps.LT === GLOBAL.A_SETMANES ||
+          liturgicProps.LT === GLOBAL.A_FERIES ||
+          liturgicProps.LT === GLOBAL.Q_CENDRA ||
+          liturgicProps.LT === GLOBAL.Q_SETMANES ||
+          liturgicProps.LT === GLOBAL.Q_SET_SANTA ||
+          liturgicProps.LT === GLOBAL.P_OCTAVA ||
+          liturgicProps.LT === GLOBAL.P_SETMANES){
+            this.prec = 2;
+          }
+    }
+    console.log("InfoLog. Precedència inicial: "+this.prec);
+
 
     this.CT = celType;
-    // console.log("In SOUL, celType: " + celType + ", diocesi: " + diocesi);
     idDE_aux = this.findDiesEspecials(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, variables.diocesi);
     this.idDE = idDE_aux;
     console.log("InfoLog. idDE_aux: " + idDE_aux);
-    //idDE_aux = -1;
     if(idDE_aux === -1)
       idTSF_aux = this.findTempsSolemnitatsFestes(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
     else idTSF_aux = -1;
     this.idTSF = idTSF_aux;
     console.log("InfoLog. idTSF_aux: " + idTSF_aux);
-    //idTSF_aux = -1;
     var idTF = this.findTF(date, liturgicProps.LT, liturgicProps.setmana, pentacosta);
     console.log("InfoLog. idTF: " + idTF);
 
@@ -537,7 +550,6 @@ export default class SOUL {
     //taula 30.2 (#31): -
     if(this.tomorrowCal === 'TSF' || params.idTSF !== -1 || liturgicProps.LT === GLOBAL.Q_TRIDU || liturgicProps.LT === GLOBAL.N_OCTAVA){
       c += 1;
-      // console.log("hereeee2");
       if(params.idTSF === -1 && liturgicProps.LT === GLOBAL.N_OCTAVA){
         id = 1; //Només necessito Nadal (1) per N_OCTAVA
       }
@@ -547,7 +559,6 @@ export default class SOUL {
       if(this.tomorrowCal === 'TSF') {
         id = this.idTSFTomorrow;
       }
-      // console.log("OOOOOOOOOOO2 " + id);
       this.acceso.getLiturgia("tempsSolemnitatsFestes", id, (result) => {
         this.queryRows.tempsSolemnitatsFestesVespres1 = result;
         this.dataReceived(params);
@@ -707,7 +718,6 @@ export default class SOUL {
     if(params.idTSF === -1 && (celType === 'M' || celType === 'L' || celType === 'V')){
       c += 1;
 
-      // idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, 'S');
       idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
 
       if(celType === 'V' && idDM === -1){
@@ -738,7 +748,6 @@ export default class SOUL {
       c += 1;
       id = params.idDE;
       if(this.tomorrowCal === 'DE') id = this.idDETomorrow;
-      //console.log("UUUUUUUUUUUUUUUUUU: " + id);
       this.acceso.getLiturgia("diesespecials", id, (result) => {
         this.queryRows.diesespecials = result;
         this.dataReceived(params);
@@ -865,20 +874,20 @@ export default class SOUL {
     // console.log("this.idDE: " + this.idDE);
 
     if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' ||
-      (this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut))
-      || this.idTSF !== -1 || (this.idDE !== -1 && this.tomorrowCal === '-')){
-        // console.log("calls vespres1 - 1");
+      (this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut)) ||
+      (this.idTSF !== -1 && this.tomorrowCal !== 'TSF') || //quan dues TSF seguides es fa Vespres1 de la segona TSF
+      (this.idDE !== -1 && this.tomorrowCal === '-')){
+        console.log("InfoLog. Calls vespres1 - 1");
         this.LITURGIA.vespres1 = false;
         vespresCelDEF = this.CEL.VESPRES;
-        //console.log("Magdalena: " + this.CEL.VESPRES.himne + "\n\n......\n\n" + this.CEL.VESPRES1.himne);
     }
     else if(this.tomorrowCal === 'T'){
-      // console.log("calls vespres1 - 2");
+      console.log("InfoLog. Calls vespres1 - 2");
       this.LITURGIA.vespres1 = false;
       vespresCelDEF = this.CEL.VESPRES1;
     }
     else{
-      // console.log("calls vespres1 - 3");
+      console.log("InfoLog. Calls vespres1 - 3");
       this.LITURGIA.vespres1 = true;
       vespresCelDEF = this.CEL.VESPRES1;
     }
@@ -972,7 +981,7 @@ export default class SOUL {
 
   tomorrowCalVespres1CEL(date, LT, setmana, pentacosta, diocesi){
     console.log("PlaceLog. tomorrowCalVespres1CEL");
-    console.log("InfoLog. pentacosta: " + pentacosta);
+    // console.log("InfoLog. pentacosta: " + pentacosta);
     if(LT !== GLOBAL.Q_DIUM_PASQUA){
       console.log("InfoLog. tomorrowCalVespres1CEL: No és dium pasqua");
       if(LT === GLOBAL.Q_DIUM_RAMS) return 'DR';
@@ -1019,8 +1028,11 @@ export default class SOUL {
       var corImmaculat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+20);
       console.log("corImmaculat: "+corImmaculat);
       if(date.getDate() === corImmaculat.getDate() && date.getMonth() === corImmaculat.getMonth() &&
-          date.getFullYear() === corImmaculat.getFullYear())
+          date.getFullYear() === corImmaculat.getFullYear()){
+          var precAux = 10;
+          if(precAux<this.prec) this.prec = precAux;
           return 252;
+        }
     }
 
     //santsMemories M - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
@@ -1041,8 +1053,16 @@ export default class SOUL {
     var cinta = new Date(date.getFullYear(), 8, dies);
     if(date.getDate() === cinta.getDate() && date.getMonth() === cinta.getMonth() &&
         date.getFullYear() === cinta.getFullYear()){
-          if(celType === 'M') return 472;
-          if(celType === 'S') return 77;
+          if(celType === 'M') {
+            var precAux = 10;
+            if(precAux<this.prec) this.prec = precAux;
+            return 472;
+          }
+          if(celType === 'S') {
+            var precAux = 4;
+            if(precAux<this.prec) this.prec = precAux;
+            return 77;
+          }
         }
 
     //santsSolemnitats F - Dijous després de Pentecosta (Jesucrist, gran sacerdot per sempre)
@@ -1051,6 +1071,8 @@ export default class SOUL {
       console.log("InfoLog. granSacerdot: "+granSacerdot);
       if(date.getDate() === granSacerdot.getDate() && date.getMonth() === granSacerdot.getMonth() &&
           date.getFullYear() === granSacerdot.getFullYear()){
+            var precAux = 8;
+            if(precAux<this.prec) this.prec = precAux;
             return 52;
           }
     }
