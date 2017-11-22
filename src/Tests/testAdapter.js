@@ -4,7 +4,7 @@ export default class testAdapter {
     this.RNFS = require('react-native-fs');
 
     // create a path you want to write to
-    //this.path = this.RNFS.DocumentDirectoryPath + '/test.txt';
+    //this.path = this.RNFS.DocumentDirectoryPath + '/test.txt'; //at movile phone
     this.path = '/Users/Pau/Calaix/Projectes/CPL/states/';
 
     this.filePart = 0;

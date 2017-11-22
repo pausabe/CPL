@@ -136,15 +136,15 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true //fer-ho amb iphone X sense console i memories lliures actives
-    this.stateTest = this.testing && true; //guarda l'estat
+    this.testing = false; //fer-ho amb iphone X sense console i memories lliures actives
+    this.stateTest = this.testing && false; //guarda l'estat
     this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     if(this.stateTest){
       this.TA = new TA();
       this.stateArr = [];
       this.stateArrIndex=0;
 
-      //NO TOCAR (500)! 36.300 caracters per LITURGIA, 0,0375MB per LITURGIA
+      //Abans posava 500
       //Si poso -1 es farà un arxiu per cada diòcesi
       this.maxStateIndex=-1;//500;
     }
@@ -156,13 +156,13 @@ export default class HomeScreenController extends Component {
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
       day: 28, //1-31 (no s'inclou en el test)
-      month: 0, //0-11
-      year: 2017,
+      month: 11, //0-11
+      year: 2018,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
-      this.finalDiocesiIndex = 2; //0-30 (s'inclou en el test)
+      this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
       this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
       this.llocTest = GF.nextLloc(this.initalDiocesiIndex);
