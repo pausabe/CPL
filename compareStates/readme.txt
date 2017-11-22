@@ -1,5 +1,5 @@
 - Tenir en compte si està o no activades les memòries lliures
-- El test (2 anys, 31 diocesi) dura uns 40 min
+- El test (2 anys, 31 diocesi) dura uns 50 min i pesa +- 1GB 
 - Millor maxStateIndex és de 500, no tocar
 - TODO: en el nom de la carpeta afegir la versió, si hi ha lliures i la data del test
 -  ./compare.sh nomCarpeta1 nomCarpeta2 > result.txt
