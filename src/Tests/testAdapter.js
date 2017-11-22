@@ -13,14 +13,15 @@ export default class testAdapter {
   writeState(stateArr,idt,fdt,iDt,fDt,cb,lastW){
     this.filePart++;
     var dataShow = this._transformData(stateArr);
-    console.log("whatda2 "+ stateArr.length);
-
-    console.log("Part: "+this.filePart+" - size: "+dataShow.length);
 
     // write the file
     var idtAux = idt.day+'_'+idt.month+'_'+idt.year;
     var fdtAux = fdt.day+'_'+fdt.month+'_'+fdt.year;
-    var plusPath = "state["+idtAux+"-"+fdtAux+","+iDt+"-"+fDt+"]/";
+    var rightNow = new Date();
+    var rnDate = rightNow.getDate();
+    var rnMonth = rightNow.getMonth()+1;
+    var rnYear = rightNow.getFullYear();
+    var plusPath = rnDate+"_"+rnMonth+"_"+rnYear+" - state["+idtAux+"-"+fdtAux+","+iDt+"-"+fDt+"]/";
     var name = "state["+idtAux+"-"+fdtAux+","+iDt+"-"+fDt+"]Part"+this.filePart+".txt";
     var totalPath = this.path + plusPath + name;
     this.RNFS.mkdir(this.path + plusPath)
@@ -29,7 +30,8 @@ export default class testAdapter {
           .then((success) => {
             // console.log('FileLog. FILE WRITTEN!');
             if(lastW){
-              cb("All parts saved correctly");
+              var rightNow = new Date();
+              cb("All parts saved correctly at: "+rightNow);
             }
             else{
               cb("File saved correctly. Part: "+this.filePart);
@@ -43,7 +45,6 @@ export default class testAdapter {
   }
 
   _transformData(SA){
-    console.log("FileLog. SA.length: "+SA.length);
     var TD = "";
     var x;
     for(x in SA){
