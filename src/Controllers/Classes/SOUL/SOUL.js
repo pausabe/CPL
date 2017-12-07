@@ -607,11 +607,13 @@ export default class SOUL {
       this.queryRows.salteriComuOficiTF = '';
     }
 
-    //taula 34.1 (#32): - i //taula 36
-    if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (this.tomorrowCal === 'S' || ((params.idTSF === -1 && params.idDE === -1) && (celType === 'S' || celType === 'F')))){
-      console.log("#32. Inici: avui no és Q_DIUM_PASQUA i (o demà és S o avui no és TSF ni DE i avui és o S o F)");
+    //taula 34.1 (#32): - i //taula 36 (today)
+    if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (/*this.tomorrowCal === 'S' || */((params.idTSF === -1 && params.idDE === -1) && (celType === 'S' || celType === 'F')))){
+      // console.log("#32. Inici: avui no és Q_DIUM_PASQUA i (o demà és S o avui no és TSF ni DE i avui és o S o F)");
+      console.log("#32. Inici: avui no és Q_DIUM_PASQUA i (avui no és TSF ni DE i avui és o S o F)");
       c += 1;
-      idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
+
+      /*idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
       console.log("#32. idDM tomorrow: " + idDM);
       if(idDM !== -1){
         console.log("#32. És un dia movible");
@@ -647,12 +649,12 @@ export default class SOUL {
             });
           }
         }
-        else{
+        else{*/
           idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
           console.log("#32. idDM avui: " + idDM);
           if(idDM === -1){
             console.log("#32. Avui no és dia movible");
-            if(dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, dataTomorrow.diocesiMogut)){
+            /*if(dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, dataTomorrow.diocesiMogut)){
               console.log("#32. Demà hi ha mogut: " + dataTomorrow.diaMogut);
               var day = this.calculeDia(date, diocesi, dataTomorrow.diaMogut, dataTomorrow.diocesiMogut);
               console.log("#32. day: " + day);
@@ -663,7 +665,7 @@ export default class SOUL {
               });
             }
             else{
-              console.log("#32. Demà no hi ha mogut");
+              console.log("#32. Demà no hi ha mogut");*/
               var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
               console.log("#32. day: " + day);
               this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
@@ -671,7 +673,7 @@ export default class SOUL {
               console.log("DebugLog. 8");
               this.getOficisComuns(params, result, false);
               });
-            }
+            //}
           }
           else{
             console.log("#32. Avui és dia movible");
@@ -681,11 +683,11 @@ export default class SOUL {
               this.getOficisComuns(params, result, false);
             });
           }
-        }
-      }
+        //}
+      //}
     }
 
-    //taula 34.2 (#32): - i //taula 36
+    //taula 34.2 (#32): - i //taula 36 (tomorrow!)
     if(this.tomorrowCal === 'S'){
       c += 1;
       console.log("#32. [Extra] Demà cal S");
