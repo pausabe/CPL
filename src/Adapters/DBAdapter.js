@@ -54,7 +54,7 @@ export default class DBAdapter {
     day2 = tomorrow.getDate();
 
     var query = `SELECT * FROM anyliturgic WHERE any = '${year2}' AND mes = '${month2+1}' AND dia = '${day2}'`;
-    console.log("QUERY AnyTom: " + query);
+    console.log("QUERY AnyTomorrow: " + query);
     this.executeQuery(query,
       result => {
         // console.log(">>Tomorrow: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);

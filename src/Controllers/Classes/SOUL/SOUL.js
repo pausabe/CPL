@@ -617,11 +617,13 @@ export default class SOUL {
         console.log("#32. És un dia movible");
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitats = result;
+          console.log("DebugLog. 4");
           this.getOficisComuns(params, result, false);
         });
       }
       else{
         console.log("#32. No és un dia movible");
+        //No entenc perquè necessito aquest partat (l'extra per V1 està despres)
         if(this.tomorrowCal === 'S' && dataTomorrow.diaMogut === '-') {
           console.log("#32. Demà és S i no hi ha dia mogut");
           if(celType === 'F'){
@@ -629,15 +631,18 @@ export default class SOUL {
             var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
+              console.log("DebugLog. 5");
               this.getOficisComuns(params, result, false);
             });
           }
           else{
+            //No entenc perquè necessito aquest partat (l'extra per V1 està despres)
             console.log("#32. Avui no és F");
             var day = this.calculeDia(this.dataTomorrow.date, diocesi, "-", "-");
             console.log("#32. day: " + day);
             this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
+              console.log("DebugLog. 6");
               this.getOficisComuns(params, result, false);
             });
           }
@@ -653,6 +658,7 @@ export default class SOUL {
               console.log("#32. day: " + day);
               this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
+              console.log("DebugLog. 7");
               this.getOficisComuns(params, result, false);
               });
             }
@@ -662,6 +668,7 @@ export default class SOUL {
               console.log("#32. day: " + day);
               this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
               this.queryRows.santsSolemnitats = result;
+              console.log("DebugLog. 8");
               this.getOficisComuns(params, result, false);
               });
             }
@@ -670,6 +677,7 @@ export default class SOUL {
             console.log("#32. Avui és dia movible");
             this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
               this.queryRows.santsSolemnitats = result;
+              console.log("DebugLog. 9");
               this.getOficisComuns(params, result, false);
             });
           }
@@ -688,6 +696,7 @@ export default class SOUL {
         params.vespres1 = true;
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
+          console.log("DebugLog. 10");
           this.getOficisComuns(params, result, true);
         });
       }
@@ -709,6 +718,7 @@ export default class SOUL {
         params.vespres1 = true;
         this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
+          console.log("DebugLog. 11");
           this.getOficisComuns(params, result, true);
         });
       }
@@ -723,6 +733,7 @@ export default class SOUL {
       if(celType === 'V' && idDM === -1){
         this.acceso.getV((result) => {
           this.queryRows.santsMemories = result;
+          console.log("DebugLog. 1");
           this.getOficisComuns(params, result, false);
         });
       }
@@ -731,12 +742,14 @@ export default class SOUL {
           var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
           this.acceso.getSolMem("santsMemories", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsMemories = result;
+            console.log("DebugLog. 2");
             this.getOficisComuns(params, result, false);
           });
         }
         else{
           this.acceso.getSolMemDiesMov("santsMemories", idDM, (result) => {
             this.queryRows.santsMemories = result;
+            console.log("DebugLog. 3");
             this.getOficisComuns(params, result, false);
           });
         }
@@ -761,7 +774,7 @@ export default class SOUL {
   getOficisComuns(params, result, isForVespres1){
     if(result){
       categoria = result.Categoria;
-      console.log("InfoLog. Categoria: " + "." + categoria + ".");
+      console.log("InfoLog. Categoria: " + "." + categoria + ". ["+isForVespres1+"]");
 
       if(categoria !== '0000'){
         console.log("InfoLog. Més un accéss extra per OficisComuns");
@@ -813,45 +826,36 @@ export default class SOUL {
   }
 
   setSoul(HS, type, pregaria){
-    //console.log("COUNTLIT: " + this.countLit);
     switch (type) {
       case "ofici":
           this.countLit -= 1;
           this.LITURGIA.ofici = pregaria;
-          // console.log("setSoul OFICI " + this.LITURGIA.ofici.ant1);
         break;
       case "laudes":
           this.countLit -= 1;
           this.LITURGIA.laudes = pregaria;
-          // console.log("setSoul LAUDES");
         break;
       case "vespres":
           this.countLit -= 1;
           this.LITURGIA.vespres = pregaria;
-          // console.log("setSoul VESPRES");
         break;
       case "tercia":
           this.countLit -= 1;
           this.LITURGIA.tercia = pregaria;
-          // console.log("setSoul TERCIA");
         break;
       case "sexta":
           this.LITURGIA.sexta = pregaria;
           this.countLit -= 1;
-          // console.log("setSoul SEXTA");
         break;
       case "nona":
           this.countLit -= 1;
           this.LITURGIA.nona = pregaria;
-          // console.log("setSoul NONA");
         break;
       case "completes":
           this.countLit -= 1;
           this.LITURGIA.completes = pregaria;
-          // console.log("setSoul COMPLETES");
         break;
       case "celebracio":
-        // console.log("setSoul CELEBRACIO");
           this.CEL = pregaria;
           this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
@@ -875,7 +879,7 @@ export default class SOUL {
 
     if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' ||
       (this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut)) ||
-      (this.idTSF !== -1 && this.tomorrowCal !== 'TSF') || //quan dues TSF seguides es fa Vespres1 de la segona TSF
+      (this.idTSF !== -1 && this.tomorrowCal !== 'TSF') || //quan dues TSF seguides es fa Vespres1 de la segona TSF. Basicamen evito el conflicte de les Vespres de Sagrada Familia quan cau en 31/12 i l'andemà és Mare de Déi 1/1 (únic conflicte possible entre TSF)
       (this.idDE !== -1 && this.tomorrowCal === '-')){
         console.log("InfoLog. Calls vespres1 - 1");
         this.LITURGIA.vespres1 = false;
@@ -1476,7 +1480,6 @@ export default class SOUL {
   }
 
   calculeDia(date, diocesi, diaMogut, diocesiMogut){
-    console.log("WTF: " + date + " " + diocesi + " " + diaMogut + " " + diocesiMogut);
     if(diaMogut !== '-' && this.isDiocesiMogut(diocesi, diocesiMogut))
       return diaMogut;
 
