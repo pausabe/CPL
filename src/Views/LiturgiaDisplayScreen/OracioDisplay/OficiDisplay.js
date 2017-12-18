@@ -393,7 +393,7 @@ export default class OficiDisplay extends Component {
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio1, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio1, this.props.superTestMode, this.props.testErrorCB.bind(this)),false,LT)}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
@@ -421,7 +421,7 @@ export default class OficiDisplay extends Component {
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio2, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio2, this.props.superTestMode, this.props.testErrorCB.bind(this)),false,LT)}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
@@ -476,7 +476,7 @@ export default class OficiDisplay extends Component {
   }
 
   oracio(LT, weekDay, OFICI){
-    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(OFICI.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)),false,LT)}</Text>);
   }
 }
 

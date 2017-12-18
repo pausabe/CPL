@@ -42,6 +42,11 @@ export default class LaudesDisplay extends Component {
         color: '#FF0000',
         fontSize: GF.convertTextSize(textSize),
       },
+      redItalic:{
+        color: '#FF0000',
+        fontSize: GF.convertTextSize(textSize),
+        fontStyle: 'italic'
+      },
       redCenter: {
         color: '#FF0000',
         fontSize: GF.convertTextSize(textSize),
@@ -368,8 +373,15 @@ export default class LaudesDisplay extends Component {
     }
     else{
       var introPregs = allPregs.split(":")[0];
-      if(allPregs.search(introPregs+':\n') !== -1){
-        var pregsNoIntro = allPregs.replace(introPregs+':\n','');
+      // console.log("introPregs: " + introPregs);
+      // console.log("allPregs:\n" + allPregs);
+      if(allPregs.search(introPregs+':') !== -1){
+        var pregsNoIntro = allPregs.replace(introPregs+':','');
+        if(pregsNoIntro !== ''){
+          while(pregsNoIntro.charAt(0) === '\n' || pregsNoIntro.charAt(0) === ' '){
+            pregsNoIntro = pregsNoIntro.substring(1,pregsNoIntro.length);
+          }
+        }
       }
       else{
         console.log("InfoLog. something incorrect. Pregaries 1");
@@ -411,7 +423,7 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{"Aquí es poden afegir altres intencions."}</Text>
+        <Text selectable={true} style={this.styles.redItalic}>{"Aquí es poden afegir altres intencions."}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{pregsFinalPart}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -421,7 +433,7 @@ export default class LaudesDisplay extends Component {
   }
 
   oracio(LT, weekDay, LAUDES){
-    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(LAUDES.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(LAUDES.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)),false,LT)}</Text>);
   }
 }
 

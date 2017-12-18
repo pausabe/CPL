@@ -86,6 +86,8 @@ export default class SOUL {
 
     celType = variables.celType;
     date = variables.date;
+    this.LT = liturgicProps.LT;
+    this.date = date;
     diocesi = variables.diocesi;
     invitatori = variables.invitatori;
     llati = variables.llati;
@@ -435,7 +437,6 @@ export default class SOUL {
       if(params.idTSF !== -1 || celType === 'S' || celType === 'F' ||
         (date.getMonth() === 11 && (date.getDate() === 29 || date.getDate() === 30 || date.getDate() === 31)) ||
         (date.getMonth() === 0 && date.getDate() === 6)) {
-          console.log("tempLog1");
           cicleAux = 1;
           auxDay = 0;
       }
@@ -608,119 +609,62 @@ export default class SOUL {
     }
 
     //taula 34.1 (#32): - i //taula 36 (today)
-    if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (/*this.tomorrowCal === 'S' || */((params.idTSF === -1 && params.idDE === -1) && (celType === 'S' || celType === 'F')))){
-      // console.log("#32. Inici: avui no és Q_DIUM_PASQUA i (o demà és S o avui no és TSF ni DE i avui és o S o F)");
-      console.log("#32. Inici: avui no és Q_DIUM_PASQUA i (avui no és TSF ni DE i avui és o S o F)");
+    if(liturgicProps.LT !== GLOBAL.Q_DIUM_PASQUA && (((params.idTSF === -1 && params.idDE === -1) && (celType === 'S' || celType === 'F')))){
+      console.log("Log#32. Inici: avui no és Q_DIUM_PASQUA i (avui no és TSF ni DE i avui és o S o F)");
       c += 1;
 
-      /*idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
-      console.log("#32. idDM tomorrow: " + idDM);
-      if(idDM !== -1){
-        console.log("#32. És un dia movible");
-        this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
-          this.queryRows.santsSolemnitats = result;
-          console.log("DebugLog. 4");
-          this.getOficisComuns(params, result, false);
+      idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
+      console.log("Log#32. idDM avui: " + idDM);
+      if(idDM === -1){
+        console.log("Log#32. Avui no és dia movible");
+        var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
+        console.log("Log#32. day: " + day);
+        this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
+        this.queryRows.santsSolemnitats = result;
+        this.getOficisComuns(params, result, false);
         });
       }
       else{
-        console.log("#32. No és un dia movible");
-        //No entenc perquè necessito aquest partat (l'extra per V1 està despres)
-        if(this.tomorrowCal === 'S' && dataTomorrow.diaMogut === '-') {
-          console.log("#32. Demà és S i no hi ha dia mogut");
-          if(celType === 'F'){
-            console.log("#32. Avui és F");
-            var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
-            this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-              this.queryRows.santsSolemnitats = result;
-              console.log("DebugLog. 5");
-              this.getOficisComuns(params, result, false);
-            });
-          }
-          else{
-            //No entenc perquè necessito aquest partat (l'extra per V1 està despres)
-            console.log("#32. Avui no és F");
-            var day = this.calculeDia(this.dataTomorrow.date, diocesi, "-", "-");
-            console.log("#32. day: " + day);
-            this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-              this.queryRows.santsSolemnitats = result;
-              console.log("DebugLog. 6");
-              this.getOficisComuns(params, result, false);
-            });
-          }
-        }
-        else{*/
-          idDM = this.diesMov(date, liturgicProps.LT, liturgicProps.setmana, pentacosta, celType);
-          console.log("#32. idDM avui: " + idDM);
-          if(idDM === -1){
-            console.log("#32. Avui no és dia movible");
-            /*if(dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, dataTomorrow.diocesiMogut)){
-              console.log("#32. Demà hi ha mogut: " + dataTomorrow.diaMogut);
-              var day = this.calculeDia(date, diocesi, dataTomorrow.diaMogut, dataTomorrow.diocesiMogut);
-              console.log("#32. day: " + day);
-              this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-              this.queryRows.santsSolemnitats = result;
-              console.log("DebugLog. 7");
-              this.getOficisComuns(params, result, false);
-              });
-            }
-            else{
-              console.log("#32. Demà no hi ha mogut");*/
-              var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
-              console.log("#32. day: " + day);
-              this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
-              this.queryRows.santsSolemnitats = result;
-              console.log("DebugLog. 8");
-              this.getOficisComuns(params, result, false);
-              });
-            //}
-          }
-          else{
-            console.log("#32. Avui és dia movible");
-            this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
-              this.queryRows.santsSolemnitats = result;
-              console.log("DebugLog. 9");
-              this.getOficisComuns(params, result, false);
-            });
-          }
-        //}
-      //}
+        console.log("Log#32. Avui és dia movible");
+        this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
+          this.queryRows.santsSolemnitats = result;
+          this.getOficisComuns(params, result, false);
+        });
+      }
     }
 
     //taula 34.2 (#32): - i //taula 36 (tomorrow!)
     if(this.tomorrowCal === 'S'){
       c += 1;
-      console.log("#32. [Extra] Demà cal S");
+      console.log("Log#32. [Extra] Demà cal S i avui és diumenge de precedència menor a la S");
       idDM = this.diesMov(this.dataTomorrow.date, this.dataTomorrow.LT, this.dataTomorrow.setmana, pentacosta, this.dataTomorrow.celType);
-      console.log("#32. [Extra] idDM de demà: " + idDM);
+      console.log("Log#32. [Extra] idDM de demà: " + idDM);
       if(idDM !== -1){
-        console.log("#32. [Extra] Demà hi ha dia movible");
+        console.log("Log#32. [Extra] Demà hi ha dia movible");
         params.vespres1 = true;
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
-          console.log("DebugLog. 10");
           this.getOficisComuns(params, result, true);
         });
       }
       else{
-        console.log("#32. [Extra] Demà no hi ha dia movible");
+        console.log("Log#32. [Extra] Demà no hi ha dia movible");
         var day = '-';
         if(this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut))
           day = this.dataTomorrow.diaMogut;
 
         if(day === '-'){
-          console.log("#32. [Extra] Demà no hi ha mogut i cal fer uns ajustaments");
+          console.log("Log#32. [Extra] Demà no hi ha mogut i cal fer uns ajustaments");
           var auxDay = new Date();
           auxDay.setFullYear(date.getFullYear());
           auxDay.setMonth(date.getMonth());
           auxDay.setDate(date.getDate()+1);
           day = this.calculeDia(auxDay, diocesi, '-', '-');
         }
-        console.log("#32. [Extra] day definitiu: " + day);
+        console.log("Log#32. [Extra] day definitiu: " + day);
         params.vespres1 = true;
         this.acceso.getSolMem("santsSolemnitats", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
-          console.log("DebugLog. 11");
           this.getOficisComuns(params, result, true);
         });
       }
@@ -735,7 +679,6 @@ export default class SOUL {
       if(celType === 'V' && idDM === -1){
         this.acceso.getV((result) => {
           this.queryRows.santsMemories = result;
-          console.log("DebugLog. 1");
           this.getOficisComuns(params, result, false);
         });
       }
@@ -744,14 +687,12 @@ export default class SOUL {
           var day = this.calculeDia(date, diocesi, variables.diaMogut, variables.diocesiMogut);
           this.acceso.getSolMem("santsMemories", day, diocesi, variables.lloc, variables.diocesiName, this.liturgicProps.tempsespecific, (result) => {
             this.queryRows.santsMemories = result;
-            console.log("DebugLog. 2");
             this.getOficisComuns(params, result, false);
           });
         }
         else{
           this.acceso.getSolMemDiesMov("santsMemories", idDM, (result) => {
             this.queryRows.santsMemories = result;
-            console.log("DebugLog. 3");
             this.getOficisComuns(params, result, false);
           });
         }
@@ -875,19 +816,21 @@ export default class SOUL {
     this.setSomeInfo();
 
     console.log("PlaceLog. Calls");
-    // console.log("this.tomorrowCal: " + this.tomorrowCal);
-    // console.log("this.idTSF: " + this.idTSF);
-    // console.log("this.idDE: " + this.idDE);
 
-    if(this.tomorrowCal === '-' || this.tomorrowCal === 'F' ||
-      (this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut)) ||
-      (this.idTSF !== -1 && this.tomorrowCal !== 'TSF') || //quan dues TSF seguides es fa Vespres1 de la segona TSF. Basicamen evito el conflicte de les Vespres de Sagrada Familia quan cau en 31/12 i l'andemà és Mare de Déi 1/1 (únic conflicte possible entre TSF)
-      (this.idDE !== -1 && this.tomorrowCal === '-')){
-        console.log("InfoLog. Calls vespres1 - 1");
-        this.LITURGIA.vespres1 = false;
-        vespresCelDEF = this.CEL.VESPRES;
+    if(
+        this.tomorrowCal === '-' || //demà no hi ha cap celebració
+        this.tomorrowCal === 'F' || //demà hi ha Festa
+        /*(this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut)) ||*/ //demà és mogut
+        (this.idTSF !== -1 && this.tomorrowCal !== 'TSF') || //quan dues TSF seguides es fa Vespres1 de la segona TSF. Basicamen evito el conflicte de les Vespres de Sagrada Familia quan cau en 31/12 i l'andemà és Mare de Déi 1/1 (únic conflicte possible entre TSF)
+        (this.idDE !== -1 && this.tomorrowCal === '-') || //avui és DE i demà no hi ha celebració
+        (this.date.getDay()===0 && this.tomorrowCal==='S' && this.LT!==GLOBAL.O_ORDINARI) //Amb això generalitzo que DiumengeOrdinari>S i potser no és així
+      )
+    {
+      console.log("InfoLog. Calls vespres1 - 1");
+      this.LITURGIA.vespres1 = false;
+      vespresCelDEF = this.CEL.VESPRES;
     }
-    else if(this.tomorrowCal === 'T'){
+    else if(this.tomorrowCal === 'T'){ //demà és divendres Sant
       console.log("InfoLog. Calls vespres1 - 2");
       this.LITURGIA.vespres1 = false;
       vespresCelDEF = this.CEL.VESPRES1;

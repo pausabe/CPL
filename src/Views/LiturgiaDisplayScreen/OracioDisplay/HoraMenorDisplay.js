@@ -269,7 +269,7 @@ export default class HoraMenorDisplay extends Component {
   }
 
   oracio(LT, weekDay, HM){
-    return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(this.props.HORA_MENOR.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)),true)}</Text>);
   }
 }
 

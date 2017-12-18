@@ -42,6 +42,11 @@ export default class VespresDisplay extends Component {
         color: '#FF0000',
         fontSize: GF.convertTextSize(textSize),
       },
+      redItalic:{
+        color: '#FF0000',
+        fontSize: GF.convertTextSize(textSize),
+        fontStyle: 'italic'
+      },
       redCenter: {
         color: '#FF0000',
         fontSize: GF.convertTextSize(textSize),
@@ -310,8 +315,6 @@ export default class VespresDisplay extends Component {
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
 
-    // console.log("ASDF '" + allPregs + "'");
-
     if(allPregs.match(/—/g, "")) var numGuio = allPregs.match(/—/g, "").length;
     else return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
     if(allPregs.match(/\n/g, "")) var numEnter = allPregs.match(/\n/g, "").length;
@@ -323,8 +326,13 @@ export default class VespresDisplay extends Component {
     }
     else{
       var introPregs = allPregs.split(":")[0];
-      if(allPregs.search(introPregs+':\n') !== -1){
-        var pregsNoIntro = allPregs.replace(introPregs+':\n','');
+      if(allPregs.search(introPregs+':') !== -1){
+        var pregsNoIntro = allPregs.replace(introPregs+':','');
+        if(pregsNoIntro !== ''){
+          while(pregsNoIntro.charAt(0) === '\n' || pregsNoIntro.charAt(0) === ' '){
+            pregsNoIntro = pregsNoIntro.substring(1,pregsNoIntro.length);
+          }
+        }
       }
       else{
         console.log("InfoLog. something incorrect. Pregaries 1");
@@ -356,20 +364,8 @@ export default class VespresDisplay extends Component {
         console.log("InfoLog. something incorrect. Pregaries 4");
         return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
       }
-
-      /*if(!wrong){
-        console.log("numGuio: " + numGuio);
-        console.log("numEnter: " + numEnter);
-        console.log("allPregs:\n"+allPregs);
-        console.log("introPregs:\n"+introPregs);
-        console.log("pregsNoIntro:\n"+pregsNoIntro);
-        console.log("respPregs:\n"+respPregs);
-        console.log("pregaries:\n"+pregaries);
-        console.log("pregsFinalPart:\n"+pregsFinalPart);
-      }*/
     }
 
-    // if(!wrong){
       return(
         <View>
           <Text selectable={true} style={this.styles.black}>{introPregs}{':'}</Text>
@@ -378,21 +374,17 @@ export default class VespresDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.blackItalic}>{"Aquí es poden afegir altres intencions."}</Text>
+          <Text selectable={true} style={this.styles.redItalic}>{"Aquí es poden afegir altres intencions."}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.black}>{pregsFinalPart}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.blackItalic}>{"Pare nostre."}</Text>
         </View>
       );
-    // }
-    // else{
-      // return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
-    // }
   }
 
   oracio(LT, weekDay, VESPRES){
-    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(VESPRES.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)))}</Text>);
+    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(VESPRES.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)),false,LT)}</Text>);
   }
 }
 
