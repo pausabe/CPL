@@ -156,12 +156,12 @@ export default class HomeScreenController extends Component {
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
       day: 28, //1-31 (no s'inclou en el test)
-      month: 0, //0-11
+      month: 11, //0-11
       year: 2018,
     }
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      this.initalDiocesiIndex = 1; //0-30 (s'inclou en el test)
+      this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
       this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
       this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
