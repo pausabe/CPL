@@ -49,9 +49,9 @@ android_build_config(
 )
 
 android_resource(
-  name = "res",
-  package = "cpl.cpl",
-  res = "src/main/res",
+    name = "res",
+    package = "cpl.cpl",
+    res = "src/main/res",
 )
 
 android_binary(

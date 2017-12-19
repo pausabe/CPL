@@ -41,7 +41,7 @@ export default class DBAdapter {
     console.log("QueryLog. QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
-        // console.log(">>Today: " + result.rows.item(0).dia + '/' + result.rows.item(0).mes);
+        console.log("fuck you");
         this.getTomorrow(result.rows.item(0), year, month, day, callback);
       });
   }
