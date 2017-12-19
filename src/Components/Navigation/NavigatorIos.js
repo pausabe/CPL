@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Navigator,
   NavigatorIOS,
   Text,
   StyleSheet,
@@ -18,8 +17,6 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import EventEmitter from 'EventEmitter';
-
-import CustomTransitions from '../../Globals/CustomTransitions';
 import HomeScreenController from '../../Controllers/HomeScreenController';
 import SettingsScreen from '../../Views/SettingsScreen';
 import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
