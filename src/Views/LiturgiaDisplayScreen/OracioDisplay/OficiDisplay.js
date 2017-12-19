@@ -327,7 +327,7 @@ export default class OficiDisplay extends Component {
       <View>
         <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
         <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        {OFICI.cita1 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text> : null}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -372,7 +372,7 @@ export default class OficiDisplay extends Component {
       <View>
         <Text selectable={true} style={this.styles.red}>Lectura primera</Text>
         <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        {OFICI.cita1 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text> : null}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura1, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -400,7 +400,7 @@ export default class OficiDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura segona</Text>
         <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        {OFICI.cita2 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text> : null}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura2, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -428,7 +428,7 @@ export default class OficiDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura tercera</Text>
         <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        {OFICI.cita3 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text> : null}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -450,7 +450,7 @@ export default class OficiDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>Lectura quarta</Text>
         <Text selectable={true} style={this.styles.black}>{GF.rs(OFICI.referencia4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        {OFICI.cita4 !== '-' ? <Text selectable={true} style={this.styles.red}>{GF.rs(OFICI.cita4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text> : null}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenterBold}>{GF.rs(OFICI.titolLectura4, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}

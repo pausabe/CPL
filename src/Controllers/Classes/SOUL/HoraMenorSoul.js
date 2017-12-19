@@ -988,19 +988,19 @@ export default class HoraMenorSoul {
         case GLOBAL.Q_TRIDU:
           switch (HM) {
             case 'Tèrcia':
-              this.TERCIA.vers = this.state.tempsQuaresmaTridu.citaLecturaBreuTercia;
+              this.TERCIA.vers = this.state.tempsQuaresmaTridu.citaLectBreuTercia;
               this.TERCIA.lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuTercia;
               this.TERCIA.respV = this.state.tempsQuaresmaTridu.respVTercia;
               this.TERCIA.respR = this.state.tempsQuaresmaTridu.respRTercia;
               break;
             case 'Sexta':
-              this.SEXTA.vers = this.state.tempsQuaresmaTridu.citaLecturaBreuSexta;
+              this.SEXTA.vers = this.state.tempsQuaresmaTridu.citaLectBreuSexta;
               this.SEXTA.lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuSexta;
               this.SEXTA.respV = this.state.tempsQuaresmaTridu.respVSexta;
               this.SEXTA.respR = this.state.tempsQuaresmaTridu.respRSexta;
               break;
             case 'Nona':
-              this.NONA.vers = this.state.tempsQuaresmaTridu.citaLecturaBreuNona;
+              this.NONA.vers = this.state.tempsQuaresmaTridu.citaLectBreuNona;
               this.NONA.lecturaBreu = this.state.tempsQuaresmaTridu.lecturaBreuNona;
               this.NONA.respV = this.state.tempsQuaresmaTridu.respVNona;
               this.NONA.respR = this.state.tempsQuaresmaTridu.respRNona;
