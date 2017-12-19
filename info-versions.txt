@@ -30,10 +30,18 @@ v1.3(25.10.2017)[An11,Ap5] - [7625c5a]
   - Opció de l'any 2018 ja disponible, en fase de proves
 v1.4(10.11.2017)[An12,Ap6] - [a94cc00]
   - Solucionats alguns errors
-      - amb solemnitats que depenien del dia de Pentacosta del 2018
-      - en les pregàries de Laudes i Vespres
-      - en dies de Nadal
+    - amb solemnitats que depenien del dia de Pentecosta del 2018
+    - en les pregàries de Laudes i Vespres
+    - en dies de Nadal
   - Millorat quan alguna solemnitat moguda és només d'una diòcesi concreta
   - Text que corrobora que els textos són els oficials a l'apartat de Configuració
   - Nou test que garanteix la qualitat dels textos (under the hood)
   - iOs: Als iPads només es podrà fer servir en mode Portrait
+  v1.4(19.12.2017)[An13,Ap7] - [e71b72]
+    - Nou avís recordant que han passat les 12 de la nit
+    - Solucionats alguns errors
+      - amb conflictes de segones vespres de diumenges quan l'endemà és solemnitats
+      - en les pregàries d'advent
+      - en les conclusions de les oracions finals de les hores menors en temps forts
+    - Millora en els tests (uth)
+    - Millora estètica de les pregàries
