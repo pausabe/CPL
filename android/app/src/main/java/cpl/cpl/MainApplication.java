@@ -11,7 +11,7 @@ import com.facebook.soloader.SoLoader;
 import org.pgsqlite.SQLitePluginPackage;
 import java.util.Arrays;
 import java.util.List;
-import com.cboy.rn.splashscreen.SplashScreenReactPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

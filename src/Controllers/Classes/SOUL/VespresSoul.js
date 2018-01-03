@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-import Hr from 'react-native-hr';
 
 import GLOBAL from '../../../Globals/Globals';
 

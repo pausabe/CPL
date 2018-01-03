@@ -12,9 +12,6 @@ import {
   DatePickerIOS
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
-import PopupDialog, {
-  DialogTitle,
-} from 'react-native-popup-dialog';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import EventEmitter from 'EventEmitter';
 import HomeScreenController from '../../Controllers/HomeScreenController';

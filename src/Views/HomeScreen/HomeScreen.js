@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Platform,
   StatusBar,
-  Image,
+  ImageBackground,
   BackAndroid,
   ScrollView,
   TouchableOpacity,
@@ -122,7 +122,7 @@ export default class HomeScreen extends Component {
     auxPadding = 5;
     return (
       <View style={styles.container}>
-       <Image source={require('../../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
+       <ImageBackground source={require('../../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
          <View style={styles.infoContainer}>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
               <Text style={styles.infoText}>{this.props.ViewData.lloc.diocesiName}{" ("}{this.props.ViewData.lloc.lloc}{")"}
@@ -194,7 +194,7 @@ export default class HomeScreen extends Component {
                completesCB={this.props.completesCB}/>
            </View>
          }
-       </Image>
+       </ImageBackground>
      </View>
     )
   }

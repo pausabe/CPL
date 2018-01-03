@@ -5,7 +5,7 @@ import {
   View,
   Platform
 } from 'react-native';
-import Hr from 'react-native-hr';
+//import Hr from 'react-native-hr';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
@@ -79,25 +79,53 @@ export default class HoraMenorDisplay extends Component {
         }
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Hr lineColor='#CFD8DC' />
+
+
+
+
+
+
+
+
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>HIMNE</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, this.props.HM)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Hr lineColor='#CFD8DC' />
+
+
+
+
+
+
+
+
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.HM)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Hr lineColor='#CFD8DC' />
+
+
+
+
+
+
+
+
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.lecturaBreuResp(this.props.liturgicProps.LT, this.props.HM)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Hr lineColor='#CFD8DC' />
+
+
+
+
+
+
+
+
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -107,7 +135,14 @@ export default class HoraMenorDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Hr lineColor='#CFD8DC' />
+
+
+
+
+
+
+
+
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}

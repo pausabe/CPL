@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {View, Text, Slider, Switch, Picker, StyleSheet, Platform, TouchableOpacity} from 'react-native';
-import Hr from 'react-native-hr';
-import PopupDialog, {
-  DialogTitle,
-} from 'react-native-popup-dialog';
+//import Hr from 'react-native-hr';
 
 import GLOBAL from "../Globals/Globals";
 
@@ -56,10 +53,12 @@ export default class SettingsComponent extends Component{
                       {selectorComponent}
                   </View>
               </View>
-              <Hr style={styles.separator} lineColor={GLOBAL.hrColor} />
+
           </View>
         );
     }
+
+    /*<Hr style={styles.separator} lineColor={GLOBAL.hrColor} />*/
 
     _generateSwitch(){
         let selectorProps = this._mergeProps({

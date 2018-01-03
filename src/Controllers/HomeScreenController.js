@@ -9,9 +9,9 @@ import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
-import PopupDialog, {
+/*import PopupDialog, {
   DialogTitle,
-} from 'react-native-popup-dialog';
+} from 'react-native-popup-dialog';*/
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
 import TA from '../Tests/testAdapter';
@@ -336,13 +336,13 @@ export default class HomeScreenController extends Component {
       });
       if(!this.evReady) {
         this.evReady = true;
-        SplashScreen.hide();
-        if(this.isLatePray()) this.popupDialog.show();
+        //SplashScreen.hide();
+        //if(this.isLatePray()) this.popupDialog.show();
       }
     }
     /*************** TEST THINGS - START *******************/
     else{
-      SplashScreen.hide();
+      //SplashScreen.hide();
      if(this.superTest) this.openOracions('Ofici');
      else{
        if(this.stateTest){
@@ -611,7 +611,7 @@ export default class HomeScreenController extends Component {
 
   onYestPress(yesterday){
     this.showThisDate(yesterday);
-    this.popupDialog.dismiss();
+    //this.popupDialog.dismiss();
   }
 
   jumpDisplay(type, superTestMode, title){
@@ -694,31 +694,7 @@ export default class HomeScreenController extends Component {
             maximumDate={this.maxDatePicker}
             onConfirm={this.datePickerOK.bind(this)}
             onCancel={this.datePickerCANCEL.bind(this)}/>
-          <PopupDialog
-            ref={(popupDialog) => { this.popupDialog = popupDialog}}
-            width={0.9}
-            height={250}
-            dialogStyle={{backgroundColor: 'white'}}
-            dialogTitle={<DialogTitle titleTextStyle={{fontSize: 19, color: 'black'}} title="És més tard de les 12 de la nit!" />} >
-            <View style={{flex:1,paddingHorizontal:10,justifyContent: 'center'}}>
-              <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Ja estem a dia "+this.date.getDate()+" de "+GF.getMonthText(this.date.getMonth())+"."}</Text>
-              <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Vols la litúrgia d’ahir dia "+yesterday.getDate()+" de "+GF.getMonthText(yesterday.getMonth())+"?"}</Text>
-            </View>
-            <View style={{justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom:10, flexDirection: 'row', backgroundColor: 'white'}}>
-              <View style={{flex: 1, alignItems: 'center'}}>
-                <TouchableOpacity onPress={this.onYestPress.bind(this, yesterday)}>
-                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,fontWeight: '600',textAlign: 'center',}}>{"Sí, la d'ahir dia"}</Text>
-                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,fontWeight: '600',textAlign: 'center',}}>{yesterday.getDate()+"/"+(yesterday.getMonth()+1)+"/"+yesterday.getFullYear()}</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{flex: 1, alignItems: 'center'}}>
-                <TouchableOpacity onPress={() => this.popupDialog.dismiss()}>
-                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{"No, la d'avui dia"}</Text>
-                  <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </PopupDialog>
+
         </View>
       );
     }
@@ -739,3 +715,28 @@ export default class HomeScreenController extends Component {
     /*************** TEST THINGS - END *******************/
   }
 }
+/*<PopupDialog
+  ref={(popupDialog) => { this.popupDialog = popupDialog}}
+  width={0.9}
+  height={250}
+  dialogStyle={{backgroundColor: 'white'}}
+  dialogTitle={<DialogTitle titleTextStyle={{fontSize: 19, color: 'black'}} title="És més tard de les 12 de la nit!" />} >
+  <View style={{flex:1,paddingHorizontal:10,justifyContent: 'center'}}>
+    <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Ja estem a dia "+this.date.getDate()+" de "+GF.getMonthText(this.date.getMonth())+"."}</Text>
+    <Text style={{color: 'grey', fontSize: 18,textAlign: 'center',}}>{"Vols la litúrgia d’ahir dia "+yesterday.getDate()+" de "+GF.getMonthText(yesterday.getMonth())+"?"}</Text>
+  </View>
+  <View style={{justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom:10, flexDirection: 'row', backgroundColor: 'white'}}>
+    <View style={{flex: 1, alignItems: 'center'}}>
+      <TouchableOpacity onPress={this.onYestPress.bind(this, yesterday)}>
+        <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,fontWeight: '600',textAlign: 'center',}}>{"Sí, la d'ahir dia"}</Text>
+        <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,fontWeight: '600',textAlign: 'center',}}>{yesterday.getDate()+"/"+(yesterday.getMonth()+1)+"/"+yesterday.getFullYear()}</Text>
+      </TouchableOpacity>
+    </View>
+    <View style={{flex: 1, alignItems: 'center'}}>
+      <TouchableOpacity onPress={() => this.popupDialog.dismiss()}>
+        <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{"No, la d'avui dia"}</Text>
+        <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()}</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</PopupDialog>*/
