@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View, Text, Slider, Switch, Picker, StyleSheet, Platform, TouchableOpacity} from 'react-native';
-import HR from './HRComponent';
 
+import HR from './HRComponent';
 import GLOBAL from "../Globals/Globals";
 
 export default class SettingsComponent extends Component{

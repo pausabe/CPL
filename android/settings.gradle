@@ -5,7 +5,6 @@ include ':react-native-splash-screen'
 project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
-include ':react-native-fbsdk'
-project(':react-native-fbsdk').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fbsdk/android')
-
+include ':react-native-sqlite-storage'
+project(':react-native-sqlite-storage').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sqlite-storage/src/android')
 include ':app'
