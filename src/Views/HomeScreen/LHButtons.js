@@ -7,8 +7,8 @@ import {
   Button,
   Platform
  } from 'react-native';
-//import Hr from 'react-native-hr';
 
+import HR from '../../Components/HRComponent';
 import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 import HomeScreenController from '../../Controllers/HomeScreenController';
 
@@ -17,12 +17,12 @@ export default class LHButtons extends Component {
     var nowDate = new Date();
     var hour = nowDate.getHours();
     //console.log("Hour: " + hour);
-    return (/*<Hr lineColor='#90A4AE' />*/
+    return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.buttonContainer} onPress={this.props.oficiCB}>
          <Text style={styles.buttonText}>{"Ofici de lectura"}</Text>
        </TouchableOpacity>
-
+        <HR/>
        <TouchableOpacity style={styles.buttonContainer} onPress={this.props.laudesCB}>
          {hour > 5 && hour < 9 ?
            <Text style={styles.buttonTextBold}>{"Laudes"}</Text>
@@ -30,14 +30,7 @@ export default class LHButtons extends Component {
            <Text style={styles.buttonText}>{"Laudes"}</Text>
          }
        </TouchableOpacity>
-
-
-
-
-
-
-
-
+       <HR/>
        <View style={{flex:1, flexDirection: 'column'}}>
          <View style={{flex:1, paddingTop: 5}}>
           <Text style={styles.buttonText}>{"Hora menor"}</Text>
@@ -66,14 +59,7 @@ export default class LHButtons extends Component {
            </TouchableOpacity>
          </View>
        </View>
-
-
-
-
-
-
-
-
+        <HR/>
        <TouchableOpacity style={styles.buttonContainer} onPress={this.props.vespresCB}>
         {hour > 17 && hour <= 23 ?
           <Text style={styles.buttonTextBold}>{"Vespres"}</Text>
@@ -84,14 +70,7 @@ export default class LHButtons extends Component {
             <Text style={styles.redCenter}>Primeres vespres</Text>
           : null }
        </TouchableOpacity>
-
-
-
-
-
-
-
-
+       <HR/>
        <TouchableOpacity style={styles.buttonContainer} onPress={this.props.completesCB}>
          {hour >= 0 && hour < 2 ?
            <Text style={styles.buttonTextBold}>{"Completes"}</Text>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View, Text, Slider, Switch, Picker, StyleSheet, Platform, TouchableOpacity} from 'react-native';
-//import Hr from 'react-native-hr';
+import HR from './HRComponent';
 
 import GLOBAL from "../Globals/Globals";
 
@@ -53,12 +53,10 @@ export default class SettingsComponent extends Component{
                       {selectorComponent}
                   </View>
               </View>
-
+              <HR/>
           </View>
         );
     }
-
-    /*<Hr style={styles.separator} lineColor={GLOBAL.hrColor} />*/
 
     _generateSwitch(){
         let selectorProps = this._mergeProps({

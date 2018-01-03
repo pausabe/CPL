@@ -6,7 +6,6 @@ import SettingsComponentAdapter from "../Adapters/SettingsComponentAdapter";
 
 export default class SettingsScreen extends Component {
   refreshHome(){
-    // console.log("fuck yeah");
     this.props.navigation.state.params.refresh();
   }
 

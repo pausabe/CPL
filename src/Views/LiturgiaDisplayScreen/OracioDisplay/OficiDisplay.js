@@ -5,7 +5,7 @@ import {
   View,
   Platform
 } from 'react-native';
-//import Hr from 'react-native-hr';
+import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
@@ -75,66 +75,32 @@ export default class OficiDisplay extends Component {
         <View>
           {this.introduccio(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, OFICI)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>HIMNE</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), false, this.props.liturgicProps.setmana, OFICI)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.cicle, OFICI)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>VERS</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.vers(this.props.liturgicProps.LT, OFICI)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>LECTURES</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.lectures(this.props.liturgicProps.LT, OFICI)}
           {this.himneOhDeu(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -144,14 +110,7 @@ export default class OficiDisplay extends Component {
             <Text selectable={true} style={this.styles.black}> Amén.</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -164,7 +123,7 @@ export default class OficiDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         </View>
       );
-    }/*<Hr lineColor='#CFD8DC' />*/
+    }
     else{
       return (
         <View>
@@ -172,28 +131,14 @@ export default class OficiDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.himneOhDeu(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
           {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), OFICI)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -277,14 +222,7 @@ export default class OficiDisplay extends Component {
             <Text selectable={true} style={this.styles.black}> I proclamaré la vostra lloança.</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
             <Text selectable={true} style={this.styles.black}> {GF.rs(OFICI.antInvitatori, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
@@ -526,14 +464,7 @@ export default class OficiDisplay extends Component {
       return(
         <View>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>HIMNE</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}

@@ -10,7 +10,7 @@ import {
   ScrollView,
   TouchableOpacity,
  } from 'react-native';
- import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import LHButtons from './LHButtons';

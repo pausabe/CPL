@@ -5,7 +5,7 @@ import {
   View,
   Platform
 } from 'react-native';
-//import Hr from 'react-native-hr';
+import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
@@ -73,92 +73,43 @@ export default class LaudesDisplay extends Component {
       <View>
         {this.introduccio(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, LAUDES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>HIMNE</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, LAUDES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), LAUDES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.lecturaBreu(this.props.liturgicProps.LT, LAUDES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>RESPONSORI BREU</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.responsori(this.props.liturgicProps.LT, LAUDES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CÀNTIC DE ZACARIES</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.cantic(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.ABC, LAUDES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>PREGÀRIES</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.pregaries(this.props.liturgicProps.LT, LAUDES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -167,14 +118,7 @@ export default class LaudesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -257,14 +201,7 @@ export default class LaudesDisplay extends Component {
             <Text selectable={true} style={this.styles.black}> I proclamaré la vostra lloança.</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+          <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>Ant.
             <Text selectable={true} style={this.styles.black}> {GF.rs(LAUDES.antInvitatori, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>

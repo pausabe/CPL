@@ -5,7 +5,7 @@ import {
   View,
   Platform
 } from 'react-native';
-//import Hr from 'react-native-hr';
+import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
@@ -83,38 +83,17 @@ export default class CompletesDisplay extends Component {
         }
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{"És lloable que aquí es faci examen de consciència, que, en la celebració comunitària, pot integrar-se en un acte penitencial com els que figuren en l'Ordre de la missa."}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>HIMNE</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.himne, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -199,14 +178,7 @@ export default class CompletesDisplay extends Component {
           </View>
         }
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -214,14 +186,7 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.lecturaBreu, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>RESPONSORI BREU</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -256,14 +221,7 @@ export default class CompletesDisplay extends Component {
           </View>
         }
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CÀNTIC SIMEÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -281,14 +239,7 @@ export default class CompletesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> {GF.rs(COMPLETES.antCantic)}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -298,14 +249,7 @@ export default class CompletesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -316,14 +260,7 @@ export default class CompletesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-
-
-
-
-
-
-
-
+        <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.antMare, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
