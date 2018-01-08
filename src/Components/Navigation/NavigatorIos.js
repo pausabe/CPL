@@ -9,7 +9,8 @@ import {
   StatusBar,
   Alert,
   Image,
-  DatePickerIOS
+  DatePickerIOS,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -48,31 +49,32 @@ export default class NavigatorIos extends Component {
       return false;
     }
 
-    // console.log("Navigator RENDER");
     return (
-        <View style={{flex: 1}}>
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor={GLOBAL.statusBarColor}
-            hidden={false}/>
+      <SafeAreaView style={{flex: 1, backgroundColor: GLOBAL.barColor }}>
+          <View style={{flex: 1}}>
+            <StatusBar
+              barStyle="light-content"
+              backgroundColor={GLOBAL.statusBarColor}
+              hidden={false}/>
 
-          <NavigatorIOS
-            ref='navIos'
-            initialRoute={{
-              component: HomeScreenController,
-              title: 'CPL',
-              passProps: {naviDate: this.date, events: this.eventEmitter},
-              rightButtonIcon: this.state.settingsIcon,
-              onRightButtonPress: () => this.rightPress(),
-              leftButtonIcon: this.state.calendarIcon,
-              onLeftButtonPress: () => this.leftPress(),
-            }}
+            <NavigatorIOS
+              ref='navIos'
+              initialRoute={{
+                component: HomeScreenController,
+                title: 'CPL',
+                passProps: {naviDate: this.date, events: this.eventEmitter},
+                rightButtonIcon: this.state.settingsIcon,
+                onRightButtonPress: () => this.rightPress(),
+                leftButtonIcon: this.state.calendarIcon,
+                onLeftButtonPress: () => this.leftPress(),
+              }}
 
-            style={{flex: 1}}
-            barTintColor={GLOBAL.barColor}
-            tintColor={GLOBAL.itemsBarColor}
-            titleTextColor={GLOBAL.itemsBarColor}/>
-      </View>
+              style={{flex: 1}}
+              barTintColor={GLOBAL.barColor}
+              tintColor={GLOBAL.itemsBarColor}
+              titleTextColor={GLOBAL.itemsBarColor}/>
+        </View>
+      </SafeAreaView>
     );
   }
 

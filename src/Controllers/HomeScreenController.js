@@ -8,10 +8,10 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-
 import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
+
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
 import TA from '../Tests/testAdapter';
@@ -22,19 +22,6 @@ import GF from "../Globals/GlobalFunctions";
 import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 
 export default class HomeScreenController extends Component {
-  componentDidUpdate(){
-    // console.log("Home updated");
-    /*if(this.superTest){
-      this.superTestOracioActual = GF.nextOracio(this.superTestOracioActual);
-      if(this.superTestOracioActual !== 'end'){
-        this.openOracions(this.variables.date, this.superTestOracioActual);
-      }
-      else{
-        this.superTestOracioActual = 'Ofici';
-      }
-    }*/
-  }
-
   componentDidMount() {
     if(Platform.OS==='android'){
       this.props.navigation.setParams({
@@ -133,7 +120,7 @@ export default class HomeScreenController extends Component {
 
     /*************** TEST THINGS - START *******************/
     this.testing = false; //fer-ho amb iphone X sense console. Serveix per saber si els acdessos a bd stan bé. sobretot per quan hi ha canvis a la bd
-    this.stateTest = this.testing && false; //guarda l'estat
+    this.stateTest = this.testing && true; //guarda l'estat
     this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     if(this.stateTest){
       this.TA = new TA();
@@ -549,7 +536,6 @@ export default class HomeScreenController extends Component {
       break;
       case 'pickerPressed':
         // console.log("pickerPressed");
-        //this.setState({ asdf: null}); //just for go to should
         this.picPres = true;
       break;
       case 'okPicker':

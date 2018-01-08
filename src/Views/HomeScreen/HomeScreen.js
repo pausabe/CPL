@@ -18,7 +18,7 @@ import GLOBAL from "../../Globals/Globals";
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
-    return 64;
+    return 44; //64
   }
   return 0; //54;
 }
