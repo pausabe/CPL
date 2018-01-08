@@ -36,6 +36,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* CPLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CPLTests.m */; };
 		3012493B6B9B4EDB91D3A9DE /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71A6BD199161458CBA7C3E15 /* Octicons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		5F16C2FF2003668A00CCF20B /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE77971FFD56B400999697 /* libSplashScreen.a */; };
 		5FAE779B1FFD579F00999697 /* libSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE779A1FFD56B400999697 /* libSQLite.a */; };
 		5FAE77AE1FFD58A600999697 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE77941FFD56B400999697 /* libRNVectorIcons.a */; };
 		5FAE77E41FFD59C500999697 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 5FAE77E31FFD59C500999697 /* www */; };
@@ -417,6 +418,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F16C2FF2003668A00CCF20B /* libSplashScreen.a in Frameworks */,
 				5FAE77AE1FFD58A600999697 /* libRNVectorIcons.a in Frameworks */,
 				5FAE779B1FFD579F00999697 /* libSQLite.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -816,6 +818,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = JB7WHGG69R;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1424,6 +1429,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = JB7WHGG69R;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
@@ -1439,7 +1445,9 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = cpl.cpl;
 				PRODUCT_NAME = CPL;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1449,6 +1457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JB7WHGG69R;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
@@ -1464,7 +1473,9 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = cpl.cpl;
 				PRODUCT_NAME = CPL;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

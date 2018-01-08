@@ -18,6 +18,7 @@
     "react-native-modal-dropdown": "^0.4.3",
     "react-native-modal-picker": "0.0.16",
     "react-native-picker-dropdown": "0.0.1",
+    "react-native-popup-dialog": "^0.10.45",
     "react-native-selectme": "^1.2.3",
     "react-native-shadow": "^1.1.2",
     "react-native-simple-picker": "^1.2.1",

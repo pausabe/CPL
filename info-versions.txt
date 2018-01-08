@@ -37,7 +37,7 @@ v1.4(10.11.2017)[An12,Ap6] - [a94cc00]
   - Text que corrobora que els textos són els oficials a l'apartat de Configuració
   - Nou test que garanteix la qualitat dels textos (under the hood)
   - iOs: Als iPads només es podrà fer servir en mode Portrait
-  v1.4(19.12.2017)[An13,Ap7] - [e71b72]
+  v1.5(19.12.2017)[An13,Ap7] - [e71b72]
     - Nou avís recordant que han passat les 12 de la nit
     - Solucionats alguns errors
       - amb conflictes de segones vespres de diumenges quan l'endemà és solemnitats
