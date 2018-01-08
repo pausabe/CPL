@@ -18,7 +18,10 @@ import GLOBAL from "../../Globals/Globals";
 
 function paddingBar(){
   if(Platform.OS === 'ios'){
-    return 44; //64
+    var DeviceInfo = require('react-native-device-info');
+    var iosVer = parseInt(DeviceInfo.getSystemVersion());
+    if(iosVer>=11) return 44;
+    return 64;
   }
   return 0; //54;
 }

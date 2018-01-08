@@ -11,6 +11,7 @@
     "react": "^16.0.0",
     "react-native": "^0.51.0",
     "react-native-datepicker-dialog": "0.0.4",
+    "react-native-device-info": "^0.13.0",
     "react-native-dropdown": "0.0.6",
     "react-native-fbsdk": "^0.6.3",
     "react-native-fs": "^2.9.2",

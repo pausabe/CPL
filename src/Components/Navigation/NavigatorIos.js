@@ -49,33 +49,47 @@ export default class NavigatorIos extends Component {
       return false;
     }
 
+    var DeviceInfo = require('react-native-device-info');
+    var iosVer = parseInt(DeviceInfo.getSystemVersion());
+
+    if(iosVer>=11){
+      return (
+        <SafeAreaView style={{flex: 1, backgroundColor: GLOBAL.barColor }}>
+            {this.Home(iosVer)}
+        </SafeAreaView>
+      );
+    }
+    else{
+      return (this.Home(iosVer));
+    }
+  }
+
+  Home(iosVer){
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: GLOBAL.barColor }}>
-          <View style={{flex: 1}}>
-            <StatusBar
-              barStyle="light-content"
-              backgroundColor={GLOBAL.statusBarColor}
-              hidden={false}/>
+      <View style={{flex: 1}}>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor={GLOBAL.statusBarColor}
+            hidden={false}/>
 
-            <NavigatorIOS
-              ref='navIos'
-              initialRoute={{
-                component: HomeScreenController,
-                title: 'CPL',
-                passProps: {naviDate: this.date, events: this.eventEmitter},
-                rightButtonIcon: this.state.settingsIcon,
-                onRightButtonPress: () => this.rightPress(),
-                leftButtonIcon: this.state.calendarIcon,
-                onLeftButtonPress: () => this.leftPress(),
-              }}
+          <NavigatorIOS
+            ref='navIos'
+            initialRoute={{
+              component: HomeScreenController,
+              title: 'CPL',
+              passProps: {naviDate: this.date, events: this.eventEmitter, iosVer: iosVer},
+              rightButtonIcon: this.state.settingsIcon,
+              onRightButtonPress: () => this.rightPress(),
+              leftButtonIcon: this.state.calendarIcon,
+              onLeftButtonPress: () => this.leftPress(),
+            }}
 
-              style={{flex: 1}}
-              barTintColor={GLOBAL.barColor}
-              tintColor={GLOBAL.itemsBarColor}
-              titleTextColor={GLOBAL.itemsBarColor}/>
-        </View>
-      </SafeAreaView>
-    );
+            style={{flex: 1}}
+            barTintColor={GLOBAL.barColor}
+            tintColor={GLOBAL.itemsBarColor}
+            titleTextColor={GLOBAL.itemsBarColor}/>
+      </View>
+    )
   }
 
   backPress(nav){
