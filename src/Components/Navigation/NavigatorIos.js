@@ -49,22 +49,14 @@ export default class NavigatorIos extends Component {
       return false;
     }
 
-    var DeviceInfo = require('react-native-device-info');
-    var iosVer = parseInt(DeviceInfo.getSystemVersion());
-
-    if(iosVer>=11){
-      return (
-        <SafeAreaView style={{flex: 1, backgroundColor: GLOBAL.barColor }}>
-            {this.Home(iosVer)}
-        </SafeAreaView>
-      );
-    }
-    else{
-      return (this.Home(iosVer));
-    }
+    return (
+      <SafeAreaView style={{flex: 1, backgroundColor: GLOBAL.barColor }}>
+          {this.Home()}
+      </SafeAreaView>
+    );
   }
 
-  Home(iosVer){
+  Home(){
     return (
       <View style={{flex: 1}}>
           <StatusBar
@@ -77,7 +69,7 @@ export default class NavigatorIos extends Component {
             initialRoute={{
               component: HomeScreenController,
               title: 'CPL',
-              passProps: {naviDate: this.date, events: this.eventEmitter, iosVer: iosVer},
+              passProps: {naviDate: this.date, events: this.eventEmitter},
               rightButtonIcon: this.state.settingsIcon,
               onRightButtonPress: () => this.rightPress(),
               leftButtonIcon: this.state.calendarIcon,
