@@ -187,6 +187,7 @@ export default class HomeScreen extends Component {
            <View style={styles.liturgiaContainer}>
              <LHButtons
                ViewData={this.props.ViewData}
+               variables={this.props.variables}
                oficiCB={this.props.oficiCB}
                laudesCB={this.props.laudesCB}
                terciaCB={this.props.terciaCB}

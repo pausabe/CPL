@@ -64,6 +64,7 @@ export default class SOUL {
 
     this.LITURGIA = { //8
       info_cel: null,
+      info_celTom: null,
       ofici: null,
       laudes: null,
       vespres1: false,

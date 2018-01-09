@@ -132,6 +132,7 @@ export default class HomeScreenController extends Component {
           typeText: '',
           titol: '',
           text: '',
+          titolCelTomorrow: '',
         },
         primVespres: false,
         santPressed: false,
@@ -333,6 +334,7 @@ export default class HomeScreenController extends Component {
             type: this.liturgicProps.LITURGIA.info_cel.typeCel,
             titol: this.liturgicProps.LITURGIA.info_cel.nomCel,
             text: this.liturgicProps.LITURGIA.info_cel.infoCel,
+            titolCelTom: this.liturgicProps.LITURGIA.info_cel.nomCelTom,
           },
           primVespres: this.primVespres(),
         }
@@ -677,6 +679,7 @@ export default class HomeScreenController extends Component {
         <View style={{flex: 1}}>
           <HomeScreen
             ViewData={this.state.ViewData}
+            variables={this.variables}
             santPressed={this.state.santPressed}
             santCB={this.onSantPressCB.bind(this)}
             oficiCB={this.LHButtonCB.bind(this, "Ofici",false)}

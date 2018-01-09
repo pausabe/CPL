@@ -14,6 +14,7 @@ export default class CelebracioSoul {
 
     this.INFO_CEL = {
       nomCel: '-',
+      nomCelTom: '-',
       infoCel: '-',
       typeCel: '-',
     }
@@ -344,6 +345,8 @@ export default class CelebracioSoul {
     }
 
     if(this.INFO_CEL.typeCel === '.') this.INFO_CEL.typeCel = variables.celType;
+    if(liturgicProps.LT === GLOBAL.Q_TRIDU && variables.date.getDay() === 6)
+      this.INFO_CEL.nomCelTom = "Diumenge de Pasqua";
 
     CEL = {
       INFO_CEL: this.INFO_CEL,
@@ -736,6 +739,10 @@ export default class CelebracioSoul {
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
     console.log("PlaceLog. makeVespres1TSF");
+
+    //::::::>>>>>TSF<<<<<::::::
+    //::::::TSF-INFO_CEL::::::
+    this.INFO_CEL.nomCelTom = TABLES.tempsSolemnitatsFestesVespres1.nomMemoria;
     //::::::TSF-VESPRES1::::::
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsSolemnitatsFestesVespres1.himneVespres1Llati;
     else this.VESPRES1.himne = TABLES.tempsSolemnitatsFestesVespres1.himneVespres1Cat;
@@ -1185,9 +1192,12 @@ export default class CelebracioSoul {
   }
 
   makeVespres1DE(TABLES, type, liturgicProps, variables, tomCal){
+    console.log("PlaceLog. makeVespres1DE");
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("PlaceLog. makeVespres1DE");
+
+    this.INFO_CEL.nomCelTom = TABLES.diesespecials.nomMemoria;
+
     //::::::DE-VESPRES1::::::
     if(llati === 'true') this.VESPRES1.himne = TABLES.diesespecials.himneVespres1Llati;
     else this.VESPRES1.himne = TABLES.diesespecials.himneVespres1Cat;
@@ -1649,9 +1659,12 @@ export default class CelebracioSoul {
   }
 
   makeVespres1SF(TABLES, type, liturgicProps, variables, tomCal){
+    console.log("PlaceLog. makeVespres1SF");
     llati = variables.llati;
     anyABC = liturgicProps.ABC;
-    console.log("PlaceLog. makeVespres1SF");
+
+    this.INFO_CEL.nomCelTom = TABLES.santsSolemnitatsFVespres1.nomMemoria;
+
     //::::::SF-VESPRES1::::::
     //SF-VESPRES1 -> HIMNE
     if(this.VESPRES1.himne = TABLES.santsSolemnitatsFVespres1.himneVespres1Llati !== '-'){
