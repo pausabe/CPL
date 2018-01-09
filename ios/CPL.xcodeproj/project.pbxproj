@@ -38,6 +38,7 @@
 		54B1C53E0DA14E9FA1870EEB /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDD963BDB564CD2BC909F07 /* libRNDeviceInfo.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		5F16C2FF2003668A00CCF20B /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE77971FFD56B400999697 /* libSplashScreen.a */; };
+		5F16C3AF2004A8A400CCF20B /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE778F1FFD56B400999697 /* libRNFS.a */; };
 		5FAE779B1FFD579F00999697 /* libSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE779A1FFD56B400999697 /* libSQLite.a */; };
 		5FAE77AE1FFD58A600999697 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE77941FFD56B400999697 /* libRNVectorIcons.a */; };
 		5FAE77E41FFD59C500999697 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 5FAE77E31FFD59C500999697 /* www */; };
@@ -436,6 +437,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F16C3AF2004A8A400CCF20B /* libRNFS.a in Frameworks */,
 				5F16C2FF2003668A00CCF20B /* libSplashScreen.a in Frameworks */,
 				5FAE77AE1FFD58A600999697 /* libRNVectorIcons.a in Frameworks */,
 				5FAE779B1FFD579F00999697 /* libSQLite.a in Frameworks */,

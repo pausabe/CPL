@@ -4,6 +4,7 @@ import {
   Text,
   Platform,
   TouchableOpacity,
+  BackHandler
  } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -28,11 +29,30 @@ export default class HomeScreenController extends Component {
             calPres: this.calendarPressed.bind(this),
             refreshFunction: this.refreshFunction.bind(this),
         });
+      BackHandler.addEventListener('hardwareBackPress', this.androidBack.bind(this));
     }
     else{
       this.props.events.addListener('myEvent', this.eventManager.bind(this));
       this.props.events.addListener('calendarPressed', this.calendarPressed.bind(this));
     }
+  }
+
+  componentWillUnmount(){
+    if(Platform.OS==='android'){
+      BackHandler.removeEventListener('hardwareBackPress', this.androidBack.bind(this));
+    }
+    else{
+      this.props.events.removeListener('myEvent', this.eventManager.bind(this));
+      this.props.events.removeListener('calendarPressed', this.calendarPressed.bind(this));
+    }
+  }
+
+  androidBack(){
+    if(this.state.santPressed && this.state.ViewData.celebracio.text !== '-'){
+      this.setState({santPressed: false});
+      return true;
+    }
+    return false;
   }
 
   static navigationOptions = ({ navigation }) => ({

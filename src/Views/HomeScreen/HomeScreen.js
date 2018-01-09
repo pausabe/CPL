@@ -6,7 +6,6 @@ import {
   Platform,
   StatusBar,
   ImageBackground,
-  BackAndroid,
   ScrollView,
   TouchableOpacity,
  } from 'react-native';
@@ -58,7 +57,7 @@ export default class HomeScreen extends Component {
     }
   }
 
-  romanize (num) {
+  romanize(num){
       if (!+num)
           return false;
       var digits = String(+num).split(""),
