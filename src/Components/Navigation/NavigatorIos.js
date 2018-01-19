@@ -59,7 +59,7 @@ export default class NavigatorIos extends Component {
   Home(){
     return (
       <View style={{flex: 1}}>
-          <StatusBar
+        <StatusBar
             barStyle="light-content"
             backgroundColor={GLOBAL.statusBarColor}
             hidden={false}/>

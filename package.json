@@ -9,11 +9,10 @@
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-native": "^0.51.0",
+    "react-native": "^0.52.0",
     "react-native-datepicker-dialog": "0.0.4",
     "react-native-device-info": "^0.13.0",
     "react-native-dropdown": "0.0.6",
-    "react-native-fbsdk": "^0.6.3",
     "react-native-fs": "^2.9.7",
     "react-native-modal-datetime-picker": "^4.11.0",
     "react-native-modal-dropdown": "^0.4.3",
@@ -25,7 +24,7 @@
     "react-native-simple-picker": "^1.2.1",
     "react-native-splash-screen": "^3.0.6",
     "react-native-sqlite-storage": "^3.3.4",
-    "react-native-vector-icons": "^4.4.3",
+    "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.0-beta.13"
   },
   "devDependencies": {

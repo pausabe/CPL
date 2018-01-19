@@ -129,6 +129,7 @@ export default class LaudesDisplay extends Component {
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        {Platform.OS === 'android' ? null : <Text />}
       </View>
     );
   }

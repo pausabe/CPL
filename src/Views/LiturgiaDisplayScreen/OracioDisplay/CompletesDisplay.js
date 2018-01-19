@@ -264,6 +264,7 @@ export default class CompletesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{GF.rs(COMPLETES.antMare, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        {Platform.OS === 'android' ? null : <Text />}
       </View>
     );
   }

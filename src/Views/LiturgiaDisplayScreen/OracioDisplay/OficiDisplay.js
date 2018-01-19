@@ -121,6 +121,7 @@ export default class OficiDisplay extends Component {
             <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          {Platform.OS === 'android' ? null : <Text />}
         </View>
       );
     }
