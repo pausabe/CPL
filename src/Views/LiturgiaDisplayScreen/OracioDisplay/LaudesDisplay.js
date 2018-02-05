@@ -8,10 +8,13 @@ import {
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
+import { GoogleAnalyticsTracker } from "react-native-google-analytics-bridge";
 
 export default class LaudesDisplay extends Component {
   constructor(props){
     super(props);
+
+    this.tracker = new GoogleAnalyticsTracker("UA-113574827-1");
 
     console.log("PlaceLog. LaudesDisplay");
 
@@ -68,6 +71,8 @@ export default class LaudesDisplay extends Component {
   }
 
   render() {
+    this.tracker.trackScreenView("Laudes");
+
     LAUDES = this.props.liturgicProps.LITURGIA.laudes;
     return (
       <View>

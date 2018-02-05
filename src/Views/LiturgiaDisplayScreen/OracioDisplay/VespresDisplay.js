@@ -8,10 +8,13 @@ import {
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
+import { GoogleAnalyticsTracker } from "react-native-google-analytics-bridge";
 
 export default class VespresDisplay extends Component {
   constructor(props){
     super(props);
+
+    this.tracker = new GoogleAnalyticsTracker("UA-113574827-1");
 
     console.log("PlaceLog. VespresDisplay");
 
@@ -68,6 +71,8 @@ export default class VespresDisplay extends Component {
   }
 
   render() {
+    this.tracker.trackScreenView("Vespres");
+
     VESPRES = this.props.liturgicProps.LITURGIA.vespres;
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
     return (

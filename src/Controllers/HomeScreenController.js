@@ -12,6 +12,11 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
+import {
+  GoogleAnalyticsTracker,
+  GoogleTagManager,
+  GoogleAnalyticsSettings
+} from "react-native-google-analytics-bridge";
 
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
@@ -95,11 +100,15 @@ export default class HomeScreenController extends Component {
 
   calendarPressed(){
     this.calPres = true;
-    this.setState({isDateTimePickerVisible: true})
+    this.setState({isDateTimePickerVisible: true});
+    this.tracker.trackEvent("Calendar", "Opened");
   }
 
   constructor(props) {
-    super(props)
+    super(props);
+
+    // GoogleAnalyticsSettings.setDispatchInterval(1);
+    this.tracker = new GoogleAnalyticsTracker("UA-113574827-1");
 
     this.evReady = false;
 
@@ -141,7 +150,7 @@ export default class HomeScreenController extends Component {
 
     /*************** TEST THINGS - START *******************/
     this.testing = false; //fer-ho amb iphone X sense console. Serveix per saber si els acdessos a bd stan bé. sobretot per quan hi ha canvis a la bd
-    this.stateTest = this.testing && false; //guarda l'estat
+    this.stateTest = this.testing && false; //guarda l'estat (50 min 2 anys 30 diòcesis)
     this.superTest = this.testing && false; //obre oracions. No estressar gens lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     if(this.stateTest){
       this.TA = new TA();
@@ -342,7 +351,11 @@ export default class HomeScreenController extends Component {
       if(!this.evReady) {
         this.evReady = true;
         SplashScreen.hide();
-        if(this.isLatePray()) this.popupDialog.show();
+        this.tracker.trackScreenView("Home");
+        if(this.isLatePray()) {
+          this.tracker.trackEvent("Popup - Late prayer", "Opened");
+          this.popupDialog.show();
+        }
       }
     }
     /*************** TEST THINGS - START *******************/

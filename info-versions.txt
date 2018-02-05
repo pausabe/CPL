@@ -45,8 +45,8 @@ v1.5(19.12.2017)[An13,Ap7] - [e71b72]
     - en les conclusions de les oracions finals de les hores menors en temps forts
   - Millora en els tests (uth)
   - Millora estètica de les pregàries
-v1.6(19.1.2018)[An14,Ap8] - [?????]
+v1.6(19.1.2018)[An14,Ap8] - [4fecc63]
   - Manteniment del codi
   - Ara podràs saber de què són les primeres vespres (quan no siguin del mateix dia)
-  - iOs: Adaptació per iPhone X
-  - Android: Quan es prem "enrere" amb la descripció d'alguna celebració oberta es tanca
+  - iOs: Compatibilitat amb iPhone X
+  - Android: Quan es prem "enrere" amb la descripció d'alguna celebració oberta aquesta es tanca
