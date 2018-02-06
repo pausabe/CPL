@@ -12,11 +12,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
-import {
-  GoogleAnalyticsTracker,
-  GoogleTagManager,
-  GoogleAnalyticsSettings
-} from "react-native-google-analytics-bridge";
 
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
@@ -101,14 +96,12 @@ export default class HomeScreenController extends Component {
   calendarPressed(){
     this.calPres = true;
     this.setState({isDateTimePickerVisible: true});
-    this.tracker.trackEvent("Calendar", "Opened");
+    if(this.props.screenProps.tracker.active)
+      this.props.screenProps.tracker.instance.trackEvent("Calendar", "Opened");
   }
 
   constructor(props) {
     super(props);
-
-    // GoogleAnalyticsSettings.setDispatchInterval(1);
-    this.tracker = new GoogleAnalyticsTracker("UA-113574827-1");
 
     this.evReady = false;
 
@@ -351,9 +344,11 @@ export default class HomeScreenController extends Component {
       if(!this.evReady) {
         this.evReady = true;
         SplashScreen.hide();
-        this.tracker.trackScreenView("Home");
+        if(this.props.screenProps.tracker.active)
+          this.props.screenProps.tracker.instance.trackScreenView("Inici");
         if(this.isLatePray()) {
-          this.tracker.trackEvent("Popup - Late prayer", "Opened");
+          if(this.props.screenProps.tracker.active)
+            this.props.screenProps.tracker.instance.trackEvent("Popup - Late prayer", "Opened");
           this.popupDialog.show();
         }
       }
@@ -619,6 +614,7 @@ export default class HomeScreenController extends Component {
 
 
   onSantPressCB(){
+    if(this.props.screenProps.tracker.active) this.props.screenProps.tracker.instance.trackEvent("SantPressed", "Some acction");
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
       if(this.santPress === 0) this.santPress = 1;
       else if(this.santPress === 1) this.santPress = 2;
@@ -652,6 +648,11 @@ export default class HomeScreenController extends Component {
     if(type === 'Ofici') title = 'Ofici de lectura';
     this.liturgiaPressed();
     if(this.liturgicProps.LITURGIA !== null){
+      if(!superTestMode){
+        if(this.props.screenProps.tracker.active){
+          this.props.screenProps.tracker.instance.trackScreenView(title);
+        }
+      }
       if(Platform.OS === 'ios'){
         if(superTestMode){
           setTimeout(() => {

@@ -8,14 +8,11 @@ import {
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
-import { GoogleAnalyticsTracker } from "react-native-google-analytics-bridge";
 
 export default class OficiDisplay extends Component {
 
   constructor(props){
     super(props);
-
-    this.tracker = new GoogleAnalyticsTracker("UA-113574827-1");
 
     console.log("PlaceLog. OficiDisplay");
 
@@ -72,8 +69,6 @@ export default class OficiDisplay extends Component {
   }
 
   render() {
-    this.tracker.trackScreenView("Ofici");
-
     OFICI = this.props.liturgicProps.LITURGIA.ofici;
     if(!OFICI.diumPasqua){
       return (

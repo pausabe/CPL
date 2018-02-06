@@ -28,7 +28,7 @@ export default class NavigatorIos extends Component {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
     //this is just for ios. You must change for android in HomeScreen as well
     this.date = new Date(/*2017,7,7*/);
@@ -69,7 +69,7 @@ export default class NavigatorIos extends Component {
             initialRoute={{
               component: HomeScreenController,
               title: 'CPL',
-              passProps: {naviDate: this.date, events: this.eventEmitter},
+              passProps: {naviDate: this.date, events: this.eventEmitter, screenProps: this.props.screenProps},
               rightButtonIcon: this.state.settingsIcon,
               onRightButtonPress: () => this.rightPress(),
               leftButtonIcon: this.state.calendarIcon,
@@ -88,11 +88,11 @@ export default class NavigatorIos extends Component {
     nav.pop();
   }
 
-  rightPress(nav){
+  rightPress(){
     this.eventEmitter.emit('myEvent', { type: 'settingsPressed'});
     this.refs.navIos.push({
       title: 'Configuració',
-      passProps: {title: 'Configuració'},
+      passProps: {screenProps: this.props.screenProps},
       component: SettingsScreen
     });
   }
@@ -100,7 +100,6 @@ export default class NavigatorIos extends Component {
   leftPress(){
     this.eventEmitter.emit('calendarPressed');
   }
-
 }
 
 const styles = StyleSheet.create({

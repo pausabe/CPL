@@ -8,12 +8,39 @@ import {
 import { NavigatorAndroid } from './src/Components/Navigation/NavigatorAndroid'
 import NavigatorIos from './src/Components/Navigation/NavigatorIos'
 import GLOBAL from "./src/Globals/Globals";
+import {
+  GoogleAnalyticsTracker,
+  GoogleTagManager,
+  GoogleAnalyticsSettings
+} from "react-native-google-analytics-bridge";
+import DeviceInfo from 'react-native-device-info';
 
 export default class CPL extends Component {
   render() {
+    //TRACKER THINGS
+    // GoogleAnalyticsSettings.setDispatchInterval(1); //this should be commented. 20 by defoult
+
+    const isEmulator = DeviceInfo.isEmulator();
+    const uniqueId = DeviceInfo.getUniqueID();
+
+    console.log("INFO! isEmulator: " + isEmulator + " uniqueId: " + uniqueId);
+
+    trackerActive = true && !isEmulator; //need a Privacity Policy
+
+    trackerInstance = null;
+    if(trackerActive) {
+      trackerInstance = new GoogleAnalyticsTracker("UA-113574827-1");
+      trackerInstance.setClient(uniqueId);
+    }
+    let tracker = {
+      active: trackerActive,
+      instance: trackerInstance,
+    }
+    //TRACKER THINGS
+
     if(Platform.OS === 'ios'){
       return(
-        <NavigatorIos />
+        <NavigatorIos screenProps={{tracker: tracker}}/>
       );
     }
     else{
@@ -22,7 +49,7 @@ export default class CPL extends Component {
           <StatusBar
             barStyle="light-content"
             backgroundColor={GLOBAL.statusBarColor}/>
-          <NavigatorAndroid />
+          <NavigatorAndroid screenProps={{tracker: tracker}}/>
         </View>
       );
     }

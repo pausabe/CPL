@@ -3,14 +3,8 @@ import { View, Text, StyleSheet, Platform, ScrollView, TouchableOpacity } from '
 
 import GLOBAL from "../Globals/Globals";
 import SettingsComponentAdapter from "../Adapters/SettingsComponentAdapter";
-import { GoogleAnalyticsTracker } from "react-native-google-analytics-bridge";
 
 export default class SettingsScreen extends Component {
-  constructor(props){
-    super(props);
-    this.tracker = new GoogleAnalyticsTracker("UA-113574827-1");
-  }
-
   refreshHome(){
     this.props.navigation.state.params.refresh();
   }
@@ -22,7 +16,8 @@ export default class SettingsScreen extends Component {
   }
 
   render() {
-    this.tracker.trackScreenView("Settings");
+    if(this.props.screenProps.tracker.active)
+      this.props.screenProps.tracker.instance.trackScreenView("Configuració");
 
       if(!this.state || this.state && !this.state.options){
           return (
