@@ -4,6 +4,7 @@ const normalTextSize = 17;
 const smallTextSize = 15;
 
 module.exports = {
+  idTracker: "UA-113574827-1",
   barColor: '#006064',
   itemsBarColor: '#FFFFFF',
   statusBarColor: '#00474a',

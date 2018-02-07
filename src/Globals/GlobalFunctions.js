@@ -1,6 +1,13 @@
 import GLOBAL from './Globals';
 
 module.exports = {
+  transformReadableDate(date){
+    year = date.getFullYear();
+    month = date.getMonth();
+    day = date.getDate();
+    return day+"/"+month+"/"+year;
+  },
+
   getPrecNum(prec){
     switch (prec) {
       case "1":

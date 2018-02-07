@@ -3,7 +3,8 @@ import {
   AppRegistry,
   Platform,
   View,
-  StatusBar
+  StatusBar,
+  AppState
 } from 'react-native';
 import { NavigatorAndroid } from './src/Components/Navigation/NavigatorAndroid'
 import NavigatorIos from './src/Components/Navigation/NavigatorIos'
@@ -16,31 +17,55 @@ import {
 import DeviceInfo from 'react-native-device-info';
 
 export default class CPL extends Component {
-  render() {
-    //TRACKER THINGS
-    // GoogleAnalyticsSettings.setDispatchInterval(1); //this should be commented. 20 by defoult
+  constructor(props) {
+    super(props);
 
+    //TRACKER THINGS
     const isEmulator = DeviceInfo.isEmulator();
     const uniqueId = DeviceInfo.getUniqueID();
 
-    console.log("INFO! isEmulator: " + isEmulator + " uniqueId: " + uniqueId);
+    trackerActive = true && !isEmulator;
+    // GoogleAnalyticsSettings.setDispatchInterval(1); //this should be commented. 20 by defoult
+    GoogleAnalyticsSettings.setDryRun(!trackerActive); //first I need a Privacity Policy
 
-    trackerActive = true && !isEmulator; //need a Privacity Policy
+    this.tracker = new GoogleAnalyticsTracker(GLOBAL.idTracker);
+    this.tracker.setClient(uniqueId); //identifica el dispositiu
+    this.tracker.setUser(uniqueId); //identifica l'usuari
+    //si algun dia faig login dusuaris, hauré de canviar el setUser per el de l'usuari
+    //d'aquesta manera si l'usuari entra a l'app des d'una tablet i un mobil
+    //analytics sabrà que és el mateix usuari
 
-    trackerInstance = null;
-    if(trackerActive) {
-      trackerInstance = new GoogleAnalyticsTracker("UA-113574827-1");
-      trackerInstance.setClient(uniqueId);
-    }
-    let tracker = {
-      active: trackerActive,
-      instance: trackerInstance,
-    }
+    console.log("AppState: Open 1rst time");
+    this.tracker.createNewSession("Inici");
+    this.tracker.trackEvent("AppState", "(First Inici)");
+    this.stateFlux = AppState.currentState;
     //TRACKER THINGS
+  }
 
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange.bind(this));
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
+  }
+
+  _handleAppStateChange(nextAppState){
+    if(this.stateFlux.match(/inactive|background/) && nextAppState === 'active') {
+      console.log("AppState: ReOpen");
+      this.tracker.trackEvent("AppState", "ReOpen");
+    }
+    else if(this.stateFlux === 'active' && nextAppState.match(/inactive|background/)){
+      console.log("AppState: leaving");
+      this.tracker.trackEvent("AppState", "Leaving");
+    }
+    this.stateFlux = nextAppState;
+  }
+
+  render() {
     if(Platform.OS === 'ios'){
       return(
-        <NavigatorIos screenProps={{tracker: tracker}}/>
+        <NavigatorIos screenProps={{tracker: this.tracker}}/>
       );
     }
     else{
@@ -49,7 +74,7 @@ export default class CPL extends Component {
           <StatusBar
             barStyle="light-content"
             backgroundColor={GLOBAL.statusBarColor}/>
-          <NavigatorAndroid screenProps={{tracker: tracker}}/>
+          <NavigatorAndroid screenProps={{tracker: this.tracker}}/>
         </View>
       );
     }

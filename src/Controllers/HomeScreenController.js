@@ -12,6 +12,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
+import {GoogleTagManager} from "react-native-google-analytics-bridge";
 
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
@@ -96,8 +97,7 @@ export default class HomeScreenController extends Component {
   calendarPressed(){
     this.calPres = true;
     this.setState({isDateTimePickerVisible: true});
-    if(this.props.screenProps.tracker.active)
-      this.props.screenProps.tracker.instance.trackEvent("Calendar", "Opened");
+    this.props.screenProps.tracker.trackEvent("Calendar", "Opened");
   }
 
   constructor(props) {
@@ -244,20 +244,19 @@ export default class HomeScreenController extends Component {
     Promise.all([
       SettingsManager.getSettingLloc((r) => {
         this.variables.lloc = r;
-        SettingsManager.getSettingDiocesis((r) => {
-          /*************** TEST THINGS - START *******************/
-          if(this.testing){
-            this.variables.diocesi = this.diocesiTest;
-            this.variables.diocesiName = this.diocesiNameTest;
-            this.variables.lloc = this.llocTest;
-          }
-          /*************** TEST THINGS - END *******************/
-          else{
-            this.variables.diocesi = GF.transformDiocesiName(r, this.variables.lloc);
-            this.variables.diocesiName = r;
-          }
-          // console.log("this.variables.diocesi: "+this.variables.diocesi);
-        })
+      }),
+      SettingsManager.getSettingDiocesis((r) => {
+        /*************** TEST THINGS - START *******************/
+        if(this.testing){
+          this.variables.diocesi = this.diocesiTest;
+          this.variables.diocesiName = this.diocesiNameTest;
+          this.variables.lloc = this.llocTest;
+        }
+        /*************** TEST THINGS - END *******************/
+        else{
+          this.variables.diocesi = GF.transformDiocesiName(r, this.variables.lloc);
+          this.variables.diocesiName = r;
+        }
       }),
       SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
@@ -269,6 +268,15 @@ export default class HomeScreenController extends Component {
       SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
     ]).then(results => {
+      trackText = "lliures: "+this.variables.lliures+
+            " | llati: "+this.variables.llati+
+            " | midaText: "+this.variables.textSize+
+            " | diocesi: "+this.variables.diocesiName+
+            " | lloc: "+this.variables.lloc+
+            " | invitatori: "+this.variables.invitatori;
+      this.props.screenProps.tracker.trackEvent("AppState", "SavingConf", {
+        label: trackText
+      });
       this.refreshDate(date);
     });
   }
@@ -344,11 +352,9 @@ export default class HomeScreenController extends Component {
       if(!this.evReady) {
         this.evReady = true;
         SplashScreen.hide();
-        if(this.props.screenProps.tracker.active)
-          this.props.screenProps.tracker.instance.trackScreenView("Inici");
+
         if(this.isLatePray()) {
-          if(this.props.screenProps.tracker.active)
-            this.props.screenProps.tracker.instance.trackEvent("Popup - Late prayer", "Opened");
+          this.props.screenProps.tracker.trackEvent("Popup - Late prayer", "Opened");
           this.popupDialog.show();
         }
       }
@@ -591,6 +597,8 @@ export default class HomeScreenController extends Component {
   }
 
   datePickerOK(newDate){
+    this.props.screenProps.tracker.trackEvent("Calendar", "Ok: "+GF.transformReadableDate(newDate));
+
     this.date = newDate;
     this.setState({isDateTimePickerVisible: false});
     // console.log("pickerAccept: " + newDate);
@@ -609,13 +617,15 @@ export default class HomeScreenController extends Component {
   }
 
   datePickerCANCEL(){
+    this.props.screenProps.tracker.trackEvent("Calendar", "Cancel");
     this.setState({isDateTimePickerVisible: false});
   }
 
 
   onSantPressCB(){
-    if(this.props.screenProps.tracker.active) this.props.screenProps.tracker.instance.trackEvent("SantPressed", "Some acction");
     if(this.liturgicProps.LITURGIA && this.liturgicProps.LITURGIA.info_cel.infoCel !== '-'){
+      this.props.screenProps.tracker.trackEvent("SantPressed", "Action "+this.santPress);
+
       if(this.santPress === 0) this.santPress = 1;
       else if(this.santPress === 1) this.santPress = 2;
       this.setState({santPressed: !this.state.santPressed});
@@ -623,7 +633,14 @@ export default class HomeScreenController extends Component {
   }
 
   onYestPress(yesterday){
+    this.props.screenProps.tracker.trackEvent("Popup - Late prayer", "Yesterday selected");
     this.showThisDate(yesterday);
+    this.popupDialog.dismiss();
+  }
+
+  onTodayPress(){
+    this.props.screenProps.tracker.trackEvent("Popup - Late prayer", "Today selected");
+
     this.popupDialog.dismiss();
   }
 
@@ -649,9 +666,7 @@ export default class HomeScreenController extends Component {
     this.liturgiaPressed();
     if(this.liturgicProps.LITURGIA !== null){
       if(!superTestMode){
-        if(this.props.screenProps.tracker.active){
-          this.props.screenProps.tracker.instance.trackScreenView(title);
-        }
+        this.props.screenProps.tracker.trackScreenView(title);
       }
       if(Platform.OS === 'ios'){
         if(superTestMode){
@@ -731,7 +746,7 @@ export default class HomeScreenController extends Component {
                 </TouchableOpacity>
               </View>
               <View style={{flex: 1, alignItems: 'center'}}>
-                <TouchableOpacity onPress={() => this.popupDialog.dismiss()}>
+                <TouchableOpacity onPress={this.onTodayPress.bind(this)}>
                   <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{"No, la d'avui dia"}</Text>
                   <Text style={{color: 'rgb(14, 122, 254)', fontSize: 17,textAlign: 'center',}}>{this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()}</Text>
                 </TouchableOpacity>

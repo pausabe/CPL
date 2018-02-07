@@ -41,7 +41,6 @@ export default class DBAdapter {
     console.log("QueryLog. QUERY ANY: " + query);
     this.executeQuery(query,
       result => {
-        console.log("fuck you");
         this.getTomorrow(result.rows.item(0), year, month, day, callback);
       });
   }

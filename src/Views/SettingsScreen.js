@@ -5,6 +5,11 @@ import GLOBAL from "../Globals/Globals";
 import SettingsComponentAdapter from "../Adapters/SettingsComponentAdapter";
 
 export default class SettingsScreen extends Component {
+  constructor(props){
+    super(props);
+    props.screenProps.tracker.trackScreenView("Configuració");
+  }
+
   refreshHome(){
     this.props.navigation.state.params.refresh();
   }
@@ -16,9 +21,6 @@ export default class SettingsScreen extends Component {
   }
 
   render() {
-    if(this.props.screenProps.tracker.active)
-      this.props.screenProps.tracker.instance.trackScreenView("Configuració");
-
       if(!this.state || this.state && !this.state.options){
           return (
             <View style={styles.scrollContainer}>

@@ -1,4 +1,7 @@
 import {AsyncStorage} from "react-native";
+import {GoogleAnalyticsTracker} from "react-native-google-analytics-bridge";
+import GLOBAL from "../../Globals/Globals";
+const tracker = new GoogleAnalyticsTracker(GLOBAL.idTracker);
 
 export const diocesis = {
     BARCELONA: "Barcelona",
@@ -121,26 +124,28 @@ export default class SettingsManager{
     }
 
     static setSettingUseLatin(value, callback){
+      tracker.trackEvent("Configuration", "New value of Llatí: "+value);
         return SettingsManager._setValueIfValid("useLatin", value,
             (val) => val === "true" || val === "false",
             callback);
     }
 
     static setSettingPrayLliures(value, callback){
-      // console.log("VALUE pray lliures:  " + value);
+      tracker.trackEvent("Configuration", "New value of Lliures: "+value);
         return SettingsManager._setValueIfValid("prayLliures", value,
             (val) => val === "true" || val === "false",
             callback);
     }
 
     static setSettingTextSize(value, callback){
+      tracker.trackEvent("Configuration", "New value of MidaText: "+value);
         return SettingsManager._setValueIfValid("textSize", value,
             (val) => !isNaN(val) && (parseFloat(val)*10)%10 == 0,
             callback);
     }
 
     static setSettingDiocesis(value, callback){
-      // console.log("VALUE Diocesis: " + value);
+      tracker.trackEvent("Configuration", "New value of Diocesis: "+value);
         return SettingsManager._setValueIfValid("diocesis", value,
             (val) => {
                 return findValueInObject(diocesis, val);
@@ -148,7 +153,7 @@ export default class SettingsManager{
     }
 
     static setSettingLloc(value, callback){
-      // console.log("VALUE Lloc: " + value);
+      tracker.trackEvent("Configuration", "New value of Lloc: "+value);
         return SettingsManager._setValueIfValid("lloc", value,
             (val) => {
                 return findValueInObject(lloc, val);
@@ -162,7 +167,7 @@ export default class SettingsManager{
     }
 
     static setSettingInvitatori(value, callback){
-      // console.log("calllll? " + callback);
+      tracker.trackEvent("Configuration", "New value of Invitatori: "+value);
         return SettingsManager._setValueIfValid("invitatori", value,
             (val) => {
                 return findValueInObject(invitatori, val);
