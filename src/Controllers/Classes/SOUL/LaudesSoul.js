@@ -37,6 +37,7 @@ export default class LaudesSoul {
       tempsAdventSetmanes: TABLES.tempsAdventSetmanes,
       tempsAdventSetmanesDium: TABLES.tempsAdventSetmanesDium,
       tempsAdventFeries: TABLES.tempsAdventFeries,
+      tempsAdventFeriesAnt: TABLES.tempsAdventFeriesAnt,
       tempsNadalOctava: TABLES.tempsNadalOctava,
       tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
       tempsSolemnitatsFestes: TABLES.tempsSolemnitatsFestes,
@@ -285,10 +286,11 @@ export default class LaudesSoul {
           com3 = this.state.salteriComuLaudes.com3;
           salm3 = this.state.salteriComuLaudes.salm3;
           gloria3 = this.state.salteriComuLaudes.gloria3;
-          if(weekDay === 0 && date.getDate() === 17){
-            ant1 = this.state.tempsAdventSetmanesDium.ant1Laudes;
-            ant2 = this.state.tempsAdventSetmanesDium.ant2Laudes;
-            ant3 = this.state.tempsAdventSetmanesDium.ant3Laudes;
+
+          if(weekDay !== 0){ //els diumenges sempre són dies especials
+            ant1 = this.state.tempsAdventFeriesAnt.ant1;
+            ant2 = this.state.tempsAdventFeriesAnt.ant2;
+            ant3 = this.state.tempsAdventFeriesAnt.ant3;
           }
         break;
         case GLOBAL.Q_SETMANES:

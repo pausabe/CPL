@@ -36,7 +36,8 @@ export default class SOUL {
       tempsAdventSetmanes: '', //17
       tempsAdventSetmanesDium: '', //18.1
       tempsAdventSetmanesDiumVespres1: '', //18.2
-      tempsAdventFeries: '', //19
+      tempsAdventFeries: '', //19.1
+      tempsAdventFeriesAnt: '', //19.2
       tempsNadalOctava: '', //20
       tempsNadalAbansEpifania: '', //21
       salteriComuEspPasquaDium: '', //22
@@ -385,6 +386,15 @@ export default class SOUL {
         this.queryRows.tempsAdventFeries = result;
         this.dataReceived(params);
       });
+
+      if(auxDay !== 0){
+        //special antifonas
+        c += 1;
+        this.acceso.getLiturgia("tempsAdventFeriesAnt", date.getDay(), (result) => {
+          this.queryRows.tempsAdventFeriesAnt = result;
+          this.dataReceived(params);
+        });
+      }
     }
 
     //taula 20 (#29): Ofici(20), Laudes(18), Vespres(17), HoraMenor(17)

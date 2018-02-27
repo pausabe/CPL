@@ -268,15 +268,6 @@ export default class HomeScreenController extends Component {
       SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
     ]).then(results => {
-      trackText = "lliures: "+this.variables.lliures+
-            " | llati: "+this.variables.llati+
-            " | midaText: "+this.variables.textSize+
-            " | diocesi: "+this.variables.diocesiName+
-            " | lloc: "+this.variables.lloc+
-            " | invitatori: "+this.variables.invitatori;
-      this.props.screenProps.tracker.trackEvent("AppState", "SavingConf", {
-        label: trackText
-      });
       this.refreshDate(date);
     });
   }
@@ -352,7 +343,17 @@ export default class HomeScreenController extends Component {
       if(!this.evReady) {
         this.evReady = true;
         SplashScreen.hide();
-
+        //TRACKING
+        trackText = "lliures: "+this.variables.lliures+
+              " | llati: "+this.variables.llati+
+              " | midaText: "+this.variables.textSize+
+              " | diocesi: "+this.variables.diocesiName+
+              " | lloc: "+this.variables.lloc+
+              " | invitatori: "+this.variables.invitatori;
+        this.props.screenProps.tracker.trackEvent("AppState", "SavingConf", {
+          label: trackText
+        });
+        //TRACKING
         if(this.isLatePray()) {
           this.props.screenProps.tracker.trackEvent("Popup - Late prayer", "Opened");
           this.popupDialog.show();

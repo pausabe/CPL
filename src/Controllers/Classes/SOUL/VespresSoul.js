@@ -38,6 +38,7 @@ export default class VespresSoul {
           tempsAdventSetmanesDiumVespres1: TABLES.tempsAdventSetmanesDiumVespres1,
           tempsPasquaSetmanesDiumVespres1: TABLES.tempsPasquaSetmanesDiumVespres1,
           tempsAdventFeries: TABLES.tempsAdventFeries,
+          tempsAdventFeriesAnt: TABLES.tempsAdventFeriesAnt,
           tempsNadalOctava: TABLES.tempsNadalOctava,
           tempsNadalAbansEpifania: TABLES.tempsNadalAbansEpifania,
           tempsSolemnitatsFestes: TABLES.tempsSolemnitatsFestes,
@@ -237,10 +238,11 @@ export default class VespresSoul {
         com3 = this.state.salteriComuVespres.com3;
         salm3 = this.state.salteriComuVespres.salm3;
         gloria3 = this.state.salteriComuVespres.gloria3;
-        if(weekDay === 0 && date.getDate() === 17){
-          ant1 = this.state.tempsAdventSetmanesDium.ant1Vespres2;
-          ant2 = this.state.tempsAdventSetmanesDium.ant2Vespres2;
-          ant3 = this.state.tempsAdventSetmanesDium.ant3Vespres2;
+
+        if(weekDay !== 0){
+          ant1 = this.state.tempsAdventFeriesAnt.ant1;
+          ant2 = this.state.tempsAdventFeriesAnt.ant2;
+          ant3 = this.state.tempsAdventFeriesAnt.ant3;
         }
         break;
         case GLOBAL.Q_SETMANES:

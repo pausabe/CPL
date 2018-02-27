@@ -35,7 +35,7 @@ export default class CPL extends Component {
     //d'aquesta manera si l'usuari entra a l'app des d'una tablet i un mobil
     //analytics sabrà que és el mateix usuari
 
-    console.log("AppState: Open 1rst time");
+    console.log("AppStateLog: Open 1rst time");
     this.tracker.createNewSession("Inici");
     this.tracker.trackEvent("AppState", "(First Inici)");
     this.stateFlux = AppState.currentState;
@@ -51,12 +51,12 @@ export default class CPL extends Component {
   }
 
   _handleAppStateChange(nextAppState){
-    if(this.stateFlux.match(/inactive|background/) && nextAppState === 'active') {
-      console.log("AppState: ReOpen");
+    if(this.stateFlux.match(/background/) && nextAppState === 'active') {
+      console.log("AppStateLog: ReOpen");
       this.tracker.trackEvent("AppState", "ReOpen");
     }
-    else if(this.stateFlux === 'active' && nextAppState.match(/inactive|background/)){
-      console.log("AppState: leaving");
+    else if(this.stateFlux.match(/active|inactive/) && nextAppState === 'background'){
+      console.log("AppStateLog: leaving");
       this.tracker.trackEvent("AppState", "Leaving");
     }
     this.stateFlux = nextAppState;
