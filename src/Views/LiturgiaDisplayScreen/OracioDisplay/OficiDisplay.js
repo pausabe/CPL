@@ -3,7 +3,8 @@ import {
   AppRegistry,
   Text,
   View,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
@@ -18,9 +19,17 @@ export default class OficiDisplay extends Component {
 
     var textSize = this.props.variables.textSize;
 
+    this.state = {
+      invitatori: false,
+    }
+
     this.styles = {
       black: {
         color: '#000000',
+        fontSize: GF.convertTextSize(textSize),
+      },
+      invitatoriButton: {
+        color: 'grey',
         fontSize: GF.convertTextSize(textSize),
       },
       blackJustified:{
@@ -192,12 +201,21 @@ export default class OficiDisplay extends Component {
     }
   }
 
+  _invitatoriButton(){
+    return(
+      <TouchableOpacity style={{alignItems: 'center'}} onPress={()=>this.setState({invitatori:!this.state.invitatori})}>
+        <Text style={this.styles.invitatoriButton}>{this.state.invitatori?"Hide":"Show"}{" Invitatori"}</Text>
+      </TouchableOpacity>
+    );
+  }
+
   introduccio(LT, setmana, OFICI){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    if(OFICI.invitatori !== "Ofici"){
+    if(!this.state.invitatori/*OFICI.invitatori !== "Ofici"*/){
       return(
         <View>
+          {this._invitatoriButton()}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
           </Text>
@@ -216,6 +234,7 @@ export default class OficiDisplay extends Component {
     else{
       return(
         <View>
+          {this._invitatoriButton()}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Obriu-me els llavis, Senyor.</Text>
           </Text>

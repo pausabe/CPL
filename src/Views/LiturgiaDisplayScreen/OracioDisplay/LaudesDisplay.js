@@ -3,7 +3,8 @@ import {
   AppRegistry,
   Text,
   View,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
@@ -17,10 +18,18 @@ export default class LaudesDisplay extends Component {
 
     var textSize = this.props.variables.textSize;
 
+    this.state = {
+      invitatori: false
+    }
+
     this.styles = {
       black: {
         color: '#000000',
         fontSize: GF.convertTextSize(textSize),
+      },
+      invitatoriButton: {
+        color: 'grey',
+        fontSize: GF.convertTextSize(textSize)-2,
       },
       blackBold: {
         color: '#000000',
@@ -171,12 +180,32 @@ export default class LaudesDisplay extends Component {
     }
   }
 
+  _invitatoriButton(){
+    return(
+      <View>
+        <TouchableOpacity onPress={()=>this.setState({invitatori:!this.state.invitatori})}>
+          <View style={{alignItems: 'center',paddingVertical: 10}}>
+            <Text style={this.styles.invitatoriButton}>{this.state.invitatori?"Amagar":"Començar amb"}{" l'invitatori"}</Text>
+          </View>
+        </TouchableOpacity>
+        {this.state.invitatori?
+          <View>
+            <Text selectable={true} style={this.styles.red}>{"INVITATORI"}</Text>
+              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          </View>
+          :null
+        }
+      </View>
+    );
+  }
+
   introduccio(LT, setmana, LAUDES){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    if(!LAUDES.diumPasqua && LAUDES.invitatori !== "Laudes"){
+    if(!LAUDES.diumPasqua && !this.state.invitatori/*LAUDES.invitatori !== "Laudes"*/){
       return(
         <View>
+          {this._invitatoriButton()}
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
           </Text>
@@ -195,6 +224,10 @@ export default class LaudesDisplay extends Component {
     else{
       return(
         <View>
+          {!LAUDES.diumPasqua?
+            <View>{this._invitatoriButton()}</View>
+            : null
+          }
           <Text selectable={true} style={this.styles.red}>V.
             <Text selectable={true} style={this.styles.black}> Obriu-me els llavis, Senyor.</Text>
           </Text>
