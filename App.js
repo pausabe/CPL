@@ -24,7 +24,7 @@ export default class CPL extends Component {
     const isEmulator = DeviceInfo.isEmulator();
     const uniqueId = DeviceInfo.getUniqueID();
 
-    trackerActive = true && !isEmulator;
+    trackerActive = false && !isEmulator;
     // GoogleAnalyticsSettings.setDispatchInterval(1); //this should be commented. 20 by defoult
     GoogleAnalyticsSettings.setDryRun(!trackerActive); //first I need a Privacity Policy
 
