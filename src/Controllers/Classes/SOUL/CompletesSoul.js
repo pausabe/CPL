@@ -131,11 +131,16 @@ export default class CompletesSoul{
         this.COMPLETES.respBreu3 = "Vós, Déu fidel, ens heu redimit.";
         this.COMPLETES.antCantic = "Salveu-nos, Senyor, durant el dia, guardeu-nos durant la nit, perquè sigui amb Crist la nostra vetlla i amb Crist el nostre descans. Al·leluia.";
         break;
-      case GLOBAL.Q_TRIDU:
-        if(weekDay === 6){ //primeres vespres diumenge de pasqua
-          //this.COMPLETES.antRespEspecial = "Avui és el dia en què ha obrat el Senyor: alegrem-nos i celebrem-lo, al·leluia.";
-          this.COMPLETES.antRespEspecial = "Crist es féu per nosaltres obedient fins a la mort i una mort de creu. Per això Déu l'ha exalçat i li ha concedit aquell nom que està per damunt de tot altre nom."
+      case GLOBAL.Q_SET_SANTA:
+        if(weekDay === 4){
+          this.COMPLETES.antRespEspecial = "Crist es féu per nosaltres obedient fins a la mort."
         }
+        break;
+      case GLOBAL.Q_TRIDU:
+        if(weekDay === 5)
+          this.COMPLETES.antRespEspecial = "Crist es féu per nosaltres obedient fins a la mort i una mort de creu."
+        else if(weekDay === 6)
+          this.COMPLETES.antRespEspecial = "Crist es féu per nosaltres obedient fins a la mort i una mort de creu. Per això Déu l'ha exalçat i li ha concedit aquell nom que està per damunt de tot altre nom."
         break;
       default:
         if(liturgicProps.tempsespecific === 'Pasqua'){

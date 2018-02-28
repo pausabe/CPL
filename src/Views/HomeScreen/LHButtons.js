@@ -69,12 +69,19 @@ export default class LHButtons extends Component {
          {this.props.ViewData.primVespres ?
           <View style={{padding: 5, paddingHorizontal: 15}}>
             {this.props.ViewData.celebracio.titolCelTom !== '-'?
-              <Text numberOfLines={1} style={styles.redCenter}>{this.props.ViewData.celebracio.titolCelTom}</Text>
+              <View>
+                {this.props.ViewData.celebracio.titolCelTom !== 'dium-pasqua'?
+                  <Text numberOfLines={1} style={styles.redCenter}>{this.props.ViewData.celebracio.titolCelTom}</Text>
+                  : null
+                }
+              </View>
               :
               <View>
                 {this.props.variables.date.getDay()===6?
                   <Text style={styles.redCenter}>{"Primeres vespres de diumenge"}</Text>
-                : <Text style={styles.redCenter}>{"Primeres vespres"}</Text>}
+                :
+                  <Text style={styles.redCenter}>{"Primeres vespres"}</Text>
+                }
               </View>
             }
           </View>

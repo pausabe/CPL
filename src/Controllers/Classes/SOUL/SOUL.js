@@ -592,11 +592,14 @@ export default class SOUL {
       c += 1;
       {date.getDay() === 6 ? id = 1 : id = date.getDay() + 2}
       if((dataTomorrow.LT === GLOBAL.Q_DIUM_PASQUA || this.tomorrowCal === 'TSF' || this.tomorrowCal === 'S') && !(date.getDay() === 6 || date.getDay() === 0)) id = 8;
-      if((celType === 'S' || this.idTSF !== -1) && !(date.getDay() === 6 || date.getDay() === 0)) id = 9;
-      if(liturgicProps.LT === GLOBAL.P_OCTAVA) id = 2;
-      if(liturgicProps.LT === GLOBAL.N_OCTAVA) id = 9;
-      if(liturgicProps.LT === GLOBAL.Q_SET_SANTA && !(date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6)) id = 9;
-      // console.log("COMPLETES ID: " + id);
+      else if((celType === 'S' || this.idTSF !== -1) && !(date.getDay() === 6 || date.getDay() === 0)) id = 9;
+      else if(liturgicProps.LT === GLOBAL.P_OCTAVA) id = 2;
+      else if(liturgicProps.LT === GLOBAL.N_OCTAVA) id = 9;
+      else if(liturgicProps.LT === GLOBAL.Q_SET_SANTA && (date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6)) id = 9;
+      else if(liturgicProps.LT === GLOBAL.Q_TRIDU) id = 9;
+      console.log("liturgicProps.LT",liturgicProps.LT);
+      console.log("get day: "+date.getDay());
+      console.log("COMPLETES ID: " + id);
       this.acceso.getLiturgia("salteriComuCompletes", id, (result) => {
         this.queryRows.salteriComuCompletes = result;
         this.dataReceived(params);
@@ -890,7 +893,7 @@ export default class SOUL {
       this.LITURGIA.info_cel.typeCel = '-';
     }
     else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.Q_TRIDU){
-      this.LITURGIA.info_cel.nomCel = "Tridu Pasqual";
+      this.LITURGIA.info_cel.nomCel = this.weekDayName(this.variables.date.getDay()) + " Sant";
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';
     }

@@ -133,11 +133,45 @@ export default class HomeScreen extends Component {
             </View>
          </View>
          <View style={styles.diaLiturgicContainer}>
-           <Text style={styles.diaLiturgicText}>{this.weekDayName(this.props.ViewData.data.getDay())}{this.props.ViewData.setmana !== '0' ? " de la setmana " : null}
-             {this.props.ViewData.setmana !== '0' ? this.liturgicPaint(this.romanize(this.props.ViewData.setmana), this.props.ViewData.color) : null }</Text>
-           <Text style={styles.diaLiturgicText}>{"Temps - "}{this.liturgicPaint(this.tempsName(this.props.ViewData.temps), this.props.ViewData.color)}</Text>
-           <Text style={styles.diaLiturgicText}>{"Setmana "}{this.liturgicPaint(this.romanize(this.props.ViewData.setCicle), this.props.ViewData.color)}
-            {" del cicle litúrgic, any "}{this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)}</Text>
+           <Text style={styles.diaLiturgicText}>
+             {
+               this.props.ViewData.setmana !== '0' && this.props.ViewData.setmana !== '.'?
+                 this.weekDayName(this.props.ViewData.data.getDay())+" de la setmana "
+               :
+                 null
+             }
+             {
+               this.props.ViewData.setmana !== '0'  && this.props.ViewData.setmana !== '.'?
+                 this.liturgicPaint(this.romanize(this.props.ViewData.setmana), this.props.ViewData.color)
+               :
+                 null
+             }
+           </Text>
+           <Text style={styles.diaLiturgicText}>
+             {"Temps - "}
+             {this.liturgicPaint(this.tempsName(this.props.ViewData.temps), this.props.ViewData.color)}
+           </Text>
+           <Text style={styles.diaLiturgicText}>
+            {
+              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.'?
+                "Setmana "
+              :
+                null
+            }
+            {
+              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.'?
+                this.liturgicPaint(this.romanize(this.props.ViewData.setCicle), this.props.ViewData.color)
+              :
+                null
+            }
+            {
+              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.'?
+                " del cicle litúrgic, any "
+              :
+                "Any "
+            }
+            {this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)}
+          </Text>
          </View>
          {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
          <View style={{paddingBottom: 5}}>

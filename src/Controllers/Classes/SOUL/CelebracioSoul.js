@@ -346,7 +346,7 @@ export default class CelebracioSoul {
 
     if(this.INFO_CEL.typeCel === '.') this.INFO_CEL.typeCel = variables.celType;
     if(liturgicProps.LT === GLOBAL.Q_TRIDU && variables.date.getDay() === 6)
-      this.INFO_CEL.nomCelTom = "Diumenge de Pasqua";
+      this.INFO_CEL.nomCelTom = "dium-pasqua";
 
     CEL = {
       INFO_CEL: this.INFO_CEL,

@@ -427,6 +427,10 @@ module.exports = {
 
     oAux = oracio;
 
+    if(oAux.search(/\u00AD/g)) {
+      oAux = oAux.replace(/\u00AD/g, '');
+    }
+
     if(oAux.search(form1) !== -1){
       if(horaMenor){
         return oAux.replace(form1, HMf1);
