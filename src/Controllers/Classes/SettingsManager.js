@@ -23,10 +23,10 @@ export const lloc = {
     CATEDRAL: "Catedral"
 };
 
-export const invitatori = {
+/*export const invitatori = {
     OFICI: "Ofici",
     LAUDES: "Laudes"
-};
+};*/
 
 const defaultSettings = {
     showGlories: "false",
@@ -36,7 +36,7 @@ const defaultSettings = {
     diocesis: diocesis.BARCELONA,
     lloc: lloc.DIOCESI,
     dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
-    invitatori: invitatori.OFICI
+    // invitatori: invitatori.OFICI
 };
 
 export default class SettingsManager{
@@ -113,9 +113,9 @@ export default class SettingsManager{
         return SettingsManager._getStorageValue("dayStart", callback, defaultSettings.dayStart);
     }
 
-    static getSettingInvitatori(callback){
+    /*static getSettingInvitatori(callback){
         return SettingsManager._getStorageValue("invitatori", callback, defaultSettings.invitatori);
-    }
+    }*/
 
     static setSettingShowGlories(value, callback){
         return SettingsManager._setValueIfValid("showGlories", value,
@@ -166,13 +166,13 @@ export default class SettingsManager{
             callback);
     }
 
-    static setSettingInvitatori(value, callback){
+    /*static setSettingInvitatori(value, callback){
       tracker.trackEvent("Configuration", "New value of Invitatori: "+value);
         return SettingsManager._setValueIfValid("invitatori", value,
             (val) => {
                 return findValueInObject(invitatori, val);
             }, callback);
-    }
+    }*/
 
 }
 

@@ -30,7 +30,7 @@ export default class OficiDisplay extends Component {
       },
       invitatoriButton: {
         color: 'grey',
-        fontSize: GF.convertTextSize(textSize),
+        fontSize: GF.convertTextSize(textSize)-3,
       },
       blackJustified:{
         color: '#000000',
@@ -203,9 +203,20 @@ export default class OficiDisplay extends Component {
 
   _invitatoriButton(){
     return(
-      <TouchableOpacity style={{alignItems: 'center'}} onPress={()=>this.setState({invitatori:!this.state.invitatori})}>
-        <Text style={this.styles.invitatoriButton}>{this.state.invitatori?"Hide":"Show"}{" Invitatori"}</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity onPress={()=>this.setState({invitatori:!this.state.invitatori})}>
+          <View style={{alignItems: 'center',paddingVertical: 10}}>
+            <Text style={this.styles.invitatoriButton}>{this.state.invitatori?"Amagar":"Començar amb"}{" l'invitatori"}</Text>
+          </View>
+        </TouchableOpacity>
+        {this.state.invitatori?
+          <View>
+            <Text selectable={true} style={this.styles.red}>{"INVITATORI"}</Text>
+              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          </View>
+          :null
+        }
+      </View>
     );
   }
 

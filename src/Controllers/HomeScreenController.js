@@ -142,7 +142,7 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true; //fer-ho amb iphone X sense console. Serveix per saber si els acdessos a bd stan bé. sobretot per quan hi ha canvis a la bd
+    this.testing = false; //fer-ho amb iphone X sense console. Serveix per saber si els acdessos a bd stan bé. sobretot per quan hi ha canvis a la bd
     this.stateTest = this.testing && false; //guarda l'estat (50 min 2 anys 30 diòcesis)
     this.superTest = this.testing && true; //obre oracions. No estressar lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     if(this.stateTest){
@@ -156,8 +156,8 @@ export default class HomeScreenController extends Component {
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 28, //1-31 (s'inclou en el test)
-      month: 3, //0-11
+      day: 11, //1-31 (s'inclou en el test)
+      month: 4, //0-11
       year: 2018,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
@@ -165,9 +165,13 @@ export default class HomeScreenController extends Component {
       month: 7, //0-11
       year: 2018,
     }
+    //bad text: 10 i 11 maig 2018 amb LlV (7) <- XUNGO! és l'oració final del dia 11
+    //bad text: 6 de juliol 2018 amb UrV (25) i UrC (26)
+    //bad text: 4 de juliol de 2018 amb ViV (28) i ViC (28)
+    //A vegades peta (principi de 28 m'ha petat el primer cop. Al segon no). No se qe fer, és algo de completes nou qe he fet
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
+      this.initalDiocesiIndex = 7; //0-30 (s'inclou en el test)
       this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
       this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
@@ -188,7 +192,7 @@ export default class HomeScreenController extends Component {
       diocesi: '',
       diocesiName: '',
       lloc: '',
-      invitatori: '',
+      //invitatori: '',
       llati: '',
       gloria: 'false',
       lliures: '',
@@ -258,7 +262,7 @@ export default class HomeScreenController extends Component {
           this.variables.diocesiName = r;
         }
       }),
-      SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
+      // SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
       SettingsManager.getSettingPrayLliures((r) => {
@@ -348,8 +352,8 @@ export default class HomeScreenController extends Component {
               " | llati: "+this.variables.llati+
               " | midaText: "+this.variables.textSize+
               " | diocesi: "+this.variables.diocesiName+
-              " | lloc: "+this.variables.lloc+
-              " | invitatori: "+this.variables.invitatori;
+              " | lloc: "+this.variables.lloc;
+              // " | invitatori: "+this.variables.invitatori;
         this.props.screenProps.tracker.trackEvent("AppState", "SavingConf", {
           label: trackText
         });

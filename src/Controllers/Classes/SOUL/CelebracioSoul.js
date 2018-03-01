@@ -1749,6 +1749,7 @@ export default class CelebracioSoul {
     if(TABLES.santsSolemnitatsFVespres1.oraFiVespres1 !== '-')
       this.VESPRES1.oracio = TABLES.santsSolemnitatsFVespres1.oraFiVespres1;
     else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.oracio = TABLES.OficisComunsVespres1.oraFiVespres1;
+    console.log("SHIT",this.VESPRES1.oracio);
   }
 
   makeML(TABLES, type, liturgicProps, variables, tomCal){

@@ -29,7 +29,7 @@ export default class LaudesDisplay extends Component {
       },
       invitatoriButton: {
         color: 'grey',
-        fontSize: GF.convertTextSize(textSize)-2,
+        fontSize: GF.convertTextSize(textSize)-3,
       },
       blackBold: {
         color: '#000000',

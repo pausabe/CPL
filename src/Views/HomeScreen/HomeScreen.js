@@ -168,9 +168,14 @@ export default class HomeScreen extends Component {
               this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.'?
                 " del cicle litúrgic, any "
               :
-                "Any "
+                null
             }
-            {this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)}
+            {
+              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.'?
+              this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)
+              :
+                null
+            }
           </Text>
          </View>
          {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?

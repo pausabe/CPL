@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
 
-import SettingsManager, {diocesis, lloc, invitatori} from '../Controllers/Classes/SettingsManager';
+import SettingsManager, {diocesis, lloc/*, invitatori*/} from '../Controllers/Classes/SettingsManager';
 import SettingsComponent from '../Components/SettingsComponent';
 
 //Id generating different keys for testing
@@ -24,7 +24,7 @@ export default class SettingsComponentAdapter{
         options.push(await SettingsComponentAdapter.getSettingsComponentDiocesis(callback));
         options.push(await SettingsComponentAdapter.getSettingsComponentLloc(callback));
         //options.push(await SettingsComponentAdapter.getSettingsComponentDayStart());
-        options.push(await SettingsComponentAdapter.getSettingsComponentInvitatori(callback));
+        // options.push(await SettingsComponentAdapter.getSettingsComponentInvitatori(callback));
         return options;
     }
 
@@ -92,7 +92,7 @@ export default class SettingsComponentAdapter{
         return component;
     }
 
-    static async getSettingsComponentInvitatori(RH){
+    /*static async getSettingsComponentInvitatori(RH){
       // console.log("test");
       // RH();
       // console.log("test");
@@ -104,7 +104,7 @@ export default class SettingsComponentAdapter{
                 SettingsManager.setSettingInvitatori(invitatori[value], this.refreshHome.bind(this,RH));
             }}/>);
         return component;
-    }
+    }*/
 
     static refreshHome(RH){
       // console.log("refreshHome!");

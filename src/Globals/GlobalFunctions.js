@@ -381,6 +381,7 @@ module.exports = {
     }
     else{
       console.log("InfoLog. rs NOT possible. Something went wrong!");
+      console.log(text);
     }
     return text;
   },
