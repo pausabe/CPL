@@ -50,3 +50,5 @@ v1.6(19.1.2018)[An14,Ap8] - [4fecc63]
   - Ara podràs saber de què són les primeres vespres (quan no siguin del mateix dia)
   - iOs: Compatibilitat amb iPhone X
   - Android: Quan es prem "enrere" amb la descripció d'alguna celebració oberta aquesta es tanca
+v1.7(2.3.2018)[An15,Ap9] - [???]
+  -

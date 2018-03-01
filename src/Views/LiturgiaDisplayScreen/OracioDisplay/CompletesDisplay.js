@@ -63,7 +63,7 @@ export default class CompletesDisplay extends Component {
   }
 
   render() {
-    if(this.props.liturgicProps.LITURGIA.completes){
+    if(this.props.liturgicProps.LITURGIA.completes !== null){
       COMPLETES = this.props.liturgicProps.LITURGIA.completes;
 
       const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";

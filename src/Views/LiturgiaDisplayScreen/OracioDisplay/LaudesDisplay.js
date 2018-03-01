@@ -22,6 +22,8 @@ export default class LaudesDisplay extends Component {
       invitatori: false
     }
 
+    this.loco = "loco";
+
     this.styles = {
       black: {
         color: '#000000',
@@ -77,6 +79,10 @@ export default class LaudesDisplay extends Component {
   }
 
   render() {
+    console.log("here1",this.props);
+    console.log("and state",this.state);
+    console.log("loco",this.loco);
+    if(!this.props.liturgicProps) return null;
     LAUDES = this.props.liturgicProps.LITURGIA.laudes;
     return (
       <View>
@@ -180,10 +186,27 @@ export default class LaudesDisplay extends Component {
     }
   }
 
+  _handleOnInvitatoriPress(){
+    /*console.log("props before",this.props);
+    this.setState({invitatori:!this.state.invitatori},()=>{
+      console.log("props after",this.props);
+    });*/
+
+    // console.log("props before",this.props);
+    /*this.setState({adsf:"asdf"},()=>{
+      console.log("props after",this.props);
+    });*/
+    // this.loco = "man";
+    // this.forceUpdate();
+    // console.log("props after",this.props);
+
+  }
+
   _invitatoriButton(){
+    console.log("switching",this.props);
     return(
       <View>
-        <TouchableOpacity onPress={()=>this.setState({invitatori:!this.state.invitatori})}>
+        <TouchableOpacity onPress={this._handleOnInvitatoriPress.bind(this)}>
           <View style={{alignItems: 'center',paddingVertical: 10}}>
             <Text style={this.styles.invitatoriButton}>{this.state.invitatori?"Amagar":"Començar amb"}{" l'invitatori"}</Text>
           </View>

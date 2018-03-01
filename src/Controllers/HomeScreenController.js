@@ -142,7 +142,7 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true; //fer-ho amb iphone X sense console. Serveix per saber si els acdessos a bd stan bé. sobretot per quan hi ha canvis a la bd
+    this.testing = false; //fer-ho amb iphone X sense console. Serveix per saber si els acdessos a bd stan bé. sobretot per quan hi ha canvis a la bd
     this.stateTest = this.testing && false; //guarda l'estat (50 min 2 anys 30 diòcesis)
     this.superTest = this.testing && false; //obre oracions. No estressar lordinador (pot influir). Tarda uns 40'/mes (8h/any) amb les 31 diocesis (o 20'/any amb 1 diocesi)
     if(this.stateTest){
@@ -156,13 +156,13 @@ export default class HomeScreenController extends Component {
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 1, //1-31 (s'inclou en el test)
-      month: 2, //0-11
-      year: 2018,
+      day: 2, //1-31 (s'inclou en el test)
+      month: 0, //0-11
+      year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 10, //1-31 (no s'inclou en el test)
-      month: 3, //0-11
+      day: 28, //1-31 (no s'inclou en el test)
+      month: 11, //0-11
       year: 2018,
     }
 
