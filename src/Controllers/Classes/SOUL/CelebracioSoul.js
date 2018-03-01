@@ -1427,9 +1427,9 @@ export default class CelebracioSoul {
       this.LAUDES.pregaries = TABLES.santsSolemnitats.pregariesLaudes;
     else if(TABLES.OficisComuns !== null) this.LAUDES.pregaries = TABLES.OficisComuns.pregariesLaudes;
     //SF-LAUDES -> ORACIÓ
-    if(TABLES.santsSolemnitats.oraFiLaudes !== '-')
+    // if(TABLES.santsSolemnitats.oraFiLaudes !== '-')
       this.LAUDES.oracio = TABLES.santsSolemnitats.oraFiLaudes;
-    else if(TABLES.OficisComuns !== null) this.LAUDES.oracio = TABLES.OficisComuns.oraFiLaudes;
+    // else if(TABLES.OficisComuns !== null) this.LAUDES.oracio = TABLES.OficisComuns.oraFiLaudes;
 
 
     //::::::SF-TÈRCIA::::::
@@ -1477,9 +1477,9 @@ export default class CelebracioSoul {
       this.TERCIA.respR = TABLES.santsSolemnitats.responsoriRTercia;
     else if(TABLES.OficisComuns !== null) this.TERCIA.respR = TABLES.OficisComuns.respRTercia;
     //SF-TÈRCIA -> ORACIÓ
-    if(TABLES.santsSolemnitats.oraFiMenor !== '-')
+    // if(TABLES.santsSolemnitats.oraFiMenor !== '-')
       this.TERCIA.oracio = TABLES.santsSolemnitats.oraFiMenor;
-    else if(TABLES.OficisComuns !== null) this.TERCIA.oracio = TABLES.OficisComuns.oraFiMenor;
+    // else if(TABLES.OficisComuns !== null) this.TERCIA.oracio = TABLES.OficisComuns.oraFiMenor;
 
 
     //::::::SF-SEXTA::::::
@@ -1525,9 +1525,9 @@ export default class CelebracioSoul {
       this.SEXTA.respR = TABLES.santsSolemnitats.responsoriRSexta;
     else if(TABLES.OficisComuns !== null) this.SEXTA.respR = TABLES.OficisComuns.respRSexta;
     //SF-SEXTA -> ORACIÓ
-    if(TABLES.santsSolemnitats.oraFiMenor !== '-')
+    // if(TABLES.santsSolemnitats.oraFiMenor !== '-')
       this.SEXTA.oracio = TABLES.santsSolemnitats.oraFiMenor;
-    else if(TABLES.OficisComuns !== null) this.SEXTA.oracio = TABLES.OficisComuns.oraFiMenor;
+    // else if(TABLES.OficisComuns !== null) this.SEXTA.oracio = TABLES.OficisComuns.oraFiMenor;
 
 
     //::::::SF-NONA::::::
@@ -1567,9 +1567,9 @@ export default class CelebracioSoul {
       this.NONA.respR = TABLES.santsSolemnitats.responsoriRNona;
     else if(TABLES.OficisComuns !== null) this.NONA.respR = TABLES.OficisComuns.respRNona;
     //SF-NONA -> ORACIÓ
-    if(TABLES.santsSolemnitats.oraFiMenor !== '-')
+    // if(TABLES.santsSolemnitats.oraFiMenor !== '-')
       this.NONA.oracio = TABLES.santsSolemnitats.oraFiMenor;
-    else if(TABLES.OficisComuns !== null) this.NONA.oracio = TABLES.OficisComuns.oraFiMenor;
+    // else if(TABLES.OficisComuns !== null) this.NONA.oracio = TABLES.OficisComuns.oraFiMenor;
 
 
     if(!(F === 'F' && variables.date.getDay() === 6)){
@@ -1748,7 +1748,7 @@ export default class CelebracioSoul {
     //SF-VESPRES1 -> ORACIÓ
     if(TABLES.santsSolemnitatsFVespres1.oraFiVespres1 !== '-')
       this.VESPRES1.oracio = TABLES.santsSolemnitatsFVespres1.oraFiVespres1;
-    else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.oracio = TABLES.OficisComunsVespres1.oraFiVespres1;
+    // else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.oracio = TABLES.OficisComunsVespres1.oraFiVespres1;
     console.log("SHIT",this.VESPRES1.oracio);
   }
 
@@ -1762,8 +1762,6 @@ export default class CelebracioSoul {
     this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
     this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
     this.INFO_CEL.typeCel = tomCal;
-
-
 
     //::::::ML-OFICI::::::
     if(TABLES.santsMemories.Invitatori !== '-')
