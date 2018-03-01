@@ -367,9 +367,9 @@ module.exports = {
 
   rs(text, superTestMode, error){
     if(superTestMode) {
-      console.log("testLogTest (text): _" + text + "_");
+      // console.log("testLogTest (text): _" + text + "_");
       if(!text||text===undefined||text===''||text==='-'||text===' '||text===':'){
-        console.log("testLogTest (bad text): _" + text + "_");
+        // console.log("testLogTest (bad text): _" + text + "_");
         error();
         return text;
       }
@@ -378,11 +378,11 @@ module.exports = {
       var length = text.length;
       var lastChar = text.charAt(length-1);
       if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
-      console.log("InfoLog (good text): _" + text + "_");
+      // console.log("InfoLog (good text): _" + text + "_");
     }
     else{
-      console.log("InfoLog. rs NOT possible. Something went wrong!");
-      console.log("InfoLog (bad text): _" + text + "_");
+      // console.log("InfoLog. rs NOT possible. Something went wrong!");
+      // console.log("InfoLog (bad text): _" + text + "_");
     }
     return text;
   },
