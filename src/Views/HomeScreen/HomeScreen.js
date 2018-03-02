@@ -190,9 +190,8 @@ export default class HomeScreen extends Component {
                  <View style={{flex: 20, justifyContent: 'center', paddingRight: (auxPadding*2)}}>
                    <Text numberOfLines={2} style={styles.santText}>{this.props.ViewData.celebracio.titol}</Text>
                  </View>
-                 <View style={{flex: 1, justifyContent: 'center'}}>
                  {this.props.ViewData.celebracio.text !== '-' ?
-                  <View>
+                  <View style={{flex: 1, justifyContent: 'center'}}>
                   {this.props.santPressed ?
                     <Icon
                       name="ios-arrow-down"
@@ -209,7 +208,6 @@ export default class HomeScreen extends Component {
                   :
                   null
                  }
-                 </View>
                </View>
              </TouchableOpacity>
            </View>

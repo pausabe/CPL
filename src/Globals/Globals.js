@@ -10,7 +10,15 @@ module.exports = {
   statusBarColor: '#00474a',
   hrColor: '#90A4AE',
 
-  backgroundColor: 'rgb(225, 245, 254)',
+  // backgroundColor: 'rgb(225, 245, 254)',
+  ...Platform.select({
+      ios: {
+        backgroundColor: 'rgba(225, 245, 254, 0.7)',
+      },
+      android: {
+        backgroundColor: 'rgb(225, 245, 254)',
+      },
+    }),
 
   O_ORDINARI: 'O_ORDINAR',
   Q_CENDRA:'Q_CENDRA',
