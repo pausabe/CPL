@@ -50,9 +50,15 @@ v1.6(19.1.2018)[An14,Ap8] - [4fecc63]
   - Ara podràs saber de què són les primeres vespres (quan no siguin del mateix dia)
   - iOs: Compatibilitat amb iPhone X
   - Android: Quan es prem "enrere" amb la descripció d'alguna celebració oberta aquesta es tanca
-v1.7(2.3.2018)[An15,Ap9] - [???]
+v1.7.1(2.3.2018)[An15,Ap9] - [e2815f]
   - Ara l'invitatori es configura a l'interior de Laudes i l'Ofici de lectura
   - Solucionats alguns errors:
     - amb algunes antífones d'advent
     - ortogràfics en els textos
     - d'alguns elements de la setmana Santa
+v1.7.2(6.3.2018)[An16,Ap10] - [????]
+- Nou text d'avís de la part que es pot ometre en l'himne Oh Déu, us lloem
+- Avís informatiu de les Fèries d'Advent
+- Solucionats alguns errors:
+  - Antífones del Magníficat en Quaresma
+  - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua

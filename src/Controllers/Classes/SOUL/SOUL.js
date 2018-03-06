@@ -914,6 +914,11 @@ export default class SOUL {
       this.LITURGIA.info_cel.infoCel = '-';
       this.LITURGIA.info_cel.typeCel = '-';
     }
+    else if(this.LITURGIA.info_cel.nomCel === '-' && this.liturgicProps.LT === GLOBAL.A_FERIES){
+      this.LITURGIA.info_cel.nomCel = "Fèria d’Advent";
+      this.LITURGIA.info_cel.infoCel = '-';
+      this.LITURGIA.info_cel.typeCel = '-';
+    }
   }
 
   weekDayName(num){

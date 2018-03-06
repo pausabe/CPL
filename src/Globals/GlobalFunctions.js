@@ -438,6 +438,7 @@ module.exports = {
         return oAux.replace(form1, HMf1);
       }
       else if(!horaMenor){
+        console.log("here rignt?");
         return oAux.replace(form1, bigf1);
       }
     }

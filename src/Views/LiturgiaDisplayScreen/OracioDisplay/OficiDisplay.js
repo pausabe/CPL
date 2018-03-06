@@ -57,6 +57,11 @@ export default class OficiDisplay extends Component {
         color: '#FF0000',
         fontSize: GF.convertTextSize(textSize),
       },
+      redItalic:{
+        color: '#FF0000',
+        fontSize: GF.convertTextSize(textSize),
+        fontStyle: 'italic'
+      },
       redCenter: {
         color: '#FF0000',
         fontSize: GF.convertTextSize(textSize),
@@ -144,7 +149,6 @@ export default class OficiDisplay extends Component {
       return (
         <View>
           {this.lecturesDiumPasqua(this.liturgicProps.LT)}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
@@ -498,6 +502,10 @@ export default class OficiDisplay extends Component {
 
   himneOhDeu(LT, weekDay){
     if(this.OFICI.himneOhDeuBool){
+      var aux0 = this.OFICI.himneOhDeu.split("\n\n[")[0];
+      var aux1 = this.OFICI.himneOhDeu.split("\n\n[")[1];
+      var himnePart1 = aux0;
+      var himnePart2 = aux1.split("]")[0];
       return(
         <View>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -505,8 +513,11 @@ export default class OficiDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>HIMNE</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{this.OFICI.himneOhDeu}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.black}>{himnePart1}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : null}
+          <Text selectable={true} style={this.styles.redItalic}>{"Aquesta última part es pot ometre:\n"}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : null}
+          <Text selectable={true} style={this.styles.black}>{himnePart2}</Text>
         </View>
       )
     }
