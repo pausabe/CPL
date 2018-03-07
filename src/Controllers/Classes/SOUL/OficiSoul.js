@@ -267,7 +267,6 @@ export default class OficiSoul {
       case GLOBAL.Q_SET_SANTA:
       case GLOBAL.N_ABANS:
         ant1 = this.state.salteriComuOfici.ant1;
-        // console.log("ANT 1 Ofici Soul: " + ant1);
         titol1 = this.state.salteriComuOfici.titol1;
         com1 = this.state.salteriComuOfici.com1;
         salm1 = this.state.salteriComuOfici.salm1;
@@ -282,6 +281,17 @@ export default class OficiSoul {
         com3 = this.state.salteriComuOfici.com3;
         salm3 = this.state.salteriComuOfici.salm3;
         gloria3 = this.state.salteriComuOfici.gloria3;
+        if(weekDay === 0 && (LT === GLOBAL.Q_SETMANES || LT === GLOBAL.Q_CENDRA || LT === GLOBAL.Q_DIUM_RAMS || LT === GLOBAL.Q_SET_SANTA)){//diumenge de Quaresma
+          if(ant1.search(', al·leluia') !== -1){
+            ant1 = ant1.replace(', al·leluia','');
+          }
+          if(ant2.search(', al·leluia') !== -1){
+            ant2 = ant2.replace(', al·leluia','');
+          }
+          if(ant3.search(', al·leluia') !== -1){
+            ant3 = ant3.replace(', al·leluia','');
+          }
+        }
         break;
       case GLOBAL.Q_TRIDU:
         ant1 = this.state.tempsQuaresmaTridu.ant1Ofici;

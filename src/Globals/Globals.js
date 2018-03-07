@@ -6,14 +6,14 @@ const smallTextSize = 15;
 module.exports = {
   idTracker: "UA-113574827-1",
   barColor: '#006064',
+  dataPicker: '#007b80', //Simbòlic, el canvi s'ha de fer a res/values/styles.xml
   itemsBarColor: '#FFFFFF',
   statusBarColor: '#00474a',
   hrColor: '#90A4AE',
 
-  // backgroundColor: 'rgb(225, 245, 254)',
   ...Platform.select({
       ios: {
-        backgroundColor: 'rgba(225, 245, 254, 0.99)',
+        backgroundColor: 'rgba(225, 245, 254, 0.35)',
       },
       android: {
         backgroundColor: 'rgb(225, 245, 254)',
@@ -45,7 +45,7 @@ module.exports = {
   size9: 39,
   size10: 42,
 
-  DBName: 'lh_v24.db',
+  DBName: 'lh_v26.db',
 
   paddingBar: Platform.OS === 'ios' ? 0 : 54,
 

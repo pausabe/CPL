@@ -169,6 +169,7 @@ export default class OficiDisplay extends Component {
             <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          {Platform.OS === 'android' ? null : <Text />}
         </View>
       );
     }
@@ -434,7 +435,7 @@ export default class OficiDisplay extends Component {
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(this.OFICI.oracio1, this.superTestMode, this.testErrorCB.bind(this)),false,LT)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(this.OFICI.oracio1, this.superTestMode, this.testErrorCB.bind(this),false,LT)}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>
@@ -462,7 +463,7 @@ export default class OficiDisplay extends Component {
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-        <Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(this.OFICI.oracio2, this.superTestMode, this.testErrorCB.bind(this)),false,LT)}</Text>
+        <Text selectable={true} style={this.styles.black}>{GF.rs(this.OFICI.oracio2, this.superTestMode, this.testErrorCB.bind(this),false,LT)}</Text>
         <Text selectable={true} style={this.styles.red}>R.
           <Text selectable={true} style={this.styles.black}> Amén.</Text>
         </Text>

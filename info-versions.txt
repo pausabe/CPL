@@ -56,9 +56,18 @@ v1.7.1(2.3.2018)[An15,Ap9] - [e2815f]
     - amb algunes antífones d'advent
     - ortogràfics en els textos
     - d'alguns elements de la setmana Santa
-v1.7.2(6.3.2018)[An16,Ap10] - [????]
+v1.7.2(6.3.2018)[An16,Ap10] - [7d2f0fc] ->>> ERROR! (testing = true) | Només Android
 - Nou text d'avís de la part que es pot ometre en l'himne Oh Déu, us lloem
 - Avís informatiu de les Fèries d'Advent
 - Solucionats alguns errors:
   - Antífones del Magníficat en Quaresma
   - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua
+v1.7.3(6.3.2018)[An17] - [7d2f0fc] ->>> Només Android
+- Error testing arreglat
+v1.7.4(7.3.2018)[An18,Ap11] - [???]
+- iOS: v1.7.2
+- Android: Canvi del color del selector del dia
+- Solucionats alguns errors:
+  - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua
+  - Paraula "Al·leluia" en les antífones de l'ofici de lectura dels diumenges de Quaresma
+  - Cicle de la setmana de la setmana del 16 al 22 d'abril
