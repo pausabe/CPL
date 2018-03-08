@@ -156,13 +156,13 @@ export default class HomeScreenController extends Component {
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 13, //1-31 (s'inclou en el test)
-      month: 1, //0-11
-      year: 2018,
+      day: 2, //1-31 (s'inclou en el test)
+      month: 0, //0-11
+      year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 1, //1-31 (no s'inclou en el test)
-      month: 3, //0-11
+      day: 28, //1-31 (no s'inclou en el test)
+      month: 11, //0-11
       year: 2018,
     }
 

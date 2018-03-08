@@ -46,6 +46,7 @@ export default class CompletesSoul{
       cantic: '',
       oracio: '',
       antMare: '',
+      actePen: TABLES.diversos.item(37).oracio,
     }
 
     this.completes(liturgicProps, date.getDay(), variables);

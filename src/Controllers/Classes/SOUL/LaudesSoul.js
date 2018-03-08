@@ -6,14 +6,15 @@ import {
 } from 'react-native';
 
 import GLOBAL from '../../../Globals/Globals';
+import GF from '../../../Globals/GlobalFunctions';
 
 export default class LaudesSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
     console.log("PlaceLog. Constructor LaudesSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, SOUL);
+    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, variables.diocesiName, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, diocesiName, SOUL){
     console.log("PlaceLog. MakePrayer LaudesSoul");
     this.state = {
       salteriComuLaudes: TABLES.salteriComuLaudes,
@@ -78,6 +79,8 @@ export default class LaudesSoul {
       antCantic: '',
       pregaries: '',
       oracio: '',
+      papa: TABLES.diversos.item(38).oracio,
+      bisbe: TABLES.diversos.item(GF.bisbeId(diocesiName)).oracio,
     }
 
     if(CEL.diumPasqua) {

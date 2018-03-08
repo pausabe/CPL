@@ -119,7 +119,7 @@ export default class VespresDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>PREGÀRIES</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.pregaries(this.props.liturgicProps.LT, this.props.variables.date.getDay(), VESPRES)}
+        {this.pregaries(this.props.liturgicProps.LT, VESPRES)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -309,11 +309,26 @@ export default class VespresDisplay extends Component {
     );
   }
 
-  pregaries(LT, weekDay, VESPRES){
+  convertN(pregs,papa,bisbe){
+    if(pregs.search("papa N.") !== -1){
+      pregs = pregs.replace("papa N.","papa "+papa);
+    }
+    else if(pregs.search("Papa N.") !== -1){
+      pregs = pregs.replace("Papa N.","papa "+papa);
+    }
+    if(pregs.search("bisbe N.") !== -1){
+      pregs = pregs.replace("bisbe N.","bisbe "+bisbe);
+    }
+    return pregs;
+  }
+
+  pregaries(LT, VESPRES){
     var allPregs = GF.rs(VESPRES.pregaries, this.props.superTestMode, this.props.testErrorCB.bind(this));
 
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
+
+    allPregs = this.convertN(allPregs, VESPRES.papa, VESPRES.bisbe);
 
     if(allPregs.match(/—/g, "")) var numGuio = allPregs.match(/—/g, "").length;
     else return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
@@ -352,8 +367,13 @@ export default class VespresDisplay extends Component {
         pregaries = pregaries.replace(": Pare nostre.",':');
       }
       else{
-        console.log("InfoLog. something incorrect. Pregaries 3");
-        return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
+        if(pregaries.search(":  Pare nostre.") !== -1){
+          pregaries = pregaries.replace(":  Pare nostre.",':');
+        }
+        else{
+          console.log("InfoLog. something incorrect. Pregaries 3");
+          return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
+        }
       }
 
       var pregsFinalPart = (pregaries.split("—")[numGuio-1]).split(".\n\n")[1]+'—'+pregaries.split("—")[numGuio];

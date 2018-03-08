@@ -64,10 +64,10 @@ v1.7.2(6.3.2018)[An16,Ap10] - [7d2f0fc] ->>> ERROR! (testing = true) | Només An
   - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua
 v1.7.3(6.3.2018)[An17] - [7d2f0fc] ->>> Només Android
 - Error testing arreglat
-v1.7.4(7.3.2018)[An18,Ap11] - [???]
+v1.7.4(7.3.2018)[An18,Ap12] - [b317e61]
 - iOS: v1.7.2
 - Android: Canvi del color del selector del dia
 - Solucionats alguns errors:
   - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua
   - Paraula "Al·leluia" en les antífones de l'ofici de lectura dels diumenges de Quaresma
-  - Cicle de la setmana de la setmana del 16 al 22 d'abril
+  - Cicle de la setmana del 16 al 22 d'abril

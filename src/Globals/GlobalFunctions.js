@@ -736,4 +736,45 @@ module.exports = {
 
     return('BaD');
   },
+
+  bisbeId(diocesiName){
+    console.log("diocesiName",diocesiName);
+    switch (diocesiName) {
+      case "Barcelona":
+        return(39);
+        break;
+      case "Girona":
+        return(40);
+        break;
+      case "Lleida":
+        return(41);
+        break;
+      case "Sant Feliu de Llobregat":
+        return(42);
+        break;
+      case "Solsona":
+        return(43);
+        break;
+      case "Tarragona":
+        return(44);
+        break;
+      case "Terrassa":
+        return(45);
+        break;
+      case "Tortosa":
+        return(46);
+        break;
+      case "Urgell":
+        return(47);
+        break;
+      case "Vic":
+        return(48);
+        break;
+      case "Andorra":
+        return(49);
+        break;
+    }
+
+    return(39);
+  },
 };

@@ -871,9 +871,9 @@ export default class SOUL {
       this.OficiSoul.makePrayer(this.variables.date, this.liturgicProps,
         this.queryRows, this.variables.invitatori, this.CEL.OFICI, this.variables.llati, HS, this);
       this.LaudesSoul.makePrayer(this.variables.date, this.liturgicProps,
-        this.queryRows, this.variables.invitatori, this.CEL.LAUDES, this.variables.llati, HS, this);
+        this.queryRows, this.variables.invitatori, this.CEL.LAUDES, this.variables.llati, HS, this.variables.diocesiName, this);
       this.VespresSoul.makePrayer(this.variables.date, this.liturgicProps,
-        this.queryRows, vespresCelDEF, this.variables.llati, HS, this);
+        this.queryRows, vespresCelDEF, this.variables.llati, HS, this.variables.diocesiName, this);
       this.HoraMenorSoul.makePrayer(this.variables.date, this.liturgicProps,
         this.queryRows, this.CEL.HORA_MENOR, this.variables.llati, HS, this);
       this.CompletesSoul.makePrayer(this.variables.date, this.liturgicProps,

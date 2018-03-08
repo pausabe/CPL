@@ -148,6 +148,14 @@ export default class OficiDisplay extends Component {
     else{
       return (
         <View>
+          <Text selectable={true} style={this.styles.redCenter}>{"La Vetlla pasqual substitueix avui l'Ofici de lectura."}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.redCenter}>{"Els qui no participen en la solemne Vetlla pasqual n'escolliran almenys quatre lectures, amb els corresponents salms responsorials i oracions. Les lectures més adients són les que segueixen."}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.redCenter}>{"L'Ofici comença directament per les lectures."}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <HR/>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.lecturesDiumPasqua(this.liturgicProps.LT)}
           {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}

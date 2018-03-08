@@ -1,17 +1,16 @@
 import { Platform } from 'react-native';
 
 import GLOBAL from '../../../Globals/Globals';
+import GF from '../../../Globals/GlobalFunctions';
 
 export default class VespresSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
     console.log("PlaceLog. Constructor VesprsSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, SOUL)
+    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, variables.diocesiName, SOUL)
   }
 
-  makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, SOUL){
+  makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, diocesiName, SOUL){
       console.log("PlaceLog. MakePrayer VespresSoul");
-
-// console.log("N_OCT log - " + TABLES.tempsSolemnitatsFestes);
 
       this.state = {
         salteriComuVespres: TABLES.salteriComuVespres,
@@ -77,6 +76,8 @@ export default class VespresSoul {
         antCantic: '',
         pregaries: '',
         oracio: '',
+        papa: TABLES.diversos.item(38).oracio,
+        bisbe: TABLES.diversos.item(GF.bisbeId(diocesiName)).oracio,
       }
 
     if(CEL.diumPasqua) {

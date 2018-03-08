@@ -395,11 +395,26 @@ export default class LaudesDisplay extends Component {
     );
   }
 
+  convertN(pregs,papa,bisbe){ //desconec si a Laudes existeix aquest cas
+    if(pregs.search("papa N.") !== -1){
+      pregs = pregs.replace("papa N.","papa "+papa);
+    }
+    else if(pregs.search("Papa N.") !== -1){
+      pregs = pregs.replace("Papa N.","papa "+papa);
+    }
+    if(pregs.search("bisbe N.") !== -1){
+      pregs = pregs.replace("bisbe N.","bisbe "+bisbe);
+    }
+    return pregs;
+  }
+
   pregaries(LT){
     var allPregs = GF.rs(this.LAUDES.pregaries, this.superTestMode, this.testErrorCB.bind(this));
 
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
+
+      allPregs = this.convertN(allPregs, this.LAUDES.papa, this.LAUDES.bisbe);
 
       if(allPregs.match(/—/g, "")) var numGuio = allPregs.match(/—/g, "").length;
       else return(<Text selectable={true} style={this.styles.black}>{allPregs}</Text>);
