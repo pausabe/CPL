@@ -19,6 +19,10 @@ function paddingBar(){
 }
 
 export default class LiturgiaDisplayScreen extends Component {
+  constructor(props){
+    super(props);
+  }
+
   componentWillMount(){
     if(Platform.OS === 'ios'){
       barPad = 0;
@@ -27,6 +31,8 @@ export default class LiturgiaDisplayScreen extends Component {
     if(Platform.OS === 'android'){
       this.props = this.props.navigation.state.params.props;
     }
+
+    this.titols = this.getTitols();
 
     this.setState({type: this.props.type})
   }
@@ -72,7 +78,24 @@ export default class LiturgiaDisplayScreen extends Component {
     }
   }
 
+  getTitols(){
+    var titols = [];
+
+    titols.push(this.props.liturgicProps.LITURGIA.ofici.titol1);
+    titols.push(this.props.liturgicProps.LITURGIA.ofici.titol2);
+    titols.push(this.props.liturgicProps.LITURGIA.ofici.titol3);
+    titols.push(this.props.liturgicProps.LITURGIA.laudes.titol1);
+    titols.push(this.props.liturgicProps.LITURGIA.laudes.titol3);
+    titols.push(this.props.liturgicProps.LITURGIA.vespres.titol1);
+    titols.push(this.props.liturgicProps.LITURGIA.vespres.titol2);
+    titols.push(this.props.liturgicProps.LITURGIA.completes.titol1);
+    titols.push(this.props.liturgicProps.LITURGIA.completes.titol2);
+
+    return titols;
+  }
+
   liturgicComponent(type){
+    console.log("props",this.props);
     switch (type) {
       case 'Ofici':
         return(
@@ -80,7 +103,9 @@ export default class LiturgiaDisplayScreen extends Component {
             variables={this.props.variables}
             liturgicProps = {this.props.liturgicProps}
             superTestMode = {this.props.superTestMode}
-            testErrorCB={this.testErrorCB.bind(this)}/>
+            testErrorCB={this.testErrorCB.bind(this)}
+            titols={this.titols}
+            setNumSalmInv={this.props.setNumSalmInv}/>
           )
         break;
         case 'Laudes':
@@ -89,7 +114,9 @@ export default class LiturgiaDisplayScreen extends Component {
               liturgicProps={this.props.liturgicProps}
               variables={this.props.variables}
               superTestMode = {this.props.superTestMode}
-              testErrorCB={this.testErrorCB.bind(this)}/>
+              testErrorCB={this.testErrorCB.bind(this)}
+              titols={this.titols}
+              setNumSalmInv={this.props.setNumSalmInv}/>
             )
           break;
           case 'Vespres':

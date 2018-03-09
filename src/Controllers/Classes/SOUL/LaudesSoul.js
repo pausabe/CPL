@@ -45,7 +45,6 @@ export default class LaudesSoul {
       salteriComuEspPasqua: TABLES.salteriComuEspPasqua,
       diversos: TABLES.diversos,
       benedictus: TABLES.diversos.item(3).oracio,
-      salm94: TABLES.diversos.item(0).oracio,
     };
 
     this.LAUDES = { //30
@@ -81,12 +80,15 @@ export default class LaudesSoul {
       oracio: '',
       papa: TABLES.diversos.item(38).oracio,
       bisbe: TABLES.diversos.item(GF.bisbeId(diocesiName)).oracio,
+      salm94: TABLES.diversos.item(0).oracio,
+      salm99: TABLES.diversos.item(34).oracio,
+      salm66: TABLES.diversos.item(35).oracio,
+      salm23: TABLES.diversos.item(36).oracio,
     }
 
     if(CEL.diumPasqua) {
       this.LAUDES = CEL;
       this.LAUDES.cantic = this.state.benedictus;
-      this.LAUDES.salm94 = this.state.salm94
     }
     else{
       this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
@@ -142,8 +144,6 @@ export default class LaudesSoul {
     if(CEL.antInvitatori === '-')
       this.LAUDES.antInvitatori = antInvitatori;
     else this.LAUDES.antInvitatori = CEL.antInvitatori;
-
-    this.LAUDES.salm94 = this.state.salm94;
   }
 
   himne(LT, weekDay, setmana, CEL, llati){

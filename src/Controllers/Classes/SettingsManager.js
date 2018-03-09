@@ -28,6 +28,13 @@ export const lloc = {
     LAUDES: "Laudes"
 };*/
 
+export const salmInvitatori = {
+  SALM94: '94',
+  SALM99: '99',
+  SALM66: '66',
+  SALM23: '23',
+}
+
 const defaultSettings = {
     showGlories: "false",
     prayLliures: "false",
@@ -37,6 +44,7 @@ const defaultSettings = {
     lloc: lloc.DIOCESI,
     dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
     // invitatori: invitatori.OFICI
+    salmInvitatori: salmInvitatori.SALM94
 };
 
 export default class SettingsManager{
@@ -67,17 +75,17 @@ export default class SettingsManager{
     static _setStorageValue(key, value, callback){
         let savePromise = AsyncStorage.setItem(key, value);
         // console.log("CBBBB. "+callback);
-        savePromise.then(callback);
+        if(callback) savePromise.then(callback);
         return savePromise;
     }
 
     static _setValueIfValid(key, value, validateFunc, callback){
         // console.log(key + " - " + value)
         if(!(validateFunc instanceof Function) || validateFunc(value)){
-            // console.log("VALID");
+            // console.log("VALID",value);
             return SettingsManager._setStorageValue(key, value, callback);
         }else{
-            // console.log("NOT VALID");
+            // console.log("NOT VALID",value);
             let wrongValuePromise = new Promise((resolve, reject) => {
                 reject(new Error("Invalid value"));
             });
@@ -116,6 +124,10 @@ export default class SettingsManager{
     /*static getSettingInvitatori(callback){
         return SettingsManager._getStorageValue("invitatori", callback, defaultSettings.invitatori);
     }*/
+
+    static getSettingNumSalmInv(callback){
+        return SettingsManager._getStorageValue("salmInvitatori", callback, defaultSettings.salmInvitatori);
+    }
 
     static setSettingShowGlories(value, callback){
         return SettingsManager._setValueIfValid("showGlories", value,
@@ -173,6 +185,14 @@ export default class SettingsManager{
                 return findValueInObject(invitatori, val);
             }, callback);
     }*/
+
+    static setSettingNumSalmInv(value){
+      // tracker.trackEvent("Configuration", "New value of Invitatori: "+value);
+        return SettingsManager._setValueIfValid("salmInvitatori", value,
+            (val) => {
+                return findValueInObject(salmInvitatori, val);
+            });
+    }
 
 }
 

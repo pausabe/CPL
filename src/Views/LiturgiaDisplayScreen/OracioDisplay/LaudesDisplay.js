@@ -9,6 +9,7 @@ import {
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
+import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
   constructor(props){
@@ -18,8 +19,17 @@ export default class LaudesDisplay extends Component {
 
     var textSize = props.variables.textSize;
 
+    var auxNumSalmInv = props.variables.numSalmInv;
+
+    if(!GF.salmInvExists(auxNumSalmInv,props.titols)){
+      auxNumSalmInv = '94';
+      props.setNumSalmInv('94');
+      SettingsManager.setSettingNumSalmInv('94');
+    }
+
     this.state = {
-      invitatori: false
+      invitatori: props.superTestMode,
+      numSalmInv: auxNumSalmInv,
     }
 
     this.styles = {
@@ -30,6 +40,15 @@ export default class LaudesDisplay extends Component {
       invitatoriButton: {
         color: 'grey',
         fontSize: GF.convertTextSize(textSize)-3,
+      },
+      texSalmInvButton: {
+        color: 'grey',
+        fontSize: GF.convertTextSize(textSize) > 17? 17 : GF.convertTextSize(textSize)-3,
+      },
+      texSalmInvButtonBold: {
+        color: 'grey',
+        fontSize: GF.convertTextSize(textSize) > 17? 17 : GF.convertTextSize(textSize)-3,
+        fontWeight: 'bold',
       },
       blackBold: {
         color: '#000000',
@@ -80,12 +99,162 @@ export default class LaudesDisplay extends Component {
     this.variables = props.variables;
     this.superTestMode = props.superTestMode;
     this.testErrorCB = props.testErrorCB;
+    this.setNumSalmInv = props.setNumSalmInv;
+    this.titols = props.titols;
+  }
+
+  _onSalmInvPress(numSalm){
+    this.setState({numSalmInv:numSalm});
+    this.setNumSalmInv(numSalm);
+    SettingsManager.setSettingNumSalmInv(numSalm);
+  }
+
+  salmInvitatori(numSalm, salm94, salm99, salm66, salm23){
+    var style94 = this.styles.texSalmInvButton;
+    var style99 = this.styles.texSalmInvButton;
+    var style66 = this.styles.texSalmInvButton;
+    var style23 = this.styles.texSalmInvButton;
+
+    switch (numSalm) {
+      case '94':
+        titolSalm = "Salm 94\nInvitació a lloar Déu";
+        refSalm = "Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)";
+        salm = salm94;
+        style94 = this.styles.texSalmInvButtonBold;
+        break;
+      case '99':
+        titolSalm = "Salm 99\nInvitació a lloar Déu en el seu temple";
+        refSalm = "El Senyor vol que els redimits cantin himnes de victòria (St. Atanasi)";
+        salm = salm99;
+        style99 = this.styles.texSalmInvButtonBold;
+        break;
+      case '66':
+        titolSalm = "Salm 66\nInvitació als pobles a lloar Déu";
+        refSalm = "Sapigueu que el missatge de la salvació de Déu ha estat enviat a tots els pobles (Fets 28, 28)";
+        salm = salm66;
+        style66 = this.styles.texSalmInvButtonBold;
+        break;
+      case '23':
+        titolSalm = "Salm 23\nEntrada del Senyor al santuari";
+        refSalm = "Les portes del cel s'obriren a Crist quan hi fou endut amb la seva humanitat (St. Ireneu)";
+        salm = salm23;
+        style23 = this.styles.texSalmInvButtonBold;
+        break;
+    }
+
+    var estrofes = salm.split("\n\n");
+    var antifona = GF.rs(this.LAUDES.antInvitatori, this.superTestMode, this.testErrorCB.bind(this));
+    var gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
+
+    return(
+      <View>
+
+        <View style={{alignItems: 'center'}}>
+          <View style={{flexDirection: 'row',paddingVertical: 10}}>
+            <TouchableOpacity onPress={this._onSalmInvPress.bind(this,'94')}>
+              <Text style={style94}>{"Salm 94  "}</Text>
+            </TouchableOpacity>
+            {GF.salmInvExists('99',this.titols)?
+              <TouchableOpacity onPress={this._onSalmInvPress.bind(this,'99')}>
+                <Text style={style99}>{"  Salm 99  "}</Text>
+              </TouchableOpacity>
+            :
+              null
+            }
+            {GF.salmInvExists('66',this.titols)?
+              <TouchableOpacity onPress={this._onSalmInvPress.bind(this,'66')}>
+                <Text style={style66}>{"  Salm 66  "}</Text>
+              </TouchableOpacity>
+            :
+              null
+            }
+            {GF.salmInvExists('23',this.titols)?
+              <TouchableOpacity onPress={this._onSalmInvPress.bind(this,'23')}>
+                <Text style={style23}>{"  Salm 23"}</Text>
+              </TouchableOpacity>
+            :
+              null
+            }
+          </View>
+        </View>
+
+        <Text selectable={true} style={this.styles.red}>{"Ant."}
+          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        </Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.redCenter}>{titolSalm}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+        <Text selectable={true} style={this.styles.blackSmallItalicRight}>{refSalm}</Text></View></View>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.black}>{estrofes[0]}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.red}>{"Ant."}
+          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        </Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.black}>{estrofes[1]}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.red}>{"Ant."}
+          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        </Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.black}>{estrofes[2]}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.red}>{"Ant."}
+          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        </Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.black}>{estrofes[3]}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.red}>{"Ant."}
+          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        </Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        {estrofes.length > 4?
+          <View>
+            <Text selectable={true} style={this.styles.black}>{estrofes[4]}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"Ant."}
+              <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          </View>
+        : null}
+        {estrofes.length > 5?
+          <View>
+            <Text selectable={true} style={this.styles.black}>{estrofes[5]}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"Ant."}
+              <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          </View>
+        : null}
+        {estrofes.length > 6?
+          <View>
+            <Text selectable={true} style={this.styles.black}>{estrofes[6]}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"Ant."}
+              <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          </View>
+        : null}
+        <Text selectable={true} style={this.styles.black}>{gloriaString}</Text>
+        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+        <Text selectable={true} style={this.styles.red}>{"Ant."}
+          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        </Text>
+      </View>
+    );
   }
 
   render() {
     return (
       <View>
-        {this.introduccio(this.liturgicProps.LT, this.liturgicProps.setmana)}
+        {this.introduccio(this.liturgicProps.LT, this.liturgicProps.setmana, this.LAUDES.salm94,
+                            this.LAUDES.salm99, this.LAUDES.salm66, this.LAUDES.salm23)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -204,7 +373,7 @@ export default class LaudesDisplay extends Component {
     );
   }
 
-  introduccio(LT, setmana){
+  introduccio(LT, setmana, salm94, salm99, salm66, salm23){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
     if(!this.LAUDES.diumPasqua && !this.state.invitatori/*this.LAUDES.invitatori !== "Laudes"*/){
@@ -242,27 +411,11 @@ export default class LaudesDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antInvitatori, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.redCenter}>{"Salm 94\nInvitació a lloar Déu"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{"Mentre repetim aquell «avui», exhortem-nos cada dia els uns als altres (He 3, 13)"}</Text></View></View>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.salm(GF.rs(this.LAUDES.salm94, this.superTestMode, this.testErrorCB.bind(this)))}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.gloria('1')}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>Ant.
-            <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antInvitatori, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-          </Text>
+          {this.salmInvitatori(this.state.numSalmInv, salm94, salm99, salm66, salm23)}
         </View>
       )
     }
-  }
-
+  }7
   himne(LT, weekDay, setmana){
     return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.LAUDES.himne, this.superTestMode, this.testErrorCB.bind(this))}</Text>);
   }

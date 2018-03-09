@@ -199,6 +199,7 @@ export default class HomeScreenController extends Component {
       mogut: '',
       litColor: '',
       date: today,
+      numSalmInv: ''
     }
 
     this.liturgicProps = {
@@ -268,6 +269,7 @@ export default class HomeScreenController extends Component {
       }),
       SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
+      SettingsManager.getSettingNumSalmInv((r) => this.variables.numSalmInv = r),
     ]).then(results => {
       this.refreshDate(date);
     });
@@ -653,6 +655,7 @@ export default class HomeScreenController extends Component {
         superTestMode: superTestMode,
         testErrorCallBack: this.testErrorCallBack.bind(this),
         nextDayTestCB: this.nextDayTest.bind(this),
+        setNumSalmInv: this.setNumSalmInv.bind(this),
         type: type,
         date: this.date,
         variables: this.variables,
@@ -687,6 +690,7 @@ export default class HomeScreenController extends Component {
             superTestMode: superTestMode,
             testErrorCallBack: this.testErrorCallBack.bind(this),
             nextDayTestCB: this.nextDayTest.bind(this),
+            setNumSalmInv: this.setNumSalmInv.bind(this),
             type: type,
             variables: this.variables,
             date: this.date,
@@ -700,6 +704,10 @@ export default class HomeScreenController extends Component {
 
   dacordString(){
     return "D'acord";
+  }
+
+  setNumSalmInv(numSalm){
+    this.variables.numSalmInv = numSalm;
   }
 
   render(){

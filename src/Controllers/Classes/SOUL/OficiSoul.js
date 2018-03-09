@@ -35,7 +35,6 @@ export default class OficiSoul {
           tempsAdventSetmanesDium: TABLES.tempsAdventSetmanesDium,
           tempsSolemnitatsFestes: TABLES.tempsSolemnitatsFestes,
           diversos: TABLES.diversos,
-          salm94: TABLES.diversos.item(0).oracio,
           ohDeu: TABLES.diversos.item(2).oracio, //TODO: opció en llati?
         };
 
@@ -47,7 +46,6 @@ export default class OficiSoul {
         this.OFICI = { //40
           invitatori: invitatori,
           antInvitatori: '',
-          salm94: '',
           himne: '',
           ant1: '',
           titol1: '',
@@ -85,6 +83,10 @@ export default class OficiSoul {
           himneOhDeu: '',
           himneOhDeuBool: '',
           oracio: '',
+          salm94: TABLES.diversos.item(0).oracio,
+          salm99: TABLES.diversos.item(34).oracio,
+          salm66: TABLES.diversos.item(35).oracio,
+          salm23: TABLES.diversos.item(36).oracio,
         }
 
     if(CEL.diumPasqua) {
@@ -143,8 +145,6 @@ export default class OficiSoul {
     if(CEL.antInvitatori === '-')
       this.OFICI.antInvitatori = antInvitatori;
     else this.OFICI.antInvitatori = CEL.antInvitatori;
-
-    this.OFICI.salm94 = this.state.salm94;
   }
 
   himne(LT, weekDay, nit, setmana, CEL, llati){

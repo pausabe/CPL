@@ -438,7 +438,6 @@ module.exports = {
         return oAux.replace(form1, HMf1);
       }
       else if(!horaMenor){
-        console.log("here rignt?");
         return oAux.replace(form1, bigf1);
       }
     }
@@ -776,5 +775,13 @@ module.exports = {
     }
 
     return(39);
+  },
+
+  salmInvExists(salmNum,titols){
+    for(i = 0; i<titols.length; i++){
+      titol = titols[i];
+      if(titol && titol.search("Salm "+salmNum) !== -1) return false;
+    }
+    return true;
   },
 };
