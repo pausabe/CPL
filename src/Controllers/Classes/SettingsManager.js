@@ -32,7 +32,15 @@ export const salmInvitatori = {
   SALM94: '94',
   SALM99: '99',
   SALM66: '66',
-  SALM23: '23',
+  SALM23: '23'
+}
+
+export const antMare = {
+  ANT1: '1',
+  ANT2: '2',
+  ANT3: '3',
+  ANT4: '4',
+  ANT5: '5'
 }
 
 const defaultSettings = {
@@ -44,7 +52,8 @@ const defaultSettings = {
     lloc: lloc.DIOCESI,
     dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
     // invitatori: invitatori.OFICI
-    salmInvitatori: salmInvitatori.SALM94
+    salmInvitatori: salmInvitatori.SALM94,
+    antMare: antMare.ANT1
 };
 
 export default class SettingsManager{
@@ -129,6 +138,10 @@ export default class SettingsManager{
         return SettingsManager._getStorageValue("salmInvitatori", callback, defaultSettings.salmInvitatori);
     }
 
+    static getSettingNumAntMare(callback){
+        return SettingsManager._getStorageValue("antMare", callback, defaultSettings.antMare);
+    }
+
     static setSettingShowGlories(value, callback){
         return SettingsManager._setValueIfValid("showGlories", value,
             (val) => val === "true" || val === "false",
@@ -191,6 +204,14 @@ export default class SettingsManager{
         return SettingsManager._setValueIfValid("salmInvitatori", value,
             (val) => {
                 return findValueInObject(salmInvitatori, val);
+            });
+    }
+
+    static setSettingNumAntMare(value){
+      // tracker.trackEvent("Configuration", "New value of Invitatori: "+value);
+        return SettingsManager._setValueIfValid("antMare", value,
+            (val) => {
+                return findValueInObject(antMare, val);
             });
     }
 

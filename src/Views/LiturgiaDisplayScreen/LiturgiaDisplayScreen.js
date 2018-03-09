@@ -95,7 +95,7 @@ export default class LiturgiaDisplayScreen extends Component {
   }
 
   liturgicComponent(type){
-    console.log("props",this.props);
+    // console.log("props",this.props);
     switch (type) {
       case 'Ofici':
         return(
@@ -167,7 +167,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     variables={this.props.variables}
                     liturgicProps = {this.props.liturgicProps}
                     superTestMode = {this.props.superTestMode}
-                    testErrorCB={this.testErrorCB.bind(this)}/>
+                    testErrorCB={this.testErrorCB.bind(this)}
+                    setNumAntMare={this.props.setNumAntMare}/>
                   )
                 break;
       default: return(<Text style={styles.normalText}>{this.props.type}</Text>)

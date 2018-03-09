@@ -1,4 +1,5 @@
 import GLOBAL from '../../../Globals/Globals';
+import GF from '../../../Globals/GlobalFunctions';
 
 export default class OficiSoul {
   constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
@@ -8,9 +9,7 @@ export default class OficiSoul {
 
   makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, SOUL){
     console.log("PlaceLog. MakePrayer OficiSoul");
-        nit=false; //TODO: todo
         this.state = {
-          nit: nit,
           salteriComuOfici: TABLES.salteriComuOfici,
           salteriComuInvitatori: TABLES.salteriComuInvitatori,
           tempsOrdinariOfici: TABLES.tempsOrdinariOfici,
@@ -95,7 +94,7 @@ export default class OficiSoul {
     }
     else {
       this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
-      this.himne(liturgicProps.LT, date.getDay(), false, liturgicProps.setmana, CEL, llati);
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
       this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
       this.vers(liturgicProps.LT, CEL);
       this.lectures(liturgicProps.LT, CEL);
@@ -147,10 +146,10 @@ export default class OficiSoul {
     else this.OFICI.antInvitatori = CEL.antInvitatori;
   }
 
-  himne(LT, weekDay, nit, setmana, CEL, llati){
+  himne(LT, weekDay, setmana, CEL, llati){
     switch(LT){
       case GLOBAL.O_ORDINARI:
-        if(nit){
+        if(GF.isDarkHimn()){//matinada
           if(llati === 'true'){
             himne = this.state.salteriComuOfici.himneNitLlati;
           }
@@ -161,7 +160,6 @@ export default class OficiSoul {
         else{//dia
           if(llati === 'true'){
             himne = this.state.salteriComuOfici.himneDiaLlati;
-            //console.log("himne " +himne);
           }
           else{
             himne = this.state.salteriComuOfici.himneDiaCat;

@@ -784,4 +784,10 @@ module.exports = {
     }
     return true;
   },
+
+  isDarkHimn(){
+    var nowDate = new Date();
+    var hour = nowDate.getHours();
+    return hour<6;
+  }
 };

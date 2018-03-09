@@ -199,7 +199,8 @@ export default class HomeScreenController extends Component {
       mogut: '',
       litColor: '',
       date: today,
-      numSalmInv: ''
+      numSalmInv: '',
+      numAntMare: ''
     }
 
     this.liturgicProps = {
@@ -270,6 +271,7 @@ export default class HomeScreenController extends Component {
       SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
       SettingsManager.getSettingNumSalmInv((r) => this.variables.numSalmInv = r),
+      SettingsManager.getSettingNumAntMare((r) => this.variables.numAntMare = r),
     ]).then(results => {
       this.refreshDate(date);
     });
@@ -656,6 +658,7 @@ export default class HomeScreenController extends Component {
         testErrorCallBack: this.testErrorCallBack.bind(this),
         nextDayTestCB: this.nextDayTest.bind(this),
         setNumSalmInv: this.setNumSalmInv.bind(this),
+        setNumAntMare: this.setNumAntMare.bind(this),
         type: type,
         date: this.date,
         variables: this.variables,
@@ -691,6 +694,7 @@ export default class HomeScreenController extends Component {
             testErrorCallBack: this.testErrorCallBack.bind(this),
             nextDayTestCB: this.nextDayTest.bind(this),
             setNumSalmInv: this.setNumSalmInv.bind(this),
+            setNumAntMare: this.setNumAntMare.bind(this),
             type: type,
             variables: this.variables,
             date: this.date,
@@ -708,6 +712,10 @@ export default class HomeScreenController extends Component {
 
   setNumSalmInv(numSalm){
     this.variables.numSalmInv = numSalm;
+  }
+
+  setNumAntMare(numAntMare){
+    this.variables.numAntMare = numAntMare;
   }
 
   render(){

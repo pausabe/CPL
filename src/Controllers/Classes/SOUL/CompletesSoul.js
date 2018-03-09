@@ -18,7 +18,6 @@ export default class CompletesSoul{
       himneCat1: TABLES.diversos.item(19).oracio,
       himneLlati2: TABLES.diversos.item(20).oracio,
       himneCat2: TABLES.diversos.item(21).oracio,
-      antMare: TABLES.diversos.item(30).oracio, //TODO: opto per aqesta, fer seleccionable? Tb en llati?
     }
 
     this.COMPLETES = { //24
@@ -45,7 +44,11 @@ export default class CompletesSoul{
       antCantic: '',
       cantic: '',
       oracio: '',
-      antMare: '',
+      antMare1: TABLES.diversos.item(24).oracio,
+      antMare2: TABLES.diversos.item(26).oracio,
+      antMare3: TABLES.diversos.item(28).oracio,
+      antMare4: TABLES.diversos.item(30).oracio,
+      antMare5: TABLES.diversos.item(32).oracio,
       actePen: TABLES.diversos.item(37).oracio,
     }
 
@@ -152,8 +155,8 @@ export default class CompletesSoul{
         }
     }
 
-    if(liturgicProps.tempsespecific === 'Pasqua')
+    /*if(liturgicProps.tempsespecific === 'Pasqua')
       this.COMPLETES.antMare = "Reina del cel, alegreu-vos, al·leluia;\nperquè aquell que meresquèreu portar, al·leluia,\nha ressucitat tal com digué, al·leluia.\nPregueu Déu per nosaltres, al·leluia."
-    else this.COMPLETES.antMare = this.state.antMare;
+    else this.COMPLETES.antMare = this.state.antMare;*/
   }
 }

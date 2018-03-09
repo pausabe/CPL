@@ -119,7 +119,7 @@ export default class OficiDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>HIMNE</Text>
+          <Text selectable={true} style={this.styles.red}>{"HIMNE"}{(this.liturgicProps.LT===GLOBAL.O_ORDINARI && GF.isDarkHimn())? " (nit)" : " (dia)"}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           {this.himne(this.liturgicProps.LT, this.variables.date.getDay(), false, this.liturgicProps.setmana)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
