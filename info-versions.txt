@@ -71,3 +71,11 @@ v1.7.4(7.3.2018)[An18,Ap12] - [b317e61]
   - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua
   - Paraula "Al·leluia" en les antífones de l'ofici de lectura dels diumenges de Quaresma
   - Cicle de la setmana del 16 al 22 d'abril
+v1.8(14.3.2018)[An19,Ap13] - [???]
+- Explicació de l'omisió de les Completes i l'Ofici de lectura de Diumenge de Pasqua quan has assistit a la Vetlla Pasqual
+- Introduït l'acte penitencial a les Completes
+- A les pregàries on s'anomena el bisbe o el papa s'ha canviat 'N.' pel nom corresponent
+- Repetició de l'antífona en les estrofes de l'invitatori
+- Salms 99, 66 i 23 afegits i seleccionables a l'invitatori
+- Noves antífones de la Mare de Déu a les Completes seleccionables
+- L'Himne de l'Ofici de lectura del temps de durant l'any canvia si es resa a la matinada

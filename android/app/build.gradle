@@ -97,8 +97,8 @@ android {
         applicationId "cpl.cpl"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 18
-        versionName "1.7.4"
+        versionCode 19
+        versionName "1.8"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
