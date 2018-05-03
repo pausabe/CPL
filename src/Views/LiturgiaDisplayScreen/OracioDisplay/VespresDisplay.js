@@ -163,7 +163,12 @@ export default class VespresDisplay extends Component {
   }
 
   gloria(g){
-    if(!g) return null;
+    if(!g || !(g==='0'||g==='1')) {
+      if(this.superTestMode){
+        this.testErrorCB();
+      }
+      return null;
+    }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
     if(this.props.variables.cleanSalm === 'false')
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";

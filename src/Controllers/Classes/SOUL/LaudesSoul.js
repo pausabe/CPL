@@ -483,6 +483,7 @@ export default class LaudesSoul {
         }
         break;
     }
+
     if(CEL.ant1 === '-')
       this.LAUDES.ant1 = ant1;
     else this.LAUDES.ant1 = CEL.ant1;
