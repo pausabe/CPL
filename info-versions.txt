@@ -79,5 +79,5 @@ v1.8(14.3.2018)[An19,Ap13] - [a9dfbc9]
 - Salms 99, 66 i 23 afegits i seleccionables a l'invitatori
 - Noves antífones de la Mare de Déu a les Completes seleccionables
 - L'Himne de l'Ofici de lectura del temps de durant l'any canvia si es resa a la matinada
-v1.8.1(24.4.2018)[An20,Ap14] - []
+v1.8.1(24.4.2018)[An20,Ap14] - [4527b65]
 - Corregits errors ortogràfics en l'himne de completes en temps de Pasqua

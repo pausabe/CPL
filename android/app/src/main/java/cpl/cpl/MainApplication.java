@@ -1,19 +1,20 @@
 package cpl.cpl;
 
 import android.app.Application;
+import org.pgsqlite.SQLitePluginPackage;
 import com.facebook.react.ReactApplication;
-import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.rnfs.RNFSPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
+import com.rnfs.RNFSPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import org.pgsqlite.SQLitePluginPackage;
+
 import java.util.Arrays;
 import java.util.List;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -27,13 +28,18 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new SplashScreenReactPackage(),
             new GoogleAnalyticsBridgePackage(),
-            new RNDeviceInfo(),
-          new RNFSPackage(),
-          new SplashScreenReactPackage(),
-          new SQLitePluginPackage(),
-          new VectorIconsPackage()
+            new RNFSPackage(),
+            new SQLitePluginPackage(),
+            new RNDeviceInfo()
       );
+    }
+
+    @Override
+    protected String getJSMainModuleName() {
+      return "index";
     }
   };
 
