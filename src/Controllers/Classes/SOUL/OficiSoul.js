@@ -196,7 +196,7 @@ export default class OficiSoul {
         break;
       case GLOBAL.Q_TRIDU:
         if(llati === 'true'){
-          himne = this.state.tempsQuaresmaTridu.himneDSOLLati;
+          himne = this.state.tempsQuaresmaTridu.himneDSOLLlati;
         }
         else{
           himne = this.state.tempsQuaresmaTridu.himneDSOLCat;

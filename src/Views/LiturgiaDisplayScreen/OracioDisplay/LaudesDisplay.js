@@ -415,7 +415,7 @@ export default class LaudesDisplay extends Component {
         </View>
       )
     }
-  }7
+  }
   himne(LT, weekDay, setmana){
     return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.LAUDES.himne, this.superTestMode, this.testErrorCB.bind(this))}</Text>);
   }

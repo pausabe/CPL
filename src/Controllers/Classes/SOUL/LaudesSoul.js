@@ -87,7 +87,15 @@ export default class LaudesSoul {
     }
 
     if(CEL.diumPasqua) {
-      this.LAUDES = CEL;
+      auxCEL = Object.assign(CEL,{
+        papa: TABLES.diversos.item(38).oracio,
+        bisbe: TABLES.diversos.item(GF.bisbeId(diocesiName)).oracio,
+        salm94: TABLES.diversos.item(0).oracio,
+        salm99: TABLES.diversos.item(34).oracio,
+        salm66: TABLES.diversos.item(35).oracio,
+        salm23: TABLES.diversos.item(36).oracio,
+      });
+      this.LAUDES = auxCEL;
       this.LAUDES.cantic = this.state.benedictus;
     }
     else{
