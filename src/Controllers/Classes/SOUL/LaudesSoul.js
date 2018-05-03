@@ -484,6 +484,11 @@ export default class LaudesSoul {
         break;
     }
 
+    console.log("aha1",CEL.gloria1);
+    console.log("aha2",CEL.gloria2);
+    console.log("aha3",CEL.gloria3);
+
+
     if(CEL.ant1 === '-')
       this.LAUDES.ant1 = ant1;
     else this.LAUDES.ant1 = CEL.ant1;

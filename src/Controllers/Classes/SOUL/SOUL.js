@@ -1045,6 +1045,18 @@ export default class SOUL {
           }
     }
 
+    //santsMemories M - Dilluns despres de Pentecosta (Benaurada Verge Maria, Mare de l’Església)
+    if(celType === 'M'){
+      var benaurada = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate()+1);
+      console.log("benaurada: "+benaurada);
+      if(date.getDate() === benaurada.getDate() && date.getMonth() === benaurada.getMonth() &&
+          date.getFullYear() === benaurada.getFullYear()){
+          var precAux = 10;
+          if(precAux<this.prec) this.prec = precAux;
+          return 484;
+        }
+    }
+
     return -1;
   }
 
