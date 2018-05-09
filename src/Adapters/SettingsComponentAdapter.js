@@ -18,7 +18,7 @@ export default class SettingsComponentAdapter{
 
         let options = [];
         //options.push(await SettingsComponentAdapter.getSettingsComponentShowGlories());
-        options.push(await SettingsComponentAdapter.getSettingsComponentPrayLliures(callback));
+        // options.push(await SettingsComponentAdapter.getSettingsComponentPrayLliures(callback));
         options.push(await SettingsComponentAdapter.getSettingsComponentUseLatin(callback));
         options.push(await SettingsComponentAdapter.getSettingsComponentTextSize(callback));
         options.push(await SettingsComponentAdapter.getSettingsComponentDiocesis(callback));

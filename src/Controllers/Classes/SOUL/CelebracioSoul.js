@@ -303,6 +303,11 @@ export default class CelebracioSoul {
             case "L":
             case "V":
               if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
+              else if(variables.lliures === 'false'){
+                this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
+                this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
+                this.INFO_CEL.typeCel = 'L';
+              }
               break;
             case "M":
               if(date.getDay() !== 0) this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');

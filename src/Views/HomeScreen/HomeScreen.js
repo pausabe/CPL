@@ -7,7 +7,8 @@ import {
   StatusBar,
   ImageBackground,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Switch
  } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -26,6 +27,14 @@ function paddingBar(){
 }
 
 export default class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      switchValue: false,
+    }
+  }
+
   dacordString(){
     return "D'acord";
   }
@@ -72,23 +81,36 @@ export default class HomeScreen extends Component {
   }
 
   transfromCelTypeName(CT, t){
+    memLliureColor = '#333333';
+    if(this.props.ViewData.celebracio.type==='L' && !this.state.switchValue) memLliureColor = '#595959';
+
     switch (CT) {
       case 'F':
-        return (<Text style={styles.celebracioType}>Festa</Text>);
+        return (<Text style={styles.celebracioType}>{"Festa"}</Text>);
         break;
       case 'S':
-        return (<Text style={styles.celebracioType}>Solemnitat</Text>);
+        return (<Text style={styles.celebracioType}>{"Solemnitat"}</Text>);
         break;
       case 'M':
         if(t === 'Quaresma')
-          return (<Text style={styles.celebracioType}>Commemoració</Text>);
-        return (<Text style={styles.celebracioType}>Memòria obligatòria</Text>);
+          return (<Text style={styles.celebracioType}>{"Commemoració"}</Text>);
+        return (<Text style={styles.celebracioType}>{"Memòria obligatòria"}</Text>);
         break;
       case 'V':
       case 'L':
         if(t === 'Quaresma')
-          return (<Text style={styles.celebracioType}>Commemoració</Text>);
-        return (<Text style={styles.celebracioType}>Memòria lliure</Text>);
+          return (<Text style={{
+                        textAlign: 'center',
+                        color: memLliureColor,
+                        fontSize: 13,
+                        fontWeight: '300'}}>
+                  {"Commemoració"}</Text>);
+        return (<Text style={{
+                      textAlign: 'center',
+                      color: memLliureColor,
+                      fontSize: 13,
+                      fontWeight: '300'}}>
+                  {"Memòria lliure"}</Text>);
         break;
     }
     return null;
@@ -120,8 +142,28 @@ export default class HomeScreen extends Component {
     }
   }
 
+  onSwitchValueChange(value){
+    this.setState({switchValue: value},()=>{
+      this.props.lliureCB(value);
+    });
+  }
+
   render() {
-    auxPadding = 5;
+    arrowWidth = 35;
+    auxPadding = 10;
+    if(this.props.ViewData.celebracio.type==='L'){
+      arrowWidth = 65;
+      auxPadding = 0;
+    }
+
+    santTextColor = 'black';
+    arrowColor = 'black';
+    santContainerOpa = 0.8;
+    if(this.props.ViewData.celebracio.type==='L' && !this.state.switchValue){
+      santTextColor = '#404040';
+      arrowColor = '#595959';
+      santContainerOpa = 0.75;
+    }
     return (
       <View style={styles.container}>
        <ImageBackground source={require('../../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
@@ -183,36 +225,76 @@ export default class HomeScreen extends Component {
            {this.transfromCelTypeName(this.props.ViewData.celebracio.type, this.props.ViewData.temps)}
          </View>
          : null}
-         {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
-           <View style={styles.santContainer}>
-             <TouchableOpacity activeOpacity={1.0} style={styles.buttonSantContainer} onPress={this.props.santCB}>
-               <View style={{flex: 1, flexDirection: 'row', paddingRight: auxPadding}}>
-                 <View style={{flex: 20, justifyContent: 'center', paddingRight: (auxPadding*2)}}>
-                   <Text numberOfLines={2} style={styles.santText}>{this.props.ViewData.celebracio.titol}</Text>
-                 </View>
-                 {this.props.ViewData.celebracio.text !== '-' ?
-                  <View style={{flex: 1, justifyContent: 'center'}}>
-                  {this.props.santPressed ?
-                    <Icon
-                      name="ios-arrow-down"
-                      size={25}
-                      color="#424242"/>
-                    :
-                    <Icon
-                      name="ios-arrow-forward-outline"
-                      size={25}
-                      iconStyle={{padding: 50}}
-                      color="#424242"/>
-                  }
-                  </View>
-                  :
-                  null
-                 }
-               </View>
-             </TouchableOpacity>
-           </View>
-         : null}
 
+         {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
+
+           <View style={{
+               flex: 1.1,
+               shadowOpacity: 0.1,
+               shadowRadius: 5,
+               shadowOffset: {
+                 width: 0,
+                 height: 10
+               },
+               justifyContent: 'center',
+               backgroundColor: '#E0F2F1',
+               borderRadius: 15,
+               marginHorizontal: 10,
+               marginBottom: 10,
+               paddingLeft: 10,
+               opacity: santContainerOpa,
+             }}>
+             <View style={{flex: 1, flexDirection: 'row'}}>
+               {this.props.ViewData.celebracio.type === 'L'?
+                 <View style={{flex:1, minWidth: 45, justifyContent: 'center', alignItems: 'center'}}>
+                   <Switch
+                     onValueChange={this.onSwitchValueChange.bind(this)}
+                     value={this.state.switchValue}
+                     onTintColor={'#007b80'}
+                   />
+                 </View>
+                 : null
+               }
+               <TouchableOpacity activeOpacity={1.0} style={{flex: 20, flexDirection: 'row'}} onPress={this.props.santCB}>
+                  {this.props.ViewData.celebracio.text !== '-' && this.props.ViewData.celebracio.type !== 'L'?
+                    <View style={{width: arrowWidth}}/>
+                  :null}
+                   <View style={{flex: 1, justifyContent: 'center', paddingRight: auxPadding}}>
+                     <Text numberOfLines={2} style={{
+                                              color: santTextColor,
+                                              textAlign: 'center',
+                                              fontSize: 16,
+                                              fontWeight: '300'}}>
+                              {this.props.ViewData.celebracio.titol}</Text>
+                   </View>
+                   {this.props.ViewData.celebracio.text !== '-' ?
+                    <View style={{width: arrowWidth, justifyContent: 'center', alignItems: 'center'}}>
+                      {this.props.santPressed ?
+                        <Icon
+                          name="ios-arrow-down"
+                          size={25}
+                          color={arrowColor}/>
+                        :
+                        <Icon
+                          name="ios-arrow-forward-outline"
+                          size={25}
+                          iconStyle={{padding: 50}}
+                          color={arrowColor}/>
+                      }
+                    </View>
+                    :
+                    <View>
+                      {this.props.ViewData.celebracio.type === 'L'?
+                        <View style={{width:45}}></View>
+                        : null
+                      }
+                    </View>
+                   }
+               </TouchableOpacity>
+             </View>
+           </View>
+
+         : null}
           {this.props.santPressed && this.props.ViewData.celebracio.text !== '-' ?
            <View style={styles.liturgiaContainer}>
             <ScrollView>
@@ -283,31 +365,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontStyle: 'italic',
     fontWeight: '300'
-  },
-  santContainer: {
-    flex: 1.1,
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    shadowOffset: {
-      width: 0,
-      height: 10
-    },
-    justifyContent: 'center',
-    backgroundColor: '#E0F2F1',
-    borderRadius: 15,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    paddingLeft: 10,
-    opacity: 0.8,
-  },
-  buttonSantContainer: {
-    flex: 1,
-  },
-  santText: {
-    textAlign: 'center',
-    color: 'black',
-    fontSize: 16,
-    fontWeight: '300',
   },
   santExText: {
     textAlign: 'center',

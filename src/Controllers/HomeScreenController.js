@@ -162,14 +162,14 @@ export default class HomeScreenController extends Component {
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
       day: 3, //1-31 (no s'inclou en el test)
-      month: 4, //0-11
+      month: 5, //0-11
       year: 2018,
     }
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
-      this.finalDiocesiIndex = 0; //0-30 (s'inclou en el test)
+      this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
       this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
       this.llocTest = GF.nextLloc(this.initalDiocesiIndex);
@@ -321,6 +321,12 @@ export default class HomeScreenController extends Component {
     this.liturgicProps.LITURGIA = liturgia;
     if(!this.testing){
       this.refEv = true;
+
+      if(this.variables.celType === 'L' && this.variables.lliures === 'false'){
+        // this.liturgicProps.LITURGIA.info_cel.typeCel = 'L';
+        // this.liturgicProps.LITURGIA.info_cel.nomCel = 'Titol Lliure';
+        // this.liturgicProps.LITURGIA.info_cel.infoCel = 'Info Lliure';
+      }
 
       this.setState({
         santPressed: false,
@@ -650,6 +656,14 @@ export default class HomeScreenController extends Component {
     this.popupDialog.dismiss();
   }
 
+  onSwitchLliurePress(value){
+    console.log("onswitch",value);
+    auxValue = 'false';
+    if(value) auxValue = 'true';
+    SettingsManager.setSettingPrayLliures(auxValue);
+    this.refreshEverything(this.variables.date);
+  }
+
   jumpDisplay(type, superTestMode, title){
     this.props.navigator.push({
       title: title,
@@ -729,6 +743,7 @@ export default class HomeScreenController extends Component {
             variables={this.variables}
             santPressed={this.state.santPressed}
             santCB={this.onSantPressCB.bind(this)}
+            lliureCB={this.onSwitchLliurePress.bind(this)}
             oficiCB={this.LHButtonCB.bind(this, "Ofici",false)}
             laudesCB={this.LHButtonCB.bind(this, "Laudes",false)}
             terciaCB={this.LHButtonCB.bind(this, "Tèrcia",false)}
