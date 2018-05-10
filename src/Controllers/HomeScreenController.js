@@ -4,7 +4,8 @@ import {
   Text,
   Platform,
   TouchableOpacity,
-  BackHandler
+  BackHandler,
+  AsyncStorage
  } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -106,7 +107,7 @@ export default class HomeScreenController extends Component {
     this.evReady = false;
 
     //this is just for android. You must change for ios in NavigatorController as well
-    this.date = new Date(/*2018,0,1*/);
+    this.date = new Date(/*2018,4,12*/);
 
     this.minDatePicker = new Date(2017,0,2);
     this.maxDatePicker = new Date(2018,11,28);
@@ -169,7 +170,7 @@ export default class HomeScreenController extends Component {
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
-      this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
+      this.finalDiocesiIndex = 0; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
       this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
       this.llocTest = GF.nextLloc(this.initalDiocesiIndex);
@@ -192,7 +193,7 @@ export default class HomeScreenController extends Component {
       //invitatori: '',
       llati: '',
       gloria: 'false',
-      lliures: '',
+      lliures: false,
       textSize: '',
       cleanSalm: 'false',
       celType: '',
@@ -212,7 +213,12 @@ export default class HomeScreenController extends Component {
       ABC: '',
     }
 
-    if(this.testing) this.variables.lliures = 'false';
+    if(this.testing) {
+      this.variables.lliures = false;
+    }
+    else{
+      this.checkLliureDate();
+    }
 
     this.refreshing = false;
     this.litPres = false;
@@ -240,6 +246,33 @@ export default class HomeScreenController extends Component {
     this.refreshEverything(today);
   }
 
+  checkLliureDate(){
+    console.log("checkLliureDate()");
+    AsyncStorage.getItem("lliureDate").then((value) => {
+        console.log("CLD-lliureDate",value);
+        if(!value) AsyncStorage.setItem('lliureDate','none');
+        if(value && value !== 'none'){
+          dataArr = value.split(':');
+          console.log("CDL-dataArr",dataArr);
+          console.log("CDL-variableDate",this.variables.date);
+          if(parseInt(dataArr[0])===this.variables.date.getDate() &&
+              parseInt(dataArr[1])===this.variables.date.getMonth() &&
+              parseInt(dataArr[2])===this.variables.date.getFullYear()){
+                console.log("CLD-YES");
+                this.variables.lliures = true;
+          }
+          else {
+            console.log("CLD-nope1");
+            this.variables.lliures = false;
+          }
+        }
+        else {
+          console.log("CLD-nope2");
+          this.variables.lliures = false;
+        }
+    }).done();
+  }
+
   /*************** CREATING THE LITURGIA - START ***************/
   refreshEverything(date){
     console.log("PlaceLog. REFRESHING EVERYTHING: settings > anyliturgic > soul > render " + date);
@@ -264,10 +297,10 @@ export default class HomeScreenController extends Component {
       // SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
       SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
-      SettingsManager.getSettingPrayLliures((r) => {
+      /*SettingsManager.getSettingPrayLliures((r) => {
         if(!this.testing)
           this.variables.lliures = r;
-      }),
+      }),*/
       SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
       //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
       SettingsManager.getSettingNumSalmInv((r) => this.variables.numSalmInv = r),
@@ -307,6 +340,8 @@ export default class HomeScreenController extends Component {
         this.dataTomorrow.diaMogut = tomorrow.diaMogut;
         this.dataTomorrow.diocesiMogut = tomorrow.diocesiMogut;
 
+        if(!this.testing) this.checkLliureDate();
+
         if(this.SOUL === undefined)
           this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
         else
@@ -322,11 +357,11 @@ export default class HomeScreenController extends Component {
     if(!this.testing){
       this.refEv = true;
 
-      if(this.variables.celType === 'L' && this.variables.lliures === 'false'){
+      /*if(this.variables.celType === 'L' && this.variables.lliures === false){
         // this.liturgicProps.LITURGIA.info_cel.typeCel = 'L';
         // this.liturgicProps.LITURGIA.info_cel.nomCel = 'Titol Lliure';
         // this.liturgicProps.LITURGIA.info_cel.infoCel = 'Info Lliure';
-      }
+      }*/
 
       this.setState({
         santPressed: false,
@@ -405,15 +440,15 @@ export default class HomeScreenController extends Component {
  nextDayTest(){
    if(this.testing){
      console.log("PlaceLog. NEXT DAY");
-     if(this.variables.celType === 'L' && this.variables.lliures === 'false'){
+     if(this.variables.celType === 'L' && this.variables.lliures === false){
        //Tornem a passar el dia però amb lliures activades
        console.log("TestLog. -----------REPTERIR per mem lliure---------"+this.idTest+" -> "+this.diocesiTest+": "+this.variables.date+"-----------------------------");
-       this.variables.lliures = 'true';
+       this.variables.lliures = true;
        this.refreshEverything(this.variables.date);
        this.setState({testInfo: "Testing correctly *"});
      }
      else{
-       this.variables.lliures = 'false';
+       this.variables.lliures = false;
 
        var nextDay = this.variables.date;
        nextDay.setDate(nextDay.getDate()+1);
@@ -657,10 +692,22 @@ export default class HomeScreenController extends Component {
   }
 
   onSwitchLliurePress(value){
-    console.log("onswitch",value);
-    auxValue = 'false';
-    if(value) auxValue = 'true';
-    SettingsManager.setSettingPrayLliures(auxValue);
+    console.log("CLDSW-onswitch",value);
+    if(value) {
+      stringData = this.variables.date.getDate()+':'+
+                  this.variables.date.getMonth()+':'+
+                  this.variables.date.getFullYear();
+      console.log("CLDSW-stringData",stringData);
+      AsyncStorage.setItem("lliureDate", stringData);
+    }
+    else{
+      AsyncStorage.setItem("lliureDate", 'none');
+    }
+
+    console.log("CLDSW-lliures value",value);
+
+    // SettingsManager.setSettingPrayLliures(auxValue);
+    this.variables.lliures = value;
     this.refreshEverything(this.variables.date);
   }
 

@@ -287,7 +287,13 @@ export default class CelebracioSoul {
       antMare: '-',
     }
 
-    //console.log("tomorrowCal: " + tomorrowCal + " celType: " + celType);
+    if(celType === 'L' && !variables.lliures){
+      this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
+      this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
+      this.INFO_CEL.typeCel = 'L';
+    }
+
+    console.log("tomorrowCal: " + tomorrowCal + " celType: " + celType);
     if(tomorrowCal === '-'){
       if(idDE === -1){
         if(idTSF === -1){
@@ -302,12 +308,8 @@ export default class CelebracioSoul {
               break;
             case "L":
             case "V":
-              if(date.getDay() !== 0 && variables.lliures === 'true') this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
-              else if(variables.lliures === 'false'){
-                this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
-                this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
-                this.INFO_CEL.typeCel = 'L';
-              }
+              if(date.getDay() !== 0 && variables.lliures === true)
+                this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
               break;
             case "M":
               if(date.getDay() !== 0) this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
@@ -404,7 +406,7 @@ export default class CelebracioSoul {
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
           this.makeVespres1TSF(TABLES, type, liturgicProps, variables, tomCal);
@@ -432,7 +434,7 @@ export default class CelebracioSoul {
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
           this.makeDR(TABLES, type, liturgicProps, variables, tomCal);
@@ -460,7 +462,7 @@ export default class CelebracioSoul {
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
           this.makeT(TABLES, type, liturgicProps, variables, tomCal);
@@ -488,7 +490,7 @@ export default class CelebracioSoul {
                break;
              case 'L':
              case 'V':
-               if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+               if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
                break;
            }
            this.makeA(TABLES, type, liturgicProps, variables, tomCal);
@@ -513,7 +515,7 @@ export default class CelebracioSoul {
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
           this.makeVespres1DE(TABLES, type, liturgicProps, variables, tomCal);
@@ -541,7 +543,7 @@ export default class CelebracioSoul {
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === 'true') this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
               break;
           }
           this.makeVespres1SF(TABLES, type, liturgicProps, variables, tomCal);

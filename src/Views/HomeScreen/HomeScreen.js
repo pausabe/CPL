@@ -30,9 +30,7 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      switchValue: false,
-    }
+    this.switchValue = props.variables.lliures;
   }
 
   dacordString(){
@@ -82,7 +80,7 @@ export default class HomeScreen extends Component {
 
   transfromCelTypeName(CT, t){
     memLliureColor = '#333333';
-    if(this.props.ViewData.celebracio.type==='L' && !this.state.switchValue) memLliureColor = '#595959';
+    if(this.props.ViewData.celebracio.type==='L' && !this.props.variables.lliures) memLliureColor = '#595959';
 
     switch (CT) {
       case 'F':
@@ -143,12 +141,14 @@ export default class HomeScreen extends Component {
   }
 
   onSwitchValueChange(value){
-    this.setState({switchValue: value},()=>{
-      this.props.lliureCB(value);
-    });
+    this.switchValue = value;
+    this.forceUpdate();
+    this.props.lliureCB(value);
   }
 
   render() {
+    this.switchValue = this.props.variables.lliures;
+
     arrowWidth = 35;
     auxPadding = 10;
     if(this.props.ViewData.celebracio.type==='L'){
@@ -159,7 +159,7 @@ export default class HomeScreen extends Component {
     santTextColor = 'black';
     arrowColor = 'black';
     santContainerOpa = 0.8;
-    if(this.props.ViewData.celebracio.type==='L' && !this.state.switchValue){
+    if(this.props.ViewData.celebracio.type==='L' && !this.props.variables.lliures){
       santTextColor = '#404040';
       arrowColor = '#595959';
       santContainerOpa = 0.75;
@@ -249,7 +249,7 @@ export default class HomeScreen extends Component {
                  <View style={{flex:1, minWidth: 45, justifyContent: 'center', alignItems: 'center'}}>
                    <Switch
                      onValueChange={this.onSwitchValueChange.bind(this)}
-                     value={this.state.switchValue}
+                     value={this.switchValue}
                      onTintColor={'#007b80'}
                    />
                  </View>
@@ -298,8 +298,14 @@ export default class HomeScreen extends Component {
           {this.props.santPressed && this.props.ViewData.celebracio.text !== '-' ?
            <View style={styles.liturgiaContainer}>
             <ScrollView>
-             <Text style={styles.santExText}>{this.props.ViewData.celebracio.text}</Text>
-             <Text style={styles.santExText}/>
+             <Text style={{
+                     textAlign: 'center',
+                     color: santTextColor,
+                     fontSize: 16,
+                     fontWeight: '300'
+                   }}>
+               {this.props.ViewData.celebracio.text}</Text>
+             <Text />
             </ScrollView>
            </View>
            :
@@ -364,12 +370,6 @@ const styles = StyleSheet.create({
     color: '#424242',
     fontSize: 13,
     fontStyle: 'italic',
-    fontWeight: '300'
-  },
-  santExText: {
-    textAlign: 'center',
-    color: 'black',
-    fontSize: 16,
     fontWeight: '300'
   },
   celebracioType: {
