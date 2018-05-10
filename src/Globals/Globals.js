@@ -10,6 +10,7 @@ module.exports = {
   itemsBarColor: '#FFFFFF',
   statusBarColor: '#00474a',
   hrColor: '#90A4AE',
+  switchColor: '#007b80',
 
   ...Platform.select({
       ios: {

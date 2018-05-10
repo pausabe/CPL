@@ -157,20 +157,20 @@ export default class HomeScreenController extends Component {
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 1, //1-31 (s'inclou en el test)
-      month: 4, //0-11
-      year: 2018,
+      day: 2, //1-31 (s'inclou en el test)
+      month: 0, //0-11
+      year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 3, //1-31 (no s'inclou en el test)
-      month: 5, //0-11
+      day: 28, //1-31 (no s'inclou en el test)
+      month: 11, //0-11
       year: 2018,
     }
 
     if(this.testing){
       var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
       this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
-      this.finalDiocesiIndex = 0; //0-30 (s'inclou en el test)
+      this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
       this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
       this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
       this.llocTest = GF.nextLloc(this.initalDiocesiIndex);

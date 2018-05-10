@@ -61,6 +61,7 @@ export default class SettingsComponent extends Component{
     _generateSwitch(){
         let selectorProps = this._mergeProps({
             value: this.state.value,
+            onTintColor: GLOBAL.switchColor,
             onValueChange: this._updateSelectionStateCallback.bind(this)
         });
         return React.createElement(Switch, selectorProps);
@@ -69,6 +70,7 @@ export default class SettingsComponent extends Component{
     _generateSlider(){
         let selectorProps = this._mergeProps({
             value: this.state.value,
+            minimumTrackTintColor: GLOBAL.switchColor,
             onValueChange: this._selectionCallback.bind(this)
         });
         return (

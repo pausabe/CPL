@@ -250,7 +250,7 @@ export default class HomeScreen extends Component {
                    <Switch
                      onValueChange={this.onSwitchValueChange.bind(this)}
                      value={this.switchValue}
-                     onTintColor={'#007b80'}
+                     onTintColor={GLOBAL.switchColor}
                    />
                  </View>
                  : null
