@@ -287,10 +287,10 @@ export default class CelebracioSoul {
       antMare: '-',
     }
 
-    if(celType === 'L' && !variables.lliures){
+    if((celType === 'L' || celType == 'V') && !variables.lliures){
       this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
       this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
-      this.INFO_CEL.typeCel = 'L';
+      this.INFO_CEL.typeCel = celType;
     }
 
     console.log("tomorrowCal: " + tomorrowCal + " celType: " + celType);

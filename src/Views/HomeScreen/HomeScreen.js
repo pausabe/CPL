@@ -80,7 +80,7 @@ export default class HomeScreen extends Component {
 
   transfromCelTypeName(CT, t){
     memLliureColor = '#333333';
-    if(this.props.ViewData.celebracio.type==='L' && !this.props.variables.lliures) memLliureColor = '#595959';
+    if((this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V') && !this.props.variables.lliures) memLliureColor = '#595959';
 
     switch (CT) {
       case 'F':
@@ -151,7 +151,7 @@ export default class HomeScreen extends Component {
 
     arrowWidth = 35;
     auxPadding = 10;
-    if(this.props.ViewData.celebracio.type==='L'){
+    if((this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V')){
       arrowWidth = 65;
       auxPadding = 0;
     }
@@ -159,7 +159,7 @@ export default class HomeScreen extends Component {
     santTextColor = 'black';
     arrowColor = 'black';
     santContainerOpa = 0.8;
-    if(this.props.ViewData.celebracio.type==='L' && !this.props.variables.lliures){
+    if((this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V') && !this.props.variables.lliures){
       santTextColor = '#404040';
       arrowColor = '#595959';
       santContainerOpa = 0.75;
@@ -245,7 +245,7 @@ export default class HomeScreen extends Component {
                opacity: santContainerOpa,
              }}>
              <View style={{flex: 1, flexDirection: 'row'}}>
-               {this.props.ViewData.celebracio.type === 'L'?
+               {(this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V')?
                  <View style={{flex:1, minWidth: 45, justifyContent: 'center', alignItems: 'center'}}>
                    <Switch
                      onValueChange={this.onSwitchValueChange.bind(this)}
@@ -284,7 +284,7 @@ export default class HomeScreen extends Component {
                     </View>
                     :
                     <View>
-                      {this.props.ViewData.celebracio.type === 'L'?
+                      {(this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V')?
                         <View style={{width:45}}></View>
                         : null
                       }
