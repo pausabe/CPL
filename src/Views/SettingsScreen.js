@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform, ScrollView, TouchableOpacity } from 'react-native';
 
 import GLOBAL from "../Globals/Globals";
+import HR from '../Components/HRComponent';
 import SettingsComponentAdapter from "../Adapters/SettingsComponentAdapter";
+import DonationScreen from './DonationScreen';
 
 export default class SettingsScreen extends Component {
   constructor(props){
@@ -31,13 +33,45 @@ export default class SettingsScreen extends Component {
       return (
         <View style={styles.scrollContainer}>
           <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}>
-              {this.state.options}
-              <View style={{padding: 5, paddingTop: 10}}>
-                <Text style={{textAlign:'center', color:'grey', fontSize:11}}>{"Text oficial de la Comissió Interdiocesana de Litúrgia de la Conferència Episcopal Tarraconense, aprovat pels bisbes de les diòcesis de parla catalana i confirmat per la Congregació per al Culte Diví i la Disciplina dels Sagraments: Prot. N. 312/15, 27 d'abril de 2016"}</Text>
-              </View>
+            <View style={{height:10}}/>
+            <HR/>
+            <TouchableOpacity style={styles.buttonView} onPress={this.donationPressed.bind(this)}>
+              <Text style={styles.text}>{"Fer donatiu"}</Text>
+              <Text style={styles.text}>{">"}</Text>
+            </TouchableOpacity>
+            <HR/>
+            <TouchableOpacity style={styles.buttonView}  onPress={this.commentPressed.bind(this)}>
+              <Text style={styles.text}>{"Enviar missatge"}</Text>
+              <Text style={styles.text}>{">"}</Text>
+            </TouchableOpacity>
+            <HR/>
+            <View style={{height:10}}/>
+            <HR/>
+            {this.state.options}
+            <View style={{height:10}}/>
+            <HR/>
+            <View style={{padding: 5, paddingTop: 10, backgroundColor: 'white'}}>
+              <Text style={{textAlign:'center', color:'grey', fontSize:11}}>{"Text oficial de la Comissió Interdiocesana de Litúrgia de la Conferència Episcopal Tarraconense, aprovat pels bisbes de les diòcesis de parla catalana i confirmat per la Congregació per al Culte Diví i la Disciplina dels Sagraments: Prot. N. 312/15, 27 d'abril de 2016"}</Text>
+            </View>
+            <View style={{height:10}}/>
           </ScrollView>
         </View>
       );
+    }
+
+    donationPressed(){
+      if(Platform.OS === 'ios'){
+        this.props.navigator.push({
+          component: DonationScreen
+        });
+      }
+      else{
+        this.props.navigation.navigate('DonationScreen');
+      }
+    }
+
+    commentPressed(){
+      console.log("comment");
     }
 }
 
@@ -59,11 +93,23 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start',
       paddingTop: paddingBar(),
-      backgroundColor: GLOBAL.backgroundColor,
+      backgroundColor: 'gray'//GLOBAL.backgroundColor,
     },
     normalText: {
         textAlign: 'center',
         color: '#000000',
         fontWeight: '300'
-    }
+    },
+    buttonView: {
+      minHeight: 45,
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      backgroundColor: 'white'
+    },
+    text: {
+        color: "black",
+        fontSize: 16
+    },
 })

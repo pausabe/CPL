@@ -81,10 +81,12 @@ v1.8(14.3.2018)[An19,Ap13] - [a9dfbc9]
 - L'Himne de l'Ofici de lectura del temps de durant l'any canvia si es resa a la matinada
 v1.8.1(24.4.2018)[An20,Ap14] - [4527b65]
 - Corregits errors ortogràfics en l'himne de completes en temps de Pasqua
-v1.9.0(10.5.2018)[An21,Ap15] - [6ed3e48]
+v1.9.0(10.5.2018)[An21,Ap16] - [6ed3e48]
 - Nova memòria obligatòria: 'Benaurada Verge Maria, Mare de l’Església'
 - Memòries lliures sempre visibles. Es decideix si es resen amb un Switch a la pantalla principal
 - Solucionats alguns errors:
   - Faltaven alguns himnes en llatí
   - L'invitatori del Diumenge de Pasqua causava errors
   - No sortien alguns 'Glòria'
+v1.9.1(11.6.2018)[An22,Ap17] - []
+- Visibles altre cop les memòries lliures de Santa Maria en dissabte

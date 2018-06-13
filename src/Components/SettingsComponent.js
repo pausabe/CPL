@@ -62,7 +62,7 @@ export default class SettingsComponent extends Component{
         let selectorProps = this._mergeProps({
             value: this.state.value,
             onTintColor: GLOBAL.switchColor,
-            onValueChange: this._updateSelectionStateCallback.bind(this)
+            onValueChange: this._updateSelectionStateCallback.bind(this),
         });
         return React.createElement(Switch, selectorProps);
     }
@@ -206,7 +206,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         flexDirection: "row",
-        justifyContent: "space-between"
+        alignItems: 'center',
+        justifyContent: 'center',
+        justifyContent: "space-between",
+        backgroundColor: 'white'
     },
     textView: {
         flex: 3,

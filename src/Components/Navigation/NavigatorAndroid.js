@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreenController from '../../Controllers/HomeScreenController';
 import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 import SettingsScreen from '../../Views/SettingsScreen';
+import DonationScreen from '../../Views/DonationScreen';
 import GLOBAL from "../../Globals/Globals";
 
 const styles = StyleSheet.create({
@@ -26,6 +27,17 @@ export const NavigatorAndroid = StackNavigator({
     screen: SettingsScreen,
     navigationOptions: {
       headerTitle: <Text style={styles.titleText}>{'Configuració'}</Text>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerTintColor: GLOBAL.itemsBarColor,
+    },
+  },
+
+  Donation: {
+    screen: DonationScreen,
+    navigationOptions: {
+      headerTitle: <Text style={styles.titleText}>{'Donatiu'}</Text>,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
