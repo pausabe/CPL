@@ -9,12 +9,12 @@ import {
 
 import GLOBAL from "../Globals/Globals";
 
-export default class DonationScreen extends Component {
+export default class CommentScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
         <WebView
-          source={{uri: 'https://worship.cat/donatius'}}
+          source={{uri: 'https://worship.cat/contacta'}}
         />
       </View>
     );

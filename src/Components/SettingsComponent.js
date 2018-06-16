@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'center',
-        justifyContent: "space-between",
+        //justifyContent: "space-between",
         backgroundColor: 'white'
     },
     textView: {

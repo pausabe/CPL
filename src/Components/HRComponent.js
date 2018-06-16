@@ -10,9 +10,8 @@ import {
          style={{
            borderBottomColor: 'rgba(144, 164, 174, 0.4)',
            borderBottomWidth: 1,
-           marginHorizontal: 10,
          }}
        />
      );
    }
- }
+ }//marginHorizontal: 10,

@@ -5,6 +5,8 @@ import GLOBAL from "../Globals/Globals";
 import HR from '../Components/HRComponent';
 import SettingsComponentAdapter from "../Adapters/SettingsComponentAdapter";
 import DonationScreen from './DonationScreen';
+import CommentScreen from './CommentScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class SettingsScreen extends Component {
   constructor(props){
@@ -33,24 +35,29 @@ export default class SettingsScreen extends Component {
       return (
         <View style={styles.scrollContainer}>
           <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}>
-            <View style={{height:10}}/>
+            <View style={{height:15}}/>
             <HR/>
             <TouchableOpacity style={styles.buttonView} onPress={this.donationPressed.bind(this)}>
               <Text style={styles.text}>{"Fer donatiu"}</Text>
-              <Text style={styles.text}>{">"}</Text>
+              <Icon
+                name="ios-arrow-forward"
+                size={25}
+                color={'rgb(217, 217, 217)'}/>
             </TouchableOpacity>
             <HR/>
             <TouchableOpacity style={styles.buttonView}  onPress={this.commentPressed.bind(this)}>
               <Text style={styles.text}>{"Enviar missatge"}</Text>
-              <Text style={styles.text}>{">"}</Text>
+              <Icon
+                name="ios-arrow-forward"
+                size={25}
+                color={'rgb(217, 217, 217)'}/>
             </TouchableOpacity>
             <HR/>
             <View style={{height:10}}/>
             <HR/>
             {this.state.options}
             <View style={{height:10}}/>
-            <HR/>
-            <View style={{padding: 5, paddingTop: 10, backgroundColor: 'white'}}>
+            <View style={{padding: 5, paddingTop: 10,}}>
               <Text style={{textAlign:'center', color:'grey', fontSize:11}}>{"Text oficial de la Comissió Interdiocesana de Litúrgia de la Conferència Episcopal Tarraconense, aprovat pels bisbes de les diòcesis de parla catalana i confirmat per la Congregació per al Culte Diví i la Disciplina dels Sagraments: Prot. N. 312/15, 27 d'abril de 2016"}</Text>
             </View>
             <View style={{height:10}}/>
@@ -62,6 +69,7 @@ export default class SettingsScreen extends Component {
     donationPressed(){
       if(Platform.OS === 'ios'){
         this.props.navigator.push({
+          title: 'Donatiu',
           component: DonationScreen
         });
       }
@@ -71,7 +79,15 @@ export default class SettingsScreen extends Component {
     }
 
     commentPressed(){
-      console.log("comment");
+      if(Platform.OS === 'ios'){
+        this.props.navigator.push({
+          title: 'Comentari',
+          component: CommentScreen
+        });
+      }
+      else{
+        this.props.navigation.navigate('CommentScreen');
+      }
     }
 }
 
@@ -93,7 +109,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start',
       paddingTop: paddingBar(),
-      backgroundColor: 'gray'//GLOBAL.backgroundColor,
+      backgroundColor: 'rgb(242, 242, 242)'
     },
     normalText: {
         textAlign: 'center',
@@ -106,6 +122,7 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       flexDirection: "row",
       justifyContent: "space-between",
+      alignItems:'center',
       backgroundColor: 'white'
     },
     text: {

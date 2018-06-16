@@ -7,6 +7,7 @@ import HomeScreenController from '../../Controllers/HomeScreenController';
 import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 import SettingsScreen from '../../Views/SettingsScreen';
 import DonationScreen from '../../Views/DonationScreen';
+import CommentScreen from '../../Views/CommentScreen';
 import GLOBAL from "../../Globals/Globals";
 
 const styles = StyleSheet.create({
@@ -45,6 +46,16 @@ export const NavigatorAndroid = StackNavigator({
     },
   },
 
+  Comment: {
+    screen: CommentScreen,
+    navigationOptions: {
+      headerTitle: <Text style={styles.titleText}>{'Comentari'}</Text>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerTintColor: GLOBAL.itemsBarColor,
+    },
+  },
 
   LiturgiaDisplay: {
     screen: LiturgiaDisplayScreen,
