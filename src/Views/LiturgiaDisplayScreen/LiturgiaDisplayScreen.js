@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, StyleSheet, Platform } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Platform, TouchableOpacity, Share} from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
 import Ofici from './OracioDisplay/OficiDisplay'
 import Laudes from './OracioDisplay/LaudesDisplay'
 import Vespres from './OracioDisplay/VespresDisplay'
@@ -21,7 +22,33 @@ function paddingBar(){
 export default class LiturgiaDisplayScreen extends Component {
   constructor(props){
     super(props);
+
+    this.shareText = "";
   }
+
+  /*static navigationOptions = ({ navigation }) => ({
+      headerTitle: <View style={{paddingLeft: 100}}>
+                      <Text style={{
+                        textAlign: 'center',
+                        color: GLOBAL.itemsBarColor,
+                        fontSize: 20,
+                        fontWeight: '600',
+                      }}>{navigation.state.params.props.type}</Text>
+                  </View>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerRight: <TouchableOpacity
+                      style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
+                      onPress={() => navigation.state.params.props.sharePressedCB.bind(this)}>
+                      <View style={{flex:1, paddingRight: 10, alignItems: 'center', justifyContent:'center'}}>
+                        <Icon
+                          name="ios-share-outline"
+                          size={30}
+                          color="#FFFFFF"/>
+                      </View>
+                  </TouchableOpacity>,
+  });*/
 
   componentWillMount(){
     if(Platform.OS === 'ios'){
@@ -43,6 +70,17 @@ export default class LiturgiaDisplayScreen extends Component {
         this.setState({type: 'Laudes'});
       }, 1000);
     }
+    else{
+      if(Platform.OS==='ios'){
+        this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+      }
+    }
+  }
+
+  componentWillUnmount(){
+    if(Platform.OS==='ios'){
+      this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+    }
   }
 
   componentDidUpdate(){
@@ -61,6 +99,24 @@ export default class LiturgiaDisplayScreen extends Component {
     }
   }
 
+  sharePressed(){
+    console.log("SHARE!\n\n" + this.shareText);
+
+    Share.share({
+      message: this.shareText,
+      //url: '',
+      title: 'Comparteix tot el text'
+    },
+    {
+      // Android only:
+      dialogTitle: 'Comparteix tot el text',
+      // iOS only:
+      /*excludedActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter'
+      ]*/
+    })
+  }
+
   render() {
     // console.log("litdisplay render - " + this.props.superTestMode);
     return (
@@ -76,6 +132,11 @@ export default class LiturgiaDisplayScreen extends Component {
     if(this.props.superTestMode){
       this.props.testErrorCallBack();
     }
+  }
+
+  saveShareTextCB(shareText){
+    console.log("Save Share Text");
+    this.shareText = shareText;
   }
 
   getTitols(){
@@ -104,6 +165,7 @@ export default class LiturgiaDisplayScreen extends Component {
             liturgicProps = {this.props.liturgicProps}
             superTestMode = {this.props.superTestMode}
             testErrorCB={this.testErrorCB.bind(this)}
+            saveShareTextCB={this.saveShareTextCB.bind(this)}
             titols={this.titols}
             setNumSalmInv={this.props.setNumSalmInv}/>
           )
@@ -115,6 +177,7 @@ export default class LiturgiaDisplayScreen extends Component {
               variables={this.props.variables}
               superTestMode = {this.props.superTestMode}
               testErrorCB={this.testErrorCB.bind(this)}
+              saveShareTextCB={this.saveShareTextCB.bind(this)}
               titols={this.titols}
               setNumSalmInv={this.props.setNumSalmInv}/>
             )
@@ -125,7 +188,8 @@ export default class LiturgiaDisplayScreen extends Component {
                 liturgicProps={this.props.liturgicProps}
                 variables={this.props.variables}
                 superTestMode = {this.props.superTestMode}
-                testErrorCB={this.testErrorCB.bind(this)}/>
+                testErrorCB={this.testErrorCB.bind(this)}
+                saveShareTextCB={this.saveShareTextCB.bind(this)}/>
               )
             break;
             case 'Tèrcia':
@@ -136,7 +200,8 @@ export default class LiturgiaDisplayScreen extends Component {
                   HM = {type}
                   HORA_MENOR = {this.props.liturgicProps.LITURGIA.tercia}
                   superTestMode = {this.props.superTestMode}
-                  testErrorCB={this.testErrorCB.bind(this)}/>
+                  testErrorCB={this.testErrorCB.bind(this)}
+                  saveShareTextCB={this.saveShareTextCB.bind(this)}/>
                 )
               break;
               case 'Sexta':
@@ -147,7 +212,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     HM = {type}
                     HORA_MENOR = {this.props.liturgicProps.LITURGIA.sexta}
                     superTestMode = {this.props.superTestMode}
-                    testErrorCB={this.testErrorCB.bind(this)}/>
+                    testErrorCB={this.testErrorCB.bind(this)}
+                    saveShareTextCB={this.saveShareTextCB.bind(this)}/>
                   )
                 break;
               case 'Nona':
@@ -158,7 +224,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     HM = {type}
                     HORA_MENOR = {this.props.liturgicProps.LITURGIA.nona}
                     superTestMode = {this.props.superTestMode}
-                    testErrorCB={this.testErrorCB.bind(this)}/>
+                    testErrorCB={this.testErrorCB.bind(this)}
+                    saveShareTextCB={this.saveShareTextCB.bind(this)}/>
                   )
                 break;
               case 'Completes':
@@ -168,6 +235,7 @@ export default class LiturgiaDisplayScreen extends Component {
                     liturgicProps = {this.props.liturgicProps}
                     superTestMode = {this.props.superTestMode}
                     testErrorCB={this.testErrorCB.bind(this)}
+                    saveShareTextCB={this.saveShareTextCB.bind(this)}
                     setNumAntMare={this.props.setNumAntMare}/>
                   )
                 break;

@@ -12,6 +12,12 @@ import GF from '../../../Globals/GlobalFunctions';
 import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
+  componentDidMount(){
+    console.log("Did mount");
+
+    //this.props.saveShareTextCB(this.shareText);
+  }
+
   constructor(props){
     super(props);
 
@@ -101,6 +107,8 @@ export default class LaudesDisplay extends Component {
     this.testErrorCB = props.testErrorCB;
     this.setNumSalmInv = props.setNumSalmInv;
     this.titols = props.titols;
+
+    this.shareText = "";
   }
 
   _onSalmInvPress(numSalm){
@@ -258,58 +266,58 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>HIMNE</Text>
+        <Text selectable={true} style={this.styles.red}>{'HIMNE'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.himne(this.liturgicProps.LT, this.variables.date.getDay(), this.liturgicProps.setmana)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
+        <Text selectable={true} style={this.styles.red}>{'SALMÒDIA'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.salmodia(this.liturgicProps.LT, this.liturgicProps.setmana, this.variables.date.getDay())}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
+        <Text selectable={true} style={this.styles.red}>{'LECTURA BREU'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.lecturaBreu(this.liturgicProps.LT)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>RESPONSORI BREU</Text>
+        <Text selectable={true} style={this.styles.red}>{'RESPONSORI BREU'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.responsori(this.liturgicProps.LT)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>CÀNTIC DE ZACARIES</Text>
+        <Text selectable={true} style={this.styles.red}>{'CÀNTIC DE ZACARIES'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.cantic(this.liturgicProps.LT, this.variables.date.getDay(), this.liturgicProps.ABC)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>PREGÀRIES</Text>
+        <Text selectable={true} style={this.styles.red}>{'PREGÀRIES'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.pregaries(this.liturgicProps.LT)}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
+        <Text selectable={true} style={this.styles.red}>{'ORACIÓ'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
-        <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> Amén.</Text>
+        <Text selectable={true} style={this.styles.red}>{'R.'}
+          <Text selectable={true} style={this.styles.black}>{' Amén.'}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <HR/>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
+        <Text selectable={true} style={this.styles.red}>{'CONCLUSIÓ'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.</Text>
+        <Text selectable={true} style={this.styles.red}>{'V.'}
+          <Text selectable={true} style={this.styles.black}>{' Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.'}</Text>
         </Text>
-        <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> Amén.</Text>
+        <Text selectable={true} style={this.styles.red}>{'R.'}
+          <Text selectable={true} style={this.styles.black}>{' Amén.'}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {Platform.OS === 'android' ? null : <Text />}
@@ -330,7 +338,7 @@ export default class LaudesDisplay extends Component {
       salm = salm.replace(/  [†]/g,'');
       salm = salm.replace(/ [†]/g,'');
     }
-    return (<Text selectable={true} style={this.styles.black}>{salm}</Text>);
+    return salm;
   }
 
   gloria(g){
@@ -338,7 +346,7 @@ export default class LaudesDisplay extends Component {
       if(this.superTestMode){
         this.testErrorCB();
       }
-      return null;
+      return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
     if(this.variables.cleanSalm === 'false')
@@ -346,15 +354,15 @@ export default class LaudesDisplay extends Component {
 
     if(g === '1'){
       if(true === true){ //TODO: tenir en compte els ajustaments
-        return(<Text selectable={true} style={this.styles.blackItalic}>Glòria.</Text>);
+        return('Glòria.');
       }
       else{
-        return(<Text selectable={true} style={this.styles.blackItalic}>{gloriaString}</Text>);
+        return(gloriaString);
       }
     }
     else{
       if(g==='0'){
-        return(<Text selectable={true} style={this.styles.blackItalic}>S'omet el Glòria.</Text>);
+        return("S'omet el Glòria.");
       }
     }
   }
@@ -385,16 +393,16 @@ export default class LaudesDisplay extends Component {
       return(
         <View>
           {this._invitatoriButton()}
-          <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> Sigueu amb nosaltres, Déu nostre.</Text>
+          <Text selectable={true} style={this.styles.red}>{'V.'}
+            <Text selectable={true} style={this.styles.black}>{' Sigueu amb nosaltres, Déu nostre.'}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> Senyor, veniu a ajudar-nos.</Text>
+          <Text selectable={true} style={this.styles.red}>{'R.'}
+            <Text selectable={true} style={this.styles.black}>{' Senyor, veniu a ajudar-nos.'}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.black}>{gloriaStringIntro}
             {this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.liturgicProps.LT !== GLOBAL.Q_TRIDU ?
-              <Text selectable={true} style={this.styles.black}> Al·leluia</Text> : null
+              <Text selectable={true} style={this.styles.black}>{' Al·leluia'}</Text> : null
             }
           </Text>
         </View>
@@ -407,11 +415,11 @@ export default class LaudesDisplay extends Component {
             <View>{this._invitatoriButton()}</View>
             : null
           }
-          <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> Obriu-me els llavis, Senyor.</Text>
+          <Text selectable={true} style={this.styles.red}>{'V.'}
+            <Text selectable={true} style={this.styles.black}>{' Obriu-me els llavis, Senyor.'}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> I proclamaré la vostra lloança.</Text>
+          <Text selectable={true} style={this.styles.red}>{'R.'}
+            <Text selectable={true} style={this.styles.black}>{' I proclamaré la vostra lloança.'}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
@@ -422,64 +430,116 @@ export default class LaudesDisplay extends Component {
     }
   }
   himne(LT, weekDay, setmana){
-    return(<Text selectable={true} style={this.styles.black}>{GF.rs(this.LAUDES.himne, this.superTestMode, this.testErrorCB.bind(this))}</Text>);
+    var aux_himne = GF.rs(this.LAUDES.himne, this.superTestMode, this.testErrorCB.bind(this));
+
+    this.shareText += 'HIMNE\n';
+    this.shareText += aux_himne + '\n\n';
+    return(<Text selectable={true} style={this.styles.black}>{aux_himne}</Text>);
   }
 
   salmodia(LT, setmana, weekDay){
+    var aux_ant1 = GF.rs(this.LAUDES.ant1, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_titol1 = GF.rs(this.LAUDES.titol1, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_com1 = "";
+    if(this.LAUDES.com1 !== '-')
+      aux_com1 = GF.rs(this.LAUDES.com1, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_salm1 = this.salm(GF.rs(this.LAUDES.salm1, this.superTestMode, this.testErrorCB.bind(this)));
+    var aux_gloria1 = this.gloria(this.LAUDES.gloria1);
+    var aux_ant2 = GF.rs(this.LAUDES.ant2, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_titol2 = GF.canticSpace(GF.rs(this.LAUDES.titol2, this.superTestMode, this.testErrorCB.bind(this)));
+    var aux_com2 = "";
+    if(this.LAUDES.com2 !== '-')
+      aux_com2 = GF.rs(this.LAUDES.com2, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_salm2 = this.salm(GF.rs(this.LAUDES.salm2, this.superTestMode, this.testErrorCB.bind(this)));
+    var aux_gloria2 = this.gloria(this.LAUDES.gloria2);
+    var aux_ant3 = GF.rs(this.LAUDES.ant3, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_titol3 = GF.canticSpace(GF.rs(this.LAUDES.titol3, this.superTestMode, this.testErrorCB.bind(this)));
+    var aux_com3 = "";
+    if(this.LAUDES.com3 !== '-')
+      aux_com3 = GF.rs(this.LAUDES.com3, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_salm3 = this.salm(GF.rs(this.LAUDES.salm3, this.superTestMode, this.testErrorCB.bind(this)));
+    var aux_gloria3 = this.gloria(this.LAUDES.gloria3);
+
+    this.shareText += 'SALMÒDIA\n';
+    this.shareText += 'Ant. 1. ';
+    this.shareText += aux_ant1 + '\n';
+    this.shareText += aux_titol1 + '\n\n';
+    this.shareText += aux_com1 + '\n';
+    this.shareText += aux_salm1 + '\n\n';
+    this.shareText += aux_gloria1 + '\n\n';
+    this.shareText += 'Ant. 1. ';
+    this.shareText += aux_ant1 + '\n\n';
+    this.shareText += 'Ant. 2. ';
+    this.shareText += aux_ant2 + '\n';
+    this.shareText += aux_titol2 + '\n\n';
+    this.shareText += aux_com2 + '\n';
+    this.shareText += aux_salm2 + '\n\n';
+    this.shareText += aux_gloria2 + '\n\n';
+    this.shareText += 'Ant. 2. ';
+    this.shareText += aux_ant2 + '\n\n';
+    this.shareText += 'Ant. 3. ';
+    this.shareText += aux_ant3 + '\n';
+    this.shareText += aux_titol3 + '\n\n';
+    this.shareText += aux_com3 + '\n';
+    this.shareText += aux_salm3 + '\n\n';
+    this.shareText += aux_gloria3 + '\n\n';
+    this.shareText += 'Ant. 3. ';
+    this.shareText += aux_ant3 + '\n\n';
+
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant. 1.'}
+          <Text selectable={true} style={this.styles.black}> {aux_ant1}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.LAUDES.titol1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{aux_titol1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.LAUDES.com1 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.LAUDES.com1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com1}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(this.LAUDES.salm1, this.superTestMode, this.testErrorCB.bind(this)))}
+        <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.gloria(this.LAUDES.gloria1)}
+        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Ant. 1.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant. 1.'}
+          <Text selectable={true} style={this.styles.black}> {aux_ant1}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.ant2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant. 2.'}
+          <Text selectable={true} style={this.styles.black}> {aux_ant2}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.canticSpace(GF.rs(this.LAUDES.titol2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{aux_titol2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.LAUDES.com2 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.LAUDES.com2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com2}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(this.LAUDES.salm2, this.superTestMode, this.testErrorCB.bind(this)))}
+        <Text selectable={true} style={this.styles.black}>{aux_salm2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.gloria(this.LAUDES.gloria2)}
+        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Ant. 2.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.ant2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant. 2.'}
+          <Text selectable={true} style={this.styles.black}> {aux_ant2}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.ant3, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant. 3.'}
+          <Text selectable={true} style={this.styles.black}> {aux_ant3}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.LAUDES.titol3, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{aux_titol3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {this.LAUDES.com3 !== '-' ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.LAUDES.com3, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com3}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        {this.salm(GF.rs(this.LAUDES.salm3, this.superTestMode, this.testErrorCB.bind(this)))}
+        <Text selectable={true} style={this.styles.black}>{aux_salm3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.gloria(this.LAUDES.gloria3)}
+        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Ant. 3.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.ant3, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant. 3.'}
+          <Text selectable={true} style={this.styles.black}> {aux_ant3}</Text>
         </Text>
       </View>
     );
@@ -499,7 +559,7 @@ export default class LaudesDisplay extends Component {
     if(this.LAUDES.calAntEspecial){
       return(
         <View>
-          <Text selectable={true} style={this.styles.red}>Ant.
+          <Text selectable={true} style={this.styles.red}>{'Ant.'}
             <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antEspecialLaudes, this.superTestMode, this.testErrorCB.bind(this))}</Text>
           </Text>
         </View>
@@ -508,24 +568,24 @@ export default class LaudesDisplay extends Component {
     else{
       return(
         <View>
-          <Text selectable={true} style={this.styles.red}>V.
+          <Text selectable={true} style={this.styles.red}>{'V.'}
             <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.red}>{'R.'}
             <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>V.
+          <Text selectable={true} style={this.styles.red}>{'V.'}
             <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.respBreu3, this.superTestMode, this.testErrorCB.bind(this))}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.red}>{'R.'}
             <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> Glòria al Pare i al Fill i a l'Esperit Sant.</Text>
+          <Text selectable={true} style={this.styles.red}>{'V.'}
+            <Text selectable={true} style={this.styles.black}>{" Glòria al Pare i al Fill i a l'Esperit Sant."}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>R.
+          <Text selectable={true} style={this.styles.red}>{'R.'}
             <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
           </Text>
         </View>
@@ -536,17 +596,17 @@ export default class LaudesDisplay extends Component {
   cantic(LT, weekDay, litYear){
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>Ant.
+        <Text selectable={true} style={this.styles.red}>{'Ant.'}
           <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antCantic, this.superTestMode, this.testErrorCB.bind(this))}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 1, 68-79\nEl Messies i el seu Precursor"}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.salm(this.LAUDES.cantic)}
+        <Text selectable={true} style={this.styles.black}>{this.salm(this.LAUDES.cantic)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.gloria('1')}
+        <Text selectable={true} style={this.styles.blackItalic}>{this.gloria('1')}</Text>)
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>Ant.
+        <Text selectable={true} style={this.styles.red}>{'Ant.'}
           <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antCantic, this.superTestMode, this.testErrorCB.bind(this))}</Text>
         </Text>
       </View>

@@ -14,6 +14,7 @@ import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
 import {GoogleTagManager} from "react-native-google-analytics-bridge";
+import EventEmitter from 'EventEmitter';
 
 import HomeScreen from '../Views/HomeScreen/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
@@ -25,6 +26,11 @@ import GF from "../Globals/GlobalFunctions";
 import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 
 export default class HomeScreenController extends Component {
+  componentWillMount(){
+    Icon.getImageSource('ios-share-outline', 30).then((source) => this.setState({ shareIcon: source }));
+    this.eventEmitter = new EventEmitter();
+  }
+
   componentDidMount() {
     if(Platform.OS==='android'){
       this.props.navigation.setParams({
@@ -118,6 +124,7 @@ export default class HomeScreenController extends Component {
       testInfoBegins: "Starts at: "+this.date,
       santPressed: false,
       isDateTimePickerVisible: false,
+      shareIcon: null,
 
       ViewData: {
         ready: false,
@@ -692,28 +699,38 @@ export default class HomeScreenController extends Component {
   }
 
   onSwitchLliurePress(value){
-    console.log("CLDSW-onswitch",value);
+    //console.log("CLDSW-onswitch",value);
     if(value) {
       stringData = this.variables.date.getDate()+':'+
                   this.variables.date.getMonth()+':'+
                   this.variables.date.getFullYear();
-      console.log("CLDSW-stringData",stringData);
+      //console.log("CLDSW-stringData",stringData);
       AsyncStorage.setItem("lliureDate", stringData);
     }
     else{
       AsyncStorage.setItem("lliureDate", 'none');
     }
 
-    console.log("CLDSW-lliures value",value);
+    //console.log("CLDSW-lliures value",value);
 
     // SettingsManager.setSettingPrayLliures(auxValue);
     this.variables.lliures = value;
     this.refreshEverything(this.variables.date);
   }
 
+  rightPress(){
+    this.eventEmitter.emit('shareButtonPressed');
+  }
+
+  sharePressedCB(){
+    console.log("shaare android");
+  }
+
   jumpDisplay(type, superTestMode, title){
     this.props.navigator.push({
       title: title,
+      rightButtonIcon: this.state.shareIcon,
+      onRightButtonPress: () => this.rightPress(),
       passProps: {
         superTestMode: superTestMode,
         testErrorCallBack: this.testErrorCallBack.bind(this),
@@ -724,6 +741,7 @@ export default class HomeScreenController extends Component {
         date: this.date,
         variables: this.variables,
         liturgicProps: this.liturgicProps,
+        events: this.eventEmitter
       },
       component: LiturgiaDisplayScreen
     });
@@ -760,6 +778,7 @@ export default class HomeScreenController extends Component {
             variables: this.variables,
             date: this.date,
             liturgicProps: this.liturgicProps,
+            //sharePressedCB: this.sharePressedCB.bind(this)
           },
         }
         this.props.navigation.navigate('LiturgiaDisplay', params);
@@ -781,6 +800,10 @@ export default class HomeScreenController extends Component {
 
   render(){
     if(!this.renderTest){
+      if (!this.state.shareIcon) {
+        return false;
+      }
+
       var yesterday = new Date(this.date.getFullYear(),this.date.getMonth());
       yesterday.setDate(this.date.getDate()-1);
       return(

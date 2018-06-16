@@ -74,20 +74,20 @@ export default class CompletesDisplay extends Component {
 
     var auxNumAntMare = props.variables.numAntMare;
 
-    console.log("wtf1.1",auxNumAntMare);
-    console.log("wtf1.2",props.liturgicProps.tempsespecific);
+    //console.log("wtf1.1",auxNumAntMare);
+    //console.log("wtf1.2",props.liturgicProps.tempsespecific);
 
     if(props.liturgicProps.tempsespecific === 'Pasqua' && auxNumAntMare !== '5'){
       auxNumAntMare = '5';
       props.setNumAntMare('5');
       SettingsManager.setSettingNumAntMare('5');
-      console.log("wtf2",auxNumAntMare);
+      //console.log("wtf2",auxNumAntMare);
     }
     else if(!(props.liturgicProps.tempsespecific === 'Pasqua') && auxNumAntMare === '5'){
       auxNumAntMare = '1';
       props.setNumAntMare('1');
       SettingsManager.setSettingNumAntMare('1');
-      console.log("wtf3",auxNumAntMare);
+      //console.log("wtf3",auxNumAntMare);
     }
 
     this.state = {
@@ -100,6 +100,8 @@ export default class CompletesDisplay extends Component {
     this.superTestMode = props.superTestMode;
     this.testErrorCB = props.testErrorCB;
     this.setNumAntMare = props.setNumAntMare;
+
+    this.shareText = "";
   }
 
   _onAntMarePress(numAntMare){

@@ -67,6 +67,7 @@ export default class SettingsScreen extends Component {
     }
 
     donationPressed(){
+      console.log("Donation!");
       if(Platform.OS === 'ios'){
         this.props.navigator.push({
           title: 'Donatiu',
@@ -74,7 +75,7 @@ export default class SettingsScreen extends Component {
         });
       }
       else{
-        this.props.navigation.navigate('DonationScreen');
+        this.props.navigation.navigate('Donation');
       }
     }
 
@@ -86,7 +87,7 @@ export default class SettingsScreen extends Component {
         });
       }
       else{
-        this.props.navigation.navigate('CommentScreen');
+        this.props.navigation.navigate('Comment');
       }
     }
 }
