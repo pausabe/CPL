@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, StyleSheet, Platform, TouchableOpacity, Share} from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Platform, TouchableOpacity/*, Share*/} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Ofici from './OracioDisplay/OficiDisplay'
@@ -23,10 +23,10 @@ export default class LiturgiaDisplayScreen extends Component {
   constructor(props){
     super(props);
 
-    this.shareText = "";
+    //this.shareText = "";
   }
 
-  /*static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation }) => ({
       headerTitle: <View style={{paddingLeft: 100}}>
                       <Text style={{
                         textAlign: 'center',
@@ -40,7 +40,9 @@ export default class LiturgiaDisplayScreen extends Component {
       },
       headerRight: <TouchableOpacity
                       style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
-                      onPress={() => navigation.state.params.props.sharePressedCB.bind(this)}>
+                      onPress={() => {
+                        navigation.state.params.props.sharePressedCB();
+                      }}>
                       <View style={{flex:1, paddingRight: 10, alignItems: 'center', justifyContent:'center'}}>
                         <Icon
                           name="ios-share-outline"
@@ -48,7 +50,7 @@ export default class LiturgiaDisplayScreen extends Component {
                           color="#FFFFFF"/>
                       </View>
                   </TouchableOpacity>,
-  });*/
+  });
 
   componentWillMount(){
     if(Platform.OS === 'ios'){
@@ -71,16 +73,16 @@ export default class LiturgiaDisplayScreen extends Component {
       }, 1000);
     }
     else{
-      if(Platform.OS==='ios'){
-        this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
-      }
+      /*if(Platform.OS==='ios'){
+        this.props.events.addListener('shareButtonPressed', this.props.sharePressedCB(this.shareText));
+      }*/
     }
   }
 
   componentWillUnmount(){
-    if(Platform.OS==='ios'){
-      this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
-    }
+    /*if(Platform.OS==='ios'){
+      this.props.events.removeListener('shareButtonPressed', this.props.sharePressedCB(this.shareText));
+    }*/
   }
 
   componentDidUpdate(){
@@ -99,26 +101,7 @@ export default class LiturgiaDisplayScreen extends Component {
     }
   }
 
-  sharePressed(){
-    console.log("SHARE!\n\n" + this.shareText);
-
-    Share.share({
-      message: this.shareText,
-      //url: '',
-      title: 'Comparteix tot el text'
-    },
-    {
-      // Android only:
-      dialogTitle: 'Comparteix tot el text',
-      // iOS only:
-      /*excludedActivityTypes: [
-        'com.apple.UIKit.activity.PostToTwitter'
-      ]*/
-    })
-  }
-
   render() {
-    // console.log("litdisplay render - " + this.props.superTestMode);
     return (
       <View style={styles.container}>
         <ScrollView automaticallyAdjustContentInsets={false} style={{padding: 10,}}>
@@ -136,7 +119,8 @@ export default class LiturgiaDisplayScreen extends Component {
 
   saveShareTextCB(shareText){
     console.log("Save Share Text");
-    this.shareText = shareText;
+    //this.shareText = shareText;
+    this.props.saveSharedTextCB(shareText);
   }
 
   getTitols(){

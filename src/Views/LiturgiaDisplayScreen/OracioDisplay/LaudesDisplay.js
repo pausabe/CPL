@@ -15,7 +15,7 @@ export default class LaudesDisplay extends Component {
   componentDidMount(){
     console.log("Did mount");
 
-    //this.props.saveShareTextCB(this.shareText);
+    this.props.saveShareTextCB(this.shareText);
   }
 
   constructor(props){
@@ -389,7 +389,7 @@ export default class LaudesDisplay extends Component {
   introduccio(LT, setmana, salm94, salm99, salm66, salm23){
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
-    if(!this.LAUDES.diumPasqua && !this.state.invitatori/*this.LAUDES.invitatori !== "Laudes"*/){
+    if(!this.LAUDES.diumPasqua && !this.state.invitatori){//this.LAUDES.invitatori !== "Laudes"){
       return(
         <View>
           {this._invitatoriButton()}
@@ -604,7 +604,7 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{this.salm(this.LAUDES.cantic)}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{this.gloria('1')}</Text>)
+        <Text selectable={true} style={this.styles.blackItalic}>{this.gloria('1')}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'Ant.'}
           <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antCantic, this.superTestMode, this.testErrorCB.bind(this))}</Text>

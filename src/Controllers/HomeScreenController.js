@@ -5,7 +5,8 @@ import {
   Platform,
   TouchableOpacity,
   BackHandler,
-  AsyncStorage
+  AsyncStorage,
+  Share
  } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -247,6 +248,8 @@ export default class HomeScreenController extends Component {
       setmana: '',
       mogut: '',
     }
+
+    this.shareText = "";
 
     this.acceso = new DBAdapter();
 
@@ -718,19 +721,37 @@ export default class HomeScreenController extends Component {
     this.refreshEverything(this.variables.date);
   }
 
-  rightPress(){
+  /*emitShare(){
     this.eventEmitter.emit('shareButtonPressed');
+  }*/
+
+  sharePressed(){
+    console.log("text_to_share\n\n" + this.shareText);
+
+    Share.share({
+      message: this.shareText,
+      url: '',
+      title: 'Text de la Litúrgia de les Hores'
+    },
+    {
+      // Android only:
+      dialogTitle: 'Comparteix tot el text',
+      // iOS only:
+      /*excludedActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter'
+      ]*/
+    })
   }
 
-  sharePressedCB(){
-    console.log("shaare android");
+  saveSharedText(text_to_share){
+    this.shareText = text_to_share;
   }
 
   jumpDisplay(type, superTestMode, title){
     this.props.navigator.push({
       title: title,
       rightButtonIcon: this.state.shareIcon,
-      onRightButtonPress: () => this.rightPress(),
+      onRightButtonPress: () => this.sharePressed(),
       passProps: {
         superTestMode: superTestMode,
         testErrorCallBack: this.testErrorCallBack.bind(this),
@@ -741,7 +762,8 @@ export default class HomeScreenController extends Component {
         date: this.date,
         variables: this.variables,
         liturgicProps: this.liturgicProps,
-        events: this.eventEmitter
+        saveSharedTextCB: this.saveSharedText.bind(this),
+        //events: this.eventEmitter
       },
       component: LiturgiaDisplayScreen
     });
@@ -778,7 +800,9 @@ export default class HomeScreenController extends Component {
             variables: this.variables,
             date: this.date,
             liturgicProps: this.liturgicProps,
-            //sharePressedCB: this.sharePressedCB.bind(this)
+            saveSharedTextCB: this.saveSharedText.bind(this),
+            sharePressedCB: this.sharePressed.bind(this)
+            //events: this.eventEmitter
           },
         }
         this.props.navigation.navigate('LiturgiaDisplay', params);

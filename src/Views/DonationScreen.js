@@ -14,7 +14,7 @@ export default class DonationScreen extends Component {
     return (
       <View style={styles.container}>
         <WebView
-          source={{uri: 'https://worship.cat/donatius'}}
+          source={{uri: 'https://mescpl.cpl.es/donacions/'}}
         />
       </View>
     );

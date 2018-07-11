@@ -14,7 +14,7 @@ export default class CommentScreen extends Component {
     return (
       <View style={styles.container}>
         <WebView
-          source={{uri: 'https://worship.cat/contacta'}}
+          source={{uri: 'https://mescpl.cpl.es/contacte/'}}
         />
       </View>
     );
