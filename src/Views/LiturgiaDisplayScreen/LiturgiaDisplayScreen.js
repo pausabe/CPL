@@ -118,8 +118,8 @@ export default class LiturgiaDisplayScreen extends Component {
   }
 
   saveShareTextCB(shareText){
-    console.log("Save Share Text");
-    //this.shareText = shareText;
+    console.log("Save Share Text", this.props);
+
     this.props.saveSharedTextCB(shareText);
   }
 

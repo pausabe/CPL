@@ -13,9 +13,14 @@ import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
   componentDidMount(){
-    console.log("Did mount");
+    console.log("Did mount", this.props);
 
     this.props.saveShareTextCB(this.shareText);
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    console.log("Did update", prevProps);
+    prevProps.saveShareTextCB(this.shareText);
   }
 
   constructor(props){
@@ -154,6 +159,14 @@ export default class LaudesDisplay extends Component {
     var antifona = GF.rs(this.LAUDES.antInvitatori, this.superTestMode, this.testErrorCB.bind(this));
     var gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
+    this.shareText += "Ant. " + antifona + '\n\n' + titolSalm + '\n\n' + refSalm + '\n\n';
+    for(i = 0; i < estrofes.length; i++){
+      this.shareText += estrofes[i] + '\n\n';
+      this.shareText += "Ant. " + antifona + '\n\n';
+    }
+    this.shareText += gloriaString + '\n\n';
+    this.shareText += "Ant. " + antifona + '\n\n';
+
     return(
       <View>
 
@@ -259,6 +272,8 @@ export default class LaudesDisplay extends Component {
   }
 
   render() {
+    this.shareText = "";
+
     return (
       <View>
         {this.introduccio(this.liturgicProps.LT, this.liturgicProps.setmana, this.LAUDES.salm94,
@@ -313,12 +328,7 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'CONCLUSIÓ'}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{'V.'}
-          <Text selectable={true} style={this.styles.black}>{' Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.'}</Text>
-        </Text>
-        <Text selectable={true} style={this.styles.red}>{'R.'}
-          <Text selectable={true} style={this.styles.black}>{' Amén.'}</Text>
-        </Text>
+        {this.conclusio()}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {Platform.OS === 'android' ? null : <Text />}
       </View>
@@ -390,18 +400,27 @@ export default class LaudesDisplay extends Component {
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
     if(!this.LAUDES.diumPasqua && !this.state.invitatori){//this.LAUDES.invitatori !== "Laudes"){
+      var aux_sigueu = 'Sigueu amb nosaltres, Déu nostre.';
+      var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
+      var aux_isAleluia = this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.liturgicProps.LT !== GLOBAL.Q_TRIDU;
+
+      this.shareText += 'V. ' + aux_sigueu + '\n';
+      this.shareText += 'R. ' + aux_senyor_veniu + '\n\n';
+      this.shareText += gloriaStringIntro + (aux_isAleluia? "\nAl·leluia" : "");
+      this.shareText += '\n\n';
+
       return(
         <View>
           {this._invitatoriButton()}
-          <Text selectable={true} style={this.styles.red}>{'V.'}
-            <Text selectable={true} style={this.styles.black}>{' Sigueu amb nosaltres, Déu nostre.'}</Text>
+          <Text selectable={true} style={this.styles.red}>{'V. '}
+            <Text selectable={true} style={this.styles.black}>{aux_sigueu}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}>{' Senyor, veniu a ajudar-nos.'}</Text>
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_senyor_veniu}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.black}>{gloriaStringIntro}
-            {this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.liturgicProps.LT !== GLOBAL.Q_TRIDU ?
+            {aux_isAleluia ?
               <Text selectable={true} style={this.styles.black}>{' Al·leluia'}</Text> : null
             }
           </Text>
@@ -409,17 +428,24 @@ export default class LaudesDisplay extends Component {
       )
     }
     else{
+      console.log("here share");
+      var aux_obriume = 'Obriu-me els llavis, Senyor.';
+      var aux_proclamare = 'I proclamaré la vostra lloança.';
+
+      this.shareText += 'V. ' + aux_obriume + '\n';
+      this.shareText += 'R. ' + aux_proclamare + '\n\n';
+
       return(
         <View>
           {!this.LAUDES.diumPasqua?
             <View>{this._invitatoriButton()}</View>
             : null
           }
-          <Text selectable={true} style={this.styles.red}>{'V.'}
-            <Text selectable={true} style={this.styles.black}>{' Obriu-me els llavis, Senyor.'}</Text>
+          <Text selectable={true} style={this.styles.red}>{'V. '}
+            <Text selectable={true} style={this.styles.black}>{aux_obriume}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}>{' I proclamaré la vostra lloança.'}</Text>
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_proclamare}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
@@ -432,7 +458,7 @@ export default class LaudesDisplay extends Component {
   himne(LT, weekDay, setmana){
     var aux_himne = GF.rs(this.LAUDES.himne, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'HIMNE\n';
+    this.shareText += 'HIMNE\n\n';
     this.shareText += aux_himne + '\n\n';
     return(<Text selectable={true} style={this.styles.black}>{aux_himne}</Text>);
   }
@@ -460,27 +486,27 @@ export default class LaudesDisplay extends Component {
     var aux_salm3 = this.salm(GF.rs(this.LAUDES.salm3, this.superTestMode, this.testErrorCB.bind(this)));
     var aux_gloria3 = this.gloria(this.LAUDES.gloria3);
 
-    this.shareText += 'SALMÒDIA\n';
+    this.shareText += 'SALMÒDIA\n\n';
     this.shareText += 'Ant. 1. ';
-    this.shareText += aux_ant1 + '\n';
+    this.shareText += aux_ant1 + '\n\n';
     this.shareText += aux_titol1 + '\n\n';
-    this.shareText += aux_com1 + '\n';
+    this.shareText += aux_com1 + '\n\n';
     this.shareText += aux_salm1 + '\n\n';
     this.shareText += aux_gloria1 + '\n\n';
     this.shareText += 'Ant. 1. ';
     this.shareText += aux_ant1 + '\n\n';
     this.shareText += 'Ant. 2. ';
-    this.shareText += aux_ant2 + '\n';
+    this.shareText += aux_ant2 + '\n\n';
     this.shareText += aux_titol2 + '\n\n';
-    this.shareText += aux_com2 + '\n';
+    this.shareText += aux_com2 + '\n\n';
     this.shareText += aux_salm2 + '\n\n';
     this.shareText += aux_gloria2 + '\n\n';
     this.shareText += 'Ant. 2. ';
     this.shareText += aux_ant2 + '\n\n';
     this.shareText += 'Ant. 3. ';
-    this.shareText += aux_ant3 + '\n';
+    this.shareText += aux_ant3 + '\n\n';
     this.shareText += aux_titol3 + '\n\n';
-    this.shareText += aux_com3 + '\n';
+    this.shareText += aux_com3 + '\n\n';
     this.shareText += aux_salm3 + '\n\n';
     this.shareText += aux_gloria3 + '\n\n';
     this.shareText += 'Ant. 3. ';
@@ -546,47 +572,71 @@ export default class LaudesDisplay extends Component {
   }
 
   lecturaBreu(LT){
+    var aux_vers = GF.rs(this.LAUDES.vers, this.superTestMode, this.testErrorCB.bind(this))
+    var aux_lectura_breu = GF.rs(this.LAUDES.lecturaBreu, this.superTestMode, this.testErrorCB.bind(this));
+
+    this.shareText += 'LECTURA BREU\n\n';
+    this.shareText += aux_vers + '\n';
+    this.shareText += aux_lectura_breu + '\n\n';
+
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(this.LAUDES.vers, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{aux_vers}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{GF.rs(this.LAUDES.lecturaBreu, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.black}>{aux_lectura_breu}</Text>
       </View>
     )
   }
 
   responsori(LT){
+    this.shareText += 'RESPONSORI BREU\n\n';
+
     if(this.LAUDES.calAntEspecial){
+      var aux_ant = GF.rs(this.LAUDES.antEspecialLaudes, this.superTestMode, this.testErrorCB.bind(this));
+      this.shareText += 'Ant. ' + aux_ant + '\n\n';
+
       return(
         <View>
           <Text selectable={true} style={this.styles.red}>{'Ant.'}
-            <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antEspecialLaudes, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+            <Text selectable={true} style={this.styles.black}> {aux_ant}</Text>
           </Text>
         </View>
       )
     }
     else{
+      var aux_resp_1_2 = GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)));
+      var aux_resp_3 = GF.rs(this.LAUDES.respBreu3, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_resp_2 = GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_gloria_half = " Glòria al Pare i al Fill i a l'Esperit Sant.";
+
+      this.shareText += 'V.' + aux_resp_1_2 + '\n';
+      this.shareText += 'R.' + aux_resp_1_2 + '\n\n';
+      this.shareText += 'V.' + aux_resp_3 + '\n';
+      this.shareText += 'R.' + aux_resp_2 + '\n\n';
+      this.shareText += 'V.' + aux_gloria_half + '\n';
+      this.shareText += 'R.' + aux_resp_1_2 + '\n\n';
+
       return(
         <View>
           <Text selectable={true} style={this.styles.red}>{'V.'}
-            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
+            <Text selectable={true} style={this.styles.black}> {aux_resp_1_2}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
+            <Text selectable={true} style={this.styles.black}> {aux_resp_1_2}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'V.'}
-            <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.respBreu3, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+            <Text selectable={true} style={this.styles.black}> {aux_resp_3}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+            <Text selectable={true} style={this.styles.black}> {aux_resp_2}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'V.'}
-            <Text selectable={true} style={this.styles.black}>{" Glòria al Pare i al Fill i a l'Esperit Sant."}</Text>
+            <Text selectable={true} style={this.styles.black}>{aux_gloria_half}</Text>
           </Text>
           <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
+            <Text selectable={true} style={this.styles.black}> {aux_resp_1_2}</Text>
           </Text>
         </View>
       )
@@ -594,20 +644,32 @@ export default class LaudesDisplay extends Component {
   }
 
   cantic(LT, weekDay, litYear){
+    var aux_ant = GF.rs(this.LAUDES.antCantic, this.superTestMode, this.testErrorCB.bind(this));
+    var aux_titol = "Càntic\nLc 1, 68-79\nEl Messies i el seu Precursor";
+    var aux_salm = this.salm(this.LAUDES.cantic);
+    var aux_gloria = this.gloria('1');
+
+    this.shareText += 'CÀNTIC DE ZACARIES\n\n';
+    this.shareText += 'Ant. ' + aux_ant + '\n\n';
+    this.shareText += aux_titol + '\n\n';
+    this.shareText += aux_salm + '\n\n';
+    this.shareText += aux_gloria + '\n\n';
+    this.shareText += 'Ant. ' + aux_ant + '\n\n';
+
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>{'Ant.'}
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antCantic, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant. '}
+          <Text selectable={true} style={this.styles.black}>{aux_ant}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 1, 68-79\nEl Messies i el seu Precursor"}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{aux_titol}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{this.salm(this.LAUDES.cantic)}</Text>
+        <Text selectable={true} style={this.styles.black}>{aux_salm}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{this.gloria('1')}</Text>
+        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{'Ant.'}
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.LAUDES.antCantic, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'Ant.' }
+          <Text selectable={true} style={this.styles.black}>{aux_ant}</Text>
         </Text>
       </View>
     );
@@ -628,6 +690,12 @@ export default class LaudesDisplay extends Component {
 
   pregaries(LT){
     var allPregs = GF.rs(this.LAUDES.pregaries, this.superTestMode, this.testErrorCB.bind(this));
+
+    this.shareText += 'PREGÀRIES\n\n';
+
+    var aux_share_characters_before = this.shareText.length;
+
+    this.shareText += allPregs;
 
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
@@ -687,6 +755,17 @@ export default class LaudesDisplay extends Component {
       }
     }
 
+    this.shareText = this.shareText.substr(0, aux_share_characters_before);
+
+    var aux_intencions = "Aquí es poden afegir altres intencions.";
+
+    this.shareText += introPregs + ':\n\n';
+    this.shareText += respPregs + '\n\n';
+    this.shareText += pregaries + '\n\n';
+    this.shareText += aux_intencions + '\n\n';
+    this.shareText += pregsFinalPart + '\n\n';
+    this.shareText += "Pare nostre." + '\n\n';
+
     return(
       <View>
         <Text selectable={true} style={this.styles.black}>{introPregs}{':'}</Text>
@@ -695,7 +774,7 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{pregaries}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redItalic}>{"Aquí es poden afegir altres intencions."}</Text>
+        <Text selectable={true} style={this.styles.redItalic}>{aux_intencions}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{pregsFinalPart}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -705,7 +784,31 @@ export default class LaudesDisplay extends Component {
   }
 
   oracio(LT, weekDay){
-    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(this.LAUDES.oracio, this.superTestMode, this.testErrorCB.bind(this)),false,LT)}</Text>);
+    var aux_oracio = GF.completeOracio(GF.rs(this.LAUDES.oracio, this.superTestMode, this.testErrorCB.bind(this)),false,LT);
+
+    this.shareText += 'ORACIÓ\n\n';
+    this.shareText += aux_oracio + '\n\n';
+    return(<Text selectable={true} style={this.styles.black}>{aux_oracio}</Text>);
+  }
+
+  conclusio(){
+    var aux_benediccio = 'Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.';
+
+    this.shareText += 'CONCLUSIÓ\n\n';
+    this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\n';
+
+    //this.props.saveShareTextCB(this.shareText);
+
+    return(
+      <View>
+        <Text selectable={true} style={this.styles.red}>{'V. '}
+          <Text selectable={true} style={this.styles.black}>{aux_benediccio}</Text>
+        </Text>
+        <Text selectable={true} style={this.styles.red}>{'R. '}
+          <Text selectable={true} style={this.styles.black}>{'Amén.'}</Text>
+        </Text>
+      </View>
+    )
   }
 }
 

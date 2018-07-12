@@ -730,7 +730,7 @@ export default class HomeScreenController extends Component {
 
     Share.share({
       message: this.shareText,
-      url: '',
+      url: 'https://mescpl.cpl.es/',
       title: 'Text de la Litúrgia de les Hores'
     },
     {
