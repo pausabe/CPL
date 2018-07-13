@@ -5,8 +5,7 @@ import {
   Platform,
   TouchableOpacity,
   BackHandler,
-  AsyncStorage,
-  Share
+  AsyncStorage
  } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -249,7 +248,7 @@ export default class HomeScreenController extends Component {
       mogut: '',
     }
 
-    this.shareText = "";
+    //this.shareText = "";
 
     this.acceso = new DBAdapter();
 
@@ -721,37 +720,19 @@ export default class HomeScreenController extends Component {
     this.refreshEverything(this.variables.date);
   }
 
-  /*emitShare(){
-    this.eventEmitter.emit('shareButtonPressed');
-  }*/
-
-  sharePressed(){
-    console.log("text_to_share\n\n" + this.shareText);
-
-    Share.share({
-      message: this.shareText,
-      url: 'https://mescpl.cpl.es/',
-      title: 'Text de la Litúrgia de les Hores'
-    },
-    {
-      // Android only:
-      dialogTitle: 'Comparteix tot el text',
-      // iOS only:
-      /*excludedActivityTypes: [
-        'com.apple.UIKit.activity.PostToTwitter'
-      ]*/
-    })
+  emitShare(){
+    this.eventEmitter.emit('shareButtonPressedIOS');
   }
 
-  saveSharedText(text_to_share){
+  /*saveSharedText(text_to_share){
     this.shareText = text_to_share;
-  }
+  }*/
 
   jumpDisplay(type, superTestMode, title){
     this.props.navigator.push({
       title: title,
       rightButtonIcon: this.state.shareIcon,
-      onRightButtonPress: () => this.sharePressed(),
+      onRightButtonPress: () => this.emitShare(),//this.sharePressed(),
       passProps: {
         superTestMode: superTestMode,
         testErrorCallBack: this.testErrorCallBack.bind(this),
@@ -762,8 +743,8 @@ export default class HomeScreenController extends Component {
         date: this.date,
         variables: this.variables,
         liturgicProps: this.liturgicProps,
-        saveSharedTextCB: this.saveSharedText.bind(this),
-        //events: this.eventEmitter
+        //saveSharedTextCB: this.saveSharedText.bind(this),
+        events: this.eventEmitter
       },
       component: LiturgiaDisplayScreen
     });
@@ -800,8 +781,8 @@ export default class HomeScreenController extends Component {
             variables: this.variables,
             date: this.date,
             liturgicProps: this.liturgicProps,
-            saveSharedTextCB: this.saveSharedText.bind(this),
-            sharePressedCB: this.sharePressed.bind(this)
+            //saveSharedTextCB: this.saveSharedText.bind(this),
+            //sharePressedCB: this.sharePressed.bind(this)
             //events: this.eventEmitter
           },
         }

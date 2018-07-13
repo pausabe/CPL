@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  Share
 } from 'react-native';
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
@@ -12,7 +13,7 @@ import GF from '../../../Globals/GlobalFunctions';
 import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
-  componentDidMount(){
+  /*componentDidMount(){
     console.log("Did mount", this.props);
 
     this.props.saveShareTextCB(this.shareText);
@@ -20,7 +21,46 @@ export default class LaudesDisplay extends Component {
 
   componentDidUpdate(prevProps, prevState){
     console.log("Did update", prevProps);
-    prevProps.saveShareTextCB(this.shareText);
+    //prevProps.saveShareTextCB(this.shareText);
+
+    //provar de tenir el Share aquí. this.shareText si que el llegeix bé en tot moment
+  }*/
+
+  componentDidMount(){
+    if(Platform.OS==='android'){
+      this.props.events.addListener('shareButtonPressedAndroid', this.sharePressed.bind(this));
+    }
+    else{
+      //console.log("Listener", this.sharePressed)
+      this.props.events.addListener('shareButtonPressedIOS', this.sharePressed.bind(this));
+    }
+  }
+
+  componentWillUnmount(){
+    if(Platform.OS==='android'){
+      this.props.events.removeListener('shareButtonPressedAndroid', this.sharePressed.bind(this));
+    }
+    else{
+      this.props.events.removeListener('shareButtonPressedIOS', this.sharePressed.bind(this));
+    }
+  }
+
+  sharePressed(){
+    console.log("text_to_share: " + this.shareText.length);
+
+    Share.share({
+      message: this.shareText,
+      url: 'https://mescpl.cpl.es/donacions/',
+      title: 'Text de la Litúrgia de les Hores'
+    },
+    {
+      // Android only:
+      dialogTitle: 'Comparteix tot el text',
+      // iOS only:
+      /*excludedActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter'
+      ]*/
+    })
   }
 
   constructor(props){
@@ -428,7 +468,6 @@ export default class LaudesDisplay extends Component {
       )
     }
     else{
-      console.log("here share");
       var aux_obriume = 'Obriu-me els llavis, Senyor.';
       var aux_proclamare = 'I proclamaré la vostra lloança.';
 
@@ -795,7 +834,7 @@ export default class LaudesDisplay extends Component {
     var aux_benediccio = 'Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.';
 
     this.shareText += 'CONCLUSIÓ\n\n';
-    this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\n';
+    this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\nCol·labora fent un donatiu:';
 
     //this.props.saveShareTextCB(this.shareText);
 

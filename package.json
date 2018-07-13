@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "flow": "flow"
   },
   "dependencies": {
     "prop-types": "^15.6.0",
@@ -23,7 +24,7 @@
     "react-native-selectme": "^1.2.3",
     "react-native-shadow": "^1.1.2",
     "react-native-simple-picker": "^1.2.1",
-    "react-native-splash-screen": "^3.0.6",
+    "react-native-splash-screen": "^3.1.0",
     "react-native-sqlite-storage": "^3.3.4",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.0-beta.13"
@@ -31,10 +32,9 @@
   "devDependencies": {
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
+    "flow-bin": "^0.76.0",
+    "flow-remove-types": "^1.2.3",
     "jest": "19.0.2",
     "react-test-renderer": "15.4.2"
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }

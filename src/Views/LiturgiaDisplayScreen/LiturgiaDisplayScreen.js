@@ -41,7 +41,9 @@ export default class LiturgiaDisplayScreen extends Component {
       headerRight: <TouchableOpacity
                       style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
                       onPress={() => {
-                        navigation.state.params.props.sharePressedCB();
+                        //navigation.state.params.props.sharePressedCB();
+                        //this.emitShare();
+                        this.eventEmitter.emit('shareButtonPressedAndroid');
                       }}>
                       <View style={{flex:1, paddingRight: 10, alignItems: 'center', justifyContent:'center'}}>
                         <Icon
@@ -55,10 +57,12 @@ export default class LiturgiaDisplayScreen extends Component {
   componentWillMount(){
     if(Platform.OS === 'ios'){
       barPad = 0;
+      this.eventEmitter = this.props.events;
     }
 
     if(Platform.OS === 'android'){
       this.props = this.props.navigation.state.params.props;
+      this.eventEmitter = new EventEmitter();
     }
 
     this.titols = this.getTitols();
@@ -72,18 +76,20 @@ export default class LiturgiaDisplayScreen extends Component {
         this.setState({type: 'Laudes'});
       }, 1000);
     }
-    else{
-      /*if(Platform.OS==='ios'){
-        this.props.events.addListener('shareButtonPressed', this.props.sharePressedCB(this.shareText));
-      }*/
-    }
-  }
-
-  componentWillUnmount(){
-    /*if(Platform.OS==='ios'){
-      this.props.events.removeListener('shareButtonPressed', this.props.sharePressedCB(this.shareText));
+    /*else{
+      if(Platform.OS==='ios'){
+        this.props.events.addListener('shareButtonPressedIOS', this.props.sharePressedCB(this.shareText));
+      }
     }*/
   }
+
+  /*componentWillUnmount(){
+    if(Platform.OS==='ios'){
+      this.props.events.removeListener('shareButtonPressedIOS', this.props.sharePressedCB(this.shareText));
+    }
+  }*/
+
+
 
   componentDidUpdate(){
     // console.log("LITDISPLAY updated");
@@ -161,7 +167,7 @@ export default class LiturgiaDisplayScreen extends Component {
               variables={this.props.variables}
               superTestMode = {this.props.superTestMode}
               testErrorCB={this.testErrorCB.bind(this)}
-              saveShareTextCB={this.saveShareTextCB.bind(this)}
+              events={this.eventEmitter}
               titols={this.titols}
               setNumSalmInv={this.props.setNumSalmInv}/>
             )
