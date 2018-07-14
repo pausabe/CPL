@@ -721,12 +721,9 @@ export default class HomeScreenController extends Component {
   }
 
   emitShare(){
-    this.eventEmitter.emit('shareButtonPressedIOS');
+    console.log("emit share");
+    this.eventEmitter.emit('shareButtonPressed');
   }
-
-  /*saveSharedText(text_to_share){
-    this.shareText = text_to_share;
-  }*/
 
   jumpDisplay(type, superTestMode, title){
     this.props.navigator.push({
@@ -743,7 +740,6 @@ export default class HomeScreenController extends Component {
         date: this.date,
         variables: this.variables,
         liturgicProps: this.liturgicProps,
-        //saveSharedTextCB: this.saveSharedText.bind(this),
         events: this.eventEmitter
       },
       component: LiturgiaDisplayScreen
@@ -781,9 +777,8 @@ export default class HomeScreenController extends Component {
             variables: this.variables,
             date: this.date,
             liturgicProps: this.liturgicProps,
-            //saveSharedTextCB: this.saveSharedText.bind(this),
-            //sharePressedCB: this.sharePressed.bind(this)
-            //events: this.eventEmitter
+            emitShareCB: this.emitShare.bind(this),
+            events: this.eventEmitter
           },
         }
         this.props.navigation.navigate('LiturgiaDisplay', params);

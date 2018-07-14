@@ -13,41 +13,15 @@ import GF from '../../../Globals/GlobalFunctions';
 import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
-  /*componentDidMount(){
-    console.log("Did mount", this.props);
-
-    this.props.saveShareTextCB(this.shareText);
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    console.log("Did update", prevProps);
-    //prevProps.saveShareTextCB(this.shareText);
-
-    //provar de tenir el Share aquí. this.shareText si que el llegeix bé en tot moment
-  }*/
-
   componentDidMount(){
-    if(Platform.OS==='android'){
-      this.props.events.addListener('shareButtonPressedAndroid', this.sharePressed.bind(this));
-    }
-    else{
-      //console.log("Listener", this.sharePressed)
-      this.props.events.addListener('shareButtonPressedIOS', this.sharePressed.bind(this));
-    }
+    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    if(Platform.OS==='android'){
-      this.props.events.removeListener('shareButtonPressedAndroid', this.sharePressed.bind(this));
-    }
-    else{
-      this.props.events.removeListener('shareButtonPressedIOS', this.sharePressed.bind(this));
-    }
+    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
   }
 
   sharePressed(){
-    console.log("text_to_share: " + this.shareText.length);
-
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
@@ -56,10 +30,6 @@ export default class LaudesDisplay extends Component {
     {
       // Android only:
       dialogTitle: 'Comparteix tot el text',
-      // iOS only:
-      /*excludedActivityTypes: [
-        'com.apple.UIKit.activity.PostToTwitter'
-      ]*/
     })
   }
 
@@ -440,6 +410,8 @@ export default class LaudesDisplay extends Component {
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
     if(!this.LAUDES.diumPasqua && !this.state.invitatori){//this.LAUDES.invitatori !== "Laudes"){
+      console.log("normal");
+
       var aux_sigueu = 'Sigueu amb nosaltres, Déu nostre.';
       var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
       var aux_isAleluia = this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.liturgicProps.LT !== GLOBAL.Q_TRIDU;
@@ -468,6 +440,8 @@ export default class LaudesDisplay extends Component {
       )
     }
     else{
+      console.log("invitatori");
+
       var aux_obriume = 'Obriu-me els llavis, Senyor.';
       var aux_proclamare = 'I proclamaré la vostra lloança.';
 
@@ -707,7 +681,7 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{'Ant.' }
+        <Text selectable={true} style={this.styles.red}>{'Ant. '}
           <Text selectable={true} style={this.styles.black}>{aux_ant}</Text>
         </Text>
       </View>
@@ -834,9 +808,11 @@ export default class LaudesDisplay extends Component {
     var aux_benediccio = 'Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.';
 
     this.shareText += 'CONCLUSIÓ\n\n';
-    this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\nCol·labora fent un donatiu:';
+    this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\n';
 
-    //this.props.saveShareTextCB(this.shareText);
+    if(Platform.OS === 'ios'){
+      this.shareText += "_____\nCol·labora fent un donatiu:";
+    }
 
     return(
       <View>
