@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, StyleSheet, Platform, TouchableOpacity/*, Share*/} from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Ofici from './OracioDisplay/OficiDisplay'
@@ -209,8 +209,7 @@ export default class LiturgiaDisplayScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: paddingBar(),
-    backgroundColor: GLOBAL.backgroundColor,
+    paddingTop: paddingBar()
   },
   normalText: {
     textAlign: 'center',
