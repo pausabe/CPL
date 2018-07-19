@@ -12,6 +12,26 @@ import GF from '../../../Globals/GlobalFunctions';
 import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class CompletesDisplay extends Component {
+  componentDidMount(){
+    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+  }
+
+  componentWillUnmount(){
+    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+  }
+
+  sharePressed(){
+    Share.share({
+      message: this.shareText,
+      url: 'https://mescpl.cpl.es/donacions/',
+      title: 'Text de la Litúrgia de les Hores'
+    },
+    {
+      // Android only:
+      dialogTitle: 'Comparteix tot el text',
+    })
+  }
+
   constructor(props){
     super(props);
 
@@ -182,233 +202,314 @@ export default class CompletesDisplay extends Component {
   }
 
   render() {
-    if(this.COMPLETES !== null){
+    try {
+      this.shareText = "";
 
-      const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
-      return (
-        <View>
-          {this.liturgicProps.LT === GLOBAL.Q_TRIDU && this.variables.date.getDay() === 6?
-            <View>
-              <Text selectable={true} style={this.styles.redCenter}>{"Avui, només han de dir aquestes Completes els qui no participen en la Vetlla pasqual."}</Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              <HR/>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            </View>
+      if(this.COMPLETES !== null){
+        const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
+        var is_special_initial_message = this.liturgicProps.LT === GLOBAL.Q_TRIDU && this.variables.date.getDay() === 6;
+        var aux_special_initial_message = "Avui, només han de dir aquestes Completes els qui no participen en la Vetlla pasqual.";
+        var aux_sigueu = "Sigueu amb nosaltres, Déu nostre.";
+        var aux_veniu = "Senyor, veniu a ajudar-nos.";
+        var is_aleluia = this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES
+          && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA
+          && this.liturgicProps.LT !== GLOBAL.Q_TRIDU;
+        var aux_lloable = "És lloable que aquí es faci examen de consciència.";
+        var aux_acte_pen = this.COMPLETES.actePen;
+        var aux_himne = GF.rs(this.COMPLETES.himne, this.superTestMode, this.testErrorCB.bind(this));
+        var is_dos_salms = this.COMPLETES.dosSalms === "1";
+        var has_distint_ant = this.COMPLETES.antifones;
+        var aux_ant1 = GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_titol1 = GF.rs(this.COMPLETES.titol1, this.superTestMode, this.testErrorCB.bind(this));
+        var has_com1 = this.COMPLETES.com1 !== '-';
+        var aux_com1 = GF.rs(this.COMPLETES.com1, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_salm1 = this.salm(GF.rs(this.COMPLETES.salm1, this.superTestMode, this.testErrorCB.bind(this)));
+        var aux_gloria1 = this.gloria(this.COMPLETES.gloria1);
+        var aux_ant2 = GF.rs(this.COMPLETES.ant2, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_titol2 = GF.rs(this.COMPLETES.titol2, this.superTestMode, this.testErrorCB.bind(this));
+        var has_com2 = this.COMPLETES.com2 !== '-';
+        var aux_com2 = GF.rs(this.COMPLETES.com2, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_salm2 = this.salm(GF.rs(this.COMPLETES.salm2, this.superTestMode, this.testErrorCB.bind(this)));
+        var aux_gloria2 = this.gloria(this.COMPLETES.gloria2);
+        var aux_vers = GF.rs(this.COMPLETES.vers, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_lectura_breu = GF.rs(this.COMPLETES.lecturaBreu, this.superTestMode, this.testErrorCB.bind(this));
+        var is_resp_special = this.COMPLETES.antRespEspecial === "-";
+        var aux_resp_1_2 = GF.respTogether(GF.rs(this.COMPLETES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)));
+        var aux_resp_3 = GF.rs(this.COMPLETES.respBreu3, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_resp_2 = GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_gloria_half = " Glòria al Pare i al Fill i a l'Esperit Sant.";
+        var aux_ant_special = GF.rs(this.COMPLETES.antRespEspecial, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_ant_cantic = GF.rs(this.COMPLETES.antCantic, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_titol_cantic = "Càntic\nLc 2, 29-32\nCrist, llum de les nacions i glòria d'Israel";
+        var aux_cantic = this.salm(GF.rs(this.COMPLETES.cantic, this.superTestMode, this.testErrorCB.bind(this)));
+        var aux_gloria_cantic = this.gloria('1');
+        var aux_oracio = GF.rs(this.COMPLETES.oracio, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_fi_benaurada = "Que el Senyor totpoderós ens concedeixi una nit tranquil·la i una fi benaurada.";
+
+        if(is_special_initial_message)
+          this.shareText += aux_special_initial_message + '\n\n';
+        this.shareText += 'V. ' + aux_sigueu + '\n';
+        this.shareText += 'R. ' + aux_veniu + '\n\n';
+        this.shareText += gloriaStringIntro + is_aleluia? " Al·leluia\n" : "" + '\n\n';
+        this.shareText += aux_lloable + '\n\n' + aux_acte_pen + '\n\n';
+        this.shareText += 'HIMNE' + '\n\n';
+        this.shareText += aux_himne + '\n\n';
+        this.shareText += 'SALMÒDIA' + '\n\n';
+        if(is_dos_salms){
+          this.shareText += has_distint_ant? "Ant. 1. " : "Ant. ";
+          this.shareText += aux_ant1 + '\n\n';
+          this.shareText += aux_titol1 + '\n\n';
+          if(has_com1)
+            this.shareText += aux_com1 + '\n\n';
+          this.shareText += aux_salm1 + '\n\n';
+          this.shareText += aux_gloria1 + '\n\n';
+          this.shareText += has_distint_ant? "Ant. 1. " + aux_ant1 + '\n\n' : "";
+          this.shareText += has_distint_ant? "Ant. 2. " + aux_ant2 + '\n\n' : "";
+          this.shareText += aux_titol2 + '\n\n';
+          if(has_com2)
+            this.shareText += aux_com2 + '\n\n';
+          this.shareText += aux_salm2 + '\n\n';
+          this.shareText += aux_gloria2 + '\n\n';
+          this.shareText += has_distint_ant? "Ant. 2. " + aux_ant2 + '\n\n' : "Ant. " + aux_ant1 + '\n\n';
+        }
+        else{
+          this.shareText += "Ant. ";
+          this.shareText += aux_ant1 + '\n\n';
+          this.shareText += aux_titol1 + '\n\n';
+          if(has_com1)
+            this.shareText += aux_com1 + '\n\n';
+          this.shareText += aux_salm1 + '\n\n';
+          this.shareText += aux_gloria1 + '\n\n';
+          this.shareText += "Ant. " + aux_ant1 + '\n\n';
+        }
+        this.shareText += 'LECTURA BREU' + '\n\n';
+
+        return (
+          <View>
+            {is_special_initial_message?
+              <View>
+                <Text selectable={true} style={this.styles.redCenter}>{aux_special_initial_message}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <HR/>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+              </View>
+              :
+              null
+            }
+            <Text selectable={true} style={this.styles.red}>{"V. "}
+              <Text selectable={true} style={this.styles.black}>{aux_sigueu}</Text>
+            </Text>
+            <Text selectable={true} style={this.styles.red}>{"R. "}
+              <Text selectable={true} style={this.styles.black}>{aux_veniu}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.black}>{gloriaStringIntro}
+            {is_aleluia ?
+              <Text selectable={true} style={this.styles.black}>{" Al·leluia"}</Text> : null
+            }
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.redCenter}>{aux_lloable}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.black}>{aux_acte_pen}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"HIMNE"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.black}>{aux_himne}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"SALMÒDIA"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {is_dos_salms ?
+              <View>
+                {has_distint_ant ?
+                  <Text selectable={true} style={this.styles.red}>{"Ant. 1. "}
+                    <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
+                  </Text>
+                :
+                  <Text selectable={true} style={this.styles.red}>{"Ant. "}
+                    <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
+                  </Text>
+                }
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.redCenter}>{aux_titol1}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {has_com1 ?
+                  <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+                  <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com1}</Text>
+                  {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
+                {aux_salm1}
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {aux_gloria1}
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {has_distint_ant ?
+                  <View>
+                    <Text selectable={true} style={this.styles.red}>{"Ant. 1. "}
+                      <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
+                    </Text>
+                    {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                    <Text selectable={true} style={this.styles.red}>{"Ant. 2. "}
+                      <Text selectable={true} style={this.styles.black}>{aux_ant2}</Text>
+                    </Text>
+                    {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                  </View>
+                : null
+                }
+                <Text selectable={true} style={this.styles.redCenter}>{aux_titol2}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {has_com2 !== '-' ?
+                  <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+                  <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com2}</Text>
+                  {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
+                {aux_salm2}
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {aux_gloria2}
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {has_distint_ant ?
+                  <View>
+                    <Text selectable={true} style={this.styles.red}>{"Ant. 2. "}
+                      <Text selectable={true} style={this.styles.black}>{aux_ant2}</Text>
+                    </Text>
+                  </View>
+                :
+                  <View>
+                    <Text selectable={true} style={this.styles.red}>{"Ant. "}
+                      <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
+                    </Text>
+                  </View>
+                }
+              </View>
             :
-            null
-          }
-          <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}>{" Sigueu amb nosaltres, Déu nostre."}</Text>
-          </Text>
-          <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}>{" Senyor, veniu a ajudar-nos."}</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{gloriaStringIntro}
-          {this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES
-            && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA
-            && this.liturgicProps.LT !== GLOBAL.Q_TRIDU ?
-            <Text selectable={true} style={this.styles.black}>{" Al·leluia"}</Text> : null
-          }
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.redCenter}>{"És lloable que aquí es faci examen de consciència."}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{this.COMPLETES.actePen}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"HIMNE"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{GF.rs(this.COMPLETES.himne, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"SALMÒDIA"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.COMPLETES.dosSalms === "1" ?
-            <View>
-              {this.COMPLETES.antifones ?
-                <Text selectable={true} style={this.styles.red}>{"Ant. 1."}
-                  <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+              <View>
+                <Text selectable={true} style={this.styles.red}>{"Ant. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_ant}</Text>
                 </Text>
-              :
-                <Text selectable={true} style={this.styles.red}>{"Ant."}
-                  <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.redCenter}>{aux_titol1}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {has_com1 !== '-' ?
+                  <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
+                  <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com1}</Text>
+                  {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
+                <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {aux_gloria1}
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.red}>{"Ant. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
                 </Text>
-              }
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.COMPLETES.titol1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.COMPLETES.com1 !== '-' ?
-                <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-                <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.COMPLETES.com1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-              {this.salm(GF.rs(this.COMPLETES.salm1, this.superTestMode, this.testErrorCB.bind(this)))}
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.gloria(this.COMPLETES.gloria1)}
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.COMPLETES.antifones ?
-                <View>
-                  <Text selectable={true} style={this.styles.red}>{"Ant. 1."}
-                    <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-                  </Text>
-                  {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                  <Text selectable={true} style={this.styles.red}>{"Ant. 2."}
-                    <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-                  </Text>
-                  {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                </View>
-              : null
-              }
-              <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.COMPLETES.titol2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.COMPLETES.com2 !== '-' ?
-                <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-                <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.COMPLETES.com2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-              {this.salm(GF.rs(this.COMPLETES.salm2, this.superTestMode, this.testErrorCB.bind(this)))}
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.gloria(this.COMPLETES.gloria2)}
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.COMPLETES.antifones ?
-                <View>
-                  <Text selectable={true} style={this.styles.red}>{"Ant. 2."}
-                    <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-                  </Text>
-                </View>
-              :
-                <View>
-                  <Text selectable={true} style={this.styles.red}>{"Ant."}
-                    <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-                  </Text>
-                </View>
-              }
-            </View>
-          :
-            <View>
-              <Text selectable={true} style={this.styles.red}>{"Ant."}
-                <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              </Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.COMPLETES.titol1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.COMPLETES.com1 !== '-' ?
-                <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-                <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.COMPLETES.com1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-              <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(this.COMPLETES.salm1, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              {this.gloria(this.COMPLETES.gloria1)}
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              <Text selectable={true} style={this.styles.red}>{"Ant."}
-                <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              </Text>
-            </View>
-          }
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"LECTURA BREU"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{GF.rs(this.COMPLETES.vers, this.superTestMode, this.testErrorCB.bind(this), this.superTestMode, this.testErrorCB.bind(this))}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{GF.rs(this.COMPLETES.lecturaBreu, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"RESPONSORI BREU"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.COMPLETES.antRespEspecial === "-" ?
-            <View>
-              <Text selectable={true} style={this.styles.red}>V.
-                <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.COMPLETES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
-              </Text>
-              <Text selectable={true} style={this.styles.red}>R.
-                <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.COMPLETES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
-              </Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              <Text selectable={true} style={this.styles.red}>V.
-                <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.respBreu3, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              </Text>
-              <Text selectable={true} style={this.styles.red}>R.
-                <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              </Text>
-              {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-              <Text selectable={true} style={this.styles.red}>V.
-                <Text selectable={true} style={this.styles.black}>{" Glòria al Pare i al Fill i a l'Esperit Sant."}</Text>
-              </Text>
-              <Text selectable={true} style={this.styles.red}>R.
-                <Text selectable={true} style={this.styles.black}> {GF.respTogether(GF.rs(this.COMPLETES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
-              </Text>
-            </View>
-          :
-            <View>
-              <Text selectable={true} style={this.styles.red}>{"Ant."}
-                <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.antRespEspecial, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-              </Text>
-            </View>
-          }
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"CÀNTIC SIMEÓ"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"Ant."}
-            <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.antCantic, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.redCenter}>{"Càntic\nLc 2, 29-32\nCrist, llum de les nacions i glòria d'Israel"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.black}>{this.salm(GF.rs(this.COMPLETES.cantic, this.superTestMode, this.testErrorCB.bind(this)))}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.gloria('1')}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"Ant."}
-            <Text selectable={true} style={this.styles.black}> {GF.rs(this.COMPLETES.antCantic)}</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"ORACIÓ"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.blackBold}>{"Preguem."}</Text>
-          <Text selectable={true} style={this.styles.black}>{GF.rs(this.COMPLETES.oracio, this.superTestMode, this.testErrorCB.bind(this))}</Text>
-          <Text selectable={true} style={this.styles.red}>{"R."}
-            <Text selectable={true} style={this.styles.black}>{" Amén."}</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"CONCLUSIÓ"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"V."}
-            <Text selectable={true} style={this.styles.black}>{" Que el Senyor totpoderós ens concedeixi una nit tranquil·la i una fi benaurada."}</Text>
-          </Text>
-          <Text selectable={true} style={this.styles.red}>{"R."}
-            <Text selectable={true} style={this.styles.black}>{" Amén."}</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.redCenter}>{"Antífona final de la Mare de Déu"}</Text>
-          {this.antMareComp(this.state.numAntMare)}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {Platform.OS === 'android' ? null : <Text />}
-        </View>
-      );
-    }
-    else{
-      console.log("wierd error....... this.props:",this.props);
-      console.log("this.liturgicProps.LITURGIA.completes doesen't exists");
-      return null;
+              </View>
+            }
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"LECTURA BREU"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{aux_vers}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.black}>{aux_lectura_breu}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"RESPONSORI BREU"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {is_resp_special ?
+              <View>
+                <Text selectable={true} style={this.styles.red}>{"V. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_resp_1_2}</Text>
+                </Text>
+                <Text selectable={true} style={this.styles.red}>{"R. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_resp_1_2}</Text>
+                </Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.red}>{"V. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_resp_3}</Text>
+                </Text>
+                <Text selectable={true} style={this.styles.red}>{"R. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_resp_2}</Text>
+                </Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.red}>{"V. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_gloria_half}</Text>
+                </Text>
+                <Text selectable={true} style={this.styles.red}>{"R. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_resp_1_2}</Text>
+                </Text>
+              </View>
+            :
+              <View>
+                <Text selectable={true} style={this.styles.red}>{"Ant. "}
+                  <Text selectable={true} style={this.styles.black}>{aux_ant_special}</Text>
+                </Text>
+              </View>
+            }
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"CÀNTIC DE SIMEÓ"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"Ant. "}
+              <Text selectable={true} style={this.styles.black}>{aux_ant_cantic}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.redCenter}>{aux_titol_cantic}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.black}>{aux_cantic}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {aux_gloria_cantic}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"Ant. "}
+              <Text selectable={true} style={this.styles.black}>{aux_ant_cantic}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"ORACIÓ"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.blackBold}>{"Preguem."}</Text>
+            <Text selectable={true} style={this.styles.black}>{aux_oracio}</Text>
+            <Text selectable={true} style={this.styles.red}>{"R. "}
+              <Text selectable={true} style={this.styles.black}>{"Amén."}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"CONCLUSIÓ"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"V. "}
+              <Text selectable={true} style={this.styles.black}>{aux_fi_benaurada}</Text>
+            </Text>
+            <Text selectable={true} style={this.styles.red}>{"R. "}
+              <Text selectable={true} style={this.styles.black}>{"Amén."}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.redCenter}>{"Antífona final de la Mare de Déu"}</Text>
+            {this.antMareComp(this.state.numAntMare)}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {Platform.OS === 'android' ? null : <Text />}
+          </View>
+        );
+      }
+      else{
+        console.log("wierd error....... this.props:",this.props);
+        console.log("this.liturgicProps.LITURGIA.completes doesen't exists");
+        return null;
+      }
+    } catch (e) {
+      console.log(e);
+      return(null);
     }
   }
 
   salm(salm){
-    if(!salm) return null;
+    if(!salm) return "";
 
     if(this.variables.cleanSalm === 'false'){
       salm = salm.replace(/    [*]/g,'');
@@ -420,7 +521,7 @@ export default class CompletesDisplay extends Component {
       salm = salm.replace(/  [†]/g,'');
       salm = salm.replace(/ [†]/g,'');
     }
-    return (<Text selectable={true} style={this.styles.black}>{salm}</Text>);
+    return salm;
   }
 
   gloria(g){
@@ -428,7 +529,7 @@ export default class CompletesDisplay extends Component {
       if(this.superTestMode){
         this.testErrorCB();
       }
-      return null;
+      return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
     if(this.variables.cleanSalm === 'false')
@@ -436,15 +537,15 @@ export default class CompletesDisplay extends Component {
 
     if(g === '1'){
       if(this.variables.gloria === 'false'){
-        return(<Text selectable={true} style={this.styles.blackItalic}>Glòria.</Text>);
+        return "Glòria";
       }
       else{
-        return(<Text selectable={true} style={this.styles.blackItalic}>{gloriaString}</Text>);
+        return gloriaString;
       }
     }
     else{
       if(g==='0'){
-        return(<Text selectable={true} style={this.styles.blackItalic}>S'omet el Glòria.</Text>);
+        return "S'omet el Glòria.";
       }
     }
   }
