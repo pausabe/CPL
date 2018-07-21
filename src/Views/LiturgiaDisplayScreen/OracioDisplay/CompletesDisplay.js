@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  Share
 } from 'react-native';
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
@@ -160,6 +161,12 @@ export default class CompletesDisplay extends Component {
         break;
     }
 
+    this.shareText += antMare + '\n\n';
+
+    if(Platform.OS === 'ios'){
+      this.shareText += "_____\nCol·labora fent un donatiu:";
+    }
+
     return(
       <View>
 
@@ -245,12 +252,15 @@ export default class CompletesDisplay extends Component {
         var aux_gloria_cantic = this.gloria('1');
         var aux_oracio = GF.rs(this.COMPLETES.oracio, this.superTestMode, this.testErrorCB.bind(this));
         var aux_fi_benaurada = "Que el Senyor totpoderós ens concedeixi una nit tranquil·la i una fi benaurada.";
+        var aux_benediccio = 'Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.';
+        var aux_antifona_final = "Antífona final de la Mare de Déu";
 
         if(is_special_initial_message)
           this.shareText += aux_special_initial_message + '\n\n';
         this.shareText += 'V. ' + aux_sigueu + '\n';
         this.shareText += 'R. ' + aux_veniu + '\n\n';
-        this.shareText += gloriaStringIntro + is_aleluia? " Al·leluia\n" : "" + '\n\n';
+        this.shareText += gloriaStringIntro + '\n';
+        this.shareText += is_aleluia? "Al·leluia\n\n" : "\n\n";
         this.shareText += aux_lloable + '\n\n' + aux_acte_pen + '\n\n';
         this.shareText += 'HIMNE' + '\n\n';
         this.shareText += aux_himne + '\n\n';
@@ -283,6 +293,28 @@ export default class CompletesDisplay extends Component {
           this.shareText += "Ant. " + aux_ant1 + '\n\n';
         }
         this.shareText += 'LECTURA BREU' + '\n\n';
+        this.shareText += aux_vers + '\n\n';
+        this.shareText += aux_lectura_breu + '\n\n';
+        this.shareText += 'RESPONSORI BREU' + '\n\n';
+        this.shareText += 'V. ' + aux_resp_1_2 + '\n';
+        this.shareText += 'R. ' + aux_resp_1_2 + '\n\n';
+        this.shareText += 'V. ' + aux_resp_3 + '\n';
+        this.shareText += 'R. ' + aux_resp_2 + '\n\n';
+        this.shareText += 'V. ' + aux_gloria_half + '\n';
+        this.shareText += 'R. ' + aux_resp_1_2 + '\n\n';
+        this.shareText += 'CÀNTIC DE SIMEÓ' + '\n\n';
+        this.shareText += 'Ant. ' + aux_ant_cantic + '\n\n';
+        this.shareText += aux_titol_cantic + '\n\n';
+        this.shareText += aux_cantic + '\n\n';
+        this.shareText += aux_gloria_cantic + '\n\n';
+        this.shareText += 'Ant. ' + aux_ant_cantic + '\n\n';
+        this.shareText += 'ORACIÓ' + '\n\n';
+        this.shareText += 'Preguem.' + '\n';
+        this.shareText += aux_oracio + '\n';
+        this.shareText += 'R. Amén' + '\n\n';
+        this.shareText += 'CONCLUSIÓ' + '\n\n';
+        this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\n';
+        this.shareText += aux_antifona_final + '\n\n';
 
         return (
           <View>
@@ -343,9 +375,9 @@ export default class CompletesDisplay extends Component {
                   <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
                   <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com1}</Text>
                   {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-                {aux_salm1}
+                <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                {aux_gloria1}
+                <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {has_distint_ant ?
                   <View>
@@ -366,9 +398,9 @@ export default class CompletesDisplay extends Component {
                   <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
                   <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com2}</Text>
                   {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-                {aux_salm2}
+                <Text selectable={true} style={this.styles.black}>{aux_salm2}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                {aux_gloria2}
+                <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria2}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {has_distint_ant ?
                   <View>
@@ -398,7 +430,7 @@ export default class CompletesDisplay extends Component {
                   {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
                 <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                {aux_gloria1}
+                <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>{"Ant. "}
                   <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
@@ -461,7 +493,7 @@ export default class CompletesDisplay extends Component {
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.black}>{aux_cantic}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {aux_gloria_cantic}
+            <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria_cantic}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{"Ant. "}
               <Text selectable={true} style={this.styles.black}>{aux_ant_cantic}</Text>
@@ -490,7 +522,7 @@ export default class CompletesDisplay extends Component {
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.redCenter}>{"Antífona final de la Mare de Déu"}</Text>
+            <Text selectable={true} style={this.styles.redCenter}>{aux_antifona_final}</Text>
             {this.antMareComp(this.state.numAntMare)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             {Platform.OS === 'android' ? null : <Text />}

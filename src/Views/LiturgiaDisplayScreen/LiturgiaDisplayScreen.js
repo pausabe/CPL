@@ -134,7 +134,8 @@ export default class LiturgiaDisplayScreen extends Component {
             superTestMode = {this.props.superTestMode}
             testErrorCB={this.testErrorCB.bind(this)}
             titols={this.titols}
-            setNumSalmInv={this.props.setNumSalmInv}/>
+            setNumSalmInv={this.props.setNumSalmInv}
+            events={this.eventEmitter}/>
           )
         break;
         case 'Laudes':
@@ -144,9 +145,9 @@ export default class LiturgiaDisplayScreen extends Component {
               variables={this.props.variables}
               superTestMode = {this.props.superTestMode}
               testErrorCB={this.testErrorCB.bind(this)}
-              events={this.eventEmitter}
               titols={this.titols}
-              setNumSalmInv={this.props.setNumSalmInv}/>
+              setNumSalmInv={this.props.setNumSalmInv}
+              events={this.eventEmitter}/>
             )
           break;
           case 'Vespres':
@@ -155,7 +156,8 @@ export default class LiturgiaDisplayScreen extends Component {
                 liturgicProps={this.props.liturgicProps}
                 variables={this.props.variables}
                 superTestMode = {this.props.superTestMode}
-                testErrorCB={this.testErrorCB.bind(this)}/>
+                testErrorCB={this.testErrorCB.bind(this)}
+                events={this.eventEmitter}/>
               )
             break;
             case 'Tèrcia':
@@ -166,7 +168,8 @@ export default class LiturgiaDisplayScreen extends Component {
                   HM = {type}
                   HORA_MENOR = {this.props.liturgicProps.LITURGIA.tercia}
                   superTestMode = {this.props.superTestMode}
-                  testErrorCB={this.testErrorCB.bind(this)}/>
+                  testErrorCB={this.testErrorCB.bind(this)}
+                  events={this.eventEmitter}/>
                 )
               break;
               case 'Sexta':
@@ -177,7 +180,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     HM = {type}
                     HORA_MENOR = {this.props.liturgicProps.LITURGIA.sexta}
                     superTestMode = {this.props.superTestMode}
-                    testErrorCB={this.testErrorCB.bind(this)}/>
+                    testErrorCB={this.testErrorCB.bind(this)}
+                    events={this.eventEmitter}/>
                   )
                 break;
               case 'Nona':
@@ -188,7 +192,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     HM = {type}
                     HORA_MENOR = {this.props.liturgicProps.LITURGIA.nona}
                     superTestMode = {this.props.superTestMode}
-                    testErrorCB={this.testErrorCB.bind(this)}/>
+                    testErrorCB={this.testErrorCB.bind(this)}
+                    events={this.eventEmitter}/>
                   )
                 break;
               case 'Completes':
@@ -198,7 +203,8 @@ export default class LiturgiaDisplayScreen extends Component {
                     liturgicProps = {this.props.liturgicProps}
                     superTestMode = {this.props.superTestMode}
                     testErrorCB={this.testErrorCB.bind(this)}
-                    setNumAntMare={this.props.setNumAntMare}/>
+                    setNumAntMare={this.props.setNumAntMare}
+                    events={this.eventEmitter}/>
                   )
                 break;
       default: return(<Text style={styles.normalText}>{this.props.type}</Text>)
