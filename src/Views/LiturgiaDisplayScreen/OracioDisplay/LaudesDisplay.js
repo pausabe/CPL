@@ -344,7 +344,8 @@ export default class LaudesDisplay extends Component {
           {Platform.OS === 'android' ? null : <Text />}
         </View>
       );
-    } catch (e) {
+    }
+    catch (e) {
       console.log(e);
       return null;
     }
