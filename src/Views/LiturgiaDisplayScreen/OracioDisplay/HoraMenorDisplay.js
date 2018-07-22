@@ -228,11 +228,11 @@ export default class HoraMenorDisplay extends Component {
     var aux_salm2 = this.salm(GF.rs(this.props.HORA_MENOR.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)));
     var aux_gloria2 = this.gloria(this.props.HORA_MENOR.gloria2);
     var aux_ant3 = GF.rs(this.props.HORA_MENOR.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this));
-    var aux_titol2 = GF.rs(this.props.HORA_MENOR.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this));
-    var aux_has_com2 = this.props.HORA_MENOR.com3 !== '-';
-    var aux_com2 = GF.rs(this.props.HORA_MENOR.com3, this.props.superTestMode, this.props.testErrorCB.bind(this));
-    var aux_salm2 = this.salm(GF.rs(this.props.HORA_MENOR.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)));
-    var aux_gloria2 = this.gloria(this.props.HORA_MENOR.gloria3);
+    var aux_titol3 = GF.rs(this.props.HORA_MENOR.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_has_com3 = this.props.HORA_MENOR.com3 !== '-';
+    var aux_com3 = GF.rs(this.props.HORA_MENOR.com3, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_salm3 = this.salm(GF.rs(this.props.HORA_MENOR.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)));
+    var aux_gloria3 = this.gloria(this.props.HORA_MENOR.gloria3);
 
     this.shareText += 'SALMÒDIA\n\n';
     this.shareText += (aux_antifones? ('Ant. 1. ' + aux_ant1) : ('Ant. ' + aux_ant)) + '\n\n';
@@ -298,9 +298,9 @@ export default class HoraMenorDisplay extends Component {
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
           <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com2}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        <Text selectable={true} style={this.styles.black}>{aux_salm2}<Text />
+        <Text selectable={true} style={this.styles.black}>{aux_salm2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria2}<Text />
+        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {aux_antifones ?
           <View>
@@ -314,15 +314,15 @@ export default class HoraMenorDisplay extends Component {
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
         : null }
-        <Text selectable={true} style={this.styles.redCenter}>{GF.rs(this.props.HORA_MENOR.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.redCenter}>{aux_titol3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        {this.props.HORA_MENOR.com3 !== '-' ?
+        {aux_has_com3 ?
           <View style={{flexDirection: 'row'}}><View style={{flex:1}}/><View style={{flex:2}}>
-          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{GF.rs(this.props.HORA_MENOR.com3, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+          <Text selectable={true} style={this.styles.blackSmallItalicRight}>{aux_com3}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
-        <Text selectable={true} style={this.styles.black}>{aux_salm3}<Text />
+        <Text selectable={true} style={this.styles.black}>{aux_salm3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria3}<Text />
+        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {aux_antifones ?
           <View>
@@ -342,24 +342,45 @@ export default class HoraMenorDisplay extends Component {
   }
 
   lecturaBreuResp(LT, HM){
+    var aux_vers = GF.rs(this.props.HORA_MENOR.vers, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_lecturaBreu = GF.rs(this.props.HORA_MENOR.lecturaBreu, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_respV = GF.rs(this.props.HORA_MENOR.respV, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_respR = GF.rs(this.props.HORA_MENOR.respR, this.props.superTestMode, this.props.testErrorCB.bind(this));
+
+    this.shareText += "LECTURA BREU\n\n";
+    this.shareText += aux_vers + '\n\n';
+    this.shareText += 'V. ' + aux_respV + '\n';
+    this.shareText += 'R. ' + aux_respR + '\n\n';
+
     return(
       <View>
-        <Text selectable={true} style={this.styles.red}>{GF.rs(this.props.HORA_MENOR.vers, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{aux_vers}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.black}>{GF.rs(this.props.HORA_MENOR.lecturaBreu, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.black}>{aux_lecturaBreu}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>V.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.respV, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'V. '}
+          <Text selectable={true} style={this.styles.black}>{aux_respV}</Text>
         </Text>
-        <Text selectable={true} style={this.styles.red}>R.
-          <Text selectable={true} style={this.styles.black}> {GF.rs(this.props.HORA_MENOR.respR, this.props.superTestMode, this.props.testErrorCB.bind(this))}</Text>
+        <Text selectable={true} style={this.styles.red}>{'R. '}
+          <Text selectable={true} style={this.styles.black}>{aux_respR}</Text>
         </Text>
       </View>
     )
   }
 
   oracio(LT, weekDay, HM){
-    return(<Text selectable={true} style={this.styles.black}>{GF.completeOracio(GF.rs(this.props.HORA_MENOR.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)),true)}</Text>);
+    var aux_oracio = GF.completeOracio(GF.rs(this.props.HORA_MENOR.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)),true);
+    this.shareText += "ORACIÓ\n\nPreguem.\n";
+    this.shareText += aux_oracio + '\n\n';
+
+    this.shareText += 'CONCLUSIÓ\n\n';
+    this.shareText += 'V. Beneïm el Senyor.\nR. Donem gràcies a Déu.' + '\n\n';
+
+    if(Platform.OS === 'ios'){
+      this.shareText += "_____\nCol·labora fent un donatiu:";
+    }
+
+    return(<Text selectable={true} style={this.styles.black}>{aux_oracio}</Text>);
   }
 }
 

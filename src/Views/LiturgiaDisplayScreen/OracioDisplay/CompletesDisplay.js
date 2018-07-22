@@ -419,7 +419,7 @@ export default class CompletesDisplay extends Component {
             :
               <View>
                 <Text selectable={true} style={this.styles.red}>{"Ant. "}
-                  <Text selectable={true} style={this.styles.black}>{aux_ant}</Text>
+                  <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
                 </Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.redCenter}>{aux_titol1}</Text>

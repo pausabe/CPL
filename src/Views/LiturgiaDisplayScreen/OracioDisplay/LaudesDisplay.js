@@ -803,7 +803,7 @@ export default class LaudesDisplay extends Component {
   }
 
   oracio(LT, weekDay){
-    var aux_oracio = GF.completeOracio(GF.rs(this.LAUDES.oracio, this.superTestMode, this.testErrorCB.bind(this)),false,LT);
+    var aux_oracio = GF.completeOracio(GF.rs(this.LAUDES.oracio, this.superTestMode, this.testErrorCB.bind(this)),false);
 
     this.shareText += 'ORACIÓ\n\n';
     this.shareText += aux_oracio + '\n\n';
