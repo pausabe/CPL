@@ -209,8 +209,8 @@ export default class LaudesDisplay extends Component {
           </View>
         </View>
 
-        <Text selectable={true} style={this.styles.red}>{"Ant."}
-          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        <Text selectable={true} style={this.styles.red}>{"Ant. "}
+          <Text selectable={true} style={this.styles.black}>{antifona}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.redCenter}>{titolSalm}</Text>
@@ -220,34 +220,34 @@ export default class LaudesDisplay extends Component {
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{estrofes[0]}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{"Ant."}
-          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        <Text selectable={true} style={this.styles.red}>{"Ant. "}
+          <Text selectable={true} style={this.styles.black}>{antifona}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{estrofes[1]}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{"Ant."}
-          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        <Text selectable={true} style={this.styles.red}>{"Ant. "}
+          <Text selectable={true} style={this.styles.black}>{antifona}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{estrofes[2]}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{"Ant."}
-          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        <Text selectable={true} style={this.styles.red}>{"Ant. "}
+          <Text selectable={true} style={this.styles.black}>{antifona}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.black}>{estrofes[3]}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{"Ant."}
-          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        <Text selectable={true} style={this.styles.red}>{"Ant. "}
+          <Text selectable={true} style={this.styles.black}>{antifona}</Text>
         </Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {estrofes.length > 4?
           <View>
             <Text selectable={true} style={this.styles.black}>{estrofes[4]}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.red}>{"Ant."}
-              <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+            <Text selectable={true} style={this.styles.red}>{"Ant. "}
+              <Text selectable={true} style={this.styles.black}>{antifona}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
@@ -256,8 +256,8 @@ export default class LaudesDisplay extends Component {
           <View>
             <Text selectable={true} style={this.styles.black}>{estrofes[5]}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.red}>{"Ant."}
-              <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+            <Text selectable={true} style={this.styles.red}>{"Ant. "}
+              <Text selectable={true} style={this.styles.black}>{antifona}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
@@ -266,16 +266,16 @@ export default class LaudesDisplay extends Component {
           <View>
             <Text selectable={true} style={this.styles.black}>{estrofes[6]}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.red}>{"Ant."}
-              <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+            <Text selectable={true} style={this.styles.red}>{"Ant. "}
+              <Text selectable={true} style={this.styles.black}>{antifona}</Text>
             </Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           </View>
         : null}
         <Text selectable={true} style={this.styles.black}>{gloriaString}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{"Ant."}
-          <Text selectable={true} style={this.styles.black}> {antifona}</Text>
+        <Text selectable={true} style={this.styles.red}>{"Ant. "}
+          <Text selectable={true} style={this.styles.black}>{antifona}</Text>
         </Text>
       </View>
     );
@@ -424,7 +424,7 @@ export default class LaudesDisplay extends Component {
 
       this.shareText += 'V. ' + aux_sigueu + '\n';
       this.shareText += 'R. ' + aux_senyor_veniu + '\n\n';
-      this.shareText += gloriaStringIntro + (aux_isAleluia? "\nAl·leluia" : "");
+      this.shareText += gloriaStringIntro + (aux_isAleluia? " Al·leluia" : "");
       this.shareText += '\n\n';
 
       return(
@@ -626,36 +626,36 @@ export default class LaudesDisplay extends Component {
       var aux_resp_1_2 = GF.respTogether(GF.rs(this.LAUDES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)));
       var aux_resp_3 = GF.rs(this.LAUDES.respBreu3, this.superTestMode, this.testErrorCB.bind(this));
       var aux_resp_2 = GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this));
-      var aux_gloria_half = " Glòria al Pare i al Fill i a l'Esperit Sant.";
+      var aux_gloria_half = "Glòria al Pare i al Fill i a l'Esperit Sant.";
 
-      this.shareText += 'V.' + aux_resp_1_2 + '\n';
-      this.shareText += 'R.' + aux_resp_1_2 + '\n\n';
-      this.shareText += 'V.' + aux_resp_3 + '\n';
-      this.shareText += 'R.' + aux_resp_2 + '\n\n';
-      this.shareText += 'V.' + aux_gloria_half + '\n';
-      this.shareText += 'R.' + aux_resp_1_2 + '\n\n';
+      this.shareText += 'V. ' + aux_resp_1_2 + '\n';
+      this.shareText += 'R. ' + aux_resp_1_2 + '\n\n';
+      this.shareText += 'V. ' + aux_resp_3 + '\n';
+      this.shareText += 'R. ' + aux_resp_2 + '\n\n';
+      this.shareText += 'V. ' + aux_gloria_half + '\n';
+      this.shareText += 'R. ' + aux_resp_1_2 + '\n\n';
 
       return(
         <View>
-          <Text selectable={true} style={this.styles.red}>{'V.'}
-            <Text selectable={true} style={this.styles.black}> {aux_resp_1_2}</Text>
+          <Text selectable={true} style={this.styles.red}>{'V. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp_1_2}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}> {aux_resp_1_2}</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{'V.'}
-            <Text selectable={true} style={this.styles.black}> {aux_resp_3}</Text>
-          </Text>
-          <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}> {aux_resp_2}</Text>
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp_1_2}</Text>
           </Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{'V.'}
+          <Text selectable={true} style={this.styles.red}>{'V. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp_3}</Text>
+          </Text>
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp_2}</Text>
+          </Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.red}>{'V. '}
             <Text selectable={true} style={this.styles.black}>{aux_gloria_half}</Text>
           </Text>
-          <Text selectable={true} style={this.styles.red}>{'R.'}
-            <Text selectable={true} style={this.styles.black}> {aux_resp_1_2}</Text>
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp_1_2}</Text>
           </Text>
         </View>
       )
@@ -806,7 +806,7 @@ export default class LaudesDisplay extends Component {
     var aux_oracio = GF.completeOracio(GF.rs(this.LAUDES.oracio, this.superTestMode, this.testErrorCB.bind(this)),false);
 
     this.shareText += 'ORACIÓ\n\n';
-    this.shareText += aux_oracio + '\n\n';
+    this.shareText += aux_oracio + '\n' + 'R. Amén.' + '\n\n';
     return(<Text selectable={true} style={this.styles.black}>{aux_oracio}</Text>);
   }
 

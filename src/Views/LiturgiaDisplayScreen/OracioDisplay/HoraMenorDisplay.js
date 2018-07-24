@@ -94,7 +94,7 @@ export default class HoraMenorDisplay extends Component {
 
       this.shareText += "V. Sigueu amb nosaltres, Déu nostre.\n";
       this.shareText += "R. Senyor, veniu a ajudar-nos.\n\n";
-      this.shareText += gloriaStringIntro +  (aux_isAleluia? "\nAl·leluia" : "");
+      this.shareText += gloriaStringIntro +  (aux_isAleluia? " Al·leluia" : "");
       this.shareText += '\n\n';
 
       return (

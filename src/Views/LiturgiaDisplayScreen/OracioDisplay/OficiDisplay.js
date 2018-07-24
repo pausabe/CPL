@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  Share
 } from 'react-native';
 import HR from '../../../Components/HRComponent';
 import GLOBAL from '../../../Globals/Globals';
@@ -12,6 +13,25 @@ import GF from '../../../Globals/GlobalFunctions';
 import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class OficiDisplay extends Component {
+  componentDidMount(){
+    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+  }
+
+  componentWillUnmount(){
+    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+  }
+
+  sharePressed(){
+    Share.share({
+      message: this.shareText,
+      url: 'https://mescpl.cpl.es/donacions/',
+      title: 'Text de la Litúrgia de les Hores'
+    },
+    {
+      // Android only:
+      dialogTitle: 'Comparteix tot el text',
+    })
+  }
 
   constructor(props){
     super(props);
@@ -108,100 +128,116 @@ export default class OficiDisplay extends Component {
     this.cicle = props.cicle;
     this.setNumSalmInv = props.setNumSalmInv;
     this.titols = props.titols;
+
+    this.shareText = "";
   }
 
   render() {
-    if(!this.OFICI.diumPasqua){
-      return (
-        <View>
-          {this.introduccio(this.liturgicProps.LT, this.liturgicProps.setmana, this.OFICI.salm94,
-                              this.OFICI.salm99, this.OFICI.salm66, this.OFICI.salm23)}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>{"HIMNE"}{(this.liturgicProps.LT===GLOBAL.O_ORDINARI && GF.isDarkHimn())? " (nit)" : " (dia)"}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.himne(this.liturgicProps.LT, this.variables.date.getDay(), false, this.liturgicProps.setmana)}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.salmodia(this.liturgicProps.LT, this.liturgicProps.setmana, this.variables.date.getDay(), this.cicle)}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>VERS</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.vers(this.liturgicProps.LT)}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>LECTURES</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.lectures(this.liturgicProps.LT)}
-          {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-          {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
-          <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> Amén.</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> Beneïm el Senyor.</Text>
-          </Text>
-          <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {Platform.OS === 'android' ? null : <Text />}
-        </View>
-      );
+    try {
+      this.shareText = "";
+
+      if(!this.OFICI.diumPasqua){
+        return (
+          <View>
+            {this.introduccio(this.liturgicProps.LT, this.liturgicProps.setmana, this.OFICI.salm94,
+                                this.OFICI.salm99, this.OFICI.salm66, this.OFICI.salm23)}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{"HIMNE"}{(this.liturgicProps.LT===GLOBAL.O_ORDINARI && GF.isDarkHimn())? " (nit)" : " (dia)"}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {this.himne(this.liturgicProps.LT, this.variables.date.getDay(), false, this.liturgicProps.setmana)}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'SALMÒDIA'}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {this.salmodia(this.liturgicProps.LT, this.liturgicProps.setmana, this.variables.date.getDay(), this.cicle)}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'VERS'}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {this.vers(this.liturgicProps.LT)}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'LECTURES'}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {this.lectures(this.liturgicProps.LT)}
+            {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'ORACIÓ'}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.blackBold}>{'Preguem.'}</Text>
+            {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
+            <Text selectable={true} style={this.styles.red}>{'R. '}
+              <Text selectable={true} style={this.styles.black}>{'Amén.'}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'CONCLUSIÓ'}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'V. '}
+              <Text selectable={true} style={this.styles.black}>{'Beneïm el Senyor.'}</Text>
+            </Text>
+            <Text selectable={true} style={this.styles.red}>{'R. '}
+              <Text selectable={true} style={this.styles.black}>{'Donem gràcies a Déu.'}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {Platform.OS === 'android' ? null : <Text />}
+          </View>
+        );
+      }
+      else{
+        var aux_vetlla = "La Vetlla pasqual substitueix avui l'Ofici de lectura.";
+        var aux_participen = "Els qui no participen en la solemne Vetlla pasqual n'escolliran almenys quatre lectures, amb els corresponents salms responsorials i oracions. Les lectures més adients són les que segueixen."
+        var aux_comença = "L'Ofici comença directament per les lectures.";
+
+        this.shareText += aux_vetlla + '\n' + aux_participen + '\n' + aux_comença '\n\n';
+
+        return (
+          <View>
+            <Text selectable={true} style={this.styles.redCenter}>{aux_vetlla}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.redCenter}>{aux_participen}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.redCenter}>{aux_comença}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {this.lecturesDiumPasqua(this.liturgicProps.LT)}
+            {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'ORACIÓ'}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.blackBold}>{'Preguem.'}</Text>
+            {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <HR/>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'CONCLUSIÓ'}</Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            <Text selectable={true} style={this.styles.red}>{'V. '}
+              <Text selectable={true} style={this.styles.black}>{'Beneïm el Senyor.'}</Text>
+            </Text>
+            <Text selectable={true} style={this.styles.red}>{'R. '}
+              <Text selectable={true} style={this.styles.black}>{'Donem gràcies a Déu.'}</Text>
+            </Text>
+            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+            {Platform.OS === 'android' ? null : <Text />}
+          </View>
+        );
+      }
     }
-    else{
-      return (
-        <View>
-          <Text selectable={true} style={this.styles.redCenter}>{"La Vetlla pasqual substitueix avui l'Ofici de lectura."}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.redCenter}>{"Els qui no participen en la solemne Vetlla pasqual n'escolliran almenys quatre lectures, amb els corresponents salms responsorials i oracions. Les lectures més adients són les que segueixen."}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.redCenter}>{"L'Ofici comença directament per les lectures."}</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.lecturesDiumPasqua(this.liturgicProps.LT)}
-          {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.blackBold}>Preguem.</Text>
-          {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <HR/>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>CONCLUSIÓ</Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          <Text selectable={true} style={this.styles.red}>V.
-            <Text selectable={true} style={this.styles.black}> Beneïm el Senyor.</Text>
-          </Text>
-          <Text selectable={true} style={this.styles.red}>R.
-            <Text selectable={true} style={this.styles.black}> Donem gràcies a Déu.</Text>
-          </Text>
-          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {Platform.OS === 'android' ? null : <Text />}
-        </View>
-      );
+    catch (e) {
+      console.log(e);
+      return null;
     }
   }
 

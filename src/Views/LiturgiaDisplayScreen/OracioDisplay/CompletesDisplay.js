@@ -259,8 +259,8 @@ export default class CompletesDisplay extends Component {
           this.shareText += aux_special_initial_message + '\n\n';
         this.shareText += 'V. ' + aux_sigueu + '\n';
         this.shareText += 'R. ' + aux_veniu + '\n\n';
-        this.shareText += gloriaStringIntro + '\n';
-        this.shareText += is_aleluia? "Al·leluia\n\n" : "\n\n";
+        this.shareText += gloriaStringIntro;
+        this.shareText += is_aleluia? " Al·leluia\n\n" : "\n\n";
         this.shareText += aux_lloable + '\n\n' + aux_acte_pen + '\n\n';
         this.shareText += 'HIMNE' + '\n\n';
         this.shareText += aux_himne + '\n\n';
