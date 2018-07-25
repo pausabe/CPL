@@ -25,7 +25,7 @@ export default class LaudesDisplay extends Component {
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
-      title: 'Text de la Litúrgia de les Hores'
+      title: 'Laudes'
     },
     {
       // Android only:
@@ -416,8 +416,6 @@ export default class LaudesDisplay extends Component {
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
     if(!this.LAUDES.diumPasqua && !this.state.invitatori){//this.LAUDES.invitatori !== "Laudes"){
-      console.log("normal");
-
       var aux_sigueu = 'Sigueu amb nosaltres, Déu nostre.';
       var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
       var aux_isAleluia = this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.liturgicProps.LT !== GLOBAL.Q_TRIDU;
@@ -446,8 +444,6 @@ export default class LaudesDisplay extends Component {
       )
     }
     else{
-      console.log("invitatori");
-
       var aux_obriume = 'Obriu-me els llavis, Senyor.';
       var aux_proclamare = 'I proclamaré la vostra lloança.';
 
@@ -714,7 +710,7 @@ export default class LaudesDisplay extends Component {
 
     var aux_share_characters_before = this.shareText.length;
 
-    this.shareText += allPregs;
+    this.shareText += allPregs + '\n\n';
 
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);

@@ -23,7 +23,7 @@ export default class VespresDisplay extends Component {
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
-      title: 'Text de la Litúrgia de les Hores'
+      title: 'Vespres'
     },
     {
       // Android only:
@@ -455,7 +455,7 @@ export default class VespresDisplay extends Component {
 
     var aux_share_characters_before = this.shareText.length;
 
-    this.shareText += allPregs;
+    this.shareText += allPregs + '\n\n';
 
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);

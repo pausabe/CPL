@@ -23,7 +23,7 @@ export default class HoraMenorDisplay extends Component {
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
-      title: 'Text de la Litúrgia de les Hores'
+      title: 'Hora menor'
     },
     {
       // Android only:
