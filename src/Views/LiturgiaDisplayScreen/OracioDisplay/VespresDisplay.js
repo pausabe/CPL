@@ -243,13 +243,13 @@ export default class VespresDisplay extends Component {
     var aux_ant1 = GF.rs(VESPRES.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_titol1 = GF.rs(VESPRES.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_has_com1 = VESPRES.com1 !== '-';
-    var aux_com1 = GF.rs(VESPRES.com1, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_com1 = aux_has_com1? GF.rs(VESPRES.com1, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm1 = this.salm(GF.rs(VESPRES.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)));
     var aux_gloria1 = this.gloria(VESPRES.gloria1);
     var aux_ant2 = GF.rs(VESPRES.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_titol2 = GF.rs(VESPRES.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_has_com2 = VESPRES.com2 !== '-';
-    var aux_com2 = GF.rs(VESPRES.com2, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_com2 = aux_has_com2? GF.rs(VESPRES.com2, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm2 = this.salm(GF.rs(VESPRES.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)));
     var aux_gloria2 = this.gloria(VESPRES.gloria2);
     var aux_ant3 = GF.rs(VESPRES.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this));

@@ -229,23 +229,29 @@ export default class CompletesDisplay extends Component {
         var aux_ant1 = GF.rs(this.COMPLETES.ant1, this.superTestMode, this.testErrorCB.bind(this));
         var aux_titol1 = GF.rs(this.COMPLETES.titol1, this.superTestMode, this.testErrorCB.bind(this));
         var has_com1 = this.COMPLETES.com1 !== '-';
-        var aux_com1 = GF.rs(this.COMPLETES.com1, this.superTestMode, this.testErrorCB.bind(this));
+        var aux_com1 = has_com1? GF.rs(this.COMPLETES.com1, this.superTestMode, this.testErrorCB.bind(this)) : "";
         var aux_salm1 = this.salm(GF.rs(this.COMPLETES.salm1, this.superTestMode, this.testErrorCB.bind(this)));
         var aux_gloria1 = this.gloria(this.COMPLETES.gloria1);
-        var aux_ant2 = GF.rs(this.COMPLETES.ant2, this.superTestMode, this.testErrorCB.bind(this));
-        var aux_titol2 = GF.rs(this.COMPLETES.titol2, this.superTestMode, this.testErrorCB.bind(this));
-        var has_com2 = this.COMPLETES.com2 !== '-';
-        var aux_com2 = GF.rs(this.COMPLETES.com2, this.superTestMode, this.testErrorCB.bind(this));
-        var aux_salm2 = this.salm(GF.rs(this.COMPLETES.salm2, this.superTestMode, this.testErrorCB.bind(this)));
-        var aux_gloria2 = this.gloria(this.COMPLETES.gloria2);
+        if(is_dos_salms){
+          var aux_ant2 = has_distint_ant? GF.rs(this.COMPLETES.ant2, this.superTestMode, this.testErrorCB.bind(this)) : "";
+          var aux_titol2 = GF.rs(this.COMPLETES.titol2, this.superTestMode, this.testErrorCB.bind(this));
+          var has_com2 = this.COMPLETES.com2 !== '-';
+          var aux_com2 = has_com2? GF.rs(this.COMPLETES.com2, this.superTestMode, this.testErrorCB.bind(this)) : "";
+          var aux_salm2 = this.salm(GF.rs(this.COMPLETES.salm2, this.superTestMode, this.testErrorCB.bind(this)));
+          var aux_gloria2 = this.gloria(this.COMPLETES.gloria2);
+        }
         var aux_vers = GF.rs(this.COMPLETES.vers, this.superTestMode, this.testErrorCB.bind(this));
         var aux_lectura_breu = GF.rs(this.COMPLETES.lecturaBreu, this.superTestMode, this.testErrorCB.bind(this));
-        var is_resp_special = this.COMPLETES.antRespEspecial === "-";
-        var aux_resp_1_2 = GF.respTogether(GF.rs(this.COMPLETES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)));
-        var aux_resp_3 = GF.rs(this.COMPLETES.respBreu3, this.superTestMode, this.testErrorCB.bind(this));
-        var aux_resp_2 = GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this));
+        var is_normal_resp = this.COMPLETES.antRespEspecial === "-";
+        if(is_normal_resp){
+          var aux_resp_1_2 = GF.respTogether(GF.rs(this.COMPLETES.respBreu1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this)));
+          var aux_resp_3 = GF.rs(this.COMPLETES.respBreu3, this.superTestMode, this.testErrorCB.bind(this));
+          var aux_resp_2 = GF.rs(this.COMPLETES.respBreu2, this.superTestMode, this.testErrorCB.bind(this));
+        }
+        else{
+          var aux_ant_special = GF.rs(this.COMPLETES.antRespEspecial, this.superTestMode, this.testErrorCB.bind(this));
+        }
         var aux_gloria_half = " Glòria al Pare i al Fill i a l'Esperit Sant.";
-        var aux_ant_special = GF.rs(this.COMPLETES.antRespEspecial, this.superTestMode, this.testErrorCB.bind(this));
         var aux_ant_cantic = GF.rs(this.COMPLETES.antCantic, this.superTestMode, this.testErrorCB.bind(this));
         var aux_titol_cantic = "Càntic\nLc 2, 29-32\nCrist, llum de les nacions i glòria d'Israel";
         var aux_cantic = this.salm(GF.rs(this.COMPLETES.cantic, this.superTestMode, this.testErrorCB.bind(this)));
@@ -450,7 +456,7 @@ export default class CompletesDisplay extends Component {
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{"RESPONSORI BREU"}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {is_resp_special ?
+            {is_normal_resp ?
               <View>
                 <Text selectable={true} style={this.styles.red}>{"V. "}
                   <Text selectable={true} style={this.styles.black}>{aux_resp_1_2}</Text>

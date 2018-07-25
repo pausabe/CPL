@@ -214,23 +214,23 @@ export default class HoraMenorDisplay extends Component {
 
   salmodia(LT, setmana, weekDay, HM){
     var aux_antifones = this.props.HORA_MENOR.antifones;
-    var aux_ant1 = GF.rs(this.props.HORA_MENOR.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this));
-    var aux_ant = GF.rs(this.props.HORA_MENOR.ant, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_ant1 = aux_antifones? GF.rs(this.props.HORA_MENOR.ant1, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
+    var aux_ant = !aux_antifones? GF.rs(this.props.HORA_MENOR.ant, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_titol1 = GF.rs(this.props.HORA_MENOR.titol1, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_has_com1 = this.props.HORA_MENOR.com1 !== '-';
-    var aux_com1 = GF.rs(this.props.HORA_MENOR.com1, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_com1 = aux_has_com1? GF.rs(this.props.HORA_MENOR.com1, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm1 = this.salm(GF.rs(this.props.HORA_MENOR.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)));
     var aux_gloria1 = this.gloria(this.props.HORA_MENOR.gloria1);
-    var aux_ant2 = GF.rs(this.props.HORA_MENOR.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_ant2 = aux_antifones? GF.rs(this.props.HORA_MENOR.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_titol2 = GF.rs(this.props.HORA_MENOR.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_has_com2 = this.props.HORA_MENOR.com2 !== '-';
-    var aux_com2 = GF.rs(this.props.HORA_MENOR.com2, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_com2 = aux_has_com2? GF.rs(this.props.HORA_MENOR.com2, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm2 = this.salm(GF.rs(this.props.HORA_MENOR.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)));
     var aux_gloria2 = this.gloria(this.props.HORA_MENOR.gloria2);
-    var aux_ant3 = GF.rs(this.props.HORA_MENOR.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_ant3 = aux_antifones? GF.rs(this.props.HORA_MENOR.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_titol3 = GF.rs(this.props.HORA_MENOR.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_has_com3 = this.props.HORA_MENOR.com3 !== '-';
-    var aux_com3 = GF.rs(this.props.HORA_MENOR.com3, this.props.superTestMode, this.props.testErrorCB.bind(this));
+    var aux_com3 = aux_has_com3? GF.rs(this.props.HORA_MENOR.com3, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm3 = this.salm(GF.rs(this.props.HORA_MENOR.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)));
     var aux_gloria3 = this.gloria(this.props.HORA_MENOR.gloria3);
 
