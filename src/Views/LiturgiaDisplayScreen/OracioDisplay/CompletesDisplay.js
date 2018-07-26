@@ -542,6 +542,7 @@ export default class CompletesDisplay extends Component {
       }
     } catch (e) {
       console.log(e);
+      if(this.superTestMode) this.testErrorCB();
       return(null);
     }
   }

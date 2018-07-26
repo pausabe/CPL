@@ -786,8 +786,11 @@ module.exports = {
   },
 
   isDarkHimn(){
-    var nowDate = new Date();
-    var hour = nowDate.getHours();
-    return hour<6;
+    if(false){ //To avoid distint himns when doing state test and compare dark test with light test
+      var nowDate = new Date();
+      var hour = nowDate.getHours();
+      return hour<6;
+    }
+    else return false
   }
 };

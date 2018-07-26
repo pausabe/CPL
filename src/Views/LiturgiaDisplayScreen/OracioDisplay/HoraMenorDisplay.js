@@ -157,6 +157,7 @@ export default class HoraMenorDisplay extends Component {
     }
     catch (e) {
       console.log(e);
+      if(this.props.superTestMode) this.props.testErrorCB();
       return null;
     }
   }

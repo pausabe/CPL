@@ -347,6 +347,7 @@ export default class LaudesDisplay extends Component {
     }
     catch (e) {
       console.log(e);
+      if(this.superTestMode) this.testErrorCB();
       return null;
     }
   }

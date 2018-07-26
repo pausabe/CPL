@@ -183,6 +183,7 @@ export default class VespresDisplay extends Component {
       }
       catch (e) {
         console.log(e);
+        if(this.props.superTestMode) this.props.testErrorCB();
         return null;
       }
     }
