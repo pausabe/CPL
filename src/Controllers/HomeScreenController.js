@@ -150,9 +150,9 @@ export default class HomeScreenController extends Component {
     }
 
     /*************** TEST THINGS - START *******************/
-    this.testing = true;
+    this.testing = false;
     this.stateTest = this.testing && false; //Set DarkTest!!
-    this.superTest = this.testing && true;
+    this.superTest = this.testing && false;
     if(this.stateTest){
       this.TA = new TA();
       this.stateArr = [];

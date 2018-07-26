@@ -90,3 +90,11 @@ v1.9.0(10.5.2018)[An21,Ap16] - [6ed3e48]
   - No sortien alguns 'Glòria'
 v1.9.1(11.6.2018)[An22,Ap17] - []
 - Visibles altre cop les memòries lliures de Santa Maria en dissabte
+v1.10(26.7.2018)[An23,Ap18] - []
+- (!) Noves opcions dins de configuració:
+  - Opció de fer donatius
+  - Opció de posar-te en contacte
+- (!) Ara pots compartir el text de les oracions
+- Arreglats alguns dies litúrgics
+- Fons blanc dins de les oracions
+- Millora estètica de la configuració

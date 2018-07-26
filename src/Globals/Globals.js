@@ -46,7 +46,7 @@ module.exports = {
   size9: 39,
   size10: 42,
 
-  DBName: 'lh_v1.9.db',
+  DBName: 'lh_v1.10.db',
 
   paddingBar: Platform.OS === 'ios' ? 0 : 54,
 
