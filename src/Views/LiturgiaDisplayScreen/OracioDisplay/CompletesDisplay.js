@@ -14,17 +14,19 @@ import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class CompletesDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.addListener('shareButtonPressed_Completes', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.removeListener('shareButtonPressed_Completes', this.sharePressed.bind(this));
   }
 
   sharePressed(){
+    console.log("PlaceLog. Completes Share Pressed");
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
+      subject: 'Completes',
       title: 'Completes'
     },
     {

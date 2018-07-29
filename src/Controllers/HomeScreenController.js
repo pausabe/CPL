@@ -720,16 +720,34 @@ export default class HomeScreenController extends Component {
     this.refreshEverything(this.variables.date);
   }
 
-  emitShare(){
-    console.log("emit share");
-    this.eventEmitter.emit('shareButtonPressed');
+  emitShare(type){
+    console.log("emitShare: " + type);
+    switch (type) {
+      case "Ofici":
+        this.eventEmitter.emit('shareButtonPressed_Ofici');
+        break;
+      case "Laudes":
+        this.eventEmitter.emit('shareButtonPressed_Laudes');
+        break;
+      case "Tèrcia":
+      case "Sexta":
+      case "Nona":
+        this.eventEmitter.emit('shareButtonPressed_Menor');
+        break;
+      case "Vespres":
+        this.eventEmitter.emit('shareButtonPressed_Vespres');
+        break;
+      case "Completes":
+        this.eventEmitter.emit('shareButtonPressed_Completes');
+        break;
+    }
   }
 
   jumpDisplay(type, superTestMode, title){
     this.props.navigator.push({
       title: title,
       rightButtonIcon: this.state.shareIcon,
-      onRightButtonPress: () => this.emitShare(),//this.sharePressed(),
+      onRightButtonPress: () => this.emitShare(type),
       passProps: {
         superTestMode: superTestMode,
         testErrorCallBack: this.testErrorCallBack.bind(this),

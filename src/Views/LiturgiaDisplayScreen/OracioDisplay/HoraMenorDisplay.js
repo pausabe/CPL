@@ -12,18 +12,20 @@ import GF from '../../../Globals/GlobalFunctions';
 
 export default class HoraMenorDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.addListener('shareButtonPressed_Menor', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.removeListener('shareButtonPressed_Menor', this.sharePressed.bind(this));
   }
 
   sharePressed(){
+    console.log("PlaceLog. Hora menor Share Pressed");
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
-      title: 'Hora menor'
+      title: 'Hora menor',
+      subject: 'Hora menor'
     },
     {
       // Android only:

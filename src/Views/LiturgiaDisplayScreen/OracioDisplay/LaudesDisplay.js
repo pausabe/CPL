@@ -14,18 +14,20 @@ import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.addListener('shareButtonPressed_Laudes', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.removeListener('shareButtonPressed_Laudes', this.sharePressed.bind(this));
   }
 
   sharePressed(){
+    console.log("PlaceLog. Laudes Share Pressed");
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
-      title: 'Laudes'
+      title: 'Laudes',
+      subject: 'Laudes'
     },
     {
       // Android only:

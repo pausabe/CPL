@@ -12,18 +12,20 @@ import GF from '../../../Globals/GlobalFunctions';
 
 export default class VespresDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.addListener('shareButtonPressed_Vespres', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.removeListener('shareButtonPressed_Vespres', this.sharePressed.bind(this));
   }
 
   sharePressed(){
+    console.log("PlaceLog. Vespres Share Pressed");
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
-      title: 'Vespres'
+      title: 'Vespres',
+      subject: 'Vespres'
     },
     {
       // Android only:

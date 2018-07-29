@@ -14,18 +14,20 @@ import SettingsManager from '../../../Controllers/Classes/SettingsManager';
 
 export default class OficiDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.addListener('shareButtonPressed_Ofici', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed', this.sharePressed.bind(this));
+    this.props.events.removeListener('shareButtonPressed_Ofici', this.sharePressed.bind(this));
   }
 
   sharePressed(){
+    console.log("PlaceLog. Ofici Share Pressed");
     Share.share({
       message: this.shareText,
       url: 'https://mescpl.cpl.es/donacions/',
-      title: 'Ofici de lectura'
+      title: 'Ofici de lectura',
+      subject: 'Ofici de lectura'
     },
     {
       // Android only:
