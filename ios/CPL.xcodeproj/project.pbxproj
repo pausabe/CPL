@@ -52,6 +52,7 @@
 		5F28CAC8209B2A7100D2EF52 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F28CA70209B28CD00D2EF52 /* libSplashScreen.a */; };
 		5F28CAC9209B2A7A00D2EF52 /* libSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F28CA82209B28CE00D2EF52 /* libSQLite.a */; };
 		5F28CACA209B2A8400D2EF52 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F28CAC4209B28D500D2EF52 /* libRNVectorIcons.a */; };
+		5F57D7A321AC8948006F57B5 /* libfishhook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6841FA4F8DC00B85C8A /* libfishhook.a */; };
 		5FB9CBE6210A70B30015D563 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 5FB9CBB8210A70B20015D563 /* main.jsbundle */; };
 		660C774610564B799C22A5A1 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A9F87135ECF4851934ED222 /* Ionicons.ttf */; };
 		764DACF9B3414516826D55D9 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BC2023693104D49BA257088 /* MaterialCommunityIcons.ttf */; };
@@ -455,6 +456,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F57D7A321AC8948006F57B5 /* libfishhook.a in Frameworks */,
 				5F28CACA209B2A8400D2EF52 /* libRNVectorIcons.a in Frameworks */,
 				5F28CAC9209B2A7A00D2EF52 /* libSQLite.a in Frameworks */,
 				5F28CAC8209B2A7100D2EF52 /* libSplashScreen.a in Frameworks */,

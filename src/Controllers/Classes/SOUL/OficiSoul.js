@@ -93,19 +93,19 @@ export default class OficiSoul {
       this.OFICI.himneOhDeu = this.state.ohDeu;
     }
     else {
-      this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL);
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL);
-      this.vers(liturgicProps.LT, CEL);
-      this.lectures(liturgicProps.LT, CEL);
-      this.himneOhDeu(liturgicProps.LT, date.getDay(), CEL);
-      this.oracio(liturgicProps.LT, date.getDay(), CEL);
+      this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL, date);
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati, date);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL, date);
+      this.vers(liturgicProps.LT, CEL, date);
+      this.lectures(liturgicProps.LT, CEL, date);
+      this.himneOhDeu(liturgicProps.LT, date.getDay(), CEL, date);
+      this.oracio(liturgicProps.LT, date.getDay(), CEL, date);
     }
 
     SOUL.setSoul(HS, "ofici", this.OFICI);
   }
 
-  introduccio(LT, setmana, CEL){
+  introduccio(LT, setmana, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         antInvitatori = this.state.salteriComuInvitatori.ant;
@@ -135,7 +135,9 @@ export default class OficiSoul {
       case GLOBAL.A_SETMANES:
       case GLOBAL.A_FERIES:
       case GLOBAL.N_ABANS:
-        antInvitatori = this.state.tempsAdventNadalComu.antInvitatori;
+        if(LT != GLOBAL.N_ABANS || (LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13)){
+          antInvitatori = this.state.tempsAdventNadalComu.antInvitatori;
+        }
         break;
       case GLOBAL.N_OCTAVA:
         antInvitatori = this.state.tempsSolemnitatsFestes.antInvitatori;
@@ -146,7 +148,7 @@ export default class OficiSoul {
     else this.OFICI.antInvitatori = CEL.antInvitatori;
   }
 
-  himne(LT, weekDay, setmana, CEL, llati){
+  himne(LT, weekDay, setmana, CEL, llati, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(GF.isDarkHimn()){//matinada
@@ -242,11 +244,13 @@ export default class OficiSoul {
       case GLOBAL.A_FERIES:
       case GLOBAL.N_OCTAVA:
       case GLOBAL.N_ABANS:
-        if(llati === 'true'){
-          himne = this.state.tempsAdventNadalComu.himneOficiLlati;
-        }
-        else{
-          himne = this.state.tempsAdventNadalComu.himneOficiCat;
+        if(LT != GLOBAL.N_ABANS || (LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13)){
+          if(llati === 'true'){
+            himne = this.state.tempsAdventNadalComu.himneOficiLlati;
+          }
+          else{
+            himne = this.state.tempsAdventNadalComu.himneOficiCat;
+          }
         }
         break;
     }
@@ -256,7 +260,7 @@ export default class OficiSoul {
       this.OFICI.himne = CEL.himne;
   }
 
-  salmodia(LT, setmana, weekDay, cicle, CEL){
+  salmodia(LT, setmana, weekDay, cicle, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.Q_CENDRA:
@@ -264,30 +268,32 @@ export default class OficiSoul {
       case GLOBAL.Q_DIUM_RAMS:
       case GLOBAL.Q_SET_SANTA:
       case GLOBAL.N_ABANS:
-        ant1 = this.state.salteriComuOfici.ant1;
-        titol1 = this.state.salteriComuOfici.titol1;
-        com1 = this.state.salteriComuOfici.com1;
-        salm1 = this.state.salteriComuOfici.salm1;
-        gloria1 = this.state.salteriComuOfici.gloria1;
-        ant2 = this.state.salteriComuOfici.ant2;
-        titol2 = this.state.salteriComuOfici.titol2;
-        com2 = this.state.salteriComuOfici.com2;
-        salm2 = this.state.salteriComuOfici.salm2;
-        gloria2 = this.state.salteriComuOfici.gloria2;
-        ant3 = this.state.salteriComuOfici.ant3;
-        titol3 = this.state.salteriComuOfici.titol3;
-        com3 = this.state.salteriComuOfici.com3;
-        salm3 = this.state.salteriComuOfici.salm3;
-        gloria3 = this.state.salteriComuOfici.gloria3;
-        if(weekDay === 0 && (LT === GLOBAL.Q_SETMANES || LT === GLOBAL.Q_CENDRA || LT === GLOBAL.Q_DIUM_RAMS || LT === GLOBAL.Q_SET_SANTA)){//diumenge de Quaresma
-          if(ant1.search(', al·leluia') !== -1){
-            ant1 = ant1.replace(', al·leluia','');
-          }
-          if(ant2.search(', al·leluia') !== -1){
-            ant2 = ant2.replace(', al·leluia','');
-          }
-          if(ant3.search(', al·leluia') !== -1){
-            ant3 = ant3.replace(', al·leluia','');
+        if(LT != GLOBAL.N_ABANS || (LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13)){
+          ant1 = this.state.salteriComuOfici.ant1;
+          titol1 = this.state.salteriComuOfici.titol1;
+          com1 = this.state.salteriComuOfici.com1;
+          salm1 = this.state.salteriComuOfici.salm1;
+          gloria1 = this.state.salteriComuOfici.gloria1;
+          ant2 = this.state.salteriComuOfici.ant2;
+          titol2 = this.state.salteriComuOfici.titol2;
+          com2 = this.state.salteriComuOfici.com2;
+          salm2 = this.state.salteriComuOfici.salm2;
+          gloria2 = this.state.salteriComuOfici.gloria2;
+          ant3 = this.state.salteriComuOfici.ant3;
+          titol3 = this.state.salteriComuOfici.titol3;
+          com3 = this.state.salteriComuOfici.com3;
+          salm3 = this.state.salteriComuOfici.salm3;
+          gloria3 = this.state.salteriComuOfici.gloria3;
+          if(weekDay === 0 && (LT === GLOBAL.Q_SETMANES || LT === GLOBAL.Q_CENDRA || LT === GLOBAL.Q_DIUM_RAMS || LT === GLOBAL.Q_SET_SANTA)){//diumenge de Quaresma
+            if(ant1.search(', al·leluia') !== -1){
+              ant1 = ant1.replace(', al·leluia','');
+            }
+            if(ant2.search(', al·leluia') !== -1){
+              ant2 = ant2.replace(', al·leluia','');
+            }
+            if(ant3.search(', al·leluia') !== -1){
+              ant3 = ant3.replace(', al·leluia','');
+            }
           }
         }
         break;
@@ -481,7 +487,7 @@ export default class OficiSoul {
     else this.OFICI.gloria3 = CEL.gloria3;
   }
 
-  vers(LT, CEL){
+  vers(LT, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         respV = this.state.salteriComuOfici.respV;
@@ -528,8 +534,10 @@ export default class OficiSoul {
         respR = this.state.tempsNadalOctava.respROfici;
         break;
       case GLOBAL.N_ABANS:
-        respV = this.state.tempsNadalAbansEpifania.respVOfici;
-        respR = this.state.tempsNadalAbansEpifania.respROfici;
+        if(date.getMonth() == 0 && date.getDate() != 13){
+          respV = this.state.tempsNadalAbansEpifania.respVOfici;
+          respR = this.state.tempsNadalAbansEpifania.respROfici;
+        }
         break;
     }
     if(CEL.respV === '-')
@@ -540,7 +548,24 @@ export default class OficiSoul {
     else this.OFICI.respR = CEL.respR;
   }
 
-  lectures(LT, CEL){
+  lectures(LT, CEL, date){
+    referencia1 = "";
+    cita1 = "";
+    titol1 = "";
+    lectura1 = "";
+    citaResp1 = "";
+    resp1Part1 = "";
+    resp1Part2 ="";
+    resp1Part3 = "";
+    referencia2 = "";
+    cita2 = "";
+    titol2 = "";
+    lectura2 = "";
+    versResp2 = "";
+    resp2Part1 = "";
+    resp2Part2 = "";
+    resp2Part3 = "";
+
     switch(LT){
       case GLOBAL.O_ORDINARI:
         referencia1 = this.state.tempsOrdinariOfici.referencia1;
@@ -741,22 +766,24 @@ export default class OficiSoul {
         resp2Part3 = this.state.tempsNadalOctava.resp2Part3Ofici;
         break;
       case GLOBAL.N_ABANS:
-        referencia1 = this.state.tempsNadalAbansEpifania.referencia1;
-        cita1 = this.state.tempsNadalAbansEpifania.cita1;
-        titol1 = this.state.tempsNadalAbansEpifania.titol1;
-        lectura1 = this.state.tempsNadalAbansEpifania.lectura1;
-        citaResp1 = this.state.tempsNadalAbansEpifania.citaResp1; //TODO: canviar nom de la variable??
-        resp1Part1 = this.state.tempsNadalAbansEpifania.resp1Part1;
-        resp1Part2 = this.state.tempsNadalAbansEpifania.resp1Part2;
-        resp1Part3 = this.state.tempsNadalAbansEpifania.resp1Part3;
-        referencia2 = this.state.tempsNadalAbansEpifania.referencia2;
-        cita2 = this.state.tempsNadalAbansEpifania.cita2;
-        titol2 = this.state.tempsNadalAbansEpifania.titol2;
-        lectura2 = this.state.tempsNadalAbansEpifania.lectura2;
-        versResp2 = this.state.tempsNadalAbansEpifania.versResp2; //TODO: canviar nom de la variable??
-        resp2Part1 = this.state.tempsNadalAbansEpifania.resp2Part1;
-        resp2Part2 = this.state.tempsNadalAbansEpifania.resp2Part2;
-        resp2Part3 = this.state.tempsNadalAbansEpifania.resp2Part3;
+        if(date.getMonth() == 0 && date.getDate() != 13){
+          referencia1 = this.state.tempsNadalAbansEpifania.referencia1;
+          cita1 = this.state.tempsNadalAbansEpifania.cita1;
+          titol1 = this.state.tempsNadalAbansEpifania.titol1;
+          lectura1 = this.state.tempsNadalAbansEpifania.lectura1;
+          citaResp1 = this.state.tempsNadalAbansEpifania.citaResp1; //TODO: canviar nom de la variable??
+          resp1Part1 = this.state.tempsNadalAbansEpifania.resp1Part1;
+          resp1Part2 = this.state.tempsNadalAbansEpifania.resp1Part2;
+          resp1Part3 = this.state.tempsNadalAbansEpifania.resp1Part3;
+          referencia2 = this.state.tempsNadalAbansEpifania.referencia2;
+          cita2 = this.state.tempsNadalAbansEpifania.cita2;
+          titol2 = this.state.tempsNadalAbansEpifania.titol2;
+          lectura2 = this.state.tempsNadalAbansEpifania.lectura2;
+          versResp2 = this.state.tempsNadalAbansEpifania.versResp2; //TODO: canviar nom de la variable??
+          resp2Part1 = this.state.tempsNadalAbansEpifania.resp2Part1;
+          resp2Part2 = this.state.tempsNadalAbansEpifania.resp2Part2;
+          resp2Part3 = this.state.tempsNadalAbansEpifania.resp2Part3;
+        }
         break;
     }
     if(CEL.referencia1 === '-')
@@ -813,7 +840,7 @@ export default class OficiSoul {
     else this.OFICI.resp2Part3 = CEL.resp2Part3;
   }
 
-  himneOhDeu(LT, weekDay, CEL, tempsEspecific){
+  himneOhDeu(LT, weekDay, CEL, tempsEspecific, date){
     var himneOhDeuBool = false;
     switch(LT){
       case GLOBAL.O_ORDINARI:
@@ -843,7 +870,7 @@ export default class OficiSoul {
     this.OFICI.himneOhDeu = this.state.ohDeu;
   }
 
-  oracio(LT, weekDay, CEL){
+  oracio(LT, weekDay, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         oracio = this.state.tempsOrdinariOracions.oracio;
@@ -879,7 +906,9 @@ export default class OficiSoul {
         oracio = this.state.tempsNadalOctava.oraFiLaudes;
         break;
       case GLOBAL.N_ABANS:
-        oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+        if(date.getMonth() == 0 && date.getDate() != 13){
+          oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+        }
         break;
     }
     if(CEL.oracio === '-')

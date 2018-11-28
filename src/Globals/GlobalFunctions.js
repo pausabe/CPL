@@ -367,7 +367,7 @@ module.exports = {
 
   rs(text, superTestMode, error){
     if(superTestMode) {
-      // console.log("testLogTest (text): _" + text + "_");
+      //console.log("testLogTest (text): _" + text + "_");
       if(!text||text===undefined||text===''||text==='-'||text===' '||text===':'){
         // console.log("testLogTest (bad text): _" + text + "_");
         error();

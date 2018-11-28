@@ -116,7 +116,7 @@ export default class HomeScreenController extends Component {
     this.date = new Date(/*2018,4,12*/);
 
     this.minDatePicker = new Date(2017,0,2);
-    this.maxDatePicker = new Date(2018,11,28);
+    this.maxDatePicker = new Date(2019,11,28);
 
     this.state = {
       testInfo: 'testing correctly',
@@ -164,14 +164,14 @@ export default class HomeScreenController extends Component {
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 2, //1-31 (s'inclou en el test)
-      month: 0, //0-11
-      year: 2017,
+      day: 28, //1-31 (s'inclou en el test)
+      month: 10, //0-11
+      year: 2018,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 28, //1-31 (no s'inclou en el test)
-      month: 11, //0-11
-      year: 2018,
+      day: 31, //1-31 (no s'inclou en el test)
+      month: 0, //0-11
+      year: 2019,
     }
 
     if(this.testing){

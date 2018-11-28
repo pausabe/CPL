@@ -5,8 +5,10 @@ v0.12(21.06.2017)[An4] - [?] 1.2 Bugs fixed
 v0.14(22.06.2017)[An5] - [?] 1.4 Bugs fixed
 v0.15(23.06.2017)[An6] - [?] 1.5 Bugs fixed
 v0.16(28.06.2017)[An7] - [?] Si hi ha Vespres 1 de solemnitats, ja no influeix en les altres oracions l'ofici comú
+
 //PUBLICACIÓ OFICIAL
 v1.0(14.09.2017)[An8,Ap1] - [698ecf9] Errors ortogràfics i litúrgics corregits.
+
 v1.1(29.09.2017)[An9,Ap3] - [e18bcc]
   - Arreglat quan algunes conclusions de les oracions finals no sortien bé.
   - Afegit un espai de línia en els títols dels càntics.
@@ -20,14 +22,17 @@ v1.1(29.09.2017)[An9,Ap3] - [e18bcc]
   - iOs: Ja no es pot utilitzar en mode horitzontal.
   - iOs: Nou selector per al canvi de dia, més estètic.
   - Android: Nova estètica en els títols dels diferents apartats. La barra superior és diferent i també les transicions entre pantalles. A més ara apareix el nom de cada pantalla (Configuració, Ofici de lectura, ...).
+
 v1.2(06.10.2017)[An10,Ap4] - [0dc90e]
   - Bug tractament de text quan pot ser undefined
   - iOs: Slpash Screen correcte
+
 v1.3(25.10.2017)[An11,Ap5] - [7625c5a]
   - Corregits alguns errors en els textos
   - Millores del codi, cap efecte per l'usuari (under the hood)
   - Solucionats errors que causaven l'apagament de l'aplicació en certes condicions
   - Opció de l'any 2018 ja disponible, en fase de proves
+
 v1.4(10.11.2017)[An12,Ap6] - [a94cc00]
   - Solucionats alguns errors
     - amb solemnitats que depenien del dia de Pentecosta del 2018
@@ -37,6 +42,7 @@ v1.4(10.11.2017)[An12,Ap6] - [a94cc00]
   - Text que corrobora que els textos són els oficials a l'apartat de Configuració
   - Nou test que garanteix la qualitat dels textos (under the hood)
   - iOs: Als iPads només es podrà fer servir en mode Portrait
+
 v1.5(19.12.2017)[An13,Ap7] - [e71b72]
   - Nou avís recordant que han passat les 12 de la nit
   - Solucionats alguns errors
@@ -45,25 +51,30 @@ v1.5(19.12.2017)[An13,Ap7] - [e71b72]
     - en les conclusions de les oracions finals de les hores menors en temps forts
   - Millora en els tests (uth)
   - Millora estètica de les pregàries
+
 v1.6(19.1.2018)[An14,Ap8] - [4fecc63]
   - Manteniment del codi
   - Ara podràs saber de què són les primeres vespres (quan no siguin del mateix dia)
   - iOs: Compatibilitat amb iPhone X
   - Android: Quan es prem "enrere" amb la descripció d'alguna celebració oberta aquesta es tanca
+
 v1.7.1(2.3.2018)[An15,Ap9] - [e2815f]
   - Ara l'invitatori es configura a l'interior de Laudes i l'Ofici de lectura
   - Solucionats alguns errors:
     - amb algunes antífones d'advent
     - ortogràfics en els textos
     - d'alguns elements de la setmana Santa
+
 v1.7.2(6.3.2018)[An16,Ap10] - [7d2f0fc] ->>> ERROR! (testing = true) | Només Android
 - Nou text d'avís de la part que es pot ometre en l'himne Oh Déu, us lloem
 - Avís informatiu de les Fèries d'Advent
 - Solucionats alguns errors:
   - Antífones del Magníficat en Quaresma
   - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua
+
 v1.7.3(6.3.2018)[An17] - [7d2f0fc] ->>> Només Android
 - Error testing arreglat
+
 v1.7.4(7.3.2018)[An18,Ap12] - [b317e61]
 - iOS: v1.7.2
 - Android: Canvi del color del selector del dia
@@ -71,6 +82,7 @@ v1.7.4(7.3.2018)[An18,Ap12] - [b317e61]
   - Conclusions de les oracions de l'Ofici de lectura del Diumenge de Pasqua
   - Paraula "Al·leluia" en les antífones de l'ofici de lectura dels diumenges de Quaresma
   - Cicle de la setmana del 16 al 22 d'abril
+
 v1.8(14.3.2018)[An19,Ap13] - [a9dfbc9]
 - Explicació de l'omisió de les Completes i l'Ofici de lectura de Diumenge de Pasqua quan has assistit a la Vetlla Pasqual
 - Introduït l'acte penitencial a les Completes
@@ -79,8 +91,10 @@ v1.8(14.3.2018)[An19,Ap13] - [a9dfbc9]
 - Salms 99, 66 i 23 afegits i seleccionables a l'invitatori
 - Noves antífones de la Mare de Déu a les Completes seleccionables
 - L'Himne de l'Ofici de lectura del temps de durant l'any canvia si es resa a la matinada
+
 v1.8.1(24.4.2018)[An20,Ap14] - [4527b65]
 - Corregits errors ortogràfics en l'himne de completes en temps de Pasqua
+
 v1.9.0(10.5.2018)[An21,Ap16] - [6ed3e48]
 - Nova memòria obligatòria: 'Benaurada Verge Maria, Mare de l’Església'
 - Memòries lliures sempre visibles. Es decideix si es resen amb un Switch a la pantalla principal
@@ -88,9 +102,11 @@ v1.9.0(10.5.2018)[An21,Ap16] - [6ed3e48]
   - Faltaven alguns himnes en llatí
   - L'invitatori del Diumenge de Pasqua causava errors
   - No sortien alguns 'Glòria'
+
 v1.9.1(11.6.2018)[An22,Ap17] - []
 - Visibles altre cop les memòries lliures de Santa Maria en dissabte
-v1.10.1(29.7.2018)[An24,Ap19] - []
+
+v1.10.1(29.7.2018)[An24,Ap19] - [958e546]
 - (!) Noves opcions dins de configuració:
   - Opció de fer donatius
   - Opció de posar-te en contacte
@@ -98,3 +114,6 @@ v1.10.1(29.7.2018)[An24,Ap19] - []
 - Arreglats alguns dies litúrgics
 - Fons blanc dins de les oracions
 - Millora estètica de la configuració
+
+v1.11(26.11.2018)[An25,Ap20] - []
+- Afegida la litúrgia del 2019

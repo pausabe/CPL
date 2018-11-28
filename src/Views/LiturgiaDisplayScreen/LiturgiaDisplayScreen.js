@@ -74,7 +74,7 @@ export default class LiturgiaDisplayScreen extends Component {
   componentDidUpdate(){
     // console.log("LITDISPLAY updated");
     if(this.props.superTestMode){
-      // console.log("TESTING OPEN - " + this.state.type);
+      //console.log("TESTING OPEN - " + this.state.type);
       if(this.state.type === 'Laudes') this.setState({type: 'Tèrcia'});
       else if(this.state.type === 'Tèrcia') this.setState({type: 'Sexta'});
       else if(this.state.type === 'Sexta') this.setState({type: 'Nona'});

@@ -85,19 +85,19 @@ export default class VespresSoul {
       this.VESPRES.cantic = this.state.magnificat;
     }
     else{
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati);
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati, date);
       this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL, date);
-      this.lecturaBreu(liturgicProps.LT, CEL);
-      this.responsori(liturgicProps.LT, CEL);
-      this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL);
-      this.pregaries(liturgicProps.LT, CEL);
-      this.oracio(liturgicProps.LT, date.getDay(), CEL);
+      this.lecturaBreu(liturgicProps.LT, CEL, date);
+      this.responsori(liturgicProps.LT, CEL, date);
+      this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL, date);
+      this.pregaries(liturgicProps.LT, CEL, date);
+      this.oracio(liturgicProps.LT, date.getDay(), CEL, date);
     }
 
     SOUL.setSoul(HS, "vespres", this.VESPRES);
   }
 
-  himne(LT, weekDay, setmana, CEL, llati){
+  himne(LT, weekDay, setmana, CEL, llati, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(llati === 'true'){
@@ -182,11 +182,13 @@ export default class VespresSoul {
       case GLOBAL.A_SETMANES:
       case GLOBAL.A_FERIES:
       case GLOBAL.N_ABANS:
-        if(llati === 'true'){
-          himne = this.state.tempsAdventNadalComu.himneVespresLlati;
-        }
-        else{
-          himne = this.state.tempsAdventNadalComu.himneVespresCat;
+        if(LT != GLOBAL.N_ABANS || (LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13)){
+          if(llati === 'true'){
+            himne = this.state.tempsAdventNadalComu.himneVespresLlati;
+          }
+          else{
+            himne = this.state.tempsAdventNadalComu.himneVespresCat;
+          }
         }
         break;
       case GLOBAL.N_OCTAVA:
@@ -207,21 +209,23 @@ export default class VespresSoul {
     switch(LT){
       case GLOBAL.O_ORDINARI:
       case GLOBAL.N_ABANS:
-        ant1 = this.state.salteriComuVespres.ant1;
-        titol1 = this.state.salteriComuVespres.titol1;
-        com1 = this.state.salteriComuVespres.com1;
-        salm1 = this.state.salteriComuVespres.salm1;
-        gloria1 = this.state.salteriComuVespres.gloria1;
-        ant2 = this.state.salteriComuVespres.ant2;
-        titol2 = this.state.salteriComuVespres.titol2;
-        com2 = this.state.salteriComuVespres.com2;
-        salm2 = this.state.salteriComuVespres.salm2;
-        gloria2 = this.state.salteriComuVespres.gloria2;
-        ant3 = this.state.salteriComuVespres.ant3;
-        titol3 = this.state.salteriComuVespres.titol3;
-        //com3 = this.state.salteriComuVespres.com3;
-        salm3 = this.state.salteriComuVespres.salm3;
-        gloria3 = this.state.salteriComuVespres.gloria3;
+        if(LT != GLOBAL.N_ABANS || (LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13)){
+          ant1 = this.state.salteriComuVespres.ant1;
+          titol1 = this.state.salteriComuVespres.titol1;
+          com1 = this.state.salteriComuVespres.com1;
+          salm1 = this.state.salteriComuVespres.salm1;
+          gloria1 = this.state.salteriComuVespres.gloria1;
+          ant2 = this.state.salteriComuVespres.ant2;
+          titol2 = this.state.salteriComuVespres.titol2;
+          com2 = this.state.salteriComuVespres.com2;
+          salm2 = this.state.salteriComuVespres.salm2;
+          gloria2 = this.state.salteriComuVespres.gloria2;
+          ant3 = this.state.salteriComuVespres.ant3;
+          titol3 = this.state.salteriComuVespres.titol3;
+          //com3 = this.state.salteriComuVespres.com3;
+          salm3 = this.state.salteriComuVespres.salm3;
+          gloria3 = this.state.salteriComuVespres.gloria3;
+        }
         break;
       case GLOBAL.A_FERIES:
         ant1 = this.state.salteriComuVespres.ant1;
@@ -482,7 +486,7 @@ export default class VespresSoul {
     }
   }
 
-  lecturaBreu(LT, CEL){
+  lecturaBreu(LT, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         vers = this.state.salteriComuVespres.versetLB;
@@ -535,8 +539,10 @@ export default class VespresSoul {
         lecturaBreu = this.state.tempsNadalOctava.lecturaBreuVespres;
         break;
       case GLOBAL.N_ABANS:
-        vers = this.state.tempsNadalAbansEpifania.citaLBVespres;
-        lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuVespres;
+        if(LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13){
+          vers = this.state.tempsNadalAbansEpifania.citaLBVespres;
+          lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuVespres;
+        }
         break;
     }
     if(CEL.vers === '-')
@@ -547,7 +553,7 @@ export default class VespresSoul {
     else this.VESPRES.lecturaBreu = CEL.lecturaBreu;
   }
 
-  responsori(LT, CEL){
+  responsori(LT, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         respBreu1 = this.state.salteriComuVespres.respBreu1
@@ -602,9 +608,11 @@ export default class VespresSoul {
         respBreu3 = this.state.tempsNadalOctava.respBreuVespres1Part3
         break;
       case GLOBAL.N_ABANS:
-        respBreu1 = this.state.tempsNadalAbansEpifania.respBreuVespres1
-        respBreu2 = this.state.tempsNadalAbansEpifania.respBreuVespres2
-        respBreu3 = this.state.tempsNadalAbansEpifania.respBreuVespres3
+        if(LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13){
+          respBreu1 = this.state.tempsNadalAbansEpifania.respBreuVespres1
+          respBreu2 = this.state.tempsNadalAbansEpifania.respBreuVespres2
+          respBreu3 = this.state.tempsNadalAbansEpifania.respBreuVespres3
+        }
         break;
     }
     if(CEL.diumPasqua){
@@ -643,7 +651,7 @@ export default class VespresSoul {
     }
   }
 
-  cantic(LT, weekDay, litYear, CEL){
+  cantic(LT, weekDay, litYear, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge
@@ -835,7 +843,9 @@ export default class VespresSoul {
         antCantic = this.state.tempsNadalOctava.antMaria;
         break;
       case GLOBAL.N_ABANS:
-        antCantic = this.state.tempsNadalAbansEpifania.antMaria;
+        if(LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13){
+          antCantic = this.state.tempsNadalAbansEpifania.antMaria;
+        }
         break;
     }
     this.VESPRES.cantic = this.state.magnificat;
@@ -845,7 +855,7 @@ export default class VespresSoul {
     else this.VESPRES.antCantic = CEL.antCantic;
   }
 
-  pregaries(LT, CEL){
+  pregaries(LT, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         pregaries = this.state.salteriComuVespres.pregaries;
@@ -886,7 +896,9 @@ export default class VespresSoul {
           pregaries = this.state.tempsNadalOctava.pregariesVespres;
         break;
       case GLOBAL.N_ABANS:
-        pregaries = this.state.tempsNadalAbansEpifania.pregariesVespres;
+        if(LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13){
+          pregaries = this.state.tempsNadalAbansEpifania.pregariesVespres;
+        }
         break;
     }
     if(CEL.pregaries === '-')
@@ -894,7 +906,7 @@ export default class VespresSoul {
     else this.VESPRES.pregaries = CEL.pregaries;
   }
 
-  oracio(LT, weekDay, CEL){
+  oracio(LT, weekDay, CEL, date){
     switch(LT){
       case GLOBAL.O_ORDINARI:
         if(weekDay !== 0 && weekDay !== 6){ ///no vespres de diumenge
@@ -943,7 +955,9 @@ export default class VespresSoul {
         oracio = this.state.tempsNadalOctava.oraFiVespres;
         break;
       case GLOBAL.N_ABANS:
-        oracio = this.state.tempsNadalAbansEpifania.oraFiVespres;
+        if(LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13){
+          oracio = this.state.tempsNadalAbansEpifania.oraFiVespres;
+        }
         break;
     }
     if(CEL.oracio === '-')

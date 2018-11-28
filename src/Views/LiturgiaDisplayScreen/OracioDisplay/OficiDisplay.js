@@ -647,90 +647,96 @@ export default class OficiDisplay extends Component {
   }
 
   lectures(LT){
-    var aux_referencia1 = GF.rs(this.OFICI.referencia1, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_titol_lectura1 = GF.rs(this.OFICI.titolLectura1, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_has_cita1 = this.OFICI.cita1 !== '-';
-    var aux_cita1 = aux_has_cita1 ? GF.rs(this.OFICI.cita1, this.superTestMode, this.testErrorCB.bind(this)) : "";
-    var aux_lectura1 = GF.rs(this.OFICI.lectura1, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_has_citaResp1 = this.OFICI.citaResp1 !== '-';
-    var aux_cita_resp1 = aux_has_citaResp1? GF.rs(this.OFICI.citaResp1, this.superTestMode, this.testErrorCB.bind(this)) : "";
-    var aux_resp1_1_2 = GF.respTogether(GF.rs(this.OFICI.resp1Part1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.OFICI.resp1Part2, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_resp1_3 = GF.rs(this.OFICI.resp1Part3, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_resp1_2 = GF.rs(this.OFICI.resp1Part2, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_referencia2 = GF.rs(this.OFICI.referencia2, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_titol_lectura2 = GF.rs(this.OFICI.titolLectura2, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_has_cita2 = this.OFICI.cita1 !== '-';
-    var aux_cita2 = aux_has_cita2? GF.rs(this.OFICI.cita2, this.superTestMode, this.testErrorCB.bind(this)) : "";
-    var aux_lectura2 = GF.rs(this.OFICI.lectura2, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_has_vers2 = this.OFICI.versResp2 !== '-';
-    var aux_vers2 = aux_has_vers2? GF.rs(this.OFICI.versResp2, this.superTestMode, this.testErrorCB.bind(this)) : "";
-    var aux_resp2_1_2 = GF.respTogether(GF.rs(this.OFICI.resp2Part1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.OFICI.resp2Part2, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_resp2_3 = GF.rs(this.OFICI.resp2Part3, this.superTestMode, this.testErrorCB.bind(this));
-    var aux_resp2_2 = GF.rs(this.OFICI.resp2Part2, this.superTestMode, this.testErrorCB.bind(this));
+    try {
+      var aux_referencia1 = GF.rs(this.OFICI.referencia1, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_titol_lectura1 = GF.rs(this.OFICI.titolLectura1, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_has_cita1 = this.OFICI.cita1 !== '-';
+      var aux_cita1 = aux_has_cita1 ? GF.rs(this.OFICI.cita1, this.superTestMode, this.testErrorCB.bind(this)) : "";
+      var aux_lectura1 = GF.rs(this.OFICI.lectura1, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_has_citaResp1 = this.OFICI.citaResp1 !== '-';
+      var aux_cita_resp1 = aux_has_citaResp1? GF.rs(this.OFICI.citaResp1, this.superTestMode, this.testErrorCB.bind(this)) : "";
+      var aux_resp1_1_2 = GF.respTogether(GF.rs(this.OFICI.resp1Part1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.OFICI.resp1Part2, this.superTestMode, this.testErrorCB.bind(this)));
+      var aux_resp1_3 = GF.rs(this.OFICI.resp1Part3, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_resp1_2 = GF.rs(this.OFICI.resp1Part2, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_referencia2 = GF.rs(this.OFICI.referencia2, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_titol_lectura2 = GF.rs(this.OFICI.titolLectura2, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_has_cita2 = this.OFICI.cita2 != null && this.OFICI.cita2 !== '-';
+      var aux_cita2 = aux_has_cita2? GF.rs(this.OFICI.cita2, this.superTestMode, this.testErrorCB.bind(this)) : "";
+      var aux_lectura2 = GF.rs(this.OFICI.lectura2, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_has_vers2 = this.OFICI.versResp2 !== '-';
+      var aux_vers2 = aux_has_vers2? GF.rs(this.OFICI.versResp2, this.superTestMode, this.testErrorCB.bind(this)) : "";
+      var aux_resp2_1_2 = GF.respTogether(GF.rs(this.OFICI.resp2Part1, this.superTestMode, this.testErrorCB.bind(this)),GF.rs(this.OFICI.resp2Part2, this.superTestMode, this.testErrorCB.bind(this)));
+      var aux_resp2_3 = GF.rs(this.OFICI.resp2Part3, this.superTestMode, this.testErrorCB.bind(this));
+      var aux_resp2_2 = GF.rs(this.OFICI.resp2Part2, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'LECTURES\n\n';
-    this.shareText += 'Lectura primera\n\n';
-    this.shareText += aux_referencia1 + '\n\n';
-    if(aux_has_cita1) this.shareText += aux_cita1 + '\n\n';
-    this.shareText += aux_titol_lectura1 + '\n\n';
-    this.shareText += aux_lectura1 + '\n\n';
-    this.shareText += 'Responsori\n\n';
-    if(aux_has_citaResp1) this.shareText += aux_cita_resp1 + '\n\n';
-    this.shareText += 'R. ' + aux_resp1_1_2 + '\n';
-    this.shareText += 'V. ' + aux_resp1_3 + '\n';
-    this.shareText += 'R. ' + aux_resp1_2 + '\n\n';
-    this.shareText += 'Lectura segona\n\n';
-    this.shareText += aux_referencia2 + '\n\n';
-    this.shareText += aux_titol_lectura2 + '\n\n';
-    this.shareText += aux_lectura2 + '\n\n';
-    this.shareText += 'Responsori\n\n';
-    if(aux_has_vers2) this.shareText += aux_vers2 + '\n\n';
-    this.shareText += 'R. ' + aux_resp2_1_2 + '\n';
-    this.shareText += 'V. ' + aux_resp2_3 + '\n';
-    this.shareText += 'R. ' + aux_resp2_2 + '\n\n';
+      this.shareText += 'LECTURES\n\n';
+      this.shareText += 'Lectura primera\n\n';
+      this.shareText += aux_referencia1 + '\n\n';
+      if(aux_has_cita1) this.shareText += aux_cita1 + '\n\n';
+      this.shareText += aux_titol_lectura1 + '\n\n';
+      this.shareText += aux_lectura1 + '\n\n';
+      this.shareText += 'Responsori\n\n';
+      if(aux_has_citaResp1) this.shareText += aux_cita_resp1 + '\n\n';
+      this.shareText += 'R. ' + aux_resp1_1_2 + '\n';
+      this.shareText += 'V. ' + aux_resp1_3 + '\n';
+      this.shareText += 'R. ' + aux_resp1_2 + '\n\n';
+      this.shareText += 'Lectura segona\n\n';
+      this.shareText += aux_referencia2 + '\n\n';
+      this.shareText += aux_titol_lectura2 + '\n\n';
+      this.shareText += aux_lectura2 + '\n\n';
+      this.shareText += 'Responsori\n\n';
+      if(aux_has_vers2) this.shareText += aux_vers2 + '\n\n';
+      this.shareText += 'R. ' + aux_resp2_1_2 + '\n';
+      this.shareText += 'V. ' + aux_resp2_3 + '\n';
+      this.shareText += 'R. ' + aux_resp2_2 + '\n\n';
 
-    return(
-      <View>
-        <Text selectable={true} style={this.styles.red}>{'Lectura primera'}</Text>
-        <Text selectable={true} style={this.styles.black}>{aux_referencia1}</Text>
-        {aux_has_cita1 ? <Text selectable={true} style={this.styles.red}>{aux_cita1}</Text> : null}
-        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{aux_titol_lectura1}</Text>
-        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{aux_lectura1}</Text>
-        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{'Responsori'}</Text>
-        {aux_has_citaResp1 ? <Text selectable={true} style={this.styles.red}>{aux_cita_resp1}</Text> : null}
-        <Text selectable={true} style={this.styles.red}>{'R. '}
-          <Text selectable={true} style={this.styles.black}>{aux_resp1_1_2}</Text>
-        </Text>
-        <Text selectable={true} style={this.styles.red}>{'V. '}
-          <Text selectable={true} style={this.styles.black}>{aux_resp1_3}</Text>
-        </Text>
-        <Text selectable={true} style={this.styles.red}>{'R. '}
-          <Text selectable={true} style={this.styles.black}>{aux_resp1_2}</Text>
-        </Text>
-        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{'Lectura segona'}</Text>
-        <Text selectable={true} style={this.styles.black}>{aux_referencia2}</Text>
-        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.redCenterBold}>{aux_titol_lectura2}</Text>
-        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackJustified}>{aux_lectura2}</Text>
-        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.red}>{'Responsori'}</Text>
-        {aux_has_vers2 ? <Text selectable={true} style={this.styles.red}>{aux_vers2}</Text> : null}
-        <Text selectable={true} style={this.styles.red}>{'R. '}
-          <Text selectable={true} style={this.styles.black}>{aux_resp2_1_2}</Text>
-        </Text>
-        <Text selectable={true} style={this.styles.red}>{'V. '}
-          <Text selectable={true} style={this.styles.black}>{aux_resp2_3}</Text>
-        </Text>
-        <Text selectable={true} style={this.styles.red}>{'R. '}
-          <Text selectable={true} style={this.styles.black}>{aux_resp2_2}</Text>
-        </Text>
-      </View>
-    )
+      return(
+        <View>
+          <Text selectable={true} style={this.styles.red}>{'Lectura primera'}</Text>
+          <Text selectable={true} style={this.styles.black}>{aux_referencia1}</Text>
+          {aux_has_cita1 ? <Text selectable={true} style={this.styles.red}>{aux_cita1}</Text> : null}
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.redCenterBold}>{aux_titol_lectura1}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.blackJustified}>{aux_lectura1}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.red}>{'Responsori'}</Text>
+          {aux_has_citaResp1 ? <Text selectable={true} style={this.styles.red}>{aux_cita_resp1}</Text> : null}
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp1_1_2}</Text>
+          </Text>
+          <Text selectable={true} style={this.styles.red}>{'V. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp1_3}</Text>
+          </Text>
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp1_2}</Text>
+          </Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.red}>{'Lectura segona'}</Text>
+          <Text selectable={true} style={this.styles.black}>{aux_referencia2}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.redCenterBold}>{aux_titol_lectura2}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.blackJustified}>{aux_lectura2}</Text>
+          {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+          <Text selectable={true} style={this.styles.red}>{'Responsori'}</Text>
+          {aux_has_vers2 ? <Text selectable={true} style={this.styles.red}>{aux_vers2}</Text> : null}
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp2_1_2}</Text>
+          </Text>
+          <Text selectable={true} style={this.styles.red}>{'V. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp2_3}</Text>
+          </Text>
+          <Text selectable={true} style={this.styles.red}>{'R. '}
+            <Text selectable={true} style={this.styles.black}>{aux_resp2_2}</Text>
+          </Text>
+        </View>
+      )
+    }
+    catch (e) {
+      console.log("Error", e);
+      return null;
+    }
   }
 
   lecturesDiumPasqua(LT){

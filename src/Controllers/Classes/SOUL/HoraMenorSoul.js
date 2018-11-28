@@ -123,30 +123,30 @@ export default class HoraMenorSoul {
       SOUL.setSoul(HS, "nona", CEL.NONA);
     }
     else{
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia", CEL.TERCIA, llati);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Tèrcia", CEL.TERCIA);
-      this.lecturaBreuResp(liturgicProps.LT, "Tèrcia", CEL.TERCIA);
-      this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia", CEL.TERCIA);
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia", CEL.TERCIA, llati, date);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Tèrcia", CEL.TERCIA, date);
+      this.lecturaBreuResp(liturgicProps.LT, "Tèrcia", CEL.TERCIA, date);
+      this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia", CEL.TERCIA, date);
 
       SOUL.setSoul(HS, "tercia", this.TERCIA);
 
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA, llati);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Sexta", CEL.SEXTA);
-      this.lecturaBreuResp(liturgicProps.LT, "Sexta", CEL.SEXTA);
-      this.oracio(liturgicProps.LT, date.getDay(), "Sexta", CEL.SEXTA);
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA, llati, date);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Sexta", CEL.SEXTA, date);
+      this.lecturaBreuResp(liturgicProps.LT, "Sexta", CEL.SEXTA, date);
+      this.oracio(liturgicProps.LT, date.getDay(), "Sexta", CEL.SEXTA, date);
 
       SOUL.setSoul(HS, "sexta", this.SEXTA);
 
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA, llati);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Nona", CEL.NONA);
-      this.lecturaBreuResp(liturgicProps.LT, "Nona", CEL.NONA);
-      this.oracio(liturgicProps.LT, date.getDay(), "Nona", CEL.NONA);
+      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA, llati, date);
+      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Nona", CEL.NONA, date);
+      this.lecturaBreuResp(liturgicProps.LT, "Nona", CEL.NONA, date);
+      this.oracio(liturgicProps.LT, date.getDay(), "Nona", CEL.NONA, date);
 
       SOUL.setSoul(HS, "nona", this.NONA);
     }
   }
 
-  himne(LT, weekDay, setmana, HM, CEL, llati){
+  himne(LT, weekDay, setmana, HM, CEL, llati, date){
     if(CEL.himne === '-'){
       switch(LT){
         case GLOBAL.O_ORDINARI:
@@ -337,30 +337,32 @@ export default class HoraMenorSoul {
         case GLOBAL.A_FERIES:
         case GLOBAL.N_OCTAVA:
         case GLOBAL.N_ABANS:
-          if(llati === 'true'){
-            switch (HM) {
-              case 'Tèrcia':
-                this.TERCIA.himne = this.state.tempsAdventNadalComu.himneTerciaLlati;
-                break;
-              case 'Sexta':
-                this.SEXTA.himne = this.state.tempsAdventNadalComu.himneSextaLlati;
-                break;
-              case 'Nona':
-                this.NONA.himne = this.state.tempsAdventNadalComu.himneNonaLlati;
-                break;
+          if(LT != GLOBAL.N_ABANS || (LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13)){
+            if(llati === 'true'){
+              switch (HM) {
+                case 'Tèrcia':
+                  this.TERCIA.himne = this.state.tempsAdventNadalComu.himneTerciaLlati;
+                  break;
+                case 'Sexta':
+                  this.SEXTA.himne = this.state.tempsAdventNadalComu.himneSextaLlati;
+                  break;
+                case 'Nona':
+                  this.NONA.himne = this.state.tempsAdventNadalComu.himneNonaLlati;
+                  break;
+              }
             }
-          }
-          else{
-            switch (HM) {
-              case 'Tèrcia':
-                this.TERCIA.himne = this.state.tempsAdventNadalComu.himneTerciaCat;
-                break;
-              case 'Sexta':
-                this.SEXTA.himne = this.state.tempsAdventNadalComu.himneSextaCat;
-                break;
-              case 'Nona':
-                this.NONA.himne = this.state.tempsAdventNadalComu.himneNonaCat;
-                break;
+            else{
+              switch (HM) {
+                case 'Tèrcia':
+                  this.TERCIA.himne = this.state.tempsAdventNadalComu.himneTerciaCat;
+                  break;
+                case 'Sexta':
+                  this.SEXTA.himne = this.state.tempsAdventNadalComu.himneSextaCat;
+                  break;
+                case 'Nona':
+                  this.NONA.himne = this.state.tempsAdventNadalComu.himneNonaCat;
+                  break;
+              }
             }
           }
           break;
@@ -381,7 +383,7 @@ export default class HoraMenorSoul {
     }
   }
 
-  salmodia(LT, setmana, weekDay, HM, CEL){
+  salmodia(LT, setmana, weekDay, HM, CEL, date){
     if(CEL.titol1 === '-'){
       if(CEL.ant !== '-'){
         switch (HM) {
@@ -753,62 +755,64 @@ export default class HoraMenorSoul {
         case GLOBAL.N_OCTAVA:
         case GLOBAL.A_FERIES:
         case GLOBAL.N_ABANS:
-          this.TERCIA.antifones = false;
+          if(LT != GLOBAL.N_ABANS || (LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13)){
+            this.TERCIA.antifones = false;
 
-          this.TERCIA.titol1 = this.state.salteriComuHora.titol1;
-          this.TERCIA.com1 = this.state.salteriComuHora.com1;
-          this.TERCIA.salm1 = this.state.salteriComuHora.salm1;
-          this.TERCIA.gloria1 = this.state.salteriComuHora.gloria1;
-          this.TERCIA.titol2 = this.state.salteriComuHora.titol2;
-          this.TERCIA.com2 = this.state.salteriComuHora.com2;
-          this.TERCIA.salm2 = this.state.salteriComuHora.salm2;
-          this.TERCIA.gloria2 = this.state.salteriComuHora.gloria2;
-          this.TERCIA.titol3 = this.state.salteriComuHora.titol3;
-          this.TERCIA.com3 = this.state.salteriComuHora.com3;
-          this.TERCIA.salm3 = this.state.salteriComuHora.salm3;
-          this.TERCIA.gloria3 = this.state.salteriComuHora.gloria3;
+            this.TERCIA.titol1 = this.state.salteriComuHora.titol1;
+            this.TERCIA.com1 = this.state.salteriComuHora.com1;
+            this.TERCIA.salm1 = this.state.salteriComuHora.salm1;
+            this.TERCIA.gloria1 = this.state.salteriComuHora.gloria1;
+            this.TERCIA.titol2 = this.state.salteriComuHora.titol2;
+            this.TERCIA.com2 = this.state.salteriComuHora.com2;
+            this.TERCIA.salm2 = this.state.salteriComuHora.salm2;
+            this.TERCIA.gloria2 = this.state.salteriComuHora.gloria2;
+            this.TERCIA.titol3 = this.state.salteriComuHora.titol3;
+            this.TERCIA.com3 = this.state.salteriComuHora.com3;
+            this.TERCIA.salm3 = this.state.salteriComuHora.salm3;
+            this.TERCIA.gloria3 = this.state.salteriComuHora.gloria3;
 
-          this.SEXTA.antifones = false;
+            this.SEXTA.antifones = false;
 
-          this.SEXTA.titol1 = this.state.salteriComuHora.titol1;
-          this.SEXTA.com1 = this.state.salteriComuHora.com1;
-          this.SEXTA.salm1 = this.state.salteriComuHora.salm1;
-          this.SEXTA.gloria1 = this.state.salteriComuHora.gloria1;
-          this.SEXTA.titol2 = this.state.salteriComuHora.titol2;
-          this.SEXTA.com2 = this.state.salteriComuHora.com2;
-          this.SEXTA.salm2 = this.state.salteriComuHora.salm2;
-          this.SEXTA.gloria2 = this.state.salteriComuHora.gloria2;
-          this.SEXTA.titol3 = this.state.salteriComuHora.titol3;
-          this.SEXTA.com3 = this.state.salteriComuHora.com3;
-          this.SEXTA.salm3 = this.state.salteriComuHora.salm3;
-          this.SEXTA.gloria3 = this.state.salteriComuHora.gloria3;
+            this.SEXTA.titol1 = this.state.salteriComuHora.titol1;
+            this.SEXTA.com1 = this.state.salteriComuHora.com1;
+            this.SEXTA.salm1 = this.state.salteriComuHora.salm1;
+            this.SEXTA.gloria1 = this.state.salteriComuHora.gloria1;
+            this.SEXTA.titol2 = this.state.salteriComuHora.titol2;
+            this.SEXTA.com2 = this.state.salteriComuHora.com2;
+            this.SEXTA.salm2 = this.state.salteriComuHora.salm2;
+            this.SEXTA.gloria2 = this.state.salteriComuHora.gloria2;
+            this.SEXTA.titol3 = this.state.salteriComuHora.titol3;
+            this.SEXTA.com3 = this.state.salteriComuHora.com3;
+            this.SEXTA.salm3 = this.state.salteriComuHora.salm3;
+            this.SEXTA.gloria3 = this.state.salteriComuHora.gloria3;
 
-          this.NONA.antifones = false;
+            this.NONA.antifones = false;
 
-          this.NONA.titol1 = this.state.salteriComuHora.titol1;
-          this.NONA.com1 = this.state.salteriComuHora.com1;
-          this.NONA.salm1 = this.state.salteriComuHora.salm1;
-          this.NONA.gloria1 = this.state.salteriComuHora.gloria1;
-          this.NONA.titol2 = this.state.salteriComuHora.titol2;
-          this.NONA.com2 = this.state.salteriComuHora.com2;
-          this.NONA.salm2 = this.state.salteriComuHora.salm2;
-          this.NONA.gloria2 = this.state.salteriComuHora.gloria2;
-          this.NONA.titol3 = this.state.salteriComuHora.titol3;
-          this.NONA.com3 = this.state.salteriComuHora.com3;
-          this.NONA.salm3 = this.state.salteriComuHora.salm3;
-          this.NONA.gloria3 = this.state.salteriComuHora.gloria3;
+            this.NONA.titol1 = this.state.salteriComuHora.titol1;
+            this.NONA.com1 = this.state.salteriComuHora.com1;
+            this.NONA.salm1 = this.state.salteriComuHora.salm1;
+            this.NONA.gloria1 = this.state.salteriComuHora.gloria1;
+            this.NONA.titol2 = this.state.salteriComuHora.titol2;
+            this.NONA.com2 = this.state.salteriComuHora.com2;
+            this.NONA.salm2 = this.state.salteriComuHora.salm2;
+            this.NONA.gloria2 = this.state.salteriComuHora.gloria2;
+            this.NONA.titol3 = this.state.salteriComuHora.titol3;
+            this.NONA.com3 = this.state.salteriComuHora.com3;
+            this.NONA.salm3 = this.state.salteriComuHora.salm3;
+            this.NONA.gloria3 = this.state.salteriComuHora.gloria3;
 
-          if(CEL.ant === '-'){
-            switch (HM) {
-              case 'Tèrcia':
-                this.TERCIA.ant = this.state.tempsAdventNadalComu.antTercia;
-                break;
-              case 'Sexta':
-                this.SEXTA.ant = this.state.tempsAdventNadalComu.antSexta;
-                break;
-              case 'Nona':
-                this.NONA.ant = this.state.tempsAdventNadalComu.antNona;
-                break;
+            if(CEL.ant === '-'){
+              switch (HM) {
+                case 'Tèrcia':
+                  this.TERCIA.ant = this.state.tempsAdventNadalComu.antTercia;
+                  break;
+                case 'Sexta':
+                  this.SEXTA.ant = this.state.tempsAdventNadalComu.antSexta;
+                  break;
+                case 'Nona':
+                  this.NONA.ant = this.state.tempsAdventNadalComu.antNona;
+                  break;
+              }
             }
           }
           break;
@@ -871,7 +875,7 @@ export default class HoraMenorSoul {
     }
   }
 
-  lecturaBreuResp(LT, HM, CEL){
+  lecturaBreuResp(LT, HM, CEL, date){
     if(CEL.vers === '-'){
       switch(LT){
         case GLOBAL.O_ORDINARI:
@@ -1119,25 +1123,27 @@ export default class HoraMenorSoul {
           }
           break;
         case GLOBAL.N_ABANS:
-          switch (HM) {
-            case 'Tèrcia':
-              this.TERCIA.vers = this.state.tempsNadalAbansEpifania.citaLBTercia;
-              this.TERCIA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuTercia;
-              this.TERCIA.respV = this.state.tempsNadalAbansEpifania.respVTercia;
-              this.TERCIA.respR = this.state.tempsNadalAbansEpifania.respRTercia;
-              break;
-            case 'Sexta':
-              this.SEXTA.vers = this.state.tempsNadalAbansEpifania.citaLBSexta;
-              this.SEXTA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuSexta;
-              this.SEXTA.respV = this.state.tempsNadalAbansEpifania.respVSexta;
-              this.SEXTA.respR = this.state.tempsNadalAbansEpifania.respRSexta;
-              break;
-            case 'Nona':
-              this.NONA.vers = this.state.tempsNadalAbansEpifania.citaLBNona;
-              this.NONA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuNona;
-              this.NONA.respV = this.state.tempsNadalAbansEpifania.respVNona;
-              this.NONA.respR = this.state.tempsNadalAbansEpifania.respRNona;
-              break;
+          if(LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13){
+            switch (HM) {
+              case 'Tèrcia':
+                this.TERCIA.vers = this.state.tempsNadalAbansEpifania.citaLBTercia;
+                this.TERCIA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuTercia;
+                this.TERCIA.respV = this.state.tempsNadalAbansEpifania.respVTercia;
+                this.TERCIA.respR = this.state.tempsNadalAbansEpifania.respRTercia;
+                break;
+              case 'Sexta':
+                this.SEXTA.vers = this.state.tempsNadalAbansEpifania.citaLBSexta;
+                this.SEXTA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuSexta;
+                this.SEXTA.respV = this.state.tempsNadalAbansEpifania.respVSexta;
+                this.SEXTA.respR = this.state.tempsNadalAbansEpifania.respRSexta;
+                break;
+              case 'Nona':
+                this.NONA.vers = this.state.tempsNadalAbansEpifania.citaLBNona;
+                this.NONA.lecturaBreu = this.state.tempsNadalAbansEpifania.lecturaBreuNona;
+                this.NONA.respV = this.state.tempsNadalAbansEpifania.respVNona;
+                this.NONA.respR = this.state.tempsNadalAbansEpifania.respRNona;
+                break;
+            }
           }
           break;
       }
@@ -1166,7 +1172,7 @@ export default class HoraMenorSoul {
     }
   }
 
-  oracio(LT, weekDay, HM, CEL){
+  oracio(LT, weekDay, HM, CEL, date){
     if(CEL.oracio === '-'){
       switch(LT){
         case GLOBAL.O_ORDINARI:
@@ -1240,9 +1246,11 @@ export default class HoraMenorSoul {
           this.NONA.oracio = this.state.tempsNadalOctava.oraFiLaudes;
           break;
         case GLOBAL.N_ABANS:
-          this.TERCIA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
-          this.SEXTA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
-          this.NONA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+          if(LT == GLOBAL.N_ABANS && date.getMonth() == 0 && date.getDate() != 13){
+            this.TERCIA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+            this.SEXTA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+            this.NONA.oracio = this.state.tempsNadalAbansEpifania.oraFiLaudes;
+          }
           break;
       }
     }
