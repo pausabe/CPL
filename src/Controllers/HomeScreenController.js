@@ -151,7 +151,7 @@ export default class HomeScreenController extends Component {
 
     /*************** TEST THINGS - START *******************/
     this.testing = false;
-    this.stateTest = this.testing && false; //Set DarkTest!!
+    this.stateTest = this.testing && false; //Force true in isDarkHimn() -> GlobalFunctions
     this.superTest = this.testing && false;
     if(this.stateTest){
       this.TA = new TA();
@@ -164,9 +164,9 @@ export default class HomeScreenController extends Component {
     }
     this.renderTest = this.testing;
     this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 28, //1-31 (s'inclou en el test)
-      month: 10, //0-11
-      year: 2018,
+      day: 2, //1-31 (s'inclou en el test)
+      month: 0, //0-11
+      year: 2017,
     }
     this.finalDayTest = { //no pot ser el mateix qe l'initial
       day: 31, //1-31 (no s'inclou en el test)
