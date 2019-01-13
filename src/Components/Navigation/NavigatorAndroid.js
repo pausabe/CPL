@@ -4,7 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreenController from '../../Controllers/HomeScreenController';
-import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
+import LHDisplayScreen from '../../Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
 import SettingsScreen from '../../Views/SettingsScreen';
 import DonationScreen from '../../Views/DonationScreen';
 import CommentScreen from '../../Views/CommentScreen';
@@ -57,8 +57,8 @@ export const NavigatorAndroid = StackNavigator({
     },
   },
 
-  LiturgiaDisplay: {
-    screen: LiturgiaDisplayScreen,
+  LHDisplay: {
+    screen: LHDisplayScreen,
     navigationOptions: ({ navigation }) => ({
       headerTitle: <Text style={styles.titleText}>{navigation.state.params.title}</Text>,
       headerStyle: {

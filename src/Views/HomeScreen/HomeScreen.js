@@ -17,12 +17,12 @@ import LHButtons from './LHButtons';
 import GLOBAL from "../../Globals/Globals";
 
 function paddingBar(){
-  if(Platform.OS === 'ios'){
+  /*if(Platform.OS === 'ios'){
     var DeviceInfo = require('react-native-device-info');
     var iosVer = parseInt(DeviceInfo.getSystemVersion());
     if(iosVer>=11) return 44;
     return 64;
-  }
+  }*/
   return 0; //54;
 }
 
@@ -309,18 +309,7 @@ export default class HomeScreen extends Component {
             </ScrollView>
            </View>
            :
-           <View style={styles.liturgiaContainer}>
-             <LHButtons
-               ViewData={this.props.ViewData}
-               variables={this.props.variables}
-               oficiCB={this.props.oficiCB}
-               laudesCB={this.props.laudesCB}
-               terciaCB={this.props.terciaCB}
-               sextaCB={this.props.sextaCB}
-               nonaCB={this.props.nonaCB}
-               vespresCB={this.props.vespresCB}
-               completesCB={this.props.completesCB}/>
-           </View>
+null
          }
        </ImageBackground>
      </View>
@@ -385,3 +374,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 });
+
+
+/*           <View style={styles.liturgiaContainer}>
+             <LHButtons
+               ViewData={this.props.ViewData}
+               variables={this.props.variables}
+               oficiCB={this.props.oficiCB}
+               laudesCB={this.props.laudesCB}
+               terciaCB={this.props.terciaCB}
+               sextaCB={this.props.sextaCB}
+               nonaCB={this.props.nonaCB}
+               vespresCB={this.props.vespresCB}
+               completesCB={this.props.completesCB}/>
+           </View>*/

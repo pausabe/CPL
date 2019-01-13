@@ -17,7 +17,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import EventEmitter from 'EventEmitter';
 import HomeScreenController from '../../Controllers/HomeScreenController';
 import SettingsScreen from '../../Views/SettingsScreen';
-import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 import GLOBAL from '../../Globals/Globals';
 
 export default class NavigatorIos extends Component {

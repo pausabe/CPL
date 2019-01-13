@@ -6,9 +6,9 @@ import {
   Platform,
   Share
 } from 'react-native';
-import HR from '../../../Components/HRComponent';
-import GLOBAL from '../../../Globals/Globals';
-import GF from '../../../Globals/GlobalFunctions';
+import HR from '../../../../Components/HRComponent';
+import GLOBAL from '../../../../Globals/Globals';
+import GF from '../../../../Globals/GlobalFunctions';
 
 export default class VespresDisplay extends Component {
   componentDidMount(){

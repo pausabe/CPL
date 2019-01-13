@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   Share
 } from 'react-native';
-import HR from '../../../Components/HRComponent';
-import GLOBAL from '../../../Globals/Globals';
-import GF from '../../../Globals/GlobalFunctions';
-import SettingsManager from '../../../Controllers/Classes/SettingsManager';
+import HR from '../../../../Components/HRComponent';
+import GLOBAL from '../../../../Globals/Globals';
+import GF from '../../../../Globals/GlobalFunctions';
+import SettingsManager from '../../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
   componentDidMount(){

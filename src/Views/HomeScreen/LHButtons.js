@@ -9,8 +9,6 @@ import {
  } from 'react-native';
 
 import HR from '../../Components/HRComponent';
-import LiturgiaDisplayScreen from '../../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
-import HomeScreenController from '../../Controllers/HomeScreenController';
 
 export default class LHButtons extends Component {
   render() {

@@ -7,21 +7,21 @@ import Laudes from './OracioDisplay/LaudesDisplay'
 import Vespres from './OracioDisplay/VespresDisplay'
 import HoraMenor from './OracioDisplay/HoraMenorDisplay'
 import Completes from './OracioDisplay/CompletesDisplay'
-import GLOBAL from "../../Globals/Globals";
+import GLOBAL from "../../../Globals/Globals";
 
 import EventEmitter from 'EventEmitter';
 
 function paddingBar(){
-  if(Platform.OS === 'ios'){
+  /*if(Platform.OS === 'ios'){
     var DeviceInfo = require('react-native-device-info');
     var iosVer = parseInt(DeviceInfo.getSystemVersion());
     if(iosVer>=11) return 44;
     return 64;
-  }
+  }*/
   return 0; //55;
 }
 
-export default class LiturgiaDisplayScreen extends Component {
+export default class LHDisplayScreen extends Component {
   componentWillMount(){
     if(Platform.OS === 'ios'){
       barPad = 0;

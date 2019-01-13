@@ -5,7 +5,8 @@ import {
   Platform,
   TouchableOpacity,
   BackHandler,
-  AsyncStorage
+  AsyncStorage,
+  SafeAreaView
  } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,7 +24,8 @@ import SOUL from './Classes/SOUL/SOUL';
 import SettingsManager from './Classes/SettingsManager';
 import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
-import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
+import LHDisplayScreen from '../Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
+import GenericHeader from '../../fuking_header.js';
 
 //import { Reload_All_Data } from './Classes/Data/DataManager.js';
 
@@ -34,7 +36,7 @@ export default class HomeScreenController extends Component {
   }
 
   componentDidMount() {
-    if(Platform.OS==='android'){
+    if(true || Platform.OS==='android'){
       this.props.navigation.setParams({
             calPres: this.calendarPressed.bind(this),
             refreshFunction: this.refreshFunction.bind(this),
@@ -48,7 +50,7 @@ export default class HomeScreenController extends Component {
   }
 
   componentWillUnmount(){
-    if(Platform.OS==='android'){
+    if(true || Platform.OS==='android'){
       BackHandler.removeEventListener('hardwareBackPress', this.androidBack.bind(this));
     }
     else{
@@ -66,14 +68,7 @@ export default class HomeScreenController extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-      headerTitle: <View style={{paddingLeft: 100}}>
-                      <Text style={{
-                        textAlign: 'center',
-                        color: GLOBAL.itemsBarColor,
-                        fontSize: 20,
-                        fontWeight: '600',
-                      }}>CPL</Text>
-                    </View>,
+      headerTitle: <GenericHeader />,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
@@ -767,7 +762,7 @@ export default class HomeScreenController extends Component {
         liturgicProps: this.liturgicProps,
         events: this.eventEmitter
       },
-      component: LiturgiaDisplayScreen
+      component: LHDisplayScreen
     });
   }
 
@@ -806,7 +801,7 @@ export default class HomeScreenController extends Component {
             events: this.eventEmitter
           },
         }
-        this.props.navigation.navigate('LiturgiaDisplay', params);
+        this.props.navigation.navigate('LHDisplay', params);
       }
     }
   }
@@ -832,7 +827,7 @@ export default class HomeScreenController extends Component {
       var yesterday = new Date(this.date.getFullYear(),this.date.getMonth());
       yesterday.setDate(this.date.getDate()-1);
       return(
-        <View style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
           <HomeScreen
             ViewData={this.state.ViewData}
             variables={this.variables}
@@ -881,7 +876,7 @@ export default class HomeScreenController extends Component {
               </View>
             </View>
           </PopupDialog>
-        </View>
+        </SafeAreaView>
       );
     }
     /*************** TEST THINGS - START *******************/
