@@ -1,4 +1,10 @@
 {
   "name": "CPL",
-  "displayName": "CPL"
+  "displayName": "CPL",
+  "expo": {
+    "slug": "CPL",
+    "name": "CPL",
+    "sdkVersion": "30.0.0",
+    "entryPoint": "/Users/Pau/Calaix/Projectes/CPL/.vscode/exponentIndex.js"
+  }
 }

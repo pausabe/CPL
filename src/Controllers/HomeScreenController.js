@@ -25,6 +25,8 @@ import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
 import LiturgiaDisplayScreen from '../Views/LiturgiaDisplayScreen/LiturgiaDisplayScreen';
 
+//import { Reload_All_Data } from './Classes/Data/DataManager.js';
+
 export default class HomeScreenController extends Component {
   componentWillMount(){
     Icon.getImageSource('ios-share-outline', 30).then((source) => this.setState({ shareIcon: source }));
@@ -109,6 +111,13 @@ export default class HomeScreenController extends Component {
 
   constructor(props) {
     super(props);
+      
+    /*Reload_All_Data();
+
+    if(LH_VALUES.hola != null)
+      console.log("HEY: " + LH_VALUES.hola);
+    else
+      console.log("HEY NO");*/
 
     this.evReady = false;
 
@@ -247,8 +256,6 @@ export default class HomeScreenController extends Component {
       setmana: '',
       mogut: '',
     }
-
-    //this.shareText = "";
 
     this.acceso = new DBAdapter();
 

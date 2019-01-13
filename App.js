@@ -17,6 +17,7 @@ import {
 import DeviceInfo from 'react-native-device-info';
 
 export default class CPL extends Component {
+
   constructor(props) {
     super(props);
 
