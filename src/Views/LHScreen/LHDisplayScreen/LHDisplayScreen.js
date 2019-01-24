@@ -9,18 +9,6 @@ import HoraMenor from './OracioDisplay/HoraMenorDisplay'
 import Completes from './OracioDisplay/CompletesDisplay'
 import GLOBAL from "../../../Globals/Globals";
 
-import EventEmitter from 'EventEmitter';
-
-function paddingBar(){
-  /*if(Platform.OS === 'ios'){
-    var DeviceInfo = require('react-native-device-info');
-    var iosVer = parseInt(DeviceInfo.getSystemVersion());
-    if(iosVer>=11) return 44;
-    return 64;
-  }*/
-  return 0; //55;
-}
-
 export default class LHDisplayScreen extends Component {
   componentWillMount(){
     if(Platform.OS === 'ios'){
@@ -215,7 +203,6 @@ export default class LHDisplayScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: paddingBar()
   },
   normalText: {
     textAlign: 'center',

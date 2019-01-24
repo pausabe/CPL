@@ -10,7 +10,8 @@ import SettingsScreen from './src/Views/SettingsScreen';
 import DonationScreen from './src/Views/DonationScreen';
 import CommentScreen from './src/Views/CommentScreen';
 import LHDisplayScreen from './src/Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
-import LDScreen from './src/Views/LDScreen';
+import LHScreen from './src/Views/LHScreen/LHScreen';
+import LDScreen from './src/Views/LDScreen/LDScreen';
 
 const styles = StyleSheet.create({
   titleText: {
@@ -96,7 +97,7 @@ const HomeStack = StackNavigator({
 
 const LHStack = StackNavigator({
   LHScreen: {
-    screen: SettingsScreen,
+    screen: LHScreen,
     navigationOptions: {
       headerTitle: <GenericHeader />,
       headerStyle: {

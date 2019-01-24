@@ -14,10 +14,8 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
-import {GoogleTagManager} from "react-native-google-analytics-bridge";
-import EventEmitter from 'EventEmitter';
 
-import HomeScreen from '../Views/HomeScreen/HomeScreen';
+import HomeScreen from '../Views/HomeScreen';
 import DBAdapter from '../Adapters/DBAdapter';
 import TA from '../Tests/testAdapter';
 import SOUL from './Classes/SOUL/SOUL';
@@ -32,7 +30,6 @@ import GenericHeader from '../../fuking_header.js';
 export default class HomeScreenController extends Component {
   componentWillMount(){
     Icon.getImageSource('ios-share-outline', 30).then((source) => this.setState({ shareIcon: source }));
-    this.eventEmitter = new EventEmitter();
   }
 
   componentDidMount() {
@@ -232,7 +229,6 @@ export default class HomeScreenController extends Component {
     }
 
     this.refreshing = false;
-    this.litPres = false;
     this.refEv = false;
     this.setPres = false;
     this.santPress = 0;
@@ -551,14 +547,8 @@ export default class HomeScreenController extends Component {
     this.testing = false;
   }
 
-  testErrorCallBack(){
-    this.setState({testInfo: "something went wrong (bad text)"});
-    console.log("InfoLog. super error (bad text))");
-    this.testing = false;
-  }
-
  openOracions(oracioType){
-   this.LHButtonCB(oracioType, true);
+   //this.LHButtonCB(oracioType, true);
  }
 
  /*************** TEST THINGS - END *******************/
@@ -570,12 +560,12 @@ export default class HomeScreenController extends Component {
         return true;
       }
       /*************** TEST THINGS - END *******************/
-      else if(this.litPres){
+      /*else if(this.litPres){
         console.log("ShouldLog. NO, estic anant a Liturgia");
         this.inLit = true;
         this.litPres = false;
         return false;
-      }
+      }*/
       else if(this.refEv){
         console.log("ShouldLog. YES, després de refreshEverything");
         this.refEv = false;
@@ -648,12 +638,6 @@ export default class HomeScreenController extends Component {
     }
   }
 
-
-  liturgiaPressed(){
-    // console.log("liturgiaPressed");
-    this.litPres = true;
-  }
-
   datePickerOK(newDate){
     this.props.screenProps.tracker.trackEvent("Calendar", "Ok: "+GF.transformReadableDate(newDate));
 
@@ -722,100 +706,8 @@ export default class HomeScreenController extends Component {
     this.refreshEverything(this.variables.date);
   }
 
-  emitShare(type){
-    console.log("emitShare: " + type);
-    switch (type) {
-      case "Ofici":
-        this.eventEmitter.emit('shareButtonPressed_Ofici');
-        break;
-      case "Laudes":
-        this.eventEmitter.emit('shareButtonPressed_Laudes');
-        break;
-      case "Tèrcia":
-      case "Sexta":
-      case "Nona":
-        this.eventEmitter.emit('shareButtonPressed_Menor');
-        break;
-      case "Vespres":
-        this.eventEmitter.emit('shareButtonPressed_Vespres');
-        break;
-      case "Completes":
-        this.eventEmitter.emit('shareButtonPressed_Completes');
-        break;
-    }
-  }
-
-  jumpDisplay(type, superTestMode, title){
-    this.props.navigator.push({
-      title: title,
-      rightButtonIcon: this.state.shareIcon,
-      onRightButtonPress: () => this.emitShare(type),
-      passProps: {
-        superTestMode: superTestMode,
-        testErrorCallBack: this.testErrorCallBack.bind(this),
-        nextDayTestCB: this.nextDayTest.bind(this),
-        setNumSalmInv: this.setNumSalmInv.bind(this),
-        setNumAntMare: this.setNumAntMare.bind(this),
-        type: type,
-        date: this.date,
-        variables: this.variables,
-        liturgicProps: this.liturgicProps,
-        events: this.eventEmitter
-      },
-      component: LHDisplayScreen
-    });
-  }
-
-  LHButtonCB(type, superTestMode){
-    var title = type;
-    if(type === 'Ofici') title = 'Ofici de lectura';
-    this.liturgiaPressed();
-    if(this.liturgicProps.LITURGIA !== null){
-      if(!superTestMode){
-        this.props.screenProps.tracker.trackScreenView(title);
-      }
-      if(Platform.OS === 'ios'){
-        if(superTestMode){
-          setTimeout(() => {
-            this.jumpDisplay(type, superTestMode, title);
-          }, 1000);
-        }
-        else{
-          this.jumpDisplay(type, superTestMode, title);
-        }
-      }
-      else{
-        var params = {
-          title: title,
-          props: {
-            superTestMode: superTestMode,
-            testErrorCallBack: this.testErrorCallBack.bind(this),
-            nextDayTestCB: this.nextDayTest.bind(this),
-            setNumSalmInv: this.setNumSalmInv.bind(this),
-            setNumAntMare: this.setNumAntMare.bind(this),
-            type: type,
-            variables: this.variables,
-            date: this.date,
-            liturgicProps: this.liturgicProps,
-            emitShareCB: this.emitShare.bind(this),
-            events: this.eventEmitter
-          },
-        }
-        this.props.navigation.navigate('LHDisplay', params);
-      }
-    }
-  }
-
   dacordString(){
     return "D'acord";
-  }
-
-  setNumSalmInv(numSalm){
-    this.variables.numSalmInv = numSalm;
-  }
-
-  setNumAntMare(numAntMare){
-    this.variables.numAntMare = numAntMare;
   }
 
   render(){
@@ -833,14 +725,7 @@ export default class HomeScreenController extends Component {
             variables={this.variables}
             santPressed={this.state.santPressed}
             santCB={this.onSantPressCB.bind(this)}
-            lliureCB={this.onSwitchLliurePress.bind(this)}
-            oficiCB={this.LHButtonCB.bind(this, "Ofici",false)}
-            laudesCB={this.LHButtonCB.bind(this, "Laudes",false)}
-            terciaCB={this.LHButtonCB.bind(this, "Tèrcia",false)}
-            sextaCB={this.LHButtonCB.bind(this, "Sexta",false)}
-            nonaCB={this.LHButtonCB.bind(this, "Nona",false)}
-            vespresCB={this.LHButtonCB.bind(this, "Vespres",false)}
-            completesCB={this.LHButtonCB.bind(this, "Completes",false)}/>
+            lliureCB={this.onSwitchLliurePress.bind(this)}/>
           <DateTimePicker
             isVisible={this.state.isDateTimePickerVisible}
             titleIOS={'Canvia el dia'}
@@ -896,3 +781,15 @@ export default class HomeScreenController extends Component {
     /*************** TEST THINGS - END *******************/
   }
 }
+
+
+/*
+
+            oficiCB={this.LHButtonCB.bind(this, "Ofici",false)}
+            laudesCB={this.LHButtonCB.bind(this, "Laudes",false)}
+            terciaCB={this.LHButtonCB.bind(this, "Tèrcia",false)}
+            sextaCB={this.LHButtonCB.bind(this, "Sexta",false)}
+            nonaCB={this.LHButtonCB.bind(this, "Nona",false)}
+            vespresCB={this.LHButtonCB.bind(this, "Vespres",false)}
+            completesCB={this.LHButtonCB.bind(this, "Completes",false)}
+            */

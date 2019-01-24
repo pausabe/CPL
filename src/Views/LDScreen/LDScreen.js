@@ -11,7 +11,7 @@ export default class LDScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hello</Text>
+        <Text>Hello2</Text>
       </View>
     );
   }

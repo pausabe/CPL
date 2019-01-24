@@ -13,8 +13,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
-import LHButtons from './LHButtons';
-import GLOBAL from "../../Globals/Globals";
+import LHButtons from './LHScreen/LHButtons';
+import GLOBAL from "../Globals/Globals";
 
 function paddingBar(){
   /*if(Platform.OS === 'ios'){
@@ -166,7 +166,7 @@ export default class HomeScreen extends Component {
     }
     return (
       <View style={styles.container}>
-       <ImageBackground source={require('../../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
+       <ImageBackground source={require('../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
          <View style={styles.infoContainer}>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
               <Text style={styles.infoText}>{this.props.ViewData.lloc.diocesiName}{" ("}{this.props.ViewData.lloc.lloc}{")"}
