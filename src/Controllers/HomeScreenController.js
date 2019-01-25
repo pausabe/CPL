@@ -16,16 +16,13 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 
 import HomeScreen from '../Views/HomeScreen';
-import DBAdapter from '../Adapters/DBAdapter';
+
 import TA from '../Tests/testAdapter';
-import SOUL from './Classes/SOUL/SOUL';
-import SettingsManager from './Classes/SettingsManager';
 import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
-import LHDisplayScreen from '../Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
 import GenericHeader from '../../fuking_header.js';
 
-//import { Reload_All_Data } from './Classes/Data/DataManager.js';
+import { Reload_All_Data } from './Classes/Data/DataManager.js';
 
 export default class HomeScreenController extends Component {
   componentWillMount(){
@@ -104,12 +101,7 @@ export default class HomeScreenController extends Component {
   constructor(props) {
     super(props);
       
-    /*Reload_All_Data();
-
-    if(LH_VALUES.hola != null)
-      console.log("HEY: " + LH_VALUES.hola);
-    else
-      console.log("HEY NO");*/
+    Reload_All_Data(new Date(2019,4,15));
 
     this.evReady = false;
 
@@ -194,7 +186,7 @@ export default class HomeScreenController extends Component {
       else var today = props.naviDate;
     }
 
-    this.variables = {
+    /*this.variables = {
       diocesi: '',
       diocesiName: '',
       lloc: '',
@@ -219,13 +211,10 @@ export default class HomeScreenController extends Component {
       cicle: '',
       setmana: '',
       ABC: '',
-    }
+    }*/
 
     if(this.testing) {
       this.variables.lliures = false;
-    }
-    else{
-      this.checkLliureDate();
     }
 
     this.refreshing = false;
@@ -248,184 +237,13 @@ export default class HomeScreenController extends Component {
       mogut: '',
     }
 
-    this.acceso = new DBAdapter();
 
-    this.refreshEverything(today);
   }
 
-  checkLliureDate(){
-    console.log("checkLliureDate()");
-    AsyncStorage.getItem("lliureDate").then((value) => {
-        console.log("CLD-lliureDate",value);
-        if(!value) AsyncStorage.setItem('lliureDate','none');
-        if(value && value !== 'none'){
-          dataArr = value.split(':');
-          console.log("CDL-dataArr",dataArr);
-          console.log("CDL-variableDate",this.variables.date);
-          if(parseInt(dataArr[0])===this.variables.date.getDate() &&
-              parseInt(dataArr[1])===this.variables.date.getMonth() &&
-              parseInt(dataArr[2])===this.variables.date.getFullYear()){
-                console.log("CLD-YES");
-                this.variables.lliures = true;
-          }
-          else {
-            console.log("CLD-nope1");
-            this.variables.lliures = false;
-          }
-        }
-        else {
-          console.log("CLD-nope2");
-          this.variables.lliures = false;
-        }
-    }).done();
-  }
+
 
   /*************** CREATING THE LITURGIA - START ***************/
-  refreshEverything(date){
-    console.log("PlaceLog. REFRESHING EVERYTHING: settings > anyliturgic > soul > render " + date);
-    this.refreshing = true;
-    Promise.all([
-      SettingsManager.getSettingLloc((r) => {
-        this.variables.lloc = r;
-      }),
-      SettingsManager.getSettingDiocesis((r) => {
-        /*************** TEST THINGS - START *******************/
-        if(this.testing){
-          this.variables.diocesi = this.diocesiTest;
-          this.variables.diocesiName = this.diocesiNameTest;
-          this.variables.lloc = this.llocTest;
-        }
-        /*************** TEST THINGS - END *******************/
-        else{
-          this.variables.diocesi = GF.transformDiocesiName(r, this.variables.lloc);
-          this.variables.diocesiName = r;
-        }
-      }),
-      // SettingsManager.getSettingInvitatori((r) => this.variables.invitatori = r),
-      SettingsManager.getSettingUseLatin((r) => this.variables.llati = r),
-      //SettingsManager.getSettingShowGlories((r) => this.variables.gloria = r),
-      /*SettingsManager.getSettingPrayLliures((r) => {
-        if(!this.testing)
-          this.variables.lliures = r;
-      }),*/
-      SettingsManager.getSettingTextSize((r) => this.variables.textSize = r),
-      //SettingsManager.getSettingShowGlories((r) => this.variables.cleanSalm = r),
-      SettingsManager.getSettingNumSalmInv((r) => this.variables.numSalmInv = r),
-      SettingsManager.getSettingNumAntMare((r) => this.variables.numAntMare = r),
-    ]).then(results => {
-      this.refreshDate(date);
-    });
-  }
 
-  refreshDate(newDay){
-    this.acceso.getAnyLiturgic(
-      newDay.getFullYear(),
-      newDay.getMonth(),
-      newDay.getDate(),
-      (current, tomorrow, pentacosta) => {
-        var celType = GF.getCelType(this.variables.diocesi, current);
-        var tomorrowCelType = GF.getCelType(this.variables.diocesi, tomorrow);
-        // console.log("celType TODAY: " + celType + " | celTypeTomorrow: " + tomorrowCelType);
-
-        this.variables.celType = celType;
-        this.variables.date = newDay;
-        this.variables.diaMogut = current.diaMogut;
-        this.variables.diocesiMogut = current.diocesiMogut;
-        this.variables.litColor = current.Color;
-
-        this.liturgicProps.LITURGIA = null;
-
-        this.liturgicProps.tempsespecific = current.tempsespecific;
-        this.liturgicProps.LT = current.temps;
-        this.liturgicProps.cicle = current.cicle; //1-4
-        this.liturgicProps.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-        this.liturgicProps.ABC = current.anyABC;
-
-        this.dataTomorrow.celType = tomorrowCelType;
-        this.dataTomorrow.LT = tomorrow.temps;
-        this.dataTomorrow.setmana = tomorrow.NumSet;
-        this.dataTomorrow.diaMogut = tomorrow.diaMogut;
-        this.dataTomorrow.diocesiMogut = tomorrow.diocesiMogut;
-
-        if(!this.testing) this.checkLliureDate();
-
-        if(this.SOUL === undefined)
-          this.SOUL = new SOUL(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
-        else
-          this.SOUL.makeQueryies(this.variables, this.liturgicProps, this.dataTomorrow, pentacosta, this);
-      }
-    );
-  }
-
-  setSoul(liturgia){
-    console.log("PlaceLog. HomeScreen - setSoul");
-
-    this.liturgicProps.LITURGIA = liturgia;
-    if(!this.testing){
-      this.refEv = true;
-
-      /*if(this.variables.celType === 'L' && this.variables.lliures === false){
-        // this.liturgicProps.LITURGIA.info_cel.typeCel = 'L';
-        // this.liturgicProps.LITURGIA.info_cel.nomCel = 'Titol Lliure';
-        // this.liturgicProps.LITURGIA.info_cel.infoCel = 'Info Lliure';
-      }*/
-
-      this.setState({
-        santPressed: false,
-        ViewData: {
-          ready: true,
-          lloc: {
-            diocesiName: this.variables.diocesiName,
-            lloc: this.variables.lloc,
-          },
-          data: this.variables.date,
-          setmana: this.liturgicProps.setmana,
-          temps: this.liturgicProps.tempsespecific,
-          setCicle: this.liturgicProps.cicle,
-          anyABC: this.liturgicProps.ABC,
-          color: this.variables.litColor,
-          celebracio: {
-            type: this.liturgicProps.LITURGIA.info_cel.typeCel,
-            titol: this.liturgicProps.LITURGIA.info_cel.nomCel,
-            text: this.liturgicProps.LITURGIA.info_cel.infoCel,
-            titolCelTom: this.liturgicProps.LITURGIA.info_cel.nomCelTom,
-          },
-          primVespres: this.primVespres(),
-        }
-      });
-      if(!this.evReady) {
-        this.evReady = true;
-        SplashScreen.hide();
-        //TRACKING
-        trackText = "lliures: "+this.variables.lliures+
-              " | llati: "+this.variables.llati+
-              " | midaText: "+this.variables.textSize+
-              " | diocesi: "+this.variables.diocesiName+
-              " | lloc: "+this.variables.lloc;
-              // " | invitatori: "+this.variables.invitatori;
-        this.props.screenProps.tracker.trackEvent("AppState", "SavingConf", {
-          label: trackText
-        });
-        //TRACKING
-        if(this.isLatePray()) {
-          this.props.screenProps.tracker.trackEvent("Popup - Late prayer", "Opened");
-          this.popupDialog.show();
-        }
-      }
-    }
-    /*************** TEST THINGS - START *******************/
-    else{
-      SplashScreen.hide();
-     if(this.superTest) this.openOracions('Ofici');
-     else{
-       if(this.stateTest){
-         this.setLiturgiaStateTest();
-       }
-       this.nextDayTest();
-     }
-    }
-    /*************** TEST THINGS - END*******************/
-  }
 
   isLatePray(){
     var today = new Date();

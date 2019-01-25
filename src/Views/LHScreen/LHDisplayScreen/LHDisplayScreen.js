@@ -11,26 +11,17 @@ import GLOBAL from "../../../Globals/Globals";
 
 export default class LHDisplayScreen extends Component {
   componentWillMount(){
-    if(Platform.OS === 'ios'){
-      barPad = 0;
-    }
-    else {
-      this.props = this.props.navigation.state.params.props;
-    }
-
     this.eventEmitter = this.props.events;
-
     this.titols = this.getTitols();
-
     this.setState({type: this.props.type})
   }
 
   componentDidMount(){
-    if(this.props.superTestMode){
+    /*if(this.props.superTestMode){
       setTimeout(() => {
         this.setState({type: 'Laudes'});
       }, 1000);
-    }
+    }*/
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -98,21 +89,20 @@ export default class LHDisplayScreen extends Component {
   getTitols(){
     var titols = [];
 
-    titols.push(this.props.liturgicProps.LITURGIA.ofici.titol1);
-    titols.push(this.props.liturgicProps.LITURGIA.ofici.titol2);
-    titols.push(this.props.liturgicProps.LITURGIA.ofici.titol3);
-    titols.push(this.props.liturgicProps.LITURGIA.laudes.titol1);
-    titols.push(this.props.liturgicProps.LITURGIA.laudes.titol3);
-    titols.push(this.props.liturgicProps.LITURGIA.vespres.titol1);
-    titols.push(this.props.liturgicProps.LITURGIA.vespres.titol2);
-    titols.push(this.props.liturgicProps.LITURGIA.completes.titol1);
-    titols.push(this.props.liturgicProps.LITURGIA.completes.titol2);
+    titols.push(LH_VALUES.LITURGIA.ofici.titol1);
+    titols.push(LH_VALUES.LITURGIA.ofici.titol2);
+    titols.push(LH_VALUES.LITURGIA.ofici.titol3);
+    titols.push(LH_VALUES.LITURGIA.laudes.titol1);
+    titols.push(LH_VALUES.LITURGIA.laudes.titol3);
+    titols.push(LH_VALUES.LITURGIA.vespres.titol1);
+    titols.push(LH_VALUES.LITURGIA.vespres.titol2);
+    titols.push(LH_VALUES.LITURGIA.completes.titol1);
+    titols.push(LH_VALUES.LITURGIA.completes.titol2);
 
     return titols;
   }
 
   liturgicComponent(type){
-    // console.log("props",this.props);
     switch (type) {
       case 'Ofici':
         return(
@@ -126,6 +116,7 @@ export default class LHDisplayScreen extends Component {
             events={this.eventEmitter}/>
           )
         break;
+        
         case 'Laudes':
           return(
             <Laudes
@@ -138,6 +129,7 @@ export default class LHDisplayScreen extends Component {
               events={this.eventEmitter}/>
             )
           break;
+
           case 'Vespres':
             return(
               <Vespres
@@ -148,6 +140,7 @@ export default class LHDisplayScreen extends Component {
                 events={this.eventEmitter}/>
               )
             break;
+
             case 'Tèrcia':
               return(
                 <HoraMenor
@@ -160,6 +153,7 @@ export default class LHDisplayScreen extends Component {
                   events={this.eventEmitter}/>
                 )
               break;
+
               case 'Sexta':
                 return(
                   <HoraMenor
@@ -172,6 +166,7 @@ export default class LHDisplayScreen extends Component {
                     events={this.eventEmitter}/>
                   )
                 break;
+
               case 'Nona':
                 return(
                   <HoraMenor
@@ -184,6 +179,7 @@ export default class LHDisplayScreen extends Component {
                     events={this.eventEmitter}/>
                   )
                 break;
+
               case 'Completes':
                 return(
                   <Completes
@@ -195,7 +191,9 @@ export default class LHDisplayScreen extends Component {
                     events={this.eventEmitter}/>
                   )
                 break;
-      default: return(<Text style={styles.normalText}>{this.props.type}</Text>)
+
+            default: 
+              return(<Text style={styles.normalText}>{this.props.type}</Text>)
     }
   }
 }

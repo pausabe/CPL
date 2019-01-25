@@ -40,9 +40,8 @@ export default class OficiDisplay extends Component {
 
     console.log("PlaceLog. OficiDisplay");
 
-    var textSize = props.variables.textSize;
-
-    var auxNumSalmInv = props.variables.numSalmInv;
+    var textSize = G_VALUES.textSize;
+    var auxNumSalmInv = LH_VALUES.numSalmInv;
 
     if(!GF.salmInvExists(auxNumSalmInv,props.titols)){
       auxNumSalmInv = '94';
@@ -122,12 +121,9 @@ export default class OficiDisplay extends Component {
       }
     }
 
-    this.OFICI = props.liturgicProps.LITURGIA.ofici;
-    this.liturgicProps = props.liturgicProps;
-    this.variables = props.variables;
+    this.OFICI = LH_VALUES.LITURGIA.ofici;
     this.superTestMode = props.superTestMode;
     this.testErrorCB = props.testErrorCB;
-    this.cicle = props.cicle;
     this.setNumSalmInv = props.setNumSalmInv;
     this.titols = props.titols;
 
@@ -141,40 +137,40 @@ export default class OficiDisplay extends Component {
       if(!this.OFICI.diumPasqua){
         return (
           <View>
-            {this.introduccio(this.liturgicProps.LT, this.liturgicProps.setmana, this.OFICI.salm94,
+            {this.introduccio(G_VALUES.LT, G_VALUES.setmana, this.OFICI.salm94,
                                 this.OFICI.salm99, this.OFICI.salm66, this.OFICI.salm23)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            <Text selectable={true} style={this.styles.red}>{"HIMNE"}{(this.liturgicProps.LT===GLOBAL.O_ORDINARI && GF.isDarkHimn())? " (nit)" : " (dia)"}</Text>
+            <Text selectable={true} style={this.styles.red}>{"HIMNE"}{(G_VALUES.LT===GLOBAL.O_ORDINARI && GF.isDarkHimn())? " (nit)" : " (dia)"}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.himne(this.liturgicProps.LT, this.variables.date.getDay(), false, this.liturgicProps.setmana)}
+            {this.himne(G_VALUES.LT, G_VALUES.date.getDay(), false, G_VALUES.setmana)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{'SALMÒDIA'}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.salmodia(this.liturgicProps.LT, this.liturgicProps.setmana, this.variables.date.getDay(), this.cicle)}
+            {this.salmodia(G_VALUES.LT, G_VALUES.setmana, G_VALUES.date.getDay(), G_VALUES.cicle)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{'VERS'}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.vers(this.liturgicProps.LT)}
+            {this.vers(G_VALUES.LT)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{'LECTURES'}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.lectures(this.liturgicProps.LT)}
-            {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
+            {this.lectures(G_VALUES.LT)}
+            {this.himneOhDeu(G_VALUES.LT, G_VALUES.date.getDay())}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{'ORACIÓ'}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.blackBold}>{'Preguem.'}</Text>
-            {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
+            {this.oracio(G_VALUES.LT, G_VALUES.date.getDay())}
             <Text selectable={true} style={this.styles.red}>{'R. '}
               <Text selectable={true} style={this.styles.black}>{'Amén.'}</Text>
             </Text>
@@ -211,15 +207,15 @@ export default class OficiDisplay extends Component {
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.lecturesDiumPasqua(this.liturgicProps.LT)}
-            {this.himneOhDeu(this.liturgicProps.LT, this.variables.date.getDay())}
+            {this.lecturesDiumPasqua(G_VALUES.LT)}
+            {this.himneOhDeu(G_VALUES.LT, G_VALUES.date.getDay())}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{'ORACIÓ'}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.blackBold}>{'Preguem.'}</Text>
-            {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
+            {this.oracio(G_VALUES.LT, G_VALUES.date.getDay())}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -403,7 +399,7 @@ export default class OficiDisplay extends Component {
   salm(salm){
     if(!salm) return "";
 
-    if(this.variables.cleanSalm === 'false'){
+    if(G_VALUES.cleanSalm === 'false'){
       salm = salm.replace(/    [*]/g,'');
       salm = salm.replace(/   [*]/g,'');
       salm = salm.replace(/  [*]/g,'');
@@ -424,11 +420,11 @@ export default class OficiDisplay extends Component {
       return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(this.variables.cleanSalm === 'false')
+    if(G_VALUES.cleanSalm === 'false')
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
-      if(this.variables.gloria === 'false'){
+      if(G_VALUES.gloria === 'false'){
         return "Glòria.";
       }
       else{
@@ -468,7 +464,7 @@ export default class OficiDisplay extends Component {
 
       var aux_sigueu = 'Sigueu amb nosaltres, Déu nostre.';
       var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
-      var aux_isAleluia = this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.liturgicProps.LT !== GLOBAL.Q_TRIDU;
+      var aux_isAleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA && G_VALUES.LT !== GLOBAL.Q_TRIDU;
 
       this.shareText += 'V. ' + aux_sigueu + '\n';
       this.shareText += 'R. ' + aux_senyor_veniu + '\n\n';

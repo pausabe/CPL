@@ -14,7 +14,7 @@ export default class LHButtons extends Component {
   render() {
     var nowDate = new Date();
     var hour = nowDate.getHours();
-    //console.log("Hour: " + hour);
+
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.buttonContainer} onPress={this.props.oficiCB}>
@@ -64,18 +64,18 @@ export default class LHButtons extends Component {
           :
           <Text style={styles.buttonText}>{"Vespres"}</Text>
         }
-         {this.props.ViewData.primVespres ?
+         {G_VALUES.primVespres ?
           <View style={{padding: 5, paddingHorizontal: 15}}>
-            {this.props.ViewData.celebracio.titolCelTom !== '-'?
+            {G_VALUES.titolCelTom !== '-'?
               <View>
-                {this.props.ViewData.celebracio.titolCelTom !== 'dium-pasqua'?
-                  <Text numberOfLines={1} style={styles.redCenter}>{this.props.ViewData.celebracio.titolCelTom}</Text>
+                {G_VALUES.titolCelTom !== 'dium-pasqua'?
+                  <Text numberOfLines={1} style={styles.redCenter}>{G_VALUES.titolCelTom}</Text>
                   : null
                 }
               </View>
               :
               <View>
-                {this.props.variables.date.getDay()===6?
+                {G_VALUES.getDay()===6?
                   <Text style={styles.redCenter}>{"Primeres vespres de diumenge"}</Text>
                 :
                   <Text style={styles.redCenter}>{"Primeres vespres"}</Text>

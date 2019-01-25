@@ -17,13 +17,13 @@ export default class LHScreen extends Component {
     var title = type;
     if(type === 'Ofici') title = 'Ofici de lectura';
 
-    if(this.liturgicProps.LITURGIA !== null){ //TODO:
+    //if(this.liturgicProps.LITURGIA !== null){
       var params = {
         title: title,
         props: {
           superTestMode: superTestMode,
           testErrorCallBack: this.testErrorCallBack.bind(this),
-          //nextDayTestCB: this.nextDayTest.bind(this),
+          nextDayTestCB: this.nextDayTest.bind(this),
           setNumSalmInv: this.setNumSalmInv.bind(this),
           setNumAntMare: this.setNumAntMare.bind(this),
           type: type,
@@ -35,7 +35,11 @@ export default class LHScreen extends Component {
         },
       }
       this.props.navigation.navigate('LHDisplay', params);
-    }
+    //}
+  }
+
+  nextDayTest(){
+
   }
 
   emitShare(type){
@@ -78,7 +82,7 @@ export default class LHScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hello1</Text>
+        <Text>Litúrgia de les hores</Text>
         <View style={styles.liturgiaContainer}>
              <LHButtons
 
