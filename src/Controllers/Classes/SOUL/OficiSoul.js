@@ -2,13 +2,17 @@ import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
 export default class OficiSoul {
-  constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
+  constructor(TABLES, CEL, Set_Soul_CB, SOUL) {
     console.log("PlaceLog. Constructor OficiSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, SOUL);
+    this.makePrayer(TABLES, CEL, Set_Soul_CB, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, SOUL){
+  makePrayer(TABLES, CEL, Set_Soul_CB, SOUL){
+    var llati = G_VALUES.llati;
+    var date = G_VALUES.date;
+
     console.log("PlaceLog. MakePrayer OficiSoul");
+
         this.state = {
           salteriComuOfici: TABLES.salteriComuOfici,
           salteriComuInvitatori: TABLES.salteriComuInvitatori,
@@ -38,12 +42,10 @@ export default class OficiSoul {
         };
 
         if(TABLES.salteriComuOficiTF !== ''){
-          // console.log("catching TF: " + TABLES.salteriComuOficiTF);
           this.state.salteriComuOfici = TABLES.salteriComuOficiTF;
         }
 
-        this.OFICI = { //40
-          invitatori: invitatori,
+        this.OFICI = { 
           antInvitatori: '',
           himne: '',
           ant1: '',
@@ -93,16 +95,16 @@ export default class OficiSoul {
       this.OFICI.himneOhDeu = this.state.ohDeu;
     }
     else {
-      this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL, date);
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati, date);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), liturgicProps.cicle, CEL, date);
-      this.vers(liturgicProps.LT, CEL, date);
-      this.lectures(liturgicProps.LT, CEL, date);
-      this.himneOhDeu(liturgicProps.LT, date.getDay(), CEL, date);
-      this.oracio(liturgicProps.LT, date.getDay(), CEL, date);
+      this.introduccio(G_VALUES.LT, G_VALUES.setmana, CEL, date);
+      this.himne(G_VALUES.LT, date.getDay(), G_VALUES.setmana, CEL, llati, date);
+      this.salmodia(G_VALUES.LT, G_VALUES.setmana, date.getDay(), G_VALUES.cicle, CEL, date);
+      this.vers(G_VALUES.LT, CEL, date);
+      this.lectures(G_VALUES.LT, CEL, date);
+      this.himneOhDeu(G_VALUES.LT, date.getDay(), CEL, date);
+      this.oracio(G_VALUES.LT, date.getDay(), CEL, date);
     }
 
-    SOUL.setSoul(HS, "ofici", this.OFICI);
+    SOUL.setSoul(Set_Soul_CB, "ofici", this.OFICI);
   }
 
   introduccio(LT, setmana, CEL, date){

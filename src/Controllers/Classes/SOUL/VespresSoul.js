@@ -4,12 +4,16 @@ import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
 export default class VespresSoul {
-  constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
+  constructor(TABLES, CEL, Set_Soul_CB, SOUL) {
     console.log("PlaceLog. Constructor VesprsSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, variables.diocesiName, SOUL)
+    this.makePrayer(TABLES, CEL, Set_Soul_CB, SOUL)
   }
 
-  makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, diocesiName, SOUL){
+  makePrayer(TABLES, CEL, Set_Soul_CB, SOUL){
+    var llati = G_VALUES.llati;
+    var date = G_VALUES.date;
+    var diocesiName = G_VALUES.diocesiName;
+
       console.log("PlaceLog. MakePrayer VespresSoul");
 
       this.state = {
@@ -85,16 +89,16 @@ export default class VespresSoul {
       this.VESPRES.cantic = this.state.magnificat;
     }
     else{
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati, date);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL, date);
-      this.lecturaBreu(liturgicProps.LT, CEL, date);
-      this.responsori(liturgicProps.LT, CEL, date);
-      this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL, date);
-      this.pregaries(liturgicProps.LT, CEL, date);
-      this.oracio(liturgicProps.LT, date.getDay(), CEL, date);
+      this.himne(G_VALUES.LT, date.getDay(), G_VALUES.setmana, CEL, llati, date);
+      this.salmodia(G_VALUES.LT, G_VALUES.setmana, date.getDay(), CEL, date);
+      this.lecturaBreu(G_VALUES.LT, CEL, date);
+      this.responsori(G_VALUES.LT, CEL, date);
+      this.cantic(G_VALUES.LT, date.getDay(), G_VALUES.ABC, CEL, date);
+      this.pregaries(G_VALUES.LT, CEL, date);
+      this.oracio(G_VALUES.LT, date.getDay(), CEL, date);
     }
 
-    SOUL.setSoul(HS, "vespres", this.VESPRES);
+    SOUL.setSoul(Set_Soul_CB, "vespres", this.VESPRES);
   }
 
   himne(LT, weekDay, setmana, CEL, llati, date){

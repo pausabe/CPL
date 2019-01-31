@@ -3,12 +3,14 @@ import { Platform } from 'react-native';
 import GLOBAL from '../../../Globals/Globals';
 
 export default class HoraMenorSoul {
-  constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
-    console.log("PlaceLog. Constructor HoraMenorSoul: " + variables.llati);
-    this.makePrayer(variables.date, liturgicProps, TABLES, CEL, variables.llati, HS, SOUL);
+  constructor(TABLES, CEL, Set_Soul_CB, SOUL) {
+    this.makePrayer(TABLES, CEL, Set_Soul_CB, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, CEL, llati, HS, SOUL){
+  makePrayer(TABLES, CEL, Set_Soul_CB, SOUL){
+    var llati = G_VALUES.llati;
+    var date = G_VALUES.date;
+
     console.log("PlaceLog. MakePrayer HoraMenorSoul: " + llati);
     this.state = {
       salteriComuHora: TABLES.salteriComuHora,
@@ -118,31 +120,31 @@ export default class HoraMenorSoul {
     }
 
     if(CEL.diumPasqua){
-      SOUL.setSoul(HS, "tercia", CEL.TERCIA);
-      SOUL.setSoul(HS, "sexta", CEL.SEXTA);
-      SOUL.setSoul(HS, "nona", CEL.NONA);
+      SOUL.setSoul(Set_Soul_CB, "tercia", CEL.TERCIA);
+      SOUL.setSoul(Set_Soul_CB, "sexta", CEL.SEXTA);
+      SOUL.setSoul(Set_Soul_CB, "nona", CEL.NONA);
     }
     else{
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Tèrcia", CEL.TERCIA, llati, date);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Tèrcia", CEL.TERCIA, date);
-      this.lecturaBreuResp(liturgicProps.LT, "Tèrcia", CEL.TERCIA, date);
-      this.oracio(liturgicProps.LT, date.getDay(), "Tèrcia", CEL.TERCIA, date);
+      this.himne(G_VALUES.LT, date.getDay(), G_VALUES.setmana, "Tèrcia", CEL.TERCIA, llati, date);
+      this.salmodia(G_VALUES.LT, G_VALUES.setmana, date.getDay(), "Tèrcia", CEL.TERCIA, date);
+      this.lecturaBreuResp(G_VALUES.LT, "Tèrcia", CEL.TERCIA, date);
+      this.oracio(G_VALUES.LT, date.getDay(), "Tèrcia", CEL.TERCIA, date);
 
-      SOUL.setSoul(HS, "tercia", this.TERCIA);
+      SOUL.setSoul(Set_Soul_CB, "tercia", this.TERCIA);
 
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Sexta", CEL.SEXTA, llati, date);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Sexta", CEL.SEXTA, date);
-      this.lecturaBreuResp(liturgicProps.LT, "Sexta", CEL.SEXTA, date);
-      this.oracio(liturgicProps.LT, date.getDay(), "Sexta", CEL.SEXTA, date);
+      this.himne(G_VALUES.LT, date.getDay(), G_VALUES.setmana, "Sexta", CEL.SEXTA, llati, date);
+      this.salmodia(G_VALUES.LT, G_VALUES.setmana, date.getDay(), "Sexta", CEL.SEXTA, date);
+      this.lecturaBreuResp(G_VALUES.LT, "Sexta", CEL.SEXTA, date);
+      this.oracio(G_VALUES.LT, date.getDay(), "Sexta", CEL.SEXTA, date);
 
-      SOUL.setSoul(HS, "sexta", this.SEXTA);
+      SOUL.setSoul(Set_Soul_CB, "sexta", this.SEXTA);
 
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, "Nona", CEL.NONA, llati, date);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), "Nona", CEL.NONA, date);
-      this.lecturaBreuResp(liturgicProps.LT, "Nona", CEL.NONA, date);
-      this.oracio(liturgicProps.LT, date.getDay(), "Nona", CEL.NONA, date);
+      this.himne(G_VALUES.LT, date.getDay(), G_VALUES.setmana, "Nona", CEL.NONA, llati, date);
+      this.salmodia(G_VALUES.LT, G_VALUES.setmana, date.getDay(), "Nona", CEL.NONA, date);
+      this.lecturaBreuResp(G_VALUES.LT, "Nona", CEL.NONA, date);
+      this.oracio(G_VALUES.LT, date.getDay(), "Nona", CEL.NONA, date);
 
-      SOUL.setSoul(HS, "nona", this.NONA);
+      SOUL.setSoul(Set_Soul_CB, "nona", this.NONA);
     }
   }
 

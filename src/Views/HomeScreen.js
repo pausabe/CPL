@@ -30,7 +30,7 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.switchValue = props.variables.lliures;
+    this.switchValue = G_VALUES.lliures;
   }
 
   dacordString(){
@@ -80,7 +80,7 @@ export default class HomeScreen extends Component {
 
   transfromCelTypeName(CT, t){
     memLliureColor = '#333333';
-    if((this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V') && !this.props.variables.lliures) memLliureColor = '#595959';
+    if((this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V') && !G_VALUES.lliures) memLliureColor = '#595959';
 
     switch (CT) {
       case 'F':
@@ -147,7 +147,12 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    this.switchValue = this.props.variables.lliures;
+    var date_getdate = this.props.ViewData.date.getDate();
+    var date_getmonth = this.props.ViewData.date.getMonth();
+    var date_getfullyear = this.props.ViewData.date.getFullYear();
+    var date_getday = this.props.ViewData.date.getDay();
+
+    this.switchValue = G_VALUES.lliures;
 
     arrowWidth = 35;
     auxPadding = 10;
@@ -159,7 +164,7 @@ export default class HomeScreen extends Component {
     santTextColor = 'black';
     arrowColor = 'black';
     santContainerOpa = 0.8;
-    if((this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V') && !this.props.variables.lliures){
+    if((this.props.ViewData.celebracio.type==='L' || this.props.ViewData.celebracio.type==='V') && !G_VALUES.lliures){
       santTextColor = '#404040';
       arrowColor = '#595959';
       santContainerOpa = 0.75;
@@ -170,7 +175,7 @@ export default class HomeScreen extends Component {
          <View style={styles.infoContainer}>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
               <Text style={styles.infoText}>{this.props.ViewData.lloc.diocesiName}{" ("}{this.props.ViewData.lloc.lloc}{")"}
-                {" - "}<Text style={styles.infoText}>{this.props.ViewData.data.getDate() < 10 ? `0${this.props.ViewData.data.getDate()}` : this.props.ViewData.data.getDate()}/{this.props.ViewData.data.getMonth()+1 < 10 ? `0${this.props.ViewData.data.getMonth()+1}` : this.props.ViewData.data.getMonth()+1}/{this.props.ViewData.data.getFullYear()}</Text>
+                {" - "}<Text style={styles.infoText}>{date_getdate < 10 ? `0${date_getdate}` : date_getdate}/{date_getmonth+1 < 10 ? `0${date_getmonth+1}` : date_getmonth+1}/{date_getfullyear}</Text>
               </Text>
             </View>
          </View>
@@ -178,7 +183,7 @@ export default class HomeScreen extends Component {
            <Text style={styles.diaLiturgicText}>
              {
                this.props.ViewData.setmana !== '0' && this.props.ViewData.setmana !== '.'?
-                 this.weekDayName(this.props.ViewData.data.getDay())+" de la setmana "
+                 this.weekDayName(date_getday)+" de la setmana "
                :
                  null
              }

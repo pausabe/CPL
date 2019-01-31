@@ -3,12 +3,14 @@ import { Platform } from 'react-native';
 import GLOBAL from '../../../Globals/Globals';
 
 export default class CompletesSoul{
-  constructor(variables, liturgicProps, TABLES, HS, SOUL) {
+  constructor(TABLES, Set_Soul_CB, SOUL) {
     console.log("PlaceLog. Constructor CompletesSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, variables, HS, SOUL);
+    this.makePrayer(TABLES, Set_Soul_CB, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, variables, HS, SOUL){
+  makePrayer(TABLES, Set_Soul_CB, SOUL){
+    var date = G_VALUES.date;
+
     console.log("PlaceLog. MakePrayer CompletesSoul");
     this.state = {
       salteriComuCompletes: TABLES.salteriComuCompletes,
@@ -52,19 +54,19 @@ export default class CompletesSoul{
       actePen: TABLES.diversos.item(37).oracio,
     }
 
-    this.completes(liturgicProps, date.getDay(), variables);
+    this.completes(date.getDay());
 
-    SOUL.setSoul(HS, "completes", this.COMPLETES);
+    SOUL.setSoul(Set_Soul_CB, "completes", this.COMPLETES);
   }
 
-  completes(liturgicProps, weekDay, variables) {
-    setmana = liturgicProps.setmana
-    llati = variables.llati;
+  completes(weekDay) {
+    setmana = G_VALUES.setmana
+    llati = G_VALUES.llati;
     const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
     const himnePasqua = "Jesús, oh Verb del Déu excels,\nde tots els segles Redemptor,\nsou llum de llum que brilla al cel\ni sou dels homes bon Pastor.\n\nVós que heu creat tot l'univers,\nl'espai i el temps amb savi dit,\nel cos cansat reanimeu\namb el descans d'aquesta nit.\n\nAmb cor humil us supliquem,\noh Crist, que sou el germà gran,\nque no pertorbi l'enemic\nels redimits amb vostra Sang.\n\nQue en el temps breu que dura el son,\n-sots vostres ales descansant-\nrecobri forces nostre cos\ni l'esperit vetlli, estimant.\n\nA vós, Jesús, glorifiquem\nque resplendiu vencent la mort,\namb l'etern Pare i l'Esperit,\nara i per segles sense fi.\nAmén";
-    switch (liturgicProps.LT) {
+    switch (G_VALUES.LT) {
       case GLOBAL.Q_SETMANES:
-        if(liturgicProps.LT === GLOBAL.Q_SETMANES && setmana !== '4'){
+        if(G_VALUES.LT === GLOBAL.Q_SETMANES && setmana !== '4'){
           if(llati === 'true') this.COMPLETES.himne = this.state.himneLlati1;
           else this.COMPLETES.himne = this.state.himneCat1;
         }
@@ -79,7 +81,7 @@ export default class CompletesSoul{
         else this.COMPLETES.himne = this.state.himneCat1;
         break;
       case GLOBAL.N_ABANS:
-        if(variables.date.getDate() < 6){
+        if(G_VALUES.date.getDate() < 6){
           if(llati === 'true') this.COMPLETES.himne = this.state.himneLlati1;
           else this.COMPLETES.himne = this.state.himneCat1;
         }
@@ -89,7 +91,7 @@ export default class CompletesSoul{
         }
         break;
       default:
-        if(liturgicProps.tempsespecific === 'Pasqua'){
+        if(G_VALUES.tempsespecific === 'Pasqua'){
           this.COMPLETES.himne = himnePasqua;
         }
         else{
@@ -126,7 +128,7 @@ export default class CompletesSoul{
 
     this.COMPLETES.oracio = this.state.salteriComuCompletes.oraFi;
 
-    switch (liturgicProps.LT) {
+    switch (G_VALUES.LT) {
       case GLOBAL.P_SETMANES:
         this.COMPLETES.antifones = false;
         this.COMPLETES.ant1 = "Al·leluia, al·leluia, al·leluia.";
@@ -147,7 +149,7 @@ export default class CompletesSoul{
           this.COMPLETES.antRespEspecial = "Crist es féu per nosaltres obedient fins a la mort i una mort de creu. Per això Déu l'ha exalçat i li ha concedit aquell nom que està per damunt de tot altre nom."
         break;
       default:
-        if(liturgicProps.tempsespecific === 'Pasqua'){
+        if(G_VALUES.tempsespecific === 'Pasqua'){
           this.COMPLETES.antifones = false;
           this.COMPLETES.ant1 = "Al·leluia, al·leluia, al·leluia.";
           this.COMPLETES.antRespEspecial = "Avui és el dia en què ha obrat el Senyor: alegrem-nos i celebrem-lo, al·leluia.";
@@ -155,7 +157,7 @@ export default class CompletesSoul{
         }
     }
 
-    /*if(liturgicProps.tempsespecific === 'Pasqua')
+    /*if(G_VALUES.tempsespecific === 'Pasqua')
       this.COMPLETES.antMare = "Reina del cel, alegreu-vos, al·leluia;\nperquè aquell que meresquèreu portar, al·leluia,\nha ressucitat tal com digué, al·leluia.\nPregueu Déu per nosaltres, al·leluia."
     else this.COMPLETES.antMare = this.state.antMare;*/
   }

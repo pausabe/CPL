@@ -1,16 +1,15 @@
 import GLOBAL from '../../../Globals/Globals';
 
 export default class CelebracioSoul {
-  constructor(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal) {
-    console.log("PlaceLog. Constructor CelebracioSoul");
-    this.makePrayer(variabales, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal);
+  constructor(TABLES, idTSF, idDE, Set_Soul_CB, SOUL, tomorrowCal) {
+    this.makePrayer(TABLES, idTSF, idDE, Set_Soul_CB, SOUL, tomorrowCal);
   }
 
-  makePrayer(variables, liturgicProps, TABLES, idTSF, idDE, HS, SOUL, llati, tomorrowCal){
+  makePrayer(TABLES, idTSF, idDE, Set_Soul_CB, SOUL, tomorrowCal){
     console.log("PlaceLog. MakePrayer CelebracioSoul");
-    date = variables.date;
-    celType = variables.celType;
-    diocesi = variables.diocesi;
+    date = G_VALUES.date;
+    celType = G_VALUES.celType;
+    diocesi = G_VALUES.diocesi;
 
     this.INFO_CEL = {
       nomCel: '-',
@@ -287,7 +286,7 @@ export default class CelebracioSoul {
       antMare: '-',
     }
 
-    if((celType === 'L' || celType == 'V') && !variables.lliures){
+    if((celType === 'L' || celType == 'V') && !G_VALUES.lliures){
       this.INFO_CEL.nomCel = TABLES.santsMemories.nomMemoria;
       this.INFO_CEL.infoCel = TABLES.santsMemories.infoMemoria;
       this.INFO_CEL.typeCel = celType;
@@ -299,29 +298,29 @@ export default class CelebracioSoul {
         if(idTSF === -1){
           switch (celType) {
             case "S":
-              if(liturgicProps.LT === GLOBAL.Q_DIUM_PASQUA)
-                this.createCel(TABLES, "DP", liturgicProps, '.', variables, 'NF');
-              else this.createCel(TABLES, "SF", liturgicProps, '.', variables, 'NF');
+              if(G_VALUES.LT === GLOBAL.Q_DIUM_PASQUA)
+                this.createCel(TABLES, "DP", '.', 'NF');
+              else this.createCel(TABLES, "SF", '.', 'NF');
               break;
             case "F":
-              if(date.getDay() !== 0 ) this.createCel(TABLES, "SF", liturgicProps, '.', variables, 'F');
+              if(date.getDay() !== 0 ) this.createCel(TABLES, "SF", '.', 'F');
               break;
             case "L":
             case "V":
-              if(date.getDay() !== 0 && variables.lliures === true)
-                this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
+              if(date.getDay() !== 0 && G_VALUES.lliures === true)
+                this.createCel(TABLES, "ML", '.', 'NF');
               break;
             case "M":
-              if(date.getDay() !== 0) this.createCel(TABLES, "ML", liturgicProps, '.', variables, 'NF');
+              if(date.getDay() !== 0) this.createCel(TABLES, "ML", '.', 'NF');
               break;
           }
         }
         else{
-          this.createCel(TABLES, "TSF", liturgicProps, '.', variables, 'NF');
+          this.createCel(TABLES, "TSF", '.', 'NF');
         }
       }
       else{
-        this.createCel(TABLES, "DE", liturgicProps, '.', variables, 'NF');
+        this.createCel(TABLES, "DE", '.', 'NF');
       }
     }
     else{
@@ -331,28 +330,28 @@ export default class CelebracioSoul {
       // console.log("tomorrowCal! "+celType + ", " + tomorrowCal);
       switch (tomorrowCal) {
         case "S":
-          this.createCel(TABLES, "SF", liturgicProps, celType, variables, 'NF');
+          this.createCel(TABLES, "SF", celType, 'NF');
           break;
         case "TSF":
-          this.createCel(TABLES, "TSF", liturgicProps, celType, variables, 'NF');
+          this.createCel(TABLES, "TSF", celType, 'NF');
           break;
         case "DE":
-          this.createCel(TABLES, "DE", liturgicProps, celType, variables, 'NF');
+          this.createCel(TABLES, "DE", celType, 'NF');
           break;
         case "DR":
-          this.createCel(TABLES, "DR", liturgicProps, celType, variables, 'NF');
+          this.createCel(TABLES, "DR", celType, 'NF');
           break;
         case "T":
-          this.createCel(TABLES, "T", liturgicProps, celType, variables, 'NF');
+          this.createCel(TABLES, "T", celType, 'NF');
           break;
         case "A":
-          this.createCel(TABLES, "A", liturgicProps, celType, variables, 'NF');
+          this.createCel(TABLES, "A", celType, 'NF');
           break;
         }
     }
 
-    if(this.INFO_CEL.typeCel === '.') this.INFO_CEL.typeCel = variables.celType;
-    if(liturgicProps.LT === GLOBAL.Q_TRIDU && variables.date.getDay() === 6)
+    if(this.INFO_CEL.typeCel === '.') this.INFO_CEL.typeCel = G_VALUES.celType;
+    if(G_VALUES.LT === GLOBAL.Q_TRIDU && G_VALUES.date.getDay() === 6)
       this.INFO_CEL.nomCelTom = "dium-pasqua";
 
     CEL = {
@@ -370,195 +369,195 @@ export default class CelebracioSoul {
     }
 
     TABLES.OficisComuns = null;
-    SOUL.setSoul(HS, "celebracio", CEL);
+    SOUL.setSoul(Set_Soul_CB, "celebracio", CEL);
   }
 
-  createCel(TABLES, type, liturgicProps, tomCal, variables, F){
+  createCel(TABLES, type, tomCal, F){
     console.log("PlaceLog. CelbracioSoul - createCel: " + type+", "+tomCal);
 
-    diocesi = variables.diocesi;
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+    diocesi = G_VALUES.diocesi;
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
 
     switch (type) {
       case "DP":
-        this.makeDP(TABLES, type, liturgicProps, variables, tomCal);
+        this.makeDP(TABLES, type, tomCal);
       break;
 
       case "TSF":
         if(tomCal === '.'){
-          this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeTSF(TABLES, type, tomCal);
         }
         else{
           switch (tomCal) {
             case 'TSF':
-              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeTSF(TABLES, type, tomCal);
               break;
             case 'DE':
-              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeDE(TABLES, type, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
+              this.makeSF(TABLES, type, tomCal, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeML(TABLES, type, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(G_VALUES.lliures === true) this.makeML(TABLES, type, tomCal);
               break;
           }
-          this.makeVespres1TSF(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeVespres1TSF(TABLES, type, tomCal);
         }
         break;
 
       case "DR":
         if(tomCal === '.'){
-          this.makeDR(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeDR(TABLES, type, tomCal);
         }
         else{
           switch (tomCal) {
             case 'DE':
-              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeDE(TABLES, type, tomCal);
               break;
             case 'TSF':
-              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeTSF(TABLES, type, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
+              this.makeSF(TABLES, type, tomCal, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeML(TABLES, type, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(G_VALUES.lliures === true) this.makeML(TABLES, type, tomCal);
               break;
           }
-          this.makeDR(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeDR(TABLES, type, tomCal);
         }
         break;
 
       case "T":
         if(tomCal === '.'){
-          this.makeT(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeT(TABLES, type, tomCal);
         }
         else{
           switch (tomCal) {
             case 'DE':
-              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeDE(TABLES, type, tomCal);
               break;
             case 'TSF':
-              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeTSF(TABLES, type, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, liturgicProps, variables, F);
+              this.makeSF(TABLES, type, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeML(TABLES, type, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(G_VALUES.lliures === true) this.makeML(TABLES, type, tomCal);
               break;
           }
-          this.makeT(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeT(TABLES, type, tomCal);
         }
         break;
 
       case "A":
          if(tomCal === '.'){
-           this.makeA(TABLES, type, liturgicProps, variables, tomCal);
+           this.makeA(TABLES, type, tomCal);
          }
          else{
            switch (tomCal) {
              case 'DE':
-               this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
+               this.makeDE(TABLES, type, tomCal);
                break;
              case 'TSF':
-               this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+               this.makeTSF(TABLES, type, tomCal);
                break;
              case 'S':
              case 'F':
-               this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
+               this.makeSF(TABLES, type, tomCal, F);
                break;
              case 'M':
-               this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+               this.makeML(TABLES, type, tomCal);
                break;
              case 'L':
              case 'V':
-               if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+               if(G_VALUES.lliures === true) this.makeML(TABLES, type, tomCal);
                break;
            }
-           this.makeA(TABLES, type, liturgicProps, variables, tomCal);
+           this.makeA(TABLES, type, tomCal);
          }
          break;
 
       case "DE":
         if(tomCal === '.'){
-          this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeDE(TABLES, type, tomCal);
         }
         else{
           switch (tomCal) {
             case 'TSF':
-              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeTSF(TABLES, type, tomCal);
               break;
             case 'S':
             case 'F':
-              this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
+              this.makeSF(TABLES, type, tomCal, F);
               break;
             case 'M':
-              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeML(TABLES, type, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(G_VALUES.lliures === true) this.makeML(TABLES, type, tomCal);
               break;
           }
-          this.makeVespres1DE(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeVespres1DE(TABLES, type, tomCal);
         }
         break;
 
 
       case "SF":
         if(tomCal === '.'){
-          this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
+          this.makeSF(TABLES, type, tomCal, F);
         }
         else{
           switch (tomCal) {
             case 'F':
-              this.makeSF(TABLES, type, liturgicProps, variables, tomCal, F);
+              this.makeSF(TABLES, type,tomCal, F);
               break;
             case 'DE':
-              this.makeDE(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeDE(TABLES, type, tomCal);
               break;
             case 'TSF':
-              this.makeTSF(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeTSF(TABLES, type, tomCal);
               break;
             case 'M':
-              this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              this.makeML(TABLES, type, tomCal);
               break;
             case 'L':
             case 'V':
-              if(variables.lliures === true) this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+              if(G_VALUES.lliures === true) this.makeML(TABLES, type, tomCal);
               break;
           }
-          this.makeVespres1SF(TABLES, type, liturgicProps, variables, tomCal);
+          this.makeVespres1SF(TABLES, type, tomCal);
         }
         break;
 
       case  "ML":
-        this.makeML(TABLES, type, liturgicProps, variables, tomCal);
+        this.makeML(TABLES, type, tomCal);
         break;
     }
   }
 
-  makeDP(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeDP(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
     console.log("PlaceLog. making Diumenge de Pasqua");
     //::::::>>>>>DP<<<<<::::::
     //::::::DP-INFO_CEL::::::
@@ -742,9 +741,9 @@ export default class CelebracioSoul {
     this.VESPRES.oracio = TABLES.tempsQuaresmaDiumPasq.oraFiVespres;
   }
 
-  makeVespres1TSF(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeVespres1TSF(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
     console.log("PlaceLog. makeVespres1TSF");
 
     //::::::>>>>>TSF<<<<<::::::
@@ -789,9 +788,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.tempsSolemnitatsFestesVespres1.oraFiVespres1;
   }
 
-  makeTSF(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeTSF(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
     console.log("PlaceLog. makeTSF");
     //::::::>>>>>TSF<<<<<::::::
     //::::::TSF-INFO_CEL::::::
@@ -997,9 +996,9 @@ export default class CelebracioSoul {
     this.VESPRES.oracio = TABLES.tempsSolemnitatsFestes.oraFiVespres2;
   }
 
-  makeDE(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeDE(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
     console.log("PlaceLog. makeDE");
     //::::::>>>>>DE<<<<<::::::
     //::::::DE-INFO_CEL::::::
@@ -1198,10 +1197,10 @@ export default class CelebracioSoul {
     this.VESPRES.oracio = TABLES.diesespecials.oraFi;
   }
 
-  makeVespres1DE(TABLES, type, liturgicProps, variables, tomCal){
+  makeVespres1DE(TABLES, type, tomCal){
     console.log("PlaceLog. makeVespres1DE");
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
 
     this.INFO_CEL.nomCelTom = TABLES.diesespecials.nomMemoria;
 
@@ -1234,9 +1233,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.diesespecials.oraFiVespres1;
   }
 
-  makeSF(TABLES, type, liturgicProps, variables, tomCal, F){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeSF(TABLES, type, tomCal, F){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
 
     console.log("PlaceLog. makeSF");
     //::::::>>>>>SF<<<<<::::::
@@ -1579,7 +1578,7 @@ export default class CelebracioSoul {
     // else if(TABLES.OficisComuns !== null) this.NONA.oracio = TABLES.OficisComuns.oraFiMenor;
 
 
-    if(!(F === 'F' && variables.date.getDay() === 6)){
+    if(!(F === 'F' && G_VALUES.date.getDay() === 6)){
       console.log("PlaceLog. making vespres 2 celebracioSoul: " + F);
       //::::::SF-VESPRES2::::::
       //SF-VESPRES2 -> HIMNE
@@ -1665,10 +1664,10 @@ export default class CelebracioSoul {
     }
   }
 
-  makeVespres1SF(TABLES, type, liturgicProps, variables, tomCal){
+  makeVespres1SF(TABLES, type, tomCal){
     console.log("PlaceLog. makeVespres1SF");
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
 
     this.INFO_CEL.nomCelTom = TABLES.santsSolemnitatsFVespres1.nomMemoria;
 
@@ -1759,9 +1758,9 @@ export default class CelebracioSoul {
     console.log("SHIT",this.VESPRES1.oracio);
   }
 
-  makeML(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeML(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
 
     console.log("PlaceLog. makeML");
     //::::::>>>>>ML<<<<<::::::
@@ -2095,7 +2094,7 @@ export default class CelebracioSoul {
     this.NONA.oracio = TABLES.santsMemories.OracioNona;
 
 
-    if(variables.date.getDay() !== 6){
+    if(G_VALUES.date.getDay() !== 6){
       //:::::::ML-VESPRES:::::::
       //ML-VESPRES -> HIMNE
       if(TABLES.santsMemories.himneVespresLlati !== '-'){
@@ -2180,9 +2179,9 @@ export default class CelebracioSoul {
     }
   }
 
-  makeDR(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeDR(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
     console.log("PlaceLog. makeDR");
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsQuaresmaComuSS.himneVespresLlati;
     else this.VESPRES1.himne = TABLES.tempsQuaresmaComuSS.himneVespresCat;
@@ -2209,9 +2208,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.tempsQuaresmaRams.oraFiVespres1;
   }
 
-  makeT(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeT(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
     console.log("PlaceLog. makeT");
     if(llati === 'true') this.VESPRES1.himne = TABLES.tempsQuaresmaTridu.himneDSOVespresllati;
     else this.VESPRES1.himne = TABLES.tempsQuaresmaTridu.himneDSOVespresCat;
@@ -2239,9 +2238,9 @@ export default class CelebracioSoul {
     this.VESPRES1.oracio = TABLES.tempsQuaresmaTridu.oraFiVespres;
   }
 
-  makeA(TABLES, type, liturgicProps, variables, tomCal){
-    llati = variables.llati;
-    anyABC = liturgicProps.ABC;
+  makeA(TABLES, type, tomCal){
+    llati = G_VALUES.llati;
+    anyABC = G_VALUES.ABC;
     console.log("PlaceLog. makeA");
     if(llati === 'true')
       this.VESPRES1.himne = TABLES.tempsAdventNadalComu.himneVespresLlati;

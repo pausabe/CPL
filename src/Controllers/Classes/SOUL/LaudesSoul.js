@@ -9,12 +9,16 @@ import GLOBAL from '../../../Globals/Globals';
 import GF from '../../../Globals/GlobalFunctions';
 
 export default class LaudesSoul {
-  constructor(variables, liturgicProps, TABLES, CEL, HS, SOUL) {
+  constructor(TABLES, CEL, Set_Soul_CB, SOUL) {
     console.log("PlaceLog. Constructor LaudesSoul");
-    this.makePrayer(variables.date, liturgicProps, TABLES, variables.invitatori, CEL, variables.llati, HS, variables.diocesiName, SOUL);
+    this.makePrayer(TABLES, CEL, Set_Soul_CB, SOUL);
   }
 
-  makePrayer(date, liturgicProps, TABLES, invitatori, CEL, llati, HS, diocesiName, SOUL){
+  makePrayer(TABLES, CEL, Set_Soul_CB, SOUL){
+    var llati = G_VALUES.llati;
+    var date = G_VALUES.date;
+    var diocesiName = G_VALUES.diocesiName;
+
     console.log("PlaceLog. MakePrayer LaudesSoul");
     this.state = {
       salteriComuLaudes: TABLES.salteriComuLaudes,
@@ -47,8 +51,7 @@ export default class LaudesSoul {
       benedictus: TABLES.diversos.item(3).oracio,
     };
 
-    this.LAUDES = { //30
-      invitatori: invitatori,
+    this.LAUDES = { 
       antInvitatori: '',
       salm94: '',
       himne: '',
@@ -99,17 +102,17 @@ export default class LaudesSoul {
       this.LAUDES.cantic = this.state.benedictus;
     }
     else{
-      this.introduccio(liturgicProps.LT, liturgicProps.setmana, CEL, date);
-      this.himne(liturgicProps.LT, date.getDay(), liturgicProps.setmana, CEL, llati, date);
-      this.salmodia(liturgicProps.LT, liturgicProps.setmana, date.getDay(), CEL, date);
-      this.lecturaBreu(liturgicProps.LT, CEL, date);
-      this.responsori(liturgicProps.LT, CEL, date);
-      this.cantic(liturgicProps.LT, date.getDay(), liturgicProps.ABC, CEL, date);
-      this.pregaries(liturgicProps.LT, CEL, date);
-      this.oracio(liturgicProps.LT, date.getDay(), CEL, date);
+      this.introduccio(G_VALUES.LT, G_VALUES.setmana, CEL, date);
+      this.himne(G_VALUES.LT, date.getDay(), G_VALUES.setmana, CEL, llati, date);
+      this.salmodia(G_VALUES.LT, G_VALUES.setmana, date.getDay(), CEL, date);
+      this.lecturaBreu(G_VALUES.LT, CEL, date);
+      this.responsori(G_VALUES.LT, CEL, date);
+      this.cantic(G_VALUES.LT, date.getDay(), G_VALUES.ABC, CEL, date);
+      this.pregaries(G_VALUES.LT, CEL, date);
+      this.oracio(G_VALUES.LT, date.getDay(), CEL, date);
     }
 
-    SOUL.setSoul(HS, "laudes", this.LAUDES);
+    SOUL.setSoul(Set_Soul_CB, "laudes", this.LAUDES);
   }
 
   introduccio(LT, setmana, CEL, date){
