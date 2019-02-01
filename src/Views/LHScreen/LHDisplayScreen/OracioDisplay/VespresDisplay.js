@@ -38,7 +38,7 @@ export default class VespresDisplay extends Component {
 
     console.log("PlaceLog. VespresDisplay");
 
-    var textSize = this.props.variables.textSize;
+    var textSize = G_VALUES.textSize;
 
     this.styles = {
       black: {
@@ -96,12 +96,12 @@ export default class VespresDisplay extends Component {
     try {
       this.shareText = "";
 
-      VESPRES = this.props.liturgicProps.LITURGIA.vespres;
+      VESPRES = LH_VALUES.vespres;
       const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
 
       var aux_sigueu = 'Sigueu amb nosaltres, Déu nostre.';
       var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
-      var aux_isAleluia = this.props.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.props.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.props.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.props.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.props.liturgicProps.LT !== GLOBAL.Q_TRIDU;
+      var aux_isAleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA && G_VALUES.LT !== GLOBAL.Q_TRIDU;
 
       this.shareText += 'V. ' + aux_sigueu + '\n';
       this.shareText += 'R. ' + aux_senyor_veniu + '\n\n';
@@ -127,43 +127,43 @@ export default class VespresDisplay extends Component {
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>{'HIMNE'}</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, VESPRES)}
+            {this.himne(G_VALUES.LT, G_VALUES.date.getDay(), G_VALUES.setmana, VESPRES)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>SALMÒDIA</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), VESPRES)}
+            {this.salmodia(G_VALUES.LT, G_VALUES.setmana, G_VALUES.date.getDay(), VESPRES)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>LECTURA BREU</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.lecturaBreu(this.props.liturgicProps.LT, VESPRES)}
+            {this.lecturaBreu(G_VALUES.LT, VESPRES)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>RESPONSORI BREU</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.responsori(this.props.liturgicProps.LT, this.props.variables.date.getDay(), VESPRES)}
+            {this.responsori(G_VALUES.LT, G_VALUES.date.getDay(), VESPRES)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>CÀNTIC DE MARIA</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.cantic(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.ABC, VESPRES)}
+            {this.cantic(G_VALUES.LT, G_VALUES.date.getDay(), this.props.ABC, VESPRES)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>PREGÀRIES</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.pregaries(this.props.liturgicProps.LT, VESPRES)}
+            {this.pregaries(G_VALUES.LT, VESPRES)}
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <HR/>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
             <Text selectable={true} style={this.styles.red}>ORACIÓ</Text>
             {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-            {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), VESPRES)}
+            {this.oracio(G_VALUES.LT, G_VALUES.date.getDay(), VESPRES)}
             <Text selectable={true} style={this.styles.red}>R.
               <Text selectable={true} style={this.styles.black}> Amén.</Text>
             </Text>
@@ -193,7 +193,7 @@ export default class VespresDisplay extends Component {
     salm(salm){
       if(!salm) return "";
 
-      if(this.props.variables.cleanSalm === 'false'){
+      if(true){
         salm = salm.replace(/    [*]/g,'');
         salm = salm.replace(/   [*]/g,'');
         salm = salm.replace(/  [*]/g,'');
@@ -215,11 +215,11 @@ export default class VespresDisplay extends Component {
       return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(this.props.variables.cleanSalm === 'false')
+    if(true)
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
-      if(this.props.variables.gloria === 'false'){
+      if(true){
         return "Glòria.";
       }
       else{

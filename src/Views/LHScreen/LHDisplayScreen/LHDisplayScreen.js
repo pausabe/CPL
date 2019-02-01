@@ -11,6 +11,7 @@ import GLOBAL from "../../../Globals/Globals";
 
 export default class LHDisplayScreen extends Component {
   componentWillMount(){
+    this.props = this.props.navigation.state.params.props;
     this.eventEmitter = this.props.events;
     this.titols = this.getTitols();
     this.setState({type: this.props.type})
@@ -89,15 +90,15 @@ export default class LHDisplayScreen extends Component {
   getTitols(){
     var titols = [];
 
-    titols.push(LH_VALUES.LITURGIA.ofici.titol1);
-    titols.push(LH_VALUES.LITURGIA.ofici.titol2);
-    titols.push(LH_VALUES.LITURGIA.ofici.titol3);
-    titols.push(LH_VALUES.LITURGIA.laudes.titol1);
-    titols.push(LH_VALUES.LITURGIA.laudes.titol3);
-    titols.push(LH_VALUES.LITURGIA.vespres.titol1);
-    titols.push(LH_VALUES.LITURGIA.vespres.titol2);
-    titols.push(LH_VALUES.LITURGIA.completes.titol1);
-    titols.push(LH_VALUES.LITURGIA.completes.titol2);
+    titols.push(LH_VALUES.ofici.titol1);
+    titols.push(LH_VALUES.ofici.titol2);
+    titols.push(LH_VALUES.ofici.titol3);
+    titols.push(LH_VALUES.laudes.titol1);
+    titols.push(LH_VALUES.laudes.titol3);
+    titols.push(LH_VALUES.vespres.titol1);
+    titols.push(LH_VALUES.vespres.titol2);
+    titols.push(LH_VALUES.completes.titol1);
+    titols.push(LH_VALUES.completes.titol2);
 
     return titols;
   }
@@ -107,8 +108,6 @@ export default class LHDisplayScreen extends Component {
       case 'Ofici':
         return(
           <Ofici
-            variables={this.props.variables}
-            liturgicProps = {this.props.liturgicProps}
             superTestMode = {this.props.superTestMode}
             testErrorCB={this.testErrorCB.bind(this)}
             titols={this.titols}
@@ -120,8 +119,6 @@ export default class LHDisplayScreen extends Component {
         case 'Laudes':
           return(
             <Laudes
-              liturgicProps={this.props.liturgicProps}
-              variables={this.props.variables}
               superTestMode = {this.props.superTestMode}
               testErrorCB={this.testErrorCB.bind(this)}
               titols={this.titols}
@@ -133,8 +130,6 @@ export default class LHDisplayScreen extends Component {
           case 'Vespres':
             return(
               <Vespres
-                liturgicProps={this.props.liturgicProps}
-                variables={this.props.variables}
                 superTestMode = {this.props.superTestMode}
                 testErrorCB={this.testErrorCB.bind(this)}
                 events={this.eventEmitter}/>
@@ -144,10 +139,8 @@ export default class LHDisplayScreen extends Component {
             case 'Tèrcia':
               return(
                 <HoraMenor
-                  variables={this.props.variables}
-                  liturgicProps={this.props.liturgicProps}
                   HM = {type}
-                  HORA_MENOR = {this.props.liturgicProps.LITURGIA.tercia}
+                  HORA_MENOR = {LH_VALUES.tercia}
                   superTestMode = {this.props.superTestMode}
                   testErrorCB={this.testErrorCB.bind(this)}
                   events={this.eventEmitter}/>
@@ -157,10 +150,8 @@ export default class LHDisplayScreen extends Component {
               case 'Sexta':
                 return(
                   <HoraMenor
-                    variables={this.props.variables}
-                    liturgicProps={this.props.liturgicProps}
                     HM = {type}
-                    HORA_MENOR = {this.props.liturgicProps.LITURGIA.sexta}
+                    HORA_MENOR = {LH_VALUES.sexta}
                     superTestMode = {this.props.superTestMode}
                     testErrorCB={this.testErrorCB.bind(this)}
                     events={this.eventEmitter}/>
@@ -170,10 +161,8 @@ export default class LHDisplayScreen extends Component {
               case 'Nona':
                 return(
                   <HoraMenor
-                    variables={this.props.variables}
-                    liturgicProps={this.props.liturgicProps}
                     HM = {type}
-                    HORA_MENOR = {this.props.liturgicProps.LITURGIA.nona}
+                    HORA_MENOR = {LH_VALUES.nona}
                     superTestMode = {this.props.superTestMode}
                     testErrorCB={this.testErrorCB.bind(this)}
                     events={this.eventEmitter}/>
@@ -183,8 +172,6 @@ export default class LHDisplayScreen extends Component {
               case 'Completes':
                 return(
                   <Completes
-                    variables={this.props.variables}
-                    liturgicProps = {this.props.liturgicProps}
                     superTestMode = {this.props.superTestMode}
                     testErrorCB={this.testErrorCB.bind(this)}
                     setNumAntMare={this.props.setNumAntMare}

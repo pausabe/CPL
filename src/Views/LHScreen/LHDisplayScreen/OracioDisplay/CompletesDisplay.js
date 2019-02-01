@@ -40,7 +40,7 @@ export default class CompletesDisplay extends Component {
 
     console.log("PlaceLog. CompletesDisplay");
 
-    var textSize = props.variables.textSize;
+    var textSize = G_VALUES.textSize;
 
     this.styles = {
       black: {
@@ -95,18 +95,18 @@ export default class CompletesDisplay extends Component {
       },
     }
 
-    var auxNumAntMare = props.variables.numAntMare;
+    var auxNumAntMare = G_VALUES.numAntMare;
 
     //console.log("wtf1.1",auxNumAntMare);
-    //console.log("wtf1.2",props.liturgicProps.tempsespecific);
+    //console.log("wtf1.2",G_VALUES.tempsespecific);
 
-    if(props.liturgicProps.tempsespecific === 'Pasqua' && auxNumAntMare !== '5'){
+    if(G_VALUES.tempsespecific === 'Pasqua' && auxNumAntMare !== '5'){
       auxNumAntMare = '5';
       props.setNumAntMare('5');
       SettingsManager.setSettingNumAntMare('5');
       //console.log("wtf2",auxNumAntMare);
     }
-    else if(!(props.liturgicProps.tempsespecific === 'Pasqua') && auxNumAntMare === '5'){
+    else if(!(G_VALUES.tempsespecific === 'Pasqua') && auxNumAntMare === '5'){
       auxNumAntMare = '1';
       props.setNumAntMare('1');
       SettingsManager.setSettingNumAntMare('1');
@@ -117,9 +117,7 @@ export default class CompletesDisplay extends Component {
       numAntMare: auxNumAntMare
     }
 
-    this.COMPLETES = props.liturgicProps.LITURGIA.completes;
-    this.liturgicProps = props.liturgicProps;
-    this.variables = props.variables;
+    this.COMPLETES = LH_VALUES.completes;
     this.superTestMode = props.superTestMode;
     this.testErrorCB = props.testErrorCB;
     this.setNumAntMare = props.setNumAntMare;
@@ -174,28 +172,28 @@ export default class CompletesDisplay extends Component {
 
         <View style={{alignItems: 'center'}}>
           <View style={{flexDirection: 'row',paddingVertical: 10}}>
-            {!(this.liturgicProps.tempsespecific === 'Pasqua')?
+            {!(G_VALUES.tempsespecific === 'Pasqua')?
               <TouchableOpacity onPress={this._onAntMarePress.bind(this,'1')}>
                 <Text style={ant1Style}>{"Ant. 1  "}</Text>
               </TouchableOpacity>
             :
               null
             }
-            {!(this.liturgicProps.tempsespecific === 'Pasqua')?
+            {!(G_VALUES.tempsespecific === 'Pasqua')?
               <TouchableOpacity onPress={this._onAntMarePress.bind(this,'2')}>
                 <Text style={ant2Style}>{"  Ant. 2  "}</Text>
               </TouchableOpacity>
             :
               null
             }
-            {!(this.liturgicProps.tempsespecific === 'Pasqua')?
+            {!(G_VALUES.tempsespecific === 'Pasqua')?
               <TouchableOpacity onPress={this._onAntMarePress.bind(this,'3')}>
                 <Text style={ant3Style}>{"  Ant. 3  "}</Text>
               </TouchableOpacity>
             :
               null
             }
-            {!(this.liturgicProps.tempsespecific === 'Pasqua')?
+            {!(G_VALUES.tempsespecific === 'Pasqua')?
               <TouchableOpacity onPress={this._onAntMarePress.bind(this,'4')}>
                 <Text style={ant4Style}>{"  Ant. 4"}</Text>
               </TouchableOpacity>
@@ -216,13 +214,13 @@ export default class CompletesDisplay extends Component {
 
       if(this.COMPLETES !== null){
         const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
-        var is_special_initial_message = this.liturgicProps.LT === GLOBAL.Q_TRIDU && this.variables.date.getDay() === 6;
+        var is_special_initial_message = G_VALUES.LT === GLOBAL.Q_TRIDU && G_VALUES.date.getDay() === 6;
         var aux_special_initial_message = "Avui, només han de dir aquestes Completes els qui no participen en la Vetlla pasqual.";
         var aux_sigueu = "Sigueu amb nosaltres, Déu nostre.";
         var aux_veniu = "Senyor, veniu a ajudar-nos.";
-        var is_aleluia = this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES
-          && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA
-          && this.liturgicProps.LT !== GLOBAL.Q_TRIDU;
+        var is_aleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES
+          && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA
+          && G_VALUES.LT !== GLOBAL.Q_TRIDU;
         var aux_lloable = "És lloable que aquí es faci examen de consciència.";
         var aux_acte_pen = this.COMPLETES.actePen;
         var aux_himne = GF.rs(this.COMPLETES.himne, this.superTestMode, this.testErrorCB.bind(this));
@@ -539,7 +537,7 @@ export default class CompletesDisplay extends Component {
       }
       else{
         console.log("wierd error....... this.props:",this.props);
-        console.log("this.liturgicProps.LITURGIA.completes doesen't exists");
+        console.log("G_VALUES.LITURGIA.completes doesen't exists");
         return null;
       }
     } catch (e) {
@@ -552,7 +550,7 @@ export default class CompletesDisplay extends Component {
   salm(salm){
     if(!salm) return "";
 
-    if(this.variables.cleanSalm === 'false'){
+    if(true){
       salm = salm.replace(/    [*]/g,'');
       salm = salm.replace(/   [*]/g,'');
       salm = salm.replace(/  [*]/g,'');
@@ -573,11 +571,11 @@ export default class CompletesDisplay extends Component {
       return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(this.variables.cleanSalm === 'false')
+    if(true)
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
-      if(this.variables.gloria === 'false'){
+      if(true){
         return "Glòria";
       }
       else{

@@ -84,7 +84,7 @@ export default class SOUL {
     console.log("PlaceLog. makeQueryies SOUL");
 
     this.prec = 22;
-    if (date.getDay() === 0) {//diumenge
+    if (G_VALUES.date.getDay() === 0) {//diumenge
       this.prec = 9;
       if (G_VALUES.LT === GLOBAL.A_SETMANES ||
         G_VALUES.LT === GLOBAL.A_FERIES ||
@@ -309,7 +309,7 @@ export default class SOUL {
           id = 3;
           break;
         case GLOBAL.N_ABANS:
-          if (date.getDate() < 6) { id = 3; }
+          if (G_VALUES.date.getDate() < 6) { id = 3; }
           else { id = 4; }
           break;
         default: id = 1;
@@ -364,7 +364,7 @@ export default class SOUL {
     //taula 19 (#28): Ofici(19), Laudes(17), Vespres(16), HoraMenor(16)
     if (G_VALUES.LT === GLOBAL.A_FERIES) {
       c += 1;
-      id = date.getDate() - 16;
+      id = G_VALUES.date.getDate() - 16;
       this.acceso.getLiturgia("tempsAdventFeries", id, (result) => {
         this.queryRows.tempsAdventFeries = result;
         this.dataReceived(params);
@@ -574,7 +574,7 @@ export default class SOUL {
     if (true) {
       c += 1;
       { G_VALUES.date.getDay() === 6 ? id = 1 : id = G_VALUES.date.getDay() + 2 }
-      if ((dataTomorrow.LT === GLOBAL.Q_DIUM_PASQUA || this.tomorrowCal === 'TSF' || this.tomorrowCal === 'S') && !(G_VALUES.date.getDay() === 6 || G_VALUES.date.getDay() === 0)) id = 8;
+      if ((G_VALUES.dataTomorrow.LT === GLOBAL.Q_DIUM_PASQUA || this.tomorrowCal === 'TSF' || this.tomorrowCal === 'S') && !(G_VALUES.date.getDay() === 6 || G_VALUES.date.getDay() === 0)) id = 8;
       if ((celType === 'S' || this.idTSF !== -1) && !(G_VALUES.date.getDay() === 6 || G_VALUES.date.getDay() === 0)) id = 9;
       if (G_VALUES.LT === GLOBAL.P_OCTAVA) id = 2;
       if (G_VALUES.LT === GLOBAL.N_OCTAVA) id = 9;
@@ -803,7 +803,7 @@ export default class SOUL {
 
     if (this.countLit === 0) {
       this.countLit = 7;
-      Set_Soul_CB(this.LITURGIA);
+      Set_Soul_CB(this.LITURGIA, this.LITURGIA.info_cel);
     }
   }
 

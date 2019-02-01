@@ -21,7 +21,9 @@ LH_VALUES = {}
 //Liturgia diària values
 LD_VALUES = {}
 
-export function Reload_All_Data(date) {
+export function Reload_All_Data(date, Reload_Finished_Callback) {
+  this.Reload_Finished_Callback = Reload_Finished_Callback;
+  
   G_VALUES.date = date;
   Promise.all([
     SettingsManager.getSettingLloc((r) => {
@@ -34,7 +36,7 @@ export function Reload_All_Data(date) {
     SettingsManager.getSettingUseLatin((r) => G_VALUES.llati = r),
     SettingsManager.getSettingTextSize((r) => G_VALUES.textSize = r),
     SettingsManager.getSettingNumSalmInv((r) => G_VALUES.numSalmInv = r),
-    SettingsManager.getSettingNumAntMare((r) => G_VALUES.numAntMare = r),
+    SettingsManager.getSettingNumAntMare((r) => G_VALUES.numAntMare = r)
   ]).then(() => {
     Refresh_Data(date);
   });
@@ -42,7 +44,8 @@ export function Reload_All_Data(date) {
 
 function Refresh_Data(newDay) {
   DB_Access = new DBAdapter();
-  DB_Access.getAnyLiturgic(
+
+  return DB_Access.getAnyLiturgic(
     newDay.getFullYear(),
     newDay.getMonth(),
     newDay.getDate(),
@@ -103,13 +106,10 @@ function Check_Lliure_Date() {
   }).done();
 }
 
-function Set_Soul_CB(liturgia_hores) {
+function Set_Soul_CB(liturgia_hores, info_cel) {
   LH_VALUES = liturgia_hores;
+  G_VALUES.info_cel = info_cel;
 
-  /*//TODO: in first set soul: SplashScreen.hide(); and late parayer popup:
-      if (this.isLatePray()) {
-      this.popupDialog.show();
-    }
-    */
+  this.Reload_Finished_Callback();
 }
 

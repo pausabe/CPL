@@ -38,7 +38,7 @@ export default class HoraMenorDisplay extends Component {
 
     console.log("PlaceLog. HoraMenorDisplay");
 
-    var textSize = this.props.variables.textSize;
+    var textSize = G_VALUES.textSize;
 
     this.styles = {
       black: {
@@ -92,7 +92,7 @@ export default class HoraMenorDisplay extends Component {
       this.shareText = "";
 
       const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
-      var aux_isAleluia = this.props.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.props.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.props.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.props.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.props.liturgicProps.LT !== GLOBAL.Q_TRIDU; //TODO: tenir en compte si és o no Quaresma
+      var aux_isAleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA && G_VALUES.LT !== GLOBAL.Q_TRIDU; 
 
       this.shareText += "V. Sigueu amb nosaltres, Déu nostre.\n";
       this.shareText += "R. Senyor, veniu a ajudar-nos.\n\n";
@@ -118,26 +118,26 @@ export default class HoraMenorDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'HIMNE'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.himne(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.liturgicProps.setmana, this.props.HM)}
+          {this.himne(G_VALUES.LT, G_VALUES.date.getDay(), G_VALUES.setmana, this.props.HM)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'SALMÒDIA'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.salmodia(this.props.liturgicProps.LT, this.props.liturgicProps.setmana, this.props.variables.date.getDay(), this.props.HM)}
+          {this.salmodia(G_VALUES.LT, G_VALUES.setmana, G_VALUES.date.getDay(), this.props.HM)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'LECTURA BREU'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.lecturaBreuResp(this.props.liturgicProps.LT, this.props.HM)}
+          {this.lecturaBreuResp(G_VALUES.LT, this.props.HM)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'ORACIÓ'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.blackBold}>{'Preguem.'}</Text>
-          {this.oracio(this.props.liturgicProps.LT, this.props.variables.date.getDay(), this.props.HM)}
+          {this.oracio(G_VALUES.LT, G_VALUES.date.getDay(), this.props.HM)}
           <Text selectable={true} style={this.styles.red}>{'R. '}
             <Text selectable={true} style={this.styles.black}>{'Amén.'}</Text>
           </Text>
@@ -167,7 +167,7 @@ export default class HoraMenorDisplay extends Component {
   salm(salm){
     if(!salm) return "";
 
-    if(this.props.variables.cleanSalm === 'false'){
+    if(true){
       salm = salm.replace(/    [*]/g,'');
       salm = salm.replace(/   [*]/g,'');
       salm = salm.replace(/  [*]/g,'');
@@ -188,11 +188,11 @@ export default class HoraMenorDisplay extends Component {
       return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(this.props.variables.cleanSalm === 'false')
+    if(true)
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
-      if(this.props.variables.gloria === 'false'){
+      if(true){
         return 'Glòria.';
       }
       else{

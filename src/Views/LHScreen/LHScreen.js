@@ -66,11 +66,11 @@ export default class LHScreen extends Component {
   }
 
   setNumSalmInv(numSalm){
-    this.variables.numSalmInv = numSalm; //TODO:
+    G_VALUES.numSalmInv = numSalm; 
   }
 
   setNumAntMare(numAntMare){
-    this.variables.numAntMare = numAntMare; //TODO:
+    G_VALUES.numAntMare = numAntMare; 
   }
 
   testErrorCallBack(){

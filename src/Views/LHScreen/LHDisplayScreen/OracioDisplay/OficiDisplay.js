@@ -41,7 +41,7 @@ export default class OficiDisplay extends Component {
     console.log("PlaceLog. OficiDisplay");
 
     var textSize = G_VALUES.textSize;
-    var auxNumSalmInv = LH_VALUES.numSalmInv;
+    var auxNumSalmInv = G_VALUES.numSalmInv;
 
     if(!GF.salmInvExists(auxNumSalmInv,props.titols)){
       auxNumSalmInv = '94';
@@ -121,7 +121,8 @@ export default class OficiDisplay extends Component {
       }
     }
 
-    this.OFICI = LH_VALUES.LITURGIA.ofici;
+    this.OFICI = LH_VALUES.ofici;
+    
     this.superTestMode = props.superTestMode;
     this.testErrorCB = props.testErrorCB;
     this.setNumSalmInv = props.setNumSalmInv;
@@ -241,7 +242,7 @@ export default class OficiDisplay extends Component {
   }
 
   _onSalmInvPress(numSalm){
-    this.setState({numSalmInv:numSalm});
+    this.setState({ numSalmInv: numSalm });
     this.setNumSalmInv(numSalm);
     SettingsManager.setSettingNumSalmInv(numSalm);
   }
@@ -399,7 +400,7 @@ export default class OficiDisplay extends Component {
   salm(salm){
     if(!salm) return "";
 
-    if(G_VALUES.cleanSalm === 'false'){
+    if(true){
       salm = salm.replace(/    [*]/g,'');
       salm = salm.replace(/   [*]/g,'');
       salm = salm.replace(/  [*]/g,'');
@@ -420,11 +421,11 @@ export default class OficiDisplay extends Component {
       return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(G_VALUES.cleanSalm === 'false')
+    if(true)
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
-      if(G_VALUES.gloria === 'false'){
+      if(true){
         return "Glòria.";
       }
       else{

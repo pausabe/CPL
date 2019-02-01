@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Platform,
   TouchableOpacity,
   BackHandler,
   AsyncStorage,
@@ -14,14 +13,10 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
-
 import HomeScreen from '../Views/HomeScreen';
-
-import TA from '../Tests/testAdapter';
 import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
 import GenericHeader from '../../fuking_header.js';
-
 import { Reload_All_Data } from './Classes/Data/DataManager.js';
 
 export default class HomeScreenController extends Component {
@@ -81,15 +76,11 @@ export default class HomeScreenController extends Component {
   }
 
   calendarPressed() {
-    //this.calPres = true;
     this.setState({ isDateTimePickerVisible: true });
-    //this.props.screenProps.tracker.trackEvent("Calendar", "Opened");
   }
 
   constructor(props) {
     super(props);
-
-    Reload_All_Data(new Date(/*2019, 4, 15*/));
 
     //DataPicker limit
     this.minDatePicker = new Date(2017, 0, 2);
@@ -98,13 +89,12 @@ export default class HomeScreenController extends Component {
     this.state = {
       testInfo: 'testing correctly',
       stateTestInfo: '',
-      testInfoBegins: "Starts at: " + G_VALUES.date,
+      testInfoBegins: "Starts at: ",// + G_VALUES.date,
       santPressed: false,
       isDateTimePickerVisible: false,
       shareIcon: null,
 
       ViewData: {
-        date: G_VALUES.date,
         ready: false,
         lloc: {
           diocesiName: '',
@@ -126,7 +116,188 @@ export default class HomeScreenController extends Component {
       }
     }
 
-    /*************** TEST THINGS - START *******************/
+    Reload_All_Data(new Date(/*2019, 4, 15*/), this.Init_Everything.bind(this));
+  }
+
+  Init_Everything() {
+    //Set data to show on Home Screen
+    this.setState({
+      santPressed: false,
+      ViewData: {
+        ready: true,
+        lloc: {
+          diocesiName: G_VALUES.diocesiName,
+          lloc: G_VALUES.lloc,
+        },
+        data: G_VALUES.date,
+        setmana: G_VALUES.setmana,
+        temps: G_VALUES.tempsespecific,
+        setCicle: G_VALUES.cicle,
+        anyABC: G_VALUES.ABC,
+        color: G_VALUES.litColor,
+        celebracio: {
+          type: G_VALUES.info_cel.typeCel,
+          titol: G_VALUES.info_cel.nomCel,
+          text: G_VALUES.info_cel.infoCel,
+          titolCelTom: G_VALUES.info_cel.nomCelTom,
+        },
+        primVespres: this.primVespres(),
+      }
+    });
+
+    //Hide Splash Screen
+    SplashScreen.hide();
+
+    //Show late prayer popup if necessary
+    if (this.Is_Late_Prayer())
+      this.popupDialog.show();
+
+    //Set santPress variable to 0
+    this.santPress = 0;
+  }
+
+  Is_Late_Prayer() {
+    var h = new Date().getHours();
+    if (this.evReady && h >= 0 && h < 3)
+      return true;
+    return false;
+  }
+
+  primVespres(){
+    if((G_VALUES.date.getDay() === 6 && G_VALUES.celType !== 'S') || LH_VALUES.vespres1) return true;
+    return false;
+  }
+
+  eventManager(args) {
+    switch (args.type) {
+      case 'settingsPressed':
+        break;
+      case 'pickerPressed':
+        this.picPres = true;
+        break;
+      case 'okPicker':
+        if (args.newDate !== G_VALUES.date) {
+          Reload_All_Data(args.newDate);
+        }
+        break;
+    }
+  }
+
+  datePickerOK(newDate) {
+    this.setState({ isDateTimePickerVisible: false });
+
+    if (newDate !== G_VALUES.date) {
+      this.showThisDate(newDate)
+    }
+  }
+
+  showThisDate(date) {
+    Reload_All_Data(date);
+  }
+
+  datePickerCANCEL() {
+    this.setState({ isDateTimePickerVisible: false });
+  }
+
+  onSantPressCB() {
+    if (G_VALUES.info_cel.infoCel !== '-') {
+
+      if (this.santPress === 0) this.santPress = 1;
+      else if (this.santPress === 1) this.santPress = 2;
+      this.setState({ santPressed: !this.state.santPressed });
+    }
+  }
+
+  onYestPress(yesterday) {
+    this.showThisDate(yesterday);
+    this.popupDialog.dismiss();
+  }
+
+  onTodayPress() {
+    this.popupDialog.dismiss();
+  }
+
+  onSwitchLliurePress(value) {
+    if (value) {
+      stringData = G_VALUES.date.getDate() + ':' +
+        G_VALUES.date.getMonth() + ':' +
+        G_VALUES.date.getFullYear();
+      AsyncStorage.setItem("lliureDate", stringData);
+    }
+    else {
+      AsyncStorage.setItem("lliureDate", 'none');
+    }
+
+    G_VALUES.lliures = value;
+    Reload_All_Data(G_VALUES.date);
+  }
+
+  dacordString() {
+    return "D'acord";
+  }
+
+  render() {
+    if (!this.state.shareIcon) {
+      return false;
+    }
+
+    var yesterday = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth());
+    yesterday.setDate(G_VALUES.date.getDate() - 1);
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <HomeScreen
+          ViewData={this.state.ViewData}
+          santPressed={this.state.santPressed}
+          santCB={this.onSantPressCB.bind(this)}
+          lliureCB={this.onSwitchLliurePress.bind(this)} />
+        <DateTimePicker
+          isVisible={this.state.isDateTimePickerVisible}
+          titleIOS={'Canvia el dia'}
+          cancelTextIOS={'Cancel·la'}
+          confirmTextIOS={this.dacordString()}
+          date={G_VALUES.date}
+          minimumDate={this.minDatePicker}
+          maximumDate={this.maxDatePicker}
+          onConfirm={this.datePickerOK.bind(this)}
+          onCancel={this.datePickerCANCEL.bind(this)} />
+        <PopupDialog
+          ref={(popupDialog) => { this.popupDialog = popupDialog }}
+          width={0.9}
+          height={250}
+          dialogStyle={{ backgroundColor: 'white' }}
+          dialogTitle={<DialogTitle titleTextStyle={{ fontSize: 19, color: 'black' }} title="És més tard de les 12 de la nit!" />} >
+          <View style={{ flex: 1, paddingHorizontal: 10, justifyContent: 'center' }}>
+            <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Ja estem a dia " + G_VALUES.date.getDate() + " de " + GF.getMonthText(G_VALUES.date.getMonth()) + "."}</Text>
+            <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Vols la litúrgia d’ahir dia " + yesterday.getDate() + " de " + GF.getMonthText(yesterday.getMonth()) + "?"}</Text>
+          </View>
+          <View style={{ justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom: 10, flexDirection: 'row', backgroundColor: 'white' }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <TouchableOpacity onPress={this.onYestPress.bind(this, yesterday)}>
+                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{"Sí, la d'ahir dia"}</Text>
+                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{yesterday.getDate() + "/" + (yesterday.getMonth() + 1) + "/" + yesterday.getFullYear()}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <TouchableOpacity onPress={this.onTodayPress.bind(this)}>
+                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{"No, la d'avui dia"}</Text>
+                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{G_VALUES.date.getDate() + "/" + (G_VALUES.date.getMonth() + 1) + "/" + G_VALUES.date.getFullYear()}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </PopupDialog>
+      </SafeAreaView>
+    );
+  }
+}
+
+
+
+
+
+
+
+
+      /*************** TEST THINGS - START *******************/
     /*this.testing = false;
     this.stateTest = this.testing && false; //Force true in isDarkHimn() -> GlobalFunctions
     this.superTest = this.testing && false;
@@ -165,64 +336,23 @@ export default class HomeScreenController extends Component {
       console.log("TestLog. -----------------------------------" + this.initialDayTest.day + "/" + this.initialDayTest.month + "/" + this.initialDayTest.year + " -> " + this.finalDayTest.day + "/" + this.finalDayTest.month + "/" + this.finalDayTest.year + "-----------------------------------");
     }
     /*************** TEST THINGS - END *******************/
-    //else {
-      //if (props.naviDate === undefined) var today = new Date();
-      //else var today = props.naviDate;
-    //}
 
-    /*this.variables = {
-      diocesi: '',
-      diocesiName: '',
-      lloc: '',
-      //invitatori: '',
-      llati: '',
-      gloria: 'false',
-      lliures: false,
-      textSize: '',
-      cleanSalm: 'false',
-      celType: '',
-      mogut: '',
-      litColor: '',
-      date: today,
-      numSalmInv: '',
-      numAntMare: ''
-    }
-
-    this.liturgicProps = {
-      LITURGIA: null,
-      tempsespecific: '',
-      LT: '',
-      cicle: '',
-      setmana: '',
-      ABC: '',
-    }*/
-
-    /*if (this.testing) {
-      this.variables.lliures = false;
-    }*/
-
-    //this.refreshing = false;
-    //this.refEv = false;
-    //this.setPres = false;
-    this.santPress = 0;
-    //this.inLit = false;
-    //this.inSet = false;
-    //this.picAcc = false;
-    //this.calPres = false;
-
-    /*var tomorrow = new Date(today.getFullYear(), today.getMonth());
-    tomorrow.setDate(today.getDate() + 1);
-
-    this.dataTomorrow = {
-      date: tomorrow,
-      celType: '',
-      LT: '',
-      setmana: '',
-      mogut: '',
-    }*/
-  }
-
-
+      /*************** TEST THINGS - START *******************/
+  /*else {
+    return (
+      <View >
+        <Text>{"\n\n\n\n\n\n"}</Text>
+        <Text>{this.state.testInfoBegins}</Text>
+        <Text>{this.state.testInfo}</Text>
+        <Text>{this.idTest}</Text>
+        <Text>{this.diocesiTest}</Text>
+        <Text>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth() + 1 < 10 ? `0${this.variables.date.getMonth() + 1}` : this.variables.date.getMonth() + 1}/{this.variables.date.getFullYear()}</Text>
+        <Text>{this.state.stateTestInfo}</Text>
+      </View>
+    );
+  }*/
+  /*************** TEST THINGS - END *******************/
+  //}
 
 
   /*************** CREATING THE LITURGIA - END ***************/
@@ -386,196 +516,4 @@ export default class HomeScreenController extends Component {
     else {
       return true;
     }
-  }*/
-
-  eventManager(args) {
-    switch (args.type) {
-      case 'settingsPressed':
-        // console.log("settingsPressed");
-        //this.setPres = true;
-        break;
-      case 'pickerPressed':
-        // console.log("pickerPressed");
-        this.picPres = true;
-        break;
-      case 'okPicker':
-        // console.log("pickerAccept: " + args.newDate);
-        //this.picAcc = true;
-        if (args.newDate !== G_VALUES.date) {
-          /*var tomorrow = new Date();
-          tomorrow.setFullYear(args.newDate.getFullYear());
-          tomorrow.setMonth(args.newDate.getMonth());
-          tomorrow.setDate(args.newDate.getDate() + 1);
-          this.dataTomorrow.date = tomorrow;
-          // console.log("this.dataTomorrow.date " + this.dataTomorrow.date);
-          this.refreshEverything(args.newDate);*/
-          Reload_All_Data(args.newDate);
-        }
-        break;
-    }
-  }
-
-  datePickerOK(newDate) {
-    //this.props.screenProps.tracker.trackEvent("Calendar", "Ok: " + GF.transformReadableDate(newDate));
-
-    //this.date = newDate;
-    this.setState({ isDateTimePickerVisible: false });
-
-    if (newDate !== G_VALUES.date) {
-      this.showThisDate(newDate)
-    }
-  }
-
-  showThisDate(date) {
-    /*var tomorrow = new Date();
-    tomorrow.setFullYear(date.getFullYear());
-    tomorrow.setMonth(date.getMonth());
-    tomorrow.setDate(date.getDate() + 1);
-    this.dataTomorrow.date = tomorrow;
-    this.refreshEverything(date);*/
-    Reload_All_Data(date);
-  }
-
-  datePickerCANCEL() {
-    //this.props.screenProps.tracker.trackEvent("Calendar", "Cancel");
-    this.setState({ isDateTimePickerVisible: false });
-  }
-
-  onSantPressCB() {
-    if (LH_VALUES && LH_VALUES.info_cel.infoCel !== '-') {
-
-      if (this.santPress === 0) this.santPress = 1;
-      else if (this.santPress === 1) this.santPress = 2;
-      this.setState({ santPressed: !this.state.santPressed });
-    }
-  }
-
-  onYestPress(yesterday) {
-    //this.props.screenProps.tracker.trackEvent("Popup - Late prayer", "Yesterday selected");
-    this.showThisDate(yesterday);
-    this.popupDialog.dismiss();
-  }
-
-  onTodayPress() {
-    //this.props.screenProps.tracker.trackEvent("Popup - Late prayer", "Today selected");
-
-    this.popupDialog.dismiss();
-  }
-
-  onSwitchLliurePress(value) {
-    //console.log("CLDSW-onswitch",value);
-    if (value) {
-      stringData = G_VALUES.date.getDate() + ':' +
-      G_VALUES.date.getMonth() + ':' +
-      G_VALUES.date.getFullYear();
-      //console.log("CLDSW-stringData",stringData);
-      AsyncStorage.setItem("lliureDate", stringData);
-    }
-    else {
-      AsyncStorage.setItem("lliureDate", 'none');
-    }
-
-    //console.log("CLDSW-lliures value",value);
-
-    // SettingsManager.setSettingPrayLliures(auxValue);
-    G_VALUES.lliures = value;
-    //this.refreshEverything(this.variables.date);
-    Reload_All_Data(G_VALUES.date);
-  }
-
-  dacordString() {
-    return "D'acord";
-  }
-
-  render() {
-    //if (!this.renderTest) {
-      if (!this.state.shareIcon) {
-        return false;
-      }
-
-      var yesterday = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth());
-      yesterday.setDate(G_VALUES.date.getDate() - 1);
-      return (
-        <SafeAreaView style={{ flex: 1 }}>
-          <HomeScreen
-            ViewData={this.state.ViewData}
-            santPressed={this.state.santPressed}
-            santCB={this.onSantPressCB.bind(this)}
-            lliureCB={this.onSwitchLliurePress.bind(this)} />
-          <DateTimePicker
-            isVisible={this.state.isDateTimePickerVisible}
-            titleIOS={'Canvia el dia'}
-            cancelTextIOS={'Cancel·la'}
-            confirmTextIOS={this.dacordString()}
-            date={G_VALUES.date}
-            minimumDate={this.minDatePicker}
-            maximumDate={this.maxDatePicker}
-            onConfirm={this.datePickerOK.bind(this)}
-            onCancel={this.datePickerCANCEL.bind(this)} />
-          <PopupDialog
-            ref={(popupDialog) => { this.popupDialog = popupDialog }}
-            width={0.9}
-            height={250}
-            dialogStyle={{ backgroundColor: 'white' }}
-            dialogTitle={<DialogTitle titleTextStyle={{ fontSize: 19, color: 'black' }} title="És més tard de les 12 de la nit!" />} >
-            <View style={{ flex: 1, paddingHorizontal: 10, justifyContent: 'center' }}>
-              <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Ja estem a dia " + G_VALUES.date.getDate() + " de " + GF.getMonthText(G_VALUES.date.getMonth()) + "."}</Text>
-              <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Vols la litúrgia d’ahir dia " + yesterday.getDate() + " de " + GF.getMonthText(yesterday.getMonth()) + "?"}</Text>
-            </View>
-            <View style={{ justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom: 10, flexDirection: 'row', backgroundColor: 'white' }}>
-              <View style={{ flex: 1, alignItems: 'center' }}>
-                <TouchableOpacity onPress={this.onYestPress.bind(this, yesterday)}>
-                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{"Sí, la d'ahir dia"}</Text>
-                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{yesterday.getDate() + "/" + (yesterday.getMonth() + 1) + "/" + yesterday.getFullYear()}</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ flex: 1, alignItems: 'center' }}>
-                <TouchableOpacity onPress={this.onTodayPress.bind(this)}>
-                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{"No, la d'avui dia"}</Text>
-                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{G_VALUES.date.getDate() + "/" + (G_VALUES.date.getMonth() + 1) + "/" + G_VALUES.date.getFullYear()}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </PopupDialog>
-        </SafeAreaView>
-      );
-    }
-    /*************** TEST THINGS - START *******************/
-    /*else {
-      return (
-        <View >
-          <Text>{"\n\n\n\n\n\n"}</Text>
-          <Text>{this.state.testInfoBegins}</Text>
-          <Text>{this.state.testInfo}</Text>
-          <Text>{this.idTest}</Text>
-          <Text>{this.diocesiTest}</Text>
-          <Text>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth() + 1 < 10 ? `0${this.variables.date.getMonth() + 1}` : this.variables.date.getMonth() + 1}/{this.variables.date.getFullYear()}</Text>
-          <Text>{this.state.stateTestInfo}</Text>
-        </View>
-      );
-    }*/
-    /*************** TEST THINGS - END *******************/
-  //}
-}
-
-
-
-
-
-
-
-  //TODO: use these functions
-  /*isLatePray(){
-    var today = new Date();
-    var h = today.getHours();
-    if(h >= 0 && h < 3){
-      return true;
-    }
-    return false;
-  }
-
-  primVespres(){
-    if((this.variables.date.getDay() === 6 && this.variables.celType !== 'S') ||
-        this.liturgicProps.LITURGIA.vespres1) return true;
-    return false;
   }*/

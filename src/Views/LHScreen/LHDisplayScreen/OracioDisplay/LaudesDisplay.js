@@ -40,9 +40,9 @@ export default class LaudesDisplay extends Component {
 
     console.log("PlaceLog. LaudesDisplay");
 
-    var textSize = props.variables.textSize;
+    var textSize = G_VALUES.textSize;
 
-    var auxNumSalmInv = props.variables.numSalmInv;
+    var auxNumSalmInv = G_VALUES.numSalmInv;
 
     if(!GF.salmInvExists(auxNumSalmInv,props.titols)){
       auxNumSalmInv = '94';
@@ -117,9 +117,7 @@ export default class LaudesDisplay extends Component {
       }
     }
 
-    this.LAUDES = props.liturgicProps.LITURGIA.laudes;
-    this.liturgicProps = props.liturgicProps;
-    this.variables = props.variables;
+    this.LAUDES = LH_VALUES.laudes;
     this.superTestMode = props.superTestMode;
     this.testErrorCB = props.testErrorCB;
     this.setNumSalmInv = props.setNumSalmInv;
@@ -289,50 +287,50 @@ export default class LaudesDisplay extends Component {
 
       return (
         <View>
-          {this.introduccio(this.liturgicProps.LT, this.liturgicProps.setmana, this.LAUDES.salm94,
+          {this.introduccio(G_VALUES.LT, G_VALUES.setmana, this.LAUDES.salm94,
                               this.LAUDES.salm99, this.LAUDES.salm66, this.LAUDES.salm23)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'HIMNE'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.himne(this.liturgicProps.LT, this.variables.date.getDay(), this.liturgicProps.setmana)}
+          {this.himne(G_VALUES.LT, G_VALUES.date.getDay(), G_VALUES.setmana)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'SALMÒDIA'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.salmodia(this.liturgicProps.LT, this.liturgicProps.setmana, this.variables.date.getDay())}
+          {this.salmodia(G_VALUES.LT, G_VALUES.setmana, G_VALUES.date.getDay())}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'LECTURA BREU'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.lecturaBreu(this.liturgicProps.LT)}
+          {this.lecturaBreu(G_VALUES.LT)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'RESPONSORI BREU'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.responsori(this.liturgicProps.LT)}
+          {this.responsori(G_VALUES.LT)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'CÀNTIC DE ZACARIES'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.cantic(this.liturgicProps.LT, this.variables.date.getDay(), this.liturgicProps.ABC)}
+          {this.cantic(G_VALUES.LT, G_VALUES.date.getDay(), G_VALUES.ABC)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'PREGÀRIES'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.pregaries(this.liturgicProps.LT)}
+          {this.pregaries(G_VALUES.LT)}
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <HR/>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
           <Text selectable={true} style={this.styles.red}>{'ORACIÓ'}</Text>
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-          {this.oracio(this.liturgicProps.LT, this.variables.date.getDay())}
+          {this.oracio(G_VALUES.LT, G_VALUES.date.getDay())}
           <Text selectable={true} style={this.styles.red}>{'R.'}
             <Text selectable={true} style={this.styles.black}>{' Amén.'}</Text>
           </Text>
@@ -357,7 +355,7 @@ export default class LaudesDisplay extends Component {
   salm(salm){
     if(!salm) return null;
 
-    if(this.variables.cleanSalm === 'false'){
+    if(true){
       salm = salm.replace(/    [*]/g,'');
       salm = salm.replace(/   [*]/g,'');
       salm = salm.replace(/  [*]/g,'');
@@ -378,11 +376,11 @@ export default class LaudesDisplay extends Component {
       return "";
     }
     var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(this.variables.cleanSalm === 'false')
+    if(true)
       gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
     if(g === '1'){
-      if(true === true){ //TODO: tenir en compte els ajustaments
+      if(true){ 
         return('Glòria.');
       }
       else{
@@ -421,7 +419,7 @@ export default class LaudesDisplay extends Component {
     if(!this.LAUDES.diumPasqua && !this.state.invitatori){//this.LAUDES.invitatori !== "Laudes"){
       var aux_sigueu = 'Sigueu amb nosaltres, Déu nostre.';
       var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
-      var aux_isAleluia = this.liturgicProps.LT !== GLOBAL.Q_CENDRA && this.liturgicProps.LT !== GLOBAL.Q_SETMANES && this.liturgicProps.LT !== GLOBAL.Q_DIUM_RAMS && this.liturgicProps.LT !== GLOBAL.Q_SET_SANTA && this.liturgicProps.LT !== GLOBAL.Q_TRIDU;
+      var aux_isAleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA && G_VALUES.LT !== GLOBAL.Q_TRIDU;
 
       this.shareText += 'V. ' + aux_sigueu + '\n';
       this.shareText += 'R. ' + aux_senyor_veniu + '\n\n';
