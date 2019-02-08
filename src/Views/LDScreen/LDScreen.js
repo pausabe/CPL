@@ -5,14 +5,30 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
+import EventEmitter from 'EventEmitter';
 
 import HR from '../../Components/HRComponent';
 
 export default class LDScreen extends Component {
+  componentWillMount(){
+    this.eventEmitter = new EventEmitter();
+  }
 
   //Callbacks
   On_Button_Pressed(prayer_type){
-    console.log("Pressed " + prayer_type + " prayer");
+    var params = {
+      title: prayer_type,
+      props: {
+        type: prayer_type,
+        emitShareCB: this.emitShare.bind(this),
+        events: this.eventEmitter
+      },
+    }
+    this.props.navigation.navigate('LDDisplay', params);
+  }
+
+  emitShare(){
+    console.log("emitShare");
   }
 
   //RENDER

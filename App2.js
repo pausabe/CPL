@@ -10,6 +10,7 @@ import SettingsScreen from './src/Views/SettingsScreen';
 import DonationScreen from './src/Views/DonationScreen';
 import CommentScreen from './src/Views/CommentScreen';
 import LHDisplayScreen from './src/Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
+import LDDisplayScreen from './src/Views/LDScreen/LDDisplayScreen';
 import LHScreen from './src/Views/LHScreen/LHScreen';
 import LDScreen from './src/Views/LDScreen/LDScreen';
 
@@ -181,6 +182,16 @@ const LDStack = StackNavigator({
       },
     },
   },
+  LDDisplay: {
+    screen: LDDisplayScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: <Text style={styles.titleText}>{navigation.state.params.title}</Text>,
+      headerStyle: {
+        backgroundColor: GLOBAL.barColor,
+      },
+      headerTintColor: GLOBAL.itemsBarColor,
+    }),
+  }
 });
 
 export default TabNavigator(
