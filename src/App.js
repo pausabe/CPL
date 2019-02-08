@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {View, Image, Text, StyleSheet, Platform} from 'react-native';
 import {TabNavigator, TabBarBottom, StackNavigator} from "react-navigation";
 
-import GLOBAL from "./src/Globals/Globals";
+import GLOBAL from "./Globals/Globals";
 
-import GenericHeader from './fuking_header.js';
-import HomeScreen from './src/Controllers/HomeScreenController';
-import SettingsScreen from './src/Views/SettingsScreen';
-import DonationScreen from './src/Views/DonationScreen';
-import CommentScreen from './src/Views/CommentScreen';
-import LHDisplayScreen from './src/Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
-import LDDisplayScreen from './src/Views/LDScreen/LDDisplayScreen';
-import LHScreen from './src/Views/LHScreen/LHScreen';
-import LDScreen from './src/Views/LDScreen/LDScreen';
+import GenericHeader from './Views/HeaderBar.js';
+import HomeScreen from './Controllers/HomeScreenController';
+import SettingsScreen from './Views/SettingsScreen';
+import DonationScreen from './Views/DonationScreen';
+import CommentScreen from './Views/CommentScreen';
+import LHDisplayScreen from './Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
+import LDDisplayScreen from './Views/LDScreen/LDDisplayScreen';
+import LHScreen from './Views/LHScreen/LHScreen';
+import LDScreen from './Views/LDScreen/LDScreen';
 
 const styles = StyleSheet.create({
   titleText: {
@@ -30,16 +30,14 @@ const HomeStack = StackNavigator({
   HomeScreen: {
     screen: HomeScreen,
     navigationOptions: {
-      //headerTitle: <HeaderBar />,
-      //headerStyle: Styles.headerBarContainer,
       tabBarIcon: ({ focused, tintColor }) => {
         return (
-          <View style={{padding: 10, backgroundColor:'yellow'}}>
+          <View style={{padding: 10, }}>
             {focused?
-              <Image source={require('./src/Globals/img/icons/back.png')}
+              <Image source={require('./Globals/img/icons/home.png')}
                           style={{flex: 1, resizeMode:'contain',}}/>
                           :
-              <Image source={require('./src/Globals/img/icons/back.png')}
+              <Image source={require('./Globals/img/icons/home.png')}
                           style={{flex: 1, resizeMode:'contain',}}/>
             }
           </View>
@@ -49,10 +47,8 @@ const HomeStack = StackNavigator({
       tabBarOnPress: (values) => {
         const { previousScene, scene, jumpToIndex } = values;
 
-        //console.log("events scene",scene);
-
         if(scene.focused){
-          //scene.route.routes[0].params.scrollToTop();
+
         }
         else{
           jumpToIndex(scene.index);
@@ -63,6 +59,7 @@ const HomeStack = StackNavigator({
   Settings: {
     screen: SettingsScreen,
     navigationOptions: {
+      tabBarVisible: false,
       headerTitle: <Text style={styles.titleText}>{'Configuració'}</Text>,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
@@ -100,18 +97,18 @@ const LHStack = StackNavigator({
   LHScreen: {
     screen: LHScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader />,
+      headerTitle: <GenericHeader title={"Litúrgia de les hores"} left_padding={Platform.OS === 'ios'? 0 : 160}/>,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
       tabBarIcon: ({ focused, tintColor }) => {
         return (
-          <View style={{padding: 10, backgroundColor: 'red'}}>
+          <View style={{padding: 10, }}>
             {focused?
-              <Image source={require('./src/Globals/img/icons/back.png')}
+              <Image source={require('./Globals/img/icons/LH.png')}
                           style={{flex: 1, resizeMode:'contain'}}/>
               :
-              <Image source={require('./src/Globals/img/icons/back.png')}
+              <Image source={require('./Globals/img/icons/LH.png')}
                           style={{flex: 1, resizeMode:'contain'}}/>
             }
           </View>
@@ -120,10 +117,7 @@ const LHStack = StackNavigator({
       tabBarOnPress: (values) => {
         const { previousScene, scene, jumpToIndex } = values;
 
-        //console.log("groups scene",scene);
-
         if(scene.focused){
-          //scene.route.routes[0].params.scrollToTop();
         }
         else{
           jumpToIndex(scene.index);
@@ -139,6 +133,7 @@ const LHStack = StackNavigator({
         backgroundColor: GLOBAL.barColor,
       },
       headerTintColor: GLOBAL.itemsBarColor,
+      tabBarVisible: false,
     }),
   }
 });
@@ -151,18 +146,18 @@ const LDStack = StackNavigator({
   LDScreen: {
     screen: LDScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader />,
+      headerTitle: <GenericHeader title={"Litúrgia diària"} left_padding={Platform.OS === 'ios'? 0 : 160}/>,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
       tabBarIcon: ({ focused, tintColor }) => {
         return (
-          <View style={{padding: 10, backgroundColor: 'blue'}}>
+          <View style={{padding: 10, }}>
             {focused?
-              <Image source={require('./src/Globals/img/icons/back.png')}
+              <Image source={require('./Globals/img/icons/LD.png')}
                           style={{flex: 1, resizeMode:'contain'}}/>
               :
-              <Image source={require('./src/Globals/img/icons/back.png')}
+              <Image source={require('./Globals/img/icons/LD.png')}
                           style={{flex: 1, resizeMode:'contain'}}/>
             }
           </View>
@@ -171,10 +166,7 @@ const LDStack = StackNavigator({
       tabBarOnPress: (values) => {
         const { previousScene, scene, jumpToIndex } = values;
 
-        //console.log("groups scene",scene);
-
         if(scene.focused){
-          //scene.route.routes[0].params.scrollToTop();
         }
         else{
           jumpToIndex(scene.index);
@@ -190,6 +182,7 @@ const LDStack = StackNavigator({
         backgroundColor: GLOBAL.barColor,
       },
       headerTintColor: GLOBAL.itemsBarColor,
+      tabBarVisible: false,
     }),
   }
 });

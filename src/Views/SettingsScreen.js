@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 export default class SettingsScreen extends Component {
   constructor(props){
     super(props);
-    props.screenProps.tracker.trackScreenView("Configuració");
   }
 
   refreshHome(){
@@ -96,8 +95,8 @@ function paddingBar(){
   if(Platform.OS === 'ios'){
     var DeviceInfo = require('react-native-device-info');
     var iosVer = parseInt(DeviceInfo.getSystemVersion());
-    if(iosVer>=11) return 44;
-    return 64;
+    if(iosVer>=11) return 0;
+    return 0;
   }
   return 0;//64;
 }

@@ -1,48 +1,50 @@
 import React, { Component } from 'react';
 import {
   View,
+  SafeAreaView,
   Text,
   StyleSheet,
- } from 'react-native';
+  ImageBackground,
+} from 'react-native';
 
- import LHButtons from './LHButtons';
- import EventEmitter from 'EventEmitter';
+import LHButtons from './LHButtons';
+import EventEmitter from 'EventEmitter';
 
 export default class LHScreen extends Component {
-  componentWillMount(){
+  componentWillMount() {
     this.eventEmitter = new EventEmitter();
   }
 
-  LHButtonCB(type, superTestMode){
+  LHButtonCB(type, superTestMode) {
     var title = type;
-    if(type === 'Ofici') title = 'Ofici de lectura';
+    if (type === 'Ofici') title = 'Ofici de lectura';
 
     //if(this.liturgicProps.LITURGIA !== null){
-      var params = {
-        title: title,
-        props: {
-          superTestMode: superTestMode,
-          testErrorCallBack: this.testErrorCallBack.bind(this),
-          nextDayTestCB: this.nextDayTest.bind(this),
-          setNumSalmInv: this.setNumSalmInv.bind(this),
-          setNumAntMare: this.setNumAntMare.bind(this),
-          type: type,
-          //variables: this.variables,
-          //date: this.date,
-          //liturgicProps: this.liturgicProps,
-          emitShareCB: this.emitShare.bind(this),
-          events: this.eventEmitter
-        },
-      }
-      this.props.navigation.navigate('LHDisplay', params);
+    var params = {
+      title: title,
+      props: {
+        superTestMode: superTestMode,
+        testErrorCallBack: this.testErrorCallBack.bind(this),
+        nextDayTestCB: this.nextDayTest.bind(this),
+        setNumSalmInv: this.setNumSalmInv.bind(this),
+        setNumAntMare: this.setNumAntMare.bind(this),
+        type: type,
+        //variables: this.variables,
+        //date: this.date,
+        //liturgicProps: this.liturgicProps,
+        emitShareCB: this.emitShare.bind(this),
+        events: this.eventEmitter
+      },
+    }
+    this.props.navigation.navigate('LHDisplay', params);
     //}
   }
 
-  nextDayTest(){
+  nextDayTest() {
 
   }
 
-  emitShare(type){
+  emitShare(type) {
     console.log("emitShare: " + type);
     switch (type) {
       case "Ofici":
@@ -65,15 +67,15 @@ export default class LHScreen extends Component {
     }
   }
 
-  setNumSalmInv(numSalm){
-    G_VALUES.numSalmInv = numSalm; 
+  setNumSalmInv(numSalm) {
+    G_VALUES.numSalmInv = numSalm;
   }
 
-  setNumAntMare(numAntMare){
-    G_VALUES.numAntMare = numAntMare; 
+  setNumAntMare(numAntMare) {
+    G_VALUES.numAntMare = numAntMare;
   }
 
-  testErrorCallBack(){
+  testErrorCallBack() {
     /*this.setState({testInfo: "something went wrong (bad text)"});
     console.log("InfoLog. super error (bad text))");
     this.testing = false;*/
@@ -81,23 +83,24 @@ export default class LHScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Litúrgia de les hores</Text>
-        <View style={styles.liturgiaContainer}>
-             <LHButtons
+      <SafeAreaView style={styles.container}>
+        <ImageBackground source={require('../../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
+          <View style={styles.liturgiaContainer}>
+            <LHButtons
 
-               //ViewData={this.props.ViewData}
-               //variables={this.props.variables}
-               
-               oficiCB={this.LHButtonCB.bind(this, "Ofici", false)}
-               laudesCB={this.LHButtonCB.bind(this, "Laudes", false)}
-               terciaCB={this.LHButtonCB.bind(this, "Tèrcia", false)}
-               sextaCB={this.LHButtonCB.bind(this, "Sexta", false)}
-               nonaCB={this.LHButtonCB.bind(this, "Nona", false)}
-               vespresCB={this.LHButtonCB.bind(this, "Vespres", false)}
-               completesCB={this.LHButtonCB.bind(this, "Completes", false)}/>
-           </View>
-      </View>
+              //ViewData={this.props.ViewData}
+              //variables={this.props.variables}
+
+              oficiCB={this.LHButtonCB.bind(this, "Ofici", false)}
+              laudesCB={this.LHButtonCB.bind(this, "Laudes", false)}
+              terciaCB={this.LHButtonCB.bind(this, "Tèrcia", false)}
+              sextaCB={this.LHButtonCB.bind(this, "Sexta", false)}
+              nonaCB={this.LHButtonCB.bind(this, "Nona", false)}
+              vespresCB={this.LHButtonCB.bind(this, "Vespres", false)}
+              completesCB={this.LHButtonCB.bind(this, "Completes", false)} />
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -108,7 +111,15 @@ const styles = StyleSheet.create({
   },
   liturgiaContainer: {
     flex: 6,
-    marginBottom: 10,
-    marginHorizontal: 10,
+    margin: 10,
+    /*marginBottom: 10,
+    marginHorizontal: 10,*/
+  },
+  backgroundImage: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    width: null,
+    height: null,
+    //resizeMode: 'cover',
   },
 });

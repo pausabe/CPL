@@ -1,5 +1,5 @@
 import { AppRegistry, YellowBox } from 'react-native';
-import CPL from './App2.js';
+import CPL from './src/App.js';
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 YellowBox.ignoreWarnings(['Remote debugger']);
 

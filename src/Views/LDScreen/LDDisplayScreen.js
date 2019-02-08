@@ -44,6 +44,9 @@ export default class LDDisplayScreen extends Component {
         super(props);
 
         this.styles = {
+            container: {
+                flex: 1,
+            },
             black: {
                 color: '#000000',
                 fontSize: GF.convertTextSize(G_VALUES.textSize),
@@ -60,6 +63,11 @@ export default class LDDisplayScreen extends Component {
                 color: 'grey',
                 fontSize: GF.convertTextSize(G_VALUES.textSize) > 17 ? 17 : GF.convertTextSize(G_VALUES.textSize) - 3,
                 fontWeight: 'bold',
+            },
+            blackJustified: {
+                color: '#000000',
+                fontSize: GF.convertTextSize(G_VALUES.textSize),
+                textAlign: 'justify',
             },
             blackBold: {
                 color: '#000000',
@@ -113,13 +121,19 @@ export default class LDDisplayScreen extends Component {
 
     //RENDER -------------------------------------------------------------------------------
     render() {
-        return (
-            <View style={styles.container}>
-                <ScrollView automaticallyAdjustContentInsets={false} style={{ padding: 10, }}>
-                    {this.Render_Prayer()}
-                </ScrollView>
-            </View>
-        )
+        try {
+            return (
+                <View style={this.styles.container}>
+                    <ScrollView automaticallyAdjustContentInsets={false} style={{ padding: 10, }}>
+                        {this.Render_Prayer()}
+                    </ScrollView>
+                </View>
+            )
+        }
+        catch (error) {
+            console.log("Error: ", error);
+            return null;
+        }
     }
 
     Render_Prayer() {
@@ -140,37 +154,64 @@ export default class LDDisplayScreen extends Component {
     Render_1Lect() {
         return (
             <View style={{ flex: 1 }}>
-                <Text selectable={true} style={this.styles.red}>{'R. '}
-                    <Text selectable={true} style={this.styles.black}>{LD_VALUES.Lectura1}</Text>
-                </Text>
+                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Lectura1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackItalic}>{LD_VALUES.Lectura1Cita}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura1Text}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb el Salm"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {Platform.OS === 'android' ? null : <Text />}
             </View>
         )
     }
 
     Render_Salm() {
         return (
-            <Text>{"Salm"}</Text>
+            <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Salm}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.SalmText}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb " + (this.props.need_lectura2 ? "la Segona lectura" : "l'Evangeli")}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {Platform.OS === 'android' ? null : <Text />}
+            </View>
         )
     }
 
     Render_2Lect() {
         return (
-            <Text>{"Segona lectura"}</Text>
+            <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Lectura2}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackItalic}>{LD_VALUES.Lectura2Cita}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura2Text}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb l'Evangeli"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {Platform.OS === 'android' ? null : <Text />}
+            </View>
         )
     }
 
     Render_Evangeli() {
         return (
-            <Text>{"Evangeli"}</Text>
+            <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Evangeli}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackItalic}>{LD_VALUES.EvangeliCita}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.black}>{LD_VALUES.EvangeliTitol}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.EvangeliText}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                {Platform.OS === 'android' ? null : <Text />}
+            </View>
         )
     }
 
     //------------------------------------------------------------------------------------
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-})

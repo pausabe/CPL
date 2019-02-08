@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   BackHandler,
   AsyncStorage,
-  SafeAreaView
+  SafeAreaView,
+  Platform
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -16,7 +17,7 @@ import PopupDialog, {
 import HomeScreen from '../Views/HomeScreen';
 import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
-import GenericHeader from '../../fuking_header.js';
+import GenericHeader from '../Views/HeaderBar.js';
 import { Reload_All_Data } from './Classes/Data/DataManager.js';
 
 export default class HomeScreenController extends Component {
@@ -45,7 +46,7 @@ export default class HomeScreenController extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: <GenericHeader />,
+    headerTitle: <GenericHeader title={"CPL"} left_padding={Platform.OS === 'ios'? 0 : 100}/>,
     headerStyle: {
       backgroundColor: GLOBAL.barColor,
     },
