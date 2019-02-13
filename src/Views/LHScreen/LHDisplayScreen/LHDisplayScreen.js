@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Ofici from './OracioDisplay/OficiDisplay'
@@ -11,13 +12,29 @@ import GLOBAL from "../../../Globals/Globals";
 
 export default class LHDisplayScreen extends Component {
   componentWillMount(){
+    this.navigation = this.props.navigation;
+    /*const setParamsAction = NavigationActions.setParams({
+      params: {hideTabBar: false}
+    });
+    this.props.navigation.dispatch(setParamsAction);*/
+    this.navigation.setParams({ hideTabBar: true });
     this.props = this.props.navigation.state.params.props;
     this.eventEmitter = this.props.events;
     this.titols = this.getTitols();
     this.setState({type: this.props.type})
   }
 
+  componentWillUnmount(){
+    /*const setParamsAction = NavigationActions.setParams({
+      params: {hideTabBar: true}
+    });
+    this.props.navigation.dispatch(setParamsAction);*/
+    this.navigation.setParams({ hideTabBar: false });
+  }
+
   componentDidMount(){
+    //this.navigation.setParams({ visible: false });
+
     /*if(this.props.superTestMode){
       setTimeout(() => {
         this.setState({type: 'Laudes'});

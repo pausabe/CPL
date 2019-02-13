@@ -13,6 +13,7 @@ import LHDisplayScreen from './Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
 import LDDisplayScreen from './Views/LDScreen/LDDisplayScreen';
 import LHScreen from './Views/LHScreen/LHScreen';
 import LDScreen from './Views/LDScreen/LDScreen';
+import TabBar from './Views/TabBar';
 
 const styles = StyleSheet.create({
   titleText: {
@@ -182,7 +183,7 @@ const LDStack = StackNavigator({
         backgroundColor: GLOBAL.barColor,
       },
       headerTintColor: GLOBAL.itemsBarColor,
-      tabBarVisible: false,
+      tabBarVisible: false,//(navigation.state.index <= 0),
     }),
   }
 });
@@ -200,9 +201,39 @@ export default TabNavigator(
         backgroundColor: GLOBAL.barColor
       }
     },
-    tabBarComponent: TabBarBottom,
+    //tabBarComponent: TabBar,
     tabBarPosition: 'bottom',
+    //lazy: false, //Per render totes les tabs al principi
     animationEnabled: false,
     swipeEnabled: false,
   }
 );
+
+
+/*
+This will hide the tab bar any time we navigate away from the feed home. We could switch visibility based on route name, but it would be strange to have the tab bar be hidden and then appear again when pushing another route — it should only be visible when returning to a route where it was previously visible.
+
+Another option here would be to add another stack navigator as a parent of the tab navigator, and put the details screen there. This is recommended.
+
+const FeedStack = createStackNavigator({
+  FeedHome: FeedScreen,
+  /* any other route you want to render under the tab bar */
+/*});
+
+const TabNavigator = createBottomTabNavigator({
+  Feed: FeedStack,
+  Profile: ProfileScreen,
+});
+
+const HomeStack = createStackNavigator({
+  Tabs: TabNavigator,
+  Details: DetailsScreen,
+  /* any other route you want to render above the tab bar */
+/*});
+
+const AppNavigator = createSwitchNavigator({
+  Auth: AuthScreen,
+  Home: HomeStack,
+});
+
+*/

@@ -60487,6 +60487,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _LDScreen2 = _interopRequireDefault(_LDScreen);
 
+  var _TabBar = _require(_dependencyMap[13], "./Views/TabBar");
+
+  var _TabBar2 = _interopRequireDefault(_TabBar);
+
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   var styles = _reactNative.StyleSheet.create({
@@ -60513,14 +60517,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }
             },
             focused ? _react2.default.createElement(_reactNative.Image, {
-              source: _require(_dependencyMap[13], './Globals/img/icons/home.png'),
+              source: _require(_dependencyMap[14], './Globals/img/icons/home.png'),
               style: {
                 flex: 1,
                 resizeMode: 'contain',
                 tintColor: '#c9c9c9'
               }
             }) : _react2.default.createElement(_reactNative.Image, {
-              source: _require(_dependencyMap[13], './Globals/img/icons/home.png'),
+              source: _require(_dependencyMap[14], './Globals/img/icons/home.png'),
               style: {
                 flex: 1,
                 resizeMode: 'contain',
@@ -60612,14 +60616,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }
             },
             focused ? _react2.default.createElement(_reactNative.Image, {
-              source: _require(_dependencyMap[14], './Globals/img/icons/LH.png'),
+              source: _require(_dependencyMap[15], './Globals/img/icons/LH.png'),
               style: {
                 flex: 1,
                 resizeMode: 'contain',
                 tintColor: '#c9c9c9'
               }
             }) : _react2.default.createElement(_reactNative.Image, {
-              source: _require(_dependencyMap[14], './Globals/img/icons/LH.png'),
+              source: _require(_dependencyMap[15], './Globals/img/icons/LH.png'),
               style: {
                 flex: 1,
                 resizeMode: 'contain',
@@ -60682,14 +60686,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               }
             },
             focused ? _react2.default.createElement(_reactNative.Image, {
-              source: _require(_dependencyMap[15], './Globals/img/icons/LD.png'),
+              source: _require(_dependencyMap[16], './Globals/img/icons/LD.png'),
               style: {
                 flex: 1,
                 resizeMode: 'contain',
                 tintColor: '#c9c9c9'
               }
             }) : _react2.default.createElement(_reactNative.Image, {
-              source: _require(_dependencyMap[15], './Globals/img/icons/LD.png'),
+              source: _require(_dependencyMap[16], './Globals/img/icons/LD.png'),
               style: {
                 flex: 1,
                 resizeMode: 'contain',
@@ -60754,10 +60758,10 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     },
     tabBarComponent: _reactNavigation.TabBarBottom,
     tabBarPosition: 'bottom',
-    animationEnabled: false,
+    animationEnabled: true,
     swipeEnabled: false
   });
-},493,[118,12,494,571,572,573,699,702,704,705,711,712,713,714,715,716],"src/App.js");
+},493,[118,12,494,571,572,573,699,702,704,705,711,712,713,718,714,715,716],"src/App.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   module.exports = {
     get createNavigationContainer() {
@@ -99184,31 +99188,33 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _reactNative = _require(_dependencyMap[2], "react-native");
 
-  var _Ionicons = _require(_dependencyMap[3], "react-native-vector-icons/Ionicons");
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _Ionicons = _require(_dependencyMap[4], "react-native-vector-icons/Ionicons");
 
   var _Ionicons2 = _interopRequireDefault(_Ionicons);
 
-  var _OficiDisplay = _require(_dependencyMap[4], "./OracioDisplay/OficiDisplay");
+  var _OficiDisplay = _require(_dependencyMap[5], "./OracioDisplay/OficiDisplay");
 
   var _OficiDisplay2 = _interopRequireDefault(_OficiDisplay);
 
-  var _LaudesDisplay = _require(_dependencyMap[5], "./OracioDisplay/LaudesDisplay");
+  var _LaudesDisplay = _require(_dependencyMap[6], "./OracioDisplay/LaudesDisplay");
 
   var _LaudesDisplay2 = _interopRequireDefault(_LaudesDisplay);
 
-  var _VespresDisplay = _require(_dependencyMap[6], "./OracioDisplay/VespresDisplay");
+  var _VespresDisplay = _require(_dependencyMap[7], "./OracioDisplay/VespresDisplay");
 
   var _VespresDisplay2 = _interopRequireDefault(_VespresDisplay);
 
-  var _HoraMenorDisplay = _require(_dependencyMap[7], "./OracioDisplay/HoraMenorDisplay");
+  var _HoraMenorDisplay = _require(_dependencyMap[8], "./OracioDisplay/HoraMenorDisplay");
 
   var _HoraMenorDisplay2 = _interopRequireDefault(_HoraMenorDisplay);
 
-  var _CompletesDisplay = _require(_dependencyMap[8], "./OracioDisplay/CompletesDisplay");
+  var _CompletesDisplay = _require(_dependencyMap[9], "./OracioDisplay/CompletesDisplay");
 
   var _CompletesDisplay2 = _interopRequireDefault(_CompletesDisplay);
 
-  var _Globals = _require(_dependencyMap[9], "../../../Globals/Globals");
+  var _Globals = _require(_dependencyMap[10], "../../../Globals/Globals");
 
   var _Globals2 = _interopRequireDefault(_Globals);
 
@@ -99251,11 +99257,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     _createClass(LHDisplayScreen, [{
       key: "componentWillMount",
       value: function componentWillMount() {
+        this.navigation = this.props.navigation;
+        this.navigation.setParams({
+          hideTabBar: true
+        });
         this.props = this.props.navigation.state.params.props;
         this.eventEmitter = this.props.events;
         this.titols = this.getTitols();
         this.setState({
           type: this.props.type
+        });
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        this.navigation.setParams({
+          hideTabBar: false
         });
       }
     }, {
@@ -99482,7 +99499,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       fontWeight: '300'
     }
   });
-},705,[118,130,12,575,706,707,708,709,710,571],"src/Views/LHScreen/LHDisplayScreen/LHDisplayScreen.js");
+},705,[118,130,12,494,575,706,707,708,709,710,571],"src/Views/LHScreen/LHDisplayScreen/LHDisplayScreen.js");
 __d(function (global, _require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -109426,6 +109443,124 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     "type": "png"
   });
 },716,[326],"src/Globals/img/icons/LD.png");
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        TabBar: {
+            displayName: "TabBar"
+        }
+    };
+
+    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/Users/Pau/Calaix/Projectes/CPL/src/Views/TabBar.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var TAB_BAR_OFFSET = -60;
+
+    var TabBar = _wrapComponent("TabBar")(function (_Component) {
+        _inherits(TabBar, _Component);
+
+        function TabBar(props) {
+            _classCallCheck(this, TabBar);
+
+            var _this = _possibleConstructorReturn(this, (TabBar.__proto__ || Object.getPrototypeOf(TabBar)).call(this, props));
+
+            _this.state = {
+                offset: new _reactNative.Animated.Value(0)
+            };
+            return _this;
+        }
+
+        _createClass(TabBar, [{
+            key: "componentWillReceiveProps",
+            value: function componentWillReceiveProps(props) {
+                var oldState = this.props.navigation.state;
+                var oldRoute = oldState.routes[oldState.index];
+                var oldParams = oldRoute.params;
+                var wasVisible = !oldParams || oldParams.visible;
+                var newState = props.navigation.state;
+                var newRoute = newState.routes[newState.index];
+                var newParams = newRoute.params;
+                var isVisible = !newParams || newParams.visible;
+                console.log("wasVisible: " + wasVisible + " | isVisible: " + isVisible);
+
+                if (wasVisible && !isVisible) {
+                    _reactNative.Animated.timing(this.state.offset, {
+                        toValue: TAB_BAR_OFFSET,
+                        duration: 200
+                    }).start();
+                } else if (isVisible && !wasVisible) {
+                    _reactNative.Animated.timing(this.state.offset, {
+                        toValue: 0,
+                        duration: 200
+                    }).start();
+                }
+            }
+        }, {
+            key: "render",
+            value: function render() {
+                return _react3.default.createElement(
+                    _reactNative.Animated.View,
+                    {
+                        style: [styles.container, {
+                            bottom: this.state.offset
+                        }]
+                    },
+                    _react3.default.createElement(_reactNavigation.TabBarBottom, this.props)
+                );
+            }
+        }]);
+
+        return TabBar;
+    }(_react2.Component));
+
+    exports.default = TabBar;
+    var styles = {
+        container: {
+            overflow: 'hidden',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'red',
+            elevation: 8
+        }
+    };
+},718,[118,130,12,494],"src/Views/TabBar.js");
 require(52);
 require(11);
 //# sourceMappingURL=index.map
