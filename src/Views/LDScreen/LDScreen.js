@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 6,
     /*marginBottom: 10,
     marginHorizontal: 10,*/
-    margin: 10,
+    margin: 30,
   },
   backgroundImage: {
     flex: 1,

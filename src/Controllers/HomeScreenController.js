@@ -28,7 +28,7 @@ export default class HomeScreenController extends Component {
   componentDidMount() {
     this.props.navigation.setParams({
       calPres: this.calendarPressed.bind(this),
-      refreshFunction: this.refreshFunction.bind(this),
+      Refresh_Date: this.Refresh_Date.bind(this),
     });
     BackHandler.addEventListener('hardwareBackPress', this.androidBack.bind(this));
   }
@@ -62,7 +62,7 @@ export default class HomeScreenController extends Component {
     </TouchableOpacity>,
     headerRight: <TouchableOpacity
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}
-      onPress={() => navigation.navigate('Settings', { refresh: navigation.state.params.refreshFunction })}>
+      onPress={() => navigation.navigate('Settings', { Refresh_Date: navigation.state.params.Refresh_Date })}>
       <View style={{ flex: 1, paddingRight: 10, alignItems: 'center', justifyContent: 'center' }}>
         <Icon
           name="ios-settings-outline"
@@ -72,8 +72,11 @@ export default class HomeScreenController extends Component {
     </TouchableOpacity>,
   });
 
-  refreshFunction() {
-    Reload_All_Data(new Date(G_VALUES.date));
+  Refresh_Date(date) {
+    if(date === null || date === undefined)
+      date = G_VALUES.date;
+
+    Reload_All_Data(new Date(date), this.Refresh_Date_Callback.bind(this));
   }
 
   calendarPressed() {
@@ -117,6 +120,7 @@ export default class HomeScreenController extends Component {
       }
     }
 
+    //First initialization
     Reload_All_Data(new Date(/*2019, 4, 15*/), this.Init_Everything.bind(this));
   }
 
@@ -142,7 +146,7 @@ export default class HomeScreenController extends Component {
           text: G_VALUES.info_cel.infoCel,
           titolCelTom: G_VALUES.info_cel.nomCelTom,
         },
-        primVespres: this.primVespres(),
+        //primVespres: this.primVespres(),
       }
     });
 
@@ -157,28 +161,58 @@ export default class HomeScreenController extends Component {
     this.santPress = 0;
   }
 
+  Refresh_Date_Callback() {
+    //Set data to show on Home Screen
+    this.setState({
+      santPressed: false,
+      ViewData: {
+        ready: true,
+        lloc: {
+          diocesiName: G_VALUES.diocesiName,
+          lloc: G_VALUES.lloc,
+        },
+        data: G_VALUES.date,
+        setmana: G_VALUES.setmana,
+        temps: G_VALUES.tempsespecific,
+        setCicle: G_VALUES.cicle,
+        anyABC: G_VALUES.ABC,
+        color: G_VALUES.litColor,
+        celebracio: {
+          type: G_VALUES.info_cel.typeCel,
+          titol: G_VALUES.info_cel.nomCel,
+          text: G_VALUES.info_cel.infoCel,
+          titolCelTom: G_VALUES.info_cel.nomCelTom,
+        },
+        //primVespres: this.primVespres(),
+      }
+    });
+
+    //Set santPress variable to 0
+    this.santPress = 0;
+  }
+
   Is_Late_Prayer() {
     var h = new Date().getHours();
-    if (this.evReady && h >= 0 && h < 3)
+    if (h >= 0 && h < 3)
       return true;
+    
     return false;
   }
 
-  primVespres(){
+  /*primVespres(){
     if((G_VALUES.date.getDay() === 6 && G_VALUES.celType !== 'S') || LH_VALUES.vespres1) return true;
     return false;
-  }
+  }*/
 
   eventManager(args) {
     switch (args.type) {
       case 'settingsPressed':
         break;
       case 'pickerPressed':
-        this.picPres = true;
         break;
       case 'okPicker':
         if (args.newDate !== G_VALUES.date) {
-          Reload_All_Data(args.newDate);
+          this.props(rgs.newDate);
         }
         break;
     }
@@ -193,7 +227,7 @@ export default class HomeScreenController extends Component {
   }
 
   showThisDate(date) {
-    Reload_All_Data(date);
+    this.Refresh_Date(date);
   }
 
   datePickerCANCEL() {
@@ -230,7 +264,7 @@ export default class HomeScreenController extends Component {
     }
 
     G_VALUES.lliures = value;
-    Reload_All_Data(G_VALUES.date);
+    this.Refresh_Date(G_VALUES.date);
   }
 
   dacordString() {

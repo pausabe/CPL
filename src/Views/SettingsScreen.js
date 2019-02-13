@@ -14,7 +14,9 @@ export default class SettingsScreen extends Component {
   }
 
   refreshHome(){
-    this.props.navigation.state.params.refresh();
+    console.log("Refresh Home!");
+    
+    this.props.navigation.state.params.Refresh_Date();
   }
 
   componentWillMount(){

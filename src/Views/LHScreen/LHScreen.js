@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   liturgiaContainer: {
     flex: 6,
-    margin: 10,
+    margin: 30,
     /*marginBottom: 10,
     marginHorizontal: 10,*/
   },

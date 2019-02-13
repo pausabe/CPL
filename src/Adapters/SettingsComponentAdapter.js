@@ -108,7 +108,8 @@ export default class SettingsComponentAdapter{
 
     static refreshHome(RH){
       // console.log("refreshHome!");
-      if(Platform.OS === 'android') RH();
+      //if(Platform.OS === 'android') RH();
+      RH();
       // console.log("refreshHome!");
     }
 

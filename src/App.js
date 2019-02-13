@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {View, Image, Text, StyleSheet, Platform} from 'react-native';
-import {TabNavigator, TabBarBottom, StackNavigator} from "react-navigation";
+import { View, Image, Text, StyleSheet, Platform } from 'react-native';
+import { TabNavigator, TabBarBottom, StackNavigator } from "react-navigation";
 
 import GLOBAL from "./Globals/Globals";
 
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 });
 
 const HomeStack = StackNavigator({
-  
+
   //======== HOME TAB =========
 
   HomeScreen: {
@@ -32,25 +32,24 @@ const HomeStack = StackNavigator({
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => {
         return (
-          <View style={{padding: 10, }}>
-            {focused?
+          <View style={{ padding: 10 }}>
+            {focused ?
               <Image source={require('./Globals/img/icons/home.png')}
-                          style={{flex: 1, resizeMode:'contain',}}/>
-                          :
+                style={{ flex: 1, resizeMode: 'contain', tintColor: '#c9c9c9' }} />
+              :
               <Image source={require('./Globals/img/icons/home.png')}
-                          style={{flex: 1, resizeMode:'contain',}}/>
+                style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
             }
           </View>
         )
-
       },
       tabBarOnPress: (values) => {
         const { previousScene, scene, jumpToIndex } = values;
 
-        if(scene.focused){
+        if (scene.focused) {
 
         }
-        else{
+        else {
           jumpToIndex(scene.index);
         }
       },
@@ -97,19 +96,19 @@ const LHStack = StackNavigator({
   LHScreen: {
     screen: LHScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader title={"Litúrgia de les hores"} left_padding={Platform.OS === 'ios'? 0 : 160}/>,
+      headerTitle: <GenericHeader title={"Litúrgia de les hores"} left_padding={Platform.OS === 'ios' ? 0 : 160} />,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
       tabBarIcon: ({ focused, tintColor }) => {
         return (
-          <View style={{padding: 10, }}>
-            {focused?
+          <View style={{ padding: 10 }}>
+            {focused ?
               <Image source={require('./Globals/img/icons/LH.png')}
-                          style={{flex: 1, resizeMode:'contain'}}/>
+                style={{ flex: 1, resizeMode: 'contain', tintColor: '#c9c9c9' }} />
               :
               <Image source={require('./Globals/img/icons/LH.png')}
-                          style={{flex: 1, resizeMode:'contain'}}/>
+                style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
             }
           </View>
         )
@@ -117,9 +116,9 @@ const LHStack = StackNavigator({
       tabBarOnPress: (values) => {
         const { previousScene, scene, jumpToIndex } = values;
 
-        if(scene.focused){
+        if (scene.focused) {
         }
-        else{
+        else {
           jumpToIndex(scene.index);
         }
       },
@@ -146,29 +145,30 @@ const LDStack = StackNavigator({
   LDScreen: {
     screen: LDScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader title={"Litúrgia diària"} left_padding={Platform.OS === 'ios'? 0 : 160}/>,
+      headerTitle: <GenericHeader title={"Litúrgia diària"} left_padding={Platform.OS === 'ios' ? 0 : 160} />,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
       tabBarIcon: ({ focused, tintColor }) => {
         return (
-          <View style={{padding: 10, }}>
-            {focused?
+          <View style={{ padding: 10 }}>
+            {focused ?
               <Image source={require('./Globals/img/icons/LD.png')}
-                          style={{flex: 1, resizeMode:'contain'}}/>
+                style={{ flex: 1, resizeMode: 'contain', tintColor: '#c9c9c9' }} />
               :
               <Image source={require('./Globals/img/icons/LD.png')}
-                          style={{flex: 1, resizeMode:'contain'}}/>
+                style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
             }
           </View>
         )
       },
+      tabStyle: { backgroundColor: 'red', marginRight: 20, width: 100 },
       tabBarOnPress: (values) => {
         const { previousScene, scene, jumpToIndex } = values;
 
-        if(scene.focused){
+        if (scene.focused) {
         }
-        else{
+        else {
           jumpToIndex(scene.index);
         }
       },
@@ -196,6 +196,9 @@ export default TabNavigator(
   {
     tabBarOptions: {
       showLabel: false,
+      style: {
+        backgroundColor: GLOBAL.barColor
+      }
     },
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',

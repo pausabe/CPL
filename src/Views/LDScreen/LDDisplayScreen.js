@@ -51,11 +51,11 @@ export default class LDDisplayScreen extends Component {
                 color: '#000000',
                 fontSize: GF.convertTextSize(G_VALUES.textSize),
             },
-            invitatoriButton: {
+            continueButton: {
                 color: 'grey',
                 fontSize: GF.convertTextSize(G_VALUES.textSize) - 3,
             },
-            texSalmInvButton: {
+            textContinueButton: {
                 color: 'grey',
                 fontSize: GF.convertTextSize(G_VALUES.textSize) > 17 ? 17 : GF.convertTextSize(G_VALUES.textSize) - 3,
             },
@@ -112,6 +112,15 @@ export default class LDDisplayScreen extends Component {
                 textAlign: 'right'
             }
         }
+
+        this.state = {
+            Lect1: this.props.type === '1Lect',
+            Salm: this.props.type === 'Salm',
+            Lect2: this.props.type === '2Lect',
+            Evangeli: this.props.type === 'Evangeli',
+        }
+        console.log("props = ", this.props);
+        console.log("this.state.Lect1 = " + this.state.Lect1);
     }
 
     //CALLBACKS ----------------------------------------------------------------------------
@@ -121,11 +130,28 @@ export default class LDDisplayScreen extends Component {
 
     //RENDER -------------------------------------------------------------------------------
     render() {
+        console.log("reeeendering this.state.Lect1 = " + this.state.Lect1);
+        
         try {
             return (
                 <View style={this.styles.container}>
                     <ScrollView automaticallyAdjustContentInsets={false} style={{ padding: 10, }}>
-                        {this.Render_Prayer()}
+                        <View style={{ flex: 1 }}>
+                            {this.state.Lect1 ?
+                                this.Render_1Lect()
+                                : null}
+                            {this.state.Salm ?
+                                this.Render_Salm()
+                                : null}
+                            {this.state.Lect2 ?
+                                this.Render_2Lect()
+                                : null}
+                            {this.state.Evangeli ?
+                                this.Render_Evangeli()
+                                : null}
+                            {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                            {Platform.OS === 'android' ? null : <Text />}
+                        </View>
                     </ScrollView>
                 </View>
             )
@@ -136,22 +162,9 @@ export default class LDDisplayScreen extends Component {
         }
     }
 
-    Render_Prayer() {
-        switch (this.props.type) {
-            case "1Lect":
-                return this.Render_1Lect();
-            case "Salm":
-                return this.Render_Salm();
-            case "2Lect":
-                return this.Render_2Lect();
-            case "Evangeli":
-                return this.Render_Evangeli();
-            default:
-                return null;
-        }
-    }
-
     Render_1Lect() {
+        console.log("render 1lect");
+        
         return (
             <View style={{ flex: 1 }}>
                 <Text selectable={true} style={this.styles.red}>{LD_VALUES.Lectura1}</Text>
@@ -160,9 +173,11 @@ export default class LDDisplayScreen extends Component {
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura1Text}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb el Salm"}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                {Platform.OS === 'android' ? null : <Text />}
+                <TouchableOpacity onPress={() => this.setState({ invitatori: !this.state.invitatori })}>
+                    <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                        <Text style={this.styles.continueButton}>{"Continua amb el Salm"}</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -175,8 +190,6 @@ export default class LDDisplayScreen extends Component {
                 <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.SalmText}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb " + (this.props.need_lectura2 ? "la Segona lectura" : "l'Evangeli")}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                {Platform.OS === 'android' ? null : <Text />}
             </View>
         )
     }
@@ -191,8 +204,6 @@ export default class LDDisplayScreen extends Component {
                 <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura2Text}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb l'Evangeli"}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                {Platform.OS === 'android' ? null : <Text />}
             </View>
         )
     }
@@ -207,8 +218,6 @@ export default class LDDisplayScreen extends Component {
                 <Text selectable={true} style={this.styles.black}>{LD_VALUES.EvangeliTitol}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.EvangeliText}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                {Platform.OS === 'android' ? null : <Text />}
             </View>
         )
     }
