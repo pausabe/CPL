@@ -12,9 +12,6 @@ export default class LDDisplayScreen extends Component {
         this.props = this.props.navigation.state.params.props;
         this.eventEmitter = this.props.events;
 
-        console.log("props", this.props);
-        
-
         this.setState({
             Need_Lect2: this.props.need_lectura2,
             Lect1: this.props.type === '1Lect',

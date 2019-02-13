@@ -428,7 +428,7 @@ export default class SOUL {
       c += 1;
       cicleAux = parseInt(G_VALUES.cicle);
       auxDay = G_VALUES.date.getDay();
-      if (params.idTSF !== -1 || celType === 'S' || celType === 'F' ||
+      if (params.idTSF !== -1 || G_VALUES.celType === 'S' || G_VALUES.celType === 'F' ||
         (G_VALUES.date.getMonth() === 11 && (G_VALUES.date.getDate() === 29 || G_VALUES.date.getDate() === 30 || G_VALUES.date.getDate() === 31)) ||
         (G_VALUES.date.getMonth() === 0 && G_VALUES.date.getDate() === 6)) {
         cicleAux = 1;
