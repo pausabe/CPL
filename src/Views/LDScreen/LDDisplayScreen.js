@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 
 import GF from '../../Globals/GlobalFunctions';
+import HR from '../../Components/HRComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
 import GLOBAL from "../../Globals/Globals";
 
@@ -10,18 +11,29 @@ export default class LDDisplayScreen extends Component {
     componentWillMount() {
         this.props = this.props.navigation.state.params.props;
         this.eventEmitter = this.props.events;
-        this.setState({ type: this.props.type })
+
+        console.log("props", this.props);
+        
+
+        this.setState({
+            Need_Lect2: this.props.need_lectura2,
+            Lect1: this.props.type === '1Lect',
+            Salm: this.props.type === 'Salm',
+            Lect2: this.props.type === '2Lect',
+            Evangeli: this.props.type === 'Evangeli',
+        })
     }
 
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: <View style={{ paddingLeft: 100 }}>
-            <Text style={{
-                textAlign: 'center',
-                color: GLOBAL.itemsBarColor,
-                fontSize: 20,
-                fontWeight: '600',
-            }}>{navigation.state.params.props.type}</Text>
-        </View>,
+        headerTitle:
+            <View style={{ paddingLeft: 100 }}>
+                <Text style={{
+                    textAlign: 'center',
+                    color: GLOBAL.itemsBarColor,
+                    fontSize: 20,
+                    fontWeight: '600',
+                }}>{navigation.state.params.props.type}</Text>
+            </View>,
         headerStyle: {
             backgroundColor: GLOBAL.barColor,
         },
@@ -112,15 +124,6 @@ export default class LDDisplayScreen extends Component {
                 textAlign: 'right'
             }
         }
-
-        this.state = {
-            Lect1: this.props.type === '1Lect',
-            Salm: this.props.type === 'Salm',
-            Lect2: this.props.type === '2Lect',
-            Evangeli: this.props.type === 'Evangeli',
-        }
-        console.log("props = ", this.props);
-        console.log("this.state.Lect1 = " + this.state.Lect1);
     }
 
     //CALLBACKS ----------------------------------------------------------------------------
@@ -130,8 +133,6 @@ export default class LDDisplayScreen extends Component {
 
     //RENDER -------------------------------------------------------------------------------
     render() {
-        console.log("reeeendering this.state.Lect1 = " + this.state.Lect1);
-        
         try {
             return (
                 <View style={this.styles.container}>
@@ -141,7 +142,7 @@ export default class LDDisplayScreen extends Component {
                                 this.Render_1Lect()
                                 : null}
                             {this.state.Salm ?
-                                this.Render_Salm()
+                                this.Render_Salm(this.state.Need_Lect2)
                                 : null}
                             {this.state.Lect2 ?
                                 this.Render_2Lect()
@@ -163,8 +164,6 @@ export default class LDDisplayScreen extends Component {
     }
 
     Render_1Lect() {
-        console.log("render 1lect");
-        
         return (
             <View style={{ flex: 1 }}>
                 <Text selectable={true} style={this.styles.red}>{LD_VALUES.Lectura1}</Text>
@@ -173,25 +172,50 @@ export default class LDDisplayScreen extends Component {
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura1Text}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <TouchableOpacity onPress={() => this.setState({ invitatori: !this.state.invitatori })}>
-                    <View style={{ alignItems: 'center', paddingVertical: 10 }}>
-                        <Text style={this.styles.continueButton}>{"Continua amb el Salm"}</Text>
+                {this.state.Salm ?
+                    <View>
+                        <HR />
+                        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                     </View>
-                </TouchableOpacity>
+                    :
+                    <TouchableOpacity onPress={() => this.setState({ Salm: true })}>
+                        <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={this.styles.continueButton}>{"Continua amb el Salm"}</Text>
+                        </View>
+                    </TouchableOpacity>
+                }
             </View>
         )
     }
 
-    Render_Salm() {
+    Render_Salm(need_lect2) {
         return (
             <View style={{ flex: 1 }}>
                 <Text selectable={true} style={this.styles.red}>{LD_VALUES.Salm}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.SalmText}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb " + (this.props.need_lectura2 ? "la Segona lectura" : "l'Evangeli")}</Text>
+                {(need_lect2 && this.state.Lect2) || (!need_lect2 && this.state.Evangeli) ?
+                    <View>
+                        <HR />
+                        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                    </View>
+                    :
+                    <TouchableOpacity onPress={() => { this.Set_Continue_State(need_lect2) }}>
+                        <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={this.styles.continueButton}>{"Continua amb " + (need_lect2 ? "la Segona lectura" : "l'Evangeli")}</Text>
+                        </View>
+                    </TouchableOpacity>
+                }
             </View>
         )
+    }
+
+    Set_Continue_State(need_lect2) {
+        if (need_lect2)
+            this.setState({ Lect2: true });
+        else
+            this.setState({ Evangeli: true });
     }
 
     Render_2Lect() {
@@ -203,7 +227,18 @@ export default class LDDisplayScreen extends Component {
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura2Text}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.texSalmInvButton}>{"Continua amb l'Evangeli"}</Text>
+                {this.state.Evangeli ?
+                    <View>
+                        <HR />
+                        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                    </View>
+                    :
+                    <TouchableOpacity onPress={() => this.setState({ Evangeli: true })}>
+                        <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={this.styles.continueButton}>{"Continua amb l'Evangeli"}</Text>
+                        </View>
+                    </TouchableOpacity>
+                }
             </View>
         )
     }
