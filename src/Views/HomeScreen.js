@@ -3,17 +3,12 @@ import {
   View,
   Text,
   StyleSheet,
-  Platform,
-  StatusBar,
   ImageBackground,
   ScrollView,
   TouchableOpacity,
   Switch
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-
-import LHButtons from './LHScreen/LHButtons';
 import GLOBAL from "../Globals/Globals";
 
 function paddingBar() {
@@ -29,12 +24,7 @@ function paddingBar() {
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
-
     this.switchValue = G_VALUES.lliures;
-  }
-
-  dacordString() {
-    return "D'acord";
   }
 
   tempsName(t) {
@@ -153,9 +143,82 @@ export default class HomeScreen extends Component {
     var date_getmonth = G_VALUES.date.getMonth();
     var date_getfullyear = G_VALUES.date.getFullYear();
     var date_getday = G_VALUES.date.getDay();
-
     this.switchValue = G_VALUES.lliures;
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={require('../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
+          {this.Top_Info(date_getdate, date_getmonth, date_getfullyear)}
+          {this.Info_Liturgica(date_getday)}
+          {this.Cel_Info()}
+        </ImageBackground>
+      </View>
+    )
+  }
 
+  Top_Info(date_getdate, date_getmonth, date_getfullyear) {
+    return (
+      <View style={this.props.santPressed ? styles.infoContainer_pressed : styles.infoContainer}>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+          <Text style={styles.infoText}>{this.props.ViewData.lloc.diocesiName}{" ("}{this.props.ViewData.lloc.lloc}{")"}
+            {" - "}<Text style={styles.infoText}>{date_getdate < 10 ? `0${date_getdate}` : date_getdate}/{date_getmonth + 1 < 10 ? `0${date_getmonth + 1}` : date_getmonth + 1}/{date_getfullyear}</Text>
+          </Text>
+        </View>
+      </View>
+    )
+  }
+
+  Info_Liturgica(date_getday) {
+    return (
+      <View style={this.props.santPressed ? styles.diaLiturgicContainer_pressed : styles.diaLiturgicContainer}>
+        <Text style={styles.diaLiturgicText}>
+          {
+            this.props.ViewData.setmana !== '0' && this.props.ViewData.setmana !== '.' ?
+              this.weekDayName(date_getday) + " de la setmana "
+              :
+              null
+          }
+          {
+            this.props.ViewData.setmana !== '0' && this.props.ViewData.setmana !== '.' ?
+              this.liturgicPaint(this.romanize(this.props.ViewData.setmana), this.props.ViewData.color)
+              :
+              null
+          }
+        </Text>
+        <Text style={styles.diaLiturgicText}>
+          {"Temps - "}
+          {this.liturgicPaint(this.tempsName(this.props.ViewData.temps), this.props.ViewData.color)}
+        </Text>
+        <Text style={styles.diaLiturgicText}>
+          {
+            this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
+              "Setmana "
+              :
+              null
+          }
+          {
+            this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
+              this.liturgicPaint(this.romanize(this.props.ViewData.setCicle), this.props.ViewData.color)
+              :
+              null
+          }
+          {
+            this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
+              " del cicle litúrgic, any "
+              :
+              null
+          }
+          {
+            this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
+              this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)
+              :
+              null
+          }
+        </Text>
+      </View>
+    )
+  }
+
+  Cel_Info() {
     arrowWidth = 35;
     auxPadding = 10;
     if ((this.props.ViewData.celebracio.type === 'L' || this.props.ViewData.celebracio.type === 'V')) {
@@ -171,154 +234,101 @@ export default class HomeScreen extends Component {
       arrowColor = '#595959';
       santContainerOpa = 0.75;
     }
+
     return (
-      <View style={styles.container}>
-        <ImageBackground source={require('../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
-          <View style={styles.infoContainer}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-              <Text style={styles.infoText}>{this.props.ViewData.lloc.diocesiName}{" ("}{this.props.ViewData.lloc.lloc}{")"}
-                {" - "}<Text style={styles.infoText}>{date_getdate < 10 ? `0${date_getdate}` : date_getdate}/{date_getmonth + 1 < 10 ? `0${date_getmonth + 1}` : date_getmonth + 1}/{date_getfullyear}</Text>
-              </Text>
-            </View>
+      <View style={this.props.santPressed ? styles.cel_container_pressed : styles.cel_container}>
+        {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
+          <View style={{ paddingBottom: 5 }}>
+            {this.transfromCelTypeName(this.props.ViewData.celebracio.type, this.props.ViewData.temps)}
           </View>
-          <View style={styles.diaLiturgicContainer}>
-            <Text style={styles.diaLiturgicText}>
-              {
-                this.props.ViewData.setmana !== '0' && this.props.ViewData.setmana !== '.' ?
-                  this.weekDayName(date_getday) + " de la setmana "
-                  :
-                  null
-              }
-              {
-                this.props.ViewData.setmana !== '0' && this.props.ViewData.setmana !== '.' ?
-                  this.liturgicPaint(this.romanize(this.props.ViewData.setmana), this.props.ViewData.color)
-                  :
-                  null
-              }
-            </Text>
-            <Text style={styles.diaLiturgicText}>
-              {"Temps - "}
-              {this.liturgicPaint(this.tempsName(this.props.ViewData.temps), this.props.ViewData.color)}
-            </Text>
-            <Text style={styles.diaLiturgicText}>
-              {
-                this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
-                  "Setmana "
-                  :
-                  null
-              }
-              {
-                this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
-                  this.liturgicPaint(this.romanize(this.props.ViewData.setCicle), this.props.ViewData.color)
-                  :
-                  null
-              }
-              {
-                this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
-                  " del cicle litúrgic, any "
-                  :
-                  null
-              }
-              {
-                this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
-                  this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)
-                  :
-                  null
-              }
-            </Text>
-          </View>
-          {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
-            <View style={{ paddingBottom: 5 }}>
-              {this.transfromCelTypeName(this.props.ViewData.celebracio.type, this.props.ViewData.temps)}
-            </View>
-            : null}
+          : null}
 
-          {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
-
-            <View style={{
-              flex: 1.1,
-              shadowOpacity: 0.1,
-              shadowRadius: 5,
-              shadowOffset: {
-                width: 0,
-                height: 10
-              },
-              justifyContent: 'center',
-              backgroundColor: '#E0F2F1',
-              borderRadius: 15,
-              marginHorizontal: 10,
-              marginBottom: 10,
-              paddingLeft: 10,
-              opacity: santContainerOpa,
-            }}>
-              <View style={{ flex: 1, flexDirection: 'row' }}>
-                {(this.props.ViewData.celebracio.type === 'L' || this.props.ViewData.celebracio.type === 'V') ?
-                  <View style={{ flex: 1, minWidth: 45, justifyContent: 'center', alignItems: 'center' }}>
-                    <Switch
-                      onValueChange={this.onSwitchValueChange.bind(this)}
-                      value={this.switchValue}
-                      onTintColor={GLOBAL.switchColor}
-                    />
+        {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
+          <View style={{
+            flex: 1.1,
+            shadowOpacity: 0.1,
+            shadowRadius: 5,
+            shadowOffset: {
+              width: 0,
+              height: 10
+            },
+            justifyContent: 'center',
+            backgroundColor: '#E0F2F1',
+            borderRadius: 15,
+            marginHorizontal: 10,
+            marginBottom: 10,
+            paddingLeft: 10,
+            opacity: santContainerOpa,
+          }}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              {(this.props.ViewData.celebracio.type === 'L' || this.props.ViewData.celebracio.type === 'V') ?
+                <View style={{ flex: 1, minWidth: 45, justifyContent: 'center', alignItems: 'center' }}>
+                  <Switch
+                    onValueChange={this.onSwitchValueChange.bind(this)}
+                    value={this.switchValue}
+                    onTintColor={GLOBAL.switchColor}
+                  />
+                </View>
+                : null
+              }
+              <TouchableOpacity activeOpacity={1.0} style={{ flex: 20, flexDirection: 'row' }} onPress={this.props.santCB}>
+                {this.props.ViewData.celebracio.text !== '-' && this.props.ViewData.celebracio.type !== 'L' ?
+                  <View style={{ width: arrowWidth }} />
+                  : null}
+                <View style={{ flex: 1, justifyContent: 'center', paddingRight: auxPadding }}>
+                  <Text numberOfLines={2} style={{
+                    color: santTextColor,
+                    textAlign: 'center',
+                    fontSize: 17,
+                    fontWeight: '300'
+                  }}>
+                    {this.props.ViewData.celebracio.titol}</Text>
+                </View>
+                {this.props.ViewData.celebracio.text !== '-' ?
+                  <View style={{ width: arrowWidth, justifyContent: 'center', alignItems: 'center' }}>
+                    {this.props.santPressed ?
+                      <Icon
+                        name="ios-arrow-down"
+                        size={25}
+                        color={arrowColor} />
+                      :
+                      <Icon
+                        name="ios-arrow-forward-outline"
+                        size={25}
+                        iconStyle={{ padding: 50 }}
+                        color={arrowColor} />
+                    }
                   </View>
-                  : null
+                  :
+                  <View>
+                    {(this.props.ViewData.celebracio.type === 'L' || this.props.ViewData.celebracio.type === 'V') ?
+                      <View style={{ width: 45 }}></View>
+                      : null
+                    }
+                  </View>
                 }
-                <TouchableOpacity activeOpacity={1.0} style={{ flex: 20, flexDirection: 'row' }} onPress={this.props.santCB}>
-                  {this.props.ViewData.celebracio.text !== '-' && this.props.ViewData.celebracio.type !== 'L' ?
-                    <View style={{ width: arrowWidth }} />
-                    : null}
-                  <View style={{ flex: 1, justifyContent: 'center', paddingRight: auxPadding }}>
-                    <Text numberOfLines={2} style={{
-                      color: santTextColor,
-                      textAlign: 'center',
-                      fontSize: 16,
-                      fontWeight: '300'
-                    }}>
-                      {this.props.ViewData.celebracio.titol}</Text>
-                  </View>
-                  {this.props.ViewData.celebracio.text !== '-' ?
-                    <View style={{ width: arrowWidth, justifyContent: 'center', alignItems: 'center' }}>
-                      {this.props.santPressed ?
-                        <Icon
-                          name="ios-arrow-down"
-                          size={25}
-                          color={arrowColor} />
-                        :
-                        <Icon
-                          name="ios-arrow-forward-outline"
-                          size={25}
-                          iconStyle={{ padding: 50 }}
-                          color={arrowColor} />
-                      }
-                    </View>
-                    :
-                    <View>
-                      {(this.props.ViewData.celebracio.type === 'L' || this.props.ViewData.celebracio.type === 'V') ?
-                        <View style={{ width: 45 }}></View>
-                        : null
-                      }
-                    </View>
-                  }
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             </View>
+          </View>
 
-            : null}
-          {this.props.santPressed && this.props.ViewData.celebracio.text !== '-' ?
-            <View style={styles.liturgiaContainer}>
-              <ScrollView>
-                <Text style={{
-                  textAlign: 'center',
-                  color: santTextColor,
-                  fontSize: 16,
-                  fontWeight: '300'
-                }}>
-                  {this.props.ViewData.celebracio.text}</Text>
-                <Text />
-              </ScrollView>
-            </View>
-            : null
-          }
-        </ImageBackground>
+          : null}
+
+        {this.props.santPressed && this.props.ViewData.celebracio.text !== '-' ?
+          <View style={styles.liturgiaContainer}>
+            <ScrollView>
+              <Text style={{
+                textAlign: 'center',
+                color: santTextColor,
+                fontSize: 16,
+                fontWeight: '300'
+              }}>
+                {this.props.ViewData.celebracio.text}</Text>
+              <Text />
+            </ScrollView>
+          </View>
+          :
+          <View style={{flex: 3.5}}/>
+        }
       </View>
     )
   }
@@ -335,10 +345,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     width: null,
     height: null,
-    //resizeMode: 'cover',
+  },
+
+
+
+
+
+
+
+  infoContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingTop: 5,
+    //backgroundColor: 'red',
+  },
+  infoContainer_pressed: {
+    flex: 0.2, //bo
+    justifyContent: 'flex-end',
+    paddingTop: 5,
+    //backgroundColor: 'red',
   },
   diaLiturgicContainer: {
-    flex: 1.7,
+    flex: 1.2,
     justifyContent: 'center',
     shadowOpacity: 0.2,
     shadowRadius: 7,
@@ -348,22 +376,44 @@ const styles = StyleSheet.create({
     },
     //backgroundColor: 'silver',
   },
+  diaLiturgicContainer_pressed: {
+    flex: 1.1, //bo
+    justifyContent: 'center',
+    shadowOpacity: 0.2,
+    shadowRadius: 7,
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
+    //backgroundColor: 'silver',
+  },
+  cel_container: {
+    flex: 2.5,
+    justifyContent: 'flex-end',
+    paddingTop: 5,
+    //backgroundColor: 'blue',
+  },
+  cel_container_pressed: {
+    flex: 3, //bo
+    justifyContent: 'flex-end',
+    paddingTop: 5,
+    //backgroundColor: 'blue',
+  },
+
+
+
+
+
   diaLiturgicText: {
     textAlign: 'center',
     color: 'black',
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: '300'
-  },
-  infoContainer: {
-    flex: 0.4,
-    justifyContent: 'flex-end',
-    paddingTop: 5,
-    //backgroundColor: 'red',
   },
   infoText: {
     textAlign: 'center',
     color: '#424242',
-    fontSize: 13,
+    fontSize: 17,
     fontStyle: 'italic',
     fontWeight: '300'
   },
@@ -371,7 +421,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     //fontStyle: 'italic',
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: '300'
   },
   liturgiaContainer: {
