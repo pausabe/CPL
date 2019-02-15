@@ -14,10 +14,10 @@ module.exports = {
 
   ...Platform.select({
       ios: {
-        backgroundColor: 'rgba(225, 245, 254, 0.35)',
+        backgroundColor: 'rgb(225, 225, 225)',
       },
       android: {
-        backgroundColor: 'rgb(225, 245, 254)',
+        backgroundColor: 'rgb(225, 225, 225)',
       },
     }),
 

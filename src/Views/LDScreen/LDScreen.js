@@ -38,11 +38,9 @@ export default class LDScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ImageBackground source={require('../../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
           <View style={styles.liturgiaContainer}>
             {this.Buttons(true)}
           </View>
-        </ImageBackground>
       </SafeAreaView>
     );
   }
@@ -83,19 +81,18 @@ export default class LDScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white'//GLOBAL.backgroundColor,
   },
   liturgiaContainer: {
     flex: 6,
-    /*marginBottom: 10,
-    marginHorizontal: 10,*/
-    margin: 30,
+    marginVertical: 70,
+    marginHorizontal: 30,
   },
   backgroundImage: {
     flex: 1,
     backgroundColor: 'transparent',
     width: null,
     height: null,
-    //resizeMode: 'cover',
   },
   buttons_container: {
     flex: 1,
@@ -105,7 +102,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 10
     },
-    backgroundColor: 'white',
+    backgroundColor: 'rgb(242, 242, 242)',
     opacity: 0.75,
     borderRadius: 15
   },
@@ -115,35 +112,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    color: '#000000',
-    fontSize: 18,
+    color: 'black',
+    fontSize: 20,
     fontWeight: 'normal'
-  },
-  buttonTextBold: {
-    textAlign: 'center',
-    color: '#000000',
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
-  horaMenorText: {
-    textAlign: 'center',
-    color: '#595959',
-    fontSize: 16,
-    fontWeight: 'normal'
-  },
-  horaMenorTextBold: {
-    textAlign: 'center',
-    color: '#595959',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-  hrstyle: {
-    backgroundColor: '#263238',
-    height: 4
-  },
-  redCenter: {
-    color: '#FF0000',
-    fontSize: 14,
-    textAlign: 'center'
   },
 })
