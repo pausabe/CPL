@@ -23,7 +23,7 @@ LD_VALUES = {}
 
 export function Reload_All_Data(date, Reload_Finished_Callback) {
   this.Reload_Finished_Callback = Reload_Finished_Callback;
-  
+
   G_VALUES.date = date;
   Promise.all([
     SettingsManager.getSettingLloc((r) => {
@@ -65,7 +65,7 @@ function Refresh_Data(newDay) {
       G_VALUES.ABC = current.anyABC;
 
       var tomorrow = new Date(newDay.getFullYear(), newDay.getMonth(), newDay.getDate());
-      tomorrow.setDate(tomorrow.getDate()+1);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
       var dataTomorrow = {
         date: tomorrow,
@@ -109,13 +109,19 @@ function Check_Lliure_Date() {
 function Set_Soul_CB(liturgia_hores, info_cel) {
   LH_VALUES = liturgia_hores;
   G_VALUES.info_cel = info_cel;
+  G_VALUES.primVespres = primVespres();
 
   LD_VALUES = Fake_Values();
 
   this.Reload_Finished_Callback();
 }
 
-function Fake_Values(){
+function primVespres() {
+  if ((G_VALUES.date.getDay() === 6 && G_VALUES.celType !== 'S') || LH_VALUES.vespres1) return true;
+  return false;
+}
+
+function Fake_Values() {
   return {
     Lectura1: "Isaïes 49,3.5-6",
     Lectura1Cita: "T’he fet llum de tots els pobles perquè la meva salvació",

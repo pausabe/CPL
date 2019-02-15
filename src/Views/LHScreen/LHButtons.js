@@ -14,13 +14,13 @@ export default class LHButtons extends Component {
   render() {
     var nowDate = new Date();
     var hour = nowDate.getHours();
-
+    
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.buttonContainer} onPress={this.props.oficiCB}>
          <Text style={styles.buttonText}>{"Ofici de lectura"}</Text>
        </TouchableOpacity>
-        <HR/>
+        <HR margin_horizontal={20}/>
        <TouchableOpacity style={styles.buttonContainer} onPress={this.props.laudesCB}>
          {hour > 5 && hour < 9 ?
            <Text style={styles.buttonTextBold}>{"Laudes"}</Text>
@@ -28,7 +28,7 @@ export default class LHButtons extends Component {
            <Text style={styles.buttonText}>{"Laudes"}</Text>
          }
        </TouchableOpacity>
-       <HR/>
+       <HR margin_horizontal={20}/>
        <View style={{flex:1, flexDirection: 'column'}}>
          <View style={{flex:1, paddingTop: 5}}>
           <Text style={styles.buttonText}>{"Hora menor"}</Text>
@@ -57,7 +57,7 @@ export default class LHButtons extends Component {
            </TouchableOpacity>
          </View>
        </View>
-        <HR/>
+        <HR margin_horizontal={20}/>
        <TouchableOpacity style={styles.buttonContainer} onPress={this.props.vespresCB}>
         {hour > 17 && hour <= 23 ?
           <Text style={styles.buttonTextBold}>{"Vespres"}</Text>
@@ -66,16 +66,16 @@ export default class LHButtons extends Component {
         }
          {G_VALUES.primVespres ?
           <View style={{padding: 5, paddingHorizontal: 15}}>
-            {G_VALUES.titolCelTom !== '-'?
+            {G_VALUES.info_cel.nomCelTom !== '-'?
               <View>
-                {G_VALUES.titolCelTom !== 'dium-pasqua'?
-                  <Text numberOfLines={1} style={styles.redCenter}>{G_VALUES.titolCelTom}</Text>
+                {G_VALUES.info_cel.nomCelTom !== 'dium-pasqua'?
+                  <Text numberOfLines={1} style={styles.redCenter}>{G_VALUES.info_cel.nomCelTom}</Text>
                   : null
                 }
               </View>
               :
               <View>
-                {G_VALUES.getDay()===6?
+                {G_VALUES.date.getDay()===6?
                   <Text style={styles.redCenter}>{"Primeres vespres de diumenge"}</Text>
                 :
                   <Text style={styles.redCenter}>{"Primeres vespres"}</Text>
@@ -85,7 +85,7 @@ export default class LHButtons extends Component {
           </View>
           : null }
        </TouchableOpacity>
-       <HR/>
+       <HR margin_horizontal={20}/>
        <TouchableOpacity style={styles.buttonContainer} onPress={this.props.completesCB}>
          {hour >= 0 && hour < 2 ?
            <Text style={styles.buttonTextBold}>{"Completes"}</Text>
@@ -101,15 +101,17 @@ export default class LHButtons extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    shadowOpacity: 0.4,
+    /*shadowOpacity: 0.4,
     shadowRadius: 5,
     shadowOffset: {
       width: 0,
       height: 10
     },
+    opacity: 0.75,*/
     backgroundColor: 'white',
-    opacity: 0.75,
-    borderRadius: 15
+    borderRadius: 15,
+    borderColor: '#424242',
+    borderWidth: 1,
   },
   buttonContainer: {
     flex: 1,
@@ -118,34 +120,30 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: '#000000',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'normal'
   },
   buttonTextBold: {
     textAlign: 'center',
     color: '#000000',
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   horaMenorText: {
     textAlign: 'center',
     color: '#595959',
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'normal'
   },
   horaMenorTextBold: {
     textAlign: 'center',
     color: '#595959',
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold'
-  },
-  hrstyle: {
-    backgroundColor: '#263238',
-    height: 4
   },
   redCenter: {
     color: '#FF0000',
-    fontSize: 14,
+    fontSize: 15,
     textAlign: 'center'
   },
 })

@@ -52,17 +52,17 @@ export default class LDScreen extends Component {
           <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "1Lect", need_lectura2)}>
             <Text style={styles.buttonText}>{"Primera lectura"}</Text>
           </TouchableOpacity>
-          <HR />
+          <HR margin_horizontal={20}/>
           <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Salm", need_lectura2)}>
             <Text style={styles.buttonText}>{"Salm"}</Text>
           </TouchableOpacity>
-          <HR />
+          <HR margin_horizontal={20}/>
           {need_lectura2 ?
             <View style={{ flex: 1 }}>
               <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "2Lect", need_lectura2)}>
                 <Text style={styles.buttonText}>{"Segona lectura"}</Text>
               </TouchableOpacity>
-              <HR />
+              <HR margin_horizontal={20}/>
             </View>
             : null}
           <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Evangeli", need_lectura2)}>
@@ -81,30 +81,33 @@ export default class LDScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'//GLOBAL.backgroundColor,
+    backgroundColor:'white',
+    //backgroundColor: 'rgb(215, 215, 215)'
   },
   liturgiaContainer: {
     flex: 6,
     marginVertical: 70,
     marginHorizontal: 30,
   },
-  backgroundImage: {
+  /*backgroundImage: {
     flex: 1,
     backgroundColor: 'transparent',
     width: null,
     height: null,
-  },
+  },*/
   buttons_container: {
     flex: 1,
-    shadowOpacity: 0.4,
+    /*shadowOpacity: 0.4,
     shadowRadius: 5,
     shadowOffset: {
       width: 0,
       height: 10
     },
-    backgroundColor: 'rgb(242, 242, 242)',
-    opacity: 0.75,
-    borderRadius: 15
+    opacity: 0.75,*/
+    backgroundColor: 'white',
+    borderRadius: 15,
+    borderColor: '#424242',
+    borderWidth: 1,
   },
   buttonContainer: {
     flex: 1,

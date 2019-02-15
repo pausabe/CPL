@@ -12,14 +12,14 @@ module.exports = {
   hrColor: '#90A4AE',
   switchColor: '#007b80',
 
-  ...Platform.select({
+  /*...Platform.select({
       ios: {
         backgroundColor: 'rgb(225, 225, 225)',
       },
       android: {
         backgroundColor: 'rgb(225, 225, 225)',
       },
-    }),
+    }),*/
 
   O_ORDINARI: 'O_ORDINAR',
   Q_CENDRA:'Q_CENDRA',

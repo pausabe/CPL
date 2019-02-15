@@ -84,22 +84,20 @@ export default class LHScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ImageBackground source={require('../../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
-          <View style={styles.liturgiaContainer}>
-            <LHButtons
+        <View style={styles.liturgiaContainer}>
+          <LHButtons
 
-              //ViewData={this.props.ViewData}
-              //variables={this.props.variables}
+            //ViewData={this.props.ViewData}
+            //variables={this.props.variables}
 
-              oficiCB={this.LHButtonCB.bind(this, "Ofici", false)}
-              laudesCB={this.LHButtonCB.bind(this, "Laudes", false)}
-              terciaCB={this.LHButtonCB.bind(this, "Tèrcia", false)}
-              sextaCB={this.LHButtonCB.bind(this, "Sexta", false)}
-              nonaCB={this.LHButtonCB.bind(this, "Nona", false)}
-              vespresCB={this.LHButtonCB.bind(this, "Vespres", false)}
-              completesCB={this.LHButtonCB.bind(this, "Completes", false)} />
-          </View>
-        </ImageBackground>
+            oficiCB={this.LHButtonCB.bind(this, "Ofici", false)}
+            laudesCB={this.LHButtonCB.bind(this, "Laudes", false)}
+            terciaCB={this.LHButtonCB.bind(this, "Tèrcia", false)}
+            sextaCB={this.LHButtonCB.bind(this, "Sexta", false)}
+            nonaCB={this.LHButtonCB.bind(this, "Nona", false)}
+            vespresCB={this.LHButtonCB.bind(this, "Vespres", false)}
+            completesCB={this.LHButtonCB.bind(this, "Completes", false)} />
+        </View>
       </SafeAreaView>
     );
   }
@@ -108,6 +106,8 @@ export default class LHScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    //backgroundColor: 'rgb(215, 215, 215)'
+    backgroundColor: 'white',
   },
   liturgiaContainer: {
     flex: 6,
@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
     /*marginBottom: 10,
     marginHorizontal: 10,*/
   },
-  backgroundImage: {
+  /*backgroundImage: {
     flex: 1,
     backgroundColor: 'transparent',
     width: null,
     height: null,
     //resizeMode: 'cover',
-  },
+  },*/
 });

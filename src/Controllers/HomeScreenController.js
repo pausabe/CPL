@@ -113,7 +113,6 @@ export default class HomeScreenController extends Component {
           typeText: '',
           titol: '',
           text: '',
-          titolCelTomorrow: '',
         },
         primVespres: false,
         santPressed: false,
@@ -144,7 +143,6 @@ export default class HomeScreenController extends Component {
           type: G_VALUES.info_cel.typeCel,
           titol: G_VALUES.info_cel.nomCel,
           text: G_VALUES.info_cel.infoCel,
-          titolCelTom: G_VALUES.info_cel.nomCelTom,
         },
         //primVespres: this.primVespres(),
       }
@@ -181,7 +179,6 @@ export default class HomeScreenController extends Component {
           type: G_VALUES.info_cel.typeCel,
           titol: G_VALUES.info_cel.nomCel,
           text: G_VALUES.info_cel.infoCel,
-          titolCelTom: G_VALUES.info_cel.nomCelTom,
         },
         //primVespres: this.primVespres(),
       }
@@ -198,11 +195,6 @@ export default class HomeScreenController extends Component {
     
     return false;
   }
-
-  /*primVespres(){
-    if((G_VALUES.date.getDay() === 6 && G_VALUES.celType !== 'S') || LH_VALUES.vespres1) return true;
-    return false;
-  }*/
 
   eventManager(args) {
     switch (args.type) {
@@ -284,7 +276,8 @@ export default class HomeScreenController extends Component {
           ViewData={this.state.ViewData}
           santPressed={this.state.santPressed}
           santCB={this.onSantPressCB.bind(this)}
-          lliureCB={this.onSwitchLliurePress.bind(this)} />
+          lliureCB={this.onSwitchLliurePress.bind(this)} 
+          navigation={this.props.navigation}/>
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           titleIOS={'Canvia el dia'}

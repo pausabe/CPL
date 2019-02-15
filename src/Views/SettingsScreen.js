@@ -25,19 +25,8 @@ export default class SettingsScreen extends Component {
       }).catch(error => console.log("InfoLog. " + error));
   }
 
-  render() {
-      if(!this.state || this.state && !this.state.options){
-          return (
-            <View style={styles.scrollContainer}>
-              <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}></ScrollView>
-            </View>
-          );
-      }
-      return (
-        <View style={styles.scrollContainer}>
-          <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}>
-            <View style={{height:15}}/>
-            <HR/>
+  /*
+<HR/>
             <TouchableOpacity style={styles.buttonView} onPress={this.donationPressed.bind(this)}>
               <Text style={styles.text}>{"Fer donatiu"}</Text>
               <Icon
@@ -55,6 +44,21 @@ export default class SettingsScreen extends Component {
             </TouchableOpacity>
             <HR/>
             <View style={{height:10}}/>
+  */
+
+  render() {
+      if(!this.state || this.state && !this.state.options){
+          return (
+            <View style={styles.scrollContainer}>
+              <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}></ScrollView>
+            </View>
+          );
+      }
+      return (
+        <View style={styles.scrollContainer}>
+          <ScrollView automaticallyAdjustContentInsets={false} style={styles.itemList}>
+            <View style={{height:15}}/>
+            
             <HR/>
             {this.state.options}
             <View style={{height:10}}/>
@@ -67,7 +71,7 @@ export default class SettingsScreen extends Component {
       );
     }
 
-    donationPressed(){
+    /*donationPressed(){
       console.log("Donation!");
       if(Platform.OS === 'ios'){
         this.props.navigator.push({
@@ -90,7 +94,7 @@ export default class SettingsScreen extends Component {
       else{
         this.props.navigation.navigate('Comment');
       }
-    }
+    }*/
 }
 
 function paddingBar(){

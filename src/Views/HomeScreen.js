@@ -45,7 +45,7 @@ export default class HomeScreen extends Component {
     try {
       switch (color) {
         case 'B':
-          return (<Text style={{ color: 'rgb(242, 242, 242)' }}>{string}</Text>);
+          return (<Text style={{ color: 'rgb(190, 190, 190)' }}>{string}</Text>);
           break;
         case 'V':
           return (<Text style={{ color: 'rgb(0, 102, 0)' }}>{string}</Text>);
@@ -177,6 +177,7 @@ export default class HomeScreen extends Component {
   On_Give_Press() {
     try {
       console.log("Give pressed");
+      this.props.navigation.navigate('Donation');
     }
     catch (error) {
       console.log("[Error]", error);
@@ -187,6 +188,7 @@ export default class HomeScreen extends Component {
   On_Comment_Press() {
     try {
       console.log("Comment pressed");
+      this.props.navigation.navigate('Comment');
     }
     catch (error) {
       console.log("[Error]", error);
@@ -229,7 +231,7 @@ export default class HomeScreen extends Component {
     try {
       return (
         <View style={this.props.ViewData.celebracio.titol !== '-' ? styles.infoContainer_cel : styles.infoContainer}>
-          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 5 }}>
             <Text style={styles.infoText}>{this.props.ViewData.lloc.diocesiName}{" ("}{this.props.ViewData.lloc.lloc}{")"}
               {" - "}<Text style={styles.infoText}>{date_getdate < 10 ? `0${date_getdate}` : date_getdate}/{date_getmonth + 1 < 10 ? `0${date_getmonth + 1}` : date_getmonth + 1}/{date_getfullyear}</Text>
             </Text>
@@ -321,7 +323,7 @@ export default class HomeScreen extends Component {
       return (
         <View style={styles.cel_container}>
           {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
-            <View style={{ paddingBottom: 5 }}>
+            <View style={{ paddingBottom: 5, marginTop: 30 }}>
               {this.transfromCelTypeName(this.props.ViewData.celebracio.type, this.props.ViewData.temps)}
             </View>
             : null
@@ -330,18 +332,20 @@ export default class HomeScreen extends Component {
           {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
             <View style={{
               flex: 1.1,
-              shadowOpacity: 0.1,
+              /*shadowOpacity: 0.1,
               shadowRadius: 5,
               shadowOffset: {
                 width: 0,
                 height: 10
-              },
+              },*/
               justifyContent: 'center',
-              backgroundColor: '#E0F2F1',
-              borderRadius: 15,
-              marginHorizontal: 10,
+              //backgroundColor: '#E0F2F1',
+              borderColor: '#424242',
+              borderWidth: 1,
+              borderRadius: 10,
               marginBottom: 10,
               paddingLeft: 10,
+              marginHorizontal: 20,
               opacity: santContainerOpa,
             }}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -428,20 +432,27 @@ export default class HomeScreen extends Component {
     try {
       return (
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 30, justifyContent: 'flex-start', }}>
             <TouchableOpacity style={styles.two_buttons} onPress={this.On_Comment_Press.bind(this)}>
               <Icon
+                //name="md-mail"
                 name="ios-mail-outline"
                 size={90}
-                color={'#424242'} />
+                color={'#424242'}
+              //color={'rgb(0, 68, 71)'} 
+              />
+              <Text style={{ textAlign: 'center', marginTop: -20, color: '#424242' }}>{"Missatge"}</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 30, justifyContent: 'flex-start', }}>
             <TouchableOpacity style={styles.two_buttons} onPress={this.On_Give_Press.bind(this)}>
               <Icon
-                name="ios-card-outline"
+                name="ios-card"
                 size={90}
-                color={'#424242'} />
+                color={'#424242'}
+              //color={'rgb(0, 68, 71)'}
+              />
+              <Text style={{ textAlign: 'center', marginTop: -20, color: '#424242' }}>{"Donatiu"}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -474,13 +485,13 @@ const styles = StyleSheet.create({
 
 
   infoContainer: {
-    flex: 1.3, //0.3 ok per festa
+    flex: 1.3,
     justifyContent: 'flex-end',
     paddingTop: 5,
     //backgroundColor: 'red',
   },
   infoContainer_cel: {
-    flex: 0.3,
+    flex: 0.6,
     justifyContent: 'flex-end',
     paddingTop: 5,
     //backgroundColor: 'red',
@@ -488,13 +499,17 @@ const styles = StyleSheet.create({
   diaLiturgicContainer: {
     flex: 1,
     justifyContent: 'center',
-    shadowOpacity: 0.3,
+    /*shadowOpacity: 0.3,
     shadowRadius: 7,
     shadowOffset: {
       width: 0,
       height: 10
-    },
-    //backgroundColor: 'silver',
+    },*/
+    borderRadius: 10,
+    marginHorizontal: 20,
+    //backgroundColor: 'rgb(215, 215, 215)',
+    borderColor: '#424242',
+    borderWidth: 1,
   },
   cel_container: {
     flex: 2.5,
@@ -507,12 +522,17 @@ const styles = StyleSheet.create({
 
 
   two_buttons: {
-    shadowOpacity: 0.2,
+    /*shadowOpacity: 0.2,
     shadowRadius: 7,
     shadowOffset: {
       width: 0,
       height: 10
-    },
+    },*/
+    paddingHorizontal: 30,
+    //backgroundColor: 'rgb(220, 220, 220)',
+    //borderRadius: 15,
+    //borderColor: '#424242',
+    //borderWidth: 1,
   },
   diaLiturgicText: {
     textAlign: 'center',
@@ -538,5 +558,6 @@ const styles = StyleSheet.create({
     flex: 4,
     marginBottom: 10,
     marginHorizontal: 10,
+    //backgroundColor:'red',
   },
 });
