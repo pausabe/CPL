@@ -15,11 +15,20 @@ export default class LHScreen extends Component {
     this.eventEmitter = new EventEmitter();
   }
 
+  componentDidMount() {
+    this.props.navigation.setParams({
+      Refresh_LH: this.Refresh_Layout.bind(this),
+    });
+  }
+
+  Refresh_Layout(){
+    this.forceUpdate();
+  }
+
   LHButtonCB(type, superTestMode) {
     var title = type;
     if (type === 'Ofici') title = 'Ofici de lectura';
 
-    //if(this.liturgicProps.LITURGIA !== null){
     var params = {
       title: title,
       props: {
@@ -29,15 +38,11 @@ export default class LHScreen extends Component {
         setNumSalmInv: this.setNumSalmInv.bind(this),
         setNumAntMare: this.setNumAntMare.bind(this),
         type: type,
-        //variables: this.variables,
-        //date: this.date,
-        //liturgicProps: this.liturgicProps,
         emitShareCB: this.emitShare.bind(this),
         events: this.eventEmitter
       },
     }
     this.props.navigation.navigate('LHDisplay', params);
-    //}
   }
 
   nextDayTest() {
@@ -86,10 +91,6 @@ export default class LHScreen extends Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.liturgiaContainer}>
           <LHButtons
-
-            //ViewData={this.props.ViewData}
-            //variables={this.props.variables}
-
             oficiCB={this.LHButtonCB.bind(this, "Ofici", false)}
             laudesCB={this.LHButtonCB.bind(this, "Laudes", false)}
             terciaCB={this.LHButtonCB.bind(this, "Tèrcia", false)}

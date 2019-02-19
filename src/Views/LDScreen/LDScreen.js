@@ -16,6 +16,16 @@ export default class LDScreen extends Component {
     this.eventEmitter = new EventEmitter();
   }
 
+  componentDidMount() {
+    this.props.navigation.setParams({
+      Refresh_LD: this.Refresh_Layout.bind(this),
+    });
+  }
+
+  Refresh_Layout(){
+    this.forceUpdate();
+  }
+
   //Callbacks
   On_Button_Pressed(prayer_type, need_lectura2) {
     var params = {

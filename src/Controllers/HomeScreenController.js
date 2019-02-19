@@ -144,7 +144,6 @@ export default class HomeScreenController extends Component {
           titol: G_VALUES.info_cel.nomCel,
           text: G_VALUES.info_cel.infoCel,
         },
-        //primVespres: this.primVespres(),
       }
     });
 
@@ -180,7 +179,6 @@ export default class HomeScreenController extends Component {
           titol: G_VALUES.info_cel.nomCel,
           text: G_VALUES.info_cel.infoCel,
         },
-        //primVespres: this.primVespres(),
       }
     });
 

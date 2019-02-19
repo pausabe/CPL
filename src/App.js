@@ -122,6 +122,7 @@ const LHStack = StackNavigator({
         if (scene.focused) {
         }
         else {
+          scene.route.routes[0].params.Refresh_LH();
           jumpToIndex(scene.index);
         }
       },
@@ -168,10 +169,10 @@ const LDStack = StackNavigator({
       tabStyle: { backgroundColor: 'red', marginRight: 20, width: 100 },
       tabBarOnPress: (values) => {
         const { previousScene, scene, jumpToIndex } = values;
-
         if (scene.focused) {
         }
         else {
+          scene.route.routes[0].params.Refresh_LD();
           jumpToIndex(scene.index);
         }
       },
@@ -185,7 +186,7 @@ const LDStack = StackNavigator({
         backgroundColor: GLOBAL.barColor,
       },
       headerTintColor: GLOBAL.itemsBarColor,
-      tabBarVisible: false,//(navigation.state.index <= 0),
+      tabBarVisible: false,
     }),
   }
 });
@@ -205,7 +206,7 @@ export default TabNavigator(
     },
     //tabBarComponent: TabBar,
     tabBarPosition: 'bottom',
-    //lazy: false, //Per render totes les tabs al principi
+    lazy: false, //Per renderitzar totes les tabs a l'inici
     animationEnabled: false,
     swipeEnabled: false,
   }
