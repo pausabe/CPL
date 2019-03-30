@@ -62,7 +62,9 @@ function Refresh_Data(newDay) {
       G_VALUES.LT = current.temps;
       G_VALUES.cicle = current.cicle; //1-4
       G_VALUES.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
-      G_VALUES.ABC = current.anyABC;
+      G_VALUES.ABC = current.anyABC; //A, B o C
+      G_VALUES.parImpar = 'I';//TODO: current.parImpar; //I o II
+      G_VALUES.diaDeLaSetmana = current.DiadelaSetmana;
 
       var tomorrow = new Date(newDay.getFullYear(), newDay.getMonth(), newDay.getDate());
       tomorrow.setDate(tomorrow.getDate() + 1);
@@ -111,6 +113,8 @@ function Set_Soul_CB(liturgia_hores, info_cel, liturgia_diaria) {
   G_VALUES.info_cel = info_cel;
   G_VALUES.primVespres = primVespres();
   LD_VALUES = liturgia_diaria;
+
+  console.log("liturgia_diaria: ", liturgia_diaria);
 
   this.Reload_Finished_Callback();
 }
