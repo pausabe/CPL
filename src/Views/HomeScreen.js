@@ -6,7 +6,8 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
-  Switch
+  Switch,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import GLOBAL from "../Globals/Globals";
@@ -45,16 +46,16 @@ export default class HomeScreen extends Component {
     try {
       switch (color) {
         case 'B':
-          return (<Text style={{ color: 'rgb(190, 190, 190)' }}>{string}</Text>);
+          return (<Text style={{ color: 'white' }}>{string}</Text>);
           break;
         case 'V':
-          return (<Text style={{ color: 'rgb(0, 102, 0)' }}>{string}</Text>);
+          return (<Text style={{ color: 'rgb(0, 120, 0)' }}>{string}</Text>);
           break;
         case 'R':
-          return (<Text style={{ color: 'rgb(192, 57, 43)' }}>{string}</Text>);
+          return (<Text style={{ color: 'rgb(230, 15, 15)' }}>{string}</Text>);
           break;
         case 'M':
-          return (<Text style={{ color: 'rgb(134, 45, 134)' }}>{string}</Text>);
+          return (<Text style={{ color: 'rgb(120, 50, 140)' }}>{string}</Text>);
           break;
         default:
           return (<Text style={{ color: '#c0392b' }}>{string}</Text>);
@@ -214,11 +215,13 @@ export default class HomeScreen extends Component {
       var date_getday = G_VALUES.date.getDay();
       this.switchValue = G_VALUES.lliures;
       return (
-        <View style={styles.container}>
-          {this.Top_Info(date_getdate, date_getmonth, date_getfullyear)}
-          {this.Info_Liturgica(date_getday)}
-          {this.Cel_Info()}
-        </View>
+        <SafeAreaView style={styles.container}>
+          <ImageBackground source={require('../Globals/img/bg/home_background.jpg')} style={styles.backgroundImage} blurRadius={5}>
+            {this.Top_Info(date_getdate, date_getmonth, date_getfullyear)}
+            {this.Info_Liturgica(date_getday)}
+            {this.Cel_Info()}
+          </ImageBackground>
+        </SafeAreaView>
       )
     }
     catch (error) {
@@ -323,7 +326,7 @@ export default class HomeScreen extends Component {
       return (
         <View style={styles.cel_container}>
           {this.props.ViewData.ready && this.props.ViewData.celebracio.titol !== '-' ?
-            <View style={{ paddingBottom: 5, marginTop: 30 }}>
+            <View style={{ paddingBottom: 5, }}>
               {this.transfromCelTypeName(this.props.ViewData.celebracio.type, this.props.ViewData.temps)}
             </View>
             : null
@@ -340,8 +343,9 @@ export default class HomeScreen extends Component {
               },*/
               justifyContent: 'center',
               //backgroundColor: '#E0F2F1',
-              borderColor: '#424242',
-              borderWidth: 1,
+              backgroundColor: 'rgba(255, 255, 255, 0.7)',
+              //borderColor: '#424242',
+              //borderWidth: 1,
               borderRadius: 10,
               marginBottom: 10,
               paddingLeft: 10,
@@ -432,27 +436,29 @@ export default class HomeScreen extends Component {
     try {
       return (
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 30, justifyContent: 'flex-start', }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end', paddingRight: 10, marginTop: 30, justifyContent: 'flex-start', }}>
             <TouchableOpacity style={styles.two_buttons} onPress={this.On_Comment_Press.bind(this)}>
               <Icon
                 //name="md-mail"
                 name="ios-mail-outline"
-                size={90}
-                color={'#424242'}
-              //color={'rgb(0, 68, 71)'} 
+                size={75}
+                //color={'#424242'}
+                //color={'black'}
+              color={'rgb(50, 50, 50)'} 
               />
-              <Text style={{ textAlign: 'center', marginTop: -20, color: '#424242' }}>{"Missatge"}</Text>
+              <Text style={{ textAlign: 'center', marginTop: -17, color: 'rgb(50, 50, 50)', fontSize: 12 }}>{"Missatge"}</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 30, justifyContent: 'flex-start', }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start', paddingLeft: 10, marginTop: 30, justifyContent: 'flex-start', }}>
             <TouchableOpacity style={styles.two_buttons} onPress={this.On_Give_Press.bind(this)}>
               <Icon
                 name="ios-card"
-                size={90}
-                color={'#424242'}
-              //color={'rgb(0, 68, 71)'}
+                size={75}
+                //color={'#424242'}
+                //color={'black'}
+              color={'rgb(50, 50, 50)'}
               />
-              <Text style={{ textAlign: 'center', marginTop: -20, color: '#424242' }}>{"Donatiu"}</Text>
+              <Text style={{ textAlign: 'center', marginTop: -17, color: 'rgb(50, 50, 50)', fontSize: 12 }}>{"Donatiu"}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -471,12 +477,12 @@ const styles = StyleSheet.create({
     paddingTop: paddingBar(),
     backgroundColor: 'white'//GLOBAL.backgroundColor,
   },
-  /*backgroundImage: {
+  backgroundImage: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgb(5, 169, 176)',
     width: null,
     height: null,
-  },*/
+  },
 
 
 
@@ -508,13 +514,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 20,
     //backgroundColor: 'rgb(215, 215, 215)',
-    borderColor: '#424242',
-    borderWidth: 1,
+    /*borderColor: '#424242',
+    borderWidth: 1,*/
   },
   cel_container: {
     flex: 2.5,
-    justifyContent: 'flex-end',
-    paddingTop: 5,
+    //justifyContent: 'flex-end',
+    paddingTop: 10,
     //backgroundColor: 'blue',
   },
 

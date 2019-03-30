@@ -22,14 +22,25 @@ export default class LDScreen extends Component {
     });
   }
 
-  Refresh_Layout(){
+  Refresh_Layout() {
     this.forceUpdate();
   }
 
   //Callbacks
   On_Button_Pressed(prayer_type, need_lectura2) {
+    var title = prayer_type;
+
+    switch (prayer_type) {
+      case "1Lect":
+        title = "Primera lectura";
+        break;
+        case "2Lect":
+        title = "Segona lectura";
+        break;
+    }
+
     var params = {
-      title: prayer_type,
+      title: title,
       props: {
         type: prayer_type,
         emitShareCB: this.emitShare.bind(this),
@@ -46,11 +57,15 @@ export default class LDScreen extends Component {
 
   //RENDER
   render() {
+    var need_lectura2 = G_VALUES.date.getDay() === 0;
+
     return (
       <SafeAreaView style={styles.container}>
-          <View style={styles.liturgiaContainer}>
-            {this.Buttons(true)}
+        <ImageBackground source={require('../../Globals/img/bg/home_background.jpg')} style={styles.backgroundImage} blurRadius={5}>
+          <View style={need_lectura2? styles.liturgiaContainer_need_lectura2 : styles.liturgiaContainer}>
+            {this.Buttons(need_lectura2)}
           </View>
+        </ImageBackground>
       </SafeAreaView>
     );
   }
@@ -62,17 +77,17 @@ export default class LDScreen extends Component {
           <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "1Lect", need_lectura2)}>
             <Text style={styles.buttonText}>{"Primera lectura"}</Text>
           </TouchableOpacity>
-          <HR margin_horizontal={20}/>
+          <HR margin_horizontal={20} />
           <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Salm", need_lectura2)}>
             <Text style={styles.buttonText}>{"Salm"}</Text>
           </TouchableOpacity>
-          <HR margin_horizontal={20}/>
+          <HR margin_horizontal={20} />
           {need_lectura2 ?
             <View style={{ flex: 1 }}>
               <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "2Lect", need_lectura2)}>
                 <Text style={styles.buttonText}>{"Segona lectura"}</Text>
               </TouchableOpacity>
-              <HR margin_horizontal={20}/>
+              <HR margin_horizontal={20} />
             </View>
             : null}
           <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Evangeli", need_lectura2)}>
@@ -91,20 +106,25 @@ export default class LDScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'white',
+    backgroundColor: 'white',
     //backgroundColor: 'rgb(215, 215, 215)'
   },
   liturgiaContainer: {
     flex: 6,
+    marginVertical: 100,
+    marginHorizontal: 30,
+  },
+  liturgiaContainer_need_lectura2: {
+    flex: 6,
     marginVertical: 70,
     marginHorizontal: 30,
   },
-  /*backgroundImage: {
+  backgroundImage: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgb(5, 169, 176)',
     width: null,
     height: null,
-  },*/
+  },
   buttons_container: {
     flex: 1,
     /*shadowOpacity: 0.4,
@@ -113,11 +133,12 @@ const styles = StyleSheet.create({
       width: 0,
       height: 10
     },
-    opacity: 0.75,*/
+    */
+    opacity: 0.75,
     backgroundColor: 'white',
     borderRadius: 15,
-    borderColor: '#424242',
-    borderWidth: 1,
+    //borderColor: '#424242',
+    //borderWidth: 1,
   },
   buttonContainer: {
     flex: 1,

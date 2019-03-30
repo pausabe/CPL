@@ -35,8 +35,8 @@ const HomeStack = StackNavigator({
         return (
           <View style={{ padding: 10 }}>
             {focused ?
-              <Image source={require('./Globals/img/icons/home.png')}
-                style={{ flex: 1, resizeMode: 'contain', tintColor: '#a8a8a8' }} />
+              <Image source={require('./Globals/img/icons/home_pressed.png')}
+                style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
               :
               <Image source={require('./Globals/img/icons/home.png')}
                 style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
@@ -82,7 +82,7 @@ const HomeStack = StackNavigator({
     screen: CommentScreen,
     navigationOptions: {
       tabBarVisible: false,
-      headerTitle: <Text style={styles.titleText}>{'Comentari'}</Text>,
+      headerTitle: <Text style={styles.titleText}>{'Missatge'}</Text>,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
@@ -107,8 +107,8 @@ const LHStack = StackNavigator({
         return (
           <View style={{ padding: 10 }}>
             {focused ?
-              <Image source={require('./Globals/img/icons/LH.png')}
-                style={{ flex: 1, resizeMode: 'contain', tintColor: '#a8a8a8' }} />
+              <Image source={require('./Globals/img/icons/LH_pressed.png')}
+                style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
               :
               <Image source={require('./Globals/img/icons/LH.png')}
                 style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
@@ -157,8 +157,8 @@ const LDStack = StackNavigator({
         return (
           <View style={{ padding: 10 }}>
             {focused ?
-              <Image source={require('./Globals/img/icons/LD.png')}
-                style={{ flex: 1, resizeMode: 'contain', tintColor: '#a8a8a8' }} />
+              <Image source={require('./Globals/img/icons/LD_pressed.png')}
+                style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
               :
               <Image source={require('./Globals/img/icons/LD.png')}
                 style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />

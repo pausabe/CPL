@@ -21,7 +21,7 @@ export default class LHScreen extends Component {
     });
   }
 
-  Refresh_Layout(){
+  Refresh_Layout() {
     this.forceUpdate();
   }
 
@@ -89,16 +89,18 @@ export default class LHScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.liturgiaContainer}>
-          <LHButtons
-            oficiCB={this.LHButtonCB.bind(this, "Ofici", false)}
-            laudesCB={this.LHButtonCB.bind(this, "Laudes", false)}
-            terciaCB={this.LHButtonCB.bind(this, "Tèrcia", false)}
-            sextaCB={this.LHButtonCB.bind(this, "Sexta", false)}
-            nonaCB={this.LHButtonCB.bind(this, "Nona", false)}
-            vespresCB={this.LHButtonCB.bind(this, "Vespres", false)}
-            completesCB={this.LHButtonCB.bind(this, "Completes", false)} />
-        </View>
+        <ImageBackground source={require('../../Globals/img/bg/home_background.jpg')} style={styles.backgroundImage} blurRadius={5}>
+          <View style={styles.liturgiaContainer}>
+            <LHButtons
+              oficiCB={this.LHButtonCB.bind(this, "Ofici", false)}
+              laudesCB={this.LHButtonCB.bind(this, "Laudes", false)}
+              terciaCB={this.LHButtonCB.bind(this, "Tèrcia", false)}
+              sextaCB={this.LHButtonCB.bind(this, "Sexta", false)}
+              nonaCB={this.LHButtonCB.bind(this, "Nona", false)}
+              vespresCB={this.LHButtonCB.bind(this, "Vespres", false)}
+              completesCB={this.LHButtonCB.bind(this, "Completes", false)} />
+          </View>
+        </ImageBackground>
       </SafeAreaView>
     );
   }
@@ -116,11 +118,11 @@ const styles = StyleSheet.create({
     /*marginBottom: 10,
     marginHorizontal: 10,*/
   },
-  /*backgroundImage: {
+  backgroundImage: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgb(5, 169, 176)',
     width: null,
     height: null,
     //resizeMode: 'cover',
-  },*/
+  },
 });
