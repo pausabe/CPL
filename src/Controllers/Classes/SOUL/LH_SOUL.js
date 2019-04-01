@@ -614,7 +614,7 @@ export default class LH_SOUL {
       console.log("Log#32. idDM avui: " + idDM);
       if (idDM === -1) {
         console.log("Log#32. Avui no és dia movible");
-        var day = this.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
+        var day = GF.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
         console.log("Log#32. day: " + day);
         this.acceso.getSolMem("santsSolemnitats", day, G_VALUES.diocesi, G_VALUES.lloc, G_VALUES.diocesiName, G_VALUES.tempsespecific, (result) => {
           this.queryRows.santsSolemnitats = result;
@@ -647,7 +647,7 @@ export default class LH_SOUL {
       else {
         console.log("Log#32. [Extra] Demà no hi ha dia movible");
         var day = '-';
-        if (G_VALUES.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(G_VALUES.diocesi, G_VALUES.dataTomorrow.diocesiMogut))
+        if (G_VALUES.dataTomorrow.diaMogut !== '-' && GF.isDiocesiMogut(G_VALUES.diocesi, G_VALUES.dataTomorrow.diocesiMogut))
           day = G_VALUES.dataTomorrow.diaMogut;
 
         if (day === '-') {
@@ -656,7 +656,7 @@ export default class LH_SOUL {
           auxDay.setFullYear(G_VALUES.date.getFullYear());
           auxDay.setMonth(G_VALUES.date.getMonth());
           auxDay.setDate(G_VALUES.date.getDate() + 1);
-          day = this.calculeDia(auxDay, G_VALUES.diocesi, '-', '-');
+          day = GF.calculeDia(auxDay, G_VALUES.diocesi, '-', '-');
         }
         console.log("Log#32. [Extra] day definitiu: " + day);
         params.vespres1 = true;
@@ -681,7 +681,7 @@ export default class LH_SOUL {
       }
       else {
         if (idDM === -1) {
-          var day = this.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
+          var day = GF.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
           this.acceso.getSolMem("santsMemories", day, G_VALUES.diocesi, G_VALUES.lloc, G_VALUES.diocesiName, G_VALUES.tempsespecific, (result) => {
             this.queryRows.santsMemories = result;
             this.getOficisComuns(params, result, false);
@@ -815,7 +815,7 @@ export default class LH_SOUL {
     if (
       this.tomorrowCal === '-' || //demà no hi ha cap celebració
       this.tomorrowCal === 'F' || //demà hi ha Festa
-      /*(this.dataTomorrow.diaMogut !== '-' && this.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut)) ||*/ //demà és mogut
+      /*(this.dataTomorrow.diaMogut !== '-' && GF.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut)) ||*/ //demà és mogut
       (this.idTSF !== -1 && this.tomorrowCal !== 'TSF') || //quan dues TSF seguides es fa Vespres1 de la segona TSF. Basicamen evito el conflicte de les Vespres de Sagrada Familia quan cau en 31/12 i l'andemà és Mare de Déi 1/1 (únic conflicte possible entre TSF)
       (this.idDE !== -1 && this.tomorrowCal === '-') || //avui és DE i demà no hi ha celebració
       (G_VALUES.date.getDay() === 0 && this.tomorrowCal === 'S' && G_VALUES.LT !== GLOBAL.O_ORDINARI) //Amb això generalitzo que DiumengeOrdinari>S i potser no és així
@@ -1413,67 +1413,6 @@ export default class LH_SOUL {
     if (today.getDay() !== 0) return false;
     if (today.getDate() < 7 || today.getDate() > 13) return false;
     return true;
-  }
-
-  isDiocesiMogut(diocesi, diocesiMogut) {
-    if (!diocesi || diocesi === '' || diocesiMogut === '-' || diocesi === undefined)
-      return false;
-    if (diocesiMogut === '*') return true;
-    if (diocesi === diocesiMogut) return true;
-    if (diocesi.charAt(0) === diocesiMogut.charAt(0) &&
-      diocesi.charAt(1) === diocesiMogut.charAt(1))
-      return true;
-    return false;
-  }
-
-  calculeDia(date, diocesi, diaMogut, diocesiMogut) {
-    if (diaMogut !== '-' && this.isDiocesiMogut(diocesi, diocesiMogut))
-      return diaMogut;
-
-    switch (date.getMonth()) {
-      case 0:
-        mes = "ene";
-        break;
-      case 1:
-        mes = "feb";
-        break;
-      case 2:
-        mes = "mar";
-        break;
-      case 3:
-        mes = "abr";
-        break;
-      case 4:
-        mes = "may";
-        break;
-      case 5:
-        mes = "jun";
-        break;
-      case 6:
-        mes = "jul";
-        break;
-      case 7:
-        mes = "ago";
-        break;
-      case 8:
-        mes = "sep";
-        break;
-      case 9:
-        mes = "oct";
-        break;
-      case 10:
-        mes = "nov";
-        break;
-      case 11:
-        mes = "dic";
-        break;
-    }
-    if (date.getDate() < 10)
-      dia = `0${date.getDate()}`;
-    else dia = date.getDate();
-
-    result = dia + "-" + mes;
-    return result;
   }
 
   creatingEmptyCEL() {

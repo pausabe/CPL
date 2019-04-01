@@ -1,4 +1,5 @@
 import DBAdapter from '../../../Adapters/DBAdapter';
+import GF from '../../../Globals/GlobalFunctions';
 
 export default class LD_SOUL {
     constructor(Set_Soul_CB) {
@@ -12,32 +13,42 @@ export default class LD_SOUL {
         var DBRow = DefaultValues();
 
         if(G_VALUES.celType == 'M' || G_VALUES.celType == 'S' || G_VALUES.celType == 'F'){
-            //Dies festius -> LDSantoral
-            //var day = this.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
-            /*this.acceso.getLDSantoral(
-                        G_VALUES.tempsespecific,
-                        G_VALUES.cicle,
-                        G_VALUES.diaDeLaSetmana,
-                        G_VALUES.setmana,
-                        G_VALUES.parImpar,
-                        (result) => {
-                DBRow = result;
-                Set_Soul_CB(DBRow);
-            });*/
+            //Dies festius -> IsSpecialDay
+            var day = GF.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
+            var specialResultId = this.IsSpecialDay(day);
+
+            this.acceso.getLDSantoral(
+                    day,
+                    specialResultId,
+                    G_VALUES.celType,
+                    G_VALUES.tempsespecific,
+                    G_VALUES.ABC,
+                    G_VALUES.diaDeLaSetmana,
+                    G_VALUES.setmana,
+                    G_VALUES.parImpar,
+                    (result) => {
+            DBRow = result;                
+            Set_Soul_CB(DBRow);
+            });
         }
         else{
             //Dies no festius -> LDDiumenges
             this.acceso.getLDNormal(
                         G_VALUES.tempsespecific,
-                        G_VALUES.cicle,
+                        G_VALUES.ABC,
                         G_VALUES.diaDeLaSetmana,
                         G_VALUES.setmana,
                         G_VALUES.parImpar,
                         (result) => {
-                DBRow = result;
+                DBRow = result;                
                 Set_Soul_CB(DBRow);
                 });
         }
+    }
+
+    IsSpecialDay(day){
+        //Exemple: Diuemge abans que nse que... retornar '0034'
+        return "-1";
     }
 }
 

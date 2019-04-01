@@ -790,5 +790,68 @@ module.exports = {
     var nowDate = new Date();
     var hour = nowDate.getHours();
     return hour<6;
+  },
+
+  isDiocesiMogut(diocesi, diocesiMogut) {
+    if (!diocesi || diocesi === '' || diocesiMogut === '-' || diocesi === undefined)
+      return false;
+    if (diocesiMogut === '*') return true;
+    if (diocesi === diocesiMogut) return true;
+    if (diocesi.charAt(0) === diocesiMogut.charAt(0) &&
+      diocesi.charAt(1) === diocesiMogut.charAt(1))
+      return true;
+    return false;
+  },
+
+  calculeDia(date, diocesi, diaMogut, diocesiMogut) {
+    console.log("hay");
+    
+    if (diaMogut !== '-' && this.isDiocesiMogut(diocesi, diocesiMogut))
+      return diaMogut;
+
+    switch (date.getMonth()) {
+      case 0:
+        mes = "ene";
+        break;
+      case 1:
+        mes = "feb";
+        break;
+      case 2:
+        mes = "mar";
+        break;
+      case 3:
+        mes = "abr";
+        break;
+      case 4:
+        mes = "may";
+        break;
+      case 5:
+        mes = "jun";
+        break;
+      case 6:
+        mes = "jul";
+        break;
+      case 7:
+        mes = "ago";
+        break;
+      case 8:
+        mes = "sep";
+        break;
+      case 9:
+        mes = "oct";
+        break;
+      case 10:
+        mes = "nov";
+        break;
+      case 11:
+        mes = "dic";
+        break;
+    }
+    if (date.getDate() < 10)
+      dia = `0${date.getDate()}`;
+    else dia = date.getDate();
+
+    result = dia + "-" + mes;
+    return result;
   }
 };

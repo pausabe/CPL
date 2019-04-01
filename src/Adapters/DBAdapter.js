@@ -165,55 +165,64 @@ export default class DBAdapter {
       result => callback(result.rows.item(0), categoria));
   }
 
-  getLDNormal(tempsEspecific, cicle, diaSetmana, setmana, parImpar, callback) {
+  getLDSantoral(){
+    //var query = `SELECT * FROM LDSantoral WHERE tempsespecific = '${tempsEspecific}' AND DiadelaSetmana = '${diaSetmana}' AND NumSet = '${setmana}'`;
+    //console.log("QueryLog. QUERY getLDNormal: " + query);
+  }
+
+  getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, callback) {
     var query = `SELECT * FROM LDdiumenges WHERE tempsespecific = '${tempsEspecific}' AND DiadelaSetmana = '${diaSetmana}' AND NumSet = '${setmana}'`;
     console.log("QueryLog. QUERY getLDNormal: " + query);
     this.executeQuery(query,
       result => {
         console.log("InfoLog. getLDNormal Result size: " + result.rows.length);
-        var index;
-        if (result.rows.length > 1) {
-          if (result.rows[0].cicle != '-' && result.rows[0].paroimpar == '-') {
-            //1) cicle != '-' and paroimpar != '-'
-            for (var i = 0; i < result.rows.length; i++) {
-              if (result.rows[i].cicle == cicle) {
-                index = i;
-                break;
-              }
-            }
-          }
-          else if (result.rows[0].paroimpar != '-' && result.rows[0].Cicle == '-') {
-            //2) cicle == '-' and paroimpar != '-'
-            for (var i = 0; i < result.rows.length; i++) {
-              if (result.rows[i].paroimpar == parImpar) {
-                index = i;
-                break;
-              }
-            }
-          }
-          else if(result.rows[0].paroimpar != '-' && result.rows[0].Cicle != '-'){
-            //3) cicle != '-' and paroimpar != '-'
-            for (var i = 0; i < result.rows.length; i++) {
-              if (result.rows[i].cicle == cicle && result.rows[i].paroimpar == parImpar) {
-                index = i;
-                break;
-              }
-            }
-          }
-        }
-        else if(result.rows.length == 1){
-          //4) cicle == '-' and paroimpar == '-'
-          index = 0;
-        }
-
-        if(index == undefined){
-          console.log("[ERROR] Something went wrong! Index not found");
-          index = 0;
-        }
-
-        console.log("InfoLog. Index definitive: " + index);
-        callback(result.rows.item(index));
+        var i = this.LDGetIndex(result, cicleABC, parImpar);
+        callback(result.rows.item(i));
       });
+  }
+
+  LDGetIndex(result, cicleABC, parImpar){
+    var index;
+    if (result.rows.length > 1) {
+      if (result.rows.item(0).Cicle != '-' && result.rows.item(0).paroimpar == '-') {
+        //1) cicle != '-' and paroimpar != '-'
+        for (var i = 0; i < result.rows.length; i++) {
+          if (result.rows.item(i).Cicle == cicleABC) {
+            index = i;
+            break;
+          }
+        }
+      }
+      else if (result.rows.item(0).paroimpar != '-' && result.rows.item(0).Cicle == '-') {
+        //2) cicle == '-' and paroimpar != '-'
+        for (var i = 0; i < result.rows.length; i++) {
+          if (result.rows.item(i).paroimpar == parImpar) {
+            index = i;
+            break;
+          }
+        }
+      }
+      else if(result.rows.item(0).paroimpar != '-' && result.rows.item(0).Cicle != '-'){
+        //3) cicle != '-' and paroimpar != '-'
+        for (var i = 0; i < result.rows.length; i++) {
+          if (result.rows.item(i).Cicle == cicleABC && result.rows.item(i).paroimpar == parImpar) {
+            index = i;
+            break;
+          }
+        }
+      }
+    }
+    else if(result.rows.length == 1){
+      //4) cicle == '-' and paroimpar == '-'
+      index = 0;
+    }
+
+    if(index == undefined){
+      console.log("[ERROR] Something went wrong! Index not found");
+      index = 0;
+    }
+    console.log("InfoLog. Index definitive: " + index);
+    return index;
   }
 
   transformDiocesiName(diocesi, lloc) {
