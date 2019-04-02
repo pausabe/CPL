@@ -165,26 +165,65 @@ export default class DBAdapter {
       result => callback(result.rows.item(0), categoria));
   }
 
-  getLDSantoral(day, specialResultId, celType, tempsEspecific, cicleABC, diaSetmana, parImpar, callback){
-    if(specialResultId == '-1'){
-      //Normal santoral day
-      var query = `SELECT * FROM LDSantoral WHERE Categoria = '${celType}' AND tempsespecific = '${tempsEspecific}' AND dia = '${day}'`;
-      console.log("QueryLog. QUERY getLDSantoral: " + query);
-      this.executeQuery(query,
-        result => {
-          console.log("InfoLog. getLDSantoral Result size: " + result.rows.length);
-          var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
-          callback(result.rows.item(i));
-        });
-    }
-    else{
-      //Special day
-      var query = `SELECT * FROM LDSantoral WHERE id = '${specialResultId}'`;
-      console.log("QueryLog. QUERY getLDSantoral: " + query);
-      this.executeQuery(query,
-        result => callback(result.rows.item(0))
+  getLDSantoral(day, specialResultId, celType, tempsEspecific, cicleABC, diaSetmana, parImpar, setmana, callback) {
+    this.getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, (normal_result) => {
+      console.log("hey yoh", normal_result);
+
+      if (specialResultId == '-1') {
+        //Normal santoral day
+        var query = `SELECT * FROM LDSantoral WHERE Categoria = '${celType}' AND tempsespecific = '${tempsEspecific}' AND dia = '${day}'`;
+        console.log("QueryLog. QUERY getLDSantoral: " + query);
+        this.executeQuery(query,
+          result => {
+            console.log("InfoLog. getLDSantoral Result size: " + result.rows.length);
+            var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
+            if (i == -1 && celType == 'M') {
+              //Not in Santoral
+              callback(normal_result);
+            }
+            else {
+              var data_return = result.rows.item(i);
+
+              if(normal_result != undefined){
+                if (data_return.Lectura1Text == '-'){
+                  data_return.Lectura1 = normal_result.Lectura1;
+                  data_return.Lectura1Cita = normal_result.Lectura1Cita;
+                  data_return.Lectura1Titol = normal_result.Lectura1Titol;
+                  data_return.Lectura1Text = normal_result.Lectura1Text;
+                }
+                if (data_return.SalmText == '-'){
+                  data_return.Salm = normal_result.Salm;
+                  data_return.SalmText = normal_result.SalmText;
+                }
+                if (data_return.Lectura2Text == '-'){
+                  data_return.Lectura2 = normal_result.Lectura2;
+                  data_return.Lectura2Text = normal_result.Lectura2Cita;
+                  data_return.Lectura2Text = normal_result.Lectura2Titol;
+                  data_return.Lectura2Text = normal_result.Lectura2Text;
+                }
+                if (data_return.EvangeliText == '-'){
+                  data_return.Alleluia = normal_result.Alleluia;
+                  data_return.AlleluiaText = normal_result.AlleluiaText;
+                  data_return.Evangeli = normal_result.Evangeli;
+                  data_return.EvangeliCita = normal_result.EvangeliCita;
+                  data_return.EvangeliTitol = normal_result.EvangeliTitol;
+                  data_return.EvangeliText = normal_result.EvangeliText;
+                }
+              }
+
+              callback(data_return);
+            }
+          });
+      }
+      else {
+        //Special day
+        var query = `SELECT * FROM LDSantoral WHERE id = '${specialResultId}'`;
+        console.log("QueryLog. QUERY getLDSantoral: " + query);
+        this.executeQuery(query,
+          result => callback(result.rows.item(0))
         );
-    }
+      }
+    });
   }
 
   getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, callback) {
@@ -198,35 +237,36 @@ export default class DBAdapter {
       });
   }
 
-  LDGetIndex(result, cicleABC, parImpar, diaSetmana){
+  LDGetIndex(result, cicleABC, parImpar, diaSetmana) {
     //For getLDSantoral is necessari let in result just the rows with diaSetmana (just in case any of them have diaSetmana != '-')
     var haveSomeDiaSetmana = false;
+    var DiaIsTheSame = false;
     for (let i = 0; i < result.rows.length; i++) {
-      if(result.rows.item(i).DiadelaSetmana != '-'){
+      if (result.rows.item(i).DiadelaSetmana != '-') {
         haveSomeDiaSetmana = true;
+        if (result.rows.item(i).DiadelaSetmana == diaSetmana)
+          DiaIsTheSame = true;
         break;
       }
     }
 
     var rows = [];
 
-    if(haveSomeDiaSetmana){
+    if (haveSomeDiaSetmana) {
       for (let i = 0; i < result.rows.length; i++) {
-        if(result.rows.item(i).DiadelaSetmana == DiadelaSetmana){
+        if ((DiaIsTheSame && result.rows.item(i).DiadelaSetmana == diaSetmana) ||
+          (!DiaIsTheSame && result.rows.item(i).DiadelaSetmana == '-')) {
           rows.push(result.rows.item(i));
         }
       }
     }
-    else{
+    else {
       for (let i = 0; i < result.rows.length; i++) {
         rows.push(result.rows.item(i));
       }
     }
 
-    //TODO: no està bé del tot això... per exemple 6-ago de 2019 (no es diumenge)
-
     console.log("ROWS!", rows);
-    
 
     var index;
     if (rows.length > 1) {
@@ -248,7 +288,7 @@ export default class DBAdapter {
           }
         }
       }
-      else if(rows[0].paroimpar != '-' && rows[0].Cicle != '-'){
+      else if (rows[0].paroimpar != '-' && rows[0].Cicle != '-') {
         //3) cicle != '-' and paroimpar != '-'
         for (var i = 0; i < rows.length; i++) {
           if (rows[i].Cicle == cicleABC && rows[i].paroimpar == parImpar) {
@@ -258,14 +298,17 @@ export default class DBAdapter {
         }
       }
     }
-    else if(rows.length == 1){
+    else if (rows.length == 1) {
       //4) cicle == '-' and paroimpar == '-'
       index = 0;
     }
 
-    if(index == undefined){
-      console.log("[ERROR] Something went wrong! Index not found");
-      index = 0;
+    if (index == undefined) {
+      console.log("Index not found");
+      index = -1;
+    }
+    else {
+      index += (result.rows.length - rows.length);
     }
     console.log("InfoLog. Index definitive: " + index);
     return index;
