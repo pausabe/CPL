@@ -15,7 +15,7 @@ export default class LD_SOUL {
         if(G_VALUES.celType == 'M' || G_VALUES.celType == 'S' || G_VALUES.celType == 'F'){
             //Dies festius -> IsSpecialDay
             var day = GF.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
-            var specialResultId = this.IsSpecialDay(day);
+            var specialResultId = this.IsSpecialDay(day); //Returns -1 if not special day
 
             this.acceso.getLDSantoral(
                     day,
@@ -24,7 +24,6 @@ export default class LD_SOUL {
                     G_VALUES.tempsespecific,
                     G_VALUES.ABC,
                     G_VALUES.diaDeLaSetmana,
-                    G_VALUES.setmana,
                     G_VALUES.parImpar,
                     (result) => {
             DBRow = result;                
@@ -48,7 +47,8 @@ export default class LD_SOUL {
 
     IsSpecialDay(day){
         //Exemple: Diuemge abans que nse que... retornar '0034'
-        return "-1";
+        //Tb contemplar feries?
+        return '-1';
     }
 }
 

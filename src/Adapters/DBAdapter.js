@@ -165,9 +165,26 @@ export default class DBAdapter {
       result => callback(result.rows.item(0), categoria));
   }
 
-  getLDSantoral(){
-    //var query = `SELECT * FROM LDSantoral WHERE tempsespecific = '${tempsEspecific}' AND DiadelaSetmana = '${diaSetmana}' AND NumSet = '${setmana}'`;
-    //console.log("QueryLog. QUERY getLDNormal: " + query);
+  getLDSantoral(day, specialResultId, celType, tempsEspecific, cicleABC, diaSetmana, parImpar, callback){
+    if(specialResultId == '-1'){
+      //Normal santoral day
+      var query = `SELECT * FROM LDSantoral WHERE Categoria = '${celType}' AND tempsespecific = '${tempsEspecific}' AND dia = '${day}'`;
+      console.log("QueryLog. QUERY getLDSantoral: " + query);
+      this.executeQuery(query,
+        result => {
+          console.log("InfoLog. getLDSantoral Result size: " + result.rows.length);
+          var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
+          callback(result.rows.item(i));
+        });
+    }
+    else{
+      //Special day
+      var query = `SELECT * FROM LDSantoral WHERE id = '${specialResultId}'`;
+      console.log("QueryLog. QUERY getLDSantoral: " + query);
+      this.executeQuery(query,
+        result => callback(result.rows.item(0))
+        );
+    }
   }
 
   getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, callback) {
@@ -176,43 +193,72 @@ export default class DBAdapter {
     this.executeQuery(query,
       result => {
         console.log("InfoLog. getLDNormal Result size: " + result.rows.length);
-        var i = this.LDGetIndex(result, cicleABC, parImpar);
+        var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
         callback(result.rows.item(i));
       });
   }
 
-  LDGetIndex(result, cicleABC, parImpar){
+  LDGetIndex(result, cicleABC, parImpar, diaSetmana){
+    //For getLDSantoral is necessari let in result just the rows with diaSetmana (just in case any of them have diaSetmana != '-')
+    var haveSomeDiaSetmana = false;
+    for (let i = 0; i < result.rows.length; i++) {
+      if(result.rows.item(i).DiadelaSetmana != '-'){
+        haveSomeDiaSetmana = true;
+        break;
+      }
+    }
+
+    var rows = [];
+
+    if(haveSomeDiaSetmana){
+      for (let i = 0; i < result.rows.length; i++) {
+        if(result.rows.item(i).DiadelaSetmana == DiadelaSetmana){
+          rows.push(result.rows.item(i));
+        }
+      }
+    }
+    else{
+      for (let i = 0; i < result.rows.length; i++) {
+        rows.push(result.rows.item(i));
+      }
+    }
+
+    //TODO: no està bé del tot això... per exemple 6-ago de 2019 (no es diumenge)
+
+    console.log("ROWS!", rows);
+    
+
     var index;
-    if (result.rows.length > 1) {
-      if (result.rows.item(0).Cicle != '-' && result.rows.item(0).paroimpar == '-') {
+    if (rows.length > 1) {
+      if (rows[0].Cicle != '-' && rows[0].paroimpar == '-') {
         //1) cicle != '-' and paroimpar != '-'
-        for (var i = 0; i < result.rows.length; i++) {
-          if (result.rows.item(i).Cicle == cicleABC) {
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].Cicle == cicleABC) {
             index = i;
             break;
           }
         }
       }
-      else if (result.rows.item(0).paroimpar != '-' && result.rows.item(0).Cicle == '-') {
+      else if (rows[0].paroimpar != '-' && rows[0].Cicle == '-') {
         //2) cicle == '-' and paroimpar != '-'
-        for (var i = 0; i < result.rows.length; i++) {
-          if (result.rows.item(i).paroimpar == parImpar) {
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].paroimpar == parImpar) {
             index = i;
             break;
           }
         }
       }
-      else if(result.rows.item(0).paroimpar != '-' && result.rows.item(0).Cicle != '-'){
+      else if(rows[0].paroimpar != '-' && rows[0].Cicle != '-'){
         //3) cicle != '-' and paroimpar != '-'
-        for (var i = 0; i < result.rows.length; i++) {
-          if (result.rows.item(i).Cicle == cicleABC && result.rows.item(i).paroimpar == parImpar) {
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].Cicle == cicleABC && rows[i].paroimpar == parImpar) {
             index = i;
             break;
           }
         }
       }
     }
-    else if(result.rows.length == 1){
+    else if(rows.length == 1){
       //4) cicle == '-' and paroimpar == '-'
       index = 0;
     }
