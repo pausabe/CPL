@@ -149,7 +149,7 @@ const LDStack = StackNavigator({
   LDScreen: {
     screen: LDScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader title={"Litúrgia diària"} left_padding={Platform.OS === 'ios' ? 0 : 160} />,
+      headerTitle: <GenericHeader title={"Missa"} left_padding={Platform.OS === 'ios' ? 0 : 160} />,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },

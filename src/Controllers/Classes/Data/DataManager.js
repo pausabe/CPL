@@ -58,7 +58,7 @@ function Refresh_Data(newDay) {
       G_VALUES.diocesiMogut = current.diocesiMogut;
       G_VALUES.litColor = current.Color;
       G_VALUES.pentacosta = pentacosta;
-      G_VALUES.tempsespecific = current.tempsespecific;
+      G_VALUES.tempsespecific = current.tempsespecific; //Ordinari, Quaresma, ... 
       G_VALUES.LT = current.temps; //O_ORDINAR, A_SETMANES, ...
       G_VALUES.cicle = current.cicle; //1-4
       G_VALUES.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7

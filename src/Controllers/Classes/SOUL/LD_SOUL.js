@@ -12,6 +12,11 @@ export default class LD_SOUL {
     makeQueryies(Set_Soul_CB) {
         var DBRow = DefaultValues();
 
+        //TODO: agafar aquí les vísperas (en cas de ser dissabte). Precedeix aquelles especials marcades amb Categoria V (comprovar via codi per aconseguir la id)
+        var part_row_extra_visperas = {
+            haveVisperas: false,
+        }
+
         var isFeria = (G_VALUES.celType == '-' && (G_VALUES.LT == 'A_FERIES' || G_VALUES.LT == 'N_OCTAVA' || G_VALUES.LT == 'N_ABANS'));
 
         if (G_VALUES.celType == 'M' || G_VALUES.celType == 'S' || G_VALUES.celType == 'F' || isFeria) {
@@ -163,20 +168,6 @@ export default class LD_SOUL {
                     return '167';
                 case 'C':
                     return '168';
-            }
-        }
-
-        //Dissabte abans de Pentecosta A (191) B (192) C (193)
-        //Diumenge pentacosta
-        if (G_VALUES.date.getDate() === G_VALUES.pentacosta.getDate() && G_VALUES.date.getMonth() === G_VALUES.pentacosta.getMonth() &&
-            G_VALUES.date.getFullYear() === G_VALUES.pentacosta.getFullYear()) {
-            switch (G_VALUES.ABC) {
-                case 'A':
-                    return '191';
-                case 'B':
-                    return '192';
-                case 'C':
-                    return '193';
             }
         }
 

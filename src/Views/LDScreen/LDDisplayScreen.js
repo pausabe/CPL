@@ -34,7 +34,7 @@ export default class LDDisplayScreen extends Component {
         headerStyle: {
             backgroundColor: GLOBAL.barColor,
         },
-        headerRight: <TouchableOpacity
+        /*headerRight: <TouchableOpacity
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}
             onPress={() => {
                 navigation.state.params.props.emitShareCB();
@@ -45,7 +45,7 @@ export default class LDDisplayScreen extends Component {
                     size={30}
                     color="#FFFFFF" />
             </View>
-        </TouchableOpacity>,
+        </TouchableOpacity>,*/
     });
 
     //CONSTRUCTOR --------------------------------------------------------------------------
@@ -160,7 +160,7 @@ export default class LDDisplayScreen extends Component {
         }
     }
 
-    Render_1Lect() {
+    Render_1Lect() {        
         return (
             <View style={{ flex: 1 }}>
                 <Text selectable={true} style={this.styles.red}>{LD_VALUES.Lectura1}</Text>
@@ -243,7 +243,7 @@ export default class LDDisplayScreen extends Component {
     Render_Evangeli() {
         return (
             <View style={{ flex: 1 }}>
-                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Evangeli}</Text>
+                <Text selectable={true} style={this.styles.red}>{G_VALUES.tempsespecific == "Quaresma"? "" : "Al·leluia. "}{LD_VALUES.Evangeli}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackItalic}>{LD_VALUES.EvangeliCita}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}

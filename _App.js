@@ -6,8 +6,8 @@ import {
   StatusBar,
   AppState
 } from 'react-native';
-import { NavigatorAndroid } from './src/Components/Navigation/NavigatorAndroid'
-import NavigatorIos from './src/Components/Navigation/NavigatorIos'
+import { NavigatorAndroid } from './src/Components/Navigation/_NavigatorAndroid'
+import NavigatorIos from './src/Components/Navigation/_NavigatorIos'
 import GLOBAL from "./src/Globals/Globals";
 import {
   GoogleAnalyticsTracker,
