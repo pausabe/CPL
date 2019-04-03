@@ -17,7 +17,9 @@ export default class LD_SOUL {
         if (G_VALUES.celType == 'M' || G_VALUES.celType == 'S' || G_VALUES.celType == 'F' || isFeria) {
             //Dies festius -> IsSpecialDay
             var day = GF.calculeDia(G_VALUES.date, G_VALUES.diocesi, G_VALUES.diaMogut, G_VALUES.diocesiMogut);
-            var specialResultId = this.IsSpecialDay(day); //Returns -1 if not special day
+            var specialResultId = this.IsSpecialDay(); //Returns -1 if not special day
+
+            console.log("what tha huve", specialResultId);
 
             this.acceso.getLDSantoral(
                 day,
@@ -48,50 +50,136 @@ export default class LD_SOUL {
         }
     }
 
-    IsSpecialDay(day) {
-        //G_VALUES.date, G_VALUES.LT, G_VALUES.setmana, G_VALUES.pentacosta, G_VALUES.celType
+    IsSpecialDay() {
+        //TODO: I should not repeat the same code of LH_SOUL.js
 
-        //TODO: do not repeat same code than LH_SOUL.js
-
-
-        //Dijous després de Pentecosta par (031)
+        //Dijous després de Pentecosta I (0031) II (032)
         //santsSolemnitats F - Dijous després de Pentecosta (Jesucrist, gran sacerdot per sempre)
-        if (celType === 'F') {
-            var granSacerdot = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate() + 4);
-            console.log("InfoLog. granSacerdot: " + granSacerdot);
-            if (date.getDate() === granSacerdot.getDate() && date.getMonth() === granSacerdot.getMonth() &&
-                date.getFullYear() === granSacerdot.getFullYear()) {
-                var precAux = 8;
-                if (precAux < this.prec) this.prec = precAux;
-                return 52;
+        var granSacerdot = new Date(G_VALUES.pentacosta.getFullYear(), G_VALUES.pentacosta.getMonth(), G_VALUES.pentacosta.getDate() + 4);
+        if (G_VALUES.date.getDate() === granSacerdot.getDate() && G_VALUES.date.getMonth() === granSacerdot.getMonth() &&
+            G_VALUES.date.getFullYear() === granSacerdot.getFullYear()) {
+            return G_VALUES.paroimpar == 'I' ? '031' : '032';
+        }
+
+        //Dissabte de la tercera setmana després de Pentecosta (033)
+        //santsMemories M - Dissabte de la tercera setmana després de Pentecosta (COR IMMACULAT DE LA BENAURADA VERGE MARIA)
+        var corImmaculat = new Date(G_VALUES.pentacosta.getFullYear(), G_VALUES.pentacosta.getMonth(), G_VALUES.pentacosta.getDate() + 20);
+        if (G_VALUES.date.getDate() === corImmaculat.getDate() && G_VALUES.date.getMonth() === corImmaculat.getMonth() &&
+            G_VALUES.date.getFullYear() === corImmaculat.getFullYear()) {
+            return '033';
+        }
+
+        //Dissabte abans del primer diumenge de setembre (102)
+        //santsSolemnitats S - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
+        var auxDay = new Date();
+        auxDay.setFullYear(G_VALUES.date.getFullYear());
+        auxDay.setMonth(8);
+        auxDay.setDate(2);
+        var b = true;
+        var dies = 0;
+        while (b && dies < 7) {
+            if (auxDay.getDay() === 0) {
+                b = false;
+            }
+            auxDay.setDate(auxDay.getDate() + 1)
+            dies += 1;
+        }
+        var cinta = new Date(G_VALUES.date.getFullYear(), 8, dies);
+        if (G_VALUES.date.getDate() === cinta.getDate() && G_VALUES.date.getMonth() === cinta.getMonth() &&
+            G_VALUES.date.getFullYear() === cinta.getFullYear()) {
+            return '102';
+        }
+
+        //Dilluns després de Pentecosta I (111) II (112)
+        //santsMemories M - Dilluns despres de Pentecosta (Benaurada Verge Maria, Mare de l’Església)
+        var benaurada = new Date(G_VALUES.pentacosta.getFullYear(), G_VALUES.pentacosta.getMonth(), G_VALUES.pentacosta.getDate() + 1);
+        if (G_VALUES.date.getDate() === benaurada.getDate() && G_VALUES.date.getMonth() === benaurada.getMonth() &&
+            G_VALUES.date.getFullYear() === benaurada.getFullYear()) {
+            return G_VALUES.paroimpar == 'I' ? '111' : '112';
+        }
+
+        //Diumenge dins l’Octava de Nadal A (146) B (149) C (152)
+        if (G_VALUES.date.getMonth() == 11 && G_VALUES.date.getDay() == 0 && G_VALUES.date.getDate() >= 26 && G_VALUES.date.getDate() <= 31) {
+            switch (G_VALUES.ABC) {
+                case 'A':
+                    return '146';
+                case 'B':
+                    return '149';
+                case 'C':
+                    return '152';
             }
         }
 
+        //Diumenge després del dia 6 de gener A (157) B (158) C (159)
+        if (G_VALUES.date.getMonth() == 0 && G_VALUES.date.getDay() == 0 && G_VALUES.date.getDate() >= 7 && G_VALUES.date.getDate() <= 13) {
+            switch (G_VALUES.ABC) {
+                case 'A':
+                    return '157';
+                case 'B':
+                    return '158';
+                case 'C':
+                    return '159';
+            }
+        }
 
+        //Diumenge després de Pentecosta A (160) B (161) C (162)
+        var trinitat = new Date(G_VALUES.pentacosta.getFullYear(), G_VALUES.pentacosta.getMonth(), G_VALUES.pentacosta.getDate() + 7);
+        if (G_VALUES.date.getDate() === trinitat.getDate() && G_VALUES.date.getMonth() === trinitat.getMonth() &&
+            G_VALUES.date.getFullYear() === trinitat.getFullYear()) {
+            switch (G_VALUES.ABC) {
+                case 'A':
+                    return '160';
+                case 'B':
+                    return '161';
+                case 'C':
+                    return '162';
+            }
+        }
 
-        //Dijous després de Pentecosta impar (032)
-        //Dissabte de la tercera setmana després de Pentecosta (033)
-        //Dissabte abans del primer diumenge de setembre (102)
-        //Dilluns després de Pentecosta par (111)
-        //Dilluns després de Pentecosta impar (112)
-        //Diumenge dins l’Octava de Nadal A (146)
-        //Diumenge dins l’Octava de Nadal B (149)
-        //Diumenge dins l’Octava de Nadal C (152)
-        //Diumenge després del dia 6 de gener A (157)
-        //Diumenge després del dia 6 de gener B (158)
-        //Diumenge després del dia 6 de gener C (159)
-        //Diumenge després de Pentecosta A (160)
-        //Diumenge després de Pentecosta B (161)
-        //Diumenge després de Pentecosta C (162)
-        //Diumenge després de la Santíssima Trinitat A (163)
-        //Diumenge després de la Santíssima Trinitat B (164)
-        //Diumenge després de la Santíssima Trinitat C (165)
-        //Divendres de la tercera setmana després de Pentecosta (Divendres després de Corpus) A (166)
-        //Divendres de la tercera setmana després de Pentecosta (Divendres després de Corpus) B (167)
-        //Divendres de la tercera setmana després de Pentecosta (Divendres després de Corpus) C (168)
-        //Dissabte abans de Pentecosta A (191)
-        //Dissabte abans de Pentecosta B (192)
-        //Dissabte abans de Pentecosta C (193)
+        //Diumenge després de la Santíssima Trinitat A (163) B (164) C (165)
+        //Santíssim cos i sang de crist
+        var cosSang = new Date(trinitat.getFullYear(), trinitat.getMonth(), trinitat.getDate() + 7);
+        if (G_VALUES.date.getDate() === cosSang.getDate() && G_VALUES.date.getMonth() === cosSang.getMonth() &&
+            G_VALUES.date.getFullYear() === cosSang.getFullYear()) {
+            switch (G_VALUES.ABC) {
+                case 'A':
+                    return '163';
+                case 'B':
+                    return '164';
+                case 'C':
+                    return '165';
+            }
+        }
+
+        //Divendres de la tercera setmana després de Pentecosta (Divendres després de Corpus) A (166) B (167) C (168)
+        //Sagrat cor de Jesús
+        var sagratCor = new Date(cosSang.getFullYear(), cosSang.getMonth(), cosSang.getDate() + 5);
+        if (G_VALUES.date.getDate() === sagratCor.getDate() && G_VALUES.date.getMonth() === sagratCor.getMonth() &&
+            G_VALUES.date.getFullYear() === sagratCor.getFullYear()) {
+            switch (G_VALUES.ABC) {
+                case 'A':
+                    return '166';
+                case 'B':
+                    return '167';
+                case 'C':
+                    return '168';
+            }
+        }
+
+        //Dissabte abans de Pentecosta A (191) B (192) C (193)
+        //Diumenge pentacosta
+        if (G_VALUES.date.getDate() === G_VALUES.pentacosta.getDate() && G_VALUES.date.getMonth() === G_VALUES.pentacosta.getMonth() &&
+            G_VALUES.date.getFullYear() === G_VALUES.pentacosta.getFullYear()) {
+            switch (G_VALUES.ABC) {
+                case 'A':
+                    return '191';
+                case 'B':
+                    return '192';
+                case 'C':
+                    return '193';
+            }
+        }
+
         return '-1';
     }
 }

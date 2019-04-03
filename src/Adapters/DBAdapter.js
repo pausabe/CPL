@@ -177,7 +177,7 @@ export default class DBAdapter {
           result => {
             console.log("InfoLog. getLDSantoral Result size: " + result.rows.length);
             var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
-            if (i == -1 && celType == 'M') {
+            if (i == -1) {
               //Not in Santoral
               callback(normal_result);
             }
