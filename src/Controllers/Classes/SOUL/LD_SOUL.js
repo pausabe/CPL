@@ -10,11 +10,29 @@ export default class LD_SOUL {
     }
 
     makeQueryies(Set_Soul_CB) {
-        var DBRow = DefaultValues();
+        //var DBRow = DefaultValues();
 
         //TODO: agafar aquí les vísperas (en cas de ser dissabte). Precedeix aquelles especials marcades amb Categoria V (comprovar via codi per aconseguir la id)
         var part_row_extra_visperas = {
-            haveVisperas: false,
+            Vespers: G_VALUES.date.getDay() === 6,
+            GloriaVespers: '-',
+            Lectura1Vespers: "-",
+            Lectura1CitaVespers: "-",
+            Lectura1TitolVespers: "-",
+            Lectura1TextVespers: "-",
+            SalmVespers: "-",
+            SalmTextVespers: "-",
+            Lectura2Vespers: "-",
+            Lectura2CitaVespers: "-",
+            Lectura2TitolVespers: "-",
+            Lectura2TextVespers: "-",
+            AlleluiaVespers: "-",
+            AlleluiaTextVespers: "-",
+            EvangeliVespers: "-",
+            EvangeliCitaVespers: "-",
+            EvangeliTitolVespers: "-",
+            EvangeliTextVespers: "-",
+            credoVespers: '-'
         }
 
         var isFeria = (G_VALUES.celType == '-' && (G_VALUES.LT == 'A_FERIES' || G_VALUES.LT == 'N_OCTAVA' || G_VALUES.LT == 'N_ABANS'));
@@ -36,8 +54,7 @@ export default class LD_SOUL {
                 G_VALUES.parImpar,
                 G_VALUES.setmana,
                 (result) => {
-                    DBRow = result;
-                    Set_Soul_CB(DBRow);
+                    Set_Soul_CB(Object.assign(result, part_row_extra_visperas));
                 });
         }
         else {
@@ -49,8 +66,7 @@ export default class LD_SOUL {
                 G_VALUES.setmana,
                 G_VALUES.parImpar,
                 (result) => {
-                    DBRow = result;
-                    Set_Soul_CB(DBRow);
+                    Set_Soul_CB(Object.assign(result, part_row_extra_visperas));
                 });
         }
     }
@@ -175,7 +191,7 @@ export default class LD_SOUL {
     }
 }
 
-function DefaultValues() {
+/*function DefaultValues() {
     return {
         Gloria: '-',
         Lectura1: "-",
@@ -196,4 +212,4 @@ function DefaultValues() {
         EvangeliText: "-",
         credo: '-'
     }
-}
+}*/

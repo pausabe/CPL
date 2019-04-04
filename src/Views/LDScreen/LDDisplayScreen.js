@@ -18,6 +18,7 @@ export default class LDDisplayScreen extends Component {
             Salm: this.props.type === 'Salm',
             Lect2: this.props.type === '2Lect',
             Evangeli: this.props.type === 'Evangeli',
+            DisplayVespers: this.props.useVespersTexts
         })
     }
 
@@ -131,6 +132,8 @@ export default class LDDisplayScreen extends Component {
     //RENDER -------------------------------------------------------------------------------
     render() {
         try {
+            console.log("this.state.DisplayVespers", this.state.DisplayVespers);
+            
             return (
                 <View style={this.styles.container}>
                     <ScrollView automaticallyAdjustContentInsets={false} style={{ padding: 10, }}>
@@ -163,11 +166,11 @@ export default class LDDisplayScreen extends Component {
     Render_1Lect() {        
         return (
             <View style={{ flex: 1 }}>
-                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Lectura1}</Text>
+                <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers? LD_VALUES.Lectura1Vespers : LD_VALUES.Lectura1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackItalic}>{LD_VALUES.Lectura1Cita}</Text>
+                <Text selectable={true} style={this.styles.blackItalic}>{this.state.DisplayVespers? LD_VALUES.Lectura1CitaVespers : LD_VALUES.Lectura1Cita}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura1Text}</Text>
+                <Text selectable={true} style={this.styles.blackJustified}>{this.state.DisplayVespers? LD_VALUES.Lectura1TextVespers : LD_VALUES.Lectura1Text}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {this.state.Salm ?
                     <View>
@@ -188,9 +191,9 @@ export default class LDDisplayScreen extends Component {
     Render_Salm(need_lect2) {
         return (
             <View style={{ flex: 1 }}>
-                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Salm}</Text>
+                <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers? LD_VALUES.SalmVespers : LD_VALUES.Salm}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.SalmText}</Text>
+                <Text selectable={true} style={this.styles.blackJustified}>{this.state.DisplayVespers? LD_VALUES.SalmTextVespers : LD_VALUES.SalmText}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {(need_lect2 && this.state.Lect2) || (!need_lect2 && this.state.Evangeli) ?
                     <View>
@@ -218,11 +221,11 @@ export default class LDDisplayScreen extends Component {
     Render_2Lect() {
         return (
             <View style={{ flex: 1 }}>
-                <Text selectable={true} style={this.styles.red}>{LD_VALUES.Lectura2}</Text>
+                <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers? LD_VALUES.Lectura2Vespers : LD_VALUES.Lectura2}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackItalic}>{LD_VALUES.Lectura2Cita}</Text>
+                <Text selectable={true} style={this.styles.blackItalic}>{this.state.DisplayVespers? LD_VALUES.Lectura2CitaVespers : LD_VALUES.Lectura2Cita}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.Lectura2Text}</Text>
+                <Text selectable={true} style={this.styles.blackJustified}>{this.state.DisplayVespers? LD_VALUES.Lectura2TextVespers : LD_VALUES.Lectura2Text}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {this.state.Evangeli ?
                     <View>
@@ -243,13 +246,13 @@ export default class LDDisplayScreen extends Component {
     Render_Evangeli() {
         return (
             <View style={{ flex: 1 }}>
-                <Text selectable={true} style={this.styles.red}>{G_VALUES.tempsespecific == "Quaresma"? "" : "Al·leluia. "}{LD_VALUES.Evangeli}</Text>
+                <Text selectable={true} style={this.styles.red}>{G_VALUES.tempsespecific == "Quaresma"? "" : "Al·leluia. "}{this.state.DisplayVespers? LD_VALUES.EvangeliVespers : LD_VALUES.Evangeli}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackItalic}>{LD_VALUES.EvangeliCita}</Text>
+                <Text selectable={true} style={this.styles.blackItalic}>{this.state.DisplayVespers? LD_VALUES.EvangeliCitaVespers : LD_VALUES.EvangeliCita}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.black}>{LD_VALUES.EvangeliTitol}</Text>
+                <Text selectable={true} style={this.styles.black}>{this.state.DisplayVespers? LD_VALUES.EvangeliTitolVespers : LD_VALUES.EvangeliTitol}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackJustified}>{LD_VALUES.EvangeliText}</Text>
+                <Text selectable={true} style={this.styles.blackJustified}>{this.state.DisplayVespers? LD_VALUES.EvangeliTextVespers : LD_VALUES.EvangeliText}</Text>
             </View>
         )
     }

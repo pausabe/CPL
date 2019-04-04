@@ -11,7 +11,13 @@ import EventEmitter from 'EventEmitter';
 
 import HR from '../../Components/HRComponent';
 
+const VESPERS_SELECTOR_TYPES = {
+  NORMAL: 'normal',
+  VESPERS: 'vespers'
+}
+
 export default class LDScreen extends Component {
+  //PREVIEWS --------------------------------------------------------------------------
   componentWillMount() {
     this.eventEmitter = new EventEmitter();
   }
@@ -26,7 +32,18 @@ export default class LDScreen extends Component {
     this.forceUpdate();
   }
 
-  //Callbacks
+  //CONSTRUCTOR --------------------------------------------------------------------------
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      need_lectura2: (G_VALUES.date.getDay() === 0 || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18))
+    };
+
+    this.CURRENT_VESPERS_SELECTOR = (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18);
+  }
+
+  //CALLBACKS ----------------------------------------------------------------------------
   On_Button_Pressed(prayer_type, need_lectura2) {
     var title = prayer_type;
 
@@ -34,7 +51,7 @@ export default class LDScreen extends Component {
       case "1Lect":
         title = "Primera lectura";
         break;
-        case "2Lect":
+      case "2Lect":
         title = "Segona lectura";
         break;
     }
@@ -45,7 +62,8 @@ export default class LDScreen extends Component {
         type: prayer_type,
         emitShareCB: this.emitShare.bind(this),
         events: this.eventEmitter,
-        need_lectura2: need_lectura2
+        need_lectura2: need_lectura2,
+        useVespersTexts: this.CURRENT_VESPERS_SELECTOR == VESPERS_SELECTOR_TYPES.VESPERS
       },
     }
     this.props.navigation.navigate('LDDisplay', params);
@@ -55,19 +73,64 @@ export default class LDScreen extends Component {
     console.log("emitShare");
   }
 
-  //RENDER
+  //RENDER -------------------------------------------------------------------------------
   render() {
-    var need_lectura2 = G_VALUES.date.getDay() === 0;
-
     return (
       <SafeAreaView style={styles.container}>
         <ImageBackground source={require('../../Globals/img/bg/home_background.jpg')} style={styles.backgroundImage} blurRadius={5}>
-          <View style={need_lectura2? styles.liturgiaContainer_need_lectura2 : styles.liturgiaContainer}>
-            {this.Buttons(need_lectura2)}
+          {this.VespersSelector()}
+          <View style={this.state.need_lectura2 ? styles.liturgiaContainer_need_lectura2 : styles.liturgiaContainer}>
+            {this.Buttons(this.state.need_lectura2)}
           </View>
         </ImageBackground>
       </SafeAreaView>
     );
+  }
+
+  VespersSelector() {
+    try {
+      if (LD_VALUES.Vespers) {
+        return (
+          <View style={{ flex: 2, flexDirection: 'row' }}>
+            <TouchableOpacity onPress={this.OnNormalPressed.bind(this)}>
+              <Text style={styles.buttonText}>{"Normal   "}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.OnVespersPressed.bind(this)}>
+              <Text style={styles.buttonText}>{"   Vespres"}</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      }
+      else {
+        return null;
+      }
+    }
+    catch (error) {
+      console.log("Error: ", error);
+      return null;
+    }
+  }
+
+  OnNormalPressed(){
+    try {
+      this.CURRENT_VESPERS_SELECTOR = VESPERS_SELECTOR_TYPES.NORMAL;
+      this.setState({need_lectura2: false})
+    } 
+    catch (error) {
+      console.log("Error: ", error);
+      return null;
+    }
+  }
+
+  OnVespersPressed(){
+    try {
+      this.CURRENT_VESPERS_SELECTOR = VESPERS_SELECTOR_TYPES.VESPERS;
+      this.setState({need_lectura2: true})
+    } 
+    catch (error) {
+      console.log("Error: ", error);
+      return null;
+    }
   }
 
   Buttons(need_lectura2) {
