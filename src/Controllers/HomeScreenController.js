@@ -119,8 +119,6 @@ export default class HomeScreenController extends Component {
       }
     }
 
-    SplashScreen.hide();
-
     //First initialization
     Reload_All_Data(new Date(/*2019, 4, 15*/), this.Init_Everything.bind(this));
   }
