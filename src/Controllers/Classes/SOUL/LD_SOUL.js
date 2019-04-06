@@ -61,8 +61,8 @@ export default class LD_SOUL {
                                 credoVespers: result.credo
                             }
                             this.GetLiturgia(
-                                today_date, 
-                                today_string, 
+                                today_date,
+                                today_string,
                                 part_row_extra_visperas,
                                 G_VALUES.celType,
                                 G_VALUES.tempsespecific,
@@ -76,9 +76,9 @@ export default class LD_SOUL {
                 }
                 else {
                     this.GetLiturgia(
-                        today_date, 
-                        today_string, 
-                        part_row_extra_visperas, 
+                        today_date,
+                        today_string,
+                        part_row_extra_visperas,
                         G_VALUES.celType,
                         G_VALUES.tempsespecific,
                         G_VALUES.ABC,
@@ -115,8 +115,8 @@ export default class LD_SOUL {
                             credoVespers: result.credo
                         }
                         this.GetLiturgia(
-                            today_date, 
-                            today_string, 
+                            today_date,
+                            today_string,
                             part_row_extra_visperas,
                             G_VALUES.celType,
                             G_VALUES.tempsespecific,
@@ -146,38 +146,45 @@ export default class LD_SOUL {
         setmana,
         LT,
         Set_Soul_CB) {
-        var isFeria = (celType == '-' && (LT == 'A_FERIES' || LT == 'N_OCTAVA' || LT == 'N_ABANS'));        
+        var isFeria = (celType == '-' && (LT == 'A_FERIES' || LT == 'N_OCTAVA' || LT == 'N_ABANS'));
 
-        if (celType == 'M' || celType == 'S' || celType == 'F' || isFeria) {
-            //Dies festius -> IsSpecialDay
-            var specialResultId = this.IsSpecialDay(today_date, parImpar, ABC); //Returns -1 if not special day
-
-            console.log("what tha huve", specialResultId);
-
-            this.acceso.getLDSantoral(
-                today_string,
-                specialResultId,
-                celType,
-                isFeria ? 'Especial' : tempsespecific,
-                ABC,
-                diaDeLaSetmana,
-                parImpar,
-                setmana,
-                (result) => {
-                    Set_Soul_CB(Object.entries(part_row_extra_visperas).length > 0? Object.assign(result, part_row_extra_visperas) : result);
-                });
+        if (false /*VETLLA_PASQUAL*/) {
+            //Vespers: false
+            //Set_Soul_CB(vetlla_pasqual)
+            //Que passara el dia abans (quan s'entri en plan tomorrow?)
         }
         else {
-            //Dies no festius -> LDDiumenges
-            this.acceso.getLDNormal(
-                tempsespecific,
-                ABC,
-                diaDeLaSetmana,
-                setmana,
-                parImpar,
-                (result) => {
-                    Set_Soul_CB(Object.entries(part_row_extra_visperas).length > 0? Object.assign(result, part_row_extra_visperas) : result);
-                });
+            if (celType == 'M' || celType == 'S' || celType == 'F' || isFeria) {
+                //Dies festius -> IsSpecialDay
+                var specialResultId = this.IsSpecialDay(today_date, parImpar, ABC); //Returns -1 if not special day
+
+                console.log("what tha huve", specialResultId);
+
+                this.acceso.getLDSantoral(
+                    today_string,
+                    specialResultId,
+                    celType,
+                    isFeria ? 'Especial' : tempsespecific,
+                    ABC,
+                    diaDeLaSetmana,
+                    parImpar,
+                    setmana,
+                    (result) => {
+                        Set_Soul_CB((result != undefined && Object.entries(part_row_extra_visperas).length > 0) ? Object.assign(result, part_row_extra_visperas) : result);
+                    });
+            }
+            else {
+                //Dies no festius -> LDDiumenges
+                this.acceso.getLDNormal(
+                    tempsespecific,
+                    ABC,
+                    diaDeLaSetmana,
+                    setmana,
+                    parImpar,
+                    (result) => {
+                        Set_Soul_CB((result != undefined && Object.entries(part_row_extra_visperas).length > 0) ? Object.assign(result, part_row_extra_visperas) : result);
+                    });
+            }
         }
     }
 

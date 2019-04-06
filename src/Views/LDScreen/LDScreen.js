@@ -29,18 +29,17 @@ export default class LDScreen extends Component {
   }
 
   Refresh_Layout() {
-    this.forceUpdate();
+    this.setState({
+      need_lectura2: (!LD_VALUES.Vespers && LD_VALUES.Lectura2 != '-' || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-'))
+    });
+
+    this.CURRENT_VESPERS_SELECTOR = (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-');
   }
 
   //CONSTRUCTOR --------------------------------------------------------------------------
   constructor(props) {
     super(props);
 
-    this.state = {
-      need_lectura2: (G_VALUES.date.getDay() === 0 || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18))
-    };
-
-    this.CURRENT_VESPERS_SELECTOR = (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18);
   }
 
   //CALLBACKS ----------------------------------------------------------------------------
@@ -48,6 +47,9 @@ export default class LDScreen extends Component {
     var title = prayer_type;
 
     switch (prayer_type) {
+      case "Rams":
+        title = "Benedicció dels Rams";
+        break;
       case "1Lect":
         title = "Primera lectura";
         break;
@@ -78,10 +80,15 @@ export default class LDScreen extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <ImageBackground source={require('../../Globals/img/bg/home_background.jpg')} style={styles.backgroundImage} blurRadius={5}>
-          {this.VespersSelector()}
-          <View style={this.state.need_lectura2 ? styles.liturgiaContainer_need_lectura2 : styles.liturgiaContainer}>
-            {this.Buttons(this.state.need_lectura2)}
-          </View>
+          {LD_VALUES.Vespers == undefined ?
+            null :
+            <View style={{ flex: 1 }}>
+              {this.VespersSelector()}
+              <View style={this.state.need_lectura2 ? styles.liturgiaContainer_need_lectura2 : styles.liturgiaContainer}>
+                {this.Buttons(this.state.need_lectura2)}
+              </View>
+            </View>
+          }
         </ImageBackground>
       </SafeAreaView>
     );
@@ -111,22 +118,22 @@ export default class LDScreen extends Component {
     }
   }
 
-  OnNormalPressed(){
+  OnNormalPressed() {
     try {
       this.CURRENT_VESPERS_SELECTOR = VESPERS_SELECTOR_TYPES.NORMAL;
-      this.setState({need_lectura2: false})
-    } 
+      this.setState({ need_lectura2: LD_VALUES.Lectura2 != '-' })
+    }
     catch (error) {
       console.log("Error: ", error);
       return null;
     }
   }
 
-  OnVespersPressed(){
+  OnVespersPressed() {
     try {
       this.CURRENT_VESPERS_SELECTOR = VESPERS_SELECTOR_TYPES.VESPERS;
-      this.setState({need_lectura2: true})
-    } 
+      this.setState({ need_lectura2: LD_VALUES.Lectura2Vespers != '-' })
+    }
     catch (error) {
       console.log("Error: ", error);
       return null;
@@ -137,6 +144,15 @@ export default class LDScreen extends Component {
     try {
       return (
         <View style={styles.buttons_container}>
+          {G_VALUES.LT == 'Q_DIUM_RAMS' ?
+            <View style={{ flex: 1 }}>
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Rams", need_lectura2)}>
+                <Text style={styles.buttonText}>{"Benedicció dels Rams"}</Text>
+              </TouchableOpacity>
+              <HR margin_horizontal={20} />
+            </View>
+            :
+            null}
           <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "1Lect", need_lectura2)}>
             <Text style={styles.buttonText}>{"Primera lectura"}</Text>
           </TouchableOpacity>
