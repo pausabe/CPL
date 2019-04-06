@@ -804,8 +804,6 @@ module.exports = {
   },
 
   calculeDia(date, diocesi, diaMogut, diocesiMogut) {
-    console.log("hay");
-    
     if (diaMogut !== '-' && this.isDiocesiMogut(diocesi, diocesiMogut))
       return diaMogut;
 

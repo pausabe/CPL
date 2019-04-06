@@ -165,9 +165,16 @@ export default class DBAdapter {
       result => callback(result.rows.item(0), categoria));
   }
 
+  getVispers(idSpecialVespers, callback){
+      var query = `SELECT * FROM LDSantoral WHERE id = '${idSpecialVespers}'`;
+      console.log("QueryLog. QUERY getLDSantoral: " + query);
+      this.executeQuery(query,
+        result => callback(result.rows.item(0))
+      );
+  }
+
   getLDSantoral(day, specialResultId, celType, tempsEspecific, cicleABC, diaSetmana, parImpar, setmana, callback) {
     this.getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, (normal_result) => {
-      console.log("hey yoh", normal_result);
 
       if (specialResultId == '-1') {
         //Normal santoral day

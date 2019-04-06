@@ -63,19 +63,25 @@ function Refresh_Data(newDay) {
       G_VALUES.cicle = current.cicle; //1-4
       G_VALUES.setmana = current.NumSet; //Ordinari: 1-34, pasqua: 2-7 i quaresma: 1-5 o 2-7
       G_VALUES.ABC = current.anyABC; //A, B o C
-      G_VALUES.parImpar = 'I';//TODO: current.parImpar; //I o II
+      G_VALUES.parImpar = current.paroimpar; //I o II
       G_VALUES.diaDeLaSetmana = current.DiadelaSetmana;
 
-      var tomorrow = new Date(newDay.getFullYear(), newDay.getMonth(), newDay.getDate());
-      tomorrow.setDate(tomorrow.getDate() + 1);
+      var tomorrow_date = new Date(newDay.getFullYear(), newDay.getMonth(), newDay.getDate());
+      tomorrow_date.setDate(tomorrow_date.getDate() + 1);
 
       var dataTomorrow = {
-        date: tomorrow,
+        date: tomorrow_date,
         celType: tomorrowCelType,
-        LT: tomorrow.temps,
-        setmana: tomorrow.NumSet,
         diaMogut: tomorrow.diaMogut,
         diocesiMogut: tomorrow.diocesiMogut,
+        litColor: tomorrow.Color,
+        tempsespecific: tomorrow.tempsespecific,
+        LT: tomorrow.temps,
+        cicle: tomorrow.cicle,
+        setmana: tomorrow.NumSet,
+        ABC: tomorrow.anyABC,
+        parImpar: tomorrow.paroimpar,
+        diaDeLaSetmana: tomorrow.DiadelaSetmana
       }
       G_VALUES.dataTomorrow = dataTomorrow;
 
