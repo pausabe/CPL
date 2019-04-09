@@ -33,7 +33,7 @@ export default class LDScreen extends Component {
       need_lectura2: !LD_VALUES.VetllaPasqua && (!LD_VALUES.Vespers && LD_VALUES.Lectura2 != '-' || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-'))
     });
 
-    this.CURRENT_VESPERS_SELECTOR = !LD_VALUES.VetllaPasqua && (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-');
+    this.CURRENT_VESPERS_SELECTOR = (!LD_VALUES.VetllaPasqua && LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-')? VESPERS_SELECTOR_TYPES.VESPERS : VESPERS_SELECTOR_TYPES.NORMAL;
   }
 
   //CONSTRUCTOR --------------------------------------------------------------------------
@@ -88,8 +88,13 @@ export default class LDScreen extends Component {
         <ImageBackground source={require('../../Globals/img/bg/home_background.jpg')} style={styles.backgroundImage} blurRadius={5}>
           {LD_VALUES.Vespers == undefined ?
             null :
-            <View style={{ flex: 1 }}>
-              {this.VespersSelector()}
+            <View style={{ flex: 1, }}>
+              {LD_VALUES.Vespers ?
+                <View style={styles.liturgiaContainerVespers}>
+                  {this.VespersSelector()}
+                </View>
+                :
+                null}
               <View style={this.state.need_lectura2 ? styles.liturgiaContainer_need_lectura2 : styles.liturgiaContainer}>
                 {this.Buttons(this.state.need_lectura2)}
               </View>
@@ -104,12 +109,12 @@ export default class LDScreen extends Component {
     try {
       if (LD_VALUES.Vespers) {
         return (
-          <View style={{ flex: 2, flexDirection: 'row' }}>
-            <TouchableOpacity onPress={this.OnNormalPressed.bind(this)}>
-              <Text style={styles.buttonText}>{"Normal   "}</Text>
+          <View style={styles.buttons_containerVespers}>
+            <TouchableOpacity style={this.CURRENT_VESPERS_SELECTOR == VESPERS_SELECTOR_TYPES.VESPERS ? styles.buttonContainer : styles.buttonContainerPressedLeft} onPress={this.OnNormalPressed.bind(this)}>
+              <Text style={styles.buttonText}>{"Avui"}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.OnVespersPressed.bind(this)}>
-              <Text style={styles.buttonText}>{"   Vespres"}</Text>
+            <TouchableOpacity style={this.CURRENT_VESPERS_SELECTOR == VESPERS_SELECTOR_TYPES.VESPERS ? styles.buttonContainerPressedRight : styles.buttonContainer} onPress={this.OnVespersPressed.bind(this)}>
+              <Text style={styles.buttonText}>{"Vespertina"}</Text>
             </TouchableOpacity>
           </View>
         );
@@ -214,6 +219,12 @@ const styles = StyleSheet.create({
     marginVertical: 100,
     marginHorizontal: 30,
   },
+  liturgiaContainerVespers: {
+    height: 90,
+    marginHorizontal: 30,
+    marginTop: 30,
+    marginBottom: -30,
+  },
   liturgiaContainer_need_lectura2: {
     flex: 6,
     marginVertical: 70,
@@ -227,22 +238,35 @@ const styles = StyleSheet.create({
   },
   buttons_container: {
     flex: 1,
-    /*shadowOpacity: 0.4,
-    shadowRadius: 5,
-shadowOffset: {
-      width: 0,
-    height: 10
-  },
-  */
     opacity: 0.75,
     backgroundColor: 'white',
     borderRadius: 15,
-    //borderColor: '#424242',
-    //borderWidth: 1,
+  },
+  buttons_containerVespers: {
+    flex: 1,
+    marginTop: 30,
+    opacity: 0.75,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    flexDirection: 'row',
   },
   buttonContainer: {
     flex: 1,
     justifyContent: 'center',
+  },
+  buttonContainerPressedLeft: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(30,30,30,0.15)',
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
+  },
+  buttonContainerPressedRight: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(30,30,30,0.15)',
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
   },
   buttonText: {
     textAlign: 'center',
