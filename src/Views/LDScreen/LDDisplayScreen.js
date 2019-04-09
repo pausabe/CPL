@@ -21,7 +21,8 @@ export default class LDDisplayScreen extends Component {
             Salm: this.props.type === 'Salm',
             Lect2: this.props.type === '2Lect',
             Evangeli: this.props.type === 'Evangeli',
-            DisplayVespers: this.props.useVespersTexts
+            DisplayVespers: this.props.useVespersTexts,
+            evangeliType: 'normal'
         })
     }
 
@@ -123,7 +124,16 @@ export default class LDDisplayScreen extends Component {
                 fontSize: GF.convertTextSize(G_VALUES.textSize) - 2,
                 fontStyle: 'italic',
                 textAlign: 'right'
-            }
+            },
+            textButton: {
+                color: 'grey',
+                fontSize: GF.convertTextSize(G_VALUES.textSize) > 17 ? 17 : GF.convertTextSize(G_VALUES.textSize) - 3,
+            },
+            textButtonBold: {
+                color: 'grey',
+                fontSize: GF.convertTextSize(G_VALUES.textSize) > 17 ? 17 : GF.convertTextSize(G_VALUES.textSize) - 3,
+                fontWeight: 'bold',
+            },
         }
     }
 
@@ -442,21 +452,39 @@ export default class LDDisplayScreen extends Component {
         var displayCredo = (this.state.DisplayVespers && LD_VALUES.credoVespers == '1') || (!this.state.DisplayVespers && LD_VALUES.credo == '1');
 
         return (
-            <View style={{ flex: 1 }}>
+            <View>
                 {G_VALUES.tempsespecific != "Quaresma" ?
                     <Text selectable={true} style={this.styles.red}>{"Al·leluia. "}{this.state.DisplayVespers ? LD_VALUES.AlleluiaVespers : LD_VALUES.Alleluia}</Text>
-                    : 
+                    :
                     null
                 }
                 <Text selectable={true} style={this.styles.black}>{this.state.DisplayVespers ? LD_VALUES.AlleluiaTextVespers : LD_VALUES.AlleluiaText}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers ? LD_VALUES.EvangeliVespers : LD_VALUES.Evangeli}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackItalic}>{this.state.DisplayVespers ? LD_VALUES.EvangeliCitaVespers : LD_VALUES.EvangeliCita}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.black}>{this.state.DisplayVespers ? LD_VALUES.EvangeliTitolVespers : LD_VALUES.EvangeliTitol}</Text>
-                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackJustified}>{this.state.DisplayVespers ? LD_VALUES.EvangeliTextVespers : LD_VALUES.EvangeliText}</Text>
+                
+                {G_VALUES.LT == "Q_DIUM_PASQUA" ?
+                    <View style={{ alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+                            <TouchableOpacity onPress={this._onEvangeliPress.bind(this, 'normal')}>
+                                <Text style={this.state.evangeliType == "normal" ? this.styles.textButtonBold : this.styles.textButton}>{"Normal  "}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this._onEvangeliPress.bind(this, 'alternative')}>
+                                <Text style={this.state.evangeliType == "normal" ? this.styles.textButton : this.styles.textButtonBold}>{"  Alternatiu (vespre)"}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                    </View>
+                    :
+                    null
+                }
+                
+                <View>
+
+                    {this.state.evangeliType == "normal" ?
+                        this.NormalEvangeli()
+                        :
+                        this.AlternativePasquaEvangeli()
+                    }
+                </View>
                 {displayCredo ?
                     <View>
                         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
@@ -469,6 +497,38 @@ export default class LDDisplayScreen extends Component {
                     :
                     null
                 }
+            </View>
+        );
+    }
+
+    _onEvangeliPress(evangeliType) {
+        this.setState({ evangeliType: evangeliType });
+    }
+
+    NormalEvangeli() {
+        return (
+            <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers ? LD_VALUES.EvangeliVespers : LD_VALUES.Evangeli}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackItalic}>{this.state.DisplayVespers ? LD_VALUES.EvangeliCitaVespers : LD_VALUES.EvangeliCita}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.black}>{this.state.DisplayVespers ? LD_VALUES.EvangeliTitolVespers : LD_VALUES.EvangeliTitol}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackJustified}>{this.state.DisplayVespers ? LD_VALUES.EvangeliTextVespers : LD_VALUES.EvangeliText}</Text>
+            </View>
+        )
+    }
+
+    AlternativePasquaEvangeli() {
+        return (
+            <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{"Lc 24,13-35"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackItalic}>{"El reconegueren quan partia el pa"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.black}>{"Lectura de l’evangeli segons sant Lluc"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
+                <Text selectable={true} style={this.styles.blackJustified}>{"Aquell mateix diumenge dos dels deixebles de Jesús se n’anaven a un poble anomenat Emaús, a onze quilòmetres de Jerusalem, i conversaven entre ells comentant aquests incidents.\nMentre conversaven i discutien, Jesús mateix els aconseguí i es posà a caminar amb ells, però Déu impedia que els seus ulls el reconeguessin. Ell els preguntà: «De què discutiu entre vosaltres tot caminant?». Ells s’aturaren amb un posat trist i un dels dos, que es deia Cleofàs, li respongué: «De tots els forasters que hi havia aquests dies a Jerusalem, ets l’únic que no saps el que hi ha passat?». Els preguntà: «Què?». Li contestaren: «El cas de Jesús de Natzaret. S’havia revelat com un profeta poderós en obres i en paraules davant Déu i el poble. Els grans sacerdots i les autoritats del nostre poble l’entregaren perquè fos condemnat a mort i crucificat. Nosaltres esperàvem que ell seria el qui hauria alliberat Israel. Ara, de tot això ja fa tres dies. És cert que unes dones del nostre grup ens han esverat: han anat de bon matí al sepulcre, no hi han trobat el cos, i han vingut a dir-nos que fins i tot se’ls han aparegut uns àngels i els han assegurat que ell és viu. Alguns dels qui eren amb nosaltres han anat al sepulcre i ho han trobat tot exactament com les dones havien dit, però a ell, no l’han vist pas».\nEll els digué: «Sí que us costa d’entendre! Quins cors tan indecisos a creure tot allò que havien anunciat els profetes. No havia de patir tot això el Messies abans d’entrar en la seva glòria?». Llavors, començant pels llibres de Moisès i seguint els de tots els profetes, els exposava tots els llocs de les Escriptures que es referien a ell.\nMentrestant s’acostaven al poblet on es dirigien i ell va fer com si seguís més enllà. Però ells el forçaren pregant-lo: «Queda’t amb nosaltres que ja es fa tard i el dia ha començat a declinar». Jesús entrà per quedar-se amb ells. Quan s’hagué posat amb ells a taula, prengué el pa, digué la benedicció, el partí i els el donava. En aquell moment se’ls obriren els ulls i el reconegueren, però ell desaparegué. I es deien l’un a l’altre: «No és veritat que els nostres cors s’abrusaven dins nostre mentre ens parlava pel camí i ens obria el sentit de les Escriptures?». Llavors mateix s’alçaren de taula i se’n tornaren a Jerusalem. Allà trobaren reunits els onze i tots els qui anaven amb ells, que deien: «Realment el Senyor ha ressuscitat i s’ha aparegut a Simó». Ells també contaven el que els havia passat pel camí, i com l’havien reconegut quan partia el pa."}</Text>
             </View>
         )
     }

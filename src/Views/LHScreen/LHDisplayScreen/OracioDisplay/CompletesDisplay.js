@@ -169,7 +169,6 @@ export default class CompletesDisplay extends Component {
 
     return(
       <View>
-
         <View style={{alignItems: 'center'}}>
           <View style={{flexDirection: 'row',paddingVertical: 10}}>
             {!(G_VALUES.tempsespecific === 'Pasqua')?
