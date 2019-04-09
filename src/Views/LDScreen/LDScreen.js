@@ -30,10 +30,10 @@ export default class LDScreen extends Component {
 
   Refresh_Layout() {
     this.setState({
-      need_lectura2: (!LD_VALUES.Vespers && LD_VALUES.Lectura2 != '-' || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-'))
+      need_lectura2: !LD_VALUES.VetllaPasqua && (!LD_VALUES.Vespers && LD_VALUES.Lectura2 != '-' || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-'))
     });
 
-    this.CURRENT_VESPERS_SELECTOR = (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-');
+    this.CURRENT_VESPERS_SELECTOR = !LD_VALUES.VetllaPasqua && (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-');
   }
 
   //CONSTRUCTOR --------------------------------------------------------------------------
@@ -47,6 +47,12 @@ export default class LDScreen extends Component {
     var title = prayer_type;
 
     switch (prayer_type) {
+      case "VetllaPasquaLecturesSalms":
+        title = "Lectures i salms";
+        break;
+      case "VetllaPasquaEvangeli":
+        title = "Evangeli";
+        break;
       case "Rams":
         title = "Benedicció dels Rams";
         break;
@@ -144,34 +150,49 @@ export default class LDScreen extends Component {
     try {
       return (
         <View style={styles.buttons_container}>
-          {G_VALUES.LT == 'Q_DIUM_RAMS' ?
+          {LD_VALUES.VetllaPasqua ?
             <View style={{ flex: 1 }}>
-              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Rams", need_lectura2)}>
-                <Text style={styles.buttonText}>{"Benedicció dels Rams"}</Text>
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "VetllaPasquaLecturesSalms", need_lectura2)}>
+                <Text style={styles.buttonText}>{"Lectures i salms"}</Text>
+              </TouchableOpacity>
+              <HR margin_horizontal={20} />
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "VetllaPasquaEvangeli", need_lectura2)}>
+                <Text style={styles.buttonText}>{"Evangeli"}</Text>
               </TouchableOpacity>
               <HR margin_horizontal={20} />
             </View>
             :
-            null}
-          <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "1Lect", need_lectura2)}>
-            <Text style={styles.buttonText}>{"Primera lectura"}</Text>
-          </TouchableOpacity>
-          <HR margin_horizontal={20} />
-          <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Salm", need_lectura2)}>
-            <Text style={styles.buttonText}>{"Salm"}</Text>
-          </TouchableOpacity>
-          <HR margin_horizontal={20} />
-          {need_lectura2 ?
             <View style={{ flex: 1 }}>
-              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "2Lect", need_lectura2)}>
-                <Text style={styles.buttonText}>{"Segona lectura"}</Text>
+              {G_VALUES.LT == 'Q_DIUM_RAMS' ?
+                <View style={{ flex: 1 }}>
+                  <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Rams", need_lectura2)}>
+                    <Text style={styles.buttonText}>{"Benedicció dels Rams"}</Text>
+                  </TouchableOpacity>
+                  <HR margin_horizontal={20} />
+                </View>
+                :
+                null}
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "1Lect", need_lectura2)}>
+                <Text style={styles.buttonText}>{"Primera lectura"}</Text>
               </TouchableOpacity>
               <HR margin_horizontal={20} />
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Salm", need_lectura2)}>
+                <Text style={styles.buttonText}>{"Salm"}</Text>
+              </TouchableOpacity>
+              <HR margin_horizontal={20} />
+              {need_lectura2 ?
+                <View style={{ flex: 1 }}>
+                  <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "2Lect", need_lectura2)}>
+                    <Text style={styles.buttonText}>{"Segona lectura"}</Text>
+                  </TouchableOpacity>
+                  <HR margin_horizontal={20} />
+                </View>
+                : null}
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Evangeli", need_lectura2)}>
+                <Text style={styles.buttonText}>{"Evangeli"}</Text>
+              </TouchableOpacity>
             </View>
-            : null}
-          <TouchableOpacity style={styles.buttonContainer} onPress={this.On_Button_Pressed.bind(this, "Evangeli", need_lectura2)}>
-            <Text style={styles.buttonText}>{"Evangeli"}</Text>
-          </TouchableOpacity>
+          }
         </View>
       )
     }
@@ -208,11 +229,11 @@ const styles = StyleSheet.create({
     flex: 1,
     /*shadowOpacity: 0.4,
     shadowRadius: 5,
-    shadowOffset: {
+shadowOffset: {
       width: 0,
-      height: 10
-    },
-    */
+    height: 10
+  },
+  */
     opacity: 0.75,
     backgroundColor: 'white',
     borderRadius: 15,
