@@ -160,8 +160,6 @@ export default class LD_SOUL {
                 //Dies festius -> IsSpecialDay
                 var specialResultId = this.IsSpecialDay(today_date, parImpar, ABC); //Returns -1 if not special day
 
-                console.log("what tha huve", specialResultId);
-
                 this.acceso.getLDSantoral(
                     today_string,
                     specialResultId,

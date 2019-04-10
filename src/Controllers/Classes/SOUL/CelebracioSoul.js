@@ -529,7 +529,10 @@ export default class CelebracioSoul {
         else{
           switch (tomCal) {
             case 'F':
-              this.makeSF(TABLES, type,tomCal, F);
+            case 'S': //TODO: això (i l'if dabaix) ho he afegit pq al 2019 vagi bé la Mare de Déu de Montserrat. Caldria comprovar si això està bé
+              if(tomCal == 'F' || (tomCal == 'S' && (G_VALUES.date.getFullYear() == 2019 && G_VALUES.date.getMonth() == 3 && G_VALUES.date.getDate() == 30))){
+                this.makeSF(TABLES, type,tomCal, F);
+              }
               break;
             case 'DE':
               this.makeDE(TABLES, type, tomCal);
@@ -1755,7 +1758,7 @@ export default class CelebracioSoul {
     if(TABLES.santsSolemnitatsFVespres1.oraFiVespres1 !== '-')
       this.VESPRES1.oracio = TABLES.santsSolemnitatsFVespres1.oraFiVespres1;
     // else if(TABLES.OficisComunsVespres1 !== null) this.VESPRES1.oracio = TABLES.OficisComunsVespres1.oraFiVespres1;
-    console.log("SHIT",this.VESPRES1.oracio);
+    //console.log("SHIT",this.VESPRES1.oracio);
   }
 
   makeML(TABLES, type, tomCal){

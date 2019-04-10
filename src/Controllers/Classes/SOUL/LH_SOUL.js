@@ -618,6 +618,7 @@ export default class LH_SOUL {
         console.log("Log#32. day: " + day);
         this.acceso.getSolMem("santsSolemnitats", day, G_VALUES.diocesi, G_VALUES.lloc, G_VALUES.diocesiName, G_VALUES.tempsespecific, (result) => {
           this.queryRows.santsSolemnitats = result;
+          console.log("Log#32. Avui result", result);
           this.getOficisComuns(params, result, false);
         });
       }
@@ -625,6 +626,7 @@ export default class LH_SOUL {
         console.log("Log#32. Avui és dia movible");
         this.acceso.getSolMemDiesMov("santsSolemnitats", idDM, (result) => {
           this.queryRows.santsSolemnitats = result;
+          console.log("Log#32. Avui result", result);
           this.getOficisComuns(params, result, false);
         });
       }
@@ -647,8 +649,9 @@ export default class LH_SOUL {
       else {
         console.log("Log#32. [Extra] Demà no hi ha dia movible");
         var day = '-';
-        if (G_VALUES.dataTomorrow.diaMogut !== '-' && GF.isDiocesiMogut(G_VALUES.diocesi, G_VALUES.dataTomorrow.diocesiMogut))
+        if (G_VALUES.dataTomorrow.diaMogut !== '-' && GF.isDiocesiMogut(G_VALUES.diocesi, G_VALUES.dataTomorrow.diocesiMogut)) {
           day = G_VALUES.dataTomorrow.diaMogut;
+        }
 
         if (day === '-') {
           console.log("Log#32. [Extra] Demà no hi ha mogut i cal fer uns ajustaments");
@@ -658,7 +661,7 @@ export default class LH_SOUL {
           auxDay.setDate(G_VALUES.date.getDate() + 1);
           day = GF.calculeDia(auxDay, G_VALUES.diocesi, '-', '-');
         }
-        console.log("Log#32. [Extra] day definitiu: " + day);
+        console.log("Log#32. [Extra] day (tomorrow) definitiu: " + day);
         params.vespres1 = true;
         this.acceso.getSolMem("santsSolemnitats", day, G_VALUES.diocesi, G_VALUES.lloc, G_VALUES.diocesiName, G_VALUES.tempsespecific, (result) => {
           this.queryRows.santsSolemnitatsFVespres1 = result;
@@ -714,7 +717,7 @@ export default class LH_SOUL {
   getOficisComuns(params, result, isForVespres1) {
     if (result) {
       categoria = result.Categoria;
-      console.log("InfoLog. Categoria: " + "." + categoria + ". [" + isForVespres1 + "]");
+      console.log("InfoLog. Categoria: " + "." + categoria + ". [" + isForVespres1 + "]", params);
 
       if (categoria !== '0000') {
         console.log("InfoLog. Més un accéss extra per OficisComuns");
@@ -795,6 +798,8 @@ export default class LH_SOUL {
         break;
       case "celebracio":
         this.CEL = pregaria;
+        console.log("CEL!", pregaria);
+        
         this.LITURGIA.info_cel = pregaria.INFO_CEL;
 
         this.calls(Set_Soul_CB);
@@ -815,6 +820,12 @@ export default class LH_SOUL {
     if (
       this.tomorrowCal === '-' || //demà no hi ha cap celebració
       this.tomorrowCal === 'F' || //demà hi ha Festa
+
+
+      //TODO: treure això i fer-ho bé... apanyo pq no tinc temps
+      (G_VALUES.date.getFullYear() == 2019 && G_VALUES.date.getMonth() == 3 && G_VALUES.date.getDate() == 30) ||
+
+
       /*(this.dataTomorrow.diaMogut !== '-' && GF.isDiocesiMogut(diocesi, this.dataTomorrow.diocesiMogut)) ||*/ //demà és mogut
       (this.idTSF !== -1 && this.tomorrowCal !== 'TSF') || //quan dues TSF seguides es fa Vespres1 de la segona TSF. Basicamen evito el conflicte de les Vespres de Sagrada Familia quan cau en 31/12 i l'andemà és Mare de Déi 1/1 (únic conflicte possible entre TSF)
       (this.idDE !== -1 && this.tomorrowCal === '-') || //avui és DE i demà no hi ha celebració
@@ -823,6 +834,8 @@ export default class LH_SOUL {
       console.log("InfoLog. Calls vespres1 - 1");
       this.LITURGIA.vespres1 = false;
       vespresCelDEF = this.CEL.VESPRES;
+      console.log("Vespres DEEEEFFFFF", vespresCelDEF);
+      
     }
     else if (this.tomorrowCal === 'T') { //demà és divendres Sant
       console.log("InfoLog. Calls vespres1 - 2");

@@ -11,6 +11,7 @@ export default class SOUL {
 
   receiveLHSoul(Set_Soul_CB, liturgia_hores, info_cel) {
     //2. Get Liturgia diària
+    console.log("SOUL result:", liturgia_hores);
     new LD_SOUL(this.receiveLDSoul.bind(this, Set_Soul_CB, liturgia_hores, info_cel));
   }
 
