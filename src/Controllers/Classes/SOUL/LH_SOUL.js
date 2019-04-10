@@ -575,7 +575,7 @@ export default class LH_SOUL {
       c += 1;
       { G_VALUES.date.getDay() === 6 ? id = 1 : id = G_VALUES.date.getDay() + 2 }
       if ((G_VALUES.dataTomorrow.LT === GLOBAL.Q_DIUM_PASQUA || this.tomorrowCal === 'TSF' || this.tomorrowCal === 'S') && !(G_VALUES.date.getDay() === 6 || G_VALUES.date.getDay() === 0)) id = 8;
-      if ((celType === 'S' || this.idTSF !== -1) && !(G_VALUES.date.getDay() === 6 || G_VALUES.date.getDay() === 0)) id = 9;
+      if ((G_VALUES.celType === 'S' || this.idTSF !== -1) && !(G_VALUES.date.getDay() === 6 || G_VALUES.date.getDay() === 0)) id = 9;
       if (G_VALUES.LT === GLOBAL.P_OCTAVA) id = 2;
       if (G_VALUES.LT === GLOBAL.N_OCTAVA) id = 9;
       if (G_VALUES.LT === GLOBAL.Q_SET_SANTA && (G_VALUES.date.getDay() === 4 || G_VALUES.date.getDay() === 5 || G_VALUES.date.getDay() === 6)) id = 9;
