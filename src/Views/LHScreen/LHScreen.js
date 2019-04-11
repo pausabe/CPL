@@ -11,6 +11,10 @@ import LHButtons from './LHButtons';
 import EventEmitter from 'EventEmitter';
 
 export default class LHScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
     this.eventEmitter = new EventEmitter();
   }

@@ -39,7 +39,6 @@ export default class LDScreen extends Component {
   //CONSTRUCTOR --------------------------------------------------------------------------
   constructor(props) {
     super(props);
-
   }
 
   //CALLBACKS ----------------------------------------------------------------------------

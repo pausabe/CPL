@@ -101,8 +101,8 @@ android {
         applicationId "cpl.cpl"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 25
-        versionName "1.11"
+        versionCode 27
+        versionName "2.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -148,7 +148,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-svg')
     compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-device-info')
     compile project(':react-native-vector-icons')

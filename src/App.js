@@ -99,7 +99,7 @@ const LHStack = StackNavigator({
   LHScreen: {
     screen: LHScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader title={"Litúrgia de les hores"} left_padding={Platform.OS === 'ios' ? 0 : 160} />,
+      headerTitle: <GenericHeader title={"Litúrgia de les hores"} left_padding={Platform.OS === 'ios' ? 0 : 90} />,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
@@ -122,7 +122,8 @@ const LHStack = StackNavigator({
         if (scene.focused) {
         }
         else {
-          scene.route.routes[0].params.Refresh_LH();
+          if(scene.route.routes[0].params !== undefined)
+            scene.route.routes[0].params.Refresh_LH();
           jumpToIndex(scene.index);
         }
       },
@@ -149,7 +150,7 @@ const LDStack = StackNavigator({
   LDScreen: {
     screen: LDScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader title={"Missa"} left_padding={Platform.OS === 'ios' ? 0 : 160} />,
+      headerTitle: <GenericHeader title={"Missa"} left_padding={Platform.OS === 'ios' ? 0 : 150} />,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
@@ -172,7 +173,8 @@ const LDStack = StackNavigator({
         if (scene.focused) {
         }
         else {
-          scene.route.routes[0].params.Refresh_LD();
+          if(scene.route.routes[0].params !== undefined)
+            scene.route.routes[0].params.Refresh_LD();
           jumpToIndex(scene.index);
         }
       },
@@ -201,12 +203,12 @@ export default TabNavigator(
     tabBarOptions: {
       showLabel: false,
       style: {
-        backgroundColor: GLOBAL.barColor
+        backgroundColor: GLOBAL.barColor,
       }
     },
-    //tabBarComponent: TabBar,
+    tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
-    lazy: false, //Per renderitzar totes les tabs a l'inici
+    lazy: false, //false => Renderitzar totes les tabs a l'inici
     animationEnabled: false,
     swipeEnabled: false,
   }
