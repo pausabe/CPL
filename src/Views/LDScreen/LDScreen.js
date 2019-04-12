@@ -43,9 +43,9 @@ export default class LDScreen extends Component {
 
   //CALLBACKS ----------------------------------------------------------------------------
   On_Button_Pressed(prayer_type, need_lectura2) {
-    var title = prayer_type;
+    var title = "Missa";//prayer_type;
 
-    switch (prayer_type) {
+    /*switch (prayer_type) {
       case "VetllaPasquaLecturesSalms":
         title = "Lectures i salms";
         break;
@@ -61,7 +61,7 @@ export default class LDScreen extends Component {
       case "2Lect":
         title = "Segona lectura";
         break;
-    }
+    }*/
 
     var params = {
       title: title,

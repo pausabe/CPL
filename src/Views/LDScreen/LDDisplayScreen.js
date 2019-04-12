@@ -310,6 +310,8 @@ export default class LDDisplayScreen extends Component {
     Render_VetllaPasquaEvangeli() {
         return (
             <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{"Evangeli"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>{"Al·leluia. "}{LD_VALUES.Alleluia}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.black}>{LD_VALUES.AlleluiaText}</Text>
@@ -354,6 +356,8 @@ export default class LDDisplayScreen extends Component {
 
         return (
             <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{"Evangeli"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>{evangeliRams}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackItalic}>{evangeliCitaRams}</Text>
@@ -395,6 +399,8 @@ export default class LDDisplayScreen extends Component {
                     :
                     null
                 }
+                <Text selectable={true} style={this.styles.red}>{"Lectura primera"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers ? LD_VALUES.Lectura1Vespers : LD_VALUES.Lectura1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackItalic}>{this.state.DisplayVespers ? LD_VALUES.Lectura1CitaVespers : LD_VALUES.Lectura1Cita}</Text>
@@ -426,6 +432,8 @@ export default class LDDisplayScreen extends Component {
     Render_Salm(need_lect2) {
         return (
             <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{"Salm responsorial"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers ? LD_VALUES.SalmVespers : LD_VALUES.Salm}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackJustified}>{this.state.DisplayVespers ? LD_VALUES.SalmTextVespers : LD_VALUES.SalmText}</Text>
@@ -456,6 +464,8 @@ export default class LDDisplayScreen extends Component {
     Render_2Lect() {
         return (
             <View style={{ flex: 1 }}>
+                <Text selectable={true} style={this.styles.red}>{"Lectura segona"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>{this.state.DisplayVespers ? LD_VALUES.Lectura2Vespers : LD_VALUES.Lectura2}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.blackItalic}>{this.state.DisplayVespers ? LD_VALUES.Lectura2CitaVespers : LD_VALUES.Lectura2Cita}</Text>
@@ -485,6 +495,8 @@ export default class LDDisplayScreen extends Component {
 
         return (
             <View>
+                <Text selectable={true} style={this.styles.red}>{"Evangeli"}</Text>
+                {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {(G_VALUES.tempsespecific != "Quaresma" && G_VALUES.tempsespecific != "Tridu Pasqual") ?
                     <Text selectable={true} style={this.styles.red}>{"Al·leluia. "}{this.state.DisplayVespers ? LD_VALUES.AlleluiaVespers : LD_VALUES.Alleluia}</Text>
                     :
