@@ -25,6 +25,8 @@ export default class LHScreen extends Component {
     });
   }
 
+
+  
   Refresh_Layout() {
     this.forceUpdate();
   }

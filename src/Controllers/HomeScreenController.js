@@ -17,7 +17,6 @@ import PopupDialog, {
 import HomeScreen from '../Views/HomeScreen';
 import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
-import GenericHeader from '../Views/HeaderBar.js';
 import { Reload_All_Data } from './Classes/Data/DataManager.js';
 
 export default class HomeScreenController extends Component {
@@ -46,10 +45,6 @@ export default class HomeScreenController extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: <GenericHeader title={"CPL"} left_padding={Platform.OS === 'ios'? 0 : 100}/>,
-    headerStyle: {
-      backgroundColor: GLOBAL.barColor,
-    },
     headerLeft: <TouchableOpacity
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}
       onPress={() => navigation.state.params.calPres()}>

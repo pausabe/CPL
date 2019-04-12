@@ -12,7 +12,7 @@ export default class HeaderBar extends Component {
 
   render() {
     return (
-      <View style={{ paddingLeft: this.props.left_padding}}>
+      <View style={{ paddingLeft: this.props.left_padding == undefined? 0 : this.props.left_padding}}>
         <Text style={{
           textAlign: 'center',
           color: GLOBAL.itemsBarColor,

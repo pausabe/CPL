@@ -4,7 +4,6 @@ import { TabNavigator, TabBarBottom, StackNavigator } from "react-navigation";
 
 import GLOBAL from "./Globals/Globals";
 
-import GenericHeader from './Views/HeaderBar.js';
 import HomeScreen from './Controllers/HomeScreenController';
 import SettingsScreen from './Views/SettingsScreen';
 import DonationScreen from './Views/DonationScreen';
@@ -31,6 +30,11 @@ const HomeStack = StackNavigator({
   HomeScreen: {
     screen: HomeScreen,
     navigationOptions: {
+      title: "CPL",
+      headerTintColor: 'white',
+      headerTitleStyle: { flex: 1, textAlign: 'center', fontSize: 20 },
+      headerStyle: { backgroundColor: GLOBAL.barColor },
+
       tabBarIcon: ({ focused, tintColor }) => {
         return (
           <View style={{ padding: 10 }}>
@@ -99,10 +103,12 @@ const LHStack = StackNavigator({
   LHScreen: {
     screen: LHScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader title={"Litúrgia de les hores"} left_padding={Platform.OS === 'ios' ? 0 : 90} />,
-      headerStyle: {
-        backgroundColor: GLOBAL.barColor,
-      },
+
+      title: "Litúrgia de les hores",
+      headerTintColor: 'white',
+      headerTitleStyle: { flex: 1, textAlign: 'center', fontSize: 20 },
+      headerStyle: { backgroundColor: GLOBAL.barColor },
+
       tabBarIcon: ({ focused, tintColor }) => {
         return (
           <View style={{ padding: 10 }}>
@@ -150,10 +156,10 @@ const LDStack = StackNavigator({
   LDScreen: {
     screen: LDScreen,
     navigationOptions: {
-      headerTitle: <GenericHeader title={"Missa"} left_padding={Platform.OS === 'ios' ? 0 : 150} />,
-      headerStyle: {
-        backgroundColor: GLOBAL.barColor,
-      },
+      title: "Missa",
+      headerTintColor: 'white',
+      headerTitleStyle: { flex: 1, textAlign: 'center', fontSize: 20 },
+      headerStyle: { backgroundColor: GLOBAL.barColor },
       tabBarIcon: ({ focused, tintColor }) => {
         return (
           <View style={{ padding: 10 }}>
