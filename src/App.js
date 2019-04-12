@@ -34,7 +34,7 @@ const HomeStack = StackNavigator({
       headerTintColor: 'white',
       headerTitleStyle: { flex: 1, textAlign: 'center', fontSize: 20 },
       headerStyle: { backgroundColor: GLOBAL.barColor },
-
+      headerBackTitle: null,
       tabBarIcon: ({ focused, tintColor }) => {
         return (
           <View style={{ padding: 10 }}>
@@ -108,7 +108,7 @@ const LHStack = StackNavigator({
       headerTintColor: 'white',
       headerTitleStyle: { flex: 1, textAlign: 'center', fontSize: 20 },
       headerStyle: { backgroundColor: GLOBAL.barColor },
-
+      headerBackTitle: null,
       tabBarIcon: ({ focused, tintColor }) => {
         return (
           <View style={{ padding: 10 }}>
@@ -160,6 +160,7 @@ const LDStack = StackNavigator({
       headerTintColor: 'white',
       headerTitleStyle: { flex: 1, textAlign: 'center', fontSize: 20 },
       headerStyle: { backgroundColor: GLOBAL.barColor },
+      headerBackTitle: null,
       tabBarIcon: ({ focused, tintColor }) => {
         return (
           <View style={{ padding: 10 }}>

@@ -54,7 +54,7 @@ export default class LHDisplayScreen extends Component {
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
-      headerRight: <TouchableOpacity
+      /*headerRight: <TouchableOpacity
                       style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}
                       onPress={() => {
                         navigation.state.params.props.emitShareCB();
@@ -65,7 +65,7 @@ export default class LHDisplayScreen extends Component {
                           size={30}
                           color="#FFFFFF"/>
                       </View>
-                  </TouchableOpacity>,
+                  </TouchableOpacity>,*/
   });
 
   componentDidUpdate(){

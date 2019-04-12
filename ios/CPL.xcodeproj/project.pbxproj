@@ -61,7 +61,6 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		AFF974C16E844303910C22FF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E73B30219014C9084ED85FA /* libz.tbd */; };
 		B3EF344CEA2242189A2273C2 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51651081391443CEB7FF67F1 /* libRNSVG-tvOS.a */; };
-		D901B3E43F8740EA9BD0BD2B /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF9EA90E05804BC5AFD7BDFA /* libRNSVG.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -499,7 +498,6 @@
 				27CEAC0427A14CA0B2EC9AA9 /* SystemConfiguration.framework in Frameworks */,
 				AFF974C16E844303910C22FF /* libz.tbd in Frameworks */,
 				572A2CB716FB4C27AC8C87B9 /* libsqlite3.0.tbd in Frameworks */,
-				D901B3E43F8740EA9BD0BD2B /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
