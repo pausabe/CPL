@@ -5,8 +5,7 @@ import {
   TouchableOpacity,
   BackHandler,
   AsyncStorage,
-  SafeAreaView,
-  Platform
+  SafeAreaView
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,9 +14,8 @@ import PopupDialog, {
   DialogTitle,
 } from 'react-native-popup-dialog';
 import HomeScreen from '../Views/HomeScreen';
-import GLOBAL from "../Globals/Globals";
 import GF from "../Globals/GlobalFunctions";
-import { Reload_All_Data } from './Classes/Data/DataManager.js';
+import { Reload_All_Data_TestMode, Reload_All_Data } from './Classes/Data/DataManager.js';
 
 export default class HomeScreenController extends Component {
   componentWillMount() {
@@ -68,7 +66,7 @@ export default class HomeScreenController extends Component {
   });
 
   Refresh_Date(date) {
-    if(date === null || date === undefined)
+    if (date === null || date === undefined)
       date = G_VALUES.date;
 
     Reload_All_Data(new Date(date), this.Refresh_Date_Callback.bind(this));
@@ -114,8 +112,14 @@ export default class HomeScreenController extends Component {
       }
     }
 
-    //First initialization
-    Reload_All_Data(new Date(/*2019, 4, 15*/), this.Init_Everything.bind(this));
+    if (TEST??) {
+      //First initialization
+      Reload_All_Data_TestMode(callback??);
+    }
+    else {
+      //First initialization
+      Reload_All_Data(new Date(/*2019, 4, 15*/), this.Init_Everything.bind(this));
+    }
   }
 
   Init_Everything() {
@@ -185,7 +189,7 @@ export default class HomeScreenController extends Component {
     var h = new Date().getHours();
     if (h >= 0 && h < 3)
       return true;
-    
+
     return false;
   }
 
@@ -269,8 +273,8 @@ export default class HomeScreenController extends Component {
           ViewData={this.state.ViewData}
           santPressed={this.state.santPressed}
           santCB={this.onSantPressCB.bind(this)}
-          lliureCB={this.onSwitchLliurePress.bind(this)} 
-          navigation={this.props.navigation}/>
+          lliureCB={this.onSwitchLliurePress.bind(this)}
+          navigation={this.props.navigation} />
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           titleIOS={'Canvia el dia'}
@@ -310,231 +314,3 @@ export default class HomeScreenController extends Component {
     );
   }
 }
-
-
-
-
-
-
-
-
-      /*************** TEST THINGS - START *******************/
-    /*this.testing = false;
-    this.stateTest = this.testing && false; //Force true in isDarkHimn() -> GlobalFunctions
-    this.superTest = this.testing && false;
-    if (this.stateTest) {
-      this.TA = new TA();
-      this.stateArr = [];
-      this.stateArrIndex = 0;
-
-      //Abans posava 500
-      //Si poso -1 es farà un arxiu per cada diòcesi
-      this.maxStateIndex = -1;//500;
-    }
-    this.renderTest = this.testing;
-    this.initialDayTest = { //pot funcionar malament per culpa dels PASS DAYS
-      day: 2, //1-31 (s'inclou en el test)
-      month: 0, //0-11
-      year: 2017,
-    }
-    this.finalDayTest = { //no pot ser el mateix qe l'initial
-      day: 31, //1-31 (no s'inclou en el test)
-      month: 0, //0-11
-      year: 2019,
-    }
-
-    if (this.testing) {
-      var today = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-      this.initalDiocesiIndex = 0; //0-30 (s'inclou en el test)
-      this.finalDiocesiIndex = 30; //0-30 (s'inclou en el test)
-      this.diocesiTest = GF.nextDiocesi(this.initalDiocesiIndex);
-      this.diocesiNameTest = GF.nextDiocesiName(this.initalDiocesiIndex);
-      this.llocTest = GF.nextLloc(this.initalDiocesiIndex);
-      this.idTest = this.initalDiocesiIndex;
-      this.maxIdTest = this.finalDiocesiIndex;
-      console.log("TestLog. -------------------------------->>>TEST BEGINS<<<--------------------------------");
-      console.log("TestLog. --------------------------------:::" + this.idTest + " -> " + this.diocesiTest + ":::--------------------------------");
-      console.log("TestLog. -----------------------------------" + this.initialDayTest.day + "/" + this.initialDayTest.month + "/" + this.initialDayTest.year + " -> " + this.finalDayTest.day + "/" + this.finalDayTest.month + "/" + this.finalDayTest.year + "-----------------------------------");
-    }
-    /*************** TEST THINGS - END *******************/
-
-      /*************** TEST THINGS - START *******************/
-  /*else {
-    return (
-      <View >
-        <Text>{"\n\n\n\n\n\n"}</Text>
-        <Text>{this.state.testInfoBegins}</Text>
-        <Text>{this.state.testInfo}</Text>
-        <Text>{this.idTest}</Text>
-        <Text>{this.diocesiTest}</Text>
-        <Text>{this.variables.date.getDate() < 10 ? `0${this.variables.date.getDate()}` : this.variables.date.getDate()}/{this.variables.date.getMonth() + 1 < 10 ? `0${this.variables.date.getMonth() + 1}` : this.variables.date.getMonth() + 1}/{this.variables.date.getFullYear()}</Text>
-        <Text>{this.state.stateTestInfo}</Text>
-      </View>
-    );
-  }*/
-  /*************** TEST THINGS - END *******************/
-  //}
-
-
-  /*************** CREATING THE LITURGIA - END ***************/
-
-  /*************** TEST THINGS - START *******************/
-  /*nextDayTest() {
-    if (this.testing) {
-      console.log("PlaceLog. NEXT DAY");
-      if (this.variables.celType === 'L' && this.variables.lliures === false) {
-        //Tornem a passar el dia però amb lliures activades
-        console.log("TestLog. -----------REPTERIR per mem lliure---------" + this.idTest + " -> " + this.diocesiTest + ": " + this.variables.date + "-----------------------------");
-        this.variables.lliures = true;
-        this.refreshEverything(this.variables.date);
-        this.setState({ testInfo: "Testing correctly *" });
-      }
-      else {
-        this.variables.lliures = false;
-
-        var nextDay = this.variables.date;
-        nextDay.setDate(nextDay.getDate() + 1);
-        if (nextDay.getFullYear() === this.finalDayTest.year &&
-          nextDay.getMonth() === this.finalDayTest.month &&
-          nextDay.getDate() === this.finalDayTest.day) {
-          if (this.idTest === this.maxIdTest) {
-            if (this.stateTest) {
-              setTimeout(() => {
-                this.TA.writeState(this.stateArr, this.initialDayTest, this.finalDayTest, this.initalDiocesiIndex, this.finalDiocesiIndex, this.saveStateCB.bind(this), true);
-              }, 1000);
-            }
-            var rightNow = new Date();
-            this.setState({ testInfo: "Test ended correctly at: " + rightNow });
-            console.log("TestLog. -------------------------------->>>TEST ENDS<<<--------------------------------");
-          }
-          else {
-            if (this.maxStateIndex === -1) this.writePart();
-            firstDay = new Date(this.initialDayTest.year, this.initialDayTest.month, this.initialDayTest.day);
-            this.idTest += 1;
-            this.diocesiTest = GF.nextDiocesi(this.idTest);
-            this.diocesiNameTest = GF.nextDiocesiName(this.idTest);
-            this.llocTest = GF.nextLloc(this.idTest);
-            auxTomorrow = new Date();
-            auxTomorrow.setFullYear(this.initialDayTest.year);
-            auxTomorrow.setMonth(this.initialDayTest.month);
-            auxTomorrow.setDate(this.initialDayTest.day + 1);
-            this.dataTomorrow.date = auxTomorrow;
-            this.refreshEverything(firstDay);
-            this.setState({ testInfo: "Testing correctly" });
-            console.log("TestLog. --------------------------------:::NEXT DIÒCESI: " + this.idTest + " -> " + this.diocesiTest + " - " + firstDay + ":::--------------------------------");
-          }
-        }
-        else {
-          dtDay = this.dataTomorrow.date.getDate();
-          dtMonth = this.dataTomorrow.date.getMonth();
-          dtYear = this.dataTomorrow.date.getFullYear();
-          auxTomorrow = new Date(dtYear, dtMonth, dtDay);
-          auxTomorrow.setDate(auxTomorrow.getDate() + 1);
-          this.dataTomorrow.date = auxTomorrow;
-          while (GF.passDayTest(this.diocesiNameTest, nextDay)) {
-            console.log("TestLog. -----------------------------------" + this.idTest + " -> " + this.diocesiTest + " - PASS DAY: " + nextDay + "-----------------------------------");
-            nextDay.setDate(nextDay.getDate() + 1);
-            auxTomorrow = this.dataTomorrow.date;
-            auxTomorrow.setDate(auxTomorrow.getDate() + 1);
-            this.dataTomorrow.date = auxTomorrow;
-          }
-          console.log("TestLog. -----------------------------------" + this.idTest + " -> " + this.diocesiTest + " - NEXT DAY: " + nextDay + "-----------------------------------");
-          this.refreshEverything(nextDay);
-          this.setState({ testInfo: "Testing correctly" });
-        }
-      }
-    }
-  }
-
-  setLiturgiaStateTest() {
-    var auxLIT = Object.assign({}, this.liturgicProps.LITURGIA);
-    stateDayStructure = {
-      date: {
-        day: this.variables.date.getDate(),
-        month: (this.variables.date.getMonth() + 1),
-        year: this.variables.date.getFullYear(),
-      },
-      diocesi: this.variables.diocesi,
-      LIT: auxLIT,
-    }
-    this.stateArr[this.stateArrIndex] = stateDayStructure;
-    this.stateArrIndex += 1;
-
-    if (this.stateArrIndex === this.maxStateIndex) this.writePart();
-  }
-
-  writePart() {
-    var auxArr = Object.assign({}, this.stateArr)
-    setTimeout(() => {
-      this.TA.writeState(auxArr, this.initialDayTest, this.finalDayTest, this.initalDiocesiIndex, this.finalDiocesiIndex, this.saveStateCB.bind(this), false);
-    }, 1000);
-    this.stateArr = [];
-    this.stateArrIndex = 0;
-  }
-
-  saveStateCB(text) {
-    this.setState({ stateTestInfo: text });
-  }
-
-  error() {
-    this.setState({ testInfo: "something went wrong (bad calls)" });
-    console.log("InfoLog. super error (bad calls)");
-    this.testing = false;
-  }
-
-  openOracions(oracioType) {
-    //this.LHButtonCB(oracioType, true);
-  }*/
-
-  /*************** TEST THINGS - END *******************/
-
-  /*shouldComponentUpdate() {
-    if (Platform.OS === 'ios') {
-      if (this.testing) {
-        return true;
-      }
-      else if (this.refEv) {
-        console.log("ShouldLog. YES, després de refreshEverything");
-        this.refEv = false;
-        return true;
-      }
-      else if (this.setPres) {
-        console.log("ShouldLog. NO, estic anant a Settings");
-        this.inSet = true;
-        this.setPres = false;
-        return false;
-      }
-      else if (this.santPress === 1) {
-        console.log("ShouldLog. YES, estic obrint Sant");
-        return true;
-      }
-      else if (this.santPress === 2) {
-        console.log("ShouldLog. YES, estic tancant Sant");
-        this.santPress = 0;
-        return true;
-      }
-      else if (this.inLit) {
-        console.log("ShouldLog. YES, estic tornant de Liturgia");
-        this.inLit = false;
-        return true;
-      }
-      else if (this.inSet) {
-        console.log("ShouldLog. NO, estic tornant de Settings");
-        this.inSet = false;
-        this.refreshEverything(this.variables.date);
-        return false;
-      }
-      else if (this.calPres) {
-        console.log("ShouldLog. YES, obrint Picker");
-        this.calPres = false;
-        return true;
-      }
-      else {
-        console.log("ShouldLog. YES, coses del Picker");
-        return true;
-      }
-    }
-    else {
-      return true;
-    }
-  }*/

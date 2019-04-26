@@ -1,4 +1,4 @@
-export default class testAdapter {
+export default class TestsManager {
   constructor(){
     // require the module
     this.RNFS = require('react-native-fs');

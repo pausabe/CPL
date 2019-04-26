@@ -4,6 +4,7 @@ import DBAdapter from '../../../Adapters/DBAdapter';
 import GF from "../../../Globals/GlobalFunctions";
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
+import TestsManager from '../../Tests/TestsManager';
 
 /************
  * Class in charge of having all the data that will be shown in views. 
@@ -128,4 +129,25 @@ function Set_Soul_CB(liturgia_hores, info_cel, liturgia_diaria) {
 function primVespres() {
   if ((G_VALUES.date.getDay() === 6 && G_VALUES.celType !== 'S') || LH_VALUES.vespres1) return true;
   return false;
+}
+
+export function Reload_All_Data_TestMode() {
+  //Init stateArr and index iteration
+
+  Reload_All_Data(FIRST day, Test_Day_Finished_Callback);
+}
+
+function Test_Day_Finished_Callback() {
+  //Si tinc temps podria aquí enviar un string d'informació a HomeScreenController (% + diòcesi + ??)
+
+  if (necessary export) {
+    TestsManager.writeState(bla bla);
+  }
+
+  if (all days done) {
+    //??
+  }
+  else {
+    Reload_All_Data(NEXT day, Test_Day_Finished_Callback);
+  }
 }
