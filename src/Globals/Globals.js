@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 const normalTextSize = 17;
 const smallTextSize = 15;
@@ -22,7 +22,7 @@ module.exports = {
     }),*/
 
   O_ORDINARI: 'O_ORDINAR',
-  Q_CENDRA:'Q_CENDRA',
+  Q_CENDRA: 'Q_CENDRA',
   Q_SETMANES: 'Q_SETMANES',
   Q_DIUM_RAMS: 'Q_DIUM_RAMS',
   Q_SET_SANTA: 'Q_SET_SANTA',

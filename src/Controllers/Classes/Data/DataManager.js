@@ -4,7 +4,7 @@ import DBAdapter from '../../../Adapters/DBAdapter';
 import GF from "../../../Globals/GlobalFunctions";
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
-import TestsManager from '../../Tests/TestsManager';
+import { TestsManager, TEST_FIRST_DAY, TEST_LAST_DAY } from '../../../Tests/TestsManager';
 
 /************
  * Class in charge of having all the data that will be shown in views. 
@@ -21,6 +21,9 @@ G_VALUES = {}
 LH_VALUES = {}
 //Liturgia diària values
 LD_VALUES = {}
+
+//Makes us able to stop the test whenever we want
+TESTING = false;
 
 export function Reload_All_Data(date, Reload_Finished_Callback) {
   this.Reload_Finished_Callback = Reload_Finished_Callback;
@@ -121,8 +124,6 @@ function Set_Soul_CB(liturgia_hores, info_cel, liturgia_diaria) {
   G_VALUES.primVespres = primVespres();
   LD_VALUES = liturgia_diaria;
 
-  console.log("liturgia_diaria: ", liturgia_diaria);
-
   this.Reload_Finished_Callback();
 }
 
@@ -131,23 +132,37 @@ function primVespres() {
   return false;
 }
 
-export function Reload_All_Data_TestMode() {
+export function Reload_All_Data_TestMode(Test_Information_Callback) {
   //Init stateArr and index iteration
-
-  Reload_All_Data(FIRST day, Test_Day_Finished_Callback);
+  TESTING = true;
+  Reload_All_Data(TEST_FIRST_DAY, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
 }
 
-function Test_Day_Finished_Callback() {
-  //Si tinc temps podria aquí enviar un string d'informació a HomeScreenController (% + diòcesi + ??)
+function Test_Day_Finished_Callback(Test_Information_Callback) {
+  if (TESTING) {
+    /*if (necessary export) {
+      TestsManager.writeState(bla bla);
+    }*/
 
-  if (necessary export) {
-    TestsManager.writeState(bla bla);
-  }
+    //if (this.variables.celType === 'L' && this.variables.lliures === false) {
+    //Tornem a passar el dia però amb lliures activades
 
-  if (all days done) {
-    //??
+    console.log(G_VALUES.date + " vsvsvsvsvsvs " + TEST_LAST_DAY);
+    
+    if (G_VALUES.date.getFullYear() === TEST_LAST_DAY.getFullYear() &&
+      G_VALUES.date.getMonth() === TEST_LAST_DAY.getMonth() &&
+      G_VALUES.date.getDate() === TEST_LAST_DAY.getDate()) { 
+      Test_Information_Callback("FINISHED!");
+    }
+    else {
+      Test_Information_Callback("DAY OK: " + G_VALUES.date);
+      var next_day = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth(), G_VALUES.date.getDate() + 1);
+      Reload_All_Data(next_day, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
+    }
   }
-  else {
-    Reload_All_Data(NEXT day, Test_Day_Finished_Callback);
-  }
+}
+
+export function Force_Stop_Test(Test_Information_Callback) {
+  Test_Information_Callback("FORCED TO FINISH");
+  TESTING = false;
 }

@@ -15,7 +15,8 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 import HomeScreen from '../Views/HomeScreen';
 import GF from "../Globals/GlobalFunctions";
-import { Reload_All_Data_TestMode, Reload_All_Data } from './Classes/Data/DataManager.js';
+import { Reload_All_Data_TestMode, Reload_All_Data, Force_Stop_Test } from './Classes/Data/DataManager.js';
+import { TEST_MODE_ON } from '../Tests/TestsManager';
 
 export default class HomeScreenController extends Component {
   componentWillMount() {
@@ -79,47 +80,50 @@ export default class HomeScreenController extends Component {
   constructor(props) {
     super(props);
 
-    //DataPicker limit
-    this.minDatePicker = new Date(2017, 0, 2);
-    this.maxDatePicker = new Date(2019, 11, 28);
-
-    this.state = {
-      testInfo: 'testing correctly',
-      stateTestInfo: '',
-      testInfoBegins: "Starts at: ",// + G_VALUES.date,
-      santPressed: false,
-      isDateTimePickerVisible: false,
-      shareIcon: null,
-
-      ViewData: {
-        ready: false,
-        lloc: {
-          diocesiName: '',
-          lloc: '',
-        },
-        setmana: '',
-        temps: '',
-        setCicle: '',
-        anyABC: '',
-        color: '',
-        celebracio: {
-          typeText: '',
-          titol: '',
-          text: '',
-        },
-        primVespres: false,
-        santPressed: false,
+    if (TEST_MODE_ON) {
+      this.state = {
+        testInformation: "Starting test"
       }
-    }
 
-    if (TEST??) {
       //First initialization
-      Reload_All_Data_TestMode(callback??);
+      Reload_All_Data_TestMode(this.Test_Information_Callback.bind(this));
     }
     else {
-      //First initialization
+      //DataPicker limit
+      this.minDatePicker = new Date(2017, 0, 2);
+      this.maxDatePicker = new Date(2019, 11, 28);
+
+      this.state = {
+        santPressed: false,
+        isDateTimePickerVisible: false,
+        shareIcon: null,
+
+        ViewData: {
+          ready: false,
+          lloc: {
+            diocesiName: '',
+            lloc: '',
+          },
+          setmana: '',
+          temps: '',
+          setCicle: '',
+          anyABC: '',
+          color: '',
+          celebracio: {
+            typeText: '',
+            titol: '',
+            text: '',
+          },
+          primVespres: false,
+          santPressed: false,
+        }
+      }
       Reload_All_Data(new Date(/*2019, 4, 15*/), this.Init_Everything.bind(this));
     }
+  }
+
+  Test_Information_Callback(informationText) {
+    this.setState({ testInformation: informationText });
   }
 
   Init_Everything() {
@@ -264,53 +268,66 @@ export default class HomeScreenController extends Component {
     if (!this.state.shareIcon) {
       return false;
     }
-
-    var yesterday = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth());
-    yesterday.setDate(G_VALUES.date.getDate() - 1);
-    return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <HomeScreen
-          ViewData={this.state.ViewData}
-          santPressed={this.state.santPressed}
-          santCB={this.onSantPressCB.bind(this)}
-          lliureCB={this.onSwitchLliurePress.bind(this)}
-          navigation={this.props.navigation} />
-        <DateTimePicker
-          isVisible={this.state.isDateTimePickerVisible}
-          titleIOS={'Canvia el dia'}
-          cancelTextIOS={'Cancel·la'}
-          confirmTextIOS={this.dacordString()}
-          date={G_VALUES.date}
-          minimumDate={this.minDatePicker}
-          maximumDate={this.maxDatePicker}
-          onConfirm={this.datePickerOK.bind(this)}
-          onCancel={this.datePickerCANCEL.bind(this)} />
-        <PopupDialog
-          ref={(popupDialog) => { this.popupDialog = popupDialog }}
-          width={0.9}
-          height={250}
-          dialogStyle={{ backgroundColor: 'white' }}
-          dialogTitle={<DialogTitle titleTextStyle={{ fontSize: 19, color: 'black' }} title="És més tard de les 12 de la nit!" />} >
-          <View style={{ flex: 1, paddingHorizontal: 10, justifyContent: 'center' }}>
-            <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Ja estem a dia " + G_VALUES.date.getDate() + " de " + GF.getMonthText(G_VALUES.date.getMonth()) + "."}</Text>
-            <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Vols la litúrgia d’ahir dia " + yesterday.getDate() + " de " + GF.getMonthText(yesterday.getMonth()) + "?"}</Text>
-          </View>
-          <View style={{ justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom: 10, flexDirection: 'row', backgroundColor: 'white' }}>
-            <View style={{ flex: 1, alignItems: 'center' }}>
-              <TouchableOpacity onPress={this.onYestPress.bind(this, yesterday)}>
-                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{"Sí, la d'ahir dia"}</Text>
-                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{yesterday.getDate() + "/" + (yesterday.getMonth() + 1) + "/" + yesterday.getFullYear()}</Text>
-              </TouchableOpacity>
+    
+    if (TEST_MODE_ON) {
+      return (
+        <View style={{ flex: 1 }}>
+          <Text style={{ textAlign: 'center' }}>{"\nTEST INFORMATION\n"}</Text>
+          <Text style={{ textAlign: 'center' }}>{this.state.testInformation}{"\n\n"}</Text>
+          <TouchableOpacity style={{backgroundColor: 'rgba(20,47,43,0.3)', marginHorizontal: 100, paddingVertical: 10}} onPress={Force_Stop_Test.bind(this, this.Test_Information_Callback.bind(this))}>
+            <Text style={{ textAlign: 'center' }}>{"STOP TEST"}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    else {
+      var yesterday = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth());
+      yesterday.setDate(G_VALUES.date.getDate() - 1);
+      return (
+        <SafeAreaView style={{ flex: 1 }}>
+          <HomeScreen
+            ViewData={this.state.ViewData}
+            santPressed={this.state.santPressed}
+            santCB={this.onSantPressCB.bind(this)}
+            lliureCB={this.onSwitchLliurePress.bind(this)}
+            navigation={this.props.navigation} />
+          <DateTimePicker
+            isVisible={this.state.isDateTimePickerVisible}
+            titleIOS={'Canvia el dia'}
+            cancelTextIOS={'Cancel·la'}
+            confirmTextIOS={this.dacordString()}
+            date={G_VALUES.date}
+            minimumDate={this.minDatePicker}
+            maximumDate={this.maxDatePicker}
+            onConfirm={this.datePickerOK.bind(this)}
+            onCancel={this.datePickerCANCEL.bind(this)} />
+          <PopupDialog
+            ref={(popupDialog) => { this.popupDialog = popupDialog }}
+            width={0.9}
+            height={250}
+            dialogStyle={{ backgroundColor: 'white' }}
+            dialogTitle={<DialogTitle titleTextStyle={{ fontSize: 19, color: 'black' }} title="És més tard de les 12 de la nit!" />} >
+            <View style={{ flex: 1, paddingHorizontal: 10, justifyContent: 'center' }}>
+              <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Ja estem a dia " + G_VALUES.date.getDate() + " de " + GF.getMonthText(G_VALUES.date.getMonth()) + "."}</Text>
+              <Text style={{ color: 'grey', fontSize: 18, textAlign: 'center', }}>{"Vols la litúrgia d’ahir dia " + yesterday.getDate() + " de " + GF.getMonthText(yesterday.getMonth()) + "?"}</Text>
             </View>
-            <View style={{ flex: 1, alignItems: 'center' }}>
-              <TouchableOpacity onPress={this.onTodayPress.bind(this)}>
-                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{"No, la d'avui dia"}</Text>
-                <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{G_VALUES.date.getDate() + "/" + (G_VALUES.date.getMonth() + 1) + "/" + G_VALUES.date.getFullYear()}</Text>
-              </TouchableOpacity>
+            <View style={{ justifyContent: 'flex-end', borderRadius: 15, paddingHorizontal: 10, paddingBottom: 10, flexDirection: 'row', backgroundColor: 'white' }}>
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <TouchableOpacity onPress={this.onYestPress.bind(this, yesterday)}>
+                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{"Sí, la d'ahir dia"}</Text>
+                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, fontWeight: '600', textAlign: 'center', }}>{yesterday.getDate() + "/" + (yesterday.getMonth() + 1) + "/" + yesterday.getFullYear()}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <TouchableOpacity onPress={this.onTodayPress.bind(this)}>
+                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{"No, la d'avui dia"}</Text>
+                  <Text style={{ color: 'rgb(14, 122, 254)', fontSize: 17, textAlign: 'center', }}>{G_VALUES.date.getDate() + "/" + (G_VALUES.date.getMonth() + 1) + "/" + G_VALUES.date.getFullYear()}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </PopupDialog>
-      </SafeAreaView>
-    );
+          </PopupDialog>
+        </SafeAreaView>
+      );
+    }
   }
 }
