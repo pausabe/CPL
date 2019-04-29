@@ -4,7 +4,13 @@ import DBAdapter from '../../../Adapters/DBAdapter';
 import GF from "../../../Globals/GlobalFunctions";
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
-import { TestsManager, TEST_FIRST_DAY, TEST_LAST_DAY } from '../../../Tests/TestsManager';
+import TestsManager, {
+  TEST_FIRST_DAY,
+  STATE_ON,
+  TEST_LAST_DAY,
+  FIRST_DIOCESI,
+  LAST_DIOCESI
+} from '../../../Tests/TestsManager';
 
 /************
  * Class in charge of having all the data that will be shown in views. 
@@ -22,8 +28,13 @@ LH_VALUES = {}
 //Liturgia diària values
 LD_VALUES = {}
 
+/* Testing variables */
 //Makes us able to stop the test whenever we want
+TEST_MANAGER = new TestsManager();
 TESTING = false;
+CURRENT_DIOCESI = 0;
+TEST_STATE_ARRAY = [];
+TEST_STATE_ARRAY_INDEX = 0;
 
 export function Reload_All_Data(date, Reload_Finished_Callback) {
   this.Reload_Finished_Callback = Reload_Finished_Callback;
@@ -89,7 +100,8 @@ function Refresh_Data(newDay) {
       }
       G_VALUES.dataTomorrow = dataTomorrow;
 
-      Check_Lliure_Date();
+      if (!TESTING)
+        Check_Lliure_Date();
 
       //Get all liturgia data
       new SOUL(Set_Soul_CB);
@@ -132,37 +144,92 @@ function primVespres() {
   return false;
 }
 
+//================================================ TESTING =============================================
+
 export function Reload_All_Data_TestMode(Test_Information_Callback) {
-  //Init stateArr and index iteration
   TESTING = true;
   Reload_All_Data(TEST_FIRST_DAY, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
 }
 
 function Test_Day_Finished_Callback(Test_Information_Callback) {
   if (TESTING) {
-    /*if (necessary export) {
-      TestsManager.writeState(bla bla);
-    }*/
 
-    //if (this.variables.celType === 'L' && this.variables.lliures === false) {
-    //Tornem a passar el dia però amb lliures activades
+    //Feedback to View
+    Test_Information_Callback(
+      "Date: " + G_VALUES.date.toLocaleDateString("es-ES") + " - " + TEST_LAST_DAY.toLocaleDateString("es-ES") + "\n" +
+      "Diocesi: " + CURRENT_DIOCESI + " - " + LAST_DIOCESI + "\n" +
+      "Lliures: " + G_VALUES.lliures
+    );
 
-    console.log(G_VALUES.date + " vsvsvsvsvsvs " + TEST_LAST_DAY);
-    
-    if (G_VALUES.date.getFullYear() === TEST_LAST_DAY.getFullYear() &&
-      G_VALUES.date.getMonth() === TEST_LAST_DAY.getMonth() &&
-      G_VALUES.date.getDate() === TEST_LAST_DAY.getDate()) { 
-      Test_Information_Callback("FINISHED!");
+    if (G_VALUES.celType == 'L' && G_VALUES.lliures == false) {
+      //Tornem a passar el dia però amb lliures activades
+      G_VALUES.lliures = true;
+      Reload_All_Data(G_VALUES.date, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
     }
     else {
-      Test_Information_Callback("DAY OK: " + G_VALUES.date);
-      var next_day = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth(), G_VALUES.date.getDate() + 1);
-      Reload_All_Data(next_day, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
+      G_VALUES.lliures = false;
+
+      //Add Liturgia to array
+      Set_Liturgia_State();
+
+      if (G_VALUES.date.getFullYear() === TEST_LAST_DAY.getFullYear() &&
+        G_VALUES.date.getMonth() === TEST_LAST_DAY.getMonth() &&
+        G_VALUES.date.getDate() === TEST_LAST_DAY.getDate()) {
+        //Test interval finished
+        TEST_STATE_ARRAY_INDEX = 0;
+
+        if (STATE_ON) {
+          setTimeout(() => {
+            TEST_MANAGER.writeState(
+              TEST_STATE_ARRAY,
+              TEST_FIRST_DAY,
+              TEST_LAST_DAY,
+              FIRST_DIOCESI,
+              LAST_DIOCESI,
+              State_Saved_Callback.bind(this),
+              (CURRENT_DIOCESI == LAST_DIOCESI)
+            );
+          }, 1000);
+        }
+
+        if (CURRENT_DIOCESI == LAST_DIOCESI) {
+          Test_Information_Callback("FINISHED!");
+        }
+        else {
+          CURRENT_DIOCESI++;
+          Reload_All_Data(TEST_FIRST_DAY, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
+        }
+      }
+      else {
+        var next_day = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth(), G_VALUES.date.getDate() + 1);
+        Reload_All_Data(next_day, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
+      }
     }
   }
+}
+
+function Set_Liturgia_State() {
+  var auxLIT = Object.assign({}, LH_VALUES);
+  stateDayStructure = {
+    date: {
+      day: G_VALUES.date.getDate(),
+      month: (G_VALUES.date.getMonth() + 1),
+      year: G_VALUES.date.getFullYear(),
+    },
+    diocesi: G_VALUES.diocesi,
+    LIT: auxLIT,
+  }
+  TEST_STATE_ARRAY[TEST_STATE_ARRAY_INDEX] = stateDayStructure;
+  TEST_STATE_ARRAY_INDEX++;
+}
+
+function State_Saved_Callback(info_text) {
+  console.log("State info: " + info_text);
 }
 
 export function Force_Stop_Test(Test_Information_Callback) {
   Test_Information_Callback("FORCED TO FINISH");
   TESTING = false;
 }
+
+//=========================================================================================================

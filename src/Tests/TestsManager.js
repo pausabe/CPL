@@ -1,6 +1,9 @@
 export var TEST_MODE_ON = true;
-export var TEST_FIRST_DAY = new Date(2019, 3, 15);
-export var TEST_LAST_DAY = new Date(2019, 3, 17);
+export var STATE_ON = TEST_MODE_ON && true;
+export var TEST_FIRST_DAY = new Date(2017, 0, 2);
+export var TEST_LAST_DAY = new Date(2019, 0, 31);
+export var FIRST_DIOCESI = 0; //0-30 (s'inclou en el test)
+export var LAST_DIOCESI = 0; //0-30 (s'inclou en el test)
 
 export default class TestsManager {
   constructor() {
@@ -18,8 +21,8 @@ export default class TestsManager {
     var dataShow = this._transformData(stateArr);
 
     // write the file
-    var idtAux = idt.day + '_' + idt.month + '_' + idt.year;
-    var fdtAux = fdt.day + '_' + fdt.month + '_' + fdt.year;
+    var idtAux = idt.getDate() + '_' + idt.getMonth() + '_' + idt.getFullYear();
+    var fdtAux = fdt.getDate() + '_' + fdt.getMonth() + '_' + fdt.getFullYear();
     var rightNow = new Date();
     var rnDate = rightNow.getDate();
     var rnMonth = rightNow.getMonth() + 1;
