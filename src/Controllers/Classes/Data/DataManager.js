@@ -96,6 +96,7 @@ function Refresh_Data(newDay) {
 }
 
 function Check_Lliure_Date() {
+
   AsyncStorage.getItem("lliureDate").then((value) => {
     if (!value) AsyncStorage.setItem('lliureDate', 'none');
 

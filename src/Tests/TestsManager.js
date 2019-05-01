@@ -2,10 +2,10 @@ import { Reload_All_Data } from '../Controllers/Classes/Data/DataManager.js';
 
 /********************** TEST VARIABLES **********************/
 
-export var TEST_MODE_ON = true;
+export var TEST_MODE_ON = false;
 export var STATE_ON = TEST_MODE_ON && true;
-export var TEST_FIRST_DAY = new Date(2019, 0, 2);
-export var TEST_LAST_DAY = new Date(2019, 0, 31);
+export var TEST_FIRST_DAY = new Date(2017, 0, 2); //(s'inclou en el test)
+export var TEST_LAST_DAY = new Date(2019, 0, 30); //(s'inclou en el test)
 export var FIRST_DIOCESI = 0; //0-30 (s'inclou en el test)
 export var LAST_DIOCESI = 0; //0-30 (s'inclou en el test)
 
@@ -23,6 +23,7 @@ var TEST_STATE_ARRAY_INDEX = 0;
 
 export function Reload_All_Data_TestMode(Test_Information_Callback) {
   TESTING = true;
+  G_VALUES.lliures = false;
   Reload_All_Data(TEST_FIRST_DAY, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
 }
 
@@ -36,6 +37,9 @@ function Test_Day_Finished_Callback(Test_Information_Callback) {
       "Lliures: " + G_VALUES.lliures
     );
 
+    //Add Liturgia to array
+    Set_Liturgia_State();
+
     if (G_VALUES.celType == 'L' && G_VALUES.lliures == false) {
       //Tornem a passar el dia però amb lliures activades
       G_VALUES.lliures = true;
@@ -43,9 +47,6 @@ function Test_Day_Finished_Callback(Test_Information_Callback) {
     }
     else {
       G_VALUES.lliures = false;
-
-      //Add Liturgia to array
-      Set_Liturgia_State();
 
       if (G_VALUES.date.getFullYear() === TEST_LAST_DAY.getFullYear() &&
         G_VALUES.date.getMonth() === TEST_LAST_DAY.getMonth() &&
