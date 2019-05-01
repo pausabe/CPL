@@ -15,8 +15,8 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 import HomeScreen from '../Views/HomeScreen';
 import GF from "../Globals/GlobalFunctions";
-import { Reload_All_Data_TestMode, Reload_All_Data, Force_Stop_Test } from './Classes/Data/DataManager.js';
-import { TEST_MODE_ON } from '../Tests/TestsManager';
+import { Reload_All_Data } from './Classes/Data/DataManager.js';
+import { TEST_MODE_ON, Reload_All_Data_TestMode, Force_Stop_Test } from '../Tests/TestsManager';
 
 export default class HomeScreenController extends Component {
   componentWillMount() {
@@ -81,6 +81,10 @@ export default class HomeScreenController extends Component {
     super(props);
 
     if (TEST_MODE_ON) {
+
+      //Hide Splash Screen
+      SplashScreen.hide();
+
       this.state = {
         testInformation: "Starting test"
       }
@@ -268,13 +272,13 @@ export default class HomeScreenController extends Component {
     if (!this.state.shareIcon) {
       return false;
     }
-    
+
     if (TEST_MODE_ON) {
       return (
         <View style={{ flex: 1 }}>
           <Text style={{ textAlign: 'center' }}>{"\nTEST INFORMATION\n"}</Text>
           <Text style={{ textAlign: 'center' }}>{this.state.testInformation}{"\n\n"}</Text>
-          <TouchableOpacity style={{backgroundColor: 'rgba(20,47,43,0.3)', marginHorizontal: 100, paddingVertical: 10}} onPress={Force_Stop_Test.bind(this, this.Test_Information_Callback.bind(this))}>
+          <TouchableOpacity style={{ backgroundColor: 'rgba(20,47,43,0.3)', marginHorizontal: 100, paddingVertical: 10 }} onPress={Force_Stop_Test.bind(this, this.Test_Information_Callback.bind(this))}>
             <Text style={{ textAlign: 'center' }}>{"STOP TEST"}</Text>
           </TouchableOpacity>
         </View>
