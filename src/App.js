@@ -75,7 +75,7 @@ const HomeStack = StackNavigator({
     screen: DonationScreen,
     navigationOptions: {
       tabBarVisible: false,
-      headerTitle: <Text style={styles.titleText}>{'Donatiu'}</Text>,
+      headerTitle: <Text style={styles.titleText}>{'Donatiu lliure'}</Text>,
       headerStyle: {
         backgroundColor: GLOBAL.barColor,
       },
@@ -104,7 +104,7 @@ const LHStack = StackNavigator({
     screen: LHScreen,
     navigationOptions: {
 
-      title: "Litúrgia de les hores",
+      title: "Litúrgia de les Hores",
       headerTintColor: 'white',
       headerTitleStyle: { flex: 1, textAlign: 'center', fontSize: 20 },
       headerStyle: { backgroundColor: GLOBAL.barColor },

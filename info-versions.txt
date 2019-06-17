@@ -125,3 +125,7 @@ v2.0.0 BETA (10.4.2019)[An26,-]
 
  v2.0.1 (11.4.2019)[An27,Ap21]
  - Errors detectats
+
+  v2.1.0 (17.6.2019)[An28,Ap22]
+  - Errors corregits
+  - Aclariment del donatiu "lliure"

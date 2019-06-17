@@ -458,7 +458,7 @@ export default class HomeScreen extends Component {
                 //color={'black'}
               color={'rgb(50, 50, 50)'}
               />
-              <Text style={{ textAlign: 'center', marginTop: -17, color: 'rgb(50, 50, 50)', fontSize: 12 }}>{"Donatiu"}</Text>
+              <Text style={{ textAlign: 'center', marginTop: -17, marginLeft: -7, color: 'rgb(50, 50, 50)', fontSize: 12 }}>{"Donatiu lliure"}</Text>
             </TouchableOpacity>
           </View>
         </View>

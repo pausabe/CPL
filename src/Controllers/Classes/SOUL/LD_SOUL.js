@@ -16,6 +16,9 @@ export default class LD_SOUL {
 
             var idSpecialVespers = this.GetSpecialVespers(today_date, today_string, G_VALUES.ABC);
 
+            console.log("idSpecialVespers: ", idSpecialVespers);
+            
+
             var part_row_extra_visperas = {
                 Vespers: false,
                 VetllaPasqua: false,
@@ -274,7 +277,8 @@ export default class LD_SOUL {
 
     GetSpecialVespers(today_date, today_string, ABC) {
         //(Dia abans) Naixement de sant Joan Baptista (036)
-        if (today_string == '23-jun')
+        //TODO: harcoded day. Precedencia (corpus > sant joan)
+        if (today_string == '23-jun' && !(today_date.getFullYear() == 2019 && today_date.getMonth() == 5 && today_date.getDate() == 23))
             return '036';
 
         //(Dia abans) Sants Pere i Pau, apòstols (038)
@@ -322,7 +326,9 @@ export default class LD_SOUL {
         var corImmaculat = new Date(G_VALUES.pentacosta.getFullYear(), G_VALUES.pentacosta.getMonth(), G_VALUES.pentacosta.getDate() + 20);
         if (today_date.getDate() === corImmaculat.getDate() && today_date.getMonth() === corImmaculat.getMonth() &&
             today_date.getFullYear() === corImmaculat.getFullYear()) {
-            return '033';
+            //TODO: HARDCODED! st pere i st pau > cor immaculat
+            if (!(today_date.getFullYear() == 2019 && today_date.getMonth() == 5 && today_date.getDate() == 29))
+                return '033';
         }
 
         //Dissabte abans del primer diumenge de setembre (102)
@@ -396,7 +402,7 @@ export default class LD_SOUL {
         //Santíssim cos i sang de crist
         var cosSang = new Date(trinitat.getFullYear(), trinitat.getMonth(), trinitat.getDate() + 7);
         if (today_date.getDate() === cosSang.getDate() && today_date.getMonth() === cosSang.getMonth() &&
-            today_date.getFullYear() === cosSang.getFullYear()) {
+            today_date.getFullYear() === cosSang.getFullYear()) {                
             switch (ABC) {
                 case 'A':
                     return '163';
