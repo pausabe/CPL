@@ -7,7 +7,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Switch,
-  SafeAreaView
+  SafeAreaView,
+  Linking,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import GLOBAL from "../Globals/Globals";
@@ -178,7 +180,13 @@ export default class HomeScreen extends Component {
   On_Give_Press() {
     try {
       console.log("Give pressed");
-      this.props.navigation.navigate('Donation');
+
+      if(Platform.OS == "ios"){
+        Linking.openURL('https://mescpl.cpl.es/donacions/')
+      }
+      else{
+        this.props.navigation.navigate('Donation');
+      }
     }
     catch (error) {
       console.log("[Error]", error);

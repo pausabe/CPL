@@ -18,14 +18,14 @@ export default class LD_SOUL {
 
             console.log("idSpecialVespers: ", idSpecialVespers);
             
-
             var part_row_extra_visperas = {
                 Vespers: false,
                 VetllaPasqua: false,
             }
 
             if (idSpecialVespers == '-1') {
-                if (today_date.getDay() === 6) {
+                //Saturday or tomorrow is Solemnitat
+                if (today_date.getDay() === 6 || G_VALUES.dataTomorrow.celType == 'S') {
                     var tomorrow_date = new Date(today_date.getFullYear(), today_date.getMonth(), today_date.getDate() + 1);
                     var tomorrow_string = GF.calculeDia(tomorrow_date, G_VALUES.diocesi, G_VALUES.dataTomorrow.diaMogut, G_VALUES.dataTomorrow.diocesiMogut);
 

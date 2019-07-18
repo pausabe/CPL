@@ -492,13 +492,13 @@ export default class LDDisplayScreen extends Component {
 
     Render_Evangeli() {
         var displayCredo = (this.state.DisplayVespers && LD_VALUES.credoVespers == '1') || (!this.state.DisplayVespers && LD_VALUES.credo == '1');
-
+        var aleluia_text = (this.state.DisplayVespers ? LD_VALUES.AlleluiaVespers != '-'? LD_VALUES.AlleluiaVespers : "" : LD_VALUES.Alleluia != '-'? LD_VALUES.Alleluia : "")
         return (
             <View>
                 <Text selectable={true} style={this.styles.red}>{"Evangeli"}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {(G_VALUES.tempsespecific != "Quaresma" && G_VALUES.tempsespecific != "Tridu Pasqual") ?
-                    <Text selectable={true} style={this.styles.red}>{"Al·leluia. "}{this.state.DisplayVespers ? LD_VALUES.AlleluiaVespers : LD_VALUES.Alleluia}</Text>
+                    <Text selectable={true} style={this.styles.red}>{"Al·leluia. "}{aleluia_text}</Text>
                     :
                     <Text selectable={true} style={this.styles.red}>{"Vers abans de l'evangeli"}</Text>
                 }

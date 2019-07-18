@@ -116,16 +116,19 @@ v1.10.1(29.7.2018)[An24,Ap19] - [958e546]
 - Millora estètica de la configuració
 
 v1.11(26.11.2018)[An25,Ap20]
-- Afegida la litúrgia del 2019
+  - Afegida la litúrgia del 2019
 
 v2.0.0 BETA (10.4.2019)[An26,-]
- - Nou apartat per resar amb les lectures de la missa
- - Canviada la imatge de fons
- - Redistribució dels botons Missatge i Donatiu
+  - Nou apartat per resar amb les lectures de la missa
+  - Canviada la imatge de fons
+  - Redistribució dels botons Missatge i Donatiu
 
- v2.0.1 (11.4.2019)[An27,Ap21]
- - Errors detectats
+v2.0.1 (11.4.2019)[An27,Ap21]
+  - Errors detectats
 
-  v2.1.0 (17.6.2019)[An28,Ap22]
+v2.1.0 (17.6.2019)[An28,Ap22]
   - Errors corregits
   - Aclariment del donatiu "lliure"
+
+v2.1.1 (21.6.2019)[-,Ap23]
+  - [iOs] Obre l'enllaç de donatius amb el navegador i no des de l'interior de l'aplicació
