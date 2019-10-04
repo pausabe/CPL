@@ -132,3 +132,11 @@ v2.1.0 (17.6.2019)[An28,Ap22]
 
 v2.1.1 (21.6.2019)[-,Ap23]
   - [iOs] Obre l'enllaç de donatius amb el navegador i no des de l'interior de l'aplicació
+
+v2.1.2 (18.7.2019)[An29,Ap24]
+  - Errors corregits
+
+v2.2.0 (4.10.2019)[An30,Ap25]
+  - Any 2020 litúrgic disponible
+  - Incorporació de la diòcesi de Mallorca
+  - Alguns errors corregits

@@ -12,15 +12,6 @@ module.exports = {
   hrColor: '#90A4AE',
   switchColor: '#007b80',
 
-  /*...Platform.select({
-      ios: {
-        backgroundColor: 'rgb(225, 225, 225)',
-      },
-      android: {
-        backgroundColor: 'rgb(225, 225, 225)',
-      },
-    }),*/
-
   O_ORDINARI: 'O_ORDINAR',
   Q_CENDRA: 'Q_CENDRA',
   Q_SETMANES: 'Q_SETMANES',
@@ -46,7 +37,7 @@ module.exports = {
   size9: 39,
   size10: 42,
 
-  DBName: 'lh_v2.1.0.db',
+  DBName: 'lh_v2.2.0.db',
 
   paddingBar: Platform.OS === 'ios' ? 0 : 54,
 

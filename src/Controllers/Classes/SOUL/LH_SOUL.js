@@ -98,20 +98,28 @@ export default class LH_SOUL {
     }
     console.log("InfoLog. Precedència inicial: " + this.prec);
 
+    console.log("[DEBUG] 1: " + G_VALUES.celType);
+    
+
     idDE_aux = this.findDiesEspecials(G_VALUES.date, G_VALUES.LT, G_VALUES.setmana, G_VALUES.pentacosta, G_VALUES.diocesi);
     this.idDE = idDE_aux;
+    console.log("[DEBUG] 2: " + G_VALUES.celType);
     console.log("InfoLog. idDE_aux: " + idDE_aux);
     if (idDE_aux === -1)
       idTSF_aux = this.findTempsSolemnitatsFestes(G_VALUES.date, G_VALUES.LT, G_VALUES.setmana, G_VALUES.pentacosta);
     else idTSF_aux = -1;
+    console.log("[DEBUG] 3: " + G_VALUES.celType);
     this.idTSF = idTSF_aux;
     console.log("InfoLog. idTSF_aux: " + idTSF_aux);
     var idTF = this.findTF(G_VALUES.date, G_VALUES.LT, G_VALUES.setmana, G_VALUES.pentacosta);
     console.log("InfoLog. idTF: " + idTF);
+    console.log("[DEBUG] 4: " + G_VALUES.celType);
 
     this.tomorrowCal = '-';
     this.tomorrowCal = this.tomorrowCalVespres1CEL(G_VALUES.dataTomorrow.date, G_VALUES.dataTomorrow.LT,
       G_VALUES.dataTomorrow.setmana, G_VALUES.pentacosta, G_VALUES.diocesi);
+
+    console.log("[DEBUG] 5: " + G_VALUES.celType);
 
     console.log("InfoLog. tomorrowCal: " + this.tomorrowCal);
 
@@ -125,6 +133,9 @@ export default class LH_SOUL {
       idDE: idDE_aux,
       Set_Soul_CB: Set_Soul_CB,
     }
+
+    console.log("params: ", params);
+    
 
     this.oficiComuCount = 0;
     var c = 0;
@@ -608,6 +619,14 @@ export default class LH_SOUL {
     //taula 34.1 (#32): - i //taula 36 (today)
     if (G_VALUES.LT !== GLOBAL.Q_DIUM_PASQUA && (((params.idTSF === -1 && params.idDE === -1) && (G_VALUES.celType === 'S' || G_VALUES.celType === 'F')))) {
       console.log("Log#32. Inici: avui no és Q_DIUM_PASQUA i (avui no és TSF ni DE i avui és o S o F)");
+      console.log("G_VALUES.LT: " + G_VALUES.LT);
+      console.log("params.idTSF: " + params.idTSF);
+      console.log("params.idDE: " + params.idDE);
+      console.log("G_VALUES.celType: " + G_VALUES.celType);
+      
+      
+      
+      
       c += 1;
 
       idDM = this.diesMov(G_VALUES.date, G_VALUES.LT, G_VALUES.setmana, G_VALUES.pentacosta, G_VALUES.celType);
@@ -932,7 +951,7 @@ export default class LH_SOUL {
   }
 
   tomorrowCalVespres1CEL(date, LT, setmana, pentacosta, diocesi) {
-    console.log("PlaceLog. tomorrowCalVespres1CEL");
+    console.log("PlaceLog. tomorrowCalVespres1CEL. G_VALUES.dataTomorrow.celType: " + G_VALUES.dataTomorrow.celType);
     // console.log("InfoLog. pentacosta: " + pentacosta);
     if (LT !== GLOBAL.Q_DIUM_PASQUA) {
       console.log("InfoLog. tomorrowCalVespres1CEL: No és dium pasqua");

@@ -121,210 +121,6 @@ module.exports = {
     }
   },
 
-  nextLloc(index){
-    switch (index) {
-      case 0:
-      case 3:
-      case 6:
-      case 9:
-      case 12:
-      case 15:
-      case 18:
-      case 21:
-      case 24:
-      case 27:
-      case 30:
-        return 'Diòcesi';
-        break;
-      case 1:
-      case 4:
-      case 7:
-      case 10:
-      case 13:
-      case 16:
-      case 19:
-      case 22:
-      case 25:
-      case 28:
-        return 'Ciutat';
-        break;
-      case 2:
-      case 5:
-      case 8:
-      case 11:
-      case 14:
-      case 17:
-      case 20:
-      case 23:
-      case 26:
-      case 29:
-        return 'Catedral';
-        break;
-      }
-  },
-
-  passDayTest(diocesiNameTest, day){
-    /*if((diocesiNameTest==='Solsona' || diocesiNameTest==='Urgell' || diocesiNameTest==='Tortosa') && (day.getDate()===28 || day.getDate()===29) && day.getMonth()===4 && (day.getFullYear()===2017 || day.getFullYear()===2018))
-      return true;*/
-    return false;
-  },
-
-  nextDiocesi(index){
-    switch (index) {
-      case 0:
-        return 'BaD';
-        break;
-      case 1:
-        return 'BaV';
-        break;
-      case 2:
-        return 'BaC';
-        break;
-      case 3:
-        return 'GiD';
-        break;
-      case 4:
-        return 'GiV';
-        break;
-      case 5:
-        return 'GiC';
-        break;
-      case 6:
-        return 'LlD';
-        break;
-      case 7:
-        return 'LlV';
-        break;
-      case 8:
-        return 'LlC';
-        break;
-      case 9:
-        return 'SFD';
-        break;
-      case 10:
-        return 'SFV';
-        break;
-      case 11:
-        return 'SFC';
-        break;
-      case 12:
-        return 'SoD';
-        break;
-      case 13:
-        return 'SoV';
-        break;
-      case 14:
-        return 'SoC';
-        break;
-      case 15:
-        return 'TaD';
-        break;
-      case 16:
-        return 'TaV';
-        break;
-      case 17:
-        return 'TaC';
-        break;
-      case 18:
-        return 'TeD';
-        break;
-      case 19:
-        return 'TeV';
-        break;
-      case 20:
-        return 'TeC';
-        break;
-      case 21:
-        return 'ToD';
-        break;
-      case 22:
-        return 'ToV';
-        break;
-      case 23:
-        return 'ToC';
-        break;
-      case 24:
-        return 'UrD';
-        break;
-      case 25:
-        return 'UrV';
-        break;
-      case 26:
-        return 'UrC';
-        break;
-      case 27:
-        return 'ViD';
-        break;
-      case 28:
-        return 'ViV';
-        break;
-      case 29:
-        return 'ViC';
-        break;
-      case 30:
-        return 'Andorra';
-        break;
-      }
-  },
-
-  nextDiocesiName(index){
-    switch (index) {
-      case 0:
-      case 1:
-      case 2:
-        return 'Barcelona';
-        break;
-      case 3:
-      case 4:
-      case 5:
-        return 'Girona';
-        break;
-      case 6:
-      case 7:
-      case 8:
-        return 'Lleida';
-        break;
-      case 9:
-      case 10:
-      case 11:
-        return 'Sant Feliu de Llobregat';
-        break;
-      case 12:
-      case 13:
-      case 14:
-        return 'Solsona';
-        break;
-      case 15:
-      case 16:
-      case 17:
-        return 'Tarragona';
-        break;
-      case 18:
-      case 19:
-      case 20:
-        return 'Terrassa';
-        break;
-      case 21:
-      case 22:
-      case 23:
-        return 'Tortosa';
-        break;
-      case 24:
-      case 25:
-      case 26:
-        return 'Urgell';
-        break;
-      case 27:
-      case 28:
-      case 29:
-        return 'Vic';
-        break;
-      case 30:
-        return 'Andorra';
-        break;
-      }
-  },
-
   convertTextSize(value){
     switch (value) {
       case '1':
@@ -588,6 +384,15 @@ module.exports = {
       case "ViC":
         celType = anyliturgic.ViC;
         break;
+      case "MaD":
+        celType = anyliturgic.MaD;
+        break;
+      case "MaV":
+        celType = anyliturgic.MaV;
+        break;
+      case "MaC":
+        celType = anyliturgic.MaC;
+        break;
       case "Andorra":
         celType = anyliturgic.Andorra;
         break;
@@ -596,140 +401,338 @@ module.exports = {
     return(celType);
   },
 
+  getTestDiocesiByIndex(index){
+    switch (index) {
+      case 0:
+        return 'Andorra';
+      case 1:
+        return 'BaD';
+      case 2:
+        return 'BaV';
+      case 3:
+        return 'BaC';
+      case 4:
+        return 'GiD';
+      case 5:
+        return 'GiV';
+      case 6:
+        return 'GiC';
+      case 7:
+        return 'LlD';
+      case 8:
+        return 'LlV';
+      case 9:
+        return 'LlC';
+      case 10:
+        return 'MaD';
+      case 11:
+        return 'MaV';
+      case 12:
+        return 'MaC';
+      case 13:
+        return 'SFD';
+      case 14:
+        return 'SFV';
+      case 15:
+        return 'SFC';
+      case 16:
+        return 'SoD';
+      case 17:
+        return 'SoV';
+      case 18:
+        return 'SoC';
+      case 19:
+        return 'TaD';
+      case 20:
+        return 'TaV';
+      case 21:
+        return 'TaC';
+      case 22:
+        return 'TeD';
+      case 23:
+        return 'TeV';
+      case 24:
+        return 'TeC';
+      case 25:
+        return 'ToD';
+      case 26:
+        return 'ToV';
+      case 27:
+        return 'ToC';
+      case 28:
+        return 'UrD';
+      case 29:
+        return 'UrV';
+      case 30:
+        return 'UrC';
+      case 31:
+        return 'ViD';
+      case 32:
+        return 'ViV';
+      case 33:
+        return 'ViC';
+      }
+  },
+
+  getTestNameDiocesiByIndex(index){
+    switch (index) {
+      case 0:
+        return 'Andorra';
+      case 1:
+        return 'Barcelona';
+      case 2:
+        return 'Barcelona';
+      case 3:
+        return 'Barcelona';
+      case 4:
+        return 'Girona';
+      case 5:
+        return 'Girona';
+      case 6:
+        return 'Girona';
+      case 7:
+        return 'Lleida';
+      case 8:
+        return 'Lleida';
+      case 9:
+        return 'Lleida';
+      case 10:
+        return 'Mallorca';
+      case 11:
+        return 'Mallorca';
+      case 12:
+        return 'Mallorca';
+      case 13:
+        return 'Sant Feliu de Llobregat';
+      case 14:
+        return 'Sant Feliu de Llobregat';
+      case 15:
+        return 'Sant Feliu de Llobregat';
+      case 16:
+        return 'Solsona';
+      case 17:
+        return 'Solsona';
+      case 18:
+        return 'Solsona';
+      case 19:
+        return 'Tarragona';
+      case 20:
+        return 'Tarragona';
+      case 21:
+        return 'Tarragona';
+      case 22:
+        return 'Terrassa';
+      case 23:
+        return 'Terrassa';
+      case 24:
+        return 'Terrassa';
+      case 25:
+        return 'Tortosa';
+      case 26:
+        return 'Tortosa';
+      case 27:
+        return 'Tortosa';
+      case 28:
+        return 'Urgell';
+      case 29:
+        return 'Urgell';
+      case 30:
+        return 'Urgell';
+      case 31:
+        return 'Vic';
+      case 32:
+        return 'Vic';
+      case 33:
+        return 'Vic';
+      }
+  },
+
+  getTestLlocByIndex(index){
+    switch (index) {
+      case 0:
+        return 'Diòcesi';
+      case 1:
+        return 'Diòcesi';
+      case 2:
+        return 'Ciutat';
+      case 3:
+        return 'Catedral';
+      case 4:
+        return 'Diòcesi';
+      case 5:
+        return 'Ciutat';
+      case 6:
+        return 'Catedral';
+      case 7:
+        return 'Diòcesi';
+      case 8:
+        return 'Ciutat';
+      case 9:
+        return 'Catedral';
+      case 10:
+        return 'Diòcesi';
+      case 11:
+        return 'Ciutat';
+      case 12:
+        return 'Catedral';
+      case 13:
+        return 'Diòcesi';
+      case 14:
+        return 'Ciutat';
+      case 15:
+        return 'Catedral';
+      case 16:
+        return 'Diòcesi';
+      case 17:
+        return 'Ciutat';
+      case 18:
+        return 'Catedral';
+      case 19:
+        return 'Diòcesi';
+      case 20:
+        return 'Ciutat';
+      case 21:
+        return 'Catedral';
+      case 22:
+        return 'Diòcesi';
+      case 23:
+        return 'Ciutat';
+      case 24:
+        return 'Catedral';
+      case 25:
+        return 'Diòcesi';
+      case 26:
+        return 'Ciutat';
+      case 27:
+        return 'Catedral';
+      case 28:
+        return 'Diòcesi';
+      case 29:
+        return 'Ciutat';
+      case 30:
+        return 'Catedral';
+      case 31:
+        return 'Diòcesi';
+      case 32:
+        return 'Ciutat';
+      case 33:
+        return 'Catedral';
+      }
+  },
+
   transformDiocesiName(diocesi, lloc){
     switch (diocesi) {
       case "Barcelona":
         switch (lloc) {
           case "Diòcesi":
             return 'BaD';
-            break;
           case "Catedral":
             return 'BaC';
-            break
           case "Ciutat":
             return 'BaV';
-            break;
         }
         break;
       case "Girona":
         switch (lloc) {
           case "Diòcesi":
             return 'GiD';
-            break;
           case "Catedral":
             return 'GiC';
-            break
           case "Ciutat":
             return 'GiV';
-            break;
         }
         break;
       case "Lleida":
         switch (lloc) {
           case "Diòcesi":
             return 'LlD';
-            break;
           case "Catedral":
             return 'LlC';
-            break
           case "Ciutat":
             return 'LlV';
-            break;
         }
         break;
       case "Sant Feliu de Llobregat":
         switch (lloc) {
           case "Diòcesi":
             return 'SFD';
-            break;
           case "Catedral":
             return 'SFC';
-            break
           case "Ciutat":
             return 'SFV';
-            break;
         }
         break;
       case "Solsona":
         switch (lloc) {
           case "Diòcesi":
             return 'SoD';
-            break;
           case "Catedral":
             return 'SoC';
-            break
           case "Ciutat":
             return 'SoV';
-            break;
         }
         break;
       case "Tarragona":
         switch (lloc) {
           case "Diòcesi":
             return 'TaD';
-            break;
           case "Catedral":
             return 'TaC';
-            break
           case "Ciutat":
             return 'TaV';
-            break;
         }
         break;
       case "Terrassa":
         switch (lloc) {
           case "Diòcesi":
             return 'TeD';
-            break;
           case "Catedral":
             return 'TeC';
-            break
           case "Ciutat":
             return 'TeV';
-            break;
         }
         break;
       case "Tortosa":
         switch (lloc) {
           case "Diòcesi":
             return 'ToD';
-            break;
           case "Catedral":
             return 'ToC';
-            break
           case "Ciutat":
             return 'ToV';
-            break;
         }
         break;
       case "Urgell":
         switch (lloc) {
           case "Diòcesi":
             return 'UrD';
-            break;
           case "Catedral":
             return 'UrC';
-            break
           case "Ciutat":
             return 'UrV';
-            break;
         }
         break;
       case "Vic":
         switch (lloc) {
           case "Diòcesi":
             return 'ViD';
-            break;
           case "Catedral":
             return 'ViC';
-            break
           case "Ciutat":
             return 'ViV';
-            break;
         }
         break;
       case "Andorra":
         return 'Andorra';
+      case "Mallorca":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'MaD';
+          case "Catedral":
+            return 'MaC';
+          case "Ciutat":
+            return 'MaV';
+        }
         break;
     }
 
@@ -741,37 +744,28 @@ module.exports = {
     switch (diocesiName) {
       case "Barcelona":
         return(39);
-        break;
       case "Girona":
         return(40);
-        break;
       case "Lleida":
         return(41);
-        break;
       case "Sant Feliu de Llobregat":
         return(42);
-        break;
       case "Solsona":
         return(43);
-        break;
       case "Tarragona":
         return(44);
-        break;
       case "Terrassa":
         return(45);
-        break;
       case "Tortosa":
         return(46);
-        break;
       case "Urgell":
         return(47);
-        break;
       case "Vic":
         return(48);
-        break;
       case "Andorra":
         return(49);
-        break;
+      case "Mallorca":
+        return(50);
     }
 
     return(39);

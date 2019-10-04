@@ -4,17 +4,18 @@ import GLOBAL from "../../Globals/Globals";
 const tracker = new GoogleAnalyticsTracker(GLOBAL.idTracker);
 
 export const diocesis = {
+    ANDORRA: "Andorra",
     BARCELONA: "Barcelona",
     GIRONA: "Girona",
     LLEIDA: "Lleida",
+    MALLORCA: "Mallorca",
     SANT_FELIU: "Sant Feliu de Llobregat",
     SOLSONA: "Solsona",
     TARRAGONA: "Tarragona",
     TERRASSA: "Terrassa",
     TORTOSA: "Tortosa",
     URGELL: "Urgell",
-    VIC: "Vic",
-    ANDORRA: "Andorra"
+    VIC: "Vic"
 };
 
 export const lloc = {
@@ -22,11 +23,6 @@ export const lloc = {
     CIUTAT: "Ciutat",
     CATEDRAL: "Catedral"
 };
-
-/*export const invitatori = {
-    OFICI: "Ofici",
-    LAUDES: "Laudes"
-};*/
 
 export const salmInvitatori = {
   SALM94: '94',
@@ -51,7 +47,6 @@ const defaultSettings = {
     diocesis: diocesis.BARCELONA,
     lloc: lloc.DIOCESI,
     dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
-    // invitatori: invitatori.OFICI
     salmInvitatori: salmInvitatori.SALM94,
     antMare: antMare.ANT1
 };
@@ -68,7 +63,6 @@ export default class SettingsManager{
         let settingsPromise = new Promise((resolve, reject) => {
             getPromise.then(
                 value => {
-                    // console.log("LOADED OPTION: " + key + " - " + value);
                     resolve(value == null ? defaultValue : value);
                 }
             ).catch(
@@ -83,18 +77,14 @@ export default class SettingsManager{
 
     static _setStorageValue(key, value, callback){
         let savePromise = AsyncStorage.setItem(key, value);
-        // console.log("CBBBB. "+callback);
         if(callback) savePromise.then(callback);
         return savePromise;
     }
 
     static _setValueIfValid(key, value, validateFunc, callback){
-        // console.log(key + " - " + value)
         if(!(validateFunc instanceof Function) || validateFunc(value)){
-            // console.log("VALID",value);
             return SettingsManager._setStorageValue(key, value, callback);
         }else{
-            // console.log("NOT VALID",value);
             let wrongValuePromise = new Promise((resolve, reject) => {
                 reject(new Error("Invalid value"));
             });
@@ -129,10 +119,6 @@ export default class SettingsManager{
     static getSettingDayStart(callback){
         return SettingsManager._getStorageValue("dayStart", callback, defaultSettings.dayStart);
     }
-
-    /*static getSettingInvitatori(callback){
-        return SettingsManager._getStorageValue("invitatori", callback, defaultSettings.invitatori);
-    }*/
 
     static getSettingNumSalmInv(callback){
         return SettingsManager._getStorageValue("salmInvitatori", callback, defaultSettings.salmInvitatori);
@@ -191,16 +177,7 @@ export default class SettingsManager{
             callback);
     }
 
-    /*static setSettingInvitatori(value, callback){
-      tracker.trackEvent("Configuration", "New value of Invitatori: "+value);
-        return SettingsManager._setValueIfValid("invitatori", value,
-            (val) => {
-                return findValueInObject(invitatori, val);
-            }, callback);
-    }*/
-
     static setSettingNumSalmInv(value){
-      // tracker.trackEvent("Configuration", "New value of Invitatori: "+value);
         return SettingsManager._setValueIfValid("salmInvitatori", value,
             (val) => {
                 return findValueInObject(salmInvitatori, val);
@@ -208,7 +185,6 @@ export default class SettingsManager{
     }
 
     static setSettingNumAntMare(value){
-      // tracker.trackEvent("Configuration", "New value of Invitatori: "+value);
         return SettingsManager._setValueIfValid("antMare", value,
             (val) => {
                 return findValueInObject(antMare, val);

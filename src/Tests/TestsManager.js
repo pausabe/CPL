@@ -1,19 +1,20 @@
 import { Reload_All_Data } from '../Controllers/Classes/Data/DataManager.js';
+import GF from "../Globals/GlobalFunctions";
 
 /********************** TEST VARIABLES **********************/
 
 export var TEST_MODE_ON = false;
-export var STATE_ON = TEST_MODE_ON && true;
-export var TEST_FIRST_DAY = new Date(2017, 0, 2); //(s'inclou en el test)
-export var TEST_LAST_DAY = new Date(2019, 0, 30); //(s'inclou en el test)
-export var FIRST_DIOCESI = 0; //0-30 (s'inclou en el test)
-export var LAST_DIOCESI = 0; //0-30 (s'inclou en el test)
+export var STATE_ON = TEST_MODE_ON && false;
+export var TEST_FIRST_DAY = new Date(2019, 9, 1); //(s'inclou en el test)
+export var TEST_LAST_DAY = new Date(2019, 11, 31); //(s'inclou en el test)
+export var FIRST_DIOCESI = 0; //0-33 (s'inclou en el test) Order is determined in GF.getTestDiocesiByIndex()
+export var LAST_DIOCESI = 33; //0-33 (s'inclou en el test)
 
 /************************************************************/
 
 /* Testing variables */
 RNFS = require('react-native-fs');
-PATH = '/Users/Pau/Calaix/Projectes/CPL/states/';
+PATH = '/Users/pau/Box/Projects/CPL/states/';
 FILE_PART = 0;
 
 var TESTING = false; //To stop test if necessary
@@ -23,7 +24,11 @@ var TEST_STATE_ARRAY_INDEX = 0;
 
 export function Reload_All_Data_TestMode(Test_Information_Callback) {
   TESTING = true;
+  CURRENT_DIOCESI = FIRST_DIOCESI
   G_VALUES.lliures = false;
+  G_VALUES.diocesi = GF.getTestDiocesiByIndex(FIRST_DIOCESI)
+  G_VALUES.diocesiName = GF.getTestNameDiocesiByIndex(FIRST_DIOCESI)
+  G_VALUES.lloc = GF.getTestLlocByIndex(FIRST_DIOCESI)
   Reload_All_Data(TEST_FIRST_DAY, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
 }
 
@@ -33,7 +38,7 @@ function Test_Day_Finished_Callback(Test_Information_Callback) {
     //Feedback to View
     Test_Information_Callback(
       "Date: " + G_VALUES.date.toLocaleDateString("es-ES") + " - " + TEST_LAST_DAY.toLocaleDateString("es-ES") + "\n" +
-      "Diocesi: " + CURRENT_DIOCESI + " - " + LAST_DIOCESI + "\n" +
+      "Diocesi: " + CURRENT_DIOCESI + " - " + LAST_DIOCESI + " [" + G_VALUES.diocesi + "]\n" +
       "Lliures: " + G_VALUES.lliures
     );
 
@@ -73,6 +78,9 @@ function Test_Day_Finished_Callback(Test_Information_Callback) {
         }
         else {
           CURRENT_DIOCESI++;
+          G_VALUES.diocesi = GF.getTestDiocesiByIndex(CURRENT_DIOCESI)
+          G_VALUES.diocesiName = GF.getTestNameDiocesiByIndex(CURRENT_DIOCESI)
+          G_VALUES.lloc = GF.getTestLlocByIndex(CURRENT_DIOCESI)
           Reload_All_Data(TEST_FIRST_DAY, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
         }
       }

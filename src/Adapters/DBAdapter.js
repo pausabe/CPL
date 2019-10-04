@@ -322,140 +322,118 @@ export default class DBAdapter {
   }
 
   transformDiocesiName(diocesi, lloc) {
-    // console.log("diocesi: " + diocesi + " - " + "lloc: " + lloc);
     switch (diocesi) {
       case "Barcelona":
         switch (lloc) {
           case "Diòcesi":
             return 'BaD';
-            break;
           case "Catedral":
             return 'BaC';
-            break
           case "Ciutat":
             return 'BaV';
-            break;
         }
         break;
       case "Girona":
         switch (lloc) {
           case "Diòcesi":
             return 'GiD';
-            break;
           case "Catedral":
             return 'GiC';
-            break
           case "Ciutat":
             return 'GiV';
-            break;
         }
         break;
       case "Lleida":
         switch (lloc) {
           case "Diòcesi":
             return 'LlD';
-            break;
           case "Catedral":
             return 'LlC';
-            break
           case "Ciutat":
             return 'LlV';
-            break;
         }
         break;
       case "Sant Feliu de Llobregat":
         switch (lloc) {
           case "Diòcesi":
             return 'SFD';
-            break;
           case "Catedral":
             return 'SFC';
-            break
           case "Ciutat":
             return 'SFV';
-            break;
         }
         break;
       case "Solsona":
         switch (lloc) {
           case "Diòcesi":
             return 'SoD';
-            break;
           case "Catedral":
             return 'SoC';
-            break
           case "Ciutat":
             return 'SoV';
-            break;
         }
         break;
       case "Tarragona":
         switch (lloc) {
           case "Diòcesi":
             return 'TaD';
-            break;
           case "Catedral":
             return 'TaC';
-            break
           case "Ciutat":
             return 'TaV';
-            break;
         }
         break;
       case "Terrassa":
         switch (lloc) {
           case "Diòcesi":
             return 'TeD';
-            break;
           case "Catedral":
             return 'TeC';
-            break
           case "Ciutat":
             return 'TeV';
-            break;
         }
         break;
       case "Tortosa":
         switch (lloc) {
           case "Diòcesi":
             return 'ToD';
-            break;
           case "Catedral":
             return 'ToC';
-            break
           case "Ciutat":
             return 'ToV';
-            break;
         }
         break;
       case "Urgell":
         switch (lloc) {
           case "Diòcesi":
             return 'UrD';
-            break;
           case "Catedral":
             return 'UrC';
-            break
           case "Ciutat":
             return 'UrV';
-            break;
         }
         break;
       case "Vic":
         switch (lloc) {
           case "Diòcesi":
             return 'ViD';
-            break;
           case "Catedral":
             return 'ViC';
-            break
           case "Ciutat":
             return 'ViV';
-            break;
         }
         break;
       case "Andorra":
         return 'Andorra';
+      case "Mallorca":
+        switch (lloc) {
+          case "Diòcesi":
+            return 'MaD';
+          case "Catedral":
+            return 'MaC';
+          case "Ciutat":
+            return 'MaV';
+        }
         break;
     }
 

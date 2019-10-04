@@ -20,4 +20,4 @@ Pau Sabé, desenvolupador de Software. Creador d'aquesta App.
 També col·labora en el projecte Alex Ruiz.
 
 ### Contacte ###
-Qualsevol dubte contacta amb mi: info@pausabe.com
+Qualsevol dubte contacta amb mi: pau.sabe@icloud.com

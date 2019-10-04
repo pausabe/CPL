@@ -28,11 +28,17 @@ export function Reload_All_Data(date, Reload_Finished_Callback) {
   G_VALUES.date = date;
   Promise.all([
     SettingsManager.getSettingLloc((r) => {
-      G_VALUES.lloc = r;
+      if (!TEST_MODE_ON)
+      {
+        G_VALUES.lloc = r;
+      }
     }),
     SettingsManager.getSettingDiocesis((r) => {
-      G_VALUES.diocesi = GF.transformDiocesiName(r, G_VALUES.lloc);
-      G_VALUES.diocesiName = r;
+      if (!TEST_MODE_ON)
+      {
+        G_VALUES.diocesi = GF.transformDiocesiName(r, G_VALUES.lloc);
+        G_VALUES.diocesiName = r;
+      }
     }),
     SettingsManager.getSettingUseLatin((r) => G_VALUES.llati = r),
     SettingsManager.getSettingTextSize((r) => G_VALUES.textSize = r),
@@ -55,6 +61,10 @@ function Refresh_Data(newDay) {
       var tomorrowCelType = GF.getCelType(G_VALUES.diocesi, tomorrow);
 
       G_VALUES.celType = celType;
+      console.log("[DEBUG] 0: " + G_VALUES.date);
+      console.log("[DEBUG] 0: " + G_VALUES.diocesi);
+      console.log("[DEBUG] 0: " + G_VALUES.celType);
+      
       G_VALUES.diaMogut = current.diaMogut;
       G_VALUES.diocesiMogut = current.diocesiMogut;
       G_VALUES.litColor = current.Color;
