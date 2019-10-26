@@ -36,7 +36,7 @@ target 'CPL' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
-
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec'
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 

@@ -94,7 +94,7 @@ export default class HomeScreenController extends Component {
       //First initialization
       Reload_All_Data_TestMode(this.Test_Information_Callback.bind(this));
     }
-    else {
+    else {      
       this.state = {
         santPressed: false,
         isDateTimePickerVisible: false,
@@ -321,12 +321,13 @@ export default class HomeScreenController extends Component {
                         <View>
                           <DateTimePicker
                             mode={"date"}
+                            //locale={"ca_ES"}
                             display={"default"} // default, spinner, calendar
                             onChange={this.datePickerChange.bind(this)}
                             value={G_VALUES.date}
                             minimumDate={GLOBALS.minDatePicker}
                             maximumDate={GLOBALS.maxDatePicker}
-                            />
+                          />
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
                           <TouchableOpacity style={{ flex: 1, alignItems: 'center'}} onPress={this.datePickerIOS_Cancel.bind(this)}>
