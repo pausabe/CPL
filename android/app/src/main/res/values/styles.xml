@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@mipmap/launch_screen2</item>
+        <item name="android:datePickerDialogTheme">@style/Dialog.Theme</item>
+        
+        <!-- your app branding color for the app bar -->
+        <!--<item name="colorPrimary">@color/primary</item> -->
+        <!-- darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!-- theme UI controls like checkboxes and text fields -->
+        <!--<item name="colorAccent">@color/accent</item> -->
+    </style>
+    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- igual que Globals.dataPicker -->
+        <item name="colorAccent">#007b80</item>
+    </style>
+
+</resources>
