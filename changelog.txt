@@ -145,3 +145,10 @@ v2.2.1 (4.10.2019)[An31,Ap26]
 v2.2.2 (26.10.2019)[An32,Ap27]
 - Any 2020 litúrgic disponible
 - Alguns errors corregits
+
+v2.2.3 ()[An33,Ap29]
+- Correcció de la pantalla en blanc en l'apartat de la missa
+- Correcció dels textos tallats a la part dreta de la pantalla
+- Rúbrica "S'omet el Glòria" en vermell
+-----
+- Comento tot allò relacionat amb el share text. No ho tornaré a fer

@@ -14,14 +14,14 @@ import SettingsManager from '../../../../Controllers/Classes/SettingsManager';
 
 export default class CompletesDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed_Completes', this.sharePressed.bind(this));
+    //this.props.events.addListener('shareButtonPressed_Completes', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed_Completes', this.sharePressed.bind(this));
+    //this.props.events.removeListener('shareButtonPressed_Completes', this.sharePressed.bind(this));
   }
 
-  sharePressed(){
+  /*sharePressed(){
     console.log("PlaceLog. Completes Share Pressed");
     Share.share({
       message: this.shareText,
@@ -33,7 +33,7 @@ export default class CompletesDisplay extends Component {
       // Android only:
       dialogTitle: 'Comparteix tot el text',
     })
-  }
+  }*/
 
   constructor(props){
     super(props);
@@ -122,7 +122,7 @@ export default class CompletesDisplay extends Component {
     this.testErrorCB = props.testErrorCB;
     this.setNumAntMare = props.setNumAntMare;
 
-    this.shareText = "";
+    //this.shareText = "";
   }
 
   _onAntMarePress(numAntMare){
@@ -161,11 +161,11 @@ export default class CompletesDisplay extends Component {
         break;
     }
 
-    this.shareText += antMare + '\n\n';
+    /*this.shareText += antMare + '\n\n';
 
     if(Platform.OS === 'ios'){
       this.shareText += "_____\nCol·labora fent un donatiu:";
-    }
+    }*/
 
     return(
       <View>
@@ -209,7 +209,7 @@ export default class CompletesDisplay extends Component {
 
   render() {
     try {
-      this.shareText = "";
+      //this.shareText = "";
 
       if(this.COMPLETES !== null){
         const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
@@ -230,14 +230,12 @@ export default class CompletesDisplay extends Component {
         var has_com1 = this.COMPLETES.com1 !== '-';
         var aux_com1 = has_com1? GF.rs(this.COMPLETES.com1, this.superTestMode, this.testErrorCB.bind(this)) : "";
         var aux_salm1 = this.salm(GF.rs(this.COMPLETES.salm1, this.superTestMode, this.testErrorCB.bind(this)));
-        var aux_gloria1 = this.gloria(this.COMPLETES.gloria1);
         if(is_dos_salms){
           var aux_ant2 = has_distint_ant? GF.rs(this.COMPLETES.ant2, this.superTestMode, this.testErrorCB.bind(this)) : "";
           var aux_titol2 = GF.rs(this.COMPLETES.titol2, this.superTestMode, this.testErrorCB.bind(this));
           var has_com2 = this.COMPLETES.com2 !== '-';
           var aux_com2 = has_com2? GF.rs(this.COMPLETES.com2, this.superTestMode, this.testErrorCB.bind(this)) : "";
           var aux_salm2 = this.salm(GF.rs(this.COMPLETES.salm2, this.superTestMode, this.testErrorCB.bind(this)));
-          var aux_gloria2 = this.gloria(this.COMPLETES.gloria2);
         }
         var aux_vers = GF.rs(this.COMPLETES.vers, this.superTestMode, this.testErrorCB.bind(this));
         var aux_lectura_breu = GF.rs(this.COMPLETES.lecturaBreu, this.superTestMode, this.testErrorCB.bind(this));
@@ -254,13 +252,13 @@ export default class CompletesDisplay extends Component {
         var aux_ant_cantic = GF.rs(this.COMPLETES.antCantic, this.superTestMode, this.testErrorCB.bind(this));
         var aux_titol_cantic = "Càntic\nLc 2, 29-32\nCrist, llum de les nacions i glòria d'Israel";
         var aux_cantic = this.salm(GF.rs(this.COMPLETES.cantic, this.superTestMode, this.testErrorCB.bind(this)));
-        var aux_gloria_cantic = this.gloria('1');
+        var aux_gloria_cantic = "Glòria.";
         var aux_oracio = GF.rs(this.COMPLETES.oracio, this.superTestMode, this.testErrorCB.bind(this));
         var aux_fi_benaurada = "Que el Senyor totpoderós ens concedeixi una nit tranquil·la i una fi benaurada.";
         var aux_benediccio = 'Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.';
         var aux_antifona_final = "Antífona final de la Mare de Déu";
 
-        if(is_special_initial_message)
+        /*if(is_special_initial_message)
           this.shareText += aux_special_initial_message + '\n\n';
         this.shareText += 'V. ' + aux_sigueu + '\n';
         this.shareText += 'R. ' + aux_veniu + '\n\n';
@@ -319,7 +317,7 @@ export default class CompletesDisplay extends Component {
         this.shareText += 'R. Amén' + '\n\n';
         this.shareText += 'CONCLUSIÓ' + '\n\n';
         this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\n';
-        this.shareText += aux_antifona_final + '\n\n';
+        this.shareText += aux_antifona_final + '\n\n';*/
 
         return (
           <View>
@@ -382,7 +380,10 @@ export default class CompletesDisplay extends Component {
                   {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
                 <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
+                {this.COMPLETES.gloria1 == "1"?
+                <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+                :
+                <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {has_distint_ant ?
                   <View>
@@ -405,7 +406,10 @@ export default class CompletesDisplay extends Component {
                   {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
                 <Text selectable={true} style={this.styles.black}>{aux_salm2}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria2}</Text>
+                {this.COMPLETES.gloria2 == "1"?
+                <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+                :
+                <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 {has_distint_ant ?
                   <View>
@@ -435,7 +439,10 @@ export default class CompletesDisplay extends Component {
                   {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
                 <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-                <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
+                {this.COMPLETES.gloria1 == "1"?
+                <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+                :
+                <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
                 {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
                 <Text selectable={true} style={this.styles.red}>{"Ant. "}
                   <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
@@ -562,31 +569,6 @@ export default class CompletesDisplay extends Component {
     return salm;
   }
 
-  gloria(g){
-    if(!g || !(g==='0'||g==='1')) {
-      if(this.superTestMode){
-        this.testErrorCB();
-      }
-      return "";
-    }
-    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(true)
-      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
-
-    if(g === '1'){
-      if(true){
-        return "Glòria";
-      }
-      else{
-        return gloriaString;
-      }
-    }
-    else{
-      if(g==='0'){
-        return "S'omet el Glòria.";
-      }
-    }
-  }
 }
 
 AppRegistry.registerComponent('CompletesDisplay', () => CompletesDisplay);

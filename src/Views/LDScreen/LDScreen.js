@@ -27,6 +27,10 @@ export default class LDScreen extends Component {
   }
 
   Refresh_Layout() {
+
+    console.log("[DEBUG] Refresh_Layout");
+    
+
     this.setState({
       need_lectura2: !LD_VALUES.VetllaPasqua && (!LD_VALUES.Vespers && LD_VALUES.Lectura2 != '-' || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-'))
     });
@@ -63,8 +67,14 @@ export default class LDScreen extends Component {
   //RENDER -------------------------------------------------------------------------------
   render() {
     try {
+
+      if(this.state == null){
+        this.Refresh_Layout()
+        return false
+      }
+
       return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <NavigationEvents
             onWillFocus={payload => this.Refresh_Layout()}
           />
@@ -86,9 +96,11 @@ export default class LDScreen extends Component {
                }
              </ImageBackground>
             }
-        </SafeAreaView>
+        </View>
       );
+
     } catch (error) {
+      console.log("[DEBUG] catch. error: ", error)
       return null
     }
   }

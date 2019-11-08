@@ -14,14 +14,14 @@ import SettingsManager from '../../../../Controllers/Classes/SettingsManager';
 
 export default class OficiDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed_Ofici', this.sharePressed.bind(this));
+    //this.props.events.addListener('shareButtonPressed_Ofici', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed_Ofici', this.sharePressed.bind(this));
+    //this.props.events.removeListener('shareButtonPressed_Ofici', this.sharePressed.bind(this));
   }
 
-  sharePressed(){
+  /*sharePressed(){
     console.log("PlaceLog. Ofici Share Pressed");
     Share.share({
       message: this.shareText,
@@ -33,7 +33,7 @@ export default class OficiDisplay extends Component {
       // Android only:
       dialogTitle: 'Comparteix tot el text',
     })
-  }
+  }*/
 
   constructor(props){
     super(props);
@@ -75,7 +75,7 @@ export default class OficiDisplay extends Component {
       blackJustified:{
         color: '#000000',
         fontSize: GF.convertTextSize(textSize),
-        textAlign: 'justify',
+        textAlign: Platform.OS == 'ios'? 'justify' : 'auto',
       },
       blackBold: {
         color: '#000000',
@@ -128,12 +128,12 @@ export default class OficiDisplay extends Component {
     this.setNumSalmInv = props.setNumSalmInv;
     this.titols = props.titols;
 
-    this.shareText = "";
+    //this.shareText = "";
   }
 
   render() {
     try {
-      this.shareText = "";
+      //this.shareText = "";
 
       if(!this.OFICI.diumPasqua){
         return (
@@ -196,7 +196,7 @@ export default class OficiDisplay extends Component {
         var aux_participen = "Els qui no participen en la solemne Vetlla pasqual n'escolliran almenys quatre lectures, amb els corresponents salms responsorials i oracions. Les lectures més adients són les que segueixen."
         var aux_comença = "L'Ofici comença directament per les lectures.";
 
-        this.shareText += aux_vetlla + '\n' + aux_participen + '\n' + aux_comença + '\n\n';
+        //this.shareText += aux_vetlla + '\n' + aux_participen + '\n' + aux_comença + '\n\n';
 
         return (
           <View>
@@ -284,13 +284,13 @@ export default class OficiDisplay extends Component {
     var antifona = GF.rs(this.OFICI.antInvitatori, this.superTestMode, this.testErrorCB.bind(this));
     var gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
-    this.shareText += "Ant. " + antifona + '\n\n' + titolSalm + '\n\n' + refSalm + '\n\n';
+    /*this.shareText += "Ant. " + antifona + '\n\n' + titolSalm + '\n\n' + refSalm + '\n\n';
     for(i = 0; i < estrofes.length; i++){
       this.shareText += estrofes[i] + '\n\n';
       this.shareText += "Ant. " + antifona + '\n\n';
     }
     this.shareText += gloriaString + '\n\n';
-    this.shareText += "Ant. " + antifona + '\n\n';
+    this.shareText += "Ant. " + antifona + '\n\n';*/
 
     return(
       <View>
@@ -413,32 +413,6 @@ export default class OficiDisplay extends Component {
     return salm;
   }
 
-  gloria(g){
-    if(!g || !(g==='0'||g==='1')) {
-      if(this.superTestMode){
-        this.testErrorCB();
-      }
-      return "";
-    }
-    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(true)
-      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
-
-    if(g === '1'){
-      if(true){
-        return "Glòria.";
-      }
-      else{
-        return gloriaString;
-      }
-    }
-    else{
-      if(g==='0'){
-        return "S'omet el Glòria.";
-      }
-    }
-  }
-
   _invitatoriButton(){
     return(
       <View>
@@ -467,10 +441,10 @@ export default class OficiDisplay extends Component {
       var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
       var aux_isAleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA && G_VALUES.LT !== GLOBAL.Q_TRIDU;
 
-      this.shareText += 'V. ' + aux_sigueu + '\n';
+      /*this.shareText += 'V. ' + aux_sigueu + '\n';
       this.shareText += 'R. ' + aux_senyor_veniu + '\n\n';
       this.shareText += gloriaStringIntro + (aux_isAleluia? " Al·leluia" : "");
-      this.shareText += '\n\n';
+      this.shareText += '\n\n';*/
 
       return(
         <View>
@@ -494,8 +468,8 @@ export default class OficiDisplay extends Component {
       var aux_obriume = 'Obriu-me els llavis, Senyor.';
       var aux_proclamare = 'I proclamaré la vostra lloança.';
 
-      this.shareText += 'V. ' + aux_obriume + '\n';
-      this.shareText += 'R. ' + aux_proclamare + '\n\n';
+      /*this.shareText += 'V. ' + aux_obriume + '\n';
+      this.shareText += 'R. ' + aux_proclamare + '\n\n';*/
 
       return(
         <View>
@@ -518,8 +492,8 @@ export default class OficiDisplay extends Component {
   himne(LT, weekDay, nit, setmana){
     var aux_himne = GF.rs(this.OFICI.himne, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'HIMNE\n\n';
-    this.shareText += aux_himne + '\n\n';
+    /*this.shareText += 'HIMNE\n\n';
+    this.shareText += aux_himne + '\n\n';*/
 
     return(<Text selectable={true} style={this.styles.black}>{aux_himne}</Text>);
   }
@@ -530,21 +504,18 @@ export default class OficiDisplay extends Component {
     var aux_has_com1 = this.OFICI.com1 !== '-';
     var aux_com1 = aux_has_com1? GF.rs(this.OFICI.com1, this.superTestMode, this.testErrorCB.bind(this)) : "";
     var aux_salm1 = this.salm(GF.rs(this.OFICI.salm1, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria1 = this.gloria(this.OFICI.gloria1);
     var aux_ant2 = GF.rs(this.OFICI.ant2, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol2 = GF.rs(this.OFICI.titol2, this.superTestMode, this.testErrorCB.bind(this));
     var aux_has_com2 = this.OFICI.com2 !== '-';
     var aux_com2 = aux_has_com2? GF.rs(this.OFICI.com2, this.superTestMode, this.testErrorCB.bind(this)) : "";
     var aux_salm2 = this.salm(GF.rs(this.OFICI.salm2, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria2 = this.gloria(this.OFICI.gloria2);
     var aux_ant3 = GF.rs(this.OFICI.ant3, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol3 = GF.rs(this.OFICI.titol3, this.superTestMode, this.testErrorCB.bind(this));
     var aux_has_com3 = this.OFICI.com3 !== '-';
     var aux_com3 = aux_has_com3? GF.rs(this.OFICI.com3, this.superTestMode, this.testErrorCB.bind(this)) : "";
     var aux_salm3 = this.salm(GF.rs(this.OFICI.salm3, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria3 = this.gloria(this.OFICI.gloria3);
 
-    this.shareText += 'SALMÒDIA\n\n';
+    /*this.shareText += 'SALMÒDIA\n\n';
     this.shareText += 'Ant. 1. ' + aux_ant1 + '\n\n';
     this.shareText += aux_titol1 + '\n\n';
     if(aux_has_com1) this.shareText += aux_com1 + '\n\n';
@@ -562,7 +533,7 @@ export default class OficiDisplay extends Component {
     if(aux_has_com3) this.shareText += aux_com3 + '\n\n';
     this.shareText += aux_salm3 + '\n\n';
     this.shareText += aux_gloria3 + '\n\n';
-    this.shareText += 'Ant. 3. ' + aux_ant3 + '\n\n';
+    this.shareText += 'Ant. 3. ' + aux_ant3 + '\n\n';*/
 
     return(
       <View>
@@ -578,7 +549,10 @@ export default class OficiDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
+        {this.OFICI.gloria1 == "1"?
+          <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+          :
+          <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'Ant. 1. '}
           <Text selectable={true} style={this.styles.black}>{aux_ant1}</Text>
@@ -596,7 +570,10 @@ export default class OficiDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
+        {this.OFICI.gloria2 == "1"?
+          <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+          :
+          <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'Ant. 2. '}
           <Text selectable={true} style={this.styles.black}>{aux_ant2}</Text>
@@ -614,7 +591,10 @@ export default class OficiDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria3}</Text>
+        {this.OFICI.gloria3 == "1"?
+          <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+          :
+          <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'Ant. 3. '}
           <Text selectable={true} style={this.styles.black}>{aux_ant3}</Text>
@@ -627,9 +607,9 @@ export default class OficiDisplay extends Component {
     var aux_respV = GF.rs(this.OFICI.respV, this.superTestMode, this.testErrorCB.bind(this));
     var aux_respR = GF.rs(this.OFICI.respR, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'VERS\n\n';
+    /*this.shareText += 'VERS\n\n';
     this.shareText += 'V. ' + aux_respV + '\n';
-    this.shareText += 'R. ' + aux_respR + '\n\n';
+    this.shareText += 'R. ' + aux_respR + '\n\n';*/
 
     return(
       <View>
@@ -666,7 +646,7 @@ export default class OficiDisplay extends Component {
       var aux_resp2_3 = GF.rs(this.OFICI.resp2Part3, this.superTestMode, this.testErrorCB.bind(this));
       var aux_resp2_2 = GF.rs(this.OFICI.resp2Part2, this.superTestMode, this.testErrorCB.bind(this));
 
-      this.shareText += 'LECTURES\n\n';
+      /*this.shareText += 'LECTURES\n\n';
       this.shareText += 'Lectura primera\n\n';
       this.shareText += aux_referencia1 + '\n\n';
       if(aux_has_cita1) this.shareText += aux_cita1 + '\n\n';
@@ -685,7 +665,7 @@ export default class OficiDisplay extends Component {
       if(aux_has_vers2) this.shareText += aux_vers2 + '\n\n';
       this.shareText += 'R. ' + aux_resp2_1_2 + '\n';
       this.shareText += 'V. ' + aux_resp2_3 + '\n';
-      this.shareText += 'R. ' + aux_resp2_2 + '\n\n';
+      this.shareText += 'R. ' + aux_resp2_2 + '\n\n';*/
 
       return(
         <View>
@@ -745,7 +725,7 @@ export default class OficiDisplay extends Component {
     var aux_ant1 = GF.rs(this.OFICI.ant1, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol1 = GF.rs(this.OFICI.titol1, this.superTestMode, this.testErrorCB.bind(this))
     var aux_salm1 = this.salm(GF.rs(this.OFICI.salm1, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria1 = this.gloria('1');
+    var aux_gloria1 = "Glòria.";
     var aux_oracio1 = GF.rs(this.OFICI.oracio1, this.superTestMode, this.testErrorCB.bind(this));
     var aux_referencia2 = GF.rs(this.OFICI.referencia2, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol_lectura2 = GF.rs(this.OFICI.titolLectura2, this.superTestMode, this.testErrorCB.bind(this));
@@ -755,7 +735,7 @@ export default class OficiDisplay extends Component {
     var aux_ant2 = GF.rs(this.OFICI.ant2, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol2 = GF.rs(this.OFICI.titol2, this.superTestMode, this.testErrorCB.bind(this))
     var aux_salm2 = this.salm(GF.rs(this.OFICI.salm2, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria2 = this.gloria('1');
+    var aux_gloria2 = "Glòria.";
     var aux_oracio2 = GF.rs(this.OFICI.oracio2, this.superTestMode, this.testErrorCB.bind(this));
     var aux_referencia3 = GF.rs(this.OFICI.referencia3, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol_lectura3 = GF.rs(this.OFICI.titolLectura3, this.superTestMode, this.testErrorCB.bind(this));
@@ -765,7 +745,7 @@ export default class OficiDisplay extends Component {
     var aux_ant3 = GF.rs(this.OFICI.ant3, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol3 = GF.rs(this.OFICI.titol3, this.superTestMode, this.testErrorCB.bind(this))
     var aux_salm3 = this.salm(GF.rs(this.OFICI.salm3, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria3 = this.gloria('1');
+    var aux_gloria3 = "Glòria.";
     var aux_oracio3 = GF.rs(this.OFICI.oracio3, this.superTestMode, this.testErrorCB.bind(this));
     var aux_referencia4 = GF.rs(this.OFICI.referencia4, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol_lectura4 = GF.rs(this.OFICI.titolLectura4, this.superTestMode, this.testErrorCB.bind(this));
@@ -773,7 +753,7 @@ export default class OficiDisplay extends Component {
     var aux_cita4 = aux_has_cita4? GF.rs(this.OFICI.cita4, this.superTestMode, this.testErrorCB.bind(this)) : "";
     var aux_lectura4 = GF.rs(this.OFICI.lectura4, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'Lectura primera\n\n';
+    /*this.shareText += 'Lectura primera\n\n';
     this.shareText += aux_referencia1 + '\n\n';
     if(aux_has_cita1) this.shareText += aux_cita1 + '\n\n';
     this.shareText += aux_titol_lectura1 + '\n\n';
@@ -810,7 +790,7 @@ export default class OficiDisplay extends Component {
     this.shareText += aux_referencia4 + '\n\n';
     if(aux_has_cita4) this.shareText += aux_cita4 + '\n\n';
     this.shareText += aux_titol_lectura4 + '\n\n';
-    this.shareText += aux_lectura4 + '\n\n';
+    this.shareText += aux_lectura4 + '\n\n';*/
 
     return(
       <View>
@@ -905,8 +885,8 @@ export default class OficiDisplay extends Component {
 
   himneOhDeu(LT, weekDay){
     if(this.OFICI.himneOhDeuBool){
-      this.shareText += 'HIMNE\n\n';
-      this.shareText += this.OFICI.himneOhDeu + '\n\n';
+      /*this.shareText += 'HIMNE\n\n';
+      this.shareText += this.OFICI.himneOhDeu + '\n\n';*/
 
       var aux0 = this.OFICI.himneOhDeu.split("\n\n[")[0];
       var aux1 = this.OFICI.himneOhDeu.split("\n\n[")[1];
@@ -931,7 +911,7 @@ export default class OficiDisplay extends Component {
 
   oracio(LT, weekDay){
     var aux_oracio = GF.completeOracio(GF.rs(this.OFICI.oracio, this.superTestMode, this.testErrorCB.bind(this)),false);
-    this.shareText += "ORACIÓ\n\nPreguem.\n";
+    /*this.shareText += "ORACIÓ\n\nPreguem.\n";
     this.shareText += aux_oracio + '\n\n';
 
     this.shareText += 'CONCLUSIÓ\n\n';
@@ -939,7 +919,7 @@ export default class OficiDisplay extends Component {
 
     if(Platform.OS === 'ios'){
       this.shareText += "_____\nCol·labora fent un donatiu:";
-    }
+    }*/
 
     return(<Text selectable={true} style={this.styles.black}>{aux_oracio}</Text>);
   }

@@ -8,7 +8,7 @@ import {
 import { NavigationEvents } from 'react-navigation';
 
 import LHButtons from './LHButtons';
-import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter'
+//import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter'
 
 export default class LHScreen extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class LHScreen extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.eventEmitter = new EventEmitter();
+    //this.eventEmitter = new EventEmitter();
   }
 
   componentDidMount() {
@@ -35,7 +35,7 @@ export default class LHScreen extends Component {
         setNumSalmInv: this.setNumSalmInv.bind(this),
         setNumAntMare: this.setNumAntMare.bind(this),
         type: type,
-        emitShareCB: this.emitShare.bind(this),
+        //emitShareCB: this.emitShare.bind(this),
         events: this.eventEmitter
       },
     }
@@ -46,7 +46,7 @@ export default class LHScreen extends Component {
 
   }
 
-  emitShare(type) {
+  /*emitShare(type) {
     console.log("emitShare: " + type);
     switch (type) {
       case "Ofici":
@@ -67,7 +67,7 @@ export default class LHScreen extends Component {
         this.eventEmitter.emit('shareButtonPressed_Completes');
         break;
     }
-  }
+  }*/
 
   setNumSalmInv(numSalm) {
     G_VALUES.numSalmInv = numSalm;

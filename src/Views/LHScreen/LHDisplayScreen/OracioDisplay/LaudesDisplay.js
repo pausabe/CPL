@@ -14,14 +14,14 @@ import SettingsManager from '../../../../Controllers/Classes/SettingsManager';
 
 export default class LaudesDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed_Laudes', this.sharePressed.bind(this));
+    //this.props.events.addListener('shareButtonPressed_Laudes', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed_Laudes', this.sharePressed.bind(this));
+    //this.props.events.removeListener('shareButtonPressed_Laudes', this.sharePressed.bind(this));
   }
 
-  sharePressed(){
+  /*sharePressed(){
     console.log("PlaceLog. Laudes Share Pressed");
     Share.share({
       message: this.shareText,
@@ -33,7 +33,7 @@ export default class LaudesDisplay extends Component {
       // Android only:
       dialogTitle: 'Comparteix tot el text',
     })
-  }
+  }*/
 
   constructor(props){
     super(props);
@@ -123,7 +123,7 @@ export default class LaudesDisplay extends Component {
     this.setNumSalmInv = props.setNumSalmInv;
     this.titols = props.titols;
 
-    this.shareText = "";
+    //this.shareText = "";
   }
 
   _onSalmInvPress(numSalm){
@@ -169,13 +169,13 @@ export default class LaudesDisplay extends Component {
     var antifona = GF.rs(this.LAUDES.antInvitatori, this.superTestMode, this.testErrorCB.bind(this));
     var gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
 
-    this.shareText += "Ant. " + antifona + '\n\n' + titolSalm + '\n\n' + refSalm + '\n\n';
+    /*this.shareText += "Ant. " + antifona + '\n\n' + titolSalm + '\n\n' + refSalm + '\n\n';
     for(i = 0; i < estrofes.length; i++){
       this.shareText += estrofes[i] + '\n\n';
       this.shareText += "Ant. " + antifona + '\n\n';
     }
     this.shareText += gloriaString + '\n\n';
-    this.shareText += "Ant. " + antifona + '\n\n';
+    this.shareText += "Ant. " + antifona + '\n\n';*/
 
     return(
       <View>
@@ -283,7 +283,7 @@ export default class LaudesDisplay extends Component {
 
   render() {
     try {
-      this.shareText = "";
+      //this.shareText = "";
 
       return (
         <View>
@@ -368,32 +368,6 @@ export default class LaudesDisplay extends Component {
     return salm;
   }
 
-  gloria(g){
-    if(!g || !(g==='0'||g==='1')) {
-      if(this.superTestMode){
-        this.testErrorCB();
-      }
-      return "";
-    }
-    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(true)
-      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
-
-    if(g === '1'){
-      if(true){ 
-        return('Glòria.');
-      }
-      else{
-        return(gloriaString);
-      }
-    }
-    else{
-      if(g==='0'){
-        return("S'omet el Glòria.");
-      }
-    }
-  }
-
   _invitatoriButton(){
     return(
       <View>
@@ -421,10 +395,10 @@ export default class LaudesDisplay extends Component {
       var aux_senyor_veniu = 'Senyor, veniu a ajudar-nos.';
       var aux_isAleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA && G_VALUES.LT !== GLOBAL.Q_TRIDU;
 
-      this.shareText += 'V. ' + aux_sigueu + '\n';
+      /*this.shareText += 'V. ' + aux_sigueu + '\n';
       this.shareText += 'R. ' + aux_senyor_veniu + '\n\n';
       this.shareText += gloriaStringIntro + (aux_isAleluia? " Al·leluia" : "");
-      this.shareText += '\n\n';
+      this.shareText += '\n\n';*/
 
       return(
         <View>
@@ -448,8 +422,8 @@ export default class LaudesDisplay extends Component {
       var aux_obriume = 'Obriu-me els llavis, Senyor.';
       var aux_proclamare = 'I proclamaré la vostra lloança.';
 
-      this.shareText += 'V. ' + aux_obriume + '\n';
-      this.shareText += 'R. ' + aux_proclamare + '\n\n';
+      /*this.shareText += 'V. ' + aux_obriume + '\n';
+      this.shareText += 'R. ' + aux_proclamare + '\n\n';*/
 
       return(
         <View>
@@ -474,8 +448,8 @@ export default class LaudesDisplay extends Component {
   himne(LT, weekDay, setmana){
     var aux_himne = GF.rs(this.LAUDES.himne, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'HIMNE\n\n';
-    this.shareText += aux_himne + '\n\n';
+    /*this.shareText += 'HIMNE\n\n';
+    this.shareText += aux_himne + '\n\n';*/
     return(<Text selectable={true} style={this.styles.black}>{aux_himne}</Text>);
   }
 
@@ -486,23 +460,20 @@ export default class LaudesDisplay extends Component {
     if(this.LAUDES.com1 !== '-')
       aux_com1 = GF.rs(this.LAUDES.com1, this.superTestMode, this.testErrorCB.bind(this));
     var aux_salm1 = this.salm(GF.rs(this.LAUDES.salm1, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria1 = this.gloria(this.LAUDES.gloria1);
     var aux_ant2 = GF.rs(this.LAUDES.ant2, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol2 = GF.canticSpace(GF.rs(this.LAUDES.titol2, this.superTestMode, this.testErrorCB.bind(this)));
     var aux_com2 = "";
     if(this.LAUDES.com2 !== '-')
       aux_com2 = GF.rs(this.LAUDES.com2, this.superTestMode, this.testErrorCB.bind(this));
     var aux_salm2 = this.salm(GF.rs(this.LAUDES.salm2, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria2 = this.gloria(this.LAUDES.gloria2);
     var aux_ant3 = GF.rs(this.LAUDES.ant3, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol3 = GF.canticSpace(GF.rs(this.LAUDES.titol3, this.superTestMode, this.testErrorCB.bind(this)));
     var aux_com3 = "";
     if(this.LAUDES.com3 !== '-')
       aux_com3 = GF.rs(this.LAUDES.com3, this.superTestMode, this.testErrorCB.bind(this));
     var aux_salm3 = this.salm(GF.rs(this.LAUDES.salm3, this.superTestMode, this.testErrorCB.bind(this)));
-    var aux_gloria3 = this.gloria(this.LAUDES.gloria3);
 
-    this.shareText += 'SALMÒDIA\n\n';
+    /*this.shareText += 'SALMÒDIA\n\n';
     this.shareText += 'Ant. 1. ';
     this.shareText += aux_ant1 + '\n\n';
     this.shareText += aux_titol1 + '\n\n';
@@ -526,7 +497,7 @@ export default class LaudesDisplay extends Component {
     this.shareText += aux_salm3 + '\n\n';
     this.shareText += aux_gloria3 + '\n\n';
     this.shareText += 'Ant. 3. ';
-    this.shareText += aux_ant3 + '\n\n';
+    this.shareText += aux_ant3 + '\n\n';*/
 
     return(
       <View>
@@ -542,7 +513,10 @@ export default class LaudesDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
+        {this.LAUDES.gloria1 == "1"?
+          <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+          :
+          <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'Ant. 1.'}
           <Text selectable={true} style={this.styles.black}> {aux_ant1}</Text>
@@ -560,7 +534,10 @@ export default class LaudesDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria2}</Text>
+        {this.LAUDES.gloria2 == "1"?
+          <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+          :
+          <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'Ant. 2.'}
           <Text selectable={true} style={this.styles.black}> {aux_ant2}</Text>
@@ -578,7 +555,10 @@ export default class LaudesDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria3}</Text>
+        {this.LAUDES.gloria3 == "1"?
+          <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+          :
+          <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         <Text selectable={true} style={this.styles.red}>{'Ant. 3.'}
           <Text selectable={true} style={this.styles.black}> {aux_ant3}</Text>
@@ -591,9 +571,9 @@ export default class LaudesDisplay extends Component {
     var aux_vers = GF.rs(this.LAUDES.vers, this.superTestMode, this.testErrorCB.bind(this))
     var aux_lectura_breu = GF.rs(this.LAUDES.lecturaBreu, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'LECTURA BREU\n\n';
+    /*this.shareText += 'LECTURA BREU\n\n';
     this.shareText += aux_vers + '\n';
-    this.shareText += aux_lectura_breu + '\n\n';
+    this.shareText += aux_lectura_breu + '\n\n';*/
 
     return(
       <View>
@@ -605,11 +585,11 @@ export default class LaudesDisplay extends Component {
   }
 
   responsori(LT){
-    this.shareText += 'RESPONSORI BREU\n\n';
+    //this.shareText += 'RESPONSORI BREU\n\n';
 
     if(this.LAUDES.calAntEspecial){
       var aux_ant = GF.rs(this.LAUDES.antEspecialLaudes, this.superTestMode, this.testErrorCB.bind(this));
-      this.shareText += 'Ant. ' + aux_ant + '\n\n';
+      //this.shareText += 'Ant. ' + aux_ant + '\n\n';
 
       return(
         <View>
@@ -625,12 +605,12 @@ export default class LaudesDisplay extends Component {
       var aux_resp_2 = GF.rs(this.LAUDES.respBreu2, this.superTestMode, this.testErrorCB.bind(this));
       var aux_gloria_half = "Glòria al Pare i al Fill i a l'Esperit Sant.";
 
-      this.shareText += 'V. ' + aux_resp_1_2 + '\n';
+      /*this.shareText += 'V. ' + aux_resp_1_2 + '\n';
       this.shareText += 'R. ' + aux_resp_1_2 + '\n\n';
       this.shareText += 'V. ' + aux_resp_3 + '\n';
       this.shareText += 'R. ' + aux_resp_2 + '\n\n';
       this.shareText += 'V. ' + aux_gloria_half + '\n';
-      this.shareText += 'R. ' + aux_resp_1_2 + '\n\n';
+      this.shareText += 'R. ' + aux_resp_1_2 + '\n\n';*/
 
       return(
         <View>
@@ -663,14 +643,14 @@ export default class LaudesDisplay extends Component {
     var aux_ant = GF.rs(this.LAUDES.antCantic, this.superTestMode, this.testErrorCB.bind(this));
     var aux_titol = "Càntic\nLc 1, 68-79\nEl Messies i el seu Precursor";
     var aux_salm = this.salm(this.LAUDES.cantic);
-    var aux_gloria = this.gloria('1');
+    var aux_gloria = "Glòria.";
 
-    this.shareText += 'CÀNTIC DE ZACARIES\n\n';
+    /*this.shareText += 'CÀNTIC DE ZACARIES\n\n';
     this.shareText += 'Ant. ' + aux_ant + '\n\n';
     this.shareText += aux_titol + '\n\n';
     this.shareText += aux_salm + '\n\n';
     this.shareText += aux_gloria + '\n\n';
-    this.shareText += 'Ant. ' + aux_ant + '\n\n';
+    this.shareText += 'Ant. ' + aux_ant + '\n\n';*/
 
     return(
       <View>
@@ -707,11 +687,11 @@ export default class LaudesDisplay extends Component {
   pregaries(LT){
     var allPregs = GF.rs(this.LAUDES.pregaries, this.superTestMode, this.testErrorCB.bind(this));
 
-    this.shareText += 'PREGÀRIES\n\n';
+    //this.shareText += 'PREGÀRIES\n\n';
 
-    var aux_share_characters_before = this.shareText.length;
+    //var aux_share_characters_before = this.shareText.length;
 
-    this.shareText += allPregs + '\n\n';
+    //this.shareText += allPregs + '\n\n';
 
     if(allPregs === null || allPregs === undefined || allPregs === '' || allPregs === '-')
       return(<Text selectable={true} style={this.styles.black}>{"-"}</Text>);
@@ -771,16 +751,16 @@ export default class LaudesDisplay extends Component {
       }
     }
 
-    this.shareText = this.shareText.substr(0, aux_share_characters_before);
+    //this.shareText = this.shareText.substr(0, aux_share_characters_before);
 
     var aux_intencions = "Aquí es poden afegir altres intencions.";
 
-    this.shareText += introPregs + ':\n\n';
+    /*this.shareText += introPregs + ':\n\n';
     this.shareText += respPregs + '\n\n';
     this.shareText += pregaries + '\n\n';
     this.shareText += aux_intencions + '\n\n';
     this.shareText += pregsFinalPart + '\n\n';
-    this.shareText += "Pare nostre." + '\n\n';
+    this.shareText += "Pare nostre." + '\n\n';*/
 
     return(
       <View>
@@ -802,20 +782,20 @@ export default class LaudesDisplay extends Component {
   oracio(LT, weekDay){
     var aux_oracio = GF.completeOracio(GF.rs(this.LAUDES.oracio, this.superTestMode, this.testErrorCB.bind(this)),false);
 
-    this.shareText += 'ORACIÓ\n\n';
-    this.shareText += aux_oracio + '\n' + 'R. Amén.' + '\n\n';
+    //this.shareText += 'ORACIÓ\n\n';
+    //this.shareText += aux_oracio + '\n' + 'R. Amén.' + '\n\n';
     return(<Text selectable={true} style={this.styles.black}>{aux_oracio}</Text>);
   }
 
   conclusio(){
     var aux_benediccio = 'Que el Senyor ens beneeixi i ens guardi de tot mal, i ens dugui a la vida eterna.';
 
-    this.shareText += 'CONCLUSIÓ\n\n';
+    /*this.shareText += 'CONCLUSIÓ\n\n';
     this.shareText += 'V. ' + aux_benediccio + '\n' + 'R. Amén.' + '\n\n';
 
     if(Platform.OS === 'ios'){
       this.shareText += "_____\nCol·labora fent un donatiu:";
-    }
+    }*/
 
     return(
       <View>

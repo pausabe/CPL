@@ -12,14 +12,14 @@ import GF from '../../../../Globals/GlobalFunctions';
 
 export default class HoraMenorDisplay extends Component {
   componentDidMount(){
-    this.props.events.addListener('shareButtonPressed_Menor', this.sharePressed.bind(this));
+    //this.props.events.addListener('shareButtonPressed_Menor', this.sharePressed.bind(this));
   }
 
   componentWillUnmount(){
-    this.props.events.removeListener('shareButtonPressed_Menor', this.sharePressed.bind(this));
+    //this.props.events.removeListener('shareButtonPressed_Menor', this.sharePressed.bind(this));
   }
 
-  sharePressed(){
+  /*sharePressed(){
     console.log("PlaceLog. Hora menor Share Pressed");
     Share.share({
       message: this.shareText,
@@ -31,7 +31,7 @@ export default class HoraMenorDisplay extends Component {
       // Android only:
       dialogTitle: 'Comparteix tot el text',
     })
-  }
+  }*/
 
   constructor(props){
     super(props);
@@ -84,20 +84,20 @@ export default class HoraMenorDisplay extends Component {
       }
     }
 
-    this.shareText = "";
+    //this.shareText = "";
   }
 
   render() {
     try {
-      this.shareText = "";
+      //this.shareText = "";
 
       const gloriaStringIntro = "Glòria al Pare i al Fill\ni a l’Esperit Sant.\nCom era al principi, ara i sempre\ni pels segles dels segles. Amén.";
       var aux_isAleluia = G_VALUES.LT !== GLOBAL.Q_CENDRA && G_VALUES.LT !== GLOBAL.Q_SETMANES && G_VALUES.LT !== GLOBAL.Q_DIUM_RAMS && G_VALUES.LT !== GLOBAL.Q_SET_SANTA && G_VALUES.LT !== GLOBAL.Q_TRIDU; 
 
-      this.shareText += "V. Sigueu amb nosaltres, Déu nostre.\n";
+      /*this.shareText += "V. Sigueu amb nosaltres, Déu nostre.\n";
       this.shareText += "R. Senyor, veniu a ajudar-nos.\n\n";
       this.shareText += gloriaStringIntro +  (aux_isAleluia? " Al·leluia" : "");
-      this.shareText += '\n\n';
+      this.shareText += '\n\n';*/
 
       return (
         <View>
@@ -180,37 +180,11 @@ export default class HoraMenorDisplay extends Component {
     return salm;
   }
 
-  gloria(g){
-    if(!g || !(g==='0'||g==='1')) {
-      if(this.superTestMode){
-        this.testErrorCB();
-      }
-      return "";
-    }
-    var gloriaString = "Glòria al Pare i al Fill    *\ni a l’Esperit Sant.\nCom era al principi, ara i sempre    *\ni pels segles dels segles. Amén.";
-    if(true)
-      gloriaString = "Glòria al Pare i al Fill    \ni a l’Esperit Sant.\nCom era al principi, ara i sempre    \ni pels segles dels segles. Amén.";
-
-    if(g === '1'){
-      if(true){
-        return 'Glòria.';
-      }
-      else{
-        return gloriaString;
-      }
-    }
-    else{
-      if(g==='0'){
-        return "S'omet el Glòria.";
-      }
-    }
-  }
-
   himne(LT, weekDay, setmana, HM){
     var aux_himne = GF.rs(this.props.HORA_MENOR.himne, this.props.superTestMode, this.props.testErrorCB.bind(this));
 
-    this.shareText += 'HIMNE\n\n';
-    this.shareText += aux_himne + '\n\n';
+    /*this.shareText += 'HIMNE\n\n';
+    this.shareText += aux_himne + '\n\n';*/
 
     return(<Text selectable={true} style={this.styles.black}>{aux_himne}</Text>);
   }
@@ -223,21 +197,18 @@ export default class HoraMenorDisplay extends Component {
     var aux_has_com1 = this.props.HORA_MENOR.com1 !== '-';
     var aux_com1 = aux_has_com1? GF.rs(this.props.HORA_MENOR.com1, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm1 = this.salm(GF.rs(this.props.HORA_MENOR.salm1, this.props.superTestMode, this.props.testErrorCB.bind(this)));
-    var aux_gloria1 = this.gloria(this.props.HORA_MENOR.gloria1);
     var aux_ant2 = aux_antifones? GF.rs(this.props.HORA_MENOR.ant2, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_titol2 = GF.rs(this.props.HORA_MENOR.titol2, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_has_com2 = this.props.HORA_MENOR.com2 !== '-';
     var aux_com2 = aux_has_com2? GF.rs(this.props.HORA_MENOR.com2, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm2 = this.salm(GF.rs(this.props.HORA_MENOR.salm2, this.props.superTestMode, this.props.testErrorCB.bind(this)));
-    var aux_gloria2 = this.gloria(this.props.HORA_MENOR.gloria2);
     var aux_ant3 = aux_antifones? GF.rs(this.props.HORA_MENOR.ant3, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_titol3 = GF.rs(this.props.HORA_MENOR.titol3, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_has_com3 = this.props.HORA_MENOR.com3 !== '-';
     var aux_com3 = aux_has_com3? GF.rs(this.props.HORA_MENOR.com3, this.props.superTestMode, this.props.testErrorCB.bind(this)) : "";
     var aux_salm3 = this.salm(GF.rs(this.props.HORA_MENOR.salm3, this.props.superTestMode, this.props.testErrorCB.bind(this)));
-    var aux_gloria3 = this.gloria(this.props.HORA_MENOR.gloria3);
 
-    this.shareText += 'SALMÒDIA\n\n';
+    /*this.shareText += 'SALMÒDIA\n\n';
     this.shareText += (aux_antifones? ('Ant. 1. ' + aux_ant1) : ('Ant. ' + aux_ant)) + '\n\n';
     this.shareText += aux_titol1 + '\n\n';
     if(aux_has_com1) this.shareText += aux_com1 + '\n\n';
@@ -255,7 +226,7 @@ export default class HoraMenorDisplay extends Component {
     if(aux_has_com3) this.shareText += aux_com3 + '\n\n';
     this.shareText += aux_salm3 + '\n\n';
     this.shareText += aux_gloria3 + '\n\n';
-    this.shareText += (aux_antifones? ('Ant. 3. ' + aux_ant3) : ('Ant. ' + aux_ant)) + '\n\n';
+    this.shareText += (aux_antifones? ('Ant. 3. ' + aux_ant3) : ('Ant. ' + aux_ant)) + '\n\n';*/
 
     return(
       <View>
@@ -281,7 +252,10 @@ export default class HoraMenorDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm1}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria1}</Text>
+        {this.props.HORA_MENOR.gloria1 == "1"?
+                <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+                :
+                <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {aux_antifones ?
           <View>
@@ -303,7 +277,10 @@ export default class HoraMenorDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm2}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria2}</Text>
+        {this.props.HORA_MENOR.gloria2 == "1"?
+                <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+                :
+                <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {aux_antifones ?
           <View>
@@ -325,7 +302,10 @@ export default class HoraMenorDisplay extends Component {
           {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}</View></View> : null}
         <Text selectable={true} style={this.styles.black}>{aux_salm3}</Text>
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
-        <Text selectable={true} style={this.styles.blackItalic}>{aux_gloria3}</Text>
+        {this.props.HORA_MENOR.gloria3 == "1"?
+                <Text selectable={true} style={this.styles.blackItalic}>{"Glòria."}</Text>
+                :
+                <Text selectable={true} style={this.styles.redItalic}>{"S'omet el Glòria."}</Text>}
         {Platform.OS === 'android' ? <Text>{"\n"}</Text> : <Text />}
         {aux_antifones ?
           <View>
@@ -350,10 +330,10 @@ export default class HoraMenorDisplay extends Component {
     var aux_respV = GF.rs(this.props.HORA_MENOR.respV, this.props.superTestMode, this.props.testErrorCB.bind(this));
     var aux_respR = GF.rs(this.props.HORA_MENOR.respR, this.props.superTestMode, this.props.testErrorCB.bind(this));
 
-    this.shareText += "LECTURA BREU\n\n";
+    /*this.shareText += "LECTURA BREU\n\n";
     this.shareText += aux_vers + '\n\n';
     this.shareText += 'V. ' + aux_respV + '\n';
-    this.shareText += 'R. ' + aux_respR + '\n\n';
+    this.shareText += 'R. ' + aux_respR + '\n\n';*/
 
     return(
       <View>
@@ -373,7 +353,7 @@ export default class HoraMenorDisplay extends Component {
 
   oracio(LT, weekDay, HM){
     var aux_oracio = GF.completeOracio(GF.rs(this.props.HORA_MENOR.oracio, this.props.superTestMode, this.props.testErrorCB.bind(this)),true);
-    this.shareText += "ORACIÓ\n\nPreguem.\n";
+    /*this.shareText += "ORACIÓ\n\nPreguem.\n";
     this.shareText += aux_oracio + '\n\n';
 
     this.shareText += 'CONCLUSIÓ\n\n';
@@ -381,7 +361,7 @@ export default class HoraMenorDisplay extends Component {
 
     if(Platform.OS === 'ios'){
       this.shareText += "_____\nCol·labora fent un donatiu:";
-    }
+    }*/
 
     return(<Text selectable={true} style={this.styles.black}>{aux_oracio}</Text>);
   }
