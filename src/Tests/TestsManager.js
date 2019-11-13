@@ -3,12 +3,12 @@ import GF from "../Globals/GlobalFunctions";
 
 /********************** TEST VARIABLES **********************/
 
-export var TEST_MODE_ON = false;
-export var STATE_ON = TEST_MODE_ON && false;
-export var TEST_FIRST_DAY = new Date(2019, 9, 1); //(s'inclou en el test)
-export var TEST_LAST_DAY = new Date(2019, 11, 31); //(s'inclou en el test)
+export var TEST_MODE_ON = true;
+export var STATE_ON = TEST_MODE_ON && true;
+export var TEST_FIRST_DAY = new Date(2020, 11, 7); //(s'inclou en el test)
+export var TEST_LAST_DAY = new Date(2020, 11, 9); //(s'inclou en el test)
 export var FIRST_DIOCESI = 0; //0-33 (s'inclou en el test) Order is determined in GF.getTestDiocesiByIndex()
-export var LAST_DIOCESI = 33; //0-33 (s'inclou en el test)
+export var LAST_DIOCESI = 0; //0-33 (s'inclou en el test)
 
 /************************************************************/
 
@@ -94,6 +94,7 @@ function Test_Day_Finished_Callback(Test_Information_Callback) {
 
 function Set_Liturgia_State() {
   var auxLIT = Object.assign({}, LH_VALUES);
+  var auxLD = Object.assign({}, LD_VALUES);
   stateDayStructure = {
     date: {
       day: G_VALUES.date.getDate(),
@@ -102,6 +103,7 @@ function Set_Liturgia_State() {
     },
     diocesi: G_VALUES.diocesi,
     LIT: auxLIT,
+    LD: auxLD,
   }
   TEST_STATE_ARRAY[TEST_STATE_ARRAY_INDEX] = stateDayStructure;
   TEST_STATE_ARRAY_INDEX++;
@@ -134,7 +136,6 @@ function writeState(stateArr, idt, fdt, iDt, fDt, cb, lastW) {
     .then((success) => {
       RNFS.writeFile(totalPath, dataShow, 'utf8')
         .then((success) => {
-          // console.log('FileLog. FILE WRITTEN!');
           if (lastW) {
             var rightNow = new Date();
             cb("All parts saved correctly at: " + rightNow);
@@ -154,7 +155,7 @@ function _transformData(SA) {
   var TD = "";
   var x;
   for (x in SA) {
-    console.log("FileLog. Part: " + FILE_PART + ". Saving the file: " + x + '/' + SA.length);
+    console.log("FileLog. Part: " + FILE_PART + ". Saving data to file. Day: " + x + '/' + SA.length);
     TD += '>>>>>' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi;
     TD += '\n>>>[Ofici,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']OFICI';
     TD += '\n';
@@ -525,6 +526,76 @@ function _transformData(SA) {
     TD += '>[Completes,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']antCantic: ' + _subText(SA[x].LIT.completes.antCantic);
     TD += '\n';
     TD += '>[Completes,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']oracio: ' + _subText(SA[x].LIT.completes.oracio);
+    TD += '\n--------------------';
+    TD += '\n>>>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']MISSA';
+    TD += '\n';
+    
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1Vespers: ' + _subText(SA[x].LD.Lectura1Vespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1CitaVespers: ' + _subText(SA[x].LD.Lectura1CitaVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1TitolVespers: ' + _subText(SA[x].LD.Lectura1TitolVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1TextVespers: ' + _subText(SA[x].LD.Lectura1TextVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']SalmVespers: ' + _subText(SA[x].LD.SalmVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']SalmTextVespers: ' + _subText(SA[x].LD.SalmTextVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2Vespers: ' + _subText(SA[x].LD.Lectura2Vespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2CitaVespers: ' + _subText(SA[x].LD.Lectura2CitaVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2TitolVespers: ' + _subText(SA[x].LD.Lectura2TitolVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2TextVespers: ' + _subText(SA[x].LD.Lectura2TextVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']credoVespers: ' + _subText(SA[x].LD.credoVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']AlleluiaTextVespers: ' + _subText(SA[x].LD.AlleluiaTextVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']EvangeliCitaVespers: ' + _subText(SA[x].LD.EvangeliCitaVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']EvangeliVespers: ' + _subText(SA[x].LD.EvangeliVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']EvangeliTitolVespers: ' + _subText(SA[x].LD.EvangeliTitolVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']EvangeliTextVespers: ' + _subText(SA[x].LD.EvangeliTextVespers);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1: ' + _subText(SA[x].LD.Lectura1);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1Cita: ' + _subText(SA[x].LD.Lectura1Cita);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1Titol: ' + _subText(SA[x].LD.Lectura1Titol);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura1Text: ' + _subText(SA[x].LD.Lectura1Text);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Salm: ' + _subText(SA[x].LD.Salm);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']SalmText: ' + _subText(SA[x].LD.SalmText);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2: ' + _subText(SA[x].LD.Lectura2);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2Cita: ' + _subText(SA[x].LD.Lectura2Cita);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2Titol: ' + _subText(SA[x].LD.Lectura2Titol);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Lectura2Text: ' + _subText(SA[x].LD.Lectura2Text);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']credo: ' + _subText(SA[x].LD.credo);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']AlleluiaText: ' + _subText(SA[x].LD.AlleluiaText);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']EvangeliCita: ' + _subText(SA[x].LD.EvangeliCita);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']Evangeli: ' + _subText(SA[x].LD.Evangeli);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']EvangeliTitol: ' + _subText(SA[x].LD.EvangeliTitol);
+    TD += '\n';
+    TD += '>[Missa,' + SA[x].date.day + '/' + SA[x].date.month + '/' + SA[x].date.year + '-' + SA[x].diocesi + ']EvangeliText: ' + _subText(SA[x].LD.EvangeliText);
+    TD += '\n';
+
+    
     TD += '\n::---------------------------------------------------::\n';
   }
   console.log("FileLog. TD.length: " + TD.length);

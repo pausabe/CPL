@@ -179,10 +179,13 @@ export default class DBAdapter {
       if (specialResultId == '-1') {
         //Normal santoral day
         var query = `SELECT * FROM LDSantoral WHERE Categoria = '${celType}' AND tempsespecific = '${tempsEspecific}' AND dia = '${day}'`;
+        //var query = `SELECT LDSantoral.* FROM LDSantoral WHERE LDSantoral.Categoria = '${celType}'AND LDSantoral.tempsespecific = '${tempsEspecific}'AND LDSantoral.dia = '${day}'AND ((LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '-') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '-'))`;
         console.log("QueryLog. QUERY getLDSantoral: " + query);
         this.executeQuery(query,
           result => {
             console.log("InfoLog. getLDSantoral Result size: " + result.rows.length);
+            console.log("result", result);
+            
             var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
             if (i == -1) {
               //Not in Santoral
@@ -257,6 +260,11 @@ export default class DBAdapter {
       }
     }
 
+
+    console.log("[LDGetIndex] haveSomeDiaSetmana: " + haveSomeDiaSetmana); 
+    console.log("[LDGetIndex] DiaIsTheSame: " + DiaIsTheSame); 
+    
+
     var rows = [];
 
     if (haveSomeDiaSetmana) {
@@ -266,16 +274,19 @@ export default class DBAdapter {
           rows.push(result.rows.item(i));
         }
       }
+      console.log("[LDGetIndex] rows 1", rows); 
     }
     else {
       for (let i = 0; i < result.rows.length; i++) {
         rows.push(result.rows.item(i));
       }
+      console.log("[LDGetIndex] rows 2", rows); 
     }
     
     var index;
     if (rows.length > 1) {
       if (rows[0].Cicle != '-' && rows[0].paroimpar == '-') {
+        console.log("[LDGetIndex] here 1"); 
         //1) cicle != '-' and paroimpar != '-'
         for (var i = 0; i < rows.length; i++) {
           if (rows[i].Cicle == cicleABC) {
@@ -285,6 +296,7 @@ export default class DBAdapter {
         }
       }
       else if (rows[0].paroimpar != '-' && rows[0].Cicle == '-') {
+        console.log("[LDGetIndex] here 2"); 
         //2) cicle == '-' and paroimpar != '-'
         for (var i = 0; i < rows.length; i++) {
           if (rows[i].paroimpar == parImpar) {
@@ -294,6 +306,7 @@ export default class DBAdapter {
         }
       }
       else if (rows[0].paroimpar != '-' && rows[0].Cicle != '-') {
+        console.log("[LDGetIndex] here 3"); 
         //3) cicle != '-' and paroimpar != '-'
         for (var i = 0; i < rows.length; i++) {
           if (rows[i].Cicle == cicleABC && rows[i].paroimpar == parImpar) {
@@ -304,9 +317,15 @@ export default class DBAdapter {
       }
     }
     else if (rows.length == 1) {
+      console.log("[LDGetIndex] here 4"); 
       //4) cicle == '-' and paroimpar == '-'
       index = 0;
     }
+
+    console.log("[DEBUG] index: ", index);
+    console.log("[DEBUG] result.rows.length: ", result.rows.length);
+    console.log("[DEBUG] rows.length: ", rows.length);
+    
 
     if (index == undefined) {
       console.log("Index not found");
