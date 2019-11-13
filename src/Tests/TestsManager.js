@@ -3,10 +3,10 @@ import GF from "../Globals/GlobalFunctions";
 
 /********************** TEST VARIABLES **********************/
 
-export var TEST_MODE_ON = true;
-export var STATE_ON = TEST_MODE_ON && true;
-export var TEST_FIRST_DAY = new Date(2020, 11, 7); //(s'inclou en el test)
-export var TEST_LAST_DAY = new Date(2020, 11, 9); //(s'inclou en el test)
+export var TEST_MODE_ON = false;
+export var STATE_ON = TEST_MODE_ON && false;
+export var TEST_FIRST_DAY = new Date(2019, 11, 27); //(s'inclou en el test)
+export var TEST_LAST_DAY = new Date(2020, 0, 3); //(s'inclou en el test)
 export var FIRST_DIOCESI = 0; //0-33 (s'inclou en el test) Order is determined in GF.getTestDiocesiByIndex()
 export var LAST_DIOCESI = 0; //0-33 (s'inclou en el test)
 

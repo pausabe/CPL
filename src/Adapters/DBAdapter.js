@@ -178,8 +178,7 @@ export default class DBAdapter {
 
       if (specialResultId == '-1') {
         //Normal santoral day
-        var query = `SELECT * FROM LDSantoral WHERE Categoria = '${celType}' AND tempsespecific = '${tempsEspecific}' AND dia = '${day}'`;
-        //var query = `SELECT LDSantoral.* FROM LDSantoral WHERE LDSantoral.Categoria = '${celType}'AND LDSantoral.tempsespecific = '${tempsEspecific}'AND LDSantoral.dia = '${day}'AND ((LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '-') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '-'))`;
+        var query = `SELECT LDSantoral.* FROM LDSantoral WHERE LDSantoral.Categoria = '${celType}'AND LDSantoral.tempsespecific = '${tempsEspecific}'AND LDSantoral.dia = '${day}'AND ((LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '-') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '-'))`;
         console.log("QueryLog. QUERY getLDSantoral: " + query);
         this.executeQuery(query,
           result => {

@@ -157,3 +157,5 @@ v2.2.4 ()[An34,Ap30]
 - 
 -----
 - Afegeixo la part de la missa a l'StateTest
+- Canvio una query encarregada de seleccionar el registre a mostrar de la missa
+  i quden solucionats 4 dies (com a mínim)
