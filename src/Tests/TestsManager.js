@@ -3,10 +3,10 @@ import GF from "../Globals/GlobalFunctions";
 
 /********************** TEST VARIABLES **********************/
 
-export var TEST_MODE_ON = false;
+export var TEST_MODE_ON = true;
 export var STATE_ON = TEST_MODE_ON && false;
-export var TEST_FIRST_DAY = new Date(2019, 11, 27); //(s'inclou en el test)
-export var TEST_LAST_DAY = new Date(2020, 0, 3); //(s'inclou en el test)
+export var TEST_FIRST_DAY = new Date(2019, 10, 14); //(s'inclou en el test) Que no sigui "Avoidable"!
+export var TEST_LAST_DAY = new Date(2020, 11, 27); //(s'inclou en el test) Que no sigui "Avoidable"!
 export var FIRST_DIOCESI = 0; //0-33 (s'inclou en el test) Order is determined in GF.getTestDiocesiByIndex()
 export var LAST_DIOCESI = 0; //0-33 (s'inclou en el test)
 
@@ -30,6 +30,24 @@ export function Reload_All_Data_TestMode(Test_Information_Callback) {
   G_VALUES.diocesiName = GF.getTestNameDiocesiByIndex(FIRST_DIOCESI)
   G_VALUES.lloc = GF.getTestLlocByIndex(FIRST_DIOCESI)
   Reload_All_Data(TEST_FIRST_DAY, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
+}
+
+function Is_Avoidable_Day(date){
+
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "4") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "6") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "7") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "13") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "14") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "18") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "19") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "5" && date.getDate() == "20") return true;
+
+  if (date.getFullYear() == "2020" && date.getMonth() == "11" && date.getDate() == "15") return true;
+  if (date.getFullYear() == "2020" && date.getMonth() == "11" && date.getDate() == "16") return true;
+
+  return false
+
 }
 
 function Test_Day_Finished_Callback(Test_Information_Callback) {
@@ -86,6 +104,10 @@ function Test_Day_Finished_Callback(Test_Information_Callback) {
       }
       else {
         var next_day = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth(), G_VALUES.date.getDate() + 1);
+
+        while (Is_Avoidable_Day(next_day))
+          next_day = new Date(next_day.getFullYear(), next_day.getMonth(), next_day.getDate() + 1);
+
         Reload_All_Data(next_day, Test_Day_Finished_Callback.bind(this, Test_Information_Callback));
       }
     }
