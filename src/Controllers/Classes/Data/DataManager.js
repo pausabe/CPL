@@ -62,10 +62,6 @@ function Refresh_Data(newDay) {
       var tomorrowCelType = GF.getCelType(G_VALUES.diocesi, tomorrow);
 
       G_VALUES.celType = celType;
-      console.log("[DEBUG] 0: " + G_VALUES.date);
-      console.log("[DEBUG] 0: " + G_VALUES.diocesi);
-      console.log("[DEBUG] 0: " + G_VALUES.celType);
-      
       G_VALUES.diaMogut = current.diaMogut;
       G_VALUES.diocesiMogut = current.diocesiMogut;
       G_VALUES.litColor = current.Color;

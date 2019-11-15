@@ -674,10 +674,7 @@ export default class LH_SOUL {
 
         if (day === '-') {
           console.log("Log#32. [Extra] Demà no hi ha mogut i cal fer uns ajustaments");
-          var auxDay = new Date();
-          auxDay.setFullYear(G_VALUES.date.getFullYear());
-          auxDay.setMonth(G_VALUES.date.getMonth());
-          auxDay.setDate(G_VALUES.date.getDate() + 1);
+          var auxDay = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth(), (G_VALUES.date.getDate() + 1));
           day = GF.calculeDia(auxDay, G_VALUES.diocesi, '-', '-');
         }
         console.log("Log#32. [Extra] day (tomorrow) definitiu: " + day);
@@ -1006,10 +1003,7 @@ export default class LH_SOUL {
 
     //santsMemories M - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
     //santsSolemnitats S - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
-    var auxDay = new Date();
-    auxDay.setFullYear(date.getFullYear());
-    auxDay.setMonth(8);
-    auxDay.setDate(2);
+    var auxDay = new Date(date.getFullYear(), 8, 2);
     var b = true;
     var dies = 0;
     while (b && dies < 7) {
@@ -1217,10 +1211,7 @@ export default class LH_SOUL {
       return 2;
     }
 
-    var auxDay = new Date();
-    auxDay.setFullYear(date.getFullYear());
-    auxDay.setMonth(date.getMonth());
-    auxDay.setDate(date.getDate() - 7);
+    var auxDay = new Date(date.getFullYear(), date.getMonth(), (date.getDate() - 7));
 
     //3- Diumenge II de Nadal, quan s’escau el dia 2 de gener
     if (this.isSagradaFamilia(auxDay) && date.getDate() === 2) {
@@ -1362,8 +1353,9 @@ export default class LH_SOUL {
     Return id of #tempsSolemnitatsFestes or -1 if there isnt there
   */
   findTempsSolemnitatsFestes(date, LT, setmana, pentacosta) {
-    console.log("PlaceLog. findTempsSolemnitatsFestes");
+    console.log("PlaceLog. findTempsSolemnitatsFestes ", date);
     console.log("InfoLog. pentacosta: " + pentacosta);
+
     //1- Nadal
     if (date.getDate() === 25 && date.getMonth() === 11) {
       return 1;
@@ -1403,7 +1395,8 @@ export default class LH_SOUL {
 
     //8- Santíssima trinitat
     var trinitat = new Date(pentacosta.getFullYear(), pentacosta.getMonth(), pentacosta.getDate() + 7);
-    //console.log('TRINITAT: ' + trinitat.getDate()+'/'+trinitat.getMonth()+'/'+trinitat.getFullYear());
+    console.log('PENTACOSTA: ' + pentacosta.getDate()+'/'+pentacosta.getMonth()+'/'+pentacosta.getFullYear());
+    console.log('TRINITAT: ' + trinitat.getDate()+'/'+trinitat.getMonth()+'/'+trinitat.getFullYear());
     if (date.getDate() === trinitat.getDate() && date.getMonth() === trinitat.getMonth() &&
       date.getFullYear() === trinitat.getFullYear()) {
       return 8;

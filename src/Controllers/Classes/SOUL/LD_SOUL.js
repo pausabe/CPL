@@ -333,10 +333,7 @@ export default class LD_SOUL {
 
         //Dissabte abans del primer diumenge de setembre (102)
         //santsSolemnitats S - Dissabte abans del primer diumenge de setembre (MARE DE DÉU DE LA CINTA)
-        var auxDay = new Date();
-        auxDay.setFullYear(today_date.getFullYear());
-        auxDay.setMonth(8);
-        auxDay.setDate(2);
+        var auxDay = new Date(today_date.getFullYear(), 8, 2);
         var b = true;
         var dies = 0;
         while (b && dies < 7) {

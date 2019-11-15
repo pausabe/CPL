@@ -66,11 +66,8 @@ export default class DBAdapter {
     console.log("QueryLog. getPentacosta: " + query);
     this.executeQuery(query,
       result => {
-        var pentacosta = new Date();
-        pentacosta.setDate(result.rows.item(0).dia);
-        auxMonth = result.rows.item(0).mes - 1;
-        pentacosta.setMonth(auxMonth);
-        pentacosta.setFullYear(year);
+        var pentacosta = new Date(year, (result.rows.item(0).mes - 1), result.rows.item(0).dia);
+        console.log(result.rows.item(0).dia + '/' + (result.rows.item(0).mes - 1) + '/' + year);        
         console.log("InfoLog. Pentacosta: " + pentacosta.getDate() + '/' + pentacosta.getMonth() + '/' + pentacosta.getFullYear());
         callback(r1, r2, pentacosta);
       });
