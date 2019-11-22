@@ -171,6 +171,7 @@ export default class DBAdapter {
   }
 
   getLDSantoral(day, specialResultId, celType, tempsEspecific, cicleABC, diaSetmana, parImpar, setmana, callback) {
+        
     this.getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, (normal_result) => {
 
       if (specialResultId == '-1') {
@@ -233,6 +234,7 @@ export default class DBAdapter {
   }
 
   getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, callback) {
+
     var query = `SELECT * FROM LDdiumenges WHERE tempsespecific = '${tempsEspecific}' AND DiadelaSetmana = '${diaSetmana}' AND NumSet = '${setmana}'`;
     console.log("QueryLog. QUERY getLDNormal: " + query);
     this.executeQuery(query,

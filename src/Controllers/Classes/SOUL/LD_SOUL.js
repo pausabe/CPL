@@ -152,21 +152,27 @@ export default class LD_SOUL {
         setmana,
         LT,
         Set_Soul_CB) {
-        var isFeria = (celType == '-' && (LT == 'A_FERIES' || LT == 'N_OCTAVA' || LT == 'N_ABANS'));
+
+        //var isFeria = (celType == '-' && (LT == 'A_FERIES' || LT == 'N_OCTAVA' || LT == 'N_ABANS'));
+        var isFeria = this.IsSpecialChristmas(today_string);
+
+        console.log("isFeria", isFeria);
 
         if (G_VALUES.dataTomorrow.LT == "Q_DIUM_PASQUA") {
             var vetlla_pasqual_data = this.GetVetllaPasqual(ABC);
             Set_Soul_CB(vetlla_pasqual_data);
         }
         else {
+
             if (celType == 'M' || celType == 'S' || celType == 'F' || isFeria) {
+
                 //Dies festius -> IsSpecialDay
                 var specialResultId = this.IsSpecialDay(today_date, parImpar, ABC); //Returns -1 if not special day
 
                 this.acceso.getLDSantoral(
                     today_string,
                     specialResultId,
-                    celType,
+                    isFeria ? '-' : celType,
                     isFeria ? 'Especial' : tempsespecific,
                     ABC,
                     diaDeLaSetmana,
@@ -177,6 +183,7 @@ export default class LD_SOUL {
                     });
             }
             else {
+
                 //Dies no festius -> LDDiumenges
                 this.acceso.getLDNormal(
                     tempsespecific,
@@ -190,6 +197,34 @@ export default class LD_SOUL {
             }
         }
     }
+
+    IsSpecialChristmas(dia){
+    
+        if(dia == '17-dic') return true
+        if(dia == '18-dic') return true
+        if(dia == '19-dic') return true
+        if(dia == '20-dic') return true
+        if(dia == '21-dic') return true
+        if(dia == '22-dic') return true
+        if(dia == '23-dic') return true
+        if(dia == '24-dic') return true
+        if(dia == '29-dic') return true
+        if(dia == '30-dic') return true
+        if(dia == '31-dic') return true
+        if(dia == '02-ene') return true
+        if(dia == '03-ene') return true
+        if(dia == '04-ene') return true
+        if(dia == '05-ene') return true
+        if(dia == '07-ene') return true
+        if(dia == '08-ene') return true
+        if(dia == '09-ene') return true
+        if(dia == '10-ene') return true
+        if(dia == '11-ene') return true
+        if(dia == '12-ene') return true
+    
+        return false
+    
+      }
 
     GetVetllaPasqual(ABC) {
         var globalPart = {

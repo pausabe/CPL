@@ -5,8 +5,8 @@ import GF from "../Globals/GlobalFunctions";
 
 export var TEST_MODE_ON = false;
 export var STATE_ON = TEST_MODE_ON && false;
-export var TEST_FIRST_DAY = new Date(2020, 11, 14); //(s'inclou en el test) Que no sigui "Avoidable"!
-export var TEST_LAST_DAY = new Date(2020, 11, 18); //(s'inclou en el test) Que no sigui "Avoidable"!
+export var TEST_FIRST_DAY = new Date(2019, 10, 1); //(s'inclou en el test) Que no sigui "Avoidable"!
+export var TEST_LAST_DAY = new Date(2020, 11, 27); //(s'inclou en el test) Que no sigui "Avoidable"!
 export var FIRST_DIOCESI = 0; //0-33 (s'inclou en el test) Order is determined in GF.getTestDiocesiByIndex()
 export var LAST_DIOCESI = 0; //0-33 (s'inclou en el test)
 

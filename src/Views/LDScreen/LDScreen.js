@@ -28,19 +28,28 @@ export default class LDScreen extends Component {
 
   Refresh_Layout() {
 
-    console.log("[DEBUG] Refresh_Layout");
-    
+    try {
 
-    this.setState({
-      need_lectura2: !LD_VALUES.VetllaPasqua && (!LD_VALUES.Vespers && LD_VALUES.Lectura2 != '-' || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-'))
-    });
+      console.log("[DEBUG] Refresh_Layout ", LD_VALUES.VetllaPasqua);
 
-    this.CURRENT_VESPERS_SELECTOR = (!LD_VALUES.VetllaPasqua && LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-')? VESPERS_SELECTOR_TYPES.VESPERS : VESPERS_SELECTOR_TYPES.NORMAL;
+      this.setState({
+        need_lectura2: !LD_VALUES.VetllaPasqua && (!LD_VALUES.Vespers && LD_VALUES.Lectura2 != '-' || (LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-'))
+      });
+  
+      this.CURRENT_VESPERS_SELECTOR = (!LD_VALUES.VetllaPasqua && LD_VALUES.Vespers && G_VALUES.date.getHours() >= 18 && LD_VALUES.Lectura2Vespers != '-')? VESPERS_SELECTOR_TYPES.VESPERS : VESPERS_SELECTOR_TYPES.NORMAL;
+      
+    } catch (error) {
+      console.log("[Exception] ", error);
+      this.setState( { renderError: true } )
+    }
+   
   }
 
   //CONSTRUCTOR --------------------------------------------------------------------------
   constructor(props) {
     super(props);
+
+    this.state = { renderError: false }
   }
 
   //CALLBACKS ----------------------------------------------------------------------------
@@ -71,6 +80,16 @@ export default class LDScreen extends Component {
       if(this.state == null){
         this.Refresh_Layout()
         return false
+      }
+
+      if(this.state.renderError){
+        return (
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <Text style={{textAlign: 'center', color: 'black', fontSize: 20, fontWeight: 'normal'}}>
+              {"Ha sorgit un error inesperat."}
+            </Text>
+          </View>
+        )
       }
 
       return (
