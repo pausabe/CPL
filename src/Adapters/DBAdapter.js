@@ -174,22 +174,26 @@ export default class DBAdapter {
         
     this.getLDNormal(tempsEspecific, cicleABC, diaSetmana, setmana, parImpar, (normal_result) => {
 
+      console.log("Normal result", normal_result);
+
       if (specialResultId == '-1') {
         //Normal santoral day
-        var query = `SELECT LDSantoral.* FROM LDSantoral WHERE LDSantoral.Categoria = '${celType}'AND LDSantoral.tempsespecific = '${tempsEspecific}'AND LDSantoral.dia = '${day}'AND ((LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '${cicleABC}' AND LDSantoral.DiadelaSetmana = '-') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '${diaSetmana}') OR (LDSantoral.Cicle = '-' AND LDSantoral.DiadelaSetmana = '-'))`;
+        var query = `SELECT subquery_two.* FROM (SELECT CASE WHEN subquery_one.match_cicle = 1 AND subquery_one.match_diadelasetmana = 1 AND subquery_one.match_paroimpar = 1 THEN 1 WHEN subquery_one.match_cicle = 1 AND subquery_one.match_diadelasetmana = 1 AND subquery_one.match_paroimpar = 0 THEN 2 WHEN subquery_one.match_cicle = 0 AND subquery_one.match_diadelasetmana = 1 AND subquery_one.match_paroimpar = 1 THEN 3 WHEN subquery_one.match_cicle = 0 AND subquery_one.match_diadelasetmana = 1 AND subquery_one.match_paroimpar = 0 THEN 4 WHEN subquery_one.match_cicle = 1 AND subquery_one.match_diadelasetmana = 0 AND subquery_one.match_paroimpar = 1 THEN 5 WHEN subquery_one.match_cicle = 1 AND subquery_one.match_diadelasetmana = 0 AND subquery_one.match_paroimpar = 0 THEN 6 WHEN subquery_one.match_cicle = 0 AND subquery_one.match_diadelasetmana = 0 AND subquery_one.match_paroimpar = 1 THEN 7 WHEN subquery_one.match_cicle = 0 AND subquery_one.match_diadelasetmana = 0 AND subquery_one.match_paroimpar = 0 THEN 8 END AS result_preference ,subquery_one.* FROM  (SELECT CASE WHEN LDSantoral.Cicle = '${cicleABC}' THEN 1 WHEN LDSantoral.Cicle = '-' THEN 0 ELSE 2 END AS match_cicle ,CASE WHEN LDSantoral.DiadelaSetmana = '${diaSetmana}' THEN 1 WHEN LDSantoral.DiadelaSetmana = '-' THEN 0 ELSE 2 END AS match_diadelasetmana ,CASE WHEN LDSantoral.paroimpar = '${parImpar}' THEN 1 WHEN LDSantoral.paroimpar = '-' THEN  0 ELSE 2 END AS match_paroimpar ,LDSantoral.* FROM LDSantoral WHERE LDSantoral.Categoria = '${celType}'AND LDSantoral.tempsespecific = '${tempsEspecific}'AND LDSantoral.dia = '${day}') AS subquery_one WHERE subquery_one.match_cicle <> 2 AND subquery_one.match_diadelasetmana <> 2 AND subquery_one.match_paroimpar <> 2 ) AS subquery_two ORDER BY subquery_two.result_preference ASC LIMIT 1;`;
         console.log("QueryLog. QUERY getLDSantoral: " + query);
         this.executeQuery(query,
           result => {
+
             console.log("InfoLog. getLDSantoral Result size: " + result.rows.length);
-            console.log("result", result);
+            console.log("Santoral result", result);
             
-            var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
-            if (i == -1) {
+            if (result.rows.length == 0) {
               //Not in Santoral
               callback(normal_result);
             }
             else {
-              var data_return = result.rows.item(i);
+              console.log("LDSantoral ID: ", result.rows.item(0).Id);
+              
+              var data_return = result.rows.item(0);
 
               if(normal_result != undefined){
                 if (data_return.Lectura1Text == '-'){
@@ -240,12 +244,12 @@ export default class DBAdapter {
     this.executeQuery(query,
       result => {
         console.log("InfoLog. getLDNormal Result size: " + result.rows.length);
-        var i = this.LDGetIndex(result, cicleABC, parImpar, diaSetmana);
+        var i = this.LDGetIndexNormal(result, cicleABC, parImpar, diaSetmana);
         callback(result.rows.item(i));
       });
   }
 
-  LDGetIndex(result, cicleABC, parImpar, diaSetmana) {
+  LDGetIndexNormal(result, cicleABC, parImpar, diaSetmana) {
     //For getLDSantoral is necessari let in result just the rows with diaSetmana (just in case any of them have diaSetmana != '-')
     var haveSomeDiaSetmana = false;
     var DiaIsTheSame = false;
@@ -261,6 +265,7 @@ export default class DBAdapter {
 
     console.log("[LDGetIndex] haveSomeDiaSetmana: " + haveSomeDiaSetmana); 
     console.log("[LDGetIndex] DiaIsTheSame: " + DiaIsTheSame); 
+    console.log("[LDGetIndex] diaSetmana: " + diaSetmana); 
     
 
     var rows = [];
@@ -268,8 +273,8 @@ export default class DBAdapter {
     if (haveSomeDiaSetmana) {
       for (let i = 0; i < result.rows.length; i++) {
         if ((DiaIsTheSame && result.rows.item(i).DiadelaSetmana == diaSetmana) ||
-          (!DiaIsTheSame && result.rows.item(i).DiadelaSetmana == '-')) {
-          rows.push(result.rows.item(i));
+            (!DiaIsTheSame && result.rows.item(i).DiadelaSetmana == '-')) {
+              rows.push(result.rows.item(i));
         }
       }
       console.log("[LDGetIndex] rows 1", rows); 

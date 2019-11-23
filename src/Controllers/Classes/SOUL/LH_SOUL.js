@@ -1346,6 +1346,36 @@ export default class LH_SOUL {
       return 27;
     }
 
+    //28- Quan el dia 24 de desembre (fèria) s’escau en dilluns
+    if (date.getMonth() === 11 && date.getDate() === 24 && date.getDay() === 1) {
+      return 28;
+    }
+
+    //29- Quan el dia 24 de desembre (fèria) s’escau en dimarts
+    if (date.getMonth() === 11 && date.getDate() === 24 && date.getDay() === 2) {
+      return 29;
+    }
+
+    //30- Quan el dia 24 de desembre (fèria) s’escau en dimecres 
+    if (date.getMonth() === 11 && date.getDate() === 24 && date.getDay() === 3) {
+      return 30;
+    }
+
+    //31- Quan el dia 24 de desembre (fèria) s’escau en dijous
+    if (date.getMonth() === 11 && date.getDate() === 24 && date.getDay() === 4) {
+      return 31;
+    }
+
+    //32- Quan el dia 24 de desembre (fèria) s’escau en divendres
+    if (date.getMonth() === 11 && date.getDate() === 24 && date.getDay() === 5) {
+      return 32;
+    }
+
+    //33- Quan el dia 24 de desembre (fèria) s’escau en dissabte
+    if (date.getMonth() === 11 && date.getDate() === 24 && date.getDay() === 6) {
+      return 33;
+    }
+
     return -1;
   }
 
