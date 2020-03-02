@@ -153,10 +153,13 @@ v2.2.3 (08.11.2019)[An33,Ap29]
 -----
 - Comento tot allò relacionat amb el share text. No ho tornaré a fer
 
-v2.2.4 (xxxxxx)[An34,Ap30]
+v2.2.4 (26.11.2019)[An34,Ap30]
 - Correcció d'errors
 -----
 - Afegeixo la part de la missa a l'StateTest
 - Canvio una query encarregada de seleccionar el registre a mostrar de la missa
 - Canvio la forma de crear un dia nou. Em donava problemes al crear la variabla Pentacosta
 - Canvis en com es calculava si era fèria de nadal o no. Es soluciona bastants dies erronis
+
+v2.2.5 (02.03.2020)[An35,Ap31]
+- Correcció d'errors de la base de dades

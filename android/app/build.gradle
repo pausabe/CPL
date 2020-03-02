@@ -131,8 +131,8 @@ android {
         applicationId "cpl.cpl"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 34
-        versionName "2.2.4"
+        versionCode 35
+        versionName "2.2.5"
     }
     splits {
         abi {
