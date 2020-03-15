@@ -13,7 +13,7 @@ export default class DBAdapter {
     else { createFrom = `~${GLOBAL.DBName}` } //android platform
 
     let db = this.SQLite.openDatabase(
-      { name: GLOBAL.DBName, readOnly: true, createFromLocation: createFrom },
+      { name: GLOBAL.DBName, /*readOnly: true, */createFromLocation: createFrom },
       this.openCB,
       this.errorCB);
 
@@ -22,6 +22,65 @@ export default class DBAdapter {
         callback(results);
       });
     });
+  }
+
+  MakeChanges(json_updates, callback){
+    try {
+
+      var sql = ""
+
+      for (var i = 0; i < json_updates.delta.length; i++) {
+
+        var change = json_updates.delta[i]
+
+        switch (change.type) {
+          case "UPDATE":
+
+              var aux = JSON.stringify(change.values)
+              aux = aux.replace(/{/g, "")
+              aux = aux.replace(/}/g, "")
+              aux = aux.replace(/,/g, ":")
+              aux = aux.replace(/\"/g, "")
+              var arr_aux = aux.split(":")
+
+              var set_statement = ""
+              for (var j = 0; j < arr_aux.length; j += 2){
+                set_statement += (arr_aux[j] + " = '" + arr_aux[j+1]) + "'"
+                if(j < (arr_aux.length - 2))
+                  set_statement += ", "
+              }
+
+              sql += " UPDATE " + change.table + " SET " + set_statement + " WHERE id = " + change.row_id + "; "
+            
+            break;
+
+          case "INSERT":
+          
+            break;
+          case "DELETE":
+        
+            break;
+
+        }
+
+      }
+
+      console.log("SQL: " + sql);
+
+      /*this.executeQuery(sql,
+      result => {
+        callback(result.rowsAffected)
+        }
+      );*/
+
+
+    } 
+    catch (error) {
+      console.log("[MakeChanges] ", error);
+    } 
+    finally{
+      callback()
+    }
   }
 
   getLiturgia(table, id, callback) {

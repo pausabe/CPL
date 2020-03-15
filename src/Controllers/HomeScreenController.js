@@ -121,7 +121,7 @@ export default class HomeScreenController extends Component {
         }
       }
 
-      Reload_All_Data(new Date(/*2019, 9, 23*/), this.Init_Everything.bind(this));
+      Reload_All_Data(new Date(/*2019, 9, 23*/), this.Init_Everything.bind(this), true);
     }
   }
 

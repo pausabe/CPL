@@ -5,10 +5,11 @@ import GF from "../../../Globals/GlobalFunctions";
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
 import { TEST_MODE_ON } from '../../../Tests/TestsManager';
+var json_test = require('../../../../test.json');
 
 /************
  * Class in charge of having all the data that will be shown in views. 
- * Also, to refreshed when necessary.
+ * Also, to refreshe when necessary.
  * DataManager will posses LitHoresManager and LitDiaManager. So, this class 
  * is the only way to get and refresh all the data. 
  * DataManager uses singleton pattern in order to be accessible to other classes being 
@@ -22,11 +23,11 @@ LH_VALUES = {}
 //Liturgia diària values
 LD_VALUES = {}
 
-export function Reload_All_Data(date, Reload_Finished_Callback) {
+export function Reload_All_Data(date, Reload_Finished_Callback, check_for_updates = false) {
   this.Reload_Finished_Callback = Reload_Finished_Callback;
 
+  //Get G_VALUES saved locally
   G_VALUES.date = date;
-
   Promise.all([
     SettingsManager.getSettingLloc((r) => {
       if (!TEST_MODE_ON)
@@ -46,17 +47,45 @@ export function Reload_All_Data(date, Reload_Finished_Callback) {
     SettingsManager.getSettingNumSalmInv((r) => G_VALUES.numSalmInv = r),
     SettingsManager.getSettingNumAntMare((r) => G_VALUES.numAntMare = r)
   ]).then(() => {
-    Refresh_Data(date);
+    
+    //Intialize DB Access
+    DB_Access = new DBAdapter();
+
+    if (check_for_updates) {
+
+      //Check and apply online changes. Finally will call Refresh_Data
+      Check_For_Updates()
+
+    }
+    else {
+
+      //Get the other G_VALUES, the LH_VALUES and the LD_VALUES
+      Refresh_Data();
+
+    }
+
   });
 }
 
-function Refresh_Data(newDay) {
-  DB_Access = new DBAdapter();
+function Check_For_Updates(){
+  try {
+      
+    //Get json with changes
+    var json_updates = json_test
 
+    //Ask DB_Access to make the changes (if there where any)
+    DB_Access.MakeChanges(json_updates, Refresh_Data.bind(this))
+
+  } catch (error) {
+    console.log("[Check_For_Updates] ", error);
+  }
+}
+
+function Refresh_Data() {
   return DB_Access.getAnyLiturgic(
-    newDay.getFullYear(),
-    newDay.getMonth(),
-    newDay.getDate(),
+    G_VALUES.date.getFullYear(),
+    G_VALUES.date.getMonth(),
+    G_VALUES.date.getDate(),
     (current, tomorrow, pentacosta) => {
       var celType = GF.getCelType(G_VALUES.diocesi, current);
       var tomorrowCelType = GF.getCelType(G_VALUES.diocesi, tomorrow);
@@ -74,7 +103,7 @@ function Refresh_Data(newDay) {
       G_VALUES.parImpar = current.paroimpar; //I o II
       G_VALUES.diaDeLaSetmana = current.DiadelaSetmana;
 
-      var tomorrow_date = new Date(newDay.getFullYear(), newDay.getMonth(), newDay.getDate());
+      var tomorrow_date = new Date(G_VALUES.date.getFullYear(), G_VALUES.date.getMonth(), G_VALUES.date.getDate());
       tomorrow_date.setDate(tomorrow_date.getDate() + 1);
 
       var dataTomorrow = {

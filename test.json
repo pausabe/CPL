@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "delta": [
+        {
+            "type": "UPDATE",
+            "table": "salteriComuLaudes",
+            "row_id": 3,
+            "values": {
+                "ant1": "new_test1",
+                "titol1": "new_test2",
+                "com1": "new_test3"
+            }
+        }
+    ]
+}
