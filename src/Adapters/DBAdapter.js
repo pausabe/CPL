@@ -25,6 +25,7 @@ export default class DBAdapter {
   }
 
   MakeChanges(json_updates, callback){
+
     try {
 
       var sql = ""
@@ -39,25 +40,45 @@ export default class DBAdapter {
               var aux = JSON.stringify(change.values)
               aux = aux.replace(/{/g, "")
               aux = aux.replace(/}/g, "")
-              aux = aux.replace(/,/g, ":")
               aux = aux.replace(/\"/g, "")
-              var arr_aux = aux.split(":")
+              var arr_aux = aux.split(",")
 
               var set_statement = ""
-              for (var j = 0; j < arr_aux.length; j += 2){
-                set_statement += (arr_aux[j] + " = '" + arr_aux[j+1]) + "'"
-                if(j < (arr_aux.length - 2))
+              for (var j = 0; j < arr_aux.length; j++){
+                set_statement += (arr_aux[j].split(":")[0] + " = '" + arr_aux[j].split(":")[1]) + "'"
+                if(j < (arr_aux.length - 1))
                   set_statement += ", "
               }
 
-              sql += " UPDATE " + change.table + " SET " + set_statement + " WHERE id = " + change.row_id + "; "
+              sql += " UPDATE " + change.table + " SET " + set_statement + " WHERE id = " + change.row_id + "; ";
             
             break;
 
           case "INSERT":
+
+            var aux = JSON.stringify(change.values)
+            aux = aux.replace(/{/g, "")
+            aux = aux.replace(/}/g, "")
+            aux = aux.replace(/\"/g, "")
+            var arr_aux = aux.split(",")
+
+            var ref_statement = ""
+            var val_statement = ""
+            for (var j = 0; j < arr_aux.length; j++){
+              ref_statement += arr_aux[j].split(":")[0] 
+              val_statement += ("'" + arr_aux[j].split(":")[1] + "'")
+              if(j < (arr_aux.length - 1)){
+                ref_statement += ", "
+                val_statement += ", "
+              }
+            }
           
+            sql += " INSERT INTO " + change.table + "(" + ref_statement + ") VALUES (" + val_statement + "); ";
+              
             break;
           case "DELETE":
+
+            sql += " DELETE FROM " + change.table + " WHERE id = " + change.row_id + "; ";
         
             break;
 
@@ -65,14 +86,13 @@ export default class DBAdapter {
 
       }
 
-      console.log("SQL: " + sql);
+      console.log("MakeChanges SQL: " + sql);
 
       /*this.executeQuery(sql,
       result => {
         callback(result.rowsAffected)
         }
       );*/
-
 
     } 
     catch (error) {
@@ -81,6 +101,7 @@ export default class DBAdapter {
     finally{
       callback()
     }
+    
   }
 
   getLiturgia(table, id, callback) {

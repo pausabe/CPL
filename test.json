@@ -10,6 +10,19 @@
                 "titol1": "new_test2",
                 "com1": "new_test3"
             }
+        },
+        {
+            "type": "INSERT",
+            "table": "anyliturgic",
+            "values": {
+                "Andorra": "testing1",
+                "MaD": "testing2"
+            }
+        },
+        {
+            "type": "DELETE",
+            "table": "salteriComuLaudes",
+            "row_id": 12341234
         }
     ]
 }

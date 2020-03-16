@@ -73,6 +73,8 @@ function Check_For_Updates(){
     //Get json with changes
     var json_updates = json_test
 
+    //Save version
+
     //Ask DB_Access to make the changes (if there where any)
     DB_Access.MakeChanges(json_updates, Refresh_Data.bind(this))
 
