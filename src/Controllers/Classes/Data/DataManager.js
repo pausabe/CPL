@@ -23,7 +23,7 @@ LH_VALUES = {}
 //Liturgia diària values
 LD_VALUES = {}
 
-export function Reload_All_Data(date, Reload_Finished_Callback, check_for_updates = false) {
+export function Reload_All_Data(date, Reload_Finished_Callback, online_updates = false) {
   this.Reload_Finished_Callback = Reload_Finished_Callback;
 
   //Get G_VALUES saved locally
@@ -51,10 +51,10 @@ export function Reload_All_Data(date, Reload_Finished_Callback, check_for_update
     //Intialize DB Access
     DB_Access = new DBAdapter();
 
-    if (check_for_updates) {
+    if (online_updates) {
 
       //Check and apply online changes. Finally will call Refresh_Data
-      Check_For_Updates()
+      if (!Check_For_Updates()) Refresh_Data();
 
     }
     else {
@@ -69,18 +69,41 @@ export function Reload_All_Data(date, Reload_Finished_Callback, check_for_update
 
 function Check_For_Updates(){
   try {
-      
+
+    //Get current version
+    let current_version = 0
+
     //Get json with changes
-    var json_updates = json_test
+    GetOnlineChanges(current_version).then((json_updates) => {
+      console.log("json_updates", json_updates);
 
-    //Save version
+      //Check json
+      if (json_updates == undefined || json_updates == "") return false;
 
-    //Ask DB_Access to make the changes (if there where any)
-    DB_Access.MakeChanges(json_updates, Refresh_Data.bind(this))
+      //Ask DB_Access to make the changes (if there where any). It will call Refresh_Data
+      DB_Access.MakeChanges(json_updates, Refresh_Data.bind(this))
+
+      //TODO: Save version
+
+      return true;
+
+    });
 
   } catch (error) {
-    console.log("[Check_For_Updates] ", error);
+    console.log("[EXCEPTION Check_For_Updates]", error);
+    return false
   }
+}
+
+function GetOnlineChanges(version) {
+  return fetch('http://refugiodealex.com/test.json', { headers: { 'Cache-Control': 'no-cache' } } )
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.log("[EXCEPTION GetOnlineChanges]", error);
+    });
 }
 
 function Refresh_Data() {

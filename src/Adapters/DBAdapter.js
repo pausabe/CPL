@@ -96,7 +96,7 @@ export default class DBAdapter {
 
     } 
     catch (error) {
-      console.log("[MakeChanges] ", error);
+      console.log("[EXCEPTION MakeChanges]", error);
     } 
     finally{
       callback()
