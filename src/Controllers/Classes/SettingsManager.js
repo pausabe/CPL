@@ -46,7 +46,8 @@ const defaultSettings = {
     lloc: lloc.DIOCESI,
     dayStart: "0", //Values from 0 to 3 allowed, which means 00:00AM, 01:00AM, 02:00AM and 03:00AM
     salmInvitatori: salmInvitatori.SALM94,
-    antMare: antMare.ANT1
+    antMare: antMare.ANT1,
+    onlineVersion: 0
 };
 
 export default class SettingsManager{
@@ -126,6 +127,10 @@ export default class SettingsManager{
         return SettingsManager._getStorageValue("antMare", callback, defaultSettings.antMare);
     }
 
+    static getSettingOnlineVersion(callback){
+        return SettingsManager._getStorageValue("onlineVersion", callback, defaultSettings.onlineVersion);
+    }
+
     static setSettingShowGlories(value, callback){
         return SettingsManager._setValueIfValid("showGlories", value,
             (val) => val === "true" || val === "false",
@@ -181,6 +186,13 @@ export default class SettingsManager{
         return SettingsManager._setValueIfValid("antMare", value,
             (val) => {
                 return findValueInObject(antMare, val);
+            });
+    }
+
+    static setSettingOnlineVersion(value){
+        return SettingsManager._setValueIfValid("onlineVersion", value,
+            (val) => {
+                return (!isNaN(val) && val >= 0 && val < 99999);
             });
     }
 

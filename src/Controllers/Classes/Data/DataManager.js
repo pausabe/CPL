@@ -5,7 +5,7 @@ import GF from "../../../Globals/GlobalFunctions";
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
 import { TEST_MODE_ON } from '../../../Tests/TestsManager';
-var json_test = require('../../../../test.json');
+//var json_test = require('../../../../test.json');
 
 /************
  * Class in charge of having all the data that will be shown in views. 
@@ -45,16 +45,25 @@ export function Reload_All_Data(date, Reload_Finished_Callback, online_updates =
     SettingsManager.getSettingUseLatin((r) => G_VALUES.llati = r),
     SettingsManager.getSettingTextSize((r) => G_VALUES.textSize = r),
     SettingsManager.getSettingNumSalmInv((r) => G_VALUES.numSalmInv = r),
-    SettingsManager.getSettingNumAntMare((r) => G_VALUES.numAntMare = r)
+    SettingsManager.getSettingNumAntMare((r) => G_VALUES.numAntMare = r),
+    SettingsManager.getSettingOnlineVersion((r) => G_VALUES.onlineVersion = r),
   ]).then(() => {
     
     //Intialize DB Access
     DB_Access = new DBAdapter();
 
+    console.log("[ONLINE_UPDATES Reload_All_Data] online_updates: ", online_updates);
+    
     if (online_updates) {
 
       //Check and apply online changes. Finally will call Refresh_Data
-      if (!Check_For_Updates()) Refresh_Data();
+      Check_For_Updates().then((r) => {
+
+        console.log("[ONLINE_UPDATES Reload_All_Data] result: ", r);
+
+        if (!r) Refresh_Data();
+
+      });
 
     }
     else {
@@ -68,34 +77,44 @@ export function Reload_All_Data(date, Reload_Finished_Callback, online_updates =
 }
 
 function Check_For_Updates(){
-  try {
 
-    //Get current version
-    let current_version = 0
+  let promise = new Promise((resolve) => {
 
     //Get json with changes
-    GetOnlineChanges(current_version).then((json_updates) => {
-      console.log("json_updates", json_updates);
+    GetOnlineChanges(G_VALUES.onlineVersion).then((json_updates) => {
+
+      console.log("[ONLINE_UPDATES Check_For_Updates] json_updates:", json_updates);
 
       //Check json
-      if (json_updates == undefined || json_updates == "") return false;
+      if (json_updates == undefined || json_updates == "") throw "Intenet error"
 
-      //Ask DB_Access to make the changes (if there where any). It will call Refresh_Data
-      DB_Access.MakeChanges(json_updates, Refresh_Data.bind(this))
+      //Update version
+      SettingsManager.setSettingOnlineVersion(String(json_updates.version)).then(() => {
 
-      //TODO: Save version
+        //Ask DB_Access to make the changes (if there where any). It will call Refresh_Data
+        DB_Access.MakeChanges(json_updates, Refresh_Data.bind(this))
 
-      return true;
+        //OK
+        resolve(true)
 
+      });
+
+    })
+    .catch((error) => {
+      console.log("[EXCEPTION Check_For_Updates]", error);
+      resolve(false)
     });
 
-  } catch (error) {
-    console.log("[EXCEPTION Check_For_Updates]", error);
-    return false
-  }
+  });
+
+  return promise
+  
 }
 
 function GetOnlineChanges(version) {
+  
+  console.log("[ONLINE_UPDATES GetOnlineChanges] version: ", version);
+  
   return fetch('http://refugiodealex.com/test.json', { headers: { 'Cache-Control': 'no-cache' } } )
     .then((response) => response.json())
     .then((responseJson) => {
@@ -107,6 +126,9 @@ function GetOnlineChanges(version) {
 }
 
 function Refresh_Data() {
+
+  console.log("[ONLINE_UPDATES Refresh_Data]");
+
   return DB_Access.getAnyLiturgic(
     G_VALUES.date.getFullYear(),
     G_VALUES.date.getMonth(),

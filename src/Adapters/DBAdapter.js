@@ -28,6 +28,8 @@ export default class DBAdapter {
 
     try {
 
+      console.log("[ONLINE_UPDATES MakeChanges]");
+
       var sql = ""
 
       for (var i = 0; i < json_updates.delta.length; i++) {
@@ -86,21 +88,20 @@ export default class DBAdapter {
 
       }
 
-      console.log("MakeChanges SQL: " + sql);
+      console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
 
-      /*this.executeQuery(sql,
-      result => {
-        callback(result.rowsAffected)
+      this.executeQuery(sql,
+        () => {
+          console.log("[ONLINE_UPDATES MakeChanges] sql executed!");
+          callback()
         }
-      );*/
+      );
 
     } 
     catch (error) {
       console.log("[EXCEPTION MakeChanges]", error);
-    } 
-    finally{
       callback()
-    }
+    } 
     
   }
 
