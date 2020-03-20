@@ -3,12 +3,10 @@
     "delta": [
         {
             "type": "UPDATE",
-            "table": "salteriComuLaudes",
-            "row_id": 3,
+            "table": "salteriComuOfici",
+            "row_id": 20,
             "values": {
-                "ant1": "new_test1",
-                "titol1": "new_test2",
-                "com1": "new_test3"
+                "ant1": "TESTING!!"
             }
         },
         {

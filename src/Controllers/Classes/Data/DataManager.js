@@ -5,7 +5,7 @@ import GF from "../../../Globals/GlobalFunctions";
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
 import { TEST_MODE_ON } from '../../../Tests/TestsManager';
-//var json_test = require('../../../../test.json');
+var json_test = require('../../../../test.json');
 
 /************
  * Class in charge of having all the data that will be shown in views. 
@@ -54,56 +54,63 @@ export function Reload_All_Data(date, Reload_Finished_Callback, online_updates =
 
     console.log("[ONLINE_UPDATES Reload_All_Data] online_updates: ", online_updates);
     
-    if (online_updates) {
+    //Check and apply online changes. Finally will call Refresh_Data
+    Check_For_Updates(online_updates).then((result) => {
 
-      //Check and apply online changes. Finally will call Refresh_Data
-      Check_For_Updates().then((r) => {
-
-        console.log("[ONLINE_UPDATES Reload_All_Data] result: ", r);
-
-        if (!r) Refresh_Data();
-
-      });
-
-    }
-    else {
+      console.log("[ONLINE_UPDATES Reload_All_Data] result: ", result);
 
       //Get the other G_VALUES, the LH_VALUES and the LD_VALUES
       Refresh_Data();
 
-    }
+    });
 
   });
 }
 
-function Check_For_Updates(){
+//Resolves true if online_updates = false or it its true and all updates went ok
+function Check_For_Updates(online_updates){
 
   let promise = new Promise((resolve) => {
 
-    //Get json with changes
-    GetOnlineChanges(G_VALUES.onlineVersion).then((json_updates) => {
+    //Check online_updates parameter
+    if(!online_updates) {
+      resolve(true)
+    }
+    else{
 
-      console.log("[ONLINE_UPDATES Check_For_Updates] json_updates:", json_updates);
+      //Get json with changes
+      GetOnlineChanges(G_VALUES.onlineVersion).then((json_updates) => {
 
-      //Check json
-      if (json_updates == undefined || json_updates == "") throw "Intenet error"
+        console.log("[ONLINE_UPDATES Check_For_Updates] json_updates:", json_updates);
 
-      //Update version
-      SettingsManager.setSettingOnlineVersion(String(json_updates.version)).then(() => {
+        //Check json
+        if (json_updates == undefined || json_updates == "") throw "Intenet error"
 
-        //Ask DB_Access to make the changes (if there where any). It will call Refresh_Data
-        DB_Access.MakeChanges(json_updates, Refresh_Data.bind(this))
+        //Ask DB_Access to make the changes (if there where any)
+        DB_Access.MakeChanges(json_updates).then((result) => {
 
-        //OK
-        resolve(true)
+          console.log("[ONLINE_UPDATES Check_For_Updates] result:", result);
 
-      });
+          //Check result
+          if(!result) resolve(false)
 
-    })
-    .catch((error) => {
-      console.log("[EXCEPTION Check_For_Updates]", error);
-      resolve(false)
-    });
+          //Update version
+          SettingsManager.setSettingOnlineVersion(String(json_updates.version)).then(() => {
+
+            //OK
+            resolve(true)
+
+          });
+
+        })
+        .catch((error) => {
+          console.log("[EXCEPTION Check_For_Updates]", error);
+          resolve(false)
+        });
+
+      })
+
+    }
 
   });
 
@@ -119,6 +126,7 @@ function GetOnlineChanges(version) {
     .then((response) => response.json())
     .then((responseJson) => {
       return responseJson;
+      //return json_test
     })
     .catch((error) => {
       console.log("[EXCEPTION GetOnlineChanges]", error);

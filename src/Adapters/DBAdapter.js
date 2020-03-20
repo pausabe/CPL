@@ -13,24 +13,56 @@ export default class DBAdapter {
     else { createFrom = `~${GLOBAL.DBName}` } //android platform
 
     let db = this.SQLite.openDatabase(
-      { name: GLOBAL.DBName, /*readOnly: true, */createFromLocation: createFrom },
+      { name: GLOBAL.DBName, createFromLocation: createFrom },
       this.openCB,
       this.errorCB);
 
     db.transaction((tx) => {
       tx.executeSql(query, [], (tx, results) => {
         callback(results);
+      }, (err) => {
+        console.log("[ONLINE_UPDATES executeQuery] error:", err.message);
+        callback();
       });
-    });
+    })
   }
 
-  MakeChanges(json_updates, callback){
+  executeQuery_onlinechanges(query, readOnly) {
 
-    try {
+    let promise = new Promise((resolve) => {
+
+      let createFrom;
+      if (Platform.OS == "ios") { createFrom = "1"; } //ios platform
+      else { createFrom = `~${GLOBAL.DBName}` } //android platform
+  
+      let db = this.SQLite.openDatabase(
+        { name: GLOBAL.DBName, createFromLocation: createFrom },
+        this.openCB,
+        this.errorCB);
+
+      db.transaction((tx) => {
+        tx.executeSql(query, [], (tx, results) => {
+          resolve(true)
+        }, (err) => {
+          console.log("[ONLINE_UPDATES executeQuery_onlinechanges] error:", err.message);
+          resolve(false)
+        });
+      })
+
+    });
+  
+    return promise
+
+  }
+
+  MakeChanges(json_updates){
+
+    let promise = new Promise((resolve) => {
 
       console.log("[ONLINE_UPDATES MakeChanges]");
 
-      var sql = ""
+      let promises = []
+      let sql
 
       for (var i = 0; i < json_updates.delta.length; i++) {
 
@@ -52,8 +84,12 @@ export default class DBAdapter {
                   set_statement += ", "
               }
 
-              sql += " UPDATE " + change.table + " SET " + set_statement + " WHERE id = " + change.row_id + "; ";
-            
+              sql = "UPDATE " + change.table + " SET " + set_statement + " WHERE id = " + change.row_id;
+              
+              console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
+
+              promises.push(this.executeQuery_onlinechanges(sql, false))
+
             break;
 
           case "INSERT":
@@ -75,33 +111,53 @@ export default class DBAdapter {
               }
             }
           
-            sql += " INSERT INTO " + change.table + "(" + ref_statement + ") VALUES (" + val_statement + "); ";
+            sql = "INSERT INTO " + change.table + "(" + ref_statement + ") VALUES (" + val_statement + ")";
               
+            console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
+
+            promises.push(this.executeQuery_onlinechanges(sql, false))
+
             break;
+            
           case "DELETE":
 
-            sql += " DELETE FROM " + change.table + " WHERE id = " + change.row_id + "; ";
+            sql =  "DELETE FROM " + change.table + " WHERE id = " + change.row_id;
         
+            console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
+
+            promises.push(this.executeQuery_onlinechanges(sql, false))
+
             break;
 
         }
 
       }
 
-      console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
+      console.log("[ONLINE_UPDATES MakeChanges] promises.length: ", promises.length);
 
-      this.executeQuery(sql,
-        () => {
-          console.log("[ONLINE_UPDATES MakeChanges] sql executed!");
-          callback()
+      Promise.all(promises).then((res) => {
+
+        let total_res = true
+        for (var i = 0; i < res.length; i++) {
+          console.log("[ONLINE_UPDATES MakeChanges] promise " + i + " result:", res[i]);
+          if (!res[i]){
+            total_res = false;
+          }
         }
-      );
 
-    } 
-    catch (error) {
-      console.log("[EXCEPTION MakeChanges]", error);
-      callback()
-    } 
+        console.log("[ONLINE_UPDATES MakeChanges] total_res: ", total_res);
+
+        resolve(total_res)
+
+      })
+      .catch((error) => {
+        console.log("[EXCEPTION ONLINE_UPDATES MakeChanges]", error);
+        resolve(false)
+      });
+
+    });
+
+    return promise
     
   }
 
@@ -542,7 +598,7 @@ export default class DBAdapter {
   }
 
   errorCB(err) {
-    console.log("SqlLog. SQL Error: " + err);
+    console.log("SqlLog. SQL Error", err);
   }
 
   successCB() {
