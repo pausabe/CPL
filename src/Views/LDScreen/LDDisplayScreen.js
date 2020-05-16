@@ -383,7 +383,7 @@ export default class LDDisplayScreen extends Component {
     }
 
     Render_1Lect() {
-        var displayGloria = (this.state.DisplayVespers && GF.trim(LD_VALUES.GloriaVespers == '1') || (!this.state.DisplayVespers && LD_VALUES.Gloria == '1'));
+        var displayGloria = (this.state.DisplayVespers && LD_VALUES.GloriaVespers == '1' || (!this.state.DisplayVespers && LD_VALUES.Gloria == '1'));
 
         return (
             <View style={{ flex: 1 }}>

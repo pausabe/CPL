@@ -184,10 +184,19 @@ module.exports = {
   },
 
   trim(text){
-    var length = text.length;
-    var lastChar = text.charAt(length-1);
-    if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
-    return text;
+
+    try {
+
+      var length = text.length;
+      var lastChar = text.charAt(length-1);
+      if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+      return text;
+      
+    } catch (error) {
+      console.log("Something went wrong triming the text '" + text + "': ", error);
+      return text
+    }
+
   },
 
   respTogether(r1,r2){
