@@ -183,6 +183,13 @@ module.exports = {
     return text;
   },
 
+  trim(text){
+    var length = text.length;
+    var lastChar = text.charAt(length-1);
+    if(lastChar === ' ' || lastChar === '\n') return text.slice(0,length-1);
+    return text;
+  },
+
   respTogether(r1,r2){
     var result = r1 + ' ' + r2;
 
