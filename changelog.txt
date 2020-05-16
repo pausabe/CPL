@@ -163,3 +163,6 @@ v2.2.4 (26.11.2019)[An34,Ap30]
 
 v2.2.5 (02.03.2020)[An35,Ap31]
 - Correcció d'errors de la base de dades
+
+v2.2.6 (16.05.2020)[An36,Ap32]
+- Correcció d'errors de la base de dades

@@ -13,7 +13,7 @@ export default class DBAdapter {
     else { createFrom = `~${GLOBAL.DBName}` } //android platform
 
     let db = this.SQLite.openDatabase(
-      { name: GLOBAL.DBName, createFromLocation: createFrom },
+      { name: GLOBAL.DBName, createFromLocation: createFrom, readOnly: false },
       this.openCB,
       this.errorCB);
 
@@ -21,13 +21,13 @@ export default class DBAdapter {
       tx.executeSql(query, [], (tx, results) => {
         callback(results);
       }, (err) => {
-        console.log("[ONLINE_UPDATES executeQuery] error:", err.message);
+        console.log("[executeQuery] error in query(" + query + "): ", err.message);
         callback();
       });
     })
   }
 
-  executeQuery_onlinechanges(query, readOnly) {
+  executeQuery_onlinechanges(query) {
 
     let promise = new Promise((resolve) => {
 
@@ -36,7 +36,7 @@ export default class DBAdapter {
       else { createFrom = `~${GLOBAL.DBName}` } //android platform
   
       let db = this.SQLite.openDatabase(
-        { name: GLOBAL.DBName, createFromLocation: createFrom },
+        { name: GLOBAL.DBName, createFromLocation: createFrom, readOnly: false  },
         this.openCB,
         this.errorCB);
 
@@ -44,7 +44,7 @@ export default class DBAdapter {
         tx.executeSql(query, [], (tx, results) => {
           resolve(true)
         }, (err) => {
-          console.log("[ONLINE_UPDATES executeQuery_onlinechanges] error:", err.message);
+          console.log("[ONLINE_UPDATES executeQuery_onlinechanges] error in query(" + query + "): ", err.message);
           resolve(false)
         });
       })
@@ -88,7 +88,7 @@ export default class DBAdapter {
               
               console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
 
-              promises.push(this.executeQuery_onlinechanges(sql, false))
+              promises.push(this.executeQuery_onlinechanges(sql))
 
             break;
 
@@ -115,7 +115,7 @@ export default class DBAdapter {
               
             console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
 
-            promises.push(this.executeQuery_onlinechanges(sql, false))
+            promises.push(this.executeQuery_onlinechanges(sql))
 
             break;
             
@@ -125,7 +125,7 @@ export default class DBAdapter {
         
             console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
 
-            promises.push(this.executeQuery_onlinechanges(sql, false))
+            promises.push(this.executeQuery_onlinechanges(sql))
 
             break;
 

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import DBAdapter from '../../../Adapters/DBAdapter';
 import GF from "../../../Globals/GlobalFunctions";
+import GLOBAL from '../../../Globals/Globals';
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
 import { TEST_MODE_ON } from '../../../Tests/TestsManager';
@@ -52,17 +53,26 @@ export function Reload_All_Data(date, Reload_Finished_Callback, online_updates =
     //Intialize DB Access
     DB_Access = new DBAdapter();
 
-    console.log("[ONLINE_UPDATES Reload_All_Data] online_updates: ", online_updates);
+    if(GLOBAL.enable_updates){
+
+      console.log("[ONLINE_UPDATES Reload_All_Data] online_updates: ", online_updates);
     
-    //Check and apply online changes. Finally will call Refresh_Data
-    Check_For_Updates(online_updates).then((result) => {
+      //Check and apply online changes. Finally will call Refresh_Data
+      Check_For_Updates(online_updates).then((result) => {
+  
+        console.log("[ONLINE_UPDATES Reload_All_Data] result: ", result);
+  
+        //Get the other G_VALUES, the LH_VALUES and the LD_VALUES
+        Refresh_Data();
+  
+      });
 
-      console.log("[ONLINE_UPDATES Reload_All_Data] result: ", result);
+    }
+    else{
 
-      //Get the other G_VALUES, the LH_VALUES and the LD_VALUES
       Refresh_Data();
 
-    });
+    }
 
   });
 }
@@ -135,7 +145,7 @@ function GetOnlineChanges(version) {
 
 function Refresh_Data() {
 
-  console.log("[ONLINE_UPDATES Refresh_Data]");
+  console.log("[Refresh_Data]");
 
   return DB_Access.getAnyLiturgic(
     G_VALUES.date.getFullYear(),
