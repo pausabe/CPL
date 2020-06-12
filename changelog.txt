@@ -168,3 +168,9 @@ v2.2.7 (16.05.2020)[An37,Ap33]
 - Correcció d'errors de la base de dades
 -----
 - Nova funció global Trim i ús de la mateixa en litúrgia de missa
+
+v2.2.8 (12.06.2020)[An38,Ap34]
+- Correcció d'errors
+-----
+- Alguna correcció hardcoded de l'any passat
+- Apareix la Segona lectura quan cal encara que sigui no-dissabte

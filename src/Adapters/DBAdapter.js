@@ -368,7 +368,40 @@ export default class DBAdapter {
         var query = `SELECT * FROM LDSantoral WHERE id = '${specialResultId}'`;
         console.log("QueryLog. QUERY getLDSantoral: " + query);
         this.executeQuery(query,
-          result => callback(result.rows.item(0))
+          result => {
+
+            var special_result = result.rows.item(0);
+
+              if(normal_result != undefined){
+                if (special_result.Lectura1Text == '-'){
+                  special_result.Lectura1 = normal_result.Lectura1;
+                  special_result.Lectura1Cita = normal_result.Lectura1Cita;
+                  special_result.Lectura1Titol = normal_result.Lectura1Titol;
+                  special_result.Lectura1Text = normal_result.Lectura1Text;
+                }
+                if (special_result.SalmText == '-'){
+                  special_result.Salm = normal_result.Salm;
+                  special_result.SalmText = normal_result.SalmText;
+                }
+                if (special_result.Lectura2Text == '-'){
+                  special_result.Lectura2 = normal_result.Lectura2;
+                  special_result.Lectura2Text = normal_result.Lectura2Cita;
+                  special_result.Lectura2Text = normal_result.Lectura2Titol;
+                  special_result.Lectura2Text = normal_result.Lectura2Text;
+                }
+                if (special_result.EvangeliText == '-'){
+                  special_result.Alleluia = normal_result.Alleluia;
+                  special_result.AlleluiaText = normal_result.AlleluiaText;
+                  special_result.Evangeli = normal_result.Evangeli;
+                  special_result.EvangeliCita = normal_result.EvangeliCita;
+                  special_result.EvangeliTitol = normal_result.EvangeliTitol;
+                  special_result.EvangeliText = normal_result.EvangeliText;
+                }
+              }
+
+              callback(special_result)
+
+          } 
         );
       }
     });

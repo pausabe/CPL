@@ -312,8 +312,10 @@ export default class LD_SOUL {
 
     GetSpecialVespers(today_date, today_string, ABC) {
         //(Dia abans) Naixement de sant Joan Baptista (036)
-        //TODO: harcoded day. Precedencia (corpus > sant joan)
-        if (today_string == '23-jun' && !(today_date.getFullYear() == 2019 && today_date.getMonth() == 5 && today_date.getDate() == 23))
+        //No si cau en Santissim cos i sang de crist (Corpus > sant joan)
+        var trinitat = new Date(G_VALUES.pentacosta.getFullYear(), G_VALUES.pentacosta.getMonth(), G_VALUES.pentacosta.getDate() + 7);
+        var cosSang = new Date(trinitat.getFullYear(), trinitat.getMonth(), trinitat.getDate() + 7);
+        if (today_string == '23-jun' && !(today_date.getFullYear() == cosSang.getFullYear() && today_date.getMonth() == cosSang.getMonth() && today_date.getDate() == cosSang.getDate()))
             return '036';
 
         //(Dia abans) Sants Pere i Pau, apòstols (038)
@@ -361,8 +363,8 @@ export default class LD_SOUL {
         var corImmaculat = new Date(G_VALUES.pentacosta.getFullYear(), G_VALUES.pentacosta.getMonth(), G_VALUES.pentacosta.getDate() + 20);
         if (today_date.getDate() === corImmaculat.getDate() && today_date.getMonth() === corImmaculat.getMonth() &&
             today_date.getFullYear() === corImmaculat.getFullYear()) {
-            //TODO: HARDCODED! st pere i st pau > cor immaculat
-            if (!(today_date.getFullYear() == 2019 && today_date.getMonth() == 5 && today_date.getDate() == 29))
+            // No si aquest dia es 29 de juny (St Pere i St Pau) -> St st pere i st pau > cor immaculat
+            if (!(today_date.getMonth() == 5 && today_date.getDate() == 29))
                 return '033';
         }
 
