@@ -23,9 +23,13 @@ G_VALUES = {}
 LH_VALUES = {}
 //Liturgia diària values
 LD_VALUES = {}
+//Last refresh datetime
+LAST_REFRESH = new Date()
 
 export function Reload_All_Data(date, Reload_Finished_Callback, online_updates = false) {
+  // Set some variables
   this.Reload_Finished_Callback = Reload_Finished_Callback;
+  LAST_REFRESH = new Date()
 
   //Get G_VALUES saved locally
   G_VALUES.date = date;

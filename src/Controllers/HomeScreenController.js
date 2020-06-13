@@ -4,7 +4,9 @@ import {
   Text,
   TouchableOpacity,
   BackHandler,
-  SafeAreaView
+  SafeAreaView,
+  AppState,
+  Platform
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -30,10 +32,43 @@ export default class HomeScreenController extends Component {
       Refresh_Date: this.Refresh_Date.bind(this),
     });
     BackHandler.addEventListener('hardwareBackPress', this.androidBack.bind(this));
+    if (Platform.OS == "ios")
+      AppState.addEventListener('change', this._handleAppStateChange.bind(this));
   }
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.androidBack.bind(this));
+    if (Platform.OS == "ios")
+      AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
+  }
+
+  _handleAppStateChange(nextAppState){
+
+    if (Platform.OS == "ios"){
+
+      console.log("[STATE LOG] nextAppState: ", nextAppState);
+      console.log("[STATE LOG] LAST_REFRESH: ", LAST_REFRESH);
+    
+      // Check if the state is changing to active
+      if(!this.Is_Late_Prayer() && nextAppState == 'active'){
+
+        // Get today
+        var now = new Date()
+        console.log("[STATE LOG] now: ", now);
+        
+        // Refresh the date if today is different than the last refresh date
+        if(now.getDate() != LAST_REFRESH.getDate() && now.getMonth() != LAST_REFRESH.getMonth() && now.getFullYear() != LAST_REFRESH.getFullYear()){
+          console.log("[STATE LOG] will update?: YES");
+          this.Refresh_Date(now)
+        }
+        else{
+          console.log("[STATE LOG] will update?: NO");
+        }
+        
+      }
+
+    }
+
   }
 
   androidBack() {
@@ -161,6 +196,9 @@ export default class HomeScreenController extends Component {
   }
 
   Refresh_Date_Callback() {
+
+    //TODO: si estava en una altra pestanya, dirigir-se a Home
+
     //Set data to show on Home Screen
     this.setState({
       santPressed: false,
@@ -190,7 +228,7 @@ export default class HomeScreenController extends Component {
 
   Is_Late_Prayer() {
     var h = new Date().getHours();
-    if (h >= 0 && h < 3)
+    if (h >= 0 && h < GLOBALS.late_prayer)
       return true;
 
     return false;

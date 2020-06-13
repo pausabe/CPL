@@ -11,6 +11,7 @@ import { NavigationEvents } from 'react-navigation';
 
 import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter'
 import HR from '../../Components/HRComponent';
+import GLOBALS from '../../Globals/Globals';
 
 const VESPERS_SELECTOR_TYPES = {
   NORMAL: 'normal',
@@ -32,9 +33,7 @@ export default class LDScreen extends Component {
 
       console.log("[DEBUG] Refresh_Layout ", LD_VALUES.VetllaPasqua);
 
-      var max_hour = 18
-
-      this.CURRENT_VESPERS_SELECTOR = (!LD_VALUES.VetllaPasqua && LD_VALUES.Vespers && G_VALUES.date.getHours() >= max_hour && LD_VALUES.Lectura2Vespers != '-')? VESPERS_SELECTOR_TYPES.VESPERS : VESPERS_SELECTOR_TYPES.NORMAL;
+      this.CURRENT_VESPERS_SELECTOR = (!LD_VALUES.VetllaPasqua && LD_VALUES.Vespers && G_VALUES.date.getHours() >= GLOBALS.afternoon_hour && LD_VALUES.Lectura2Vespers != '-')? VESPERS_SELECTOR_TYPES.VESPERS : VESPERS_SELECTOR_TYPES.NORMAL;
 
       this.setState({
         need_lectura2: (this.CURRENT_VESPERS_SELECTOR == VESPERS_SELECTOR_TYPES.NORMAL && LD_VALUES.Lectura2 != '-') || (this.CURRENT_VESPERS_SELECTOR == VESPERS_SELECTOR_TYPES.VESPERS && LD_VALUES.Lectura2Vespers != '-')
