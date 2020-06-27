@@ -14,16 +14,6 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import GLOBAL from "../Globals/Globals";
 
-function paddingBar() {
-  /*if(Platform.OS === 'ios'){
-    var DeviceInfo = require('react-native-device-info');
-    var iosVer = parseInt(DeviceInfo.getSystemVersion());
-    if(iosVer>=11) return 44;
-    return 64;
-  }*/
-  return 0; //54;
-}
-
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -204,16 +194,6 @@ export default class HomeScreen extends Component {
     }
   }
 
-  /*whole return:
-        <View style={styles.container}>
-          <ImageBackground source={require('../Globals/img/bg/currentbg.jpg')} style={styles.backgroundImage}>
-            {this.Top_Info(date_getdate, date_getmonth, date_getfullyear)}
-            {this.Info_Liturgica(date_getday)}
-            {this.Cel_Info()}
-          </ImageBackground>
-        </View>
-  */
-
   render() {
     try {
       var date_getdate = G_VALUES.date.getDate();
@@ -349,7 +329,6 @@ export default class HomeScreen extends Component {
               marginBottom: 10,
               paddingLeft: 10,
               marginHorizontal: 20,
-              //opacity: santContainerOpa,
             }}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 {(this.props.ViewData.celebracio.type === 'L' || this.props.ViewData.celebracio.type === 'V') ?
@@ -435,20 +414,17 @@ export default class HomeScreen extends Component {
     try {
       return (
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', paddingTop: 20}}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end', paddingRight: 10/*, marginTop: 30*/, justifyContent: 'flex-start', }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end', paddingRight: 10, justifyContent: 'flex-start', }}>
             <TouchableOpacity style={styles.two_buttons} onPress={this.On_Comment_Press.bind(this)}>
               <Icon
-                //name="md-mail"
                 name="ios-mail"
                 size={75}
-                //color={'#424242'}
-                //color={'black'}
               color={'rgb(50, 50, 50)'} 
               />
               <Text style={{ textAlign: 'center', marginTop: -10, color: 'rgb(50, 50, 50)', fontSize: 12 }}>{"Missatge"}</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start', paddingLeft: 10/*, marginTop: 33*/, justifyContent: 'flex-start', }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start', paddingLeft: 10, justifyContent: 'flex-start', }}>
             <TouchableOpacity style={styles.two_buttons} onPress={this.On_Give_Press.bind(this)}>
               <Icon
                 name="ios-card"
@@ -473,7 +449,7 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: paddingBar(),
+    paddingTop: 0,
     backgroundColor: 'white'//GLOBAL.backgroundColor,
   },
   backgroundImage: {
@@ -493,51 +469,29 @@ const styles = StyleSheet.create({
     flex: 1.3,
     justifyContent: 'flex-end',
     paddingTop: 5,
-    //backgroundColor: 'red',
   },
   infoContainer_cel: {
     flex: 0.6,
     justifyContent: 'flex-end',
     paddingTop: 5,
-    //backgroundColor: 'red',
   },
   diaLiturgicContainer: {
     flex: 1,
     justifyContent: 'center',
-    /*shadowOpacity: 0.3,
-    shadowRadius: 7,
-    shadowOffset: {
-      width: 0,
-      height: 10
-    },*/
     borderRadius: 10,
     marginHorizontal: 20,
-    //backgroundColor: 'rgb(215, 215, 215)',
-    /*borderColor: '#424242',
-    borderWidth: 1,*/
   },
   cel_container: {
     flex: 2.5,
-    //justifyContent: 'flex-end',
     paddingTop: 10,
-    //backgroundColor: 'blue',
   },
 
 
 
 
   two_buttons: {
-    /*shadowOpacity: 0.2,
-    shadowRadius: 7,
-    shadowOffset: {
-      width: 0,
-      height: 10
-    },*/
     paddingHorizontal: 30,
-    alignItems: 'center',
-    //borderRadius: 15,
-    //borderColor: '#424242',
-    //borderWidth: 1,
+    alignItems: 'center'
   },
   diaLiturgicText: {
     textAlign: 'center',
@@ -555,7 +509,6 @@ const styles = StyleSheet.create({
   celebracioType: {
     textAlign: 'center',
     color: '#333333',
-    //fontStyle: 'italic',
     fontSize: 16,
     fontWeight: '300'
   },
@@ -563,6 +516,5 @@ const styles = StyleSheet.create({
     flex: 4,
     marginBottom: 10,
     marginHorizontal: 10,
-    //backgroundColor:'red',
   },
 });

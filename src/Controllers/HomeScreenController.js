@@ -32,41 +32,37 @@ export default class HomeScreenController extends Component {
       Refresh_Date: this.Refresh_Date.bind(this),
     });
     BackHandler.addEventListener('hardwareBackPress', this.androidBack.bind(this));
-    if (Platform.OS == "ios")
-      AppState.addEventListener('change', this._handleAppStateChange.bind(this));
+    AppState.addEventListener('change', this._handleAppStateChange.bind(this));
   }
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.androidBack.bind(this));
-    if (Platform.OS == "ios")
-      AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
+    AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
   }
 
   _handleAppStateChange(nextAppState){
 
-    if (Platform.OS == "ios"){
+    // Check if the state is changing to active
+    if(nextAppState == 'active'){
 
-      console.log("[STATE LOG] nextAppState: ", nextAppState);
-      console.log("[STATE LOG] LAST_REFRESH: ", LAST_REFRESH);
-    
-      // Check if the state is changing to active
-      if(!this.Is_Late_Prayer() && nextAppState == 'active'){
+      // Get today
+      var now = new Date()
+      
+      // Refresh the date if today is different than the last refresh date
+      if(now.getDate() != LAST_REFRESH.getDate() || now.getMonth() != LAST_REFRESH.getMonth() || now.getFullYear() != LAST_REFRESH.getFullYear()){
 
-        // Get today
-        var now = new Date()
-        console.log("[STATE LOG] now: ", now);
+        // Navigate to Home Screen
+        this.props.navigation.popToTop()
+        this.props.navigation.navigate('HomeScreen')
         
-        // Refresh the date if today is different than the last refresh date
-        if(now.getDate() != LAST_REFRESH.getDate() && now.getMonth() != LAST_REFRESH.getMonth() && now.getFullYear() != LAST_REFRESH.getFullYear()){
-          console.log("[STATE LOG] will update?: YES");
-          this.Refresh_Date(now)
-        }
-        else{
-          console.log("[STATE LOG] will update?: NO");
-        }
-        
+        // Refresh data
+        this.Refresh_Date(now)
+
+        // Check late prayer
+        this.setState({ PopupDialog_ShowLate: this.Is_Late_Prayer() });
+
       }
-
+      
     }
 
   }
@@ -197,8 +193,6 @@ export default class HomeScreenController extends Component {
 
   Refresh_Date_Callback() {
 
-    //TODO: si estava en una altra pestanya, dirigir-se a Home
-
     //Set data to show on Home Screen
     this.setState({
       santPressed: false,
@@ -208,7 +202,7 @@ export default class HomeScreenController extends Component {
           diocesiName: G_VALUES.diocesiName,
           lloc: G_VALUES.lloc,
         },
-        data: G_VALUES.date,
+        data: G_VALUES.date, 
         setmana: G_VALUES.setmana,
         temps: G_VALUES.tempsespecific,
         setCicle: G_VALUES.cicle,
