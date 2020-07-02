@@ -135,6 +135,23 @@ export default class LDScreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity style={this.CURRENT_VESPERS_SELECTOR == VESPERS_SELECTOR_TYPES.VESPERS ? styles.buttonContainerPressedRight : styles.buttonContainer} onPress={this.OnVespersPressed.bind(this)}>
               <Text style={styles.buttonText}>{"Vespertina"}</Text>
+              <View style={{ padding: 1, paddingHorizontal: 5 }}>
+                {G_VALUES.info_cel.nomCelTom !== '-' ?
+                  <View>
+                    {G_VALUES.info_cel.nomCelTom !== 'dium-pasqua' ?
+                      <Text numberOfLines={1} style={styles.redCenter}>{G_VALUES.info_cel.nomCelTom}</Text>
+                      : null
+                    }
+                  </View>
+                  :
+                  <View>
+                    {G_VALUES.date.getDay() === 6 ?
+                      <Text numberOfLines={1} style={styles.redCenter}>{"Missa de Diumenge"}</Text>
+                      : null
+                    }
+                  </View>
+                }
+              </View>
             </TouchableOpacity>
           </View>
         );
@@ -293,5 +310,10 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: 'normal'
+  },
+  redCenter: {
+    color: '#FF0000',
+    fontSize: 15,
+    textAlign: 'center'
   },
 })
