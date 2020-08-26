@@ -93,12 +93,12 @@ function Check_For_Updates(online_updates){
     else{
 
       //Get json with changes
-      GetOnlineChanges(G_VALUES.onlineVersion).then((json_updates) => {
+      GetOnlineChanges(1/*G_VALUES.onlineVersion*/).then((json_updates) => {
 
         console.log("[ONLINE_UPDATES Check_For_Updates] json_updates:", json_updates);
 
         //Check json
-        if (json_updates == undefined || json_updates == "") throw "Intenet error"
+        if (json_updates == undefined || json_updates == "") throw "Internet error"
 
         //Ask DB_Access to make the changes (if there where any)
         DB_Access.MakeChanges(json_updates).then((result) => {
@@ -109,9 +109,10 @@ function Check_For_Updates(online_updates){
           if(!result) resolve(false)
 
           //Update version
-          SettingsManager.setSettingOnlineVersion(String(json_updates.version)).then(() => {
+          let last_version = json_updates[json_updates.length-1].id
+          SettingsManager.setSettingOnlineVersion(String(last_version)).then(() => {
 
-            //OK
+            //OK 
             resolve(true)
 
           });
@@ -123,6 +124,10 @@ function Check_For_Updates(online_updates){
         });
 
       })
+      .catch((error) => {
+        console.log("[EXCEPTION Check_For_Updates]", error);
+        resolve(false)
+      });
 
     }
 
@@ -136,11 +141,10 @@ function GetOnlineChanges(version) {
   
   console.log("[ONLINE_UPDATES GetOnlineChanges] version: ", version);
   
-  return fetch('http://refugiodealex.com/test.json', { headers: { 'Cache-Control': 'no-cache' } } )
+  return fetch(GLOBAL.server_url + '/api/sync/' + version, { headers: { 'Cache-Control': 'no-cache' } } )
     .then((response) => response.json())
     .then((responseJson) => {
       return responseJson;
-      //return json_test
     })
     .catch((error) => {
       console.log("[EXCEPTION GetOnlineChanges]", error);

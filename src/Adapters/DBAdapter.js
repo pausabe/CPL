@@ -13,7 +13,7 @@ export default class DBAdapter {
     else { createFrom = `~${GLOBAL.DBName}` } //android platform
 
     let db = this.SQLite.openDatabase(
-      { name: GLOBAL.DBName, createFromLocation: createFrom, readOnly: false },
+      { name: GLOBAL.DBName, createFromLocation: createFrom, readonly: "asdf" },
       this.openCB,
       this.errorCB);
 
@@ -21,7 +21,7 @@ export default class DBAdapter {
       tx.executeSql(query, [], (tx, results) => {
         callback(results);
       }, (err) => {
-        console.log("[executeQuery] error in query(" + query + "): ", err.message);
+        console.log("[executeQuery] error in query (" + query + "): ", err.message);
         callback();
       });
     })
@@ -36,7 +36,7 @@ export default class DBAdapter {
       else { createFrom = `~${GLOBAL.DBName}` } //android platform
   
       let db = this.SQLite.openDatabase(
-        { name: GLOBAL.DBName, createFromLocation: createFrom, readOnly: false  },
+        { name: GLOBAL.DBName, createFromLocation: createFrom, readonly: false },
         this.openCB,
         this.errorCB);
 
@@ -44,7 +44,7 @@ export default class DBAdapter {
         tx.executeSql(query, [], (tx, results) => {
           resolve(true)
         }, (err) => {
-          console.log("[ONLINE_UPDATES executeQuery_onlinechanges] error in query(" + query + "): ", err.message);
+          console.log("[ONLINE_UPDATES executeQuery_onlinechanges] error in query (" + query + "): ", err.message);
           resolve(false)
         });
       })
@@ -64,27 +64,30 @@ export default class DBAdapter {
       let promises = []
       let sql
 
-      for (var i = 0; i < json_updates.delta.length; i++) {
+      for (var i = 0; i < json_updates.length; i++) {
 
-        var change = json_updates.delta[i]
+        var change = json_updates[i]
 
-        switch (change.type) {
-          case "UPDATE":
+        switch (change.action) {
+          
+          //UPDATE
+          case 2:
 
-              var aux = JSON.stringify(change.values)
-              aux = aux.replace(/{/g, "")
-              aux = aux.replace(/}/g, "")
-              aux = aux.replace(/\"/g, "")
-              var arr_aux = aux.split(",")
+
+              console.log("[ONLINE_UPDATES Check_For_Updates] test:", JSON.parse(JSON.stringify(change.values)));
 
               var set_statement = ""
-              for (var j = 0; j < arr_aux.length; j++){
-                set_statement += (arr_aux[j].split(":")[0] + " = '" + arr_aux[j].split(":")[1]) + "'"
-                if(j < (arr_aux.length - 1))
-                  set_statement += ", "
-              }
+              var j = 0
+              for (const key in change.values) {
+                if (change.values.hasOwnProperty(key)) {
+                  set_statement += key + " = '" + change.values[key] + "'"
+                  if(j < (Object.keys(change.values).length - 1))
+                    set_statement += ", "
+                  j += 1
+                }
+              } 
 
-              sql = "UPDATE " + change.table + " SET " + set_statement + " WHERE id = " + change.row_id;
+              sql = "UPDATE " + change.table_name + " SET " + set_statement + " WHERE id = " + change.row_id;
               
               console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
 
@@ -92,7 +95,8 @@ export default class DBAdapter {
 
             break;
 
-          case "INSERT":
+          //INSERT
+          case 1:
 
             var aux = JSON.stringify(change.values)
             aux = aux.replace(/{/g, "")
@@ -111,7 +115,7 @@ export default class DBAdapter {
               }
             }
           
-            sql = "INSERT INTO " + change.table + "(" + ref_statement + ") VALUES (" + val_statement + ")";
+            sql = "INSERT INTO " + change_name + "(" + ref_statement + ") VALUES (" + val_statement + ")";
               
             console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
 
@@ -119,9 +123,10 @@ export default class DBAdapter {
 
             break;
             
-          case "DELETE":
+          //DELETE
+          case 3:
 
-            sql =  "DELETE FROM " + change.table + " WHERE id = " + change.row_id;
+            sql =  "DELETE FROM " + change.table_name + " WHERE id = " + change.row_id;
         
             console.log("[ONLINE_UPDATES MakeChanges] SQL: ", sql);
 
