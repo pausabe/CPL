@@ -22,9 +22,6 @@ import { Reload_All_Data } from './Classes/Data/DataManager.js';
 import { TEST_MODE_ON, Reload_All_Data_TestMode, Force_Stop_Test } from '../Tests/TestsManager';
 
 export default class HomeScreenController extends Component {
-  UNSAFE_componentWillMount() {
-    Icon.getImageSource('ios-share', 30).then((source) => this.setState({ shareIcon: source }));
-  }
 
   componentDidMount() {
     this.props.navigation.setParams({
@@ -129,7 +126,6 @@ export default class HomeScreenController extends Component {
       this.state = {
         santPressed: false,
         isDateTimePickerVisible: false,
-        shareIcon: null,
         PopupDialog_ShowLate: this.Is_Late_Prayer(),
         ViewData: {
           ready: false,
@@ -151,7 +147,6 @@ export default class HomeScreenController extends Component {
           santPressed: false,
         }
       }
-
       Reload_All_Data(new Date(/*2019, 9, 23*/), this.Init_Everything.bind(this), true);
     }
   }
@@ -314,10 +309,6 @@ export default class HomeScreenController extends Component {
   }
 
   render() {
-    if (!this.state.shareIcon) {
-      return false;
-    }
-
     if (TEST_MODE_ON) {
       return (
         <View style={{ flex: 1 }}>
@@ -341,7 +332,7 @@ export default class HomeScreenController extends Component {
             lliureCB={this.onSwitchLliurePress.bind(this)}
             navigation={this.props.navigation} />
               <View>
-                { Platform.OS == 'ios'?
+                { Platform.OS == "ios"?
                   <PopupDialog
                     visible={this.state.isDateTimePickerVisible}
                     width={0.9}

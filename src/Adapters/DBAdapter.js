@@ -210,7 +210,7 @@ export default class DBAdapter {
       result => {
         var pentacosta = new Date(year, (result.rows.item(0).mes - 1), result.rows.item(0).dia);
         console.log(result.rows.item(0).dia + '/' + (result.rows.item(0).mes - 1) + '/' + year);        
-        console.log("InfoLog. Pentacosta: " + pentacosta.getDate() + '/' + pentacosta.getMonth() + '/' + pentacosta.getFullYear());
+        console.log("InfoLog. Pentacosta 1: " + pentacosta.getDate() + '/' + pentacosta.getMonth() + '/' + pentacosta.getFullYear());
         callback(r1, r2, pentacosta);
       });
   }

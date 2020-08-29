@@ -6,7 +6,6 @@ import GLOBAL from '../../../Globals/Globals';
 import SOUL from '../SOUL/SOUL';
 import SettingsManager from '../SettingsManager';
 import { TEST_MODE_ON } from '../../../Tests/TestsManager';
-var json_test = require('../../../../test.json');
 
 /************
  * Class in charge of having all the data that will be shown in views. 
@@ -57,6 +56,7 @@ export function Reload_All_Data(date, Reload_Finished_Callback, online_updates =
     //Intialize DB Access
     DB_Access = new DBAdapter();
 
+    //Check for global parameter
     if(GLOBAL.enable_updates){
 
       console.log("[ONLINE_UPDATES Reload_All_Data] online_updates: ", online_updates);
@@ -93,7 +93,7 @@ function Check_For_Updates(online_updates){
     else{
 
       //Get json with changes
-      GetOnlineChanges(1/*G_VALUES.onlineVersion*/).then((json_updates) => {
+      GetOnlineChanges(G_VALUES.onlineVersion).then((json_updates) => {
 
         console.log("[ONLINE_UPDATES Check_For_Updates] json_updates:", json_updates);
 

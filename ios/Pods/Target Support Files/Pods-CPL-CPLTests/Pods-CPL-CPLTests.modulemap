@@ -1,0 +1,6 @@
+module Pods_CPL_CPLTests {
+  umbrella header "Pods-CPL-CPLTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -15,6 +15,8 @@ import LHScreen from './Views/LHScreen/LHScreen';
 import LHDisplayScreen from './Views/LHScreen/LHDisplayScreen/LHDisplayScreen';
 import LDScreen from './Views/LDScreen/LDScreen';
 import LDDisplayScreen from './Views/LDScreen/LDDisplayScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont();
 
 const styles = StyleSheet.create({
   titleText: {
@@ -160,11 +162,15 @@ const TabNavigator = createBottomTabNavigator(
               return (
                 <View style={{ padding: 10 }}>
                   {focused ?
-                    <Image source={require('./Globals/img/icons/home_pressed.png')}
-                      style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
-                    :
-                    <Image source={require('./Globals/img/icons/home.png')}
-                      style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
+                     <Icon
+                        name="ios-home"
+                        size={30}
+                        color="#FFFFFF" />
+                     :
+                      <Icon
+                        name="ios-home-outline"
+                        size={30}
+                        color="#FFFFFF" />
                   }
                 </View>
               )
@@ -173,11 +179,15 @@ const TabNavigator = createBottomTabNavigator(
               return (
                 <View style={{ padding: 10 }}>
                   {focused ?
-                    <Image source={require('./Globals/img/icons/LH_pressed.png')}
-                      style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
-                    :
-                    <Image source={require('./Globals/img/icons/LH.png')}
-                      style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
+                     <Icon
+                        name="ios-bookmark"
+                        size={30}
+                        color="#FFFFFF" />
+                     :
+                      <Icon
+                        name="ios-bookmark-outline"
+                        size={30}
+                        color="#FFFFFF" />
                   }
                 </View>
               )
@@ -186,11 +196,15 @@ const TabNavigator = createBottomTabNavigator(
               return (
                 <View style={{ padding: 10 }}>
                   {focused ?
-                    <Image source={require('./Globals/img/icons/LD_pressed.png')}
-                      style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
-                    :
-                    <Image source={require('./Globals/img/icons/LD.png')}
-                      style={{ flex: 1, resizeMode: 'contain', tintColor: 'white' }} />
+                     <Icon
+                        name="ios-book"
+                        size={30}
+                        color="#FFFFFF" />
+                     :
+                      <Icon
+                        name="ios-book-outline"
+                        size={30}
+                        color="#FFFFFF" />
                   }
                 </View>
               )
