@@ -1,23 +1,23 @@
-# README #
+# CPL APP
 
-### Què és aquest repositori? ###
-Aquest repositori és el codi font de l'aplicació de CPL.
+```sh
+Version 2.2.8
+```
 
-### Com ho començo tot? ###
-1. Instal·lar react-native
-2. Descarregar el repositori (és un projecte react-native)
-3. Instal·lar els node_modules
-4. Executa (react-native run...) i et dirà quins mòduls falten per instal·lar (com sqlite i d'altres que els he instal·lat externament). Instal·la'ls
-5. Ja ho tens! (segurament no.. i s'ha d'anar perfilant coses fins que funcioni)
+### What is this repository? ###
+This repository is the source code for the CPL application. Fin the app here:
+- [iOs](https://apps.apple.com/us/app/litcat-cpl/id1283136025 "CPL on iOs")
+- [Android](https://play.google.com/store/apps/details?id=cpl.cpl "CPL on Android")
 
-Pels testos només cal posar a "true" els camps que hi ha al constructor de HomeScreenController.js (pel test de l'state necessitaràs canviar el path a testAdapter.js per guardar els arxius.
+### How to start everything? ###
+1. Install react-native
+2. Download the repository (it is a react-native project)
+3. Run npm install
+4. Run it (reactive native execution ...) and it will tell you which modules are missing to install (like sqlite and others I have installed externally). Install them and you are free to go!
 
-### Guia de contribucions ###
-Actualment deixo el codi obert a tothom i si hi ha algú interessat a col·laborar en el projecte que m'ho faci saber!
+### Contribution ###
+It is an open source project so feel free to collaborate!
 
-### Qui sóc? ###
-Pau Sabé, desenvolupador de Software. Creador d'aquesta App.
-També col·labora en el projecte Alex Ruiz.
-
-### Contacte ###
-Qualsevol dubte contacta amb mi: pau.sabe@icloud.com
+### Who am I? ###
+Pau Sabé, Software Developer. Creator of application in collaboration with the [CPL](https://www.cpl.es "CPL Editorial") editorial.
+He also collaborates in the project [Alex Ruiz](https://github.com/rgalex2034 "Alex Ruiz") .
