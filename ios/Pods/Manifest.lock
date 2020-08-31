@@ -306,7 +306,7 @@ PODS:
     - React-jsi (= 0.63.2)
   - RNCAsyncStorage (1.6.2):
     - React
-  - RNDateTimePicker (2.6.2):
+  - RNDateTimePicker (3.0.1):
     - React
   - RNDeviceInfo (4.0.1-beta.5):
     - React
@@ -505,10 +505,10 @@ SPEC CHECKSUMS:
   React-jsi: 54245e1d5f4b690dec614a73a3795964eeef13a8
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
-  react-native-slider: 5d61590f26a51cf0a858bfd1543f6d6ec8b78a6e
+  react-native-slider: 8c34e319ec3a3ca9ef9466e4248fd091b5610b57
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-sqlite-storage: f06bfba10f67f989c00b6a699b9c2b80a816edbe
-  react-native-webview: 5c7578eb1ee5daf16e4c84a500becaa2038db828
+  react-native-sqlite-storage: bb10beb2407e5fc21f3f1bcd86bacbfd6edcc818
+  react-native-webview: 5e82a4853e16e02bb6cb184ae4892df71c200571
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
   React-RCTBlob: 39cf0ece1927996c4466510e25d2105f67010e13
@@ -519,9 +519,9 @@ SPEC CHECKSUMS:
   React-RCTText: 1b6773e776e4b33f90468c20fe3b16ca3e224bb8
   React-RCTVibration: 4d2e726957f4087449739b595f107c0d4b6c2d2d
   ReactCommon: a0a1edbebcac5e91338371b72ffc66aa822792ce
-  RNCAsyncStorage: 60a80e72d95bf02a01cace55d3697d9724f0d77f
-  RNDateTimePicker: 968ccf716b3b6aee07849641966005924de5c0f9
-  RNDeviceInfo: 821623bf8769aabc254dfd03b7ef9bed037e54b3
+  RNCAsyncStorage: 5ae4d57458804e99f73d427214442a6b10a53856
+  RNDateTimePicker: 843eca1c684369861c7dccccb6632f3c104c009c
+  RNDeviceInfo: f9b32f2fd8aea418698e5bc612a31e62d357e68e
   RNFS: a8fbe7060fa49157d819466404794ad9c58e58cf
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
   RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1

@@ -174,3 +174,9 @@ v2.2.8 (12.06.2020)[An38,Ap35]
 -----
 - Alguna correcció hardcoded de l'any passat
 - Apareix la Segona lectura quan cal encara que sigui no-dissabte
+
+v2.3.0 (..2020)[,]
+- 
+- [ios] iOs 14.0 version support
+-----
+- RN Update to 0.63.2

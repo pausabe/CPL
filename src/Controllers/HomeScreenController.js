@@ -308,6 +308,8 @@ export default class HomeScreenController extends Component {
     this.Refresh_Date(G_VALUES.date);
   }
 
+  //460
+
   render() {
     if (TEST_MODE_ON) {
       return (
@@ -332,20 +334,19 @@ export default class HomeScreenController extends Component {
             lliureCB={this.onSwitchLliurePress.bind(this)}
             navigation={this.props.navigation} />
               <View>
-                { Platform.OS == "ios"?
+                { Platform.OS == "ios" ?
                   <PopupDialog
                     visible={this.state.isDateTimePickerVisible}
                     width={0.9}
-                    height={300}
+                    height={parseInt(Platform.Version, 10) >= 14? 460 : 300 }
                     onTouchOutside={this.datePickerIOS_Cancel.bind(this)}
                     dialogStyle={{ backgroundColor: 'white' }}
                     dialogTitle={
-                      <DialogTitle title="Selecciona un dia" />} >
-                        <View>
+                      <DialogTitle title="Selecciona un dia" textStyle={{ fontSize: 19 }}/>} >
+                        <View style={{ marginHorizontal: 10 }}>
                           <DateTimePicker
-                            mode={"date"}
-                            //locale={"ca_ES"}
-                            display={"default"} // default, spinner, calendar
+                            mode="date"
+                            display="inline"
                             onChange={this.datePickerChange.bind(this)}
                             value={G_VALUES.date}
                             minimumDate={GLOBALS.minDatePicker}
@@ -354,13 +355,13 @@ export default class HomeScreenController extends Component {
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
                           <TouchableOpacity style={{ flex: 1, alignItems: 'center'}} onPress={this.datePickerIOS_Cancel.bind(this)}>
-                              <Text style={{fontSize: 17, color: 'rgb(14,122,254)'}}>{'Cancel·la'}</Text>
+                              <Text style={{fontSize: 19, color: 'rgb(14,122,254)'}}>{'Cancel·la'}</Text>
                           </TouchableOpacity >
                           <TouchableOpacity style={{ flex: 1, alignItems: 'center'}} onPress={this.datePickerIOS_Today.bind(this)}>
-                              <Text style={{fontSize: 17, color: 'rgb(14,122,254)'}}>{'Avui'}</Text>
+                              <Text style={{fontSize: 19, color: 'rgb(14,122,254)'}}>{'Avui'}</Text>
                           </TouchableOpacity>
                           <TouchableOpacity style={{ flex: 1, alignItems: 'center'}} onPress={this.datePickerIOS_Accept.bind(this)}>
-                              <Text style={{fontSize: 17, color: 'rgb(14,122,254)'}}>{'Canvia'}</Text>
+                              <Text style={{fontSize: 19, color: 'rgb(14,122,254)'}}>{'Canvia'}</Text>
                           </TouchableOpacity>
                         </View>
                     </PopupDialog>

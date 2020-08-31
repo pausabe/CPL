@@ -47,6 +47,6 @@ module.exports = {
   paddingBar: Platform.OS === 'ios' ? 0 : 54,
 
   server_url: 'http://localhost:8080',
-  enable_updates: false
+  enable_updates: true
 
 };
