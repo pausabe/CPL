@@ -308,8 +308,6 @@ export default class HomeScreenController extends Component {
     this.Refresh_Date(G_VALUES.date);
   }
 
-  //460
-
   render() {
     if (TEST_MODE_ON) {
       return (
@@ -343,7 +341,7 @@ export default class HomeScreenController extends Component {
                     dialogStyle={{ backgroundColor: 'white' }}
                     dialogTitle={
                       <DialogTitle title="Selecciona un dia" textStyle={{ fontSize: 19 }}/>} >
-                        <View style={{ marginHorizontal: 10 }}>
+                        <View style={{ marginHorizontal: 10, marginBottom: 5 }}>
                           <DateTimePicker
                             mode="date"
                             display="inline"
