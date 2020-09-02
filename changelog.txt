@@ -175,8 +175,10 @@ v2.2.8 (12.06.2020)[An38,Ap35]
 - Alguna correcció hardcoded de l'any passat
 - Apareix la Segona lectura quan cal encara que sigui no-dissabte
 
-v2.3.0 (..2020)[,]
-- 
-- [ios] iOs 14.0 version support
+v2.3.0 (01.09.2020)[An39,Ap37]
+- Informació de la missa vespertina ara visible en el selector
+- Refresc de l'app el dia següent de tornar-la a obrir
+- Solució de varis errors
+- [ios] Adaptació per v14.0
 -----
 - RN Update to 0.63.2
