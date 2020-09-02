@@ -252,6 +252,18 @@ export default class HomeScreen extends Component {
                 :
                 null
             }
+            {
+              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
+                " - Any "
+                :
+                null
+            }
+            {
+              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
+                this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)
+                :
+                null
+            }
           </Text>
           <Text style={styles.diaLiturgicText}>
             {"Temps - "}
@@ -260,25 +272,13 @@ export default class HomeScreen extends Component {
           <Text style={styles.diaLiturgicText}>
             {
               this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
-                "Setmana "
+                "Litúrgia de les Hores - Setmana "
                 :
                 null
             }
             {
               this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
                 this.liturgicPaint(this.romanize(this.props.ViewData.setCicle), this.props.ViewData.color)
-                :
-                null
-            }
-            {
-              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
-                " del cicle litúrgic, any "
-                :
-                null
-            }
-            {
-              this.props.ViewData.setCicle !== '0' && this.props.ViewData.setCicle !== '.' ?
-                this.liturgicPaint(this.props.ViewData.anyABC, this.props.ViewData.color)
                 :
                 null
             }
