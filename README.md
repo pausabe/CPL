@@ -1,6 +1,6 @@
 ```
 This is no longer the repository for the CPL app.
-Since we move it to Expo we've created a new one. Find it here: https://github.com/pausabe/cpl-app
+Since we move it to Expo we've created a new one. Find it [here](https://github.com/pausabe/cpl-app "CPL repo")
 ```
 
 # CPL APP
